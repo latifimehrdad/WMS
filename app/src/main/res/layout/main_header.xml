@@ -36,7 +36,9 @@
             android:gravity="center"
             android:text="@string/WMSFromFist"
             android:textColor="@color/mlWhite"
-            android:textSize="@dimen/_10sdp" />
+            android:textSize="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_3sdp"
+            />
 
     </LinearLayout>
 
