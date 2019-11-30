@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">نگرا</string>
+
+    <string name="WMSFromFist">سیستم مدیریت تفکیک از مبدأ</string>
+    <string name="Orders">سفارشات</string>
+    <string name="ChargingBag">شارژ کیف پول</string>
+    <string name="RegisterPerson">ثبت نام</string>
+    <string name="RegisterPersonBank">اطلاعات بانکی</string>
+    <string name="RegisterPersonCodeNew">کد نوسازی</string>
+
+</resources>

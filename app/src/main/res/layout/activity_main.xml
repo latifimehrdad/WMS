@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="main"
+            type="com.example.wms.viewmodels.MainActivityViewModel" />
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <include layout="@layout/main_header"
+            android:id="@+id/MainHeader"
+            />
+
+
+        <FrameLayout
+            android:id="@+id/MainFrameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/MainHeader"
+            android:layout_marginBottom="@dimen/_45sdp"
+            >
+
+        </FrameLayout>
+
+        <include layout="@layout/main_footer"
+            android:id="@+id/MainFooter"
+            />
+
+
+    </RelativeLayout>
+
+</layout>
+
