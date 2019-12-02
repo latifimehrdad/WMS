@@ -39,6 +39,18 @@
     <string name="FragmentPackRequestPrimerySend">ارسال</string>
     <string name="FragmentPackRequestPrimeryReceive">تحویل</string>
 
+    <string name="FragmentCollectRequst">درخواست جمع آوری</string>
+    <string name="FragmentCollectRequestOrder">سفارشات</string>
+    <string name="PetBottel">بطری پت</string>
+    <string name="AlBottel">قوطی آلومینیوم</string>
+    <string name="Dry">مخلوط خشک</string>
+    <string name="Paper">کارتن و کاغذ</string>
+
+    <string name="FragmentCollectRequestFiveScore">5 امتیاز</string>
+    <string name="FragmentCollectRequestTenScore">10 امتیاز</string>
+    <string name="FragmentCollectRequestCar">تحویل به خودرو بازیافت</string>
+    <string name="FragmentCollectRequestBooth">تحویل به غرفه بازیافت</string>
+
 
     <string name="FragmentPackRequestAddress">ثبت آدرس</string>
 

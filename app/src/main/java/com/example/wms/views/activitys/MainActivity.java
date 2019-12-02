@@ -18,6 +18,7 @@ import com.example.wms.R;
 import com.example.wms.databinding.ActivityMainBinding;
 import com.example.wms.viewmodels.MainActivityViewModel;
 import com.example.wms.views.fragments.FragmentHome;
+import com.example.wms.views.fragments.collectrequest.FragmentCollectRequest;
 import com.example.wms.views.fragments.packrequest.FragmentPackRequest;
 import com.example.wms.views.fragments.register.FragmentRegister;
 
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         //ShowSpalshActivity();
         //ShowFragmentRegister();
         //ShowFragmentHome();
+        ShowFragmentCollectRequest();
 
     }//_____________________________________________________________________________________________ End onCreate
 
@@ -99,6 +101,19 @@ public class MainActivity extends AppCompatActivity {
         ft.replace(R.id.MainFrameLayout, requestPrimery);
         ft.commit();
     }//_____________________________________________________________________________________________ End ShowFragmentPAckRequest
+
+
+
+    private void ShowFragmentCollectRequest(){//____________________________________________________ Start ShowFragmentCollectRequest
+        fm = null;
+        ft = null;
+        fm = getSupportFragmentManager();
+        ft = fm.beginTransaction();
+        FragmentCollectRequest collectRequest = new FragmentCollectRequest(this);
+        ft.replace(R.id.MainFrameLayout, collectRequest);
+        ft.commit();
+    }//_____________________________________________________________________________________________ End ShowFragmentCollectRequest
+
 
 
 
