@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#00AAB1</color>
+    <color name="colorPrimaryDark">#027477</color>
+    <color name="colorAccent">@color/colorPrimary</color>
 
-    <color name="mlHeader">#3C3C3C</color>
+    <color name="mlHeader">#808080</color>
     <color name="mlWhite">#ffffff</color>
-    <color name="mlFooter">#C4C4C4</color>
+    <color name="mlFooter">#CCCCCC</color>
     <color name="mlBlack">#000</color>
     <color name="mlEdit">#F7F3F3</color>
-    <color name="mlTextRegisterCode">#CC2103</color>
-    <color name="mlTextRegisterCodeMessage">#83B985</color>
-    <color name="mlHomeMaxScore">#1A2963</color>
-    <color name="mlHomeAveScore">#CC2103</color>
+    <color name="mlTextRegisterCode">#FF0000</color>
+    <color name="mlTextRegisterCodeMessage">#8CC484</color>
+    <color name="mlHomeMaxScore">#065381</color>
+    <color name="mlHomeAveScore">#E34856</color>
 
 </resources>

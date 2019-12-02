@@ -20,7 +20,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_140sdp"
+            android:layout_height="@dimen/_130sdp"
             android:gravity="center"
             >
 
@@ -108,7 +108,7 @@
                 <ImageView
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
-                    android:background="@color/mlHomeAveScore"
+                    android:src="@drawable/logoavgscore"
                     />
 
             </LinearLayout>
@@ -144,7 +144,7 @@
                 <ImageView
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
-                    android:background="@color/mlHomeMaxScore"
+                    android:src="@drawable/logomaxscore"
                     />
 
             </LinearLayout>
@@ -170,7 +170,7 @@
                 <ImageView
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
-                    android:background="@color/mlHeader"
+                    android:src="@drawable/logoavgscorechart"
                     />
 
             </LinearLayout>
@@ -185,7 +185,7 @@
                 <ImageView
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
-                    android:background="@color/mlHeader"
+                    android:src="@drawable/logomaxscorechart"
                     />
 
             </LinearLayout>
@@ -203,7 +203,7 @@
             android:layout_weight="2"
             android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_15sdp"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/circle_menu1"
             >
 
 <!--            <com.example.wms.views.custom.circlemenu.CircleMenuLayout-->

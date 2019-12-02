@@ -9,8 +9,7 @@
         android:id="@+id/id_menulayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="100dp"
-        android:background="@drawable/circle_bg3" >
+        android:padding="100dp">
 
 <!--        <RelativeLayout-->
 <!--            android:id="@+id/id_circle_menu_item_center"-->

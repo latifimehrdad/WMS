@@ -1,5 +1,7 @@
 <resources>
 
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDbcXlcVOSpaOu9JS8IEsD9HlBlyd-w4v4</string>
+
     <string name="City_Prompt">انتخاب شهر</string>
     <string-array name="City">
         <item>انتخاب شهر</item>
@@ -26,9 +28,18 @@
     <string name="Save">ثبت</string>
     <string name="RegisterCode">با ثبت کد نوسازی مربوط به بنای خود می توانید از 10٪ تخفیف عوارض شهرداری بهره مند گردید</string>
     <string name="RegisterKM">برای استفاده از تخفیف، میبایست بار تحویلی در هر سال بیشتر از 20 کیلوگرم باشد</string>
+
     <string name="HomeMaxScore">بیشترین امتیاز</string>
     <string name="HomeAveScore">میانگین امتیازات</string>
     <string name="HomeFuture">آینده را دور نریزیم</string>
     <string name="HomeYouScore">امتیاز قرعه کشی</string>
+
+    <string name="FragmentPackRequestPrimery">درخواست پکیج</string>
+    <string name="FragmentPackRequestPrimerySet">ثبت درخواست</string>
+    <string name="FragmentPackRequestPrimerySend">ارسال</string>
+    <string name="FragmentPackRequestPrimeryReceive">تحویل</string>
+
+
+    <string name="FragmentPackRequestAddress">ثبت آدرس</string>
 
 </resources>

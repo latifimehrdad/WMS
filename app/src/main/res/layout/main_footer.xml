@@ -29,6 +29,7 @@
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:src="@drawable/logoorder"
                 />
 
             <TextView
@@ -36,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/Orders"
                 android:textColor="@color/mlHeader"
+                android:layout_marginTop="@dimen/_1sdp"
                 />
 
 
@@ -58,6 +60,7 @@
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:src="@drawable/logowallet"
                 />
 
             <TextView
@@ -65,6 +68,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/ChargingBag"
                 android:textColor="@color/mlHeader"
+                android:layout_marginTop="@dimen/_1sdp"
                 />
 
         </LinearLayout>

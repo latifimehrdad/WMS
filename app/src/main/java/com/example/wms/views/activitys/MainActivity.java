@@ -18,6 +18,7 @@ import com.example.wms.R;
 import com.example.wms.databinding.ActivityMainBinding;
 import com.example.wms.viewmodels.MainActivityViewModel;
 import com.example.wms.views.fragments.FragmentHome;
+import com.example.wms.views.fragments.packrequest.FragmentPackRequest;
 import com.example.wms.views.fragments.register.FragmentRegister;
 
 import butterknife.BindView;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {//__________________________________________ Start onCreate
         super.onCreate(savedInstanceState);
         SetBindingView();
+        //ShowFragmentPAckRequest();
         //ShowSpalshActivity();
         //ShowFragmentRegister();
         //ShowFragmentHome();
@@ -85,6 +87,18 @@ public class MainActivity extends AppCompatActivity {
         ft.commit();
     }//_____________________________________________________________________________________________ End ShowFragmentHome
 
+
+
+
+    private void ShowFragmentPAckRequest(){//_______________________________________________________ Start ShowFragmentPAckRequest
+        fm = null;
+        ft = null;
+        fm = getSupportFragmentManager();
+        ft = fm.beginTransaction();
+        FragmentPackRequest requestPrimery = new FragmentPackRequest(this);
+        ft.replace(R.id.MainFrameLayout, requestPrimery);
+        ft.commit();
+    }//_____________________________________________________________________________________________ End ShowFragmentPAckRequest
 
 
 
