@@ -8,4 +8,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="mlCheck">
+        <item name="colorAccent">@color/mlHeader</item>
+    </style>
+
+    <style name="mySpinnerItemStyle"
+        parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+        <item name="android:background">@color/mlFooter</item>
+        <item name="android:textColor">@color/mlHeader</item>
+    </style>
+
 </resources>

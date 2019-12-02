@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="bank"
-            type="com.example.wms.viewmodels.register.FragmentRegisterBankViewModel" />
+            name="code"
+            type="com.example.wms.viewmodels.register.FragmentRegisterCodeViewModel" />
     </data>
 
     <LinearLayout
@@ -18,29 +18,37 @@
         android:gravity="center"
         >
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_10sdp"
+            android:gravity="center"
+            android:textColor="@color/mlTextRegisterCode"
+            android:text="@string/RegisterCode"
+            />
 
 
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:background="@drawable/edit_test_background"
-            android:hint="@string/AcountNumber"
+            android:hint="@string/RegisterPersonCodeNew"
             android:inputType="number"
             android:padding="@dimen/_2sdp"
             android:textColor="@color/mlBlack"
             android:textSize="@dimen/_12sdp"
             />
 
-        <com.jaredrummler.materialspinner.MaterialSpinner
-            android:id="@+id/MaterialSpinner1"
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:gravity="right"
-            android:prompt="@string/City_Prompt"
-            app:ms_background_color="@color/mlEdit"
-            app:ms_text_color="@color/mlBlack"
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_9sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:gravity="center"
+            android:textColor="@color/mlWhite"
+            android:text="@string/RegisterKM"
+            android:background="@drawable/text_register_message"
             />
 
 
@@ -62,3 +70,4 @@
 
 
 </layout>
+

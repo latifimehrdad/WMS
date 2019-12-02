@@ -1,4 +1,13 @@
 <resources>
+
+    <string name="City_Prompt">انتخاب شهر</string>
+    <string-array name="City">
+        <item>انتخاب شهر</item>
+        <item>تهران</item>
+        <item>کرج</item>
+    </string-array>
+
+
     <string name="app_name">نگرا</string>
 
     <string name="WMSFromFist">سیستم مدیریت تفکیک از مبدأ</string>
@@ -7,5 +16,19 @@
     <string name="RegisterPerson">ثبت نام</string>
     <string name="RegisterPersonBank">اطلاعات بانکی</string>
     <string name="RegisterPersonCodeNew">کد نوسازی</string>
+    <string name="Name">نام</string>
+    <string name="Sex">جنسیت</string>
+    <string name="Man">مرد</string>
+    <string name="Woman">زن</string>
+    <string name="MobileNumber">شماره موبایل</string>
+    <string name="ReagentCode">کد معرف</string>
+    <string name="AcountNumber">شماره حساب</string>
+    <string name="Save">ثبت</string>
+    <string name="RegisterCode">با ثبت کد نوسازی مربوط به بنای خود می توانید از 10٪ تخفیف عوارض شهرداری بهره مند گردید</string>
+    <string name="RegisterKM">برای استفاده از تخفیف، میبایست بار تحویلی در هر سال بیشتر از 20 کیلوگرم باشد</string>
+    <string name="HomeMaxScore">بیشترین امتیاز</string>
+    <string name="HomeAveScore">میانگین امتیازات</string>
+    <string name="HomeFuture">آینده را دور نریزیم</string>
+    <string name="HomeYouScore">امتیاز قرعه کشی</string>
 
 </resources>

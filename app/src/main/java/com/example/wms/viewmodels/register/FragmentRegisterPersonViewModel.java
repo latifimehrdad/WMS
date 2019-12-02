@@ -2,7 +2,7 @@
 Create By Mehrdad Latifi in
 1398/09/09 - 12:08 PM
  */
-package com.example.wms.viewmodels;
+package com.example.wms.viewmodels.register;
 
 import android.content.Context;
 

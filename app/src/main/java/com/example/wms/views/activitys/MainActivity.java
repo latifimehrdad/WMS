@@ -12,13 +12,13 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.widget.FrameLayout;
 
 import com.example.wms.R;
 import com.example.wms.databinding.ActivityMainBinding;
 import com.example.wms.viewmodels.MainActivityViewModel;
-import com.example.wms.views.fragments.FragmentRegister;
+import com.example.wms.views.fragments.FragmentHome;
+import com.example.wms.views.fragments.register.FragmentRegister;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         SetBindingView();
         //ShowSpalshActivity();
-        ShowFragmentRegister();
+        //ShowFragmentRegister();
+        //ShowFragmentHome();
 
     }//_____________________________________________________________________________________________ End onCreate
 
@@ -70,6 +71,20 @@ public class MainActivity extends AppCompatActivity {
         ft.replace(R.id.MainFrameLayout, fragmentRegister);
         ft.commit();
     }//_____________________________________________________________________________________________ End ShowFragmentRegister
+
+
+
+
+    private void ShowFragmentHome(){//______________________________________________________________ Start ShowFragmentHome
+        fm = null;
+        ft = null;
+        fm = getSupportFragmentManager();
+        ft = fm.beginTransaction();
+        FragmentHome fragmentHome = new FragmentHome(this);
+        ft.replace(R.id.MainFrameLayout, fragmentHome);
+        ft.commit();
+    }//_____________________________________________________________________________________________ End ShowFragmentHome
+
 
 
 

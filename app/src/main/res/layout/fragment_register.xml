@@ -4,7 +4,7 @@
     <data>
         <variable
             name="register"
-            type="com.example.wms.viewmodels.FragmentRegisterViewModel" />
+            type="com.example.wms.viewmodels.register.FragmentRegisterViewModel" />
     </data>
 
     <RelativeLayout
@@ -33,6 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/FragmentRegisteryTab"
+            android:background="@color/mlWhite"
             />
 
     </RelativeLayout>

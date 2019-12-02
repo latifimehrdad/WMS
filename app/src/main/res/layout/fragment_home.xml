@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <data>
+
+        <variable
+            name="home"
+            type="com.example.wms.viewmodels.FragmentHomeViewModel" />
+    </data>
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/_10sdp"
+
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_140sdp"
+            android:gravity="center"
+            >
+
+            <ProgressBar
+                android:layout_width="@dimen/_130sdp"
+                android:layout_height="@dimen/_130sdp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:indeterminate="false"
+                android:progressDrawable="@drawable/circle_progressbar"
+                android:background="@drawable/circle_shape"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:progress="28"
+                />
+
+            <LinearLayout
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:text="@string/HomeYouScore"
+                    android:gravity="center"
+                    android:textSize="@dimen/_10sdp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:text="28"
+                    android:gravity="center"
+                    android:textSize="@dimen/_10sdp"
+                    />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_10sdp"
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/_10sdp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/mlHomeAveScore"
+                    android:text="80"
+                    android:gravity="bottom"
+                    android:textSize="@dimen/_10sdp"
+                    />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="@color/mlHomeAveScore"
+                    android:text="@string/HomeAveScore"
+                    android:gravity="center_vertical|bottom"
+                    />
+
+                <ImageView
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:background="@color/mlHomeAveScore"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/mlHomeMaxScore"
+                    android:text="226"
+                    android:gravity="bottom"
+                    android:textSize="@dimen/_10sdp"
+                    />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="@color/mlHomeMaxScore"
+                    android:text="@string/HomeMaxScore"
+                    android:gravity="center_vertical|bottom"
+                    />
+
+                <ImageView
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:background="@color/mlHomeMaxScore"
+                    />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/_10sdp"
+                >
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:background="@color/mlHeader"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:background="@color/mlHeader"
+                    />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+
+        <RelativeLayout
+            android:id="@+id/FragmentHomeMenu"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_15sdp"
+            android:background="@color/colorPrimary"
+            >
+
+<!--            <com.example.wms.views.custom.circlemenu.CircleMenuLayout-->
+<!--                android:id="@+id/id_menulayout"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:padding="100dp"-->
+<!--                android:background="@drawable/circle_bg3" >-->
+
+<!--                <RelativeLayout-->
+<!--                    android:id="@id/id_circle_menu_item_center"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content" >-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="104.0dip"-->
+<!--                        android:layout_height="104.0dip"-->
+<!--                        android:layout_centerInParent="true"-->
+<!--                        android:background="@drawable/turnplate_center_unlogin" />-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="116.0dip"-->
+<!--                        android:layout_height="116.0dip"-->
+<!--                        android:layout_centerInParent="true"-->
+<!--                        android:background="@drawable/turnplate_mask_unlogin_normal" />-->
+<!--                </RelativeLayout>-->
+<!--            </com.example.wms.views.custom.circlemenu.CircleMenuLayout>-->
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</layout>

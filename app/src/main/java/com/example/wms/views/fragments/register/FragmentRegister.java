@@ -2,7 +2,7 @@
 Create By Mehrdad Latifi in
 1398/09/09 - 12:08 PM
  */
-package com.example.wms.views.fragments;
+package com.example.wms.views.fragments.register;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -16,7 +16,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentRegisterBinding;
-import com.example.wms.viewmodels.FragmentRegisterViewModel;
+import com.example.wms.viewmodels.register.FragmentRegisterViewModel;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
@@ -64,11 +64,14 @@ public class FragmentRegister extends Fragment {
     private void SetTabs() {//______________________________________________________________________ Start SetTabs
 
         FragmentRegisterPerson fragmentRegisterPerson = new FragmentRegisterPerson(context);
+        FragmentRegisterBank fragmentRegisterBank = new FragmentRegisterBank(context);
+        FragmentRegisterCode fragmentRegisterCode = new FragmentRegisterCode(context);
+
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getFragmentManager(), FragmentPagerItems.with(context)
                 .add(R.string.RegisterPerson, fragmentRegisterPerson.getClass())
-                .add(R.string.RegisterPersonBank, fragmentRegisterPerson.getClass())
-                .add(R.string.RegisterPersonCodeNew, fragmentRegisterPerson.getClass())
+                .add(R.string.RegisterPersonBank, fragmentRegisterBank.getClass())
+                .add(R.string.RegisterPersonCodeNew, fragmentRegisterCode.getClass())
                 .create());
 
         FragmentRegisteryView.setAdapter(adapter);

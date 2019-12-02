@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <solid android:color="@color/mlEdit" />
+            <stroke android:width="1.0dip" android:color="@color/mlFooter" />
+            <corners android:radius="@dimen/_3sdp" />
+            <padding android:left="5.0dip" android:top="5.0dip" android:right="5.0dip" android:bottom="5.0dip" />
+        </shape>
+    </item>
+
+
+</selector>

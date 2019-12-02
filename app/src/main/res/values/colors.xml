@@ -7,5 +7,11 @@
     <color name="mlHeader">#3C3C3C</color>
     <color name="mlWhite">#ffffff</color>
     <color name="mlFooter">#C4C4C4</color>
+    <color name="mlBlack">#000</color>
+    <color name="mlEdit">#F7F3F3</color>
+    <color name="mlTextRegisterCode">#CC2103</color>
+    <color name="mlTextRegisterCodeMessage">#83B985</color>
+    <color name="mlHomeMaxScore">#1A2963</color>
+    <color name="mlHomeAveScore">#CC2103</color>
 
 </resources>
