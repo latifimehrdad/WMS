@@ -54,4 +54,7 @@
 
     <string name="FragmentPackRequestAddress">ثبت آدرس</string>
 
+    <string name="KGr">کیلو</string>
+    <string name="Choose">انتخاب</string>
+
 </resources>
