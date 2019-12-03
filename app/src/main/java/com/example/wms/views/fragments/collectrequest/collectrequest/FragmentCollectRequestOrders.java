@@ -1,4 +1,4 @@
-package com.example.wms.views.fragments.collectrequest;
+package com.example.wms.views.fragments.collectrequest.collectrequest;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentCollectRequestOrdersBinding;
-import com.example.wms.viewmodels.collectrequest.FragmentCollectRequestOrdersViewModel;
+import com.example.wms.viewmodels.collectrequest.collectrequest.FragmentCollectRequestOrdersViewModel;
 
 public class FragmentCollectRequestOrders extends Fragment {
 

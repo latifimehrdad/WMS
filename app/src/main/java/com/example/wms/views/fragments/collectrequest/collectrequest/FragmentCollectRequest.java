@@ -1,4 +1,4 @@
-package com.example.wms.views.fragments.collectrequest;
+package com.example.wms.views.fragments.collectrequest.collectrequest;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentCollectRequstBinding;
-import com.example.wms.viewmodels.collectrequest.FragmentCollectRequestViewModel;
+import com.example.wms.viewmodels.collectrequest.collectrequest.FragmentCollectRequestViewModel;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;

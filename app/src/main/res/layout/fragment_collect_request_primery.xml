@@ -3,7 +3,7 @@
     <data>
         <variable
             name="collectprimery"
-            type="com.example.wms.viewmodels.collectrequest.FragmentCollectRequestPrimeryViewModel" />
+            type="com.example.wms.viewmodels.collectrequest.collectrequest.FragmentCollectRequestPrimeryViewModel" />
     </data>
 
     <LinearLayout

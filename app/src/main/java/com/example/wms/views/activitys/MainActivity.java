@@ -18,10 +18,9 @@ import com.example.wms.R;
 import com.example.wms.databinding.ActivityMainBinding;
 import com.example.wms.viewmodels.MainActivityViewModel;
 import com.example.wms.views.fragments.FragmentHome;
-import com.example.wms.views.fragments.collectrequest.FragmentCollectRequest;
+import com.example.wms.views.fragments.collectrequest.collectrequest.FragmentCollectRequest;
 import com.example.wms.views.fragments.collectrequest.boothreceive.FragmentBoothReceive;
 import com.example.wms.views.fragments.collectrequest.recyclingcar.FragmentRecyclingCar;
-import com.example.wms.views.fragments.collectrequest.recyclingcar.FragmentRecyclingCarPrimery;
 import com.example.wms.views.fragments.packrequest.FragmentPackRequest;
 import com.example.wms.views.fragments.register.FragmentRegister;
 
@@ -50,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         //ShowFragmentHome();
         //ShowFragmentCollectRequest();
         //ShowFragmentBoothReceive();
-        ShowFragmentRecyclingCar();
+        //ShowFragmentRecyclingCar();
 
     }//_____________________________________________________________________________________________ End onCreate
 

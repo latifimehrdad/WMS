@@ -1,4 +1,4 @@
-package com.example.wms.viewmodels.collectrequest;
+package com.example.wms.viewmodels.collectrequest.collectrequest;
 
 import android.content.Context;
 
