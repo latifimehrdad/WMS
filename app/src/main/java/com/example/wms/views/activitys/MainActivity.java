@@ -20,6 +20,8 @@ import com.example.wms.viewmodels.MainActivityViewModel;
 import com.example.wms.views.fragments.FragmentHome;
 import com.example.wms.views.fragments.collectrequest.FragmentCollectRequest;
 import com.example.wms.views.fragments.collectrequest.boothreceive.FragmentBoothReceive;
+import com.example.wms.views.fragments.collectrequest.recyclingcar.FragmentRecyclingCar;
+import com.example.wms.views.fragments.collectrequest.recyclingcar.FragmentRecyclingCarPrimery;
 import com.example.wms.views.fragments.packrequest.FragmentPackRequest;
 import com.example.wms.views.fragments.register.FragmentRegister;
 
@@ -47,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
         //ShowFragmentRegister();
         //ShowFragmentHome();
         //ShowFragmentCollectRequest();
-        ShowFragmentBoothReceive();
+        //ShowFragmentBoothReceive();
+        ShowFragmentRecyclingCar();
 
     }//_____________________________________________________________________________________________ End onCreate
 
@@ -127,6 +130,18 @@ public class MainActivity extends AppCompatActivity {
         ft.replace(R.id.MainFrameLayout, boothReceive);
         ft.commit();
     }//_____________________________________________________________________________________________ End ShowFragmentBoothReceive
+
+
+
+    private void ShowFragmentRecyclingCar(){//______________________________________________________ Start ShowFragmentRecyclingCar
+        fm = null;
+        ft = null;
+        fm = getSupportFragmentManager();
+        ft = fm.beginTransaction();
+        FragmentRecyclingCar recyclingCar = new FragmentRecyclingCar(this);
+        ft.replace(R.id.MainFrameLayout, recyclingCar);
+        ft.commit();
+    }//_____________________________________________________________________________________________ End ShowFragmentRecyclingCar
 
 
 
