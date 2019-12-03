@@ -8,7 +8,7 @@
     <color name="mlWhite">#ffffff</color>
     <color name="mlFooter">#CCCCCC</color>
     <color name="mlBlack">#000</color>
-    <color name="mlEdit">#F7F3F3</color>
+    <color name="mlEdit">#F3EEEE</color>
     <color name="mlTextRegisterCode">#FF0000</color>
     <color name="mlTextRegisterCodeMessage">#8CC484</color>
     <color name="mlHomeMaxScore">#065381</color>

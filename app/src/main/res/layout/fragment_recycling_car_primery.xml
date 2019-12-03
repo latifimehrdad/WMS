@@ -214,8 +214,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginRight="@dimen/_20sdp"
-                    android:layout_marginLeft="@dimen/_20sdp"
                     android:background="@color/mlFooter"
                     android:layout_marginTop="@dimen/_3sdp"
                     android:layout_marginBottom="@dimen/_10sdp"

@@ -56,5 +56,8 @@
 
     <string name="KGr">کیلو</string>
     <string name="Choose">انتخاب</string>
+    <string name="Edit">ویرایش</string>
+    <string name="Cancel">لغو</string>
+    <string name="CallBooth">تماس با غرفه</string>
 
 </resources>
