@@ -17,7 +17,6 @@
             android:id="@+id/FragmentCollectTab"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layoutDirection="rtl"
             android:background="@color/colorPrimary"
             app:stl_distributeEvenly="true"
             app:stl_indicatorCornerRadius="1.5dp"

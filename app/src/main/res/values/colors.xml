@@ -17,5 +17,6 @@
     <color name="mlCollectLeft2">#4A8F03</color>
     <color name="mlCollectRight1">#EF7F2F</color>
     <color name="mlCollectRight2">#A24A0B</color>
+    <color name="mlCollectItems">#95C5A4</color>
 
 </resources>

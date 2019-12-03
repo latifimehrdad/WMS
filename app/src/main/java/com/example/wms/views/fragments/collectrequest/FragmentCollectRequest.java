@@ -65,8 +65,8 @@ public class FragmentCollectRequest extends Fragment {
 
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getFragmentManager(), FragmentPagerItems.with(context)
-                .add(R.string.FragmentCollectRequst, fragmentCollectRequestPrimery.getClass())
                 .add(R.string.FragmentCollectRequestOrder, collectRequestOrders.getClass())
+                .add(R.string.FragmentCollectRequst, fragmentCollectRequestPrimery.getClass())
                 .create());
 
         FragmentCollectView.setAdapter(adapter);
