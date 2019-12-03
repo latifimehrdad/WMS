@@ -5,7 +5,7 @@
 
         <variable
             name="home"
-            type="com.example.wms.viewmodels.FragmentHomeViewModel" />
+            type="com.example.wms.viewmodels.main.FragmentHomeViewModel" />
     </data>
 
 

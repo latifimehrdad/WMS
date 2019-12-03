@@ -16,8 +16,8 @@ import android.widget.FrameLayout;
 
 import com.example.wms.R;
 import com.example.wms.databinding.ActivityMainBinding;
-import com.example.wms.viewmodels.MainActivityViewModel;
-import com.example.wms.views.fragments.FragmentHome;
+import com.example.wms.viewmodels.main.MainActivityViewModel;
+import com.example.wms.views.fragments.home.FragmentHome;
 import com.example.wms.views.fragments.collectrequest.collectrequest.FragmentCollectRequest;
 import com.example.wms.views.fragments.collectrequest.boothreceive.FragmentBoothReceive;
 import com.example.wms.views.fragments.collectrequest.recyclingcar.FragmentRecyclingCar;
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         //ShowFragmentHome();
         //ShowFragmentCollectRequest();
         //ShowFragmentBoothReceive();
-        //ShowFragmentRecyclingCar();
+        ShowFragmentRecyclingCar();
 
     }//_____________________________________________________________________________________________ End onCreate
 

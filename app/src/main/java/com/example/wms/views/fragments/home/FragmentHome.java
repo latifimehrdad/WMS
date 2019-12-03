@@ -2,7 +2,7 @@
 Create By Mehrdad Latifi in
 1398/09/09 - 12:08 PM
  */
-package com.example.wms.views.fragments;
+package com.example.wms.views.fragments.home;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentHomeBinding;
-import com.example.wms.viewmodels.FragmentHomeViewModel;
+import com.example.wms.viewmodels.main.FragmentHomeViewModel;
 
 import butterknife.ButterKnife;
 

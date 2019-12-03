@@ -3,7 +3,7 @@
     <data>
         <variable
             name="spalsh"
-            type="com.example.wms.viewmodels.SplashActivityViewModel" />
+            type="com.example.wms.viewmodels.main.SplashActivityViewModel" />
     </data>
 
     <LinearLayout

@@ -12,7 +12,7 @@ import androidx.databinding.DataBindingUtil;
 
 import com.example.wms.R;
 import com.example.wms.databinding.ActivitySplashBinding;
-import com.example.wms.viewmodels.SplashActivityViewModel;
+import com.example.wms.viewmodels.main.SplashActivityViewModel;
 
 
 public class SplashActivity extends AppCompatActivity {
