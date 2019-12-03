@@ -73,5 +73,17 @@
     <string name="Electronics">الکترونیک</string>
     <string name="NonRecyclable">اقلام غیر بازیافت</string>
 
+    <string name="HowGiveScore">نحوه امتیاز دهی</string>
+    <string name="LotteryResult">نتایج قرعه کشی</string>
+    <string name="Lottery">قرعه کشی</string>
+    <string name="Total">جمع</string>
+    <string name="Car">خودرو</string>
+    <string name="Booth">غرفه</string>
+    <string name="FriendsDefinition">معرفی به دوستان</string>
+    <string name="YouScore">امتیاز شما</string>
+    <string name="Score">امتیاز</string>
+    <string name="FriendsDefinitionAndReceiveBag">معرفی به دوستان و تحویل اولین کیسه تفکیک</string>
+    <string name="FragmentLotteryReceiveBooth">تحویل هر کیسه به غرفه بازیافت</string>
+    <string name="FragmentLotteryReceiveCar">تحویل هر کیسه به خودرو بازیافت</string>
 
 </resources>

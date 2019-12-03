@@ -22,6 +22,7 @@ import com.example.wms.views.fragments.collectrequest.collectrequest.FragmentCol
 import com.example.wms.views.fragments.collectrequest.boothreceive.FragmentBoothReceive;
 import com.example.wms.views.fragments.collectrequest.recyclingcar.FragmentRecyclingCar;
 import com.example.wms.views.fragments.learn.FragmentLearn;
+import com.example.wms.views.fragments.lottery.FragmentLottery;
 import com.example.wms.views.fragments.packrequest.FragmentPackRequest;
 import com.example.wms.views.fragments.register.FragmentRegister;
 
@@ -51,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
         //ShowFragmentCollectRequest();
         //ShowFragmentBoothReceive();
         //ShowFragmentRecyclingCar();
-        ShowFragmentLearn();
+        //ShowFragmentLearn();
+        ShowFragmentLottery();
 
     }//_____________________________________________________________________________________________ End onCreate
 
@@ -155,6 +157,18 @@ public class MainActivity extends AppCompatActivity {
         ft.replace(R.id.MainFrameLayout, fragmentLearn);
         ft.commit();
     }//_____________________________________________________________________________________________ End ShowFragmentLearn
+
+
+
+    private void ShowFragmentLottery(){//___________________________________________________________ Start ShowFragmentLottery
+        fm = null;
+        ft = null;
+        fm = getSupportFragmentManager();
+        ft = fm.beginTransaction();
+        FragmentLottery fragmentLottery = new FragmentLottery(this);
+        ft.replace(R.id.MainFrameLayout, fragmentLottery);
+        ft.commit();
+    }//_____________________________________________________________________________________________ End ShowFragmentLottery
 
 
 
