@@ -63,9 +63,9 @@ public class FragmentRegister extends Fragment {
 
     private void SetTabs() {//______________________________________________________________________ Start SetTabs
 
-        FragmentRegisterPerson fragmentRegisterPerson = new FragmentRegisterPerson(context);
-        FragmentRegisterBank fragmentRegisterBank = new FragmentRegisterBank(context);
         FragmentRegisterCode fragmentRegisterCode = new FragmentRegisterCode(context);
+        FragmentRegisterBank fragmentRegisterBank = new FragmentRegisterBank(context);
+        FragmentRegisterPerson fragmentRegisterPerson = new FragmentRegisterPerson(context);
 
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getFragmentManager(), FragmentPagerItems.with(context)

@@ -21,6 +21,7 @@ import com.example.wms.views.fragments.home.FragmentHome;
 import com.example.wms.views.fragments.collectrequest.collectrequest.FragmentCollectRequest;
 import com.example.wms.views.fragments.collectrequest.boothreceive.FragmentBoothReceive;
 import com.example.wms.views.fragments.collectrequest.recyclingcar.FragmentRecyclingCar;
+import com.example.wms.views.fragments.learn.FragmentLearn;
 import com.example.wms.views.fragments.packrequest.FragmentPackRequest;
 import com.example.wms.views.fragments.register.FragmentRegister;
 
@@ -49,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
         //ShowFragmentHome();
         //ShowFragmentCollectRequest();
         //ShowFragmentBoothReceive();
-        ShowFragmentRecyclingCar();
+        //ShowFragmentRecyclingCar();
+        ShowFragmentLearn();
 
     }//_____________________________________________________________________________________________ End onCreate
 
@@ -141,6 +143,18 @@ public class MainActivity extends AppCompatActivity {
         ft.replace(R.id.MainFrameLayout, recyclingCar);
         ft.commit();
     }//_____________________________________________________________________________________________ End ShowFragmentRecyclingCar
+
+
+
+    private void ShowFragmentLearn(){//_____________________________________________________________ Start ShowFragmentLearn
+        fm = null;
+        ft = null;
+        fm = getSupportFragmentManager();
+        ft = fm.beginTransaction();
+        FragmentLearn fragmentLearn = new FragmentLearn(this);
+        ft.replace(R.id.MainFrameLayout, fragmentLearn);
+        ft.commit();
+    }//_____________________________________________________________________________________________ End ShowFragmentLearn
 
 
 

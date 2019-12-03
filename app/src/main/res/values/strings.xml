@@ -50,7 +50,9 @@
     <string name="FragmentCollectRequestTenScore">10 امتیاز</string>
     <string name="FragmentCollectRequestCar">تحویل به خودرو بازیافت</string>
     <string name="FragmentCollectRequestBooth">تحویل به غرفه بازیافت</string>
-
+    
+    <string name="FragmentLearnSeparation">آموزش تفکیک پسماند</string>
+    <string name="FragmentLearnItems">ریز اقلام بازیافتی</string>
 
     <string name="FragmentPackRequestAddress">ثبت آدرس</string>
 
@@ -59,5 +61,17 @@
     <string name="Edit">ویرایش</string>
     <string name="Cancel">لغو</string>
     <string name="CallBooth">تماس با غرفه</string>
+    
+    <string name="Plastics">پلاستیک ها</string>
+    <string name="PlasticsNote">انواع ظروف پلاستيكي، روكش ها و كيسه هاي پلاستيكي ،قوطی آب معدنی،
+قوطی شیر ، قوطی مواد پاک کننده ، قوطی شامپو ، سی دی ، ظروف لبنیات ،
+ظروف شفاف پلاستیکی، ظروف کریستالی ،طناد هاي پلاستيكي، دسته جارو ،
+سبد میوه ، اسباد بازي هاي پلاستيكي، فيلم هاي عكاسي، انواع ابر و اسفنج</string>
+    
+    <string name="Metals">فلزات</string>
+    <string name="Glass">شیشه</string>
+    <string name="Electronics">الکترونیک</string>
+    <string name="NonRecyclable">اقلام غیر بازیافت</string>
+
 
 </resources>

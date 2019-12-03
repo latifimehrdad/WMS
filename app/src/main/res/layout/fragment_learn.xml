@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="register"
-            type="com.example.wms.viewmodels.register.FragmentRegisterViewModel" />
+            name="learn"
+            type="com.example.wms.viewmodels.learn.FragmentLearrnViewModel" />
     </data>
 
     <RelativeLayout
@@ -14,7 +14,7 @@
         >
 
         <com.ogaclejapan.smarttablayout.SmartTabLayout
-            android:id="@+id/FragmentRegisteryTab"
+            android:id="@+id/FragmentLearnTab"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="@color/colorPrimary"
@@ -28,14 +28,13 @@
             />
 
         <androidx.viewpager.widget.ViewPager
-            android:id="@+id/FragmentRegisteryView"
+            android:id="@+id/FragmentLearnView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/FragmentRegisteryTab"
+            android:layout_below="@id/FragmentLearnTab"
             android:background="@color/mlWhite"
             />
 
     </RelativeLayout>
-
 
 </layout>

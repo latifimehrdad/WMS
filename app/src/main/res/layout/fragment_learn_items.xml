@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="learnitem"
+            type="com.example.wms.viewmodels.learn.FragmentLearnItemsViewModel" />
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/_10sdp"
+        >
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/layout_collect_item"
+                    android:padding="@dimen/_5sdp"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="@string/Plastics"
+                        android:textColor="@color/mlWhite"
+                        android:textSize="@dimen/_12sdp"
+                        />
+
+                    <LinearLayout
+                        android:id="@+id/FLIPlasticExpandClick"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/_1sdp"
+                        android:layoutDirection="rtl"
+                        android:gravity="right|top"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="right|top"
+                            android:text="-------------------------------------"
+                            android:textColor="@color/mlWhite"
+                            android:textSize="@dimen/_12sdp"
+                            />
+
+                        <ImageView
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_marginRight="@dimen/_5sdp"
+                            android:src="@drawable/ic_get_app_black_24dp"
+                            />
+
+
+                    </LinearLayout>
+
+
+                    <net.cachapa.expandablelayout.ExpandableLayout
+                        android:id="@+id/FLIPlasticExpand"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        app:el_duration="1000"
+                        app:el_expanded="false"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        app:el_parallax="0.5">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="@string/PlasticsNote"
+                            android:textColor="@color/mlWhite"
+                            android:textSize="@dimen/_12sdp"
+                            />
+
+                    </net.cachapa.expandablelayout.ExpandableLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/layout_collect_item"
+                    android:padding="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="@string/Metals"
+                        android:textColor="@color/mlWhite"
+                        android:textSize="@dimen/_12sdp"
+                        />
+
+                    <LinearLayout
+                        android:id="@+id/FLIMetalExpandClick"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/_1sdp"
+                        android:layoutDirection="rtl"
+                        android:gravity="right|top"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="right|top"
+                            android:text="-------------------------------------"
+                            android:textColor="@color/mlWhite"
+                            android:textSize="@dimen/_12sdp"
+                            />
+
+                        <ImageView
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_marginRight="@dimen/_5sdp"
+                            android:src="@drawable/ic_get_app_black_24dp"
+                            />
+
+
+                    </LinearLayout>
+
+
+                    <net.cachapa.expandablelayout.ExpandableLayout
+                        android:id="@+id/FLIMetalExpand"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        app:el_duration="1000"
+                        app:el_expanded="false"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        app:el_parallax="0.5">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="@string/PlasticsNote"
+                            android:textColor="@color/mlWhite"
+                            android:textSize="@dimen/_12sdp"
+                            />
+
+                    </net.cachapa.expandablelayout.ExpandableLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/layout_collect_item"
+                    android:padding="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="@string/Glass"
+                        android:textColor="@color/mlWhite"
+                        android:textSize="@dimen/_12sdp"
+                        />
+
+                    <LinearLayout
+                        android:id="@+id/FLIGlassExpandClick"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/_1sdp"
+                        android:layoutDirection="rtl"
+                        android:gravity="right|top"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="right|top"
+                            android:text="-------------------------------------"
+                            android:textColor="@color/mlWhite"
+                            android:textSize="@dimen/_12sdp"
+                            />
+
+                        <ImageView
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_marginRight="@dimen/_5sdp"
+                            android:src="@drawable/ic_get_app_black_24dp"
+                            />
+
+
+                    </LinearLayout>
+
+
+                    <net.cachapa.expandablelayout.ExpandableLayout
+                        android:id="@+id/FLIGlassExpand"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        app:el_duration="1000"
+                        app:el_expanded="false"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        app:el_parallax="0.5">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="@string/PlasticsNote"
+                            android:textColor="@color/mlWhite"
+                            android:textSize="@dimen/_12sdp"
+                            />
+
+                    </net.cachapa.expandablelayout.ExpandableLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/layout_collect_item"
+                    android:padding="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="@string/Paper"
+                        android:textColor="@color/mlWhite"
+                        android:textSize="@dimen/_12sdp"
+                        />
+
+                    <LinearLayout
+                        android:id="@+id/FLIPaperExpandClick"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/_1sdp"
+                        android:layoutDirection="rtl"
+                        android:gravity="right|top"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="right|top"
+                            android:text="-------------------------------------"
+                            android:textColor="@color/mlWhite"
+                            android:textSize="@dimen/_12sdp"
+                            />
+
+                        <ImageView
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_marginRight="@dimen/_5sdp"
+                            android:src="@drawable/ic_get_app_black_24dp"
+                            />
+
+
+                    </LinearLayout>
+
+
+                    <net.cachapa.expandablelayout.ExpandableLayout
+                        android:id="@+id/FLIPaperExpand"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        app:el_duration="1000"
+                        app:el_expanded="false"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        app:el_parallax="0.5">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="@string/PlasticsNote"
+                            android:textColor="@color/mlWhite"
+                            android:textSize="@dimen/_12sdp"
+                            />
+
+                    </net.cachapa.expandablelayout.ExpandableLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/layout_collect_item"
+                    android:padding="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="@string/Electronics"
+                        android:textColor="@color/mlWhite"
+                        android:textSize="@dimen/_12sdp"
+                        />
+
+                    <LinearLayout
+                        android:id="@+id/FLIElectronicsExpandClick"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/_1sdp"
+                        android:layoutDirection="rtl"
+                        android:gravity="right|top"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="right|top"
+                            android:text="-------------------------------------"
+                            android:textColor="@color/mlWhite"
+                            android:textSize="@dimen/_12sdp"
+                            />
+
+                        <ImageView
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_marginRight="@dimen/_5sdp"
+                            android:src="@drawable/ic_get_app_black_24dp"
+                            />
+
+
+                    </LinearLayout>
+
+
+                    <net.cachapa.expandablelayout.ExpandableLayout
+                        android:id="@+id/FLIElectronicsExpand"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        app:el_duration="1000"
+                        app:el_expanded="false"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        app:el_parallax="0.5">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="@string/PlasticsNote"
+                            android:textColor="@color/mlWhite"
+                            android:textSize="@dimen/_12sdp"
+                            />
+
+                    </net.cachapa.expandablelayout.ExpandableLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/layout_collect_item"
+                    android:padding="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="@string/NonRecyclable"
+                        android:textColor="@color/mlWhite"
+                        android:textSize="@dimen/_12sdp"
+                        />
+
+                    <LinearLayout
+                        android:id="@+id/FLINonRecyclableExpandClick"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/_1sdp"
+                        android:layoutDirection="rtl"
+                        android:gravity="right|top"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="right|top"
+                            android:text="-------------------------------------"
+                            android:textColor="@color/mlWhite"
+                            android:textSize="@dimen/_12sdp"
+                            />
+
+                        <ImageView
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_marginRight="@dimen/_5sdp"
+                            android:src="@drawable/ic_get_app_black_24dp"
+                            />
+
+
+                    </LinearLayout>
+
+
+                    <net.cachapa.expandablelayout.ExpandableLayout
+                        android:id="@+id/FLINonRecyclableExpand"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        app:el_duration="1000"
+                        app:el_expanded="false"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        app:el_parallax="0.5">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="@string/PlasticsNote"
+                            android:textColor="@color/mlWhite"
+                            android:textSize="@dimen/_12sdp"
+                            />
+
+                    </net.cachapa.expandablelayout.ExpandableLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
+
+    </LinearLayout>
+
+</layout>
