@@ -25,6 +25,7 @@ import com.example.wms.views.fragments.learn.FragmentLearn;
 import com.example.wms.views.fragments.lottery.FragmentLottery;
 import com.example.wms.views.fragments.packrequest.FragmentPackRequest;
 import com.example.wms.views.fragments.register.FragmentRegister;
+import com.example.wms.views.fragments.wallet.FragmentWallet;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
         //ShowFragmentBoothReceive();
         //ShowFragmentRecyclingCar();
         //ShowFragmentLearn();
-        ShowFragmentLottery();
+        //ShowFragmentLottery();
+        ShowFragmentWallet();
 
     }//_____________________________________________________________________________________________ End onCreate
 
@@ -169,6 +171,20 @@ public class MainActivity extends AppCompatActivity {
         ft.replace(R.id.MainFrameLayout, fragmentLottery);
         ft.commit();
     }//_____________________________________________________________________________________________ End ShowFragmentLottery
+
+
+
+
+    private void ShowFragmentWallet(){//____________________________________________________________ Start ShowFragmentWallet
+        fm = null;
+        ft = null;
+        fm = getSupportFragmentManager();
+        ft = fm.beginTransaction();
+        FragmentWallet fragmentWallet = new FragmentWallet(this);
+        ft.replace(R.id.MainFrameLayout, fragmentWallet);
+        ft.commit();
+    }//_____________________________________________________________________________________________ End ShowFragmentWallet
+
 
 
 

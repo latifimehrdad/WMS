@@ -16,7 +16,7 @@
         <com.ogaclejapan.smarttablayout.SmartTabLayout
             android:id="@+id/FragmentRegisteryTab"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="@dimen/_40sdp"
             android:background="@color/colorPrimary"
             app:stl_distributeEvenly="true"
             app:stl_indicatorCornerRadius="1.5dp"

@@ -41,10 +41,15 @@
 
     <string name="FragmentCollectRequst">درخواست جمع آوری</string>
     <string name="FragmentCollectRequestOrder">سفارشات</string>
+
     <string name="PetBottel">بطری پت</string>
     <string name="AlBottel">قوطی آلومینیوم</string>
     <string name="Dry">مخلوط خشک</string>
     <string name="Paper">کارتن و کاغذ</string>
+    <string name="DryKgr">هر کیلو مخلوط خشک</string>
+    <string name="PaperKgr">هر کیلو کارتن و کاغذ</string>
+    <string name="AlBottleKgr">هر کیلو قوطی آلومینیوم</string>
+    <string name="PetBottleKgr">هر کیلو قوطی پت</string>
 
     <string name="FragmentCollectRequestFiveScore">5 امتیاز</string>
     <string name="FragmentCollectRequestTenScore">10 امتیاز</string>
@@ -92,5 +97,14 @@
     <string name="PeopleNumberTwo">نفر دوم</string>
     <string name="PeopleNumberThere">نفر سوم</string>
     <string name="Toman">تومان</string>
+    <string name="Rial">ریال</string>
+    <string name="WalletMoney">مبلغ کیف پول شما : </string>
+    <string name="ChargeWalletConditions">برای شارژ کیف پول، میبایست بار تحویلی در هر ماه بیشتر از 10 کیلوگرم باشد</string>
+    <string name="EveryWeightScoreOne">هر کیلو 1 امتیاز</string>
+    <string name="EveryWeightScoreFive">هر کیلو 5 امتیاز</string>
+    <string name="EveryWeightScoreTwo">هر کیلو 2 امتیاز</string>
+    <string name="TotalYorBag">مجموع بار خریداری شده از شما</string>
+    <string name="GetCash">تسویه نقدی</string>
+    <string name="ConvertToScore">تبدیل به امتیاز</string>
 
 </resources>
