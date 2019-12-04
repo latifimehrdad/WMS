@@ -17,6 +17,8 @@ import android.widget.FrameLayout;
 import com.example.wms.R;
 import com.example.wms.databinding.ActivityMainBinding;
 import com.example.wms.viewmodels.main.MainActivityViewModel;
+import com.example.wms.views.fragments.aboutus.FragmentAbout;
+import com.example.wms.views.fragments.callwithus.FragmentCallWithUs;
 import com.example.wms.views.fragments.home.FragmentHome;
 import com.example.wms.views.fragments.collectrequest.collectrequest.FragmentCollectRequest;
 import com.example.wms.views.fragments.collectrequest.boothreceive.FragmentBoothReceive;
@@ -55,7 +57,9 @@ public class MainActivity extends AppCompatActivity {
         //ShowFragmentRecyclingCar();
         //ShowFragmentLearn();
         //ShowFragmentLottery();
-        ShowFragmentWallet();
+        //ShowFragmentWallet();
+        //ShowFragmentAbout();
+        ShowFragmentCall();
 
     }//_____________________________________________________________________________________________ End onCreate
 
@@ -185,6 +189,28 @@ public class MainActivity extends AppCompatActivity {
         ft.commit();
     }//_____________________________________________________________________________________________ End ShowFragmentWallet
 
+
+    private void ShowFragmentAbout(){//_____________________________________________________________ Start ShowFragmentAbout
+        fm = null;
+        ft = null;
+        fm = getSupportFragmentManager();
+        ft = fm.beginTransaction();
+        FragmentAbout fragmentAbout = new FragmentAbout(this);
+        ft.replace(R.id.MainFrameLayout, fragmentAbout);
+        ft.commit();
+    }//_____________________________________________________________________________________________ End ShowFragmentAbout
+
+
+
+    private void ShowFragmentCall(){//______________________________________________________________ Start ShowFragmentCall
+        fm = null;
+        ft = null;
+        fm = getSupportFragmentManager();
+        ft = fm.beginTransaction();
+        FragmentCallWithUs callWithUs = new FragmentCallWithUs(this);
+        ft.replace(R.id.MainFrameLayout, callWithUs);
+        ft.commit();
+    }//_____________________________________________________________________________________________ End ShowFragmentCall
 
 
 

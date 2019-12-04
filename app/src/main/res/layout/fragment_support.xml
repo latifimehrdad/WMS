@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="support"
+            type="com.example.wms.viewmodels.callwithus.FragmentSupportViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/_15sdp"
+        >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/_50sdp"
+            android:paddingRight="@dimen/_50sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_10sdp"
+            >
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:background="@drawable/edit_test_background"
+                android:hint="@string/Subject"
+                android:inputType="textPersonName"
+                android:padding="@dimen/_2sdp"
+                android:textColor="@color/mlBlack"
+                android:textSize="@dimen/_12sdp"
+                />
+
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/MaterialSpinner1"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="right"
+                android:prompt="@string/City_Prompt"
+                app:ms_background_color="@color/mlEdit"
+                app:ms_text_color="@color/mlBlack"
+                />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/_60sdp"
+                android:background="@drawable/edit_test_background"
+                android:hint="@string/Description"
+                android:gravity="right"
+                android:padding="@dimen/_2sdp"
+                android:maxLines="7"
+                android:textColor="@color/mlBlack"
+                android:textSize="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_25sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:background="@drawable/save_info_button"
+                android:text="@string/RegisterPerson"
+                android:textColor="@color/mlWhite"
+                android:textSize="@dimen/_13sdp" />
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+
+</layout>

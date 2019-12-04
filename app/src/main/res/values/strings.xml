@@ -106,5 +106,21 @@
     <string name="TotalYorBag">مجموع بار خریداری شده از شما</string>
     <string name="GetCash">تسویه نقدی</string>
     <string name="ConvertToScore">تبدیل به امتیاز</string>
+    <string name="AboutUs">درباره ما</string>
+    <string name="AboutMe">درباره سیستم مدیریت تفکیک از مبدأ</string>
+    <string name="AboutMeDescription">بخش چشمگیری از ۵۰ هزار تن زباله ای که در روز تولید میشود را پسماندهای آلی
+به خود اختصاص میدهند. متأسفانه سالیانه مقادیر چشمگیری از پسماند شهری
+ بدون اینکه مورد پردازش قرار گیرد و مواد ارزشمند قابل بازیافت آن تفکیک شود
+ به دفنگاهها منتقل میشود. نتیجه این عمل، چیزی نیست جز تولید آلایندههای
+ خطرناک جامد، مایع و گاز که باعث آلودگی آب هوا و خاک میشود که حذف این
+ آلایندهها نیز همراه با صرف هزینه بسیار بالایی است. بنابراین این سیستم با هدف
+مشارک مستقیم خانوار ها ، این امکان را فراهم نموده تا با جمع آوری پسماند های
+ عالی و خشک از درب منازل، گامی بلند در حفظ محیط زیست کشورمان بردارد.</string>
+    <string name="CallWithUs">تماس با ما</string>
+    <string name="Teacher">آموزشگر</string>
+    <string name="Support">پشتیبانی فنی</string>
+    <string name="SupportApp">پشتیبانی</string>
+    <string name="Subject">موضوع</string>
+    <string name="Description">توضیحات</string>
 
 </resources>
