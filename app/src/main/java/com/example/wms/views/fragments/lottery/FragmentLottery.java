@@ -68,10 +68,14 @@ public class FragmentLottery extends Fragment {
     private void SetTabs() {//______________________________________________________________________ Start SetTabs
 
         FragmentLotteryGiveScore FragmentLotteryGiveScore = new FragmentLotteryGiveScore(context);
+        FragmentLotteryResult lotteryResult = new FragmentLotteryResult(context);
+        FragmentLotteryPrimery lotteryPrimery = new FragmentLotteryPrimery(context);
 
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getFragmentManager(), FragmentPagerItems.with(context)
                 .add(R.string.HowGiveScore, FragmentLotteryGiveScore.getClass())
+                .add(R.string.LotteryResult, lotteryResult.getClass())
+                .add(R.string.Lottery, lotteryPrimery.getClass())
                 .create());
 
         FragmentLotteryView.setAdapter(adapter);

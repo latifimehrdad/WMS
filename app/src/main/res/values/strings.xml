@@ -82,8 +82,15 @@
     <string name="FriendsDefinition">معرفی به دوستان</string>
     <string name="YouScore">امتیاز شما</string>
     <string name="Score">امتیاز</string>
+    <string name="Scores">امتیازات</string>
     <string name="FriendsDefinitionAndReceiveBag">معرفی به دوستان و تحویل اولین کیسه تفکیک</string>
     <string name="FragmentLotteryReceiveBooth">تحویل هر کیسه به غرفه بازیافت</string>
     <string name="FragmentLotteryReceiveCar">تحویل هر کیسه به خودرو بازیافت</string>
+    <string name="MonthLottery">قرعه کشی ماهانه</string>
+    <string name="HighestScoreAward">جایزه بیشترین امتیاز</string>
+    <string name="PeopleNumberOne">نفر اول</string>
+    <string name="PeopleNumberTwo">نفر دوم</string>
+    <string name="PeopleNumberThere">نفر سوم</string>
+    <string name="Toman">تومان</string>
 
 </resources>
