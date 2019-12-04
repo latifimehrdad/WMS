@@ -17,9 +17,9 @@ import com.example.wms.R;
 public class CircleMenuLayout extends ViewGroup
 {
     private int mRadius;
-    private static final float RADIO_DEFAULT_CHILD_DIMENSION = 1 / 4f;
+    private static final float RADIO_DEFAULT_CHILD_DIMENSION = 1 / 3f;
     private float RADIO_DEFAULT_CENTERITEM_DIMENSION = 1 / 3f;
-    private static final float RADIO_PADDING_LAYOUT = 1 / 12f;
+    private static final float RADIO_PADDING_LAYOUT = 1 / 16f;
     private static final int FLINGABLE_VALUE = 300;
     private static final int NOCLICK_VALUE = 3;
     private int mFlingableValue = FLINGABLE_VALUE;
@@ -166,6 +166,7 @@ public class CircleMenuLayout extends ViewGroup
     {
         float x = event.getX();
         float y = event.getY();
+
         switch (event.getAction())
         {
             case MotionEvent.ACTION_DOWN:
@@ -217,6 +218,7 @@ public class CircleMenuLayout extends ViewGroup
 
                 break;
         }
+
         return super.dispatchTouchEvent(event);
     }
 

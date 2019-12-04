@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         //ShowFragmentPAckRequest();
         //ShowSpalshActivity();
         //ShowFragmentRegister();
-        //ShowFragmentHome();
+        ShowFragmentHome();
         //ShowFragmentCollectRequest();
         //ShowFragmentBoothReceive();
         //ShowFragmentRecyclingCar();
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         //ShowFragmentLottery();
         //ShowFragmentWallet();
         //ShowFragmentAbout();
-        ShowFragmentCall();
+        //ShowFragmentCall();
 
     }//_____________________________________________________________________________________________ End onCreate
 
