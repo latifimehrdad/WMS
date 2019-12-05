@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -12,7 +13,9 @@ import androidx.fragment.app.Fragment;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentCollectRequestPrimeryBinding;
 import com.example.wms.viewmodels.collectrequest.collectrequest.FragmentCollectRequestPrimeryViewModel;
+import com.example.wms.views.activitys.MainActivity;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class FragmentCollectRequestPrimery extends Fragment {
@@ -20,10 +23,17 @@ public class FragmentCollectRequestPrimery extends Fragment {
     private Context context;
     private FragmentCollectRequestPrimeryViewModel fragmentCollectRequestPrimeryViewModel;
 
+    @BindView(R.id.fcrpRecyclingCar)
+    LinearLayout fcrpRecyclingCar;
+
+    @BindView(R.id.fcrpBoothReceive)
+    LinearLayout fcrpBoothReceive;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentCollectRequestPrimeryBinding binding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_collect_request_primery,container,false
+                inflater, R.layout.fragment_collect_request_primery, container, false
         );
         fragmentCollectRequestPrimeryViewModel = new FragmentCollectRequestPrimeryViewModel(context);
         binding.setCollectprimery(fragmentCollectRequestPrimeryViewModel);
@@ -31,7 +41,6 @@ public class FragmentCollectRequestPrimery extends Fragment {
         ButterKnife.bind(this, view);
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
-
 
 
     public FragmentCollectRequestPrimery() {//______________________________________________________ Start FragmentCollectRequestPrimery
@@ -45,7 +54,27 @@ public class FragmentCollectRequestPrimery extends Fragment {
     @Override
     public void onStart() {//_______________________________________________________________________ Start onStart
         super.onStart();
+        SetClicks();
     }//_____________________________________________________________________________________________ End onStart
+
+
+    private void SetClicks() {//____________________________________________________________________ Start
+
+        fcrpRecyclingCar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.FragmentMessage.onNext("RecyclingCar");
+            }
+        });
+
+        fcrpBoothReceive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.FragmentMessage.onNext("BoothReceive");
+            }
+        });
+
+    }//_____________________________________________________________________________________________ End
 
 
 }

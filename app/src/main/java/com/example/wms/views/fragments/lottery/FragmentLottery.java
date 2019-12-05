@@ -2,6 +2,7 @@ package com.example.wms.views.fragments.lottery;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentLotteryBinding;
 import com.example.wms.viewmodels.lottery.FragmentLotteryViewModel;
+import com.example.wms.views.activitys.MainActivity;
 import com.example.wms.views.fragments.register.FragmentRegisterBank;
 import com.example.wms.views.fragments.register.FragmentRegisterCode;
 import com.example.wms.views.fragments.register.FragmentRegisterPerson;
@@ -45,6 +47,7 @@ public class FragmentLottery extends Fragment {
         binding.setLattery(fragmentLotteryViewModel);
         View view = binding.getRoot();
         ButterKnife.bind(this, view);
+        BackClick(view);
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
 
@@ -82,6 +85,32 @@ public class FragmentLottery extends Fragment {
         FragmentLotteryTab.setViewPager(FragmentLotteryView);
 
     }//_____________________________________________________________________________________________ End SetTabs
+
+
+
+    private void BackClick(View view) {//____________________________________________________________________ Start BackClick
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(SetKey(view));
+    }//_____________________________________________________________________________________________ End BackClick
+
+
+
+
+    private View.OnKeyListener SetKey(View view){//_________________________________________________ Start SetKey
+        return new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode != 4) {
+                    return false;
+                }
+                keyCode = 0;
+                event = null;
+                MainActivity.FragmentMessage.onNext("Main");
+                return true;
+            }
+        };
+    }//_____________________________________________________________________________________________ End SetKey
 
 
 

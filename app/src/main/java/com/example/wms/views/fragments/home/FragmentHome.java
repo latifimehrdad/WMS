@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentHomeBinding;
 import com.example.wms.viewmodels.main.FragmentHomeViewModel;
+import com.example.wms.views.activitys.MainActivity;
 import com.example.wms.views.custom.circlemenu.CircleMenuLayout;
 
 import butterknife.BindView;
@@ -57,10 +59,43 @@ public class FragmentHome extends Fragment {
 
         mCircleMenuLayout = (CircleMenuLayout) getView().findViewById(R.id.id_menulayout);
         mCircleMenuLayout.setMenuItemIconsAndTexts(mItemImgs, mItemTexts);
+        mCircleMenuLayout.setOnMenuItemClickListener(new CircleMenuLayout.OnMenuItemClickListener()
+        {
+
+            @Override
+            public void itemClick(View view, int pos)
+            {
+                switch (pos){
+                    case 0:
+                        MainActivity.FragmentMessage.onNext("Learn");
+                        break;
+                    case 1:
+                        MainActivity.FragmentMessage.onNext("CollectRequest");
+                        break;
+
+                    case 2:
+                        MainActivity.FragmentMessage.onNext("Lottery");
+                        break;
+
+                    case 3:
+                        //context.ShowFragmentPAckRequest();
+                        MainActivity.FragmentMessage.onNext("PckRequest");
+                        break;
+                }
+            }
+
+            @Override
+            public void itemCenterClick(View view)
+            {
+
+            }
+        });
 
         //ButterKnife.bind(this,getView());
 
 
     }//_____________________________________________________________________________________________ End onStart
+
+
 
 }
