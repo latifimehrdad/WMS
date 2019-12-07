@@ -5,10 +5,13 @@ Create By Mehrdad Latifi in
 package com.example.wms.views.fragments.home;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
@@ -19,25 +22,24 @@ import com.example.wms.databinding.FragmentHomeBinding;
 import com.example.wms.viewmodels.main.FragmentHomeViewModel;
 import com.example.wms.views.activitys.MainActivity;
 import com.example.wms.views.custom.circlemenu.CircleMenuLayout;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import com.example.wms.views.custom.circlemenu.CustomView;
 
 public class FragmentHome extends Fragment {
 
     private Context context;
     private FragmentHomeViewModel fragmentHomeViewModel;
     private CircleMenuLayout mCircleMenuLayout;
-    private String[] mItemTexts = new String[] { "تفکیک پسماند", "درخواست جمع آوری", "قرعه کشی", "درخواست پکیج"};
-    private int[] mItemImgs = new int[] {
-            R.drawable.a,
-            R.drawable.b, R.drawable.c,
-            R.drawable.d};
+    private String[] mItemTexts = new String[]{"تفکیک پسماند", "درخواست جمع آوری", "قرعه کشی", "درخواست پکیج"};
+    private int[] mItemImgs = new int[]{
+            R.drawable.logomenuright,
+            R.drawable.logomenudown, R.drawable.logomenuleft,
+            R.drawable.logomenutop};
 
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,  Bundle savedInstanceState) {
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentHomeBinding binding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_home,container,false
+                inflater, R.layout.fragment_home, container, false
         );
         fragmentHomeViewModel = new FragmentHomeViewModel(context);
         binding.setHome(fragmentHomeViewModel);
@@ -57,15 +59,15 @@ public class FragmentHome extends Fragment {
         super.onStart();
         int i = 0;
 
+        CustomView ml = (CustomView) getView().findViewById(R.id.ml);
+
         mCircleMenuLayout = (CircleMenuLayout) getView().findViewById(R.id.id_menulayout);
         mCircleMenuLayout.setMenuItemIconsAndTexts(mItemImgs, mItemTexts);
-        mCircleMenuLayout.setOnMenuItemClickListener(new CircleMenuLayout.OnMenuItemClickListener()
-        {
+        mCircleMenuLayout.setOnMenuItemClickListener(new CircleMenuLayout.OnMenuItemClickListener() {
 
             @Override
-            public void itemClick(View view, int pos)
-            {
-                switch (pos){
+            public void itemClick(View view, int pos) {
+                switch (pos) {
                     case 0:
                         MainActivity.FragmentMessage.onNext("Learn");
                         break;
@@ -85,8 +87,7 @@ public class FragmentHome extends Fragment {
             }
 
             @Override
-            public void itemCenterClick(View view)
-            {
+            public void itemCenterClick(View view) {
 
             }
         });
@@ -95,6 +96,7 @@ public class FragmentHome extends Fragment {
 
 
     }//_____________________________________________________________________________________________ End onStart
+
 
 
 

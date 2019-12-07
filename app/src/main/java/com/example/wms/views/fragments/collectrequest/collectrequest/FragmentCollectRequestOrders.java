@@ -2,6 +2,7 @@ package com.example.wms.views.fragments.collectrequest.collectrequest;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentCollectRequestOrdersBinding;
 import com.example.wms.viewmodels.collectrequest.collectrequest.FragmentCollectRequestOrdersViewModel;
+import com.example.wms.views.activitys.MainActivity;
 
 public class FragmentCollectRequestOrders extends Fragment {
 
@@ -26,6 +28,7 @@ public class FragmentCollectRequestOrders extends Fragment {
         fragmentCollectRequestOrdersViewModel = new FragmentCollectRequestOrdersViewModel(context);
         binding.setCollectorders(fragmentCollectRequestOrdersViewModel);
         View view = binding.getRoot();
+        BackClick(view);
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
 
@@ -43,6 +46,34 @@ public class FragmentCollectRequestOrders extends Fragment {
     public void onStart() {
         super.onStart();
     }//_____________________________________________________________________________________________ End onStart
+
+
+
+    private void BackClick(View view) {//____________________________________________________________________ Start BackClick
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(SetKey(view));
+    }//_____________________________________________________________________________________________ End BackClick
+
+
+
+
+    private View.OnKeyListener SetKey(View view){//_________________________________________________ Start SetKey
+        return new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode != 4) {
+                    return false;
+                }
+                keyCode = 0;
+                event = null;
+                MainActivity.FragmentMessage.onNext("Main");
+                return true;
+            }
+        };
+    }//_____________________________________________________________________________________________ End SetKey
+
+
 
 
 }

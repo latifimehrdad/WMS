@@ -75,7 +75,7 @@ public class FragmentLottery extends Fragment {
         FragmentLotteryPrimery lotteryPrimery = new FragmentLotteryPrimery(context);
 
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
-                getFragmentManager(), FragmentPagerItems.with(context)
+                getChildFragmentManager(), FragmentPagerItems.with(context)
                 .add(R.string.HowGiveScore, FragmentLotteryGiveScore.getClass())
                 .add(R.string.LotteryResult, lotteryResult.getClass())
                 .add(R.string.Lottery, lotteryPrimery.getClass())

@@ -2,6 +2,7 @@ package com.example.wms.views.fragments.collectrequest.boothreceive;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentBoothReceivePrimeryBinding;
 import com.example.wms.viewmodels.collectrequest.boothreceive.FragmentBoothReceivePrimeryViewModel;
+import com.example.wms.views.activitys.MainActivity;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import butterknife.BindView;
@@ -37,6 +39,7 @@ public class FragmentBoothReceivePrimery extends Fragment {
         binding.setBoothreceiveprimery(fragmentBoothReceivePrimeryViewModel);
         View view = binding.getRoot();
         ButterKnife.bind(this, view);
+        BackClick(view);
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
 
@@ -61,4 +64,37 @@ public class FragmentBoothReceivePrimery extends Fragment {
         FBRPSpinnerHours.setItems("ساعت تحویل", "8 - 10", "11 - 13");
         FBRPSpinnerDay.setItems("روز تحویل","شنبه","سه شنبه");
     }//_____________________________________________________________________________________________ End SetMaterialSpinnersItems
+
+
+
+    private void BackClick(View view) {//____________________________________________________________________ Start BackClick
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(SetKey(view));
+        FBRPSpinnerHours.setOnKeyListener(SetKey(FBRPSpinnerHours));
+        FBRPSpinnerDay.setOnKeyListener(SetKey(FBRPSpinnerDay));
+
+
+    }//_____________________________________________________________________________________________ End BackClick
+
+
+
+
+    private View.OnKeyListener SetKey(View view){//_________________________________________________ Start SetKey
+        return new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode != 4) {
+                    return false;
+                }
+                keyCode = 0;
+                event = null;
+                MainActivity.FragmentMessage.onNext("CollectRequest");
+                return true;
+            }
+        };
+    }//_____________________________________________________________________________________________ End SetKey
+
+
+
 }

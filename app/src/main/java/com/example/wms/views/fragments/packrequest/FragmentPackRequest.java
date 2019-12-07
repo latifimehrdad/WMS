@@ -73,8 +73,8 @@ public class FragmentPackRequest extends Fragment {
 
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getChildFragmentManager(), FragmentPagerItems.with(context)
-                .add(R.string.FragmentPackRequestAddress, FragmentPackRequestAddress.class)
-                .add(R.string.FragmentPackRequestPrimery, FragmentPackRequestPrimery.class)
+                .add(R.string.FragmentPackRequestAddress, requestAddress.getClass())
+                .add(R.string.FragmentPackRequestPrimery, requestPrimery.getClass())
                 .create());
 
         FragmentPackRequestView.setAdapter(adapter);

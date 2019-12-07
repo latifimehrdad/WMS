@@ -2,6 +2,7 @@ package com.example.wms.views.fragments.callwithus;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentCallWithUsBinding;
 import com.example.wms.viewmodels.callwithus.FragmentCallWithUsViewModel;
+import com.example.wms.views.activitys.MainActivity;
 import com.example.wms.views.fragments.aboutus.FragmentAboutPrimery;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
@@ -41,6 +43,7 @@ public class FragmentCallWithUs extends Fragment {
         binding.setCallus(fragmentCallWithUsViewModel);
         View view = binding.getRoot();
         ButterKnife.bind(this, view);
+        BackClick(view);
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
 
@@ -67,7 +70,7 @@ public class FragmentCallWithUs extends Fragment {
         FragmentSupport fragmentSupport = new FragmentSupport(context);
 
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
-                getFragmentManager(), FragmentPagerItems.with(context)
+                getChildFragmentManager(), FragmentPagerItems.with(context)
                 .add(R.string.CallWithUs, fragmentCall.getClass())
                 .add(R.string.SupportApp, fragmentSupport.getClass())
                 .create());
@@ -76,6 +79,32 @@ public class FragmentCallWithUs extends Fragment {
         FragmentCallWithUsTab.setViewPager(FragmentCallWithUsView);
 
     }//_____________________________________________________________________________________________ End SetTabs
+
+
+
+    private void BackClick(View view) {//____________________________________________________________________ Start BackClick
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(SetKey(view));
+    }//_____________________________________________________________________________________________ End BackClick
+
+
+
+
+    private View.OnKeyListener SetKey(View view){//_________________________________________________ Start SetKey
+        return new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode != 4) {
+                    return false;
+                }
+                keyCode = 0;
+                event = null;
+                MainActivity.FragmentMessage.onNext("Main");
+                return true;
+            }
+        };
+    }//_____________________________________________________________________________________________ End SetKey
 
 
 }

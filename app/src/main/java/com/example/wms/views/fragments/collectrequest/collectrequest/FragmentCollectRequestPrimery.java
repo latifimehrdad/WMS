@@ -2,6 +2,7 @@ package com.example.wms.views.fragments.collectrequest.collectrequest;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,7 @@ public class FragmentCollectRequestPrimery extends Fragment {
         binding.setCollectprimery(fragmentCollectRequestPrimeryViewModel);
         View view = binding.getRoot();
         ButterKnife.bind(this, view);
+        BackClick(view);
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
 
@@ -75,6 +77,33 @@ public class FragmentCollectRequestPrimery extends Fragment {
         });
 
     }//_____________________________________________________________________________________________ End
+
+
+
+    private void BackClick(View view) {//____________________________________________________________________ Start BackClick
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(SetKey(view));
+    }//_____________________________________________________________________________________________ End BackClick
+
+
+
+
+    private View.OnKeyListener SetKey(View view){//_________________________________________________ Start SetKey
+        return new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode != 4) {
+                    return false;
+                }
+                keyCode = 0;
+                event = null;
+                MainActivity.FragmentMessage.onNext("Main");
+                return true;
+            }
+        };
+    }//_____________________________________________________________________________________________ End SetKey
+
 
 
 }

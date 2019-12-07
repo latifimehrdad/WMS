@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@id/id_circle_menu_item_image"
-        android:layout_width="@dimen/_30sdp"
-        android:layout_height="@dimen/_30sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:visibility="gone"
         />
 

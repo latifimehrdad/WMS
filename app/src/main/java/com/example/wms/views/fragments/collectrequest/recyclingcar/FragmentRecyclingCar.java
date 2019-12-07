@@ -67,7 +67,7 @@ public class FragmentRecyclingCar extends Fragment {
         FragmentCollectRequestOrders collectRequestOrders = new FragmentCollectRequestOrders(context);
 
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
-                getFragmentManager(), FragmentPagerItems.with(context)
+                getChildFragmentManager(), FragmentPagerItems.with(context)
                 .add(R.string.FragmentCollectRequestOrder, collectRequestOrders.getClass())
                 .add(R.string.FragmentCollectRequestCar, recyclingCarPrimery.getClass())
                 .create());

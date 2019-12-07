@@ -19,7 +19,7 @@ public class CircleMenuLayout extends ViewGroup
     private int mRadius;
     private static final float RADIO_DEFAULT_CHILD_DIMENSION = 1 / 3f;
     private float RADIO_DEFAULT_CENTERITEM_DIMENSION = 1 / 3f;
-    private static final float RADIO_PADDING_LAYOUT = 1 / 16f;
+    private static final float RADIO_PADDING_LAYOUT = 1 / 40f;
     private static final int FLINGABLE_VALUE = 300;
     private static final int NOCLICK_VALUE = 3;
     private int mFlingableValue = FLINGABLE_VALUE;
@@ -167,57 +167,57 @@ public class CircleMenuLayout extends ViewGroup
         float x = event.getX();
         float y = event.getY();
 
-        switch (event.getAction())
-        {
-            case MotionEvent.ACTION_DOWN:
-
-                mLastX = x;
-                mLastY = y;
-                mDownTime = System.currentTimeMillis();
-                mTmpAngle = 0;
-                if (isFling)
-                {
-                    removeCallbacks(mFlingRunnable);
-                    isFling = false;
-                    return true;
-                }
-
-                break;
-            case MotionEvent.ACTION_MOVE:
-
-                float start = getAngle(mLastX, mLastY);
-                float end = getAngle(x, y);
-                if (getQuadrant(x, y) == 1 || getQuadrant(x, y) == 4)
-                {
-                    mStartAngle += end - start;
-                    mTmpAngle += end - start;
-                } else
-                {
-                    mStartAngle += start - end;
-                    mTmpAngle += start - end;
-                }
-                requestLayout();
-
-                mLastX = x;
-                mLastY = y;
-
-                break;
-            case MotionEvent.ACTION_UP:
-                float anglePerSecond = mTmpAngle * 1000
-                        / (System.currentTimeMillis() - mDownTime);
-                if (Math.abs(anglePerSecond) > mFlingableValue && !isFling)
-                {
-                    post(mFlingRunnable = new AutoFlingRunnable(anglePerSecond));
-
-                    return true;
-                }
-                if (Math.abs(mTmpAngle) > NOCLICK_VALUE)
-                {
-                    return true;
-                }
-
-                break;
-        }
+//        switch (event.getAction())
+//        {
+//            case MotionEvent.ACTION_DOWN:
+//
+//                mLastX = x;
+//                mLastY = y;
+//                mDownTime = System.currentTimeMillis();
+//                mTmpAngle = 0;
+//                if (isFling)
+//                {
+//                    removeCallbacks(mFlingRunnable);
+//                    isFling = false;
+//                    return true;
+//                }
+//
+//                break;
+//            case MotionEvent.ACTION_MOVE:
+//
+//                float start = getAngle(mLastX, mLastY);
+//                float end = getAngle(x, y);
+//                if (getQuadrant(x, y) == 1 || getQuadrant(x, y) == 4)
+//                {
+//                    mStartAngle += end - start;
+//                    mTmpAngle += end - start;
+//                } else
+//                {
+//                    mStartAngle += start - end;
+//                    mTmpAngle += start - end;
+//                }
+//                requestLayout();
+//
+//                mLastX = x;
+//                mLastY = y;
+//
+//                break;
+//            case MotionEvent.ACTION_UP:
+//                float anglePerSecond = mTmpAngle * 1000
+//                        / (System.currentTimeMillis() - mDownTime);
+//                if (Math.abs(anglePerSecond) > mFlingableValue && !isFling)
+//                {
+//                    post(mFlingRunnable = new AutoFlingRunnable(anglePerSecond));
+//
+//                    return true;
+//                }
+//                if (Math.abs(mTmpAngle) > NOCLICK_VALUE)
+//                {
+//                    return true;
+//                }
+//
+//                break;
+//        }
 
         return super.dispatchTouchEvent(event);
     }

@@ -19,6 +19,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.cleveroad.sy.cyclemenuwidget.CycleMenuWidget;
 import com.example.wms.R;
 import com.example.wms.databinding.ActivityMainBinding;
 import com.example.wms.viewmodels.main.MainActivityViewModel;
@@ -35,6 +36,9 @@ import com.example.wms.views.fragments.packrequest.FragmentPackRequest;
 import com.example.wms.views.fragments.register.FragmentRegister;
 import com.example.wms.views.fragments.wallet.FragmentWallet;
 import com.google.android.material.navigation.NavigationView;
+import com.nightonke.boommenu.BoomButtons.HamButton;
+import com.nightonke.boommenu.BoomButtons.TextOutsideCircleButton;
+import com.nightonke.boommenu.BoomMenuButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,6 +67,15 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.MainActivityOrder)
     ImageView MainActivityOrder;
 
+    @BindView(R.id.MainMenu)
+    ImageView MainMenu;
+
+    @BindView(R.id.itemCycleMenuWidget)
+    CycleMenuWidget itemCycleMenuWidget;
+
+    @BindView(R.id.bmb)
+    BoomMenuButton bmb;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {//__________________________________________ Start onCreate
@@ -86,7 +99,115 @@ public class MainActivity extends AppCompatActivity {
         FragmentShowObserver();
         SetClicks();
         ShowFragmentHome();
+        SetMenu();
+
+        //itemCycleMenuWidget.setMenuItems(Collection<CycleMenuItem> items);
     }//_____________________________________________________________________________________________ End SetBindingView
+
+
+
+    private void SetMenu() {//______________________________________________________________________ Start SetMenu
+
+
+        HamButton.Builder FragmentPackRequestPrimery = new HamButton.Builder()
+                //.normalImageRes(R.drawable.logopackage)
+                .normalText(getResources().getString(R.string.FragmentPackRequestPrimery))
+                .subNormalText("متن تستی توضیحات")
+                .normalColor(getResources().getColor(R.color.colorAccent))
+                ;
+
+        HamButton.Builder FragmentLearnSeparation = new HamButton.Builder()
+                //.normalImageRes(R.drawable.logolearn)
+                .normalText(getResources().getString(R.string.FragmentLearnSeparation))
+                .normalColor(getResources().getColor(R.color.colorAccent))
+                ;
+
+        HamButton.Builder FragmentCollectRequst = new HamButton.Builder()
+                //.normalImageRes(R.drawable.logoar)
+                .normalText(getResources().getString(R.string.FragmentCollectRequst))
+                .subNormalText("متن تستی توضیحات")
+                .normalColor(getResources().getColor(R.color.colorAccent))
+                ;
+
+        HamButton.Builder Lottery = new HamButton.Builder()
+                //.normalImageRes(R.drawable.logolottery)
+                .normalText(getResources().getString(R.string.Lottery))
+                .normalColor(getResources().getColor(R.color.colorAccent))
+                ;
+
+        HamButton.Builder CallWithUs = new HamButton.Builder()
+                //.normalImageRes(R.drawable.ic_phone_in_talk_black_24dp)
+                .normalText(getResources().getString(R.string.CallWithUs))
+                .normalColor(getResources().getColor(R.color.colorAccent))
+                ;
+
+
+        HamButton.Builder SupportApp = new HamButton.Builder()
+                //.normalImageRes(R.drawable.ic_supervisor_account_black_24dp)
+                .normalText(getResources().getString(R.string.SupportApp))
+                .subNormalText("متن تستی توضیحات")
+                .normalColor(getResources().getColor(R.color.colorAccent))
+                ;
+
+
+
+        bmb.addBuilder(FragmentPackRequestPrimery);
+        bmb.addBuilder(FragmentLearnSeparation);
+        bmb.addBuilder(FragmentCollectRequst);
+        bmb.addBuilder(Lottery);
+        bmb.addBuilder(CallWithUs);
+        bmb.addBuilder(SupportApp);
+
+
+
+//        for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++) {
+//            HamButton.Builder builder = new HamButton.Builder()
+//                    .normalImageRes(R.drawable.ic_home_black_24dp);
+//            bmb.addBuilder(builder);
+//        }
+
+//        TextInsideCircleButton.Builder home = new TextInsideCircleButton.Builder()
+//                .normalImageRes(R.drawable.ic_home_black_24dp)
+//                .normalText(getResources().getString(R.string.Home));
+//
+//        TextInsideCircleButton.Builder call = new TextInsideCircleButton.Builder()
+//                .normalImageRes(R.drawable.ic_phone_in_talk_black_24dp)
+//                .normalText(getResources().getString(R.string.CallWithUs));
+//
+//        TextInsideCircleButton.Builder support = new TextInsideCircleButton.Builder()
+//                .normalImageRes(R.drawable.ic_supervisor_account_black_24dp)
+//                .normalText(getResources().getString(R.string.SupportApp));
+//
+//        TextInsideCircleButton.Builder support1 = new TextInsideCircleButton.Builder()
+//                .normalImageRes(R.drawable.ic_supervisor_account_black_24dp)
+//                .normalText(getResources().getString(R.string.SupportApp));
+//
+//        bmb.addBuilder(home);
+//        bmb.addBuilder(call);
+//        bmb.addBuilder(support);
+//        bmb.addBuilder(support1);
+
+
+        //itemCycleMenuWidget.setMenuRes(R.menu.drawer_view);
+//        FilterMenuLayout layout = (FilterMenuLayout) findViewById(R.id.filter_menu);
+//        FilterMenu menu = new FilterMenu.Builder(this)
+//                .addItem(R.drawable.ic_home_black_24dp)
+//                .addItem(R.drawable.ic_phone_in_talk_black_24dp)
+//                .addItem(R.drawable.ic_supervisor_account_black_24dp)
+//                .attach(layout)
+//                .withListener(new FilterMenu.OnMenuChangeListener() {
+//                    @Override
+//                    public void onMenuItemClick(View view, int position) {
+//                    }
+//                    @Override
+//                    public void onMenuCollapse() {
+//                    }
+//                    @Override
+//                    public void onMenuExpand() {
+//                    }
+//                })
+//                .build();
+    }//_____________________________________________________________________________________________ End SetMenu
 
 
     private void SetClicks() {//____________________________________________________________________ Start
@@ -105,6 +226,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        MainMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }//_____________________________________________________________________________________________ End
 

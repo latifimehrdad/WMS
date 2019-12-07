@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -178,6 +179,14 @@
         </LinearLayout>
 
 
+        <com.example.wms.views.custom.circlemenu.CustomView
+            android:id="@+id/ml"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_150sdp"
+            android:background="@color/mlHeader"
+
+            />
+
         <com.example.wms.views.custom.circlemenu.CircleMenuLayout
             android:id="@+id/id_menulayout"
             android:layout_width="match_parent"
@@ -185,6 +194,7 @@
             android:background="@drawable/main_menu"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_10sdp"
+            android:visibility="gone"
             >
 
             <RelativeLayout
