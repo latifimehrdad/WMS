@@ -16,6 +16,7 @@
         android:orientation="vertical"
         android:padding="@dimen/_10sdp"
         android:gravity="center_horizontal"
+        android:background="#F5F2F2"
         >
 
         <RelativeLayout
@@ -80,6 +81,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/fhTextAve"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="bottom"
@@ -181,42 +183,46 @@
 
         <com.example.wms.views.custom.circlemenu.CustomView
             android:id="@+id/ml"
-            android:layout_width="@dimen/_150sdp"
-            android:layout_height="@dimen/_150sdp"
-            android:background="@color/mlHeader"
-
-            />
-
-        <com.example.wms.views.custom.circlemenu.CircleMenuLayout
-            android:id="@+id/id_menulayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/main_menu"
+            android:background="@color/mlHeader"
+            android:visibility="gone"
+            />
+
+
+        <RelativeLayout
+            android:id="@+id/test"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_10sdp"
-            android:visibility="gone"
             >
 
-            <RelativeLayout
-                android:id="@id/id_circle_menu_item_center"
+            <com.naylalabs.semiradialmenu.RadialMenuView
+                android:id="@+id/radial_menu_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                />
+
+            <Button
+                android:id="@+id/btn"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:visibility="gone"
+                android:text="menu"/>
 
-                <ImageView
-                    android:layout_width="@dimen/_50sdp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/turnplate_center_unlogin" />
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/piechart_1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+            </com.github.mikephil.charting.charts.PieChart>
 
-                <ImageView
-                    android:layout_width="@dimen/_60sdp"
-                    android:layout_height="@dimen/_60sdp"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/turnplate_mask_unlogin_normal" />
 
-            </RelativeLayout>
-
-        </com.example.wms.views.custom.circlemenu.CircleMenuLayout>
+        </RelativeLayout>
 
 
 

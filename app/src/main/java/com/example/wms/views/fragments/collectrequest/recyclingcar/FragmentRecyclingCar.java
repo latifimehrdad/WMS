@@ -74,6 +74,7 @@ public class FragmentRecyclingCar extends Fragment {
 
         FragmentRecyclingView.setAdapter(adapter);
         FragmentRecyclingTab.setViewPager(FragmentRecyclingView);
+        FragmentRecyclingView.setCurrentItem(1);
 
     }//_____________________________________________________________________________________________ End SetTabs
 

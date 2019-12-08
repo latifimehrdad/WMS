@@ -71,6 +71,7 @@ public class FragmentCollectRequest extends Fragment {
 
         FragmentCollectView.setAdapter(adapter);
         FragmentCollectTab.setViewPager(FragmentCollectView);
+        FragmentCollectView.setCurrentItem(1);
 
     }//_____________________________________________________________________________________________ End SetTabs
 

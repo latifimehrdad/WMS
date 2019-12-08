@@ -83,6 +83,7 @@ public class FragmentLottery extends Fragment {
 
         FragmentLotteryView.setAdapter(adapter);
         FragmentLotteryTab.setViewPager(FragmentLotteryView);
+        FragmentLotteryView.setCurrentItem(2);
 
     }//_____________________________________________________________________________________________ End SetTabs
 

@@ -79,6 +79,7 @@ public class FragmentPackRequest extends Fragment {
 
         FragmentPackRequestView.setAdapter(adapter);
         FragmentPackRequestTab.setViewPager(FragmentPackRequestView);
+        FragmentPackRequestView.setCurrentItem(1);
 
 
     }//_____________________________________________________________________________________________ End SetTabs

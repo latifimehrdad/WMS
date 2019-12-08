@@ -6,6 +6,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -64,6 +65,25 @@ public class FragmentLearnItems extends Fragment {
     @BindView(R.id.FLINonRecyclableExpand)
     ExpandableLayout FLINonRecyclableExpand;
 
+    @BindView(R.id.fliPlacticImage)
+    ImageView fliPlacticImage;
+
+    @BindView(R.id.fliMetalImage)
+    ImageView fliMetalImage;
+
+    @BindView(R.id.fliGlassImage)
+    ImageView fliGlassImage;
+
+    @BindView(R.id.fliElectronicImage)
+    ImageView fliElectronicImage;
+
+    @BindView(R.id.fliRecyclableImage)
+    ImageView fliRecyclableImage;
+
+    @BindView(R.id.fliPaperImage)
+    ImageView fliPaperImage;
+
+
 
     @Nullable
     @Override
@@ -103,12 +123,14 @@ public class FragmentLearnItems extends Fragment {
         FLIPlasticExpandClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (FLIPlasticExpand.isExpanded())
+                if (FLIPlasticExpand.isExpanded()) {
                     FLIPlasticExpand.collapse();
+                    fliPlacticImage.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+                }
                 else {
                     CollapseExpandableLayouts();
                     FLIPlasticExpand.expand();
-
+                    fliPlacticImage.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
                 }
             }
         });
@@ -116,11 +138,14 @@ public class FragmentLearnItems extends Fragment {
         FLIMetalExpandClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (FLIMetalExpand.isExpanded())
+                if (FLIMetalExpand.isExpanded()) {
                     FLIMetalExpand.collapse();
+                    fliMetalImage.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+                }
                 else {
                     CollapseExpandableLayouts();
                     FLIMetalExpand.expand();
+                    fliMetalImage.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
                 }
 
             }
@@ -129,11 +154,14 @@ public class FragmentLearnItems extends Fragment {
         FLIGlassExpandClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (FLIGlassExpand.isExpanded())
+                if (FLIGlassExpand.isExpanded()) {
                     FLIGlassExpand.collapse();
+                    fliGlassImage.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+                }
                 else {
                     CollapseExpandableLayouts();
                     FLIGlassExpand.expand();
+                    fliGlassImage.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
                 }
             }
         });
@@ -141,11 +169,14 @@ public class FragmentLearnItems extends Fragment {
         FLIPaperExpandClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (FLIPaperExpand.isExpanded())
+                if (FLIPaperExpand.isExpanded()) {
                     FLIPaperExpand.collapse();
+                    fliPaperImage.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+                }
                 else {
                     CollapseExpandableLayouts();
                     FLIPaperExpand.expand();
+                    fliPaperImage.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
                 }
             }
         });
@@ -153,11 +184,14 @@ public class FragmentLearnItems extends Fragment {
         FLIElectronicsExpandClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (FLIElectronicsExpand.isExpanded())
+                if (FLIElectronicsExpand.isExpanded()) {
                     FLIElectronicsExpand.collapse();
+                    fliElectronicImage.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+                }
                 else {
                     CollapseExpandableLayouts();
                     FLIElectronicsExpand.expand();
+                    fliElectronicImage.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
                 }
             }
         });
@@ -165,11 +199,14 @@ public class FragmentLearnItems extends Fragment {
         FLINonRecyclableExpandClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (FLINonRecyclableExpand.isExpanded())
+                if (FLINonRecyclableExpand.isExpanded()) {
                     FLINonRecyclableExpand.collapse();
+                    fliRecyclableImage.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+                }
                 else {
                     CollapseExpandableLayouts();
                     FLINonRecyclableExpand.expand();
+                    fliRecyclableImage.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
                 }
             }
         });
@@ -184,6 +221,14 @@ public class FragmentLearnItems extends Fragment {
         FLIPaperExpand.collapse();
         FLIElectronicsExpand.collapse();
         FLINonRecyclableExpand.collapse();
+
+        fliPlacticImage.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+        fliMetalImage.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+        fliGlassImage.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+        fliElectronicImage.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+        fliRecyclableImage.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+        fliPaperImage.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+
     }//_____________________________________________________________________________________________ End CollapseExpandableLayouts
 
 

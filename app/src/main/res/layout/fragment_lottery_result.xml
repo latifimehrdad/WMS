@@ -37,10 +37,14 @@
                     android:textSize="@dimen/_10sdp"
                     android:text="@string/Total"
                     />
-                <ImageView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_get_app_black_24dp"
+                    android:layout_height="1dp"
+                    android:background="@color/mlFooter"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
                     />
                 <TextView
                     android:layout_width="match_parent"
@@ -69,10 +73,14 @@
                     android:textSize="@dimen/_10sdp"
                     android:text="@string/Car"
                     />
-                <ImageView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_get_app_black_24dp"
+                    android:layout_height="1dp"
+                    android:background="@color/mlFooter"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
                     />
                 <TextView
                     android:layout_width="match_parent"
@@ -101,10 +109,14 @@
                     android:textSize="@dimen/_10sdp"
                     android:text="@string/Booth"
                     />
-                <ImageView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_get_app_black_24dp"
+                    android:layout_height="1dp"
+                    android:background="@color/mlFooter"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
                     />
                 <TextView
                     android:layout_width="match_parent"
@@ -133,10 +145,14 @@
                     android:textSize="@dimen/_10sdp"
                     android:text="@string/FriendsDefinition"
                     />
-                <ImageView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_get_app_black_24dp"
+                    android:layout_height="1dp"
+                    android:background="@color/mlFooter"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
                     />
                 <TextView
                     android:layout_width="match_parent"
@@ -199,21 +215,24 @@
                 android:gravity="right|top"
                 >
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="right|top"
-                    android:text="-------------------------------------"
-                    android:textColor="@color/mlWhite"
-                    android:textSize="@dimen/_12sdp"
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/mlFooter"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+
                     />
 
                 <ImageView
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
-                    android:layout_marginRight="@dimen/_5sdp"
-                    android:src="@drawable/ic_get_app_black_24dp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:src="@drawable/ic_arrow_drop_down_black_24dp"
                     />
+
 
 
             </LinearLayout>

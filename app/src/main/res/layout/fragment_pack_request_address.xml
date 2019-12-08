@@ -7,6 +7,7 @@
             name="requstaddress"
             type="com.example.wms.viewmodels.packrequest.FragmentPackRequestAddressViewModel" />
     </data>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -34,10 +35,11 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:minHeight="@dimen/_30sdp"
                 android:maxLines="2"
                 android:text="کرج - گوهرداشت"
                 android:textSize="@dimen/_10sdp"
-                android:padding="@dimen/_2sdp"
+                android:padding="@dimen/_5sdp"
                 />
 
             <ImageView
@@ -49,100 +51,110 @@
 
         </LinearLayout>
 
-        <LinearLayout
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            >
+            android:layout_weight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/_10sdp"
-                android:paddingRight="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingBottom="@dimen/_20sdp"
                 >
 
-                <com.jaredrummler.materialspinner.MaterialSpinner
-                    android:id="@+id/FPRAMaterialSpinnerTypeCount"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_weight="1"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:gravity="right"
-                    android:prompt="@string/City_Prompt"
-                    app:ms_background_color="@color/mlEdit"
-                    app:ms_text_color="@color/mlBlack"
-                    android:layout_marginRight="@dimen/_10sdp"
-                    />
+                    >
 
-                <com.jaredrummler.materialspinner.MaterialSpinner
-                    android:id="@+id/FPRAMaterialSpinnerType"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_weight="1"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:gravity="right"
-                    android:prompt="@string/City_Prompt"
-                    app:ms_background_color="@color/mlEdit"
-                    app:ms_text_color="@color/mlBlack"
-                    />
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/FPRAMaterialSpinnerTypeCount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="right"
+                        android:prompt="@string/City_Prompt"
+                        app:ms_background_color="@color/mlEdit"
+                        app:ms_text_color="@color/mlBlack"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        />
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/FPRAMaterialSpinnerType"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="right"
+                        android:prompt="@string/City_Prompt"
+                        app:ms_background_color="@color/mlEdit"
+                        app:ms_text_color="@color/mlBlack"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    >
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/FPRAMaterialSpinnerCount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="right"
+                        android:prompt="@string/City_Prompt"
+                        app:ms_background_color="@color/mlEdit"
+                        app:ms_text_color="@color/mlBlack"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        />
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/FPRAMaterialSpinnerUser"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="right"
+                        android:prompt="@string/City_Prompt"
+                        app:ms_background_color="@color/mlEdit"
+                        app:ms_text_color="@color/mlBlack"
+                        />
+
+                </LinearLayout>
+
+                <Button
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:background="@drawable/save_info_button"
+                    android:text="@string/Save"
+                    android:textColor="@color/mlWhite"
+                    android:textSize="@dimen/_12sdp" />
+
+
+
+
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/_10sdp"
-                android:paddingRight="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                >
-
-                <com.jaredrummler.materialspinner.MaterialSpinner
-                    android:id="@+id/FPRAMaterialSpinnerCount"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_weight="1"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:gravity="right"
-                    android:prompt="@string/City_Prompt"
-                    app:ms_background_color="@color/mlEdit"
-                    app:ms_text_color="@color/mlBlack"
-                    android:layout_marginRight="@dimen/_10sdp"
-                    />
-
-                <com.jaredrummler.materialspinner.MaterialSpinner
-                    android:id="@+id/FPRAMaterialSpinnerUser"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_weight="1"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:gravity="right"
-                    android:prompt="@string/City_Prompt"
-                    app:ms_background_color="@color/mlEdit"
-                    app:ms_text_color="@color/mlBlack"
-                    />
-
-            </LinearLayout>
-
-            <Button
-                android:layout_width="@dimen/_100sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:background="@drawable/save_info_button"
-                android:text="@string/Save"
-                android:textColor="@color/mlWhite"
-                android:textSize="@dimen/_12sdp" />
+        </ScrollView>
 
 
-
-
-
-        </LinearLayout>
 
     </LinearLayout>
 

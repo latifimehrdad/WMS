@@ -37,6 +37,7 @@ import com.example.wms.views.fragments.register.FragmentRegister;
 import com.example.wms.views.fragments.wallet.FragmentWallet;
 import com.google.android.material.navigation.NavigationView;
 import com.nightonke.boommenu.BoomButtons.HamButton;
+import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomButtons.TextOutsideCircleButton;
 import com.nightonke.boommenu.BoomMenuButton;
 
@@ -114,12 +115,24 @@ public class MainActivity extends AppCompatActivity {
                 .normalText(getResources().getString(R.string.FragmentPackRequestPrimery))
                 .subNormalText("متن تستی توضیحات")
                 .normalColor(getResources().getColor(R.color.colorAccent))
+                .listener(new OnBMClickListener() {
+                    @Override
+                    public void onBoomButtonClick(int index) {
+                        MainActivity.this.ShowFragmentPAckRequest();
+                    }
+                })
                 ;
 
         HamButton.Builder FragmentLearnSeparation = new HamButton.Builder()
                 //.normalImageRes(R.drawable.logolearn)
                 .normalText(getResources().getString(R.string.FragmentLearnSeparation))
                 .normalColor(getResources().getColor(R.color.colorAccent))
+                .listener(new OnBMClickListener() {
+                    @Override
+                    public void onBoomButtonClick(int index) {
+                        MainActivity.this.ShowFragmentLearn();
+                    }
+                })
                 ;
 
         HamButton.Builder FragmentCollectRequst = new HamButton.Builder()
@@ -127,18 +140,36 @@ public class MainActivity extends AppCompatActivity {
                 .normalText(getResources().getString(R.string.FragmentCollectRequst))
                 .subNormalText("متن تستی توضیحات")
                 .normalColor(getResources().getColor(R.color.colorAccent))
+                .listener(new OnBMClickListener() {
+                    @Override
+                    public void onBoomButtonClick(int index) {
+                        MainActivity.this.ShowFragmentCollectRequest();
+                    }
+                })
                 ;
 
         HamButton.Builder Lottery = new HamButton.Builder()
                 //.normalImageRes(R.drawable.logolottery)
                 .normalText(getResources().getString(R.string.Lottery))
                 .normalColor(getResources().getColor(R.color.colorAccent))
+                .listener(new OnBMClickListener() {
+                    @Override
+                    public void onBoomButtonClick(int index) {
+                        MainActivity.this.ShowFragmentLottery();
+                    }
+                })
                 ;
 
         HamButton.Builder CallWithUs = new HamButton.Builder()
                 //.normalImageRes(R.drawable.ic_phone_in_talk_black_24dp)
                 .normalText(getResources().getString(R.string.CallWithUs))
                 .normalColor(getResources().getColor(R.color.colorAccent))
+                .listener(new OnBMClickListener() {
+                    @Override
+                    public void onBoomButtonClick(int index) {
+                        MainActivity.this.ShowFragmentCall();
+                    }
+                })
                 ;
 
 
@@ -147,6 +178,12 @@ public class MainActivity extends AppCompatActivity {
                 .normalText(getResources().getString(R.string.SupportApp))
                 .subNormalText("متن تستی توضیحات")
                 .normalColor(getResources().getColor(R.color.colorAccent))
+                .listener(new OnBMClickListener() {
+                    @Override
+                    public void onBoomButtonClick(int index) {
+                        MainActivity.this.ShowFragmentAbout();
+                    }
+                })
                 ;
 
 

@@ -82,6 +82,7 @@ public class FragmentLearn extends Fragment {
 
         FragmentLearnView.setAdapter(adapter);
         FragmentLearnTab.setViewPager(FragmentLearnView);
+        FragmentLearnView.setCurrentItem(1);
 
     }//_____________________________________________________________________________________________ End SetTabs
 

@@ -1,19 +1,19 @@
 package com.example.wms.views.fragments.wallet;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentWalletBinding;
 import com.example.wms.viewmodels.wallet.FragmentWalletViewModel;
+import com.example.wms.views.activitys.MainActivity;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -23,7 +23,6 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-import com.github.mikephil.charting.model.GradientColor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +49,7 @@ public class FragmentWallet extends Fragment {
         binding.setWallet(fragmentWalletViewModel);
         View view = binding.getRoot();
         ButterKnife.bind(this, view);
+        BackClick(view);
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
 
@@ -141,8 +141,6 @@ public class FragmentWallet extends Fragment {
 
     private void setData(int count, float range) {
 
-        float start = 1f;
-
         ArrayList<BarEntry> values = new ArrayList<>();
         values.add(new BarEntry(0,1));
         values.add(new BarEntry(1,2));
@@ -171,36 +169,70 @@ public class FragmentWallet extends Fragment {
 
             set1.setDrawIcons(false);
 
-            int startColor1 = ContextCompat.getColor(context, android.R.color.holo_orange_light);
-            int startColor2 = ContextCompat.getColor(context, android.R.color.holo_blue_light);
-            int startColor3 = ContextCompat.getColor(context, android.R.color.holo_orange_light);
-            int startColor4 = ContextCompat.getColor(context, android.R.color.holo_green_light);
-            int startColor5 = ContextCompat.getColor(context, android.R.color.holo_red_light);
-            int endColor1 = ContextCompat.getColor(context, android.R.color.holo_blue_dark);
-            int endColor2 = ContextCompat.getColor(context, android.R.color.holo_purple);
-            int endColor3 = ContextCompat.getColor(context, android.R.color.holo_green_dark);
-            int endColor4 = ContextCompat.getColor(context, android.R.color.holo_red_dark);
-            int endColor5 = ContextCompat.getColor(context, android.R.color.holo_orange_dark);
+            List<Integer> colors = new ArrayList<>();
+            colors.add(context.getResources().getColor(R.color.mlHomeMaxScore));
+            colors.add(context.getResources().getColor(R.color.mlHomeAveScore));
 
-            List<GradientColor> gradientColors = new ArrayList<>();
-            gradientColors.add(new GradientColor(startColor1, endColor1));
-            gradientColors.add(new GradientColor(startColor2, endColor2));
-            gradientColors.add(new GradientColor(startColor3, endColor3));
-            gradientColors.add(new GradientColor(startColor4, endColor4));
-            gradientColors.add(new GradientColor(startColor5, endColor5));
+            set1.setColors(colors);
 
-            set1.setGradientColors(gradientColors);
+//            int startColor1 = ContextCompat.getColor(context, android.R.color.holo_orange_light);
+//            int startColor2 = ContextCompat.getColor(context, android.R.color.holo_blue_light);
+//            int startColor3 = ContextCompat.getColor(context, android.R.color.holo_orange_light);
+//            int startColor4 = ContextCompat.getColor(context, android.R.color.holo_green_light);
+//            int startColor5 = ContextCompat.getColor(context, android.R.color.holo_red_light);
+//            int endColor1 = ContextCompat.getColor(context, android.R.color.holo_blue_dark);
+//            int endColor2 = ContextCompat.getColor(context, android.R.color.holo_purple);
+//            int endColor3 = ContextCompat.getColor(context, android.R.color.holo_green_dark);
+//            int endColor4 = ContextCompat.getColor(context, android.R.color.holo_red_dark);
+//            int endColor5 = ContextCompat.getColor(context, android.R.color.holo_orange_dark);
+//
+//            List<GradientColor> gradientColors = new ArrayList<>();
+//            gradientColors.add(new GradientColor(startColor1, endColor1));
+//            gradientColors.add(new GradientColor(startColor2, endColor2));
+//            gradientColors.add(new GradientColor(startColor3, endColor3));
+//            gradientColors.add(new GradientColor(startColor4, endColor4));
+//            gradientColors.add(new GradientColor(startColor5, endColor5));
+//
+//            set1.setGradientColors(gradientColors);
+
 
             ArrayList<IBarDataSet> dataSets = new ArrayList<>();
             dataSets.add(set1);
 
             BarData data = new BarData(dataSets);
             data.setValueTextSize(10f);
-            data.setBarWidth(0.9f);
+            data.setBarWidth(0.5f);
 
             chart.setData(data);
         }
     }
+
+
+    private void BackClick(View view) {//____________________________________________________________________ Start BackClick
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(SetKey(view));
+    }//_____________________________________________________________________________________________ End BackClick
+
+
+
+
+    private View.OnKeyListener SetKey(View view){//_________________________________________________ Start SetKey
+        return new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode != 4) {
+                    return false;
+                }
+                keyCode = 0;
+                event = null;
+                MainActivity.FragmentMessage.onNext("Main");
+                return true;
+            }
+        };
+    }//_____________________________________________________________________________________________ End SetKey
+
+
 
 
 }

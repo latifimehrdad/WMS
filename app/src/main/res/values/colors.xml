@@ -11,8 +11,8 @@
     <color name="mlEdit">#F3EEEE</color>
     <color name="mlTextRegisterCode">#FF0000</color>
     <color name="mlTextRegisterCodeMessage">#8CC484</color>
-    <color name="mlHomeMaxScore">#065381</color>
-    <color name="mlHomeAveScore">#E34856</color>
+    <color name="mlHomeMaxScore">#02639B</color>
+    <color name="mlHomeAveScore">#E7414F</color>
     <color name="mlCollectLeft1">#7DE314</color>
     <color name="mlCollectLeft2">#4A8F03</color>
     <color name="mlCollectRight1">#EF7F2F</color>
@@ -20,5 +20,8 @@
     <color name="mlCollectItems">#8CC484</color>
     <color name="mlCollectBooth">#5B5B5B</color>
     <color name="mlMenuBackTrans">#CC000000</color>
+
+
+
 
 </resources>

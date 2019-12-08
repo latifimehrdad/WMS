@@ -51,20 +51,23 @@
                         android:gravity="right|top"
                         >
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="right|top"
-                            android:text="-------------------------------------"
-                            android:textColor="@color/mlWhite"
-                            android:textSize="@dimen/_12sdp"
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="1"
+                            android:background="@color/mlFooter"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:layout_marginBottom="@dimen/_2sdp"
+                            android:layout_marginRight="@dimen/_5sdp"
+
                             />
 
                         <ImageView
+                            android:id="@+id/fliPlacticImage"
                             android:layout_width="@dimen/_20sdp"
                             android:layout_height="@dimen/_20sdp"
-                            android:layout_marginRight="@dimen/_5sdp"
-                            android:src="@drawable/ic_get_app_black_24dp"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:src="@drawable/ic_arrow_drop_down_black_24dp"
                             />
 
 
@@ -122,20 +125,23 @@
                         android:gravity="right|top"
                         >
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="right|top"
-                            android:text="-------------------------------------"
-                            android:textColor="@color/mlWhite"
-                            android:textSize="@dimen/_12sdp"
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="1"
+                            android:background="@color/mlFooter"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:layout_marginBottom="@dimen/_2sdp"
+                            android:layout_marginRight="@dimen/_5sdp"
+
                             />
 
                         <ImageView
+                            android:id="@+id/fliMetalImage"
                             android:layout_width="@dimen/_20sdp"
                             android:layout_height="@dimen/_20sdp"
-                            android:layout_marginRight="@dimen/_5sdp"
-                            android:src="@drawable/ic_get_app_black_24dp"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:src="@drawable/ic_arrow_drop_down_black_24dp"
                             />
 
 
@@ -193,20 +199,23 @@
                         android:gravity="right|top"
                         >
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="right|top"
-                            android:text="-------------------------------------"
-                            android:textColor="@color/mlWhite"
-                            android:textSize="@dimen/_12sdp"
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="1"
+                            android:background="@color/mlFooter"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:layout_marginBottom="@dimen/_2sdp"
+                            android:layout_marginRight="@dimen/_5sdp"
+
                             />
 
                         <ImageView
+                            android:id="@+id/fliGlassImage"
                             android:layout_width="@dimen/_20sdp"
                             android:layout_height="@dimen/_20sdp"
-                            android:layout_marginRight="@dimen/_5sdp"
-                            android:src="@drawable/ic_get_app_black_24dp"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:src="@drawable/ic_arrow_drop_down_black_24dp"
                             />
 
 
@@ -264,20 +273,23 @@
                         android:gravity="right|top"
                         >
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="right|top"
-                            android:text="-------------------------------------"
-                            android:textColor="@color/mlWhite"
-                            android:textSize="@dimen/_12sdp"
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="1"
+                            android:background="@color/mlFooter"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:layout_marginBottom="@dimen/_2sdp"
+                            android:layout_marginRight="@dimen/_5sdp"
+
                             />
 
                         <ImageView
+                            android:id="@+id/fliPaperImage"
                             android:layout_width="@dimen/_20sdp"
                             android:layout_height="@dimen/_20sdp"
-                            android:layout_marginRight="@dimen/_5sdp"
-                            android:src="@drawable/ic_get_app_black_24dp"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:src="@drawable/ic_arrow_drop_down_black_24dp"
                             />
 
 
@@ -335,20 +347,23 @@
                         android:gravity="right|top"
                         >
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="right|top"
-                            android:text="-------------------------------------"
-                            android:textColor="@color/mlWhite"
-                            android:textSize="@dimen/_12sdp"
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="1"
+                            android:background="@color/mlFooter"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:layout_marginBottom="@dimen/_2sdp"
+                            android:layout_marginRight="@dimen/_5sdp"
+
                             />
 
                         <ImageView
+                            android:id="@+id/fliElectronicImage"
                             android:layout_width="@dimen/_20sdp"
                             android:layout_height="@dimen/_20sdp"
-                            android:layout_marginRight="@dimen/_5sdp"
-                            android:src="@drawable/ic_get_app_black_24dp"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:src="@drawable/ic_arrow_drop_down_black_24dp"
                             />
 
 
@@ -406,20 +421,23 @@
                         android:gravity="right|top"
                         >
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="right|top"
-                            android:text="-------------------------------------"
-                            android:textColor="@color/mlWhite"
-                            android:textSize="@dimen/_12sdp"
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="1"
+                            android:background="@color/mlFooter"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:layout_marginBottom="@dimen/_2sdp"
+                            android:layout_marginRight="@dimen/_5sdp"
+
                             />
 
                         <ImageView
+                            android:id="@+id/fliRecyclableImage"
                             android:layout_width="@dimen/_20sdp"
                             android:layout_height="@dimen/_20sdp"
-                            android:layout_marginRight="@dimen/_5sdp"
-                            android:src="@drawable/ic_get_app_black_24dp"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:src="@drawable/ic_arrow_drop_down_black_24dp"
                             />
 
 

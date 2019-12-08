@@ -73,6 +73,7 @@ public class FragmentBoothReceive extends Fragment {
 
         FragmentBoothView.setAdapter(adapter);
         FragmentBoothTab.setViewPager(FragmentBoothView);
+        FragmentBoothView.setCurrentItem(1);
 
     }//_____________________________________________________________________________________________ End SetTabs
 
