@@ -28,7 +28,6 @@
         app:bmb_normalColor="@color/mlHeader"
         app:bmb_dimColor="@color/mlMenuBackTrans"
         app:bmb_buttonRadius="@dimen/_13sdp"
-        app:bmb_use3DTransformAnimation="true"
         />
 
 

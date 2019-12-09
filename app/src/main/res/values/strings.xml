@@ -55,7 +55,8 @@
     <string name="FragmentCollectRequestTenScore">10 امتیاز</string>
     <string name="FragmentCollectRequestCar">تحویل به خودرو بازیافت</string>
     <string name="FragmentCollectRequestBooth">تحویل به غرفه بازیافت</string>
-    
+
+    <string name="FragmentSeparation">تفکیک پسماند</string>
     <string name="FragmentLearnSeparation">آموزش تفکیک پسماند</string>
     <string name="FragmentLearnItems">ریز اقلام بازیافتی</string>
 

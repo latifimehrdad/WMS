@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -191,36 +192,81 @@
 
 
         <RelativeLayout
-            android:id="@+id/test"
+            android:id="@+id/footerprimery"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_10sdp"
+            android:gravity="center"
             >
 
-            <com.naylalabs.semiradialmenu.RadialMenuView
-                android:id="@+id/radial_menu_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                />
+            <RelativeLayout
+                android:id="@+id/footer"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp">
 
-            <Button
-                android:id="@+id/btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
-                android:visibility="gone"
-                android:text="menu"/>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/logomenu"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    />
 
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/piechart_1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
-            </com.github.mikephil.charting.charts.PieChart>
+                <TextView
+                    android:id="@+id/footerup"
+                    android:layout_width="@dimen/_10sdp"
+                    android:layout_height="@dimen/_10sdp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/mlWhite"
+                    android:textSize="@dimen/_11sdp"
+                    android:text="@string/FragmentPackRequestPrimery"
+                    android:gravity="center"
+                    />
 
+
+                <TextView
+                    android:id="@+id/footerdown"
+                    android:layout_width="@dimen/_10sdp"
+                    android:layout_height="@dimen/_10sdp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/mlWhite"
+                    android:textSize="@dimen/_11sdp"
+                    android:text="@string/FragmentCollectRequst"
+                    android:gravity="center"
+                    />
+
+
+                <com.example.wms.views.custom.textview.VerticalTextView
+                    android:id="@+id/footerleft"
+                    android:layout_width="@dimen/_10sdp"
+                    android:layout_height="@dimen/_10sdp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/Lottery"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/_11sdp"
+                    app:direction="downtoup"
+                    android:gravity="center"
+                    />
+
+                <com.example.wms.views.custom.textview.VerticalTextView
+                    android:id="@+id/footerright"
+                    android:layout_width="@dimen/_10sdp"
+                    android:layout_height="@dimen/_10sdp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/FragmentSeparation"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/_11sdp"
+                    app:direction="downtoup"
+                    android:gravity="center"
+                    />
+
+
+            </RelativeLayout>
 
         </RelativeLayout>
 
