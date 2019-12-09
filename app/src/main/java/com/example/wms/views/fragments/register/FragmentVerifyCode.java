@@ -2,13 +2,18 @@ package com.example.wms.views.fragments.register;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.RotateAnimation;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
@@ -45,6 +50,13 @@ public class FragmentVerifyCode extends Fragment {
     @BindView(R.id.VerifyCode6)
     EditText VerifyCode6;
 
+    @BindView(R.id.test2)
+    LinearLayout test2;
+
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,7 +82,35 @@ public class FragmentVerifyCode extends Fragment {
         VerifyCode1.requestFocus();
         SetBackVerifyCode();
         SetTextChangeListener();
+        progressBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                set();
+            }
+        });
+
     }//_____________________________________________________________________________________________ End onStart
+
+
+
+    private void set()
+    {
+        progressBar.setMax(360);
+        progressBar.setProgress(180);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setProgress(progressBar.getProgress() - 1);
+                if(progressBar.getProgress() > 0)
+                    handler.postDelayed(this, 90);
+            }
+        },90);
+        RotateAnimation ranim = (RotateAnimation) AnimationUtils.loadAnimation(context, R.anim.rotatemenu);
+        ranim.setFillAfter(true); //For the textview to remain at the same place after the rotation
+        test2.setAnimation(ranim);
+        test2.setVisibility(View.VISIBLE);
+    }
 
 
     private void SetTextChangeListener() {//________________________________________________________ Start SetTextChangeListener
