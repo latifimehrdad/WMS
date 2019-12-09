@@ -85,11 +85,13 @@ public class FragmentRecyclingCarPrimery extends Fragment {
         return new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                if (event.getAction() != KeyEvent.ACTION_DOWN)
+                    return true;
+
                 if (keyCode != 4) {
                     return false;
                 }
-                keyCode = 0;
-                event = null;
                 MainActivity.FragmentMessage.onNext("CollectRequest");
                 return true;
             }

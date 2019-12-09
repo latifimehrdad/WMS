@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="phonenumber"
+            type="com.example.wms.viewmodels.register.FragmentSendPhoneNumberViewModel" />
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        >
+
+        <ImageView
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:src="@drawable/ic_phone_in_talk_black"
+            android:background="@drawable/layout_circle_border_green"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:textColor="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:textSize="@dimen/_12sdp"
+            android:text="@string/HeyWhatsPhoneNumber"
+            />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:textColor="@color/mlHeader"
+            android:gravity="center"
+            android:textSize="@dimen/_10sdp"
+            android:text="@string/EnterPhoneNumber"
+            android:maxLines="2"
+            />
+
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_30sdp"
+            android:layout_marginRight="@dimen/_30sdp"
+            android:background="@drawable/edit_test_background"
+            android:hint="@string/MobileNumber"
+            android:inputType="number"
+            android:padding="@dimen/_2sdp"
+            android:textColor="@color/mlBlack"
+            android:textSize="@dimen/_12sdp"
+            android:gravity="center"
+            />
+
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:background="@drawable/save_info_button"
+            android:text="@string/GetCode"
+            android:textColor="@color/mlWhite"
+            android:textSize="@dimen/_13sdp" />
+
+
+
+    </LinearLayout>
+
+</layout>

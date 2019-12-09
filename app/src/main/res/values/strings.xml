@@ -125,6 +125,11 @@
     <string name="Description">توضیحات</string>
     <string name="Home">صفحه اصلی</string>
     <string name="Letsnotthrowawaythefuture">آینده را دور نریزیم</string>
-"
+
+    <string name="HeyWhatsPhoneNumber">سلام، شماره تلفن همراه شما چند است؟</string>
+    <string name="EnterPhoneNumber">"شماره تلفن همراه خود را در قسمت زیر وارد کنید \n و کد فعال سازی را دریافت کنید"</string>
+    <string name="GetCode">دریافت کد</string>
+    <string name="VerifyAccount">تایید حساب کاربری</string>
+    <string name="VerifyCode">"لطفا 6 عدد کد فعال سازی  \n را وارد نمایید"</string>
 
 </resources>

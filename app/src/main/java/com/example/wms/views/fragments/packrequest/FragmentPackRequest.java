@@ -28,6 +28,8 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.example.wms.utility.StaticFunctions.SetKey;
+
 
 public class FragmentPackRequest extends Fragment {
 
@@ -91,24 +93,6 @@ public class FragmentPackRequest extends Fragment {
         view.requestFocus();
         view.setOnKeyListener(SetKey(view));
     }//_____________________________________________________________________________________________ End BackClick
-
-
-
-
-    private View.OnKeyListener SetKey(View view){//_________________________________________________ Start SetKey
-        return new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode != 4) {
-                    return false;
-                }
-                keyCode = 0;
-                event = null;
-                MainActivity.FragmentMessage.onNext("Main");
-                return true;
-            }
-        };
-    }//_____________________________________________________________________________________________ End SetKey
 
 
 

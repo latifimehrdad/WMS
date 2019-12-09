@@ -20,6 +20,8 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.example.wms.utility.StaticFunctions.SetKey;
+
 public class FragmentSupport extends Fragment {
 
     private Context context;
@@ -75,23 +77,6 @@ public class FragmentSupport extends Fragment {
 
     }//_____________________________________________________________________________________________ End BackClick
 
-
-
-
-    private View.OnKeyListener SetKey(View view){//_________________________________________________ Start SetKey
-        return new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode != 4) {
-                    return false;
-                }
-                keyCode = 0;
-                event = null;
-                MainActivity.FragmentMessage.onNext("Main");
-                return true;
-            }
-        };
-    }//_____________________________________________________________________________________________ End SetKey
 
 
 }

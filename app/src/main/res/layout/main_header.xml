@@ -28,7 +28,7 @@
         app:bmb_buttonPlaceEnum="buttonPlace_ham_6"
         app:bmb_normalColor="@color/mlMenuBack"
         app:bmb_dimColor="@color/mlMenuBackTrans"
-        app:bmb_buttonRadius="@dimen/_13sdp"
+        app:bmb_buttonRadius="@dimen/_18sdp"
         />
 
 

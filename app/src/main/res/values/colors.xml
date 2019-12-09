@@ -21,7 +21,8 @@
     <color name="mlCollectBooth">#5B5B5B</color>
     <color name="mlMenuBackTrans">#CC252525</color>
     <color name="mlMenuBack">#4E4E4E</color>
-
+    <color name="mlVerifyCodeIndex">#99FFFFFF</color>
+    <color name="mlVerifyCodeEmpty">#4D313131</color>
 
 
 
