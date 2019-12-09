@@ -94,15 +94,17 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right|center_vertical"
-                    android:layoutDirection="rtl"
                     >
 
-                    <ImageView
-                        android:layout_width="@dimen/_40sdp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:padding="@dimen/_2sdp"
-                        android:src="@drawable/logocar"
-                        android:tint="@color/colorPrimary"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/mlHeader"
+                        android:text="@string/KGr"
+                        android:gravity="center"
+                        android:textSize="@dimen/_9sdp"
+                        android:layout_marginLeft="@dimen/_2sdp"
+                        android:layout_marginRight="@dimen/_5sdp"
                         />
 
                     <LinearLayout
@@ -125,16 +127,17 @@
 
                     </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:textColor="@color/mlHeader"
-                        android:text="@string/KGr"
-                        android:gravity="center"
-                        android:textSize="@dimen/_9sdp"
-                        android:layout_marginLeft="@dimen/_2sdp"
-                        android:layout_marginRight="@dimen/_5sdp"
+                    <ImageView
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:padding="@dimen/_2sdp"
+                        android:src="@drawable/logocar"
+                        android:tint="@color/colorPrimary"
                         />
+
+
+
+
 
                 </LinearLayout>
 
@@ -161,20 +164,19 @@
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="0.7"
                     android:orientation="vertical"
                     android:paddingLeft="@dimen/_10sdp"
                     android:paddingRight="@dimen/_10sdp"
-                    android:paddingBottom="@dimen/_15sdp"
-                    android:paddingTop="@dimen/_15sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:paddingTop="@dimen/_10sdp"
                     android:gravity="center"
                     >
 
                     <Button
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
+                        android:layout_height="@dimen/_25sdp"
                         android:background="@drawable/layout_border_black"
                         android:text="@string/Edit"
                         android:textColor="@color/mlBlack"
@@ -184,8 +186,7 @@
 
                     <Button
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
+                        android:layout_height="@dimen/_25sdp"
                         android:background="@drawable/layout_border_black"
                         android:text="@string/Cancel"
                         android:textColor="@color/mlBlack"
@@ -208,8 +209,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_17sdp"
                         android:orientation="horizontal"
-                        android:layoutDirection="rtl"
                         >
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.3"/>
+
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -229,6 +235,16 @@
                                 <TextView
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:textColor="@color/mlCollectBooth"
+                                    android:gravity="right|center_vertical"
+                                    android:text="2 کیلو"
+                                    android:textSize="@dimen/_8sdp"
+                                    />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
                                     android:layout_weight="1.3"
                                     android:textColor="@color/mlCollectBooth"
                                     android:gravity="right|center_vertical"
@@ -236,15 +252,7 @@
                                     android:textSize="@dimen/_8sdp"
                                     />
 
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:textColor="@color/mlCollectBooth"
-                                    android:gravity="right|center_vertical"
-                                    android:text="2 کیلو"
-                                    android:textSize="@dimen/_8sdp"
-                                    />
+
 
 
                             </LinearLayout>
@@ -255,13 +263,6 @@
                                 android:layout_marginRight="@dimen/_20sdp"
                                 android:background="@color/mlFooter"
                                 />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.3">
 
                         </LinearLayout>
 
@@ -275,9 +276,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_17sdp"
                         android:orientation="horizontal"
-                        android:layoutDirection="rtl"
                         android:layout_marginTop="@dimen/_2sdp"
                         >
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.3"/>
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -293,16 +298,6 @@
                                 android:layout_marginRight="@dimen/_20sdp"
                                 android:orientation="horizontal"
                                 >
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1.3"
-                                    android:textColor="@color/mlCollectBooth"
-                                    android:gravity="right|center_vertical"
-                                    android:text="@string/AlBottel"
-                                    android:textSize="@dimen/_8sdp"
-                                    />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -314,6 +309,18 @@
                                     android:textSize="@dimen/_8sdp"
                                     />
 
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1.3"
+                                    android:textColor="@color/mlCollectBooth"
+                                    android:gravity="right|center_vertical"
+                                    android:text="@string/AlBottel"
+                                    android:textSize="@dimen/_8sdp"
+                                    />
+
+
+
 
                             </LinearLayout>
 
@@ -326,12 +333,7 @@
 
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.3">
 
-                        </LinearLayout>
 
 
                     </LinearLayout>
@@ -343,9 +345,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_17sdp"
                         android:orientation="horizontal"
-                        android:layoutDirection="rtl"
                         android:layout_marginTop="@dimen/_2sdp"
                         >
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.3"/>
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -361,16 +367,6 @@
                                 android:layout_marginRight="@dimen/_20sdp"
                                 android:orientation="horizontal"
                                 >
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1.3"
-                                    android:textColor="@color/mlCollectBooth"
-                                    android:gravity="right|center_vertical"
-                                    android:text="@string/PetBottel"
-                                    android:textSize="@dimen/_8sdp"
-                                    />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -382,6 +378,16 @@
                                     android:textSize="@dimen/_8sdp"
                                     />
 
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1.3"
+                                    android:textColor="@color/mlCollectBooth"
+                                    android:gravity="right|center_vertical"
+                                    android:text="@string/PetBottel"
+                                    android:textSize="@dimen/_8sdp"
+                                    />
+
 
                             </LinearLayout>
 
@@ -394,12 +400,7 @@
 
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.3">
 
-                        </LinearLayout>
 
 
                     </LinearLayout>
@@ -411,9 +412,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_17sdp"
                         android:orientation="horizontal"
-                        android:layoutDirection="rtl"
                         android:layout_marginTop="@dimen/_2sdp"
                         >
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.3"/>
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -433,6 +438,16 @@
                                 <TextView
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:textColor="@color/mlCollectBooth"
+                                    android:gravity="right|center_vertical"
+                                    android:text="2 کیلو"
+                                    android:textSize="@dimen/_8sdp"
+                                    />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
                                     android:layout_weight="1.3"
                                     android:textColor="@color/mlCollectBooth"
                                     android:gravity="right|center_vertical"
@@ -440,15 +455,7 @@
                                     android:textSize="@dimen/_8sdp"
                                     />
 
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:textColor="@color/mlCollectBooth"
-                                    android:gravity="right|center_vertical"
-                                    android:text="2 کیلو"
-                                    android:textSize="@dimen/_8sdp"
-                                    />
+
 
 
                             </LinearLayout>
@@ -462,12 +469,7 @@
 
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.3">
 
-                        </LinearLayout>
 
 
                     </LinearLayout>
@@ -658,41 +660,17 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1.3"
                     android:gravity="right|center_vertical"
-                    android:layoutDirection="rtl"
                     >
 
-                    <LinearLayout
+                    <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/_30sdp"
-                        android:orientation="vertical"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/mlHeader"
+                        android:text="@string/KGr"
                         android:gravity="center"
-                        >
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/ic_phone_in_talk_black_24dp"
-                            />
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/mlHeader"
-                            android:text="@string/CallBooth"
-                            android:textSize="@dimen/_7sdp"
-                            />
-
-                    </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="@dimen/_30sdp"
-                        android:layout_height="@dimen/_30sdp"
-                        android:padding="@dimen/_2sdp"
-                        android:src="@drawable/logobooth"
-                        android:tint="@color/mlCollectBooth"
-                        android:layout_marginRight="@dimen/_2sdp"
+                        android:textSize="@dimen/_9sdp"
+                        android:layout_marginLeft="@dimen/_2sdp"
+                        android:layout_marginRight="@dimen/_5sdp"
                         />
 
                     <LinearLayout
@@ -715,16 +693,45 @@
 
                     </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:textColor="@color/mlHeader"
-                        android:text="@string/KGr"
-                        android:gravity="center"
-                        android:textSize="@dimen/_9sdp"
-                        android:layout_marginLeft="@dimen/_2sdp"
-                        android:layout_marginRight="@dimen/_5sdp"
+                    <ImageView
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:padding="@dimen/_2sdp"
+                        android:src="@drawable/logobooth"
+                        android:tint="@color/mlCollectBooth"
+                        android:layout_marginRight="@dimen/_2sdp"
                         />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_30sdp"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        >
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_phone_in_talk_black"
+                            />
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/mlHeader"
+                            android:text="@string/CallBooth"
+                            android:textSize="@dimen/_7sdp"
+                            />
+
+                    </LinearLayout>
+
+
+
+
+
+
 
                 </LinearLayout>
 
@@ -751,20 +758,19 @@
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="0.7"
                     android:orientation="vertical"
                     android:paddingLeft="@dimen/_10sdp"
                     android:paddingRight="@dimen/_10sdp"
-                    android:paddingBottom="@dimen/_15sdp"
-                    android:paddingTop="@dimen/_15sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:paddingTop="@dimen/_10sdp"
                     android:gravity="center"
                     >
 
                     <Button
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
+                        android:layout_height="@dimen/_25sdp"
                         android:background="@drawable/layout_border_black"
                         android:text="@string/Edit"
                         android:textColor="@color/mlBlack"
@@ -774,8 +780,7 @@
 
                     <Button
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
+                        android:layout_height="@dimen/_25sdp"
                         android:background="@drawable/layout_border_black"
                         android:text="@string/Cancel"
                         android:textColor="@color/mlBlack"
@@ -798,8 +803,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_17sdp"
                         android:orientation="horizontal"
-                        android:layoutDirection="rtl"
                         >
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.3"/>
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -815,6 +824,16 @@
                                 android:layout_marginRight="@dimen/_20sdp"
                                 android:orientation="horizontal"
                                 >
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:textColor="@color/mlCollectBooth"
+                                    android:gravity="right|center_vertical"
+                                    android:text="2 کیلو"
+                                    android:textSize="@dimen/_8sdp"
+                                    />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -826,16 +845,6 @@
                                     android:textSize="@dimen/_8sdp"
                                     />
 
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:textColor="@color/mlCollectBooth"
-                                    android:gravity="right|center_vertical"
-                                    android:text="2 کیلو"
-                                    android:textSize="@dimen/_8sdp"
-                                    />
-
 
                             </LinearLayout>
 
@@ -848,12 +857,7 @@
 
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.3">
 
-                        </LinearLayout>
 
 
                     </LinearLayout>
@@ -865,9 +869,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_17sdp"
                         android:orientation="horizontal"
-                        android:layoutDirection="rtl"
                         android:layout_marginTop="@dimen/_2sdp"
                         >
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.3"/>
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -883,16 +891,6 @@
                                 android:layout_marginRight="@dimen/_20sdp"
                                 android:orientation="horizontal"
                                 >
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1.3"
-                                    android:textColor="@color/mlCollectBooth"
-                                    android:gravity="right|center_vertical"
-                                    android:text="@string/AlBottel"
-                                    android:textSize="@dimen/_8sdp"
-                                    />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -904,6 +902,18 @@
                                     android:textSize="@dimen/_8sdp"
                                     />
 
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1.3"
+                                    android:textColor="@color/mlCollectBooth"
+                                    android:gravity="right|center_vertical"
+                                    android:text="@string/AlBottel"
+                                    android:textSize="@dimen/_8sdp"
+                                    />
+
+
+
 
                             </LinearLayout>
 
@@ -916,12 +926,7 @@
 
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.3">
 
-                        </LinearLayout>
 
 
                     </LinearLayout>
@@ -933,9 +938,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_17sdp"
                         android:orientation="horizontal"
-                        android:layoutDirection="rtl"
                         android:layout_marginTop="@dimen/_2sdp"
                         >
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.3"/>
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -951,16 +960,6 @@
                                 android:layout_marginRight="@dimen/_20sdp"
                                 android:orientation="horizontal"
                                 >
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1.3"
-                                    android:textColor="@color/mlCollectBooth"
-                                    android:gravity="right|center_vertical"
-                                    android:text="@string/PetBottel"
-                                    android:textSize="@dimen/_8sdp"
-                                    />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -972,6 +971,18 @@
                                     android:textSize="@dimen/_8sdp"
                                     />
 
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1.3"
+                                    android:textColor="@color/mlCollectBooth"
+                                    android:gravity="right|center_vertical"
+                                    android:text="@string/PetBottel"
+                                    android:textSize="@dimen/_8sdp"
+                                    />
+
+
+
 
                             </LinearLayout>
 
@@ -984,12 +995,7 @@
 
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.3">
 
-                        </LinearLayout>
 
 
                     </LinearLayout>
@@ -1001,9 +1007,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_17sdp"
                         android:orientation="horizontal"
-                        android:layoutDirection="rtl"
                         android:layout_marginTop="@dimen/_2sdp"
                         >
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.3"/>
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -1023,20 +1033,20 @@
                                 <TextView
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
-                                    android:layout_weight="1.3"
+                                    android:layout_weight="1"
                                     android:textColor="@color/mlCollectBooth"
                                     android:gravity="right|center_vertical"
-                                    android:text="@string/Paper"
+                                    android:text="2 کیلو"
                                     android:textSize="@dimen/_8sdp"
                                     />
 
                                 <TextView
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
-                                    android:layout_weight="1"
+                                    android:layout_weight="1.3"
                                     android:textColor="@color/mlCollectBooth"
                                     android:gravity="right|center_vertical"
-                                    android:text="2 کیلو"
+                                    android:text="@string/Paper"
                                     android:textSize="@dimen/_8sdp"
                                     />
 
@@ -1052,12 +1062,7 @@
 
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.3">
 
-                        </LinearLayout>
 
 
                     </LinearLayout>

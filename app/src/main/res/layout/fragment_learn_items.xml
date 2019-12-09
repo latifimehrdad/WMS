@@ -47,9 +47,16 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_marginTop="@dimen/_1sdp"
-                        android:layoutDirection="rtl"
                         android:gravity="right|top"
                         >
+
+                        <ImageView
+                            android:id="@+id/fliPlacticImage"
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                            />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -62,13 +69,7 @@
 
                             />
 
-                        <ImageView
-                            android:id="@+id/fliPlacticImage"
-                            android:layout_width="@dimen/_20sdp"
-                            android:layout_height="@dimen/_20sdp"
-                            android:layout_marginLeft="@dimen/_5sdp"
-                            android:src="@drawable/ic_arrow_drop_down_black_24dp"
-                            />
+
 
 
                     </LinearLayout>
@@ -121,9 +122,16 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_marginTop="@dimen/_1sdp"
-                        android:layoutDirection="rtl"
                         android:gravity="right|top"
                         >
+
+                        <ImageView
+                            android:id="@+id/fliMetalImage"
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                            />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -136,13 +144,7 @@
 
                             />
 
-                        <ImageView
-                            android:id="@+id/fliMetalImage"
-                            android:layout_width="@dimen/_20sdp"
-                            android:layout_height="@dimen/_20sdp"
-                            android:layout_marginLeft="@dimen/_5sdp"
-                            android:src="@drawable/ic_arrow_drop_down_black_24dp"
-                            />
+
 
 
                     </LinearLayout>
@@ -195,9 +197,16 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_marginTop="@dimen/_1sdp"
-                        android:layoutDirection="rtl"
                         android:gravity="right|top"
                         >
+
+                        <ImageView
+                            android:id="@+id/fliGlassImage"
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                            />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -210,13 +219,7 @@
 
                             />
 
-                        <ImageView
-                            android:id="@+id/fliGlassImage"
-                            android:layout_width="@dimen/_20sdp"
-                            android:layout_height="@dimen/_20sdp"
-                            android:layout_marginLeft="@dimen/_5sdp"
-                            android:src="@drawable/ic_arrow_drop_down_black_24dp"
-                            />
+
 
 
                     </LinearLayout>
@@ -269,9 +272,16 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_marginTop="@dimen/_1sdp"
-                        android:layoutDirection="rtl"
                         android:gravity="right|top"
                         >
+
+                        <ImageView
+                            android:id="@+id/fliPaperImage"
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                            />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -284,13 +294,7 @@
 
                             />
 
-                        <ImageView
-                            android:id="@+id/fliPaperImage"
-                            android:layout_width="@dimen/_20sdp"
-                            android:layout_height="@dimen/_20sdp"
-                            android:layout_marginLeft="@dimen/_5sdp"
-                            android:src="@drawable/ic_arrow_drop_down_black_24dp"
-                            />
+
 
 
                     </LinearLayout>
@@ -343,9 +347,16 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_marginTop="@dimen/_1sdp"
-                        android:layoutDirection="rtl"
                         android:gravity="right|top"
                         >
+
+                        <ImageView
+                            android:id="@+id/fliElectronicImage"
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                            />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -358,13 +369,7 @@
 
                             />
 
-                        <ImageView
-                            android:id="@+id/fliElectronicImage"
-                            android:layout_width="@dimen/_20sdp"
-                            android:layout_height="@dimen/_20sdp"
-                            android:layout_marginLeft="@dimen/_5sdp"
-                            android:src="@drawable/ic_arrow_drop_down_black_24dp"
-                            />
+
 
 
                     </LinearLayout>
@@ -417,9 +422,16 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_marginTop="@dimen/_1sdp"
-                        android:layoutDirection="rtl"
                         android:gravity="right|top"
                         >
+
+                        <ImageView
+                            android:id="@+id/fliRecyclableImage"
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                            />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -432,13 +444,7 @@
 
                             />
 
-                        <ImageView
-                            android:id="@+id/fliRecyclableImage"
-                            android:layout_width="@dimen/_20sdp"
-                            android:layout_height="@dimen/_20sdp"
-                            android:layout_marginLeft="@dimen/_5sdp"
-                            android:src="@drawable/ic_arrow_drop_down_black_24dp"
-                            />
+
 
 
                     </LinearLayout>

@@ -171,9 +171,20 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:orientation="horizontal"
-                        android:layoutDirection="rtl"
                         android:gravity="center_vertical"
                         >
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/_3sdp"
+                            android:textColor="@color/mlCollectBooth"
+                            android:textSize="@dimen/_9sdp"
+                            android:text="غرفه شماره 1"
+                            android:gravity="right|top"
+                            android:layout_marginRight="@dimen/_3sdp"
+                            />
 
                         <ImageView
                             android:layout_width="@dimen/_35sdp"
@@ -182,17 +193,7 @@
                             android:tint="@color/mlCollectBooth"
                             />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="@dimen/_3sdp"
-                            android:textColor="@color/mlCollectBooth"
-                            android:textSize="@dimen/_9sdp"
-                            android:text="غرفه شماره 1"
-                            android:gravity="right|top"
-                            android:layout_marginRight="@dimen/_3sdp"
 
-                            />
 
 
 
