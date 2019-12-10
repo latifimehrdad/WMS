@@ -10,4 +10,10 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="MLCurveHeader">
+        <attr name="shadow" format="integer"/>
+        <attr name="backcolor" format="color"/>
+        <attr name="shadowcolor" format="color"/>
+    </declare-styleable>
+
 </resources>

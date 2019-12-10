@@ -1,4 +1,4 @@
-package com.example.wms.views.fragments.register;
+package com.example.wms.views.activitys.login;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,29 +9,26 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
-import android.view.animation.RotateAnimation;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.wms.R;
-import com.example.wms.databinding.FragmentVerifyCodeBinding;
-import com.example.wms.viewmodels.register.FragmentVerifyCodeViewModel;
-import com.example.wms.views.activitys.MainActivity;
+import com.example.wms.databinding.ActivityVerifyCodeBinding;
+import com.example.wms.viewmodels.login.ActivityVerifyCodeViewModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FragmentVerifyCode extends Fragment {
+public class ActivityVerifyCode extends AppCompatActivity {
 
-    private Context context;
-    private FragmentVerifyCodeViewModel fragmentVerifyCodeViewModel;
+    private ActivityVerifyCodeViewModel activityVerifyCodeViewModel;
     private boolean ReTryGetSMSClick = false;
 
 
@@ -63,36 +60,22 @@ public class FragmentVerifyCode extends Fragment {
     TextView message;
 
 
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        FragmentVerifyCodeBinding binding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_verify_code, container, false
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ActivityVerifyCodeBinding binding = DataBindingUtil.setContentView(
+                this,R.layout.activity_verify_code
         );
-        fragmentVerifyCodeViewModel = new FragmentVerifyCodeViewModel(context);
-        binding.setVerifycode(fragmentVerifyCodeViewModel);
-        View view = binding.getRoot();
-        ButterKnife.bind(this, view);
-        return view;
-    }//_____________________________________________________________________________________________ End onCreateView
-
-
-    public FragmentVerifyCode(Context context) {//__________________________________________________ Start FragmentVerifyCode
-        this.context = context;
-    }//_____________________________________________________________________________________________ End FragmentVerifyCode
-
-
-    @Override
-    public void onStart() {//_______________________________________________________________________ Start onStart
-        super.onStart();
+        activityVerifyCodeViewModel = new ActivityVerifyCodeViewModel(this);
+        binding.setVerifycode(activityVerifyCodeViewModel);
+        ButterKnife.bind(this);
         VerifyCode1.requestFocus();
         SetBackVerifyCode();
         SetTextChangeListener();
         ReTryGetSMS();
         SetClick();
-
-
-
-    }//_____________________________________________________________________________________________ End onStart
+    }//_____________________________________________________________________________________________ End onCreate
 
 
     private void SetClick() {//_____________________________________________________________________ Start SetClick
@@ -174,7 +157,7 @@ public class FragmentVerifyCode extends Fragment {
         Boolean c6 = SetBackVerifyCodeView(VerifyCode6);
 
         if (c1 && c2 && c3 && c4 && c5 && c6)
-            Toast.makeText(context, "Yes", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Yes", Toast.LENGTH_SHORT).show();
 
     }//_____________________________________________________________________________________________ End SetBackVerifyCode
 

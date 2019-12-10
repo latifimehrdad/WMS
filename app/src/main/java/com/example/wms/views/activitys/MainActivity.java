@@ -23,6 +23,7 @@ import com.cleveroad.sy.cyclemenuwidget.CycleMenuWidget;
 import com.example.wms.R;
 import com.example.wms.databinding.ActivityMainBinding;
 import com.example.wms.viewmodels.main.MainActivityViewModel;
+import com.example.wms.views.activitys.login.ActivityBeforLogin;
 import com.example.wms.views.fragments.aboutus.FragmentAbout;
 import com.example.wms.views.fragments.callwithus.FragmentCallWithUs;
 import com.example.wms.views.fragments.collectrequest.collectrequest.FragmentCollectRequestOrders;
@@ -34,13 +35,10 @@ import com.example.wms.views.fragments.learn.FragmentLearn;
 import com.example.wms.views.fragments.lottery.FragmentLottery;
 import com.example.wms.views.fragments.packrequest.FragmentPackRequest;
 import com.example.wms.views.fragments.register.FragmentRegister;
-import com.example.wms.views.fragments.register.FragmentSendPhoneNumber;
-import com.example.wms.views.fragments.register.FragmentVerifyCode;
 import com.example.wms.views.fragments.wallet.FragmentWallet;
 import com.google.android.material.navigation.NavigationView;
 import com.nightonke.boommenu.BoomButtons.HamButton;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
-import com.nightonke.boommenu.BoomButtons.TextOutsideCircleButton;
 import com.nightonke.boommenu.BoomMenuButton;
 
 import butterknife.BindView;
@@ -102,10 +100,24 @@ public class MainActivity extends AppCompatActivity {
         FragmentShowObserver();
         SetClicks();
         SetMenu();
-        ShowFragmentVerifyCode();
+        ShowBeforLoginActivity();
+        //ShowFragmentVerifyCode();
 
         //itemCycleMenuWidget.setMenuItems(Collection<CycleMenuItem> items);
     }//_____________________________________________________________________________________________ End SetBindingView
+
+
+    private void ShowSpalshActivity() {//___________________________________________________________ Start ShowSpalshActivity
+        Intent intent = new Intent(MainActivity.this, SplashActivity.class);
+        startActivity(intent);
+    }//_____________________________________________________________________________________________ End ShowSpalshActivity
+
+
+    private void ShowBeforLoginActivity() {//_______________________________________________________ Start ShowBeforLoginActivity
+        Intent intent = new Intent(MainActivity.this, ActivityBeforLogin.class);
+        startActivity(intent);
+    }//_____________________________________________________________________________________________ End ShowBeforLoginActivity
+
 
 
 
@@ -308,12 +320,6 @@ public class MainActivity extends AppCompatActivity {
                                     case "RecyclingCar":
                                         MainActivity.this.ShowFragmentRecyclingCar();
                                         break;
-                                    case "SendPhoneNumber":
-                                        MainActivity.this.ShowFragmentSendNumber();
-                                        break;
-                                    case "VerifyCode":
-                                        MainActivity.this.ShowFragmentVerifyCode();
-                                        break;
                                 }
                             }
                         });
@@ -331,12 +337,6 @@ public class MainActivity extends AppCompatActivity {
                 });
 
     }//_____________________________________________________________________________________________ End FragmentShowObserver
-
-
-    private void ShowSpalshActivity() {//___________________________________________________________ Start ShowSpalshActivity
-        Intent intent = new Intent(MainActivity.this, SplashActivity.class);
-        startActivity(intent);
-    }//_____________________________________________________________________________________________ End ShowSpalshActivity
 
 
     private void ShowFragmentRegister() {//___________________________________________________________ Start ShowFragmentRegister
@@ -469,30 +469,6 @@ public class MainActivity extends AppCompatActivity {
         ft.replace(R.id.MainFrameLayout, collectRequestOrders);
         ft.commit();
     }//_____________________________________________________________________________________________ End ShowFragmentOrder
-
-
-    private void ShowFragmentSendNumber() {//_______________________________________________________ Start ShowFragmentSendNumber
-        fm = null;
-        ft = null;
-        fm = getSupportFragmentManager();
-        ft = fm.beginTransaction();
-        FragmentSendPhoneNumber sendPhoneNumber = new FragmentSendPhoneNumber(this);
-        ft.replace(R.id.MainFrameLayout, sendPhoneNumber);
-        ft.commit();
-    }//_____________________________________________________________________________________________ End ShowFragmentSendNumber
-
-
-    private void ShowFragmentVerifyCode() {//_______________________________________________________ Start ShowFragmentVerifyCode
-        fm = null;
-        ft = null;
-        fm = getSupportFragmentManager();
-        ft = fm.beginTransaction();
-        FragmentVerifyCode verifyCode = new FragmentVerifyCode(this);
-        ft.replace(R.id.MainFrameLayout, verifyCode);
-        ft.commit();
-    }//_____________________________________________________________________________________________ End ShowFragmentVerifyCode
-
-
 
 
     private void SetDrawerMenu() {

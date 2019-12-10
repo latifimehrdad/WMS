@@ -3,7 +3,7 @@
     <data>
         <variable
             name="phonenumber"
-            type="com.example.wms.viewmodels.register.FragmentSendPhoneNumberViewModel" />
+            type="com.example.wms.viewmodels.login.ActivitySendPhoneNumberViewModel" />
     </data>
 
     <LinearLayout

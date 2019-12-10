@@ -3,7 +3,7 @@
     <data>
         <variable
             name="verifycode"
-            type="com.example.wms.viewmodels.register.FragmentVerifyCodeViewModel" />
+            type="com.example.wms.viewmodels.login.ActivityVerifyCodeViewModel" />
     </data>
 
     <LinearLayout

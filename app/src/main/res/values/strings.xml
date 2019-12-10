@@ -133,5 +133,7 @@
     <string name="VerifyCode">"لطفا 6 عدد کد فعال سازی  \n را وارد نمایید"</string>
     <string name="ElapsedTimeGetSMS">زمان باقی مانده\n جهت دریافت پیامک</string>
     <string name="ReTryGetSMS">دریافت مجدد\n پیامک</string>
+    <string name="LogIn">ورود به سامانه</string>
+    <string name="SignUp">ثبت نام در سامانه</string>
 
 </resources>

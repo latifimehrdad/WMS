@@ -29,6 +29,12 @@
 
         <activity android:name=".views.activitys.ActivityTest"/>
 
+        <activity android:name=".views.activitys.login.ActivityBeforLogin"/>
+
+        <activity android:name=".views.activitys.login.ActivitySendPhoneNumber"/>
+
+        <activity android:name=".views.activitys.login.ActivityVerifyCode"/>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
