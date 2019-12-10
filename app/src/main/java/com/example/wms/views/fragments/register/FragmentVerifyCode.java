@@ -14,6 +14,7 @@ import android.view.animation.RotateAnimation;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
@@ -31,6 +32,8 @@ public class FragmentVerifyCode extends Fragment {
 
     private Context context;
     private FragmentVerifyCodeViewModel fragmentVerifyCodeViewModel;
+    private boolean ReTryGetSMSClick = false;
+
 
     @BindView(R.id.VerifyCode1)
     EditText VerifyCode1;
@@ -50,12 +53,14 @@ public class FragmentVerifyCode extends Fragment {
     @BindView(R.id.VerifyCode6)
     EditText VerifyCode6;
 
-    @BindView(R.id.test2)
-    LinearLayout test2;
-
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
 
+    @BindView(R.id.TimeElapsed)
+    TextView TimeElapsed;
+
+    @BindView(R.id.message)
+    TextView message;
 
 
     @Override
@@ -82,35 +87,61 @@ public class FragmentVerifyCode extends Fragment {
         VerifyCode1.requestFocus();
         SetBackVerifyCode();
         SetTextChangeListener();
-        progressBar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                set();
-            }
-        });
+        ReTryGetSMS();
+        SetClick();
+
+
 
     }//_____________________________________________________________________________________________ End onStart
 
 
+    private void SetClick() {//_____________________________________________________________________ Start SetClick
 
-    private void set()
-    {
-        progressBar.setMax(360);
-        progressBar.setProgress(180);
+        message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ReTryGetSMSClick)
+                    StartTimer(Integer.valueOf(VerifyCode1.getText().toString() + VerifyCode2.getText().toString()));
+            }
+        });
+
+    }//_____________________________________________________________________________________________ End SetClick
+
+
+    private void StartTimer(int Elapse) {//___________________________________________________________________ Start StartTimer
+
+        ReTryGetSMSClick = false;
+        TimeElapsed.setVisibility(View.VISIBLE);
+        message.setText(getResources().getString(R.string.ElapsedTimeGetSMS));
+
+        Elapse = Elapse * 10;
+        progressBar.setMax(Elapse * 2);
+        progressBar.setProgress(Elapse);
+        TimeElapsed.setVisibility(View.VISIBLE);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 progressBar.setProgress(progressBar.getProgress() - 1);
-                if(progressBar.getProgress() > 0)
-                    handler.postDelayed(this, 90);
+                int mili = progressBar.getProgress() + 10;
+                int seconds = (int) (mili / 10) % 60;
+                int minutes = (int) ((mili / (10 * 60)) % 60);
+                TimeElapsed.setText(String.format("%02d", minutes) + " : " + String.format("%02d", seconds));
+
+                if (progressBar.getProgress() > 0)
+                    handler.postDelayed(this, 100);
+                else
+                    ReTryGetSMS();
             }
-        },90);
-        RotateAnimation ranim = (RotateAnimation) AnimationUtils.loadAnimation(context, R.anim.rotatemenu);
-        ranim.setFillAfter(true); //For the textview to remain at the same place after the rotation
-        test2.setAnimation(ranim);
-        test2.setVisibility(View.VISIBLE);
-    }
+        }, 100);
+    }//_____________________________________________________________________________________________ End StartTimer
+
+
+    private void ReTryGetSMS() {//__________________________________________________________________ Start ReTryGetSMS
+        TimeElapsed.setVisibility(View.GONE);
+        ReTryGetSMSClick = true;
+        message.setText(getResources().getString(R.string.ReTryGetSMS));
+    }//_____________________________________________________________________________________________ End ReTryGetSMS
 
 
     private void SetTextChangeListener() {//________________________________________________________ Start SetTextChangeListener

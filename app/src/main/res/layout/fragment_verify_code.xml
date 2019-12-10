@@ -166,7 +166,7 @@
 
         <RelativeLayout
             android:layout_width="@dimen/_100sdp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_100sdp"
             android:layout_marginTop="@dimen/_20sdp"
             >
 
@@ -176,30 +176,44 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_100sdp"
                 android:max="100"
-                android:progress="50"
+                android:progress="0"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
+                android:background="@drawable/half_circle_progress_back"
                 android:progressDrawable="@drawable/half_circle_progress" />
 
-            <LinearLayout
-                android:id="@+id/test"
-                android:layout_width="1dp"
-                android:layout_height="1dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:background="@color/mlWhite"
-                android:orientation="horizontal"
-                />
+
 
             <LinearLayout
-                android:id="@+id/test2"
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="1dp"
-                android:layout_centerVertical="true"
-                android:background="@color/mlHomeMaxScore"
-                android:orientation="vertical"
-                android:layout_toLeftOf="@id/test"
-                android:visibility="invisible"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorAccent"
+                />
+
+
+            <TextView
+                android:id="@+id/message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/mlEdit"
+                android:gravity="center"
+                android:textSize="@dimen/_9sdp"
+                android:text="@string/ElapsedTimeGetSMS"
+                android:maxLines="2"
+                android:layout_marginTop="@dimen/_40sdp"
+                />
+
+            <TextView
+                android:id="@+id/TimeElapsed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/mlEdit"
+                android:gravity="center"
+                android:textSize="@dimen/_9sdp"
+                android:text="1:56"
+                android:maxLines="2"
+                android:layout_below="@id/message"
                 />
 
 

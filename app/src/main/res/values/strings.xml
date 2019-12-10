@@ -131,5 +131,7 @@
     <string name="GetCode">دریافت کد</string>
     <string name="VerifyAccount">تایید حساب کاربری</string>
     <string name="VerifyCode">"لطفا 6 عدد کد فعال سازی  \n را وارد نمایید"</string>
+    <string name="ElapsedTimeGetSMS">زمان باقی مانده\n جهت دریافت پیامک</string>
+    <string name="ReTryGetSMS">دریافت مجدد\n پیامک</string>
 
 </resources>
