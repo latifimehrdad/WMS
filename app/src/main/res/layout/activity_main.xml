@@ -27,23 +27,6 @@
                 />
 
 
-            <com.cleveroad.sy.cyclemenuwidget.CycleMenuWidget
-                android:id="@+id/itemCycleMenuWidget"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cm_autoMaxRadius="220dp"
-                app:cm_autoMinRadius="10dp"
-                app:cm_corner="right_top"
-                app:cm_fixedRadius="200dp"
-                app:cm_radius_scale_type="auto"
-                app:cm_scroll_type="endless"
-                app:cm_item_background_tint="@color/colorPrimary"
-                app:cm_corner_image_src="@drawable/ic_toc_black_24dp"
-                app:cm_ripple_color="@color/colorPrimaryDark"
-                android:visibility="gone"
-                />
-
-
             <FrameLayout
                 android:id="@+id/MainFrameLayout"
                 android:layout_width="match_parent"

@@ -16,7 +16,7 @@ import androidx.databinding.DataBindingUtil;
 import com.example.wms.R;
 import com.example.wms.databinding.ActivitySplashBinding;
 import com.example.wms.viewmodels.main.SplashActivityViewModel;
-import com.example.wms.views.activitys.login.ActivityBeforLogin;
+import com.example.wms.views.activitys.user.login.ActivityBeforLogin;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

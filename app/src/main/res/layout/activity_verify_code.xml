@@ -1,223 +1,307 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="verifycode"
-            type="com.example.wms.viewmodels.login.ActivityVerifyCodeViewModel" />
+            type="com.example.wms.viewmodels.user.register.ActivityVerifyCodeViewModel" />
     </data>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorAccent"
         android:gravity="center_horizontal"
+        android:background="@color/mlWhite"
         >
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:layout_marginLeft="@dimen/_15sdp"
-            android:layout_marginRight="@dimen/_15sdp"
-            android:textColor="@color/mlWhite"
-            android:gravity="center"
-            android:textSize="@dimen/_15sdp"
-            android:text="@string/VerifyAccount"
-            />
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_15sdp"
-            android:layout_marginRight="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:textColor="@color/mlEdit"
-            android:gravity="center"
-            android:textSize="@dimen/_10sdp"
-            android:text="@string/VerifyCode"
-            android:maxLines="2"
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_15sdp"
-            android:layout_marginRight="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:gravity="center"
-            >
+            <com.example.wms.views.custom.MLCurveHeader
+                android:id="@+id/text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:backcolor="@color/colorPrimaryDark"
+                app:shadow="5"
+                app:shadowcolor="@color/colorAccent"
+                app:PitOpenings="50"
+                />
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
                 android:gravity="center"
-                android:orientation="horizontal"
+                android:padding="@dimen/_10sdp"
                 >
 
-                <EditText
-                    android:id="@+id/VerifyCode1"
-                    android:layout_width="0dp"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:minHeight="@dimen/_35sdp"
-                    android:minWidth="@dimen/_25sdp"
-                    android:inputType="number"
-                    android:padding="@dimen/_2sdp"
-                    android:textColor="@color/mlBlack"
-                    android:textSize="@dimen/_14sdp"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:maxLength="1"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginLeft="@dimen/_30sdp"
+                    android:layout_marginRight="@dimen/_30sdp"
+                    android:text="@string/WMSFromFist"
+                    android:textColor="@color/mlWhite"
+                    android:textSize="@dimen/_11sdp"
+                    android:gravity="center|top"
                     />
 
-                <EditText
-                    android:id="@+id/VerifyCode2"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:minHeight="@dimen/_35sdp"
-                    android:minWidth="@dimen/_25sdp"
-                    android:inputType="number"
-                    android:padding="@dimen/_2sdp"
-                    android:textColor="@color/mlBlack"
-                    android:textSize="@dimen/_14sdp"
-                    android:gravity="center"
-                    android:layout_marginLeft="@dimen/_7sdp"
-                    android:maxLines="1"
-                    android:maxLength="1"
-                    />
 
-                <EditText
-                    android:id="@+id/VerifyCode3"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:minHeight="@dimen/_35sdp"
-                    android:minWidth="@dimen/_25sdp"
-                    android:inputType="number"
-                    android:padding="@dimen/_2sdp"
-                    android:textColor="@color/mlBlack"
-                    android:textSize="@dimen/_14sdp"
-                    android:gravity="center"
-                    android:layout_marginLeft="@dimen/_7sdp"
-                    android:maxLines="1"
-                    android:maxLength="1"
-                    />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
 
-                <EditText
-                    android:id="@+id/VerifyCode4"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:minHeight="@dimen/_35sdp"
-                    android:minWidth="@dimen/_25sdp"
-                    android:inputType="number"
-                    android:padding="@dimen/_2sdp"
-                    android:textColor="@color/mlBlack"
-                    android:textSize="@dimen/_14sdp"
-                    android:gravity="center"
-                    android:layout_marginLeft="@dimen/_7sdp"
-                    android:maxLines="1"
-                    android:maxLength="1"
-                    />
 
-                <EditText
-                    android:id="@+id/VerifyCode5"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:minHeight="@dimen/_35sdp"
-                    android:minWidth="@dimen/_25sdp"
-                    android:inputType="number"
-                    android:padding="@dimen/_2sdp"
-                    android:textColor="@color/mlBlack"
-                    android:textSize="@dimen/_14sdp"
-                    android:gravity="center"
-                    android:layout_marginLeft="@dimen/_7sdp"
-                    android:maxLines="1"
-                    android:maxLength="1"
-                    />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/wmslogo"
+                        android:layout_centerHorizontal="true"
+                        />
 
-                <EditText
-                    android:id="@+id/VerifyCode6"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:minHeight="@dimen/_35sdp"
-                    android:minWidth="@dimen/_25sdp"
-                    android:inputType="number"
-                    android:padding="@dimen/_2sdp"
-                    android:textColor="@color/mlBlack"
-                    android:textSize="@dimen/_14sdp"
-                    android:gravity="center"
-                    android:layout_marginLeft="@dimen/_7sdp"
-                    android:maxLines="1"
-                    android:maxLength="1"
-                    />
+
+                </RelativeLayout>
 
 
             </LinearLayout>
 
 
-        </LinearLayout>
-
-
-
-        <RelativeLayout
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_100sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            >
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_100sdp"
-                android:max="100"
-                android:progress="0"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/half_circle_progress_back"
-                android:progressDrawable="@drawable/half_circle_progress" />
-
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_50sdp"
-                android:layout_alignParentBottom="true"
-                android:background="@color/colorAccent"
-                />
-
-
-            <TextView
-                android:id="@+id/message"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/mlEdit"
-                android:gravity="center"
-                android:textSize="@dimen/_9sdp"
-                android:text="@string/ElapsedTimeGetSMS"
-                android:maxLines="2"
-                android:layout_marginTop="@dimen/_40sdp"
-                />
-
-            <TextView
-                android:id="@+id/TimeElapsed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/mlEdit"
-                android:gravity="center"
-                android:textSize="@dimen/_9sdp"
-                android:text="1:56"
-                android:maxLines="2"
-                android:layout_below="@id/message"
-                />
 
 
         </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:layout_marginRight="@dimen/_15sdp"
+                    android:textColor="@color/colorPrimary"
+                    android:gravity="center"
+                    android:textSize="@dimen/_15sdp"
+                    android:text="@string/VerifyAccount"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:layout_marginRight="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:gravity="center"
+                    android:textSize="@dimen/_10sdp"
+                    android:text="@string/VerifyCode"
+                    android:maxLines="2"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:layout_marginRight="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:gravity="center"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        >
+
+                        <EditText
+                            android:id="@+id/VerifyCode1"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/_35sdp"
+                            android:minWidth="@dimen/_25sdp"
+                            android:inputType="number"
+                            android:padding="@dimen/_2sdp"
+                            android:textColor="@color/mlBlack"
+                            android:textSize="@dimen/_14sdp"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:maxLength="1"
+                            />
+
+                        <EditText
+                            android:id="@+id/VerifyCode2"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/_35sdp"
+                            android:minWidth="@dimen/_25sdp"
+                            android:inputType="number"
+                            android:padding="@dimen/_2sdp"
+                            android:textColor="@color/mlBlack"
+                            android:textSize="@dimen/_14sdp"
+                            android:gravity="center"
+                            android:layout_marginLeft="@dimen/_7sdp"
+                            android:maxLines="1"
+                            android:maxLength="1"
+                            />
+
+                        <EditText
+                            android:id="@+id/VerifyCode3"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/_35sdp"
+                            android:minWidth="@dimen/_25sdp"
+                            android:inputType="number"
+                            android:padding="@dimen/_2sdp"
+                            android:textColor="@color/mlBlack"
+                            android:textSize="@dimen/_14sdp"
+                            android:gravity="center"
+                            android:layout_marginLeft="@dimen/_7sdp"
+                            android:maxLines="1"
+                            android:maxLength="1"
+                            />
+
+                        <EditText
+                            android:id="@+id/VerifyCode4"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/_35sdp"
+                            android:minWidth="@dimen/_25sdp"
+                            android:inputType="number"
+                            android:padding="@dimen/_2sdp"
+                            android:textColor="@color/mlBlack"
+                            android:textSize="@dimen/_14sdp"
+                            android:gravity="center"
+                            android:layout_marginLeft="@dimen/_7sdp"
+                            android:maxLines="1"
+                            android:maxLength="1"
+                            />
+
+                        <EditText
+                            android:id="@+id/VerifyCode5"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/_35sdp"
+                            android:minWidth="@dimen/_25sdp"
+                            android:inputType="number"
+                            android:padding="@dimen/_2sdp"
+                            android:textColor="@color/mlBlack"
+                            android:textSize="@dimen/_14sdp"
+                            android:gravity="center"
+                            android:layout_marginLeft="@dimen/_7sdp"
+                            android:maxLines="1"
+                            android:maxLength="1"
+                            />
+
+                        <EditText
+                            android:id="@+id/VerifyCode6"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/_35sdp"
+                            android:minWidth="@dimen/_25sdp"
+                            android:inputType="number"
+                            android:padding="@dimen/_2sdp"
+                            android:textColor="@color/mlBlack"
+                            android:textSize="@dimen/_14sdp"
+                            android:gravity="center"
+                            android:layout_marginLeft="@dimen/_7sdp"
+                            android:maxLines="1"
+                            android:maxLength="1"
+                            />
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+
+                <RelativeLayout
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_100sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    >
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_100sdp"
+                        android:max="100"
+                        android:progress="0"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/half_circle_progress_back"
+                        android:progressDrawable="@drawable/half_circle_progress" />
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_50sdp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/mlWhite"
+                        />
+
+
+                    <TextView
+                        android:id="@+id/message"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center"
+                        android:textSize="@dimen/_9sdp"
+                        android:text="@string/ElapsedTimeGetSMS"
+                        android:maxLines="2"
+                        android:layout_marginTop="@dimen/_40sdp"
+                        />
+
+                    <TextView
+                        android:id="@+id/TimeElapsed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center"
+                        android:textSize="@dimen/_9sdp"
+                        android:text="1:56"
+                        android:maxLines="2"
+                        android:layout_below="@id/message"
+                        />
+
+
+                </RelativeLayout>
+
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
+
+
 
 
 

@@ -13,17 +13,17 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.cleveroad.sy.cyclemenuwidget.CycleMenuWidget;
 import com.example.wms.R;
 import com.example.wms.databinding.ActivityMainBinding;
 import com.example.wms.viewmodels.main.MainActivityViewModel;
-import com.example.wms.views.activitys.login.ActivityBeforLogin;
 import com.example.wms.views.fragments.aboutus.FragmentAbout;
 import com.example.wms.views.fragments.callwithus.FragmentCallWithUs;
 import com.example.wms.views.fragments.collectrequest.collectrequest.FragmentCollectRequestOrders;
@@ -34,12 +34,11 @@ import com.example.wms.views.fragments.collectrequest.recyclingcar.FragmentRecyc
 import com.example.wms.views.fragments.learn.FragmentLearn;
 import com.example.wms.views.fragments.lottery.FragmentLottery;
 import com.example.wms.views.fragments.packrequest.FragmentPackRequest;
-import com.example.wms.views.fragments.register.FragmentRegister;
+import com.example.wms.views.fragments.profile.FragmentProfile;
 import com.example.wms.views.fragments.wallet.FragmentWallet;
 import com.google.android.material.navigation.NavigationView;
 import com.nightonke.boommenu.BoomButtons.HamButton;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
-import com.nightonke.boommenu.BoomMenuButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,8 +55,6 @@ public class MainActivity extends AppCompatActivity {
     public static PublishSubject<String> FragmentMessage = null;
     private FragmentManager fm;
     private FragmentTransaction ft;
-    private DrawerLayout mDrawer;
-    private NavigationView nvDrawer;
 
     @BindView(R.id.MainFrameLayout)
     FrameLayout MainFrameLayout;
@@ -71,12 +68,14 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.MainMenu)
     ImageView MainMenu;
 
-    @BindView(R.id.itemCycleMenuWidget)
-    CycleMenuWidget itemCycleMenuWidget;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout mDrawer;
 
-    @BindView(R.id.bmb)
-    BoomMenuButton bmb;
+    @BindView(R.id.nvView)
+    NavigationView nvDrawer;
 
+    @BindView(R.id.LayoutEdit)
+    LinearLayout LayoutEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {//__________________________________________ Start onCreate
@@ -99,9 +98,9 @@ public class MainActivity extends AppCompatActivity {
         FragmentMessage = PublishSubject.create();
         FragmentShowObserver();
         SetClicks();
-        SetMenu();
+        setupDrawerContent(nvDrawer);
         ShowSpalshActivity();
-        //ShowFragmentVerifyCode();
+
 
         //itemCycleMenuWidget.setMenuItems(Collection<CycleMenuItem> items);
     }//_____________________________________________________________________________________________ End SetBindingView
@@ -111,147 +110,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, SplashActivity.class);
         startActivity(intent);
     }//_____________________________________________________________________________________________ End ShowSpalshActivity
-
-
-
-    private void SetMenu() {//______________________________________________________________________ Start SetMenu
-
-
-        HamButton.Builder FragmentPackRequestPrimery = new HamButton.Builder()
-                //.normalImageRes(R.drawable.logopackage)
-                .normalText(getResources().getString(R.string.FragmentPackRequestPrimery))
-                .subNormalText("متن تستی توضیحات")
-                .normalColor(getResources().getColor(R.color.colorAccent))
-                .listener(new OnBMClickListener() {
-                    @Override
-                    public void onBoomButtonClick(int index) {
-                        MainActivity.this.ShowFragmentPAckRequest();
-                    }
-                })
-                ;
-
-        HamButton.Builder FragmentLearnSeparation = new HamButton.Builder()
-                //.normalImageRes(R.drawable.logolearn)
-                .normalText(getResources().getString(R.string.FragmentLearnSeparation))
-                .normalColor(getResources().getColor(R.color.colorAccent))
-                .listener(new OnBMClickListener() {
-                    @Override
-                    public void onBoomButtonClick(int index) {
-                        MainActivity.this.ShowFragmentLearn();
-                    }
-                })
-                ;
-
-        HamButton.Builder FragmentCollectRequst = new HamButton.Builder()
-                //.normalImageRes(R.drawable.logoar)
-                .normalText(getResources().getString(R.string.FragmentCollectRequst))
-                .subNormalText("متن تستی توضیحات")
-                .normalColor(getResources().getColor(R.color.colorAccent))
-                .listener(new OnBMClickListener() {
-                    @Override
-                    public void onBoomButtonClick(int index) {
-                        MainActivity.this.ShowFragmentCollectRequest();
-                    }
-                })
-                ;
-
-        HamButton.Builder Lottery = new HamButton.Builder()
-                //.normalImageRes(R.drawable.logolottery)
-                .normalText(getResources().getString(R.string.Lottery))
-                .normalColor(getResources().getColor(R.color.colorAccent))
-                .listener(new OnBMClickListener() {
-                    @Override
-                    public void onBoomButtonClick(int index) {
-                        MainActivity.this.ShowFragmentLottery();
-                    }
-                })
-                ;
-
-        HamButton.Builder CallWithUs = new HamButton.Builder()
-                //.normalImageRes(R.drawable.ic_phone_in_talk_black_24dp)
-                .normalText(getResources().getString(R.string.CallWithUs))
-                .normalColor(getResources().getColor(R.color.colorAccent))
-                .listener(new OnBMClickListener() {
-                    @Override
-                    public void onBoomButtonClick(int index) {
-                        MainActivity.this.ShowFragmentCall();
-                    }
-                })
-                ;
-
-
-        HamButton.Builder SupportApp = new HamButton.Builder()
-                //.normalImageRes(R.drawable.ic_supervisor_account_black_24dp)
-                .normalText(getResources().getString(R.string.SupportApp))
-                .subNormalText("متن تستی توضیحات")
-                .normalColor(getResources().getColor(R.color.colorAccent))
-                .listener(new OnBMClickListener() {
-                    @Override
-                    public void onBoomButtonClick(int index) {
-                        MainActivity.this.ShowFragmentAbout();
-                    }
-                })
-                ;
-
-
-
-        bmb.addBuilder(FragmentPackRequestPrimery);
-        bmb.addBuilder(FragmentLearnSeparation);
-        bmb.addBuilder(FragmentCollectRequst);
-        bmb.addBuilder(Lottery);
-        bmb.addBuilder(CallWithUs);
-        bmb.addBuilder(SupportApp);
-
-
-
-//        for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++) {
-//            HamButton.Builder builder = new HamButton.Builder()
-//                    .normalImageRes(R.drawable.ic_home_black_24dp);
-//            bmb.addBuilder(builder);
-//        }
-
-//        TextInsideCircleButton.Builder home = new TextInsideCircleButton.Builder()
-//                .normalImageRes(R.drawable.ic_home_black_24dp)
-//                .normalText(getResources().getString(R.string.Home));
-//
-//        TextInsideCircleButton.Builder call = new TextInsideCircleButton.Builder()
-//                .normalImageRes(R.drawable.ic_phone_in_talk_black_24dp)
-//                .normalText(getResources().getString(R.string.CallWithUs));
-//
-//        TextInsideCircleButton.Builder support = new TextInsideCircleButton.Builder()
-//                .normalImageRes(R.drawable.ic_supervisor_account_black_24dp)
-//                .normalText(getResources().getString(R.string.SupportApp));
-//
-//        TextInsideCircleButton.Builder support1 = new TextInsideCircleButton.Builder()
-//                .normalImageRes(R.drawable.ic_supervisor_account_black_24dp)
-//                .normalText(getResources().getString(R.string.SupportApp));
-//
-//        bmb.addBuilder(home);
-//        bmb.addBuilder(call);
-//        bmb.addBuilder(support);
-//        bmb.addBuilder(support1);
-
-
-        //itemCycleMenuWidget.setMenuRes(R.menu.drawer_view);
-//        FilterMenuLayout layout = (FilterMenuLayout) findViewById(R.id.filter_menu);
-//        FilterMenu menu = new FilterMenu.Builder(this)
-//                .addItem(R.drawable.ic_home_black_24dp)
-//                .addItem(R.drawable.ic_phone_in_talk_black_24dp)
-//                .addItem(R.drawable.ic_supervisor_account_black_24dp)
-//                .attach(layout)
-//                .withListener(new FilterMenu.OnMenuChangeListener() {
-//                    @Override
-//                    public void onMenuItemClick(View view, int position) {
-//                    }
-//                    @Override
-//                    public void onMenuCollapse() {
-//                    }
-//                    @Override
-//                    public void onMenuExpand() {
-//                    }
-//                })
-//                .build();
-    }//_____________________________________________________________________________________________ End SetMenu
 
 
     private void SetClicks() {//____________________________________________________________________ Start
@@ -273,7 +131,15 @@ public class MainActivity extends AppCompatActivity {
         MainMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mDrawer.openDrawer(Gravity.RIGHT,true);
+            }
+        });
 
+        LayoutEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShowFragmentRegister();
+                mDrawer.closeDrawer(Gravity.RIGHT);
             }
         });
 
@@ -337,8 +203,8 @@ public class MainActivity extends AppCompatActivity {
         ft = null;
         fm = getSupportFragmentManager();
         ft = fm.beginTransaction();
-        FragmentRegister fragmentRegister = new FragmentRegister(this);
-        ft.replace(R.id.MainFrameLayout, fragmentRegister);
+        FragmentProfile fragmentProfile = new FragmentProfile(this);
+        ft.replace(R.id.MainFrameLayout, fragmentProfile);
         ft.commit();
     }//_____________________________________________________________________________________________ End ShowFragmentRegister
 
@@ -464,15 +330,7 @@ public class MainActivity extends AppCompatActivity {
     }//_____________________________________________________________________________________________ End ShowFragmentOrder
 
 
-    private void SetDrawerMenu() {
-        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        nvDrawer = (NavigationView) findViewById(R.id.nvView);
-        setupDrawerContent(nvDrawer);
-
-    }
-
-
-    private void setupDrawerContent(NavigationView navigationView) {
+    private void setupDrawerContent(NavigationView navigationView) {//______________________________ Start setupDrawerContent
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -481,24 +339,34 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     }
                 });
-    }
+    }//_____________________________________________________________________________________________ End setupDrawerContent
 
 
-    public void selectDrawerItem(MenuItem menuItem) {
+    public void selectDrawerItem(MenuItem menuItem) {//_____________________________________________ Start selectDrawerItem
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Class fragmentClass;
         switch (menuItem.getItemId()) {
-            case R.id.nav_first_fragment:
-                Toast.makeText(MainActivity.this, "nav_first", Toast.LENGTH_SHORT).show();
+            case R.id.nav_request_package:
+                MainActivity.this.ShowFragmentPAckRequest();
                 break;
-            case R.id.nav_second_fragment:
-                Toast.makeText(MainActivity.this, "nav_first", Toast.LENGTH_SHORT).show();
+            case R.id.nav_seperation:
+                MainActivity.this.ShowFragmentLearn();
                 break;
-            case R.id.nav_third_fragment:
-                Toast.makeText(MainActivity.this, "nav_first", Toast.LENGTH_SHORT).show();
+            case R.id.nav_collect:
+                MainActivity.this.ShowFragmentCollectRequest();
                 break;
-            default:
-                Toast.makeText(MainActivity.this, "nav_first", Toast.LENGTH_SHORT).show();
+            case R.id.nav_clottery:
+                MainActivity.this.ShowFragmentLottery();
+                break;
+            case R.id.nav_support:
+                MainActivity.this.ShowFragmentAbout();
+                break;
+            case R.id.nav_call:
+                MainActivity.this.ShowFragmentCall();
+                break;
+            case R.id.nav_home:
+                MainActivity.this.ShowFragmentHome();
+                break;
         }
 
         try {
@@ -513,7 +381,7 @@ public class MainActivity extends AppCompatActivity {
         setTitle(menuItem.getTitle());
         // Close the navigation drawer
         mDrawer.closeDrawers();
-    }
+    }//_____________________________________________________________________________________________ End selectDrawerItem
 
 
     public void attachBaseContext(Context newBase) {//______________________________________________ Start attachBaseContext

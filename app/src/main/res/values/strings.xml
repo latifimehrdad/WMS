@@ -19,11 +19,13 @@
     <string name="RegisterPersonBank">اطلاعات بانکی</string>
     <string name="RegisterPersonCodeNew">کد نوسازی</string>
     <string name="Name">نام</string>
+    <string name="Family">نام خانوادگی</string>
     <string name="Sex">جنسیت</string>
     <string name="Man">مرد</string>
     <string name="Woman">زن</string>
     <string name="MobileNumber">شماره موبایل</string>
     <string name="NewPassword">رمز جدید</string>
+    <string name="Password">رمز ورود</string>
     <string name="NewPasswordConfirm">تکرار رمز جدید</string>
     <string name="ReagentCode">کد معرف</string>
     <string name="AcountNumber">شماره حساب</string>
@@ -129,7 +131,7 @@
     <string name="Letsnotthrowawaythefuture">آینده را دور نریزیم</string>
 
     <string name="HeyWhatsPhoneNumber">سلام، شماره تلفن همراه شما چند است؟</string>
-    <string name="EnterPhoneNumber">"شماره تلفن همراه خود را در قسمت زیر وارد کنید \n و کد فعال سازی را دریافت کنید"</string>
+    <string name="EnterPhoneNumber">"جهت دریافت کد امنیتی \n شماره موبایل خود را در زیر وارد نمایید"</string>
     <string name="GetCode">دریافت کد</string>
     <string name="VerifyAccount">تایید حساب کاربری</string>
     <string name="VerifyCode">"لطفا 6 عدد کد فعال سازی  \n را وارد نمایید"</string>
@@ -143,5 +145,7 @@
     <string name="EmptyPasswordConfirm">تکرار رمز ورود اشتباه است</string>
     <string name="PleaseWait">درحال برقراری ارتباط ...</string>
     <string name="Ignor">بیخیال</string>
+    <string name="ForgetPassword">آیا رمز ورود خود را فراموش کرده اید؟</string>
+    <string name="Editrofile">ویرایش اطلاعات</string>
 
 </resources>

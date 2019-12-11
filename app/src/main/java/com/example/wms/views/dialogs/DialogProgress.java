@@ -9,13 +9,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.wms.R;
 import com.example.wms.databinding.DialogProgressBinding;
-import com.example.wms.viewmodels.login.ActivitySendPhoneNumberViewModel;
+import com.example.wms.viewmodels.user.login.ActivityBeforLoginViewModel;
+import com.example.wms.viewmodels.user.register.ActivitySendPhoneNumberViewModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,6 +25,7 @@ public class DialogProgress extends DialogFragment {
     private String Title;
     private Context context;
     private ActivitySendPhoneNumberViewModel activitySendPhoneNumberViewModel;
+    private ActivityBeforLoginViewModel activityBeforLoginViewModel;
 
     @BindView(R.id.DialogProgressIgnor)
     Button DialogProgressIgnor;
@@ -36,10 +37,12 @@ public class DialogProgress extends DialogFragment {
     public DialogProgress(
             Context context,
             String title,
-            ActivitySendPhoneNumberViewModel activitySendPhoneNumberViewModel) {//__________________ Start DialogProgress
+            ActivitySendPhoneNumberViewModel activitySendPhoneNumberViewModel,
+            ActivityBeforLoginViewModel activityBeforLoginViewModel) {//__________________ Start DialogProgress
         Title = title;
         this.context = context;
         this.activitySendPhoneNumberViewModel = activitySendPhoneNumberViewModel;
+        this.activityBeforLoginViewModel = activityBeforLoginViewModel;
     }//_____________________________________________________________________________________________ End DialogProgress
 
 
@@ -56,6 +59,17 @@ public class DialogProgress extends DialogFragment {
             binding.setSendphonenumber(activitySendPhoneNumberViewModel);
             view = binding.getRoot();
         }
+        else if (activityBeforLoginViewModel != null) {
+            DialogProgressBinding binding = DataBindingUtil
+                    .inflate(LayoutInflater
+                                    .from(this.context),
+                            R.layout.dialog_progress,
+                            null,
+                            false);
+
+            binding.setBeforlogin(activityBeforLoginViewModel);
+            view = binding.getRoot();
+        }
 
         ButterKnife.bind(this, view);
         DialogProgressTitle.setText(Title);
@@ -65,35 +79,12 @@ public class DialogProgress extends DialogFragment {
                 if (activitySendPhoneNumberViewModel != null) {
                     activitySendPhoneNumberViewModel.Observables.onNext(str);
                 }
+                else if (activityBeforLoginViewModel != null) {
+                    activityBeforLoginViewModel.Observables.onNext(str);
+                }
             }
         });
         return new AlertDialog.Builder(context).setView(view).create();
     }//_____________________________________________________________________________________________ End onCreateDialog
 
-
-    public String getTitle() {
-        return Title;
-    }
-
-    public void setTitle(String title) {
-        Title = title;
-    }
-
-    @Nullable
-    @Override
-    public Context getContext() {
-        return context;
-    }
-
-    public void setContext(Context context) {
-        this.context = context;
-    }
-
-    public ActivitySendPhoneNumberViewModel getActivitySendPhoneNumberViewModel() {
-        return activitySendPhoneNumberViewModel;
-    }
-
-    public void setActivitySendPhoneNumberViewModel(ActivitySendPhoneNumberViewModel activitySendPhoneNumberViewModel) {
-        this.activitySendPhoneNumberViewModel = activitySendPhoneNumberViewModel;
-    }
 }

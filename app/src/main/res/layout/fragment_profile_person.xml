@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="person"
+            type="com.example.wms.viewmodels.user.profile.FragmentProfilePersonViewModel" />
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/_50sdp"
+                android:paddingRight="@dimen/_50sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_10sdp"
+                android:gravity="center"
+                >
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:background="@drawable/edit_normal_background"
+                    android:hint="@string/Name"
+                    android:inputType="textPersonName"
+                    android:padding="@dimen/_2sdp"
+                    android:textColor="@color/mlBlack"
+                    android:textSize="@dimen/_12sdp"
+                    />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/edit_normal_background"
+                    android:hint="@string/Family"
+                    android:inputType="textPersonName"
+                    android:padding="@dimen/_2sdp"
+                    android:textColor="@color/mlBlack"
+                    android:textSize="@dimen/_12sdp"
+                    />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/Sex"
+                    android:textColor="@color/mlBlack"
+                    android:textSize="@dimen/_13sdp"
+                    android:gravity="center"
+                    />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RadioGroup
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        >
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/Woman"
+                            android:textColor="@color/mlBlack"
+                            android:textSize="@dimen/_11sdp"
+                            android:theme="@style/mlCheck"
+                            />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_15sdp"
+                            android:text="@string/Man"
+                            android:textColor="@color/mlBlack"
+                            android:textSize="@dimen/_11sdp"
+                            android:theme="@style/mlCheck"
+                            />
+
+                    </RadioGroup>
+
+                </LinearLayout>
+
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/edit_normal_background"
+                    android:hint="@string/MobileNumber"
+                    android:inputType="number"
+                    android:padding="@dimen/_2sdp"
+                    android:textColor="@color/mlBlack"
+                    android:textSize="@dimen/_12sdp"
+                    />
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/MaterialSpinner1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:gravity="right"
+                    android:prompt="@string/City_Prompt"
+                    app:ms_background_color="@color/mlEdit"
+                    app:ms_text_color="@color/mlBlack"
+                    />
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/MaterialSpinner2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:gravity="right"
+                    android:prompt="@string/City_Prompt"
+                    app:ms_background_color="@color/mlEdit"
+                    app:ms_text_color="@color/mlBlack"
+                    />
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/MaterialSpinner3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:gravity="right"
+                    android:prompt="@string/City_Prompt"
+                    app:ms_background_color="@color/mlEdit"
+                    app:ms_text_color="@color/mlBlack"
+                    />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/edit_normal_background"
+                    android:hint="@string/ReagentCode"
+                    android:inputType="number"
+                    android:padding="@dimen/_2sdp"
+                    android:textColor="@color/mlBlack"
+                    android:textSize="@dimen/_12sdp"
+                    />
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_25sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_25sdp"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:background="@drawable/save_info_button"
+                    android:text="@string/RegisterPerson"
+                    android:textColor="@color/mlWhite"
+                    android:textSize="@dimen/_13sdp" />
+
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</layout>

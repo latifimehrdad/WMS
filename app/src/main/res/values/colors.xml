@@ -3,6 +3,7 @@
     <color name="colorPrimary">#00AAB1</color>
     <color name="colorPrimaryDark">#017E81</color>
     <color name="colorAccent">@color/colorPrimary</color>
+    <color name="colorPrymeryVeryDark">#01585A</color>
 
     <color name="mlHeader">#808080</color>
     <color name="mlWhite">#ffffff</color>
@@ -22,7 +23,7 @@
     <color name="mlMenuBackTrans">#D9252525</color>
     <color name="mlMenuBack">#4E4E4E</color>
     <color name="mlVerifyCodeIndex">#99FFFFFF</color>
-    <color name="mlVerifyCodeEmpty">#4D313131</color>
+    <color name="mlVerifyCodeEmpty">#66313131</color>
     <color name="mlEditEmpty">#FAA2AA</color>
 
 

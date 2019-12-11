@@ -16,7 +16,12 @@ import com.example.wms.R;
 import com.example.wms.databinding.FragmentPackRequestAddressBinding;
 import com.example.wms.viewmodels.packrequest.FragmentPackRequestAddressViewModel;
 import com.example.wms.views.activitys.MainActivity;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import butterknife.BindView;
@@ -24,10 +29,11 @@ import butterknife.ButterKnife;
 
 import static com.example.wms.utility.StaticFunctions.SetKey;
 
-public class FragmentPackRequestAddress extends Fragment {
+public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCallback {
 
     private Context context;
     private FragmentPackRequestAddressViewModel fragmentPackRequestAddressViewModel;
+    private GoogleMap mMap;
 
     @BindView(R.id.FPRAMaterialSpinnerType)
     MaterialSpinner FPRAMaterialSpinnerType;
@@ -71,6 +77,10 @@ public class FragmentPackRequestAddress extends Fragment {
     @Override
     public void onStart() {//_______________________________________________________________________ Start onStart
         super.onStart();
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
+                .findFragmentById(R.id.fpraMap);
+        mapFragment.getMapAsync(this);
+
         SetMaterialSpinnersItems();
     }//_____________________________________________________________________________________________ End onStart
 
@@ -98,6 +108,22 @@ public class FragmentPackRequestAddress extends Fragment {
     }//_____________________________________________________________________________________________ End BackClick
 
 
+
+
+    @Override
+    public void onMapReady(GoogleMap googleMap)
+    {//_____________________________________________________________________________________________ Start Void onMapReady
+        mMap = googleMap;
+        LatLng sydney = new LatLng(35.832483, 50.961751);
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Negra"));
+        float zoom = (float) 11;
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, zoom));
+
+        mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        mMap.getUiSettings().setMapToolbarEnabled(true);
+    }//_____________________________________________________________________________________________ End Void onMapReady
 
 
 

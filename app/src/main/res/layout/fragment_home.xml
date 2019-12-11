@@ -17,7 +17,6 @@
         android:orientation="vertical"
         android:padding="@dimen/_10sdp"
         android:gravity="center_horizontal"
-        android:background="#F5F2F2"
         >
 
         <RelativeLayout
@@ -147,7 +146,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="-8dp"
+            >
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -180,15 +181,6 @@
 
 
         </LinearLayout>
-
-
-        <com.example.wms.views.custom.circlemenu.CustomView
-            android:id="@+id/ml"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/mlHeader"
-            android:visibility="gone"
-            />
 
 
         <RelativeLayout
@@ -265,6 +257,19 @@
                     android:gravity="center"
                     />
 
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/footerright"
+                    android:layout_toRightOf="@id/footerleft"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/_11sdp"
+                    android:text="@string/Letsnotthrowawaythefuture"
+                    android:gravity="center"
+                    />
 
             </RelativeLayout>
 

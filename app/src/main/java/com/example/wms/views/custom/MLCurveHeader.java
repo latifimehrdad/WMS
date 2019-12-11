@@ -143,7 +143,7 @@ public class MLCurveHeader extends View {
 
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawPath(pathShadow,DrawPaint2);
+        //canvas.drawPath(pathShadow,DrawPaint2);
         canvas.drawPath(mPath, DrawPaint);
 
     }

@@ -30,13 +30,11 @@
 
         <activity android:name=".views.activitys.SplashActivity"/>
 
-        <activity android:name=".views.activitys.ActivityTest"/>
+        <activity android:name=".views.activitys.user.login.ActivityBeforLogin"/>
 
-        <activity android:name=".views.activitys.login.ActivityBeforLogin"/>
+        <activity android:name=".views.activitys.user.register.ActivitySendPhoneNumber"/>
 
-        <activity android:name=".views.activitys.login.ActivitySendPhoneNumber"/>
-
-        <activity android:name=".views.activitys.login.ActivityVerifyCode"/>
+        <activity android:name=".views.activitys.user.register.ActivityVerifyCode"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

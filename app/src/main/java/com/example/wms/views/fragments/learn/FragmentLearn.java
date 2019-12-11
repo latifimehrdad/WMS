@@ -2,7 +2,6 @@ package com.example.wms.views.fragments.learn;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +13,6 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentLearnBinding;
 import com.example.wms.viewmodels.learn.FragmentLearrnViewModel;
-import com.example.wms.views.activitys.MainActivity;
-import com.example.wms.views.fragments.register.FragmentRegisterBank;
-import com.example.wms.views.fragments.register.FragmentRegisterCode;
-import com.example.wms.views.fragments.register.FragmentRegisterPerson;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;

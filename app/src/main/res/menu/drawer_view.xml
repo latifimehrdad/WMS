@@ -4,20 +4,42 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/nav_third_fragment"
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="@string/Home" />
+
+        <item
+            android:id="@+id/nav_request_package"
+            android:icon="@drawable/logorequestpackage"
+            android:title="@string/FragmentPackRequestPrimery"/>
+
+        <item
+            android:id="@+id/nav_seperation"
+            android:icon="@drawable/logoseperation"
+            android:title="@string/FragmentSeparation"/>
+
+        <item
+            android:id="@+id/nav_collect"
+            android:icon="@drawable/logocar"
+            android:title="@string/FragmentCollectRequst"/>
+
+        <item
+            android:id="@+id/nav_clottery"
+            android:icon="@drawable/logolottery"
+            android:title="@string/Lottery"/>
+
+        <item
+            android:id="@+id/nav_support"
             android:icon="@drawable/ic_supervisor_account_black_24dp"
             android:title="@string/SupportApp" />
 
 
         <item
-            android:id="@+id/nav_second_fragment"
+            android:id="@+id/nav_call"
             android:icon="@drawable/ic_phone_in_talk_black_24dp"
             android:title="@string/CallWithUs" />
 
-        <item
-            android:id="@+id/nav_first_fragment"
-            android:icon="@drawable/ic_home_black_24dp"
-            android:title="@string/Home" />
+
 
     </group>
 </menu>

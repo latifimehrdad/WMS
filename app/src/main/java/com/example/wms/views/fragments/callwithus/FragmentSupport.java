@@ -52,11 +52,11 @@ public class FragmentSupport extends Fragment {
 
     public FragmentSupport(Context context) {//_____________________________________________________ Start FragmentSupport
         this.context = context;
-    }//_____________________________________________________________________________________________ End FragmentRegisterPerson
+    }//_____________________________________________________________________________________________ End FragmentProfilePerson
 
 
     public FragmentSupport() {//____________________________________________________________________ Start FragmentSupport
-    }//_____________________________________________________________________________________________ End FragmentRegisterPerson
+    }//_____________________________________________________________________________________________ End FragmentProfilePerson
 
 
     @Override

@@ -7,6 +7,7 @@
     android:background="@color/mlHeader"
     android:layout_alignParentTop="true">
 
+
     <ImageView
         android:id="@+id/MainMenu"
         android:layout_width="@dimen/_35sdp"
@@ -14,21 +15,8 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:padding="@dimen/_5sdp"
-        />
-
-    <com.nightonke.boommenu.BoomMenuButton
-        android:id="@+id/bmb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        app:bmb_buttonEnum="ham"
-        app:bmb_autoHide="true"
-        app:bmb_piecePlaceEnum="piecePlace_ham_6"
-        app:bmb_buttonPlaceEnum="buttonPlace_ham_6"
-        app:bmb_normalColor="@color/mlMenuBack"
-        app:bmb_dimColor="@color/mlMenuBackTrans"
-        app:bmb_buttonRadius="@dimen/_18sdp"
+        android:src="@drawable/ic_toc_black_24dp"
+        android:tint="@color/mlWhite"
         />
 
 

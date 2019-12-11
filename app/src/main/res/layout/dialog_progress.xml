@@ -5,7 +5,11 @@
         
         <variable
             name="sendphonenumber"
-            type="com.example.wms.viewmodels.login.ActivitySendPhoneNumberViewModel" />
+            type="com.example.wms.viewmodels.user.register.ActivitySendPhoneNumberViewModel" />
+
+        <variable
+            name="beforlogin"
+            type="com.example.wms.viewmodels.user.login.ActivityBeforLoginViewModel" />
     </data>
 
     <LinearLayout
