@@ -23,6 +23,7 @@ public class MLCurveHeader extends View {
     private Path pathShadow;
     private int height;
     private int width;
+    private int PitOpenings;
     private int backColor;
     private int shadowColor;
     private int shadow;
@@ -39,6 +40,7 @@ public class MLCurveHeader extends View {
         backColor = ta.getColor(R.styleable.MLCurveHeader_backcolor,Color.WHITE);
         shadowColor = ta.getColor(R.styleable.MLCurveHeader_shadowcolor,Color.argb(60,0,0,0));
         shadow = ta.getInt(R.styleable.MLCurveHeader_shadow,3);
+        PitOpenings = ta.getInt(R.styleable.MLCurveHeader_PitOpenings, 10);
 
         init();
     }
@@ -73,10 +75,12 @@ public class MLCurveHeader extends View {
         mPath.moveTo(0, 0);
         mPath.lineTo(0,halfHeight + (halfHeight / 3) - shadow);
 
+        mPath.lineTo(PitOpenings, halfHeight + (halfHeight / 3) - shadow);
+
         Point mFirstCurveControlPoint1 = new Point();
         Point mFirstCurveControlPoint2 = new Point();
 
-        mFirstCurveControlPoint1.set(halfWidth / 3,halfHeight + (halfHeight / 3) - shadow);
+        mFirstCurveControlPoint1.set(halfWidth / 3 + PitOpenings,halfHeight + (halfHeight / 3) - shadow);
         mFirstCurveControlPoint2.set((halfWidth / 3) + (halfWidth / 5), height - shadow);
         mPath.cubicTo(mFirstCurveControlPoint1.x, mFirstCurveControlPoint1.y,
                 mFirstCurveControlPoint2.x, mFirstCurveControlPoint2.y,
@@ -86,11 +90,13 @@ public class MLCurveHeader extends View {
         Point mSecondCurveControlPoint2 = new Point();
 
         mSecondCurveControlPoint1.set(width - ((halfWidth / 3) + (halfWidth / 5)) + 10,height - shadow);
-        mSecondCurveControlPoint2.set(width - halfWidth / 3 + 10 , halfHeight + (halfHeight / 3) - shadow);
+        mSecondCurveControlPoint2.set(width - halfWidth / 3 + 10 - PitOpenings, halfHeight + (halfHeight / 3) - shadow);
 
         mPath.cubicTo(mSecondCurveControlPoint1.x, mSecondCurveControlPoint1.y,
                 mSecondCurveControlPoint2.x, mSecondCurveControlPoint2.y,
-                width, halfHeight + (halfHeight / 3) - shadow);
+                width - PitOpenings, halfHeight + (halfHeight / 3) - shadow);
+
+        mPath.lineTo(width, halfHeight + (halfHeight / 3) - shadow);
 
         mPath.lineTo(width,0);
         mPath.lineTo(0,0);
@@ -102,9 +108,12 @@ public class MLCurveHeader extends View {
         Point mFirstCurveShadowPoint1 = new Point();
         Point mFirstCurveShadowPoint2 = new Point();
 
-        mFirstCurveShadowPoint1.set(halfWidth / 3,halfHeight + (halfHeight / 3));
-        mFirstCurveShadowPoint2.set((halfWidth / 3) + (halfWidth / 5), height);
+
         pathShadow.moveTo(0,halfHeight + (halfHeight / 3));
+        pathShadow.lineTo(PitOpenings, halfHeight + (halfHeight / 3));
+
+        mFirstCurveShadowPoint1.set(halfWidth / 3 + PitOpenings,halfHeight + (halfHeight / 3));
+        mFirstCurveShadowPoint2.set((halfWidth / 3) + (halfWidth / 5), height);
         pathShadow.cubicTo(mFirstCurveShadowPoint1.x, mFirstCurveShadowPoint1.y,
                 mFirstCurveShadowPoint2.x, mFirstCurveShadowPoint2.y,
                 halfWidth + 10, height);
@@ -113,11 +122,13 @@ public class MLCurveHeader extends View {
         Point mSecondCurveShadowPoint2 = new Point();
 
         mSecondCurveShadowPoint1.set(width - ((halfWidth / 3) + (halfWidth / 5)) + 10,height);
-        mSecondCurveShadowPoint2.set(width - halfWidth / 3 + 10, halfHeight + (halfHeight / 3));
+        mSecondCurveShadowPoint2.set(width - halfWidth / 3 + 10 - PitOpenings, halfHeight + (halfHeight / 3));
 
         pathShadow.cubicTo(mSecondCurveShadowPoint1.x, mSecondCurveShadowPoint1.y,
                 mSecondCurveShadowPoint2.x, mSecondCurveShadowPoint2.y,
-                width, halfHeight + (halfHeight / 3));
+                width - PitOpenings, halfHeight + (halfHeight / 3));
+
+        pathShadow.lineTo(width, halfHeight + (halfHeight / 3));
 
         pathShadow.lineTo(width,0);
         pathShadow.lineTo(0,0);

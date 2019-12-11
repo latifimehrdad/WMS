@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentShowObserver();
         SetClicks();
         SetMenu();
-        ShowBeforLoginActivity();
+        ShowSpalshActivity();
         //ShowFragmentVerifyCode();
 
         //itemCycleMenuWidget.setMenuItems(Collection<CycleMenuItem> items);
@@ -111,13 +111,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, SplashActivity.class);
         startActivity(intent);
     }//_____________________________________________________________________________________________ End ShowSpalshActivity
-
-
-    private void ShowBeforLoginActivity() {//_______________________________________________________ Start ShowBeforLoginActivity
-        Intent intent = new Intent(MainActivity.this, ActivityBeforLogin.class);
-        startActivity(intent);
-    }//_____________________________________________________________________________________________ End ShowBeforLoginActivity
-
 
 
 

@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
+        android:background="@color/colorAccent"
         >
 
         <ImageView
@@ -18,6 +19,7 @@
             android:layout_height="@dimen/_40sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:src="@drawable/ic_phone_in_talk_black"
+            android:tint="@color/mlWhite"
             android:background="@drawable/layout_circle_border_green"
             />
 
@@ -27,7 +29,7 @@
             android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_15sdp"
             android:layout_marginRight="@dimen/_15sdp"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/mlWhite"
             android:gravity="center"
             android:textSize="@dimen/_12sdp"
             android:text="@string/HeyWhatsPhoneNumber"
@@ -40,28 +42,143 @@
             android:layout_marginLeft="@dimen/_15sdp"
             android:layout_marginRight="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
-            android:textColor="@color/mlHeader"
+            android:textColor="@color/mlVerifyCodeIndex"
             android:gravity="center"
             android:textSize="@dimen/_10sdp"
             android:text="@string/EnterPhoneNumber"
             android:maxLines="2"
             />
 
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/_30sdp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginLeft="@dimen/_30sdp"
-            android:layout_marginRight="@dimen/_30sdp"
-            android:background="@drawable/edit_test_background"
-            android:hint="@string/MobileNumber"
-            android:inputType="number"
-            android:padding="@dimen/_2sdp"
-            android:textColor="@color/mlBlack"
-            android:textSize="@dimen/_12sdp"
-            android:gravity="center"
-            />
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <EditText
+                android:id="@+id/EditPhoneNumber"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="@dimen/_30sdp"
+                android:background="@drawable/edit_normal_background"
+                android:hint="@string/MobileNumber"
+                android:inputType="number"
+                android:padding="@dimen/_2sdp"
+                android:textColor="@color/mlBlack"
+                android:textSize="@dimen/_12sdp"
+                android:gravity="center"
+                android:maxLength="11"
+                android:maxLines="1"
+                />
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_5sdp"
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical|right"
+                android:padding="@dimen/_5sdp"
+                >
+
+                <ImageView
+                    android:id="@+id/ImgPassVisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_visibility"
+                    />
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/EditPassword"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="@dimen/_30sdp"
+                android:background="@drawable/edit_normal_background"
+                android:hint="@string/NewPassword"
+                android:padding="@dimen/_2sdp"
+                android:textColor="@color/mlBlack"
+                android:textSize="@dimen/_12sdp"
+                android:gravity="center"
+                android:maxLines="1"
+                />
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_5sdp"
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical|right"
+                android:padding="@dimen/_5sdp"
+                >
+
+                <ImageView
+                    android:id="@+id/ImgPassConfVisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_visibility"
+                    />
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/EditPasswordConfirm"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="@dimen/_30sdp"
+                android:background="@drawable/edit_normal_background"
+                android:hint="@string/NewPasswordConfirm"
+                android:padding="@dimen/_2sdp"
+                android:textColor="@color/mlBlack"
+                android:textSize="@dimen/_12sdp"
+                android:gravity="center"
+                android:maxLines="1"
+                />
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
 
 
         <Button
@@ -72,7 +189,7 @@
             android:layout_marginTop="@dimen/_20sdp"
             android:layout_marginRight="@dimen/_30sdp"
             android:layout_marginBottom="@dimen/_20sdp"
-            android:background="@drawable/save_info_button"
+            android:background="@drawable/button_dark_blue"
             android:text="@string/GetCode"
             android:textColor="@color/mlWhite"
             android:textSize="@dimen/_13sdp" />

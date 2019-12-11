@@ -75,6 +75,7 @@ public class ActivityVerifyCode extends AppCompatActivity {
         SetTextChangeListener();
         ReTryGetSMS();
         SetClick();
+        StartTimer(60);
     }//_____________________________________________________________________________________________ End onCreate
 
 
@@ -208,11 +209,10 @@ public class ActivityVerifyCode extends AppCompatActivity {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
 
-                if (event.getAction() != KeyEvent.ACTION_DOWN)
-                    return true;
-
                 EditText edit = (EditText) v;
                 if (keyCode == 67) {
+                    if (event.getAction() != KeyEvent.ACTION_DOWN)
+                        return true;
                     if (edit.getText().length() == 0) {
                         view.requestFocus();
                         SetBackVerifyCode();

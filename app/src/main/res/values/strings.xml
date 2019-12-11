@@ -23,6 +23,8 @@
     <string name="Man">مرد</string>
     <string name="Woman">زن</string>
     <string name="MobileNumber">شماره موبایل</string>
+    <string name="NewPassword">رمز جدید</string>
+    <string name="NewPasswordConfirm">تکرار رمز جدید</string>
     <string name="ReagentCode">کد معرف</string>
     <string name="AcountNumber">شماره حساب</string>
     <string name="Save">ثبت</string>
@@ -135,5 +137,11 @@
     <string name="ReTryGetSMS">دریافت مجدد\n پیامک</string>
     <string name="LogIn">ورود به سامانه</string>
     <string name="SignUp">ثبت نام در سامانه</string>
+
+    <string name="EmptyPhoneNumber">شماره موبایل را بصورت صحیح وارد نمایید</string>
+    <string name="EmptyPassword">رمز ورود باید حداقل 6 حرف باشد</string>
+    <string name="EmptyPasswordConfirm">تکرار رمز ورود اشتباه است</string>
+    <string name="PleaseWait">درحال برقراری ارتباط ...</string>
+    <string name="Ignor">بیخیال</string>
 
 </resources>

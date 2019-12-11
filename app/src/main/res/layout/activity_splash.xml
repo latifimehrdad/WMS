@@ -9,8 +9,19 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:background="@color/colorAccent"
-        android:layout_height="match_parent">
+        android:background="@color/mlWhite"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        >
+
+        <ImageView
+            android:id="@+id/ImgLogo"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:src="@drawable/wmslogo"
+            />
+
+
     </LinearLayout>
 
 

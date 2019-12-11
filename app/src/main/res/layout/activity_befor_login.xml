@@ -26,6 +26,7 @@
                 app:backcolor="@color/colorPrimaryDark"
                 app:shadow="5"
                 app:shadowcolor="@color/mlMenuBackTrans"
+                app:PitOpenings="50"
                 />
 
             <LinearLayout
@@ -55,19 +56,12 @@
                     android:layout_height="0dp"
                     android:layout_weight="1">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/circle_bg"
-                        android:layout_centerHorizontal="true"
-                        />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:src="@drawable/wmslogo"
                         android:layout_centerHorizontal="true"
-                        android:padding="@dimen/_10sdp"
                         />
 
                 </RelativeLayout>

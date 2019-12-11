@@ -19,6 +19,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/mlWhite"
             >
 
             <include layout="@layout/main_header"
@@ -49,6 +50,7 @@
                 android:layout_height="match_parent"
                 android:layout_below="@id/MainHeader"
                 android:layout_marginBottom="@dimen/_45sdp"
+                android:background="@color/mlWhite"
                 >
 
             </FrameLayout>

@@ -68,7 +68,7 @@ public class ActivityBeforLogin extends AppCompatActivity {
     }//_____________________________________________________________________________________________ End SetClick
 
 
-    public static View.OnKeyListener SetKey(View view){//_________________________________________________ Start SetKey
+    public static View.OnKeyListener SetKey(View view) {//_________________________________________________ Start SetKey
         return new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -85,11 +85,17 @@ public class ActivityBeforLogin extends AppCompatActivity {
     }//_____________________________________________________________________________________________ End SetKey
 
 
-
     public void attachBaseContext(Context newBase) {//______________________________________________ Start attachBaseContext
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
     }//_____________________________________________________________________________________________ End attachBaseContext
 
+
+    @Override
+    public void onBackPressed() {//_________________________________________________________________ Start onBackPressed
+        super.onBackPressed();
+        moveTaskToBack(true);
+        System.exit(0);
+    }//_____________________________________________________________________________________________ End onBackPressed
 
 
 }
