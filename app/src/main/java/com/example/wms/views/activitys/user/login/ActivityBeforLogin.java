@@ -238,8 +238,8 @@ public class ActivityBeforLogin extends AppCompatActivity {
 
 
     private void ShowProgressDialog() {//___________________________________________________________ Start ShowProgressDialog
-        progress = new DialogProgress(ActivityBeforLogin.this,
-                null, null, activityBeforLoginViewModel);
+        progress = new DialogProgress(ActivityBeforLogin.this
+        ,null,activityBeforLoginViewModel);
 
         progress.setCancelable(false);
         progress.show(getSupportFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);

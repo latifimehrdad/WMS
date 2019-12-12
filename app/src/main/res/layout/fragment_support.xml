@@ -38,7 +38,7 @@
             <com.jaredrummler.materialspinner.MaterialSpinner
                 android:id="@+id/MaterialSpinner1"
                 android:layout_width="fill_parent"
-                android:layout_height="@dimen/_30sdp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:gravity="right"
                 android:prompt="@string/City_Prompt"

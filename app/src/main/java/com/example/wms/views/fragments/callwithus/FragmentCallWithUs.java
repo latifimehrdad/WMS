@@ -79,6 +79,7 @@ public class FragmentCallWithUs extends Fragment {
 
         FragmentCallWithUsView.setAdapter(adapter);
         FragmentCallWithUsTab.setViewPager(FragmentCallWithUsView);
+        FragmentCallWithUsView.setCurrentItem(1);
 
     }//_____________________________________________________________________________________________ End SetTabs
 

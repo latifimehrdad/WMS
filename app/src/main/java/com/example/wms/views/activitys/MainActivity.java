@@ -4,14 +4,20 @@ Create By Mehrdad Latifi in
  */
 package com.example.wms.views.activitys;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -100,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         SetClicks();
         setupDrawerContent(nvDrawer);
         ShowSpalshActivity();
-
+        checkLocationPermission();
 
         //itemCycleMenuWidget.setMenuItems(Collection<CycleMenuItem> items);
     }//_____________________________________________________________________________________________ End SetBindingView
@@ -387,6 +393,83 @@ public class MainActivity extends AppCompatActivity {
     public void attachBaseContext(Context newBase) {//______________________________________________ Start attachBaseContext
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
     }//_____________________________________________________________________________________________ End attachBaseContext
+
+
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+    public void checkLocationPermission()
+    {//_____________________________________________________________________________________________ Start checkLocationPermission
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                new AlertDialog.Builder(this)
+                        .setTitle("دسترسی به موقعیت")
+                        .setMessage("برای نمایش مکان شما به موقعیت دسترسی بدهید")
+                        .setPositiveButton("تایید", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //Prompt the user once explanation has been shown
+                                ActivityCompat.requestPermissions(MainActivity.this,
+                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                        MY_PERMISSIONS_REQUEST_LOCATION);
+                            }
+                        })
+                        .create()
+                        .show();
+
+
+            } else {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+            }
+        }
+    }//_____________________________________________________________________________________________ End checkLocationPermission
+
+
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults)
+    {//_____________________________________________________________________________________________ Start onRequestPermissionsResult
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // location-related task you need to do.
+                    if (ContextCompat.checkSelfPermission(this,
+                            Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+
+                        //Request location updates:
+                    }
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+
+                }
+                return;
+            }
+
+        }
+    }//_____________________________________________________________________________________________ End onRequestPermissionsResult
+
+
 
 
 }

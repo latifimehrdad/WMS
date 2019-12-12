@@ -23,6 +23,7 @@ public class ApplicationWMS extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        this.context = getApplicationContext();
         ConfigurationCalligraphy();
         ConfigrationRetrofitComponent();
     }
@@ -53,4 +54,7 @@ public class ApplicationWMS extends MultiDexApplication {
     }//_____________________________________________________________________________________________ End getApplicationWMS
 
 
+    public RetrofitComponent getRetrofitComponent() {//_____________________________________________ Start getRetrofitComponent
+        return retrofitComponent;
+    }//_____________________________________________________________________________________________ End getRetrofitComponent
 }

@@ -91,7 +91,7 @@ public class ActivitySendPhoneNumber extends AppCompatActivity {
                             @Override
                             public void run() {
                                 switch (s) {
-                                    case "success":
+                                    case "Successful":
                                         if(progress != null)
                                             progress.dismiss();
                                         Intent intent = new Intent(
@@ -104,6 +104,9 @@ public class ActivitySendPhoneNumber extends AppCompatActivity {
                                     case "CancelByUser":
                                         if(progress != null)
                                             progress.dismiss();
+                                        break;
+                                    case "Failure":
+
                                         break;
                                 }
                             }
@@ -258,8 +261,7 @@ public class ActivitySendPhoneNumber extends AppCompatActivity {
 
     private void ShowProgressDialog() {//___________________________________________________________ Start ShowProgressDialog
         progress = new DialogProgress(ActivitySendPhoneNumber.this,
-                null, activitySendPhoneNumberViewModel, null);
-
+                null, activitySendPhoneNumberViewModel);
         progress.setCancelable(false);
         progress.show(getSupportFragmentManager(),NotificationCompat.CATEGORY_PROGRESS);
     }//_____________________________________________________________________________________________ End ShowProgressDialog

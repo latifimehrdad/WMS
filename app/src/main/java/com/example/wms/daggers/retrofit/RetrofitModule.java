@@ -3,6 +3,8 @@ package com.example.wms.daggers.retrofit;
 import android.content.Context;
 
 import com.example.wms.daggers.DaggerScope;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.io.File;
@@ -14,8 +16,6 @@ import dagger.Provides;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static com.example.wms.utility.StaticFunctions.GetUrl;
 
 @Module
 public class RetrofitModule {
@@ -35,10 +35,14 @@ public class RetrofitModule {
     @Provides
     @DaggerScope
     public retrofit2.Retrofit getRetrofit(OkHttpClient okHttpClient) {
+        Gson gson = new GsonBuilder()
+                .setDateFormat("E, dd MMM yyyy HH:mm:ss")
+                .create();
+
         return new retrofit2.Retrofit.Builder()
-                .baseUrl(GetUrl())
+                .baseUrl(RetrofitApis.Host)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)
                 .build();
     }

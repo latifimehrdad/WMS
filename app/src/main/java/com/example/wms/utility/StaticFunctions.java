@@ -11,13 +11,6 @@ import com.example.wms.views.activitys.MainActivity;
 
 public class StaticFunctions {
 
-
-
-    public static String GetUrl() {//_______________________________________________________________ Start String
-        return null;
-    }//_____________________________________________________________________________________________ End String
-
-
     public static TextWatcher TextChangeForChangeBack(EditText editText) {//______________________________ Satart TextChangeForChangeBack
 
         return new TextWatcher() {

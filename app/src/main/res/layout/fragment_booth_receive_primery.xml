@@ -102,7 +102,7 @@
                 <com.jaredrummler.materialspinner.MaterialSpinner
                     android:id="@+id/FBRPSpinnerHours"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/_30sdp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:gravity="right"
@@ -115,7 +115,7 @@
                 <com.jaredrummler.materialspinner.MaterialSpinner
                     android:id="@+id/FBRPSpinnerDay"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/_30sdp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:gravity="right"
