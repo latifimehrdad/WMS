@@ -71,7 +71,7 @@ public class FragmentProfile extends Fragment {
         FragmentProfilePerson fragmentProfilePerson = new FragmentProfilePerson(context);
 
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
-                getFragmentManager(), FragmentPagerItems.with(context)
+                getChildFragmentManager(), FragmentPagerItems.with(context)
                 .add(R.string.RegisterPersonCodeNew, fragmentProfileCode.getClass())
                 .add(R.string.RegisterPersonBank, fragmentProfileBank.getClass())
                 .add(R.string.RegisterPerson, fragmentProfilePerson.getClass())
