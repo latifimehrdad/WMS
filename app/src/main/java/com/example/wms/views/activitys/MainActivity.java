@@ -17,6 +17,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -43,8 +44,6 @@ import com.example.wms.views.fragments.packrequest.FragmentPackRequest;
 import com.example.wms.views.fragments.profile.FragmentProfile;
 import com.example.wms.views.fragments.wallet.FragmentWallet;
 import com.google.android.material.navigation.NavigationView;
-import com.nightonke.boommenu.BoomButtons.HamButton;
-import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -137,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         MainMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDrawer.openDrawer(Gravity.RIGHT,true);
+                mDrawer.openDrawer(Gravity.RIGHT, true);
             }
         });
 
@@ -164,6 +163,9 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 switch (s) {
+                                    case "CheckProfile":
+                                        MainActivity.this.CheckProfile();
+                                        break;
                                     case "Main":
                                         MainActivity.this.ShowFragmentHome();
                                         break;
@@ -202,6 +204,22 @@ public class MainActivity extends AppCompatActivity {
                 });
 
     }//_____________________________________________________________________________________________ End FragmentShowObserver
+
+
+    private void CheckProfile() {//_________________________________________________________________ Start CheckProfile
+
+        SharedPreferences prefs = this.getSharedPreferences("wmstoken", 0);
+        if (prefs == null) {
+
+        } else {
+            Boolean CompleteProfile = prefs.getBoolean("complateprofile", false);
+            if (CompleteProfile == false)
+                ShowFragmentRegister();
+            else
+                ShowFragmentHome();
+        }
+
+    }//_____________________________________________________________________________________________ End CheckProfile
 
 
     private void ShowFragmentRegister() {//___________________________________________________________ Start ShowFragmentRegister
@@ -396,8 +414,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
-    public void checkLocationPermission()
-    {//_____________________________________________________________________________________________ Start checkLocationPermission
+
+
+    public void checkLocationPermission() {//_____________________________________________________________________________________________ Start checkLocationPermission
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -435,13 +454,9 @@ public class MainActivity extends AppCompatActivity {
     }//_____________________________________________________________________________________________ End checkLocationPermission
 
 
-
-
-
     @Override
     public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults)
-    {//_____________________________________________________________________________________________ Start onRequestPermissionsResult
+                                           String permissions[], int[] grantResults) {//_____________________________________________________________________________________________ Start onRequestPermissionsResult
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_LOCATION: {
                 // If request is cancelled, the result arrays are empty.
@@ -468,8 +483,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }//_____________________________________________________________________________________________ End onRequestPermissionsResult
-
-
 
 
 }

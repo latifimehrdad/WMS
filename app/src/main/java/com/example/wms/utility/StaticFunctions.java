@@ -9,6 +9,11 @@ import android.widget.EditText;
 import com.example.wms.R;
 import com.example.wms.views.activitys.MainActivity;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import retrofit2.Response;
+
 public class StaticFunctions {
 
     public static TextWatcher TextChangeForChangeBack(EditText editText) {//______________________________ Satart TextChangeForChangeBack
@@ -33,7 +38,6 @@ public class StaticFunctions {
     }//_____________________________________________________________________________________________ End TextChangeForChangeBack
 
 
-
     public static View.OnKeyListener SetKey(View view) {//_________________________________________________ Start SetKey
         return new View.OnKeyListener() {
             @Override
@@ -51,6 +55,36 @@ public class StaticFunctions {
         };
     }//_____________________________________________________________________________________________ End SetKey
 
+
+    public static String CheckResponse(Response response, Boolean Authorization) {//_______________________ Start CheckResponse
+        if (response.body() != null)
+            return null;
+        else {
+            if (Authorization) {
+                try{
+                    JSONObject jObjError = new JSONObject(response.errorBody().string());
+                    return jObjError.getString("error_description");
+                }catch (Exception ex){
+                    return "Failure";
+                }
+            } else {
+                try{
+                    JSONObject jObjError = new JSONObject(response.errorBody().string());
+                    JSONArray jsonArray = jObjError.getJSONArray("messages");
+                    String message = "";
+                    for(int i = 0; i<jsonArray.length(); i++){
+                        JSONObject temp = new JSONObject(jsonArray.get(i).toString());
+                        message = message + temp.getString("message");
+                        message = message + "\n";
+                    }
+                    return message;
+                }catch (Exception ex){
+                    return "Failure";
+                }
+            }
+        }
+
+    }//_____________________________________________________________________________________________ End CheckResponse
 
 
 }

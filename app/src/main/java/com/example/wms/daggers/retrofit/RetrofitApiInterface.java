@@ -24,10 +24,34 @@ public interface RetrofitApiInterface {
     @POST("api/v1/account/registercitizen")
     Call<RegisterCitizenModel> SendPhoneNumber
             (
-                    @Field("PhoneNumber") String PhoneNumber,
+                    @Field("Mobile") String PhoneNumber,
                     @Field("Password") String Password,
                     @Field("ConfirmPassword") String ConfirmPassword,
                     @Header("Authorization") String Authorization
+            );
+
+
+    @FormUrlEncoded
+    @POST("api/v1/account/confirmmobile")
+    Call<RegisterCitizenModel> SendVerifyCode
+            (
+                    @Field("Mobile") String PhoneNumber,
+                    @Field("Code") String Password,
+                    @Header("Authorization") String Authorization
+            );
+
+
+    @FormUrlEncoded
+    @POST("/token")
+    Call<TokenModel> Login
+            (
+                    @Field("client_id") String client_id,
+                    @Field("client_secret") String client_secret,
+                    @Field("grant_type") String grant_type,
+                    @Field("username") String PhoneNumber,
+                    @Field("Password") String Password,
+                    @Header("Authorization") String Authorization
+
             );
 
 }

@@ -17,6 +17,7 @@ import com.example.wms.databinding.DialogProgressBinding;
 import com.example.wms.viewmodels.main.SplashActivityViewModel;
 import com.example.wms.viewmodels.user.login.ActivityBeforLoginViewModel;
 import com.example.wms.viewmodels.user.register.ActivitySendPhoneNumberViewModel;
+import com.example.wms.viewmodels.user.register.ActivityVerifyCodeViewModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,6 +29,7 @@ public class DialogProgress extends DialogFragment {
     private ActivitySendPhoneNumberViewModel activitySendPhoneNumberViewModel;
     private ActivityBeforLoginViewModel activityBeforLoginViewModel;
     private SplashActivityViewModel splashActivityViewModel;
+    private ActivityVerifyCodeViewModel activityVerifyCodeViewModel;
 
     @BindView(R.id.DialogProgressIgnor)
     Button DialogProgressIgnor;
@@ -59,11 +61,22 @@ public class DialogProgress extends DialogFragment {
     public DialogProgress(
             Context context,
             String title,
-            SplashActivityViewModel splashActivityViewModel) {//____________________________ Start DialogProgress
+            SplashActivityViewModel splashActivityViewModel) {//____________________________________ Start DialogProgress
         this.context = context;
         Title = title;
         this.splashActivityViewModel = splashActivityViewModel;
     }//_____________________________________________________________________________________________ End DialogProgress
+
+
+    public DialogProgress(
+            Context context,
+            String title,
+            ActivityVerifyCodeViewModel activityVerifyCodeViewModel) {//____________________________ Start DialogProgress
+        this.context = context;
+        Title = title;
+        this.activityVerifyCodeViewModel = activityVerifyCodeViewModel;
+    }//_____________________________________________________________________________________________ End DialogProgress
+
 
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {//_____________________________________ Start onCreateDialog
@@ -81,6 +94,8 @@ public class DialogProgress extends DialogFragment {
             binding.setBeforlogin(activityBeforLoginViewModel);
         else if (splashActivityViewModel != null)
             binding.setSplash(splashActivityViewModel);
+        else if(activityVerifyCodeViewModel != null)
+            binding.setVerifycode(activityVerifyCodeViewModel);
 
         view = binding.getRoot();
         ButterKnife.bind(this, view);
@@ -94,6 +109,8 @@ public class DialogProgress extends DialogFragment {
                     activityBeforLoginViewModel.Observables.onNext(str);
                 else if (splashActivityViewModel != null)
                     splashActivityViewModel.Observables.onNext(str);
+                else if (activityVerifyCodeViewModel != null)
+                    activityVerifyCodeViewModel.Observables.onNext(str);
             }
         });
         return new AlertDialog.Builder(context).setView(view).create();

@@ -1,6 +1,7 @@
 package com.example.wms.views.activitys.user.register;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -16,6 +17,9 @@ import androidx.databinding.DataBindingUtil;
 import com.example.wms.R;
 import com.example.wms.databinding.ActivitySendPhoneNumberBinding;
 import com.example.wms.viewmodels.user.register.ActivitySendPhoneNumberViewModel;
+import com.example.wms.views.activitys.SplashActivity;
+import com.example.wms.views.application.ApplicationWMS;
+import com.example.wms.views.dialogs.DialogMessage;
 import com.example.wms.views.dialogs.DialogProgress;
 
 import butterknife.BindView;
@@ -32,6 +36,9 @@ public class ActivitySendPhoneNumber extends AppCompatActivity {
     private boolean passVisible;
     private boolean passconfirmVisible;
     private DialogProgress progress;
+    private String PhoneNumber;
+    private String Password;
+    private String Type;
 
     @BindView(R.id.btnGetVerifyCode)
     Button btnGetVerifyCode;
@@ -76,6 +83,12 @@ public class ActivitySendPhoneNumber extends AppCompatActivity {
         EditPasswordConfirm.setInputType(InputType.TYPE_CLASS_TEXT |
                 InputType.TYPE_TEXT_VARIATION_PASSWORD);
         passconfirmVisible = false;
+
+        Bundle extra = getIntent().getExtras();
+        PhoneNumber = extra.getString("PhoneNumber");
+        Password = extra.getString("Password");
+        Type = extra.getString("type");
+
     }//_____________________________________________________________________________________________ End init
 
 
@@ -90,23 +103,32 @@ public class ActivitySendPhoneNumber extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                if (progress != null)
+                                    progress.dismiss();
                                 switch (s) {
                                     case "Successful":
-                                        if(progress != null)
-                                            progress.dismiss();
                                         Intent intent = new Intent(
                                                 ActivitySendPhoneNumber.this,
                                                 ActivityVerifyCode.class);
-                                        intent.putExtra("PhoneNumber", EditPhoneNumber.getText());
-                                        intent.putExtra("Password", EditPassword.getText());
+                                        intent.putExtra("PhoneNumber", EditPhoneNumber.getText().toString());
+                                        intent.putExtra("Password", EditPassword.getText().toString());
                                         startActivity(intent);
-                                        break;
-                                    case "CancelByUser":
-                                        if(progress != null)
-                                            progress.dismiss();
+                                        finish();
                                         break;
                                     case "Failure":
-
+                                        ShowMessage(getResources().getString(R.string.NetworkError),
+                                                getResources().getColor(R.color.mlWhite),
+                                                getResources().getDrawable(R.drawable.ic_error));
+                                        EditPhoneNumber.requestFocus();
+                                        break;
+                                    case "Error":
+                                        ShowMessage(activitySendPhoneNumberViewModel.getMessageResponse(),
+                                                getResources().getColor(R.color.mlWhite),
+                                                getResources().getDrawable(R.drawable.ic_error));
+                                        break;
+                                    default:
+                                        ShowMessage(s,getResources().getColor(R.color.mlWhite),
+                                                getResources().getDrawable(R.drawable.ic_error));
                                         break;
                                 }
                             }
@@ -263,9 +285,18 @@ public class ActivitySendPhoneNumber extends AppCompatActivity {
         progress = new DialogProgress(ActivitySendPhoneNumber.this,
                 null, activitySendPhoneNumberViewModel);
         progress.setCancelable(false);
-        progress.show(getSupportFragmentManager(),NotificationCompat.CATEGORY_PROGRESS);
+        progress.show(getSupportFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
     }//_____________________________________________________________________________________________ End ShowProgressDialog
 
+
+
+    private void ShowMessage(String message, int color, Drawable icon) {//__________________________ Start ShowMessage
+
+        DialogMessage dialogMessage = new DialogMessage(ActivitySendPhoneNumber.this,message,color,icon);
+        dialogMessage.setCancelable(false);
+        dialogMessage.show(getSupportFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+
+    }//_____________________________________________________________________________________________ End ShowMessage
 
 
     @Override

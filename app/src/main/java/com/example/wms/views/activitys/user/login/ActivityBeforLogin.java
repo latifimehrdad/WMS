@@ -2,6 +2,7 @@ package com.example.wms.views.activitys.user.login;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
@@ -21,7 +22,10 @@ import com.example.wms.R;
 import com.example.wms.databinding.ActivityBeforLoginBinding;
 import com.example.wms.viewmodels.user.login.ActivityBeforLoginViewModel;
 import com.example.wms.views.activitys.MainActivity;
+import com.example.wms.views.activitys.SplashActivity;
 import com.example.wms.views.activitys.user.register.ActivitySendPhoneNumber;
+import com.example.wms.views.application.ApplicationWMS;
+import com.example.wms.views.dialogs.DialogMessage;
 import com.example.wms.views.dialogs.DialogProgress;
 
 import butterknife.BindView;
@@ -59,7 +63,6 @@ public class ActivityBeforLogin extends AppCompatActivity {
     TextView ForgetPassword;
 
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +79,6 @@ public class ActivityBeforLogin extends AppCompatActivity {
     }//_____________________________________________________________________________________________ End onCreate
 
 
-
     private void init() {//_________________________________________________________________________ Start init
         EditPassword.setInputType(InputType.TYPE_CLASS_TEXT |
                 InputType.TYPE_TEXT_VARIATION_PASSWORD);
@@ -90,7 +92,9 @@ public class ActivityBeforLogin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ActivityBeforLogin.this, ActivitySendPhoneNumber.class);
-                intent.putExtra("type","forget");
+                intent.putExtra("type", "forget");
+                intent.putExtra("PhoneNumber", EditPhoneNumber.getText().toString());
+                intent.putExtra("Password", EditPassword.getText().toString());
                 startActivity(intent);
             }
         });
@@ -100,7 +104,7 @@ public class ActivityBeforLogin extends AppCompatActivity {
             public void onClick(View v) {
                 if (CheckEmpty()) {
                     ShowProgressDialog();
-                    activityBeforLoginViewModel.SendNumber(
+                    activityBeforLoginViewModel.GetLoginToken(
                             EditPhoneNumber.getText().toString(),
                             EditPassword.getText().toString()
                     );
@@ -112,7 +116,9 @@ public class ActivityBeforLogin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ActivityBeforLogin.this, ActivitySendPhoneNumber.class);
-                intent.putExtra("type","singup");
+                intent.putExtra("type", "singup");
+                intent.putExtra("PhoneNumber", EditPhoneNumber.getText().toString());
+                intent.putExtra("Password", EditPassword.getText().toString());
                 startActivity(intent);
             }
         });
@@ -139,10 +145,7 @@ public class ActivityBeforLogin extends AppCompatActivity {
         });
 
 
-
-
     }//_____________________________________________________________________________________________ End SetClick
-
 
 
     private void ObserverObservables() {//__________________________________________________________ Start ObserverObservables
@@ -156,22 +159,34 @@ public class ActivityBeforLogin extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                if (progress != null)
+                                    progress.dismiss();
                                 switch (s) {
-                                    case "success":
-                                        if(progress != null)
-                                            progress.dismiss();
+                                    case "SuccessfulToken":
+                                        activityBeforLoginViewModel.GetLoginInformation();
+                                        break;
+                                    case "Successful":
                                         Handler handler = new Handler();
                                         handler.postDelayed(new Runnable() {
                                             @Override
                                             public void run() {
-                                                MainActivity.FragmentMessage.onNext("Main");
+                                                MainActivity.FragmentMessage.onNext("CheckProfile");
                                             }
-                                        },100);
+                                        }, 100);
                                         finish();
                                         break;
-                                    case "CancelByUser":
-                                        if(progress != null)
-                                            progress.dismiss();
+                                    case "Error":
+                                        ShowMessage(activityBeforLoginViewModel.getMessageResponse()
+                                        ,getResources().getColor(R.color.mlWhite),
+                                                getResources().getDrawable(R.drawable.ic_error));
+                                        break;
+                                    case "Failure":
+                                        ShowMessage(getResources().getString(R.string.NetworkError),
+                                                getResources().getColor(R.color.mlWhite),
+                                                getResources().getDrawable(R.drawable.ic_error));
+                                        break;
+                                    default:
+
                                         break;
                                 }
                             }
@@ -190,8 +205,6 @@ public class ActivityBeforLogin extends AppCompatActivity {
                 });
 
     }//_____________________________________________________________________________________________ End ObserverObservables
-
-
 
 
     private Boolean CheckEmpty() {//________________________________________________________________ Start CheckEmpty
@@ -235,18 +248,13 @@ public class ActivityBeforLogin extends AppCompatActivity {
     }//_____________________________________________________________________________________________ End CheckEmpty
 
 
-
-
     private void ShowProgressDialog() {//___________________________________________________________ Start ShowProgressDialog
         progress = new DialogProgress(ActivityBeforLogin.this
-        ,null,activityBeforLoginViewModel);
+                , null, activityBeforLoginViewModel);
 
         progress.setCancelable(false);
         progress.show(getSupportFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
     }//_____________________________________________________________________________________________ End ShowProgressDialog
-
-
-
 
 
     public static View.OnKeyListener SetKey(View view) {//_________________________________________________ Start SetKey
@@ -266,7 +274,6 @@ public class ActivityBeforLogin extends AppCompatActivity {
     }//_____________________________________________________________________________________________ End SetKey
 
 
-
     private void SetTextWatcher() {//_______________________________________________________________ Start SetTextWatcher
         EditPhoneNumber.setBackgroundResource(R.drawable.edit_normal_background);
         EditPhoneNumber.addTextChangedListener(TextChangeForChangeBack(EditPhoneNumber));
@@ -275,10 +282,19 @@ public class ActivityBeforLogin extends AppCompatActivity {
     }//_____________________________________________________________________________________________ End SetTextWatcher
 
 
-
     public void attachBaseContext(Context newBase) {//______________________________________________ Start attachBaseContext
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
     }//_____________________________________________________________________________________________ End attachBaseContext
+
+
+    private void ShowMessage(String message, int color, Drawable icon) {//__________________________ Start ShowMessage
+
+        DialogMessage dialogMessage = new DialogMessage(ActivityBeforLogin.this,message,color,icon);
+        dialogMessage.setCancelable(false);
+        dialogMessage.show(getSupportFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+
+    }//_____________________________________________________________________________________________ End ShowMessage
+
 
 
     @Override

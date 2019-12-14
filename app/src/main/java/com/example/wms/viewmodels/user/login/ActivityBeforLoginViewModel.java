@@ -1,18 +1,31 @@
 package com.example.wms.viewmodels.user.login;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
+
+import com.example.wms.daggers.retrofit.RetrofitApis;
+import com.example.wms.daggers.retrofit.RetrofitComponent;
+import com.example.wms.models.TokenModel;
+import com.example.wms.views.application.ApplicationWMS;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.example.wms.utility.StaticFunctions.CheckResponse;
 
 public class ActivityBeforLoginViewModel {
 
     private Context context;
     public PublishSubject<String> Observables = null;
     private boolean isCancel;
+    private TokenModel tokenModel;
+    private String MessageResponcse;
 
     public ActivityBeforLoginViewModel(Context context) {//_________________________________________ Start ActivityBeforLoginViewModel
         this.context = context;
@@ -21,29 +34,58 @@ public class ActivityBeforLoginViewModel {
     }//_____________________________________________________________________________________________ End ActivityBeforLoginViewModel
 
 
-
-    public void SendNumber(String PhoneNumbet, String Password) {//________________________________ Start SendNumber
+    public void GetLoginToken(String PhoneNumbet, String Password) {//______________________________ Start GetLoginToken
         isCancel = false;
-        GetDataSuccess();
-    }//_____________________________________________________________________________________________ End SendNumber
+
+        RetrofitComponent retrofitComponent =
+                ApplicationWMS
+                        .getApplicationWMS(context)
+                        .getRetrofitComponent();
+
+        String Authorization = "Bearer 12313";
+        SharedPreferences prefs = context.getSharedPreferences("wmstoken", 0);
+        if (prefs != null) {
+            String access_token = prefs.getString("accesstoken", null);
+            if (access_token != null)
+                Authorization = Authorization + access_token;
+        }
 
 
+        retrofitComponent
+                .getRetrofitApiInterface()
+                .Login(RetrofitApis.client_id_value,
+                        RetrofitApis.client_secret_value,
+                        RetrofitApis.grant_type_password,
+                        PhoneNumbet,
+                        Password,
+                        Authorization)
+                .enqueue(new Callback<TokenModel>() {
+                    @Override
+                    public void onResponse(Call<TokenModel> call, Response<TokenModel> response) {
+                        if(isCancel)
+                            return;
+                        MessageResponcse = CheckResponse(response, true);
+                        if (MessageResponcse == null) {
+                            tokenModel = response.body();
+                            SaveToken();
+                            Observables.onNext("SuccessfulToken");
+                        }
+                        else
+                            Observables.onNext("Error");
+                    }
+
+                    @Override
+                    public void onFailure(Call<TokenModel> call, Throwable t) {
+                        Observables.onNext("Failure");
+                    }
+                });
+
+    }//_____________________________________________________________________________________________ End GetLoginToken
 
 
-    private void GetDataSuccess() {//_______________________________________________________________ Start ObserverObservables
-
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if(isCancel)
-                    return;
-                Observables.onNext("success");
-            }
-        },2000);
-
-    }//_____________________________________________________________________________________________ End ObserverObservables
-
+    public void GetLoginInformation() {//___________________________________________________________ Start GetLoginInformation
+        Observables.onNext("Successful");
+    }//_____________________________________________________________________________________________ End GetLoginInformation
 
 
     private void ObserverObservables() {//__________________________________________________________ Start ObserverObservables
@@ -53,7 +95,7 @@ public class ActivityBeforLoginViewModel {
                 .subscribe(new DisposableObserver<String>() {
                     @Override
                     public void onNext(String s) {
-                        switch (s){
+                        switch (s) {
                             case "CancelByUser":
                                 isCancel = true;
                                 break;
@@ -73,6 +115,27 @@ public class ActivityBeforLoginViewModel {
 
     }//_____________________________________________________________________________________________ End ObserverObservables
 
+
+    private void SaveToken() {//____________________________________________________________________ Start SaveToken
+
+        SharedPreferences.Editor token =
+                context.getSharedPreferences("wmstoken", 0).edit();
+
+        token.putString("accesstoken", tokenModel.getAccess_token());
+        token.putString("tokentype", tokenModel.getToken_type());
+        token.putInt("expiresin", tokenModel.getExpires_in());
+        token.putString("phonenumber", tokenModel.getPhoneNumber());
+        token.putString("clientid", tokenModel.getClient_id());
+        token.putString("issued", tokenModel.getIssued());
+        token.putString("expires", tokenModel.getExpires());
+        token.apply();
+
+    }//_____________________________________________________________________________________________ End SaveToken
+
+
+    public String getMessageResponse() {//__________________________________________________________ Start getMessageResponse
+        return MessageResponcse;
+    }//_____________________________________________________________________________________________ End getMessageResponse
 
 
 }

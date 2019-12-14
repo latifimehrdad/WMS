@@ -15,6 +15,10 @@
             name="splash"
             type="com.example.wms.viewmodels.main.SplashActivityViewModel" />
 
+        <variable
+            name="verifycode"
+            type="com.example.wms.viewmodels.user.register.ActivityVerifyCodeViewModel" />
+
     </data>
 
     <LinearLayout

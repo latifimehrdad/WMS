@@ -20,6 +20,8 @@ public class TokenModel {
     private String issued;
     @SerializedName(".expires")
     private String expires;
+    @SerializedName("userName")
+    private String PhoneNumber;
 
     public String getAccess_token() {
         return access_token;
@@ -67,5 +69,13 @@ public class TokenModel {
 
     public void setExpires(String expires) {
         this.expires = expires;
+    }
+
+    public String getPhoneNumber() {
+        return PhoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        PhoneNumber = phoneNumber;
     }
 }

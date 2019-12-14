@@ -147,5 +147,6 @@
     <string name="Ignor">بیخیال</string>
     <string name="ForgetPassword">آیا رمز ورود خود را فراموش کرده اید؟</string>
     <string name="Editrofile">ویرایش اطلاعات</string>
+    <string name="NetworkError">خطا در اتصال به سرور</string>
 
 </resources>

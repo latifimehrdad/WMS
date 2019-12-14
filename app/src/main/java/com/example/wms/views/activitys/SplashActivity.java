@@ -6,6 +6,7 @@ package com.example.wms.views.activitys;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.animation.AnimationUtils;
@@ -17,10 +18,10 @@ import androidx.databinding.DataBindingUtil;
 
 import com.example.wms.R;
 import com.example.wms.databinding.ActivitySplashBinding;
-import com.example.wms.models.TokenModel;
 import com.example.wms.viewmodels.main.SplashActivityViewModel;
 import com.example.wms.views.activitys.user.login.ActivityBeforLogin;
-import com.example.wms.views.activitys.user.register.ActivitySendPhoneNumber;
+import com.example.wms.views.application.ApplicationWMS;
+import com.example.wms.views.dialogs.DialogMessage;
 import com.example.wms.views.dialogs.DialogProgress;
 
 import butterknife.BindView;
@@ -64,35 +65,14 @@ public class SplashActivity extends AppCompatActivity {
         } else {
             String access_token = prefs.getString("accesstoken", null);
             String expires = prefs.getString("expires", null);
-            if((access_token == null) || (expires == null))
+            String PhoneNumber = prefs.getString("phonenumber", null);
+            if ((access_token == null) || (expires == null))
                 GetTokenFromServer();
             else
                 ConfigHandlerForExit();
         }
 
     }//_____________________________________________________________________________________________ End CheckToken
-
-
-    private void SaveToken() {//____________________________________________________________________ Start SaveToken
-
-        TokenModel tokenModel = splashActivityViewModel.getTokenModel();
-
-        SharedPreferences.Editor token =
-                this
-                        .getApplicationContext()
-                        .getSharedPreferences("wmstoken", 0)
-                        .edit();
-
-        token.putString("accesstoken",tokenModel.getAccess_token());
-        token.putString("tokentype",tokenModel.getToken_type());
-        token.putInt("expiresin",tokenModel.getExpires_in());
-        token.putString("clientid",tokenModel.getClient_id());
-        token.putString("issued",tokenModel.getIssued());
-        token.putString("expires",tokenModel.getExpires());
-        token.apply();
-        ConfigHandlerForExit();
-
-    }//_____________________________________________________________________________________________ End SaveToken
 
 
     private void ObserverObservables() {//__________________________________________________________ Start ObserverObservables
@@ -114,11 +94,19 @@ public class SplashActivity extends AppCompatActivity {
                                         break;
 
                                     case "Successful":
-                                        SaveToken();
+                                        ConfigHandlerForExit();
                                         break;
 
                                     case "Failure":
+                                        ShowMessage(getResources().getString(R.string.NetworkError),
+                                                getResources().getColor(R.color.mlWhite),
+                                                getResources().getDrawable(R.drawable.ic_error));
+                                        break;
 
+                                    case "Error":
+                                        ShowMessage(splashActivityViewModel.getMessageResponcse()
+                                                , getResources().getColor(R.color.mlWhite),
+                                                getResources().getDrawable(R.drawable.ic_error));
                                         break;
                                 }
                             }
@@ -156,12 +144,38 @@ public class SplashActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                ShowBeforLoginActivity();
+                CheckProfile();
                 SplashActivity.this.finish();
             }
         }, 2000);
 
     }//_____________________________________________________________________________________________ End ConfigHandlerForExit
+
+
+    private void CheckProfile() {//_________________________________________________________________ Start CheckProfile
+
+        SharedPreferences prefs = this.getSharedPreferences("wmstoken", 0);
+        if (prefs == null) {
+
+        } else {
+            String PhoneNumber = prefs.getString("phonenumber", null);
+            if (PhoneNumber == null)
+                ShowBeforLoginActivity();
+            else {
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        MainActivity.FragmentMessage.onNext("CheckProfile");
+                    }
+                },100);
+
+            }
+
+
+        }
+
+    }//_____________________________________________________________________________________________ End CheckProfile
 
 
     private void ShowBeforLoginActivity() {//_______________________________________________________ Start ShowBeforLoginActivity
@@ -177,6 +191,15 @@ public class SplashActivity extends AppCompatActivity {
         progress.setCancelable(false);
         progress.show(getSupportFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
     }//_____________________________________________________________________________________________ End ShowProgressDialog
+
+
+    private void ShowMessage(String message, int color, Drawable icon) {//__________________________ Start ShowMessage
+
+        DialogMessage dialogMessage = new DialogMessage(SplashActivity.this, message, color, icon);
+        dialogMessage.setCancelable(false);
+        dialogMessage.show(getSupportFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+
+    }//_____________________________________________________________________________________________ End ShowMessage
 
 
 }

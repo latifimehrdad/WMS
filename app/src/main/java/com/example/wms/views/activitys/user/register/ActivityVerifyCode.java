@@ -1,5 +1,6 @@
 package com.example.wms.views.activitys.user.register;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -9,23 +10,32 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
 
 import com.example.wms.R;
 import com.example.wms.databinding.ActivityVerifyCodeBinding;
 import com.example.wms.viewmodels.user.register.ActivityVerifyCodeViewModel;
+import com.example.wms.views.application.ApplicationWMS;
+import com.example.wms.views.dialogs.DialogMessage;
+import com.example.wms.views.dialogs.DialogProgress;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
 
 public class ActivityVerifyCode extends AppCompatActivity {
 
     private ActivityVerifyCodeViewModel activityVerifyCodeViewModel;
     private boolean ReTryGetSMSClick = false;
+    private DialogProgress progress;
+    private String PhoneNumber = "";
+    private String Password = "";
 
 
     @BindView(R.id.VerifyCode1)
@@ -56,16 +66,17 @@ public class ActivityVerifyCode extends AppCompatActivity {
     TextView message;
 
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityVerifyCodeBinding binding = DataBindingUtil.setContentView(
-                this,R.layout.activity_verify_code
+                this, R.layout.activity_verify_code
         );
         activityVerifyCodeViewModel = new ActivityVerifyCodeViewModel(this);
         binding.setVerifycode(activityVerifyCodeViewModel);
         ButterKnife.bind(this);
+        SetPhoneNumberPAssword();
+        ObserverObservables();
         VerifyCode1.requestFocus();
         SetBackVerifyCode();
         SetTextChangeListener();
@@ -73,6 +84,13 @@ public class ActivityVerifyCode extends AppCompatActivity {
         SetClick();
         StartTimer(60);
     }//_____________________________________________________________________________________________ End onCreate
+
+
+    private void SetPhoneNumberPAssword() {//_______________________________________________________ Start SetPhoneNumberPAssword
+        Bundle bundle = getIntent().getExtras();
+        PhoneNumber = bundle.getString("PhoneNumber");
+        Password = bundle.getString("Password");
+    }//_____________________________________________________________________________________________ End SetPhoneNumberPAssword
 
 
     private void SetClick() {//_____________________________________________________________________ Start SetClick
@@ -86,6 +104,84 @@ public class ActivityVerifyCode extends AppCompatActivity {
         });
 
     }//_____________________________________________________________________________________________ End SetClick
+
+
+    private void ObserverObservables() {//__________________________________________________________ Start ObserverObservables
+        activityVerifyCodeViewModel
+                .Observables
+                .observeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableObserver<String>() {
+                    @Override
+                    public void onNext(String s) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (progress != null)
+                                    progress.dismiss();
+                                switch (s) {
+                                    case "Successful":
+                                        ShowMessage(activityVerifyCodeViewModel.getMessageresponse(),
+                                                getResources().getColor(R.color.mlWhite),
+                                                getResources().getDrawable(R.drawable.ic_check));
+                                        finish();
+                                        break;
+                                    case "Failure":
+                                        ShowMessage(getResources().getString(R.string.NetworkError),
+                                                getResources().getColor(R.color.mlWhite),
+                                                getResources().getDrawable(R.drawable.ic_error));
+                                        VerifyCode1.setText("");
+                                        VerifyCode2.setText("");
+                                        VerifyCode3.setText("");
+                                        VerifyCode4.setText("");
+                                        VerifyCode5.setText("");
+                                        VerifyCode6.setText("");
+                                        VerifyCode1.requestFocus();
+                                        SetBackVerifyCode();
+                                        break;
+                                    case "Error":
+                                        ShowMessage(activityVerifyCodeViewModel.getMessageresponse(),
+                                                getResources().getColor(R.color.mlWhite),
+                                                getResources().getDrawable(R.drawable.ic_error));
+                                        VerifyCode1.setText("");
+                                        VerifyCode2.setText("");
+                                        VerifyCode3.setText("");
+                                        VerifyCode4.setText("");
+                                        VerifyCode5.setText("");
+                                        VerifyCode6.setText("");
+                                        VerifyCode1.requestFocus();
+                                        SetBackVerifyCode();
+                                        break;
+                                    default:
+                                        ShowMessage(s,
+                                                getResources().getColor(R.color.mlWhite),
+                                                getResources().getDrawable(R.drawable.ic_error));
+                                        VerifyCode1.setText("");
+                                        VerifyCode2.setText("");
+                                        VerifyCode3.setText("");
+                                        VerifyCode4.setText("");
+                                        VerifyCode5.setText("");
+                                        VerifyCode6.setText("");
+                                        VerifyCode1.requestFocus();
+                                        SetBackVerifyCode();
+                                        break;
+                                }
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }//_____________________________________________________________________________________________ End ObserverObservables
 
 
     private void StartTimer(int Elapse) {//___________________________________________________________________ Start StartTimer
@@ -153,8 +249,18 @@ public class ActivityVerifyCode extends AppCompatActivity {
         Boolean c5 = SetBackVerifyCodeView(VerifyCode5);
         Boolean c6 = SetBackVerifyCodeView(VerifyCode6);
 
-        if (c1 && c2 && c3 && c4 && c5 && c6)
-            Toast.makeText(this, "Yes", Toast.LENGTH_SHORT).show();
+        if (c1 && c2 && c3 && c4 && c5 && c6) {
+            String code = VerifyCode1.getText().toString() +
+                    VerifyCode2.getText().toString() +
+                    VerifyCode3.getText().toString() +
+                    VerifyCode4.getText().toString() +
+                    VerifyCode5.getText().toString() +
+                    VerifyCode6.getText().toString();
+
+            ShowProgressDialog();
+            activityVerifyCodeViewModel.SendVerifyCode(PhoneNumber, code);
+
+        }
 
     }//_____________________________________________________________________________________________ End SetBackVerifyCode
 
@@ -220,6 +326,23 @@ public class ActivityVerifyCode extends AppCompatActivity {
             }
         };
     }//_____________________________________________________________________________________________ End SetKeyBackSpace
+
+
+    private void ShowMessage(String message, int color, Drawable icon) {//__________________________ Start ShowMessage
+
+        DialogMessage dialogMessage = new DialogMessage(ActivityVerifyCode.this,message,color,icon);
+        dialogMessage.setCancelable(false);
+        dialogMessage.show(getSupportFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+
+    }//_____________________________________________________________________________________________ End ShowMessage
+
+
+    private void ShowProgressDialog() {//___________________________________________________________ Start ShowProgressDialog
+        progress = new DialogProgress(ActivityVerifyCode.this,
+                null, activityVerifyCodeViewModel);
+        progress.setCancelable(false);
+        progress.show(getSupportFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+    }//_____________________________________________________________________________________________ End ShowProgressDialog
 
 
 }

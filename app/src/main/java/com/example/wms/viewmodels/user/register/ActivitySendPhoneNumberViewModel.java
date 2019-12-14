@@ -2,7 +2,6 @@ package com.example.wms.viewmodels.user.register;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Handler;
 
 import com.example.wms.daggers.retrofit.RetrofitComponent;
 import com.example.wms.models.RegisterCitizenModel;
@@ -16,11 +15,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.wms.utility.StaticFunctions.CheckResponse;
+
 public class ActivitySendPhoneNumberViewModel {
 
     private Context context;
     public PublishSubject<String> Observables = null;
     private boolean isCancel;
+    private String MessageResponse;
 
     public ActivitySendPhoneNumberViewModel(Context context) {//____________________________________ Start ActivitySendPhoneNumberViewModel
         this.context = context;
@@ -54,8 +56,21 @@ public class ActivitySendPhoneNumberViewModel {
                 .enqueue(new Callback<RegisterCitizenModel>() {
                     @Override
                     public void onResponse(Call<RegisterCitizenModel> call, Response<RegisterCitizenModel> response) {
-                        if (!isCancel)
-                            Observables.onNext("Successful");
+                        if (!isCancel) {
+                            MessageResponse = CheckResponse(response,false);
+                            if(MessageResponse == null) {
+                                TestResponse(response);
+                                if (response.body().getStatus() == 200)
+                                    Observables.onNext("Successful");
+                                else {
+                                    MessageResponse = response.body().getMessages().get(0).getMessage();
+                                    Observables.onNext("Error");
+                                }
+                            }
+                            else
+                                Observables.onNext("Error");
+
+                        }
                     }
 
                     @Override
@@ -66,6 +81,14 @@ public class ActivitySendPhoneNumberViewModel {
                 });
 
     }//_____________________________________________________________________________________________ End SendNumber
+
+
+    private Boolean TestResponse(Response response) {
+        if (response.body() == null)
+            return false;
+        else
+            return true;
+    }
 
 
     private void ObserverObservables() {//__________________________________________________________ Start ObserverObservables
@@ -94,6 +117,11 @@ public class ActivitySendPhoneNumberViewModel {
                 });
 
     }//_____________________________________________________________________________________________ End ObserverObservables
+
+
+    public String getMessageResponse() {//__________________________________________________________ Start getMessageResponse
+        return MessageResponse;
+    }//_____________________________________________________________________________________________ End getMessageResponse
 
 
 }
