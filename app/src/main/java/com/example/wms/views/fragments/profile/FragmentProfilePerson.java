@@ -84,11 +84,10 @@ public class FragmentProfilePerson extends Fragment {
     }//_____________________________________________________________________________________________ End onStart
 
 
-
     private void SetItemCity() {//__________________________________________________________________ Start SetItemCity
 
         TextCity.setText(getResources().getString(R.string.City_Prompt));
-        ArrayList<String> items=new ArrayList<>();
+        ArrayList<String> items = new ArrayList<>();
         SpinnerDialog spinnerCity;
         items.add("تهران");
         items.add("کرج");
@@ -121,11 +120,10 @@ public class FragmentProfilePerson extends Fragment {
     }//_____________________________________________________________________________________________ End SetItemCity
 
 
-
     private void SetItemPlace() {//_________________________________________________________________ Start SetItemPlace
 
         TextPlace.setText(getResources().getString(R.string.ChoosePlace));
-        ArrayList<String> items=new ArrayList<>();
+        ArrayList<String> items = new ArrayList<>();
         SpinnerDialog spinnerPlace;
         items.add("عظیمیه");
         items.add("گوهردشت");
@@ -161,7 +159,7 @@ public class FragmentProfilePerson extends Fragment {
     private void SetItemUser() {//__________________________________________________________________ Start SetItemUser
 
         TextUser.setText(getResources().getString(R.string.ChooseUser));
-        ArrayList<String> items=new ArrayList<>();
+        ArrayList<String> items = new ArrayList<>();
         SpinnerDialog spinnerUser;
         items.add("شهروند");
         items.add("کاربر اول");
@@ -192,9 +190,6 @@ public class FragmentProfilePerson extends Fragment {
         });
 
     }//_____________________________________________________________________________________________ End SetItemUser
-
-
-
 
 
     private void BackClick(View view) {//____________________________________________________________________ Start BackClick
