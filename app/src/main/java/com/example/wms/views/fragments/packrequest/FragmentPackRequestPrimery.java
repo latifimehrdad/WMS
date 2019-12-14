@@ -6,6 +6,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -31,6 +32,12 @@ public class FragmentPackRequestPrimery extends Fragment {
 
     @BindView(R.id.FPRPSpinnerDay)
     MaterialSpinner FPRPSpinnerDay;
+
+    @BindView(R.id.textDate)
+    TextView textDate;
+
+    @BindView(R.id.textTime)
+    TextView textTime;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,6 +75,29 @@ public class FragmentPackRequestPrimery extends Fragment {
     private void SetMaterialSpinnersItems() {//_____________________________________________________ Start SetMaterialSpinnersItems
         FPRPSpinnerHours.setItems("ساعت تحویل", "8 - 10", "11 - 13");
         FPRPSpinnerDay.setItems("روز تحویل","شنبه","سه شنبه");
+
+        FPRPSpinnerDay.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+                if(position != 0)
+                    textDate.setText("1398/01/01");
+                else
+                    textDate.setText("");
+            }
+        });
+
+
+        FPRPSpinnerHours.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+                if(position == 1)
+                    textTime.setText("8 - 10");
+                else if (position == 2)
+                    textTime.setText("11 - 13");
+                else
+                    textTime.setText("");
+            }
+        });
     }//_____________________________________________________________________________________________ End SetMaterialSpinnersItems
 
 

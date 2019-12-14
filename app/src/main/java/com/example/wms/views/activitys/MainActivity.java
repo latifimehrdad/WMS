@@ -26,6 +26,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wms.R;
@@ -69,6 +70,15 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.MainActivityOrder)
     ImageView MainActivityOrder;
+
+    @BindView(R.id.footerLogo)
+    ImageView footerLogo;
+
+    @BindView(R.id.textOrder)
+    TextView textOrder;
+
+    @BindView(R.id.textWallet)
+    TextView textWallet;
 
     @BindView(R.id.MainMenu)
     ImageView MainMenu;
@@ -145,6 +155,27 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 ShowFragmentRegister();
                 mDrawer.closeDrawer(Gravity.RIGHT);
+            }
+        });
+
+        footerLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShowFragmentHome();
+            }
+        });
+
+        textOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShowFragmentOrder();
+            }
+        });
+
+        textWallet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShowFragmentWallet();
             }
         });
 
@@ -382,10 +413,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_clottery:
                 MainActivity.this.ShowFragmentLottery();
                 break;
-            case R.id.nav_support:
+            case R.id.nav_about:
                 MainActivity.this.ShowFragmentAbout();
                 break;
-            case R.id.nav_call:
+            case R.id.nav_support:
                 MainActivity.this.ShowFragmentCall();
                 break;
             case R.id.nav_home:

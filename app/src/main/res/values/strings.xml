@@ -149,4 +149,8 @@
     <string name="Editrofile">ویرایش اطلاعات</string>
     <string name="NetworkError">خطا در اتصال به سرور</string>
 
+    <string name="UnitCount">تعداد واحد</string>
+    <string name="PersonCount">تعداد نفرات</string>
+    <string name="SendMessage">ارسال پیام</string>
+
 </resources>

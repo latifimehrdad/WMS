@@ -96,7 +96,7 @@
                 <com.jaredrummler.materialspinner.MaterialSpinner
                     android:id="@+id/FRCPSpinnerHours"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/_30sdp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
                     android:prompt="@string/City_Prompt"
@@ -108,7 +108,7 @@
                 <com.jaredrummler.materialspinner.MaterialSpinner
                     android:id="@+id/FRCPSpinnerDay"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/_30sdp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
                     android:prompt="@string/City_Prompt"
@@ -164,10 +164,11 @@
                             />
 
                         <TextView
+                            android:id="@+id/textDate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/mlHeader"
-                            android:text="98/09/10"
+                            android:text=""
                             android:textSize="@dimen/_9sdp"
                             android:layout_marginLeft="@dimen/_2sdp"
                             />
@@ -180,10 +181,11 @@
                             />
 
                         <TextView
+                            android:id="@+id/textTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/mlHeader"
-                            android:text="23:50"
+                            android:text=""
                             android:textSize="@dimen/_9sdp"
                             android:layout_marginLeft="@dimen/_2sdp"
                             />

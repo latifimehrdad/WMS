@@ -34,6 +34,7 @@
                 />
 
             <TextView
+                android:id="@+id/textOrder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/Orders"
@@ -66,6 +67,7 @@
                 />
 
             <TextView
+                android:id="@+id/textWallet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ChargingBag"
@@ -91,6 +93,7 @@
         />
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/footerLogo"
         android:layout_width="@dimen/_60sdp"
         android:layout_height="@dimen/_60sdp"
         android:layout_centerVertical="true"

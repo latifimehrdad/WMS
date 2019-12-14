@@ -6,6 +6,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,8 @@ import com.example.wms.databinding.FragmentRecyclingCarPrimeryBinding;
 import com.example.wms.viewmodels.collectrequest.recyclingcar.FragmentRecyclingCarPrimeryViewModel;
 import com.example.wms.views.activitys.MainActivity;
 import com.jaredrummler.materialspinner.MaterialSpinner;
+
+import org.w3c.dom.Text;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +32,13 @@ public class FragmentRecyclingCarPrimery extends Fragment {
 
     @BindView(R.id.FRCPSpinnerDay)
     MaterialSpinner FRCPSpinnerDay;
+
+    @BindView(R.id.textDate)
+    TextView textDate;
+
+    @BindView(R.id.textTime)
+    TextView textTime;
+
 
 
     @Override
@@ -64,6 +74,29 @@ public class FragmentRecyclingCarPrimery extends Fragment {
     private void SetMaterialSpinnersItems() {//_____________________________________________________ Start SetMaterialSpinnersItems
         FRCPSpinnerHours.setItems("ساعت تحویل", "8 - 10", "11 - 13");
         FRCPSpinnerDay.setItems("روز تحویل","شنبه","سه شنبه");
+
+        FRCPSpinnerDay.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+                if(position != 0)
+                    textDate.setText("1398/01/01");
+                else
+                    textDate.setText("");
+            }
+        });
+
+
+        FRCPSpinnerHours.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+                if(position == 1)
+                    textTime.setText("8 - 10");
+                else if (position == 2)
+                    textTime.setText("11 - 13");
+                else
+                    textTime.setText("");
+            }
+        });
     }//_____________________________________________________________________________________________ End SetMaterialSpinnersItems
 
 

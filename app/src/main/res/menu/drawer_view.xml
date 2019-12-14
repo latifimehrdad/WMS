@@ -35,9 +35,9 @@
 
 
         <item
-            android:id="@+id/nav_call"
+            android:id="@+id/nav_about"
             android:icon="@drawable/ic_phone_in_talk_black_24dp"
-            android:title="@string/CallWithUs" />
+            android:title="@string/AboutUs" />
 
 
 

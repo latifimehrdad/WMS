@@ -38,6 +38,7 @@
                 android:progressDrawable="@drawable/circle_progressbar" />
 
             <LinearLayout
+                android:id="@+id/youScorelayout"
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -67,6 +68,7 @@
 
 
         <LinearLayout
+            android:id="@+id/scoreLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
@@ -144,6 +146,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/scoreLayoutChart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -159,8 +162,8 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
                     android:src="@drawable/logoavgscorechart" />
 
             </LinearLayout>
@@ -173,8 +176,8 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
                     android:src="@drawable/logomaxscorechart" />
 
             </LinearLayout>
@@ -187,7 +190,7 @@
             android:id="@+id/footerprimery"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:gravity="center"
             >

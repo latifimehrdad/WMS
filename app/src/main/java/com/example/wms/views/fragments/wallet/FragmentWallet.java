@@ -86,7 +86,7 @@ public class FragmentWallet extends Fragment {
 
         // scaling can now only be done on x- and y-axis separately
         chart.setPinchZoom(false);
-
+        chart.getLegend().setEnabled(false);
         chart.setDrawGridBackground(false);
         // chart.setDrawYLabels(false);
 
@@ -94,6 +94,7 @@ public class FragmentWallet extends Fragment {
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setLabelRotationAngle(270);
         xAxis.setDrawGridLines(false);
         xAxis.setGranularity(1f); // only intervals of 1 day
         xAxis.setLabelCount(12);

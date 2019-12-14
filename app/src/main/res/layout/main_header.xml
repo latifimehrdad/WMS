@@ -15,7 +15,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:padding="@dimen/_5sdp"
-        android:src="@drawable/ic_toc_black_24dp"
+        android:src="@drawable/ic_menu"
         android:tint="@color/mlWhite"
         />
 

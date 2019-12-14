@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/_30sdp"
                 android:maxLines="2"
-                android:text="کرج - گوهرداشت"
+                android:text=""
                 android:textSize="@dimen/_10sdp"
                 android:padding="@dimen/_5sdp"
                 />
@@ -74,18 +74,24 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     >
 
-                    <com.jaredrummler.materialspinner.MaterialSpinner
-                        android:id="@+id/FPRAMaterialSpinnerTypeCount"
+
+                    <EditText
+                        android:id="@+id/UnitCount"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:gravity="right"
-                        android:prompt="@string/City_Prompt"
-                        app:ms_background_color="@color/mlEdit"
-                        app:ms_text_color="@color/mlBlack"
+                        android:hint="@string/UnitCount"
+                        android:textColor="@color/mlBlack"
+                        android:background="@color/mlEdit"
                         android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:inputType="number"
+                        android:paddingRight="@dimen/_5sdp"
+                        android:paddingLeft="@dimen/_5sdp"
+                        android:maxLines="1"
+                        android:maxLength="3"
                         />
+
 
                     <com.jaredrummler.materialspinner.MaterialSpinner
                         android:id="@+id/FPRAMaterialSpinnerType"
@@ -110,17 +116,21 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     >
 
-                    <com.jaredrummler.materialspinner.MaterialSpinner
-                        android:id="@+id/FPRAMaterialSpinnerCount"
+                    <EditText
+                        android:id="@+id/PersonCount"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:gravity="right"
-                        android:prompt="@string/City_Prompt"
-                        app:ms_background_color="@color/mlEdit"
-                        app:ms_text_color="@color/mlBlack"
+                        android:hint="@string/PersonCount"
+                        android:textColor="@color/mlBlack"
+                        android:background="@color/mlEdit"
                         android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:inputType="number"
+                        android:paddingRight="@dimen/_5sdp"
+                        android:paddingLeft="@dimen/_5sdp"
+                        android:maxLines="1"
+                        android:maxLength="3"
                         />
 
                     <com.jaredrummler.materialspinner.MaterialSpinner

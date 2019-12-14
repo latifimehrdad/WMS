@@ -38,14 +38,14 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
     @BindView(R.id.FPRAMaterialSpinnerType)
     MaterialSpinner FPRAMaterialSpinnerType;
 
-    @BindView(R.id.FPRAMaterialSpinnerTypeCount)
-    MaterialSpinner FPRAMaterialSpinnerTypeCount;
+    @BindView(R.id.UnitCount)
+    EditText UnitCount;
 
     @BindView(R.id.FPRAMaterialSpinnerUser)
     MaterialSpinner FPRAMaterialSpinnerUser;
 
-    @BindView(R.id.FPRAMaterialSpinnerCount)
-    MaterialSpinner FPRAMaterialSpinnerCount;
+    @BindView(R.id.PersonCount)
+    EditText PersonCount;
 
     @BindView(R.id.fpraEditAddress)
     EditText fpraEditAddress;
@@ -87,9 +87,7 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
 
     private void SetMaterialSpinnersItems() {//_____________________________________________________ Start SetMaterialSpinnersItems
         FPRAMaterialSpinnerType.setItems("نوع واحد", "آپارتمان", "ویلایی");
-        FPRAMaterialSpinnerTypeCount.setItems("تعداد واحد","1","2");
         FPRAMaterialSpinnerUser.setItems("کاربری ساختمان", "تجاری", "مسکونی");
-        FPRAMaterialSpinnerCount.setItems("تعداد نفرات","10","12");
     }//_____________________________________________________________________________________________ End SetMaterialSpinnersItems
 
 
@@ -100,9 +98,9 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
         view.requestFocus();
         view.setOnKeyListener(SetKey(view));
         FPRAMaterialSpinnerType.setOnKeyListener(SetKey(FPRAMaterialSpinnerType));
-        FPRAMaterialSpinnerTypeCount.setOnKeyListener(SetKey(FPRAMaterialSpinnerTypeCount));
+        UnitCount.setOnKeyListener(SetKey(UnitCount));
         FPRAMaterialSpinnerUser.setOnKeyListener(SetKey(FPRAMaterialSpinnerUser));
-        FPRAMaterialSpinnerCount.setOnKeyListener(SetKey(FPRAMaterialSpinnerCount));
+        PersonCount.setOnKeyListener(SetKey(PersonCount));
         fpraEditAddress.setOnKeyListener(SetKey(fpraEditAddress));
 
     }//_____________________________________________________________________________________________ End BackClick

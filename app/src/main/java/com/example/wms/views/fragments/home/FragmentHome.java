@@ -10,14 +10,17 @@ import android.os.Bundle;
 
 import android.os.Handler;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -31,10 +34,13 @@ import com.example.wms.views.custom.textview.VerticalTextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.example.wms.utility.StaticFunctions.SetKey;
+
 public class FragmentHome extends Fragment {
 
     private Context context;
     private FragmentHomeViewModel fragmentHomeViewModel;
+    boolean doubleBackToExitPressedOnce = false;
 
     @BindView(R.id.footerprimery)
     RelativeLayout footerprimery;
@@ -54,6 +60,15 @@ public class FragmentHome extends Fragment {
     @BindView(R.id.footerleft)
     VerticalTextView footerleft;
 
+    @BindView(R.id.youScorelayout)
+    LinearLayout youScorelayout;
+
+    @BindView(R.id.scoreLayout)
+    LinearLayout scoreLayout;
+
+    @BindView(R.id.scoreLayoutChart)
+    LinearLayout scoreLayoutChart;
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentHomeBinding binding = DataBindingUtil.inflate(
@@ -63,6 +78,7 @@ public class FragmentHome extends Fragment {
         binding.setHome(fragmentHomeViewModel);
         View view = binding.getRoot();
         ButterKnife.bind(this, view);
+        BackClick(view);
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
 
@@ -79,7 +95,6 @@ public class FragmentHome extends Fragment {
         SetClick();
 
     }//_____________________________________________________________________________________________ End onStart
-
 
 
     private void SetClick() {//_____________________________________________________________________ Start SetClick
@@ -114,9 +129,28 @@ public class FragmentHome extends Fragment {
         });
 
 
+        youScorelayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.FragmentMessage.onNext("Lottery");
+            }
+        });
+
+        scoreLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.FragmentMessage.onNext("Lottery");
+            }
+        });
+
+        scoreLayoutChart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.FragmentMessage.onNext("Lottery");
+            }
+        });
 
     }//_____________________________________________________________________________________________ End SetClick
-
 
 
     private void SetLayout() {//____________________________________________________________________ Start SetLayout
@@ -128,12 +162,12 @@ public class FragmentHome extends Fragment {
                 int width = footerprimery.getMeasuredWidth();
                 int height = footerprimery.getMeasuredHeight();
 
-                if(width < height)
+                if (width < height)
                     height = width;
                 else
                     width = height;
 
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width,height);
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width, height);
                 footer.setLayoutParams(params);
 
                 width = width / 4;
@@ -160,8 +194,38 @@ public class FragmentHome extends Fragment {
 
 
             }
-        },5);
+        }, 5);
     }//_____________________________________________________________________________________________ End SetLayout
+
+
+    private void BackClick(View view) {//____________________________________________________________________ Start BackClick
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(SetKeyExit(view));
+    }//_____________________________________________________________________________________________ End BackClick
+
+
+    public View.OnKeyListener SetKeyExit(View view) {//_____________________________________________ Start SetKey
+        return new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                if (!doubleBackToExitPressedOnce) {
+                    Toast.makeText(context,"برای خروج 2 بار کلیک کنید", Toast.LENGTH_SHORT).show();
+                    doubleBackToExitPressedOnce = true;
+                    new Handler().postDelayed(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            doubleBackToExitPressedOnce = false;
+                        }
+                    }, 2000);
+                    return true;
+                } else
+                    return false;
+            }
+        };
+    }//_____________________________________________________________________________________________ End SetKey
 
 
 }
