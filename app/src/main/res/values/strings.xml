@@ -2,6 +2,8 @@
 
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDbcXlcVOSpaOu9JS8IEsD9HlBlyd-w4v4</string>
 
+    <string name="ChooseProvinces">انتخاب استان</string>
+    <string name="ProvincesSearch">جستجوی استان</string>
     <string name="City_Prompt">انتخاب شهر</string>
     <string name="City_Search">جستجوی شهر</string>
     <string name="ChoosePlace">انتخاب منطقه</string>
@@ -27,7 +29,7 @@
     <string name="RegisterPersonCodeNew">کد نوسازی</string>
     <string name="Name">نام</string>
     <string name="Family">نام خانوادگی</string>
-    <string name="Sex">جنسیت</string>
+    <string name="Gender">جنسیت</string>
     <string name="Man">مرد</string>
     <string name="Woman">زن</string>
     <string name="MobileNumber">شماره موبایل</string>
@@ -159,5 +161,10 @@
     <string name="UnitCount">تعداد واحد</string>
     <string name="PersonCount">تعداد نفرات</string>
     <string name="SendMessage">ارسال پیام</string>
+    <string name="PleaseChooseProvince">لطفا ابتدا استان را انتخاب کنید</string>
+    <string name="PleaseChooseCity">لطفا ابتدا شهر را انتخاب کنید</string>
+    <string name="EmptyFirstName">لطفا نام را وارد کنید</string>
+    <string name="EmptyLastName">لطفا نام خانوادگی را وارد کنید</string>
+    <string name="EmptyReferenceCode">لطفا کد معرف را وارد کنید</string>
 
 </resources>

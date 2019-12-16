@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
-public class TokenModel {
+public class ModelToken {
 
     @SerializedName("access_token")
     private String access_token;

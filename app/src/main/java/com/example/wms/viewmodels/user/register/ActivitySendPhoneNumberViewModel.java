@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.wms.daggers.retrofit.RetrofitComponent;
-import com.example.wms.models.RegisterCitizenModel;
+import com.example.wms.models.ModelRegisterCitizen;
 import com.example.wms.views.application.ApplicationWMS;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -53,28 +53,21 @@ public class ActivitySendPhoneNumberViewModel {
                 .SendPhoneNumber(
                         PhoneNumbet, Password, Password, Authorization
                 )
-                .enqueue(new Callback<RegisterCitizenModel>() {
+                .enqueue(new Callback<ModelRegisterCitizen>() {
                     @Override
-                    public void onResponse(Call<RegisterCitizenModel> call, Response<RegisterCitizenModel> response) {
+                    public void onResponse(Call<ModelRegisterCitizen> call, Response<ModelRegisterCitizen> response) {
                         if (!isCancel) {
                             MessageResponse = CheckResponse(response,false);
-                            if(MessageResponse == null) {
-                                TestResponse(response);
-                                if (response.body().getStatus() == 200)
-                                    Observables.onNext("Successful");
-                                else {
-                                    MessageResponse = response.body().getMessages().get(0).getMessage();
-                                    Observables.onNext("Error");
-                                }
-                            }
-                            else
+                            if(MessageResponse == null)
+                                Observables.onNext("Successful");
+                            else {
                                 Observables.onNext("Error");
-
+                            }
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<RegisterCitizenModel> call, Throwable t) {
+                    public void onFailure(Call<ModelRegisterCitizen> call, Throwable t) {
                         if (!isCancel)
                             Observables.onNext("Failure");
                     }
@@ -82,13 +75,6 @@ public class ActivitySendPhoneNumberViewModel {
 
     }//_____________________________________________________________________________________________ End SendNumber
 
-
-    private Boolean TestResponse(Response response) {
-        if (response.body() == null)
-            return false;
-        else
-            return true;
-    }
 
 
     private void ObserverObservables() {//__________________________________________________________ Start ObserverObservables

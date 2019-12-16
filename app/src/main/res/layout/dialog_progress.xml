@@ -19,6 +19,10 @@
             name="verifycode"
             type="com.example.wms.viewmodels.user.register.ActivityVerifyCodeViewModel" />
 
+        <variable
+            name="profileperson"
+            type="com.example.wms.viewmodels.user.profile.FragmentProfilePersonViewModel" />
+
     </data>
 
     <LinearLayout

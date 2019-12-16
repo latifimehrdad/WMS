@@ -66,15 +66,12 @@ public class FragmentProfile extends Fragment {
 
     private void SetTabs() {//______________________________________________________________________ Start SetTabs
 
-        FragmentProfileCode fragmentProfileCode = new FragmentProfileCode(context);
-        FragmentProfileBank fragmentProfileBank = new FragmentProfileBank(context);
-        FragmentProfilePerson fragmentProfilePerson = new FragmentProfilePerson(context);
 
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getChildFragmentManager(), FragmentPagerItems.with(context)
-                .add(R.string.RegisterPersonCodeNew, fragmentProfileCode.getClass())
-                .add(R.string.RegisterPersonBank, fragmentProfileBank.getClass())
-                .add(R.string.RegisterPerson, fragmentProfilePerson.getClass())
+                .add(R.string.RegisterPersonCodeNew, FragmentProfileCode.class)
+                .add(R.string.RegisterPersonBank, FragmentProfileBank.class)
+                .add(R.string.RegisterPerson, FragmentProfilePerson.class)
                 .create());
 
         FragmentRegisteryView.setAdapter(adapter);

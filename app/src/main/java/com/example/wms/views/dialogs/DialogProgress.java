@@ -16,6 +16,7 @@ import com.example.wms.R;
 import com.example.wms.databinding.DialogProgressBinding;
 import com.example.wms.viewmodels.main.SplashActivityViewModel;
 import com.example.wms.viewmodels.user.login.ActivityBeforLoginViewModel;
+import com.example.wms.viewmodels.user.profile.FragmentProfilePersonViewModel;
 import com.example.wms.viewmodels.user.register.ActivitySendPhoneNumberViewModel;
 import com.example.wms.viewmodels.user.register.ActivityVerifyCodeViewModel;
 
@@ -30,12 +31,24 @@ public class DialogProgress extends DialogFragment {
     private ActivityBeforLoginViewModel activityBeforLoginViewModel;
     private SplashActivityViewModel splashActivityViewModel;
     private ActivityVerifyCodeViewModel activityVerifyCodeViewModel;
+    private FragmentProfilePersonViewModel fragmentProfilePersonViewModel;
+
 
     @BindView(R.id.DialogProgressIgnor)
     Button DialogProgressIgnor;
 
     @BindView(R.id.DialogProgressTitle)
     TextView DialogProgressTitle;
+
+
+    public DialogProgress(
+            Context context,
+            String title,
+            FragmentProfilePersonViewModel fragmentProfilePersonViewModel) {//______________________ Start DialogProgress
+        this.context = context;
+        Title = title;
+        this.fragmentProfilePersonViewModel = fragmentProfilePersonViewModel;
+    }//_____________________________________________________________________________________________ End DialogProgress
 
 
     public DialogProgress(
@@ -96,6 +109,8 @@ public class DialogProgress extends DialogFragment {
             binding.setSplash(splashActivityViewModel);
         else if(activityVerifyCodeViewModel != null)
             binding.setVerifycode(activityVerifyCodeViewModel);
+        else if (fragmentProfilePersonViewModel != null)
+            binding.setProfileperson(fragmentProfilePersonViewModel);
 
         view = binding.getRoot();
         ButterKnife.bind(this, view);
@@ -111,6 +126,8 @@ public class DialogProgress extends DialogFragment {
                     splashActivityViewModel.Observables.onNext(str);
                 else if (activityVerifyCodeViewModel != null)
                     activityVerifyCodeViewModel.Observables.onNext(str);
+                else if (fragmentProfilePersonViewModel != null)
+                    fragmentProfilePersonViewModel.Observables.onNext(str);
             }
         });
         return new AlertDialog.Builder(context).setView(view).create();

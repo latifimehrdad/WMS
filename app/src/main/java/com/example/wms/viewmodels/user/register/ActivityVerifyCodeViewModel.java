@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.wms.daggers.retrofit.RetrofitComponent;
-import com.example.wms.models.RegisterCitizenModel;
+import com.example.wms.models.ModelRegisterCitizen;
 import com.example.wms.views.application.ApplicationWMS;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -54,25 +54,21 @@ public class ActivityVerifyCodeViewModel {
                 .SendVerifyCode(
                         PhoneNumbet, VerifyCode, Authorization
                 )
-                .enqueue(new Callback<RegisterCitizenModel>() {
+                .enqueue(new Callback<ModelRegisterCitizen>() {
                     @Override
-                    public void onResponse(Call<RegisterCitizenModel> call, Response<RegisterCitizenModel> response) {
+                    public void onResponse(Call<ModelRegisterCitizen> call, Response<ModelRegisterCitizen> response) {
                         if (!isCancel) {
                             MessageResponse = CheckResponse(response, false);
-                            if (MessageResponse == null) {
-                                MessageResponse = response.body().getMessages().get(0).getMessage();
-                                if (response.body().getStatus() == 200)
-                                    Observables.onNext("Successful");
-                                else
-                                    Observables.onNext("Error");
-                            } else
+                            if (MessageResponse == null)
+                                Observables.onNext("Successful");
+                            else
                                 Observables.onNext("Error");
 
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<RegisterCitizenModel> call, Throwable t) {
+                    public void onFailure(Call<ModelRegisterCitizen> call, Throwable t) {
                         if (!isCancel)
                             Observables.onNext("Failure");
                     }

@@ -7,10 +7,15 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.wms.R;
+import com.example.wms.models.ModelMessage;
+import com.example.wms.models.ModelResponsePrimery;
 import com.example.wms.views.activitys.MainActivity;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import retrofit2.Response;
 
@@ -56,35 +61,58 @@ public class StaticFunctions {
     }//_____________________________________________________________________________________________ End SetKey
 
 
-    public static String CheckResponse(Response response, Boolean Authorization) {//_______________________ Start CheckResponse
+    public static String CheckResponse(Response response, Boolean Authorization) {//________________ Start CheckResponse
         if (response.body() != null)
             return null;
         else {
             if (Authorization) {
-                try{
+                try {
                     JSONObject jObjError = new JSONObject(response.errorBody().string());
                     return jObjError.getString("error_description");
-                }catch (Exception ex){
+                } catch (Exception ex) {
                     return "Failure";
                 }
             } else {
-                try{
-                    JSONObject jObjError = new JSONObject(response.errorBody().string());
-                    JSONArray jsonArray = jObjError.getJSONArray("messages");
-                    String message = "";
-                    for(int i = 0; i<jsonArray.length(); i++){
-                        JSONObject temp = new JSONObject(jsonArray.get(i).toString());
-                        message = message + temp.getString("message");
-                        message = message + "\n";
-                    }
-                    return message;
-                }catch (Exception ex){
-                    return "Failure";
-                }
+                return GetErrorٍMessage(response);
             }
         }
 
     }//_____________________________________________________________________________________________ End CheckResponse
+
+
+    public static String GetErrorٍMessage(Response response) {//_____________________________________ Start GetErrorٍMessage
+        try {
+            JSONObject jObjError = new JSONObject(response.errorBody().string());
+            JSONArray jsonArray = jObjError.getJSONArray("messages");
+            String message = "";
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject temp = new JSONObject(jsonArray.get(i).toString());
+                message = message + temp.getString("message");
+                message = message + "\n";
+            }
+            return message;
+        } catch (Exception ex) {
+            return "Failure";
+        }
+    }//_____________________________________________________________________________________________ End GetErrorٍMessage
+
+
+
+
+    public static String GetٍMessage(Response<ModelResponsePrimery> response) {//____________________ Start GetٍMessage
+        try {
+            ArrayList<ModelMessage> modelMessages = response.body().getMessages();
+            String message = "";
+            for (int i = 0; i < modelMessages.size(); i++) {
+                message = message + modelMessages.get(i).getMessage();
+                message = message + "\n";
+            }
+            return message;
+        } catch (Exception ex) {
+            return "Failure";
+        }
+    }//_____________________________________________________________________________________________ End GetٍMessage
+
 
 
 }

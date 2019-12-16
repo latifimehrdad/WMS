@@ -2,7 +2,7 @@ package com.example.wms.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class MessageModel {
+public class ModelMessage {
 
     @SerializedName("type")
     private Byte type;

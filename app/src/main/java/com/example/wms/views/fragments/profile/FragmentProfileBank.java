@@ -18,14 +18,13 @@ import androidx.fragment.app.Fragment;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentProfileBankBinding;
 import com.example.wms.viewmodels.user.profile.FragmentProfileBankViewModel;
-import com.jaredrummler.materialspinner.MaterialSpinner;
+import com.example.wms.views.dialogs.searchspinner.MLSpinnerDialog;
+import com.example.wms.views.dialogs.searchspinner.OnSpinnerItemClick;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
-import in.galaxyofandroid.spinerdialog.SpinnerDialog;
 
 import static com.example.wms.utility.StaticFunctions.SetKey;
 
@@ -57,44 +56,45 @@ public class FragmentProfileBank extends Fragment {
     @Override
     public void onStart() {//_______________________________________________________________________ Start onStart
         super.onStart();
-        SetItemBank();
+        //SetItemBank();
     }//_____________________________________________________________________________________________ End onStart
 
 
-    private void SetItemBank() {//__________________________________________________________________ Start SetItemBank
-
-        TextBank.setText(getResources().getString(R.string.City_Prompt));
-        ArrayList<String> items = new ArrayList<>();
-        SpinnerDialog spinnerBank;
-        items.add("ملی");
-        items.add("ملت");
-        items.add("کشاورزی");
-        items.add("تجارت");
-        //spinnerDialog = new SpinnerDialog(getActivity(),items,"Select or Search City","Close Button Text");// With No Animation
-        spinnerBank = new SpinnerDialog(
-                getActivity(),
-                items,
-                getResources().getString(R.string.City_Search),
-                R.style.DialogAnimations_SmileWindow,
-                getResources().getString(R.string.Ignor));// With 	Animation
-        spinnerBank.setCancellable(true); // for cancellable
-        spinnerBank.setShowKeyboard(false);// for open keyboard by default
-        spinnerBank.bindOnSpinerListener(new OnSpinerItemClick() {
-            @Override
-            public void onClick(String item, int position) {
-                TextBank.setText(item);
-                //selectedItems.setText(item + " Position: " + position);
-            }
-        });
-
-        LayoutBank.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                spinnerBank.showSpinerDialog();
-            }
-        });
-
-    }//_____________________________________________________________________________________________ End SetItemBank
+//    private void SetItemBank() {//__________________________________________________________________ Start SetItemBank
+//
+//        TextBank.setText(getResources().getString(R.string.City_Prompt));
+//        ArrayList<String> items = new ArrayList<>();
+//        MLSpinnerDialog mlSpinnerDialog;
+////        SpinnerDialog spinnerBank;
+//        items.add("ملی");
+//        items.add("ملت");
+//        items.add("کشاورزی");
+//        items.add("تجارت");
+//        //spinnerDialog = new SpinnerDialog(getActivity(),items,"Select or Search City","Close Button Text");// With No Animation
+//        mlSpinnerDialog = new MLSpinnerDialog(
+//                getActivity(),
+//                items,
+//                getResources().getString(R.string.City_Search),
+//                R.style.DialogAnimations_SmileWindow,
+//                getResources().getString(R.string.Ignor));// With 	Animation
+//        mlSpinnerDialog.setCancellable(true); // for cancellable
+//        mlSpinnerDialog.setShowKeyboard(false);// for open keyboard by default
+//        mlSpinnerDialog.bindOnSpinerListener(new OnSpinnerItemClick() {
+//            @Override
+//            public void onClick(String item, int position) {
+//                TextBank.setText(item);
+//                //selectedItems.setText(item + " Position: " + position);
+//            }
+//        });
+//
+//        LayoutBank.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mlSpinnerDialog.showSpinerDialog();
+//            }
+//        });
+//
+//    }//_____________________________________________________________________________________________ End SetItemBank
 
 
     public FragmentProfileBank(Context context) {//________________________________________________ Start FragmentProfileBank

@@ -30,6 +30,7 @@
                 >
 
                 <EditText
+                    android:id="@+id/editFirsName"
                     android:layout_width="fill_parent"
                     android:layout_height="@dimen/_30sdp"
                     android:background="@drawable/edit_normal_background"
@@ -41,6 +42,7 @@
                     />
 
                 <EditText
+                    android:id="@+id/edtiLastName"
                     android:layout_width="fill_parent"
                     android:layout_height="@dimen/_30sdp"
                     android:layout_marginTop="@dimen/_10sdp"
@@ -56,7 +58,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:text="@string/Sex"
+                    android:text="@string/Gender"
                     android:textColor="@color/mlBlack"
                     android:textSize="@dimen/_13sdp"
                     android:gravity="center"
@@ -69,12 +71,14 @@
                     android:orientation="horizontal">
 
                     <RadioGroup
+                        android:id="@+id/layoutGender"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         >
 
                         <RadioButton
+                            android:id="@+id/radioWoman"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/Woman"
@@ -84,6 +88,7 @@
                             />
 
                         <RadioButton
+                            android:id="@+id/radioMan"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_15sdp"
@@ -99,6 +104,7 @@
 
 
                 <EditText
+                    android:id="@+id/EditPhoneNumber"
                     android:layout_width="fill_parent"
                     android:layout_height="@dimen/_30sdp"
                     android:layout_marginTop="@dimen/_10sdp"
@@ -108,7 +114,44 @@
                     android:padding="@dimen/_2sdp"
                     android:textColor="@color/mlBlack"
                     android:textSize="@dimen/_12sdp"
+                    android:enabled="false"
                     />
+
+
+                <LinearLayout
+                    android:id="@+id/LayoutProvinces"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@color/mlEdit"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    >
+
+                    <ImageView
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                        android:tint="@color/mlBlack"
+                        />
+
+                    <TextView
+                        android:id="@+id/TextProvinces"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/mlBlack"
+                        android:gravity="right"
+                        android:textSize="@dimen/_12sdp"
+                        android:padding="@dimen/_5sdp"
+                        />
+
+
+
+
+                </LinearLayout>
 
 
                 <LinearLayout
@@ -220,6 +263,7 @@
 
 
                 <EditText
+                    android:id="@+id/editReferenceCode"
                     android:layout_width="fill_parent"
                     android:layout_height="@dimen/_30sdp"
                     android:layout_marginTop="@dimen/_10sdp"
@@ -232,6 +276,7 @@
                     />
 
                 <Button
+                    android:id="@+id/btnEditProfile"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_25sdp"

@@ -2,11 +2,10 @@ package com.example.wms.viewmodels.user.login;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Handler;
 
 import com.example.wms.daggers.retrofit.RetrofitApis;
 import com.example.wms.daggers.retrofit.RetrofitComponent;
-import com.example.wms.models.TokenModel;
+import com.example.wms.models.ModelToken;
 import com.example.wms.views.application.ApplicationWMS;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -24,7 +23,7 @@ public class ActivityBeforLoginViewModel {
     private Context context;
     public PublishSubject<String> Observables = null;
     private boolean isCancel;
-    private TokenModel tokenModel;
+    private ModelToken modelToken;
     private String MessageResponcse;
 
     public ActivityBeforLoginViewModel(Context context) {//_________________________________________ Start ActivityBeforLoginViewModel
@@ -42,7 +41,7 @@ public class ActivityBeforLoginViewModel {
                         .getApplicationWMS(context)
                         .getRetrofitComponent();
 
-        String Authorization = "Bearer 12313";
+        String Authorization = "Bearer ";
         SharedPreferences prefs = context.getSharedPreferences("wmstoken", 0);
         if (prefs != null) {
             String access_token = prefs.getString("accesstoken", null);
@@ -59,14 +58,14 @@ public class ActivityBeforLoginViewModel {
                         PhoneNumbet,
                         Password,
                         Authorization)
-                .enqueue(new Callback<TokenModel>() {
+                .enqueue(new Callback<ModelToken>() {
                     @Override
-                    public void onResponse(Call<TokenModel> call, Response<TokenModel> response) {
+                    public void onResponse(Call<ModelToken> call, Response<ModelToken> response) {
                         if(isCancel)
                             return;
                         MessageResponcse = CheckResponse(response, true);
                         if (MessageResponcse == null) {
-                            tokenModel = response.body();
+                            modelToken = response.body();
                             SaveToken();
                             Observables.onNext("SuccessfulToken");
                         }
@@ -75,7 +74,7 @@ public class ActivityBeforLoginViewModel {
                     }
 
                     @Override
-                    public void onFailure(Call<TokenModel> call, Throwable t) {
+                    public void onFailure(Call<ModelToken> call, Throwable t) {
                         Observables.onNext("Failure");
                     }
                 });
@@ -121,13 +120,13 @@ public class ActivityBeforLoginViewModel {
         SharedPreferences.Editor token =
                 context.getSharedPreferences("wmstoken", 0).edit();
 
-        token.putString("accesstoken", tokenModel.getAccess_token());
-        token.putString("tokentype", tokenModel.getToken_type());
-        token.putInt("expiresin", tokenModel.getExpires_in());
-        token.putString("phonenumber", tokenModel.getPhoneNumber());
-        token.putString("clientid", tokenModel.getClient_id());
-        token.putString("issued", tokenModel.getIssued());
-        token.putString("expires", tokenModel.getExpires());
+        token.putString("accesstoken", modelToken.getAccess_token());
+        token.putString("tokentype", modelToken.getToken_type());
+        token.putInt("expiresin", modelToken.getExpires_in());
+        token.putString("phonenumber", modelToken.getPhoneNumber());
+        token.putString("clientid", modelToken.getClient_id());
+        token.putString("issued", modelToken.getIssued());
+        token.putString("expires", modelToken.getExpires());
         token.apply();
 
     }//_____________________________________________________________________________________________ End SaveToken

@@ -9,8 +9,7 @@ import android.content.SharedPreferences;
 
 import com.example.wms.daggers.retrofit.RetrofitApis;
 import com.example.wms.daggers.retrofit.RetrofitComponent;
-import com.example.wms.models.TokenModel;
-import com.example.wms.utility.StaticFunctions;
+import com.example.wms.models.ModelToken;
 import com.example.wms.views.application.ApplicationWMS;
 
 import io.reactivex.subjects.PublishSubject;
@@ -24,7 +23,7 @@ public class SplashActivityViewModel {
 
     private Context context;
     public PublishSubject<String> Observables = null;
-    private TokenModel tokenModel;
+    private ModelToken modelToken;
     private String MessageResponcse;
 
     public SplashActivityViewModel(Context context) {//_____________________________________________ Start SplashActivityViewModel
@@ -46,12 +45,12 @@ public class SplashActivityViewModel {
                         RetrofitApis.client_id_value,
                         RetrofitApis.client_secret_value,
                         RetrofitApis.grant_type_value)
-                .enqueue(new Callback<TokenModel>() {
+                .enqueue(new Callback<ModelToken>() {
                     @Override
-                    public void onResponse(Call<TokenModel> call, Response<TokenModel> response) {
+                    public void onResponse(Call<ModelToken> call, Response<ModelToken> response) {
                         MessageResponcse = CheckResponse(response, true);
                         if (MessageResponcse == null) {
-                            tokenModel = response.body();
+                            modelToken = response.body();
                             SaveToken();
                             Observables.onNext("Successful");
                         }
@@ -62,7 +61,7 @@ public class SplashActivityViewModel {
                     }
 
                     @Override
-                    public void onFailure(Call<TokenModel> call, Throwable t) {
+                    public void onFailure(Call<ModelToken> call, Throwable t) {
                         Observables.onNext("Failure");
                     }
                 });
@@ -71,9 +70,9 @@ public class SplashActivityViewModel {
     }//_____________________________________________________________________________________________ End GetTokenFromServer
 
 
-    public TokenModel getTokenModel() {//___________________________________________________________ Start getTokenModel
-        return tokenModel;
-    }//_____________________________________________________________________________________________ End getTokenModel
+    public ModelToken getModelToken() {//___________________________________________________________ Start getModelToken
+        return modelToken;
+    }//_____________________________________________________________________________________________ End getModelToken
 
 
     private void SaveToken() {//____________________________________________________________________ Start SaveToken
@@ -81,12 +80,12 @@ public class SplashActivityViewModel {
         SharedPreferences.Editor token =
                 context.getSharedPreferences("wmstoken", 0).edit();
 
-        token.putString("accesstoken", tokenModel.getAccess_token());
-        token.putString("tokentype", tokenModel.getToken_type());
-        token.putInt("expiresin", tokenModel.getExpires_in());
-        token.putString("clientid", tokenModel.getClient_id());
-        token.putString("issued", tokenModel.getIssued());
-        token.putString("expires", tokenModel.getExpires());
+        token.putString("accesstoken", modelToken.getAccess_token());
+        token.putString("tokentype", modelToken.getToken_type());
+        token.putInt("expiresin", modelToken.getExpires_in());
+        token.putString("clientid", modelToken.getClient_id());
+        token.putString("issued", modelToken.getIssued());
+        token.putString("expires", modelToken.getExpires());
         token.apply();
 
     }//_____________________________________________________________________________________________ End SaveToken
