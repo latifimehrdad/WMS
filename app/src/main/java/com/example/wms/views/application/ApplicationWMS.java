@@ -1,6 +1,5 @@
 package com.example.wms.views.application;
 
-import android.app.Application;
 import android.content.Context;
 
 import androidx.multidex.MultiDexApplication;

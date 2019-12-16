@@ -1,8 +1,8 @@
 package com.example.wms.daggers.retrofit;
 
-import com.example.wms.models.ModelProvinces;
-import com.example.wms.models.ModelRegisterCitizen;
-import com.example.wms.models.ModelResponsePrimery;
+import com.example.wms.models.ModelProfileInfo;
+import com.example.wms.models.ModelResponcePrimery;
+import com.example.wms.models.ModelSpinnerItems;
 import com.example.wms.models.ModelToken;
 
 import retrofit2.Call;
@@ -28,7 +28,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/account/registercitizen")
-    Call<ModelRegisterCitizen> SendPhoneNumber
+    Call<ModelResponcePrimery> SendPhoneNumber
             (
                     @Field("Mobile") String PhoneNumber,
                     @Field("Password") String Password,
@@ -39,7 +39,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/account/confirmmobile")
-    Call<ModelRegisterCitizen> SendVerifyCode
+    Call<ModelResponcePrimery> SendVerifyCode
             (
                     @Field("Mobile") String PhoneNumber,
                     @Field("Code") String Password,
@@ -62,7 +62,7 @@ public interface RetrofitApiInterface {
 
 
     @GET(Version + "/region/provinces")
-    Call<ModelProvinces> getProvinces
+    Call<ModelSpinnerItems> getProvinces
             (
                     @Header("Authorization") String Authorization
 
@@ -70,7 +70,7 @@ public interface RetrofitApiInterface {
 
 
     @GET(Version + "/region/cities")
-    Call<ModelProvinces> getCitys
+    Call<ModelSpinnerItems> getCitys
             (
                     @Query("Id") String Id,
                     @Header("Authorization") String Authorization
@@ -79,7 +79,7 @@ public interface RetrofitApiInterface {
 
 
     @GET(Version + "/region/neighbourhoods")
-    Call<ModelProvinces> getPlaces
+    Call<ModelSpinnerItems> getRegions
             (
                     @Query("Id") String Id,
                     @Header("Authorization") String Authorization
@@ -89,7 +89,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/citizen/editprofile")
-    Call<ModelResponsePrimery> EditProfile
+    Call<ModelResponcePrimery> EditProfile
             (
                     @Field("FirstName") String FirstName,
                     @Field("LastName") String LastName,
@@ -101,5 +101,14 @@ public interface RetrofitApiInterface {
                     @Header("Authorization") String Authorization
 
             );
+
+
+    @GET(Version + "/citizen/info")
+    Call<ModelProfileInfo> getProfileInfo
+            (
+                    @Header("Authorization") String Authorization
+
+            );
+
 
 }

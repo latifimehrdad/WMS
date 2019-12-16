@@ -14,6 +14,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.wms.R;
 import com.example.wms.databinding.DialogProgressBinding;
+import com.example.wms.utility.StaticFunctions;
 import com.example.wms.viewmodels.main.SplashActivityViewModel;
 import com.example.wms.viewmodels.user.login.ActivityBeforLoginViewModel;
 import com.example.wms.viewmodels.user.profile.FragmentProfilePersonViewModel;
@@ -27,11 +28,6 @@ public class DialogProgress extends DialogFragment {
 
     private Context context;
     private String Title;
-    private ActivitySendPhoneNumberViewModel activitySendPhoneNumberViewModel;
-    private ActivityBeforLoginViewModel activityBeforLoginViewModel;
-    private SplashActivityViewModel splashActivityViewModel;
-    private ActivityVerifyCodeViewModel activityVerifyCodeViewModel;
-    private FragmentProfilePersonViewModel fragmentProfilePersonViewModel;
 
 
     @BindView(R.id.DialogProgressIgnor)
@@ -41,55 +37,10 @@ public class DialogProgress extends DialogFragment {
     TextView DialogProgressTitle;
 
 
-    public DialogProgress(
-            Context context,
-            String title,
-            FragmentProfilePersonViewModel fragmentProfilePersonViewModel) {//______________________ Start DialogProgress
+    public DialogProgress(Context context, String title) {//________________________________________ Start DialogProgress
         this.context = context;
         Title = title;
-        this.fragmentProfilePersonViewModel = fragmentProfilePersonViewModel;
     }//_____________________________________________________________________________________________ End DialogProgress
-
-
-    public DialogProgress(
-            Context context,
-            String title,
-            ActivitySendPhoneNumberViewModel activitySendPhoneNumberViewModel) {//__________________ Start DialogProgress
-        Title = title;
-        this.context = context;
-        this.activitySendPhoneNumberViewModel = activitySendPhoneNumberViewModel;
-    }//_____________________________________________________________________________________________ End DialogProgress
-
-
-    public DialogProgress(
-            Context context,
-            String title,
-            ActivityBeforLoginViewModel activityBeforLoginViewModel) {//____________________________ Start DialogProgress
-        this.context = context;
-        Title = title;
-        this.activityBeforLoginViewModel = activityBeforLoginViewModel;
-    }//_____________________________________________________________________________________________ End DialogProgress
-
-
-    public DialogProgress(
-            Context context,
-            String title,
-            SplashActivityViewModel splashActivityViewModel) {//____________________________________ Start DialogProgress
-        this.context = context;
-        Title = title;
-        this.splashActivityViewModel = splashActivityViewModel;
-    }//_____________________________________________________________________________________________ End DialogProgress
-
-
-    public DialogProgress(
-            Context context,
-            String title,
-            ActivityVerifyCodeViewModel activityVerifyCodeViewModel) {//____________________________ Start DialogProgress
-        this.context = context;
-        Title = title;
-        this.activityVerifyCodeViewModel = activityVerifyCodeViewModel;
-    }//_____________________________________________________________________________________________ End DialogProgress
-
 
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {//_____________________________________ Start onCreateDialog
@@ -100,34 +51,14 @@ public class DialogProgress extends DialogFragment {
                         R.layout.dialog_progress,
                         null,
                         false);
-
-        if (activitySendPhoneNumberViewModel != null)
-            binding.setSendphonenumber(activitySendPhoneNumberViewModel);
-        else if (activityBeforLoginViewModel != null)
-            binding.setBeforlogin(activityBeforLoginViewModel);
-        else if (splashActivityViewModel != null)
-            binding.setSplash(splashActivityViewModel);
-        else if(activityVerifyCodeViewModel != null)
-            binding.setVerifycode(activityVerifyCodeViewModel);
-        else if (fragmentProfilePersonViewModel != null)
-            binding.setProfileperson(fragmentProfilePersonViewModel);
-
+        binding.setString("null");
         view = binding.getRoot();
         ButterKnife.bind(this, view);
         DialogProgressTitle.setText(Title);
         DialogProgressIgnor.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                String str = "CancelByUser";
-                if (activitySendPhoneNumberViewModel != null)
-                    activitySendPhoneNumberViewModel.Observables.onNext(str);
-                else if (activityBeforLoginViewModel != null)
-                    activityBeforLoginViewModel.Observables.onNext(str);
-                else if (splashActivityViewModel != null)
-                    splashActivityViewModel.Observables.onNext(str);
-                else if (activityVerifyCodeViewModel != null)
-                    activityVerifyCodeViewModel.Observables.onNext(str);
-                else if (fragmentProfilePersonViewModel != null)
-                    fragmentProfilePersonViewModel.Observables.onNext(str);
+                StaticFunctions.isCancel = true;
+                DialogProgress.this.dismiss();
             }
         });
         return new AlertDialog.Builder(context).setView(view).create();

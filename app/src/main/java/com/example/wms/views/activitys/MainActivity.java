@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
     private MainActivityViewModel mainActivityViewModel;
     public static PublishSubject<String> FragmentMessage = null;
+    public static boolean complateprofile = false;
     private FragmentManager fm;
     private FragmentTransaction ft;
 
@@ -132,14 +133,16 @@ public class MainActivity extends AppCompatActivity {
         MainActivityChargeWallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShowFragmentWallet();
+                if (complateprofile)
+                    ShowFragmentWallet();
             }
         });
 
         MainActivityOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShowFragmentOrder();
+                if (complateprofile)
+                    ShowFragmentOrder();
             }
         });
 
@@ -161,21 +164,24 @@ public class MainActivity extends AppCompatActivity {
         footerLogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShowFragmentHome();
+                if (complateprofile)
+                    ShowFragmentHome();
             }
         });
 
         textOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShowFragmentOrder();
+                if (complateprofile)
+                    ShowFragmentOrder();
             }
         });
 
         textWallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShowFragmentWallet();
+                if (complateprofile)
+                    ShowFragmentWallet();
             }
         });
 
@@ -243,8 +249,8 @@ public class MainActivity extends AppCompatActivity {
         if (prefs == null) {
 
         } else {
-            Boolean CompleteProfile = prefs.getBoolean("complateprofile", false);
-            if (CompleteProfile == false)
+            complateprofile = prefs.getBoolean("complateprofile", false);
+            if (complateprofile == false)
                 ShowFragmentRegister();
             else
                 ShowFragmentHome();
@@ -399,7 +405,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void selectDrawerItem(MenuItem menuItem) {//_____________________________________________ Start selectDrawerItem
         // Create a new fragment and specify the fragment to show based on nav item clicked
-        Class fragmentClass;
+        if (complateprofile)
         switch (menuItem.getItemId()) {
             case R.id.nav_request_package:
                 MainActivity.this.ShowFragmentPAckRequest();

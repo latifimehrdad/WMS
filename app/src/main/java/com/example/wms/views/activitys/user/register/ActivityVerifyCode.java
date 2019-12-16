@@ -1,5 +1,6 @@
 package com.example.wms.views.activitys.user.register;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,6 +20,7 @@ import androidx.databinding.DataBindingUtil;
 import com.example.wms.R;
 import com.example.wms.databinding.ActivityVerifyCodeBinding;
 import com.example.wms.viewmodels.user.register.ActivityVerifyCodeViewModel;
+import com.example.wms.views.activitys.user.login.ActivityBeforLogin;
 import com.example.wms.views.application.ApplicationWMS;
 import com.example.wms.views.dialogs.DialogMessage;
 import com.example.wms.views.dialogs.DialogProgress;
@@ -328,20 +330,30 @@ public class ActivityVerifyCode extends AppCompatActivity {
     }//_____________________________________________________________________________________________ End SetKeyBackSpace
 
 
+
     private void ShowMessage(String message, int color, Drawable icon) {//__________________________ Start ShowMessage
 
-        DialogMessage dialogMessage = new DialogMessage(ActivityVerifyCode.this,message,color,icon);
-        dialogMessage.setCancelable(false);
-        dialogMessage.show(getSupportFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+        Context context = ActivityVerifyCode.this;
+        ApplicationWMS
+                .getApplicationWMS(context)
+                .getUtilityComponent()
+                .getApplicationUtility()
+                .ShowMessage(context,message,color,icon,getSupportFragmentManager());
 
     }//_____________________________________________________________________________________________ End ShowMessage
 
 
+
     private void ShowProgressDialog() {//___________________________________________________________ Start ShowProgressDialog
-        progress = new DialogProgress(ActivityVerifyCode.this,
-                null, activityVerifyCodeViewModel);
-        progress.setCancelable(false);
+
+        Context context = ActivityVerifyCode.this;
+        progress = ApplicationWMS
+                .getApplicationWMS(context)
+                .getUtilityComponent()
+                .getApplicationUtility()
+                .ShowProgress(context,null);
         progress.show(getSupportFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+
     }//_____________________________________________________________________________________________ End ShowProgressDialog
 
 

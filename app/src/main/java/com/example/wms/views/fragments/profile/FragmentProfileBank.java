@@ -6,6 +6,7 @@ package com.example.wms.views.fragments.profile;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,15 +19,9 @@ import androidx.fragment.app.Fragment;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentProfileBankBinding;
 import com.example.wms.viewmodels.user.profile.FragmentProfileBankViewModel;
-import com.example.wms.views.dialogs.searchspinner.MLSpinnerDialog;
-import com.example.wms.views.dialogs.searchspinner.OnSpinnerItemClick;
-
-import java.util.ArrayList;
-
+import com.example.wms.views.activitys.MainActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.example.wms.utility.StaticFunctions.SetKey;
 
 public class FragmentProfileBank extends Fragment {
 
@@ -97,20 +92,34 @@ public class FragmentProfileBank extends Fragment {
 //    }//_____________________________________________________________________________________________ End SetItemBank
 
 
-    public FragmentProfileBank(Context context) {//________________________________________________ Start FragmentProfileBank
-        this.context = context;
-    }//_____________________________________________________________________________________________ End FragmentProfileBank
-
-
-    public FragmentProfileBank() {//_______________________________________________________________ Start FragmentProfileBank
-    }//_____________________________________________________________________________________________ End FragmentProfileBank
-
 
     private void BackClick(View view) {//____________________________________________________________________ Start BackClick
         view.setFocusableInTouchMode(true);
         view.requestFocus();
         view.setOnKeyListener(SetKey(view));
     }//_____________________________________________________________________________________________ End BackClick
+
+
+    public View.OnKeyListener SetKey(View view) {//____________________________________________ Start SetBackClickAndGoHome
+        return new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                if (event.getAction() != KeyEvent.ACTION_DOWN)
+                    return true;
+
+                if (keyCode != 4) {
+                    return false;
+                }
+                if (MainActivity.complateprofile) {
+                    MainActivity.FragmentMessage.onNext("Main");
+                    return true;
+                } else {
+                    return true;
+                }
+            }
+        };
+    }//_____________________________________________________________________________________________ End SetBackClickAndGoHome
 
 
 }

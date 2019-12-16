@@ -1,5 +1,7 @@
 package com.example.wms.utility;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -7,19 +9,38 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.wms.R;
+import com.example.wms.daggers.retrofit.RetrofitApis;
+import com.example.wms.daggers.retrofit.RetrofitComponent;
 import com.example.wms.models.ModelMessage;
-import com.example.wms.models.ModelResponsePrimery;
+import com.example.wms.models.ModelResponcePrimery;
+import com.example.wms.models.ModelToken;
 import com.example.wms.views.activitys.MainActivity;
-import com.google.gson.JsonObject;
+import com.example.wms.views.application.ApplicationWMS;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 public class StaticFunctions {
+
+    public static Boolean isCancel = false;
+
+    public static String GetAuthorization(Context context) {//______________________________________ Start GetAuthorization
+        String Authorization = "Bearer ";
+        SharedPreferences prefs = context.getSharedPreferences("wmstoken", 0);
+        if (prefs != null) {
+            String access_token = prefs.getString("accesstoken", null);
+            if (access_token != null)
+                Authorization = Authorization + access_token;
+        }
+        return Authorization;
+    }//_____________________________________________________________________________________________ End GetAuthorization
+
 
     public static TextWatcher TextChangeForChangeBack(EditText editText) {//______________________________ Satart TextChangeForChangeBack
 
@@ -43,7 +64,7 @@ public class StaticFunctions {
     }//_____________________________________________________________________________________________ End TextChangeForChangeBack
 
 
-    public static View.OnKeyListener SetKey(View view) {//_________________________________________________ Start SetKey
+    public static View.OnKeyListener SetBackClickAndGoHome(Boolean execute) {//_____________________ Start SetBackClickAndGoHome
         return new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -54,11 +75,12 @@ public class StaticFunctions {
                 if (keyCode != 4) {
                     return false;
                 }
-                MainActivity.FragmentMessage.onNext("Main");
+                if (execute)
+                    MainActivity.FragmentMessage.onNext("Main");
                 return true;
             }
         };
-    }//_____________________________________________________________________________________________ End SetKey
+    }//_____________________________________________________________________________________________ End SetBackClickAndGoHome
 
 
     public static String CheckResponse(Response response, Boolean Authorization) {//________________ Start CheckResponse
@@ -97,9 +119,7 @@ public class StaticFunctions {
     }//_____________________________________________________________________________________________ End GetErrorٍMessage
 
 
-
-
-    public static String GetٍMessage(Response<ModelResponsePrimery> response) {//____________________ Start GetٍMessage
+    public static String GetMessage(Response<ModelResponcePrimery> response) {//____________________ Start GetMessage
         try {
             ArrayList<ModelMessage> modelMessages = response.body().getMessages();
             String message = "";
@@ -111,8 +131,7 @@ public class StaticFunctions {
         } catch (Exception ex) {
             return "Failure";
         }
-    }//_____________________________________________________________________________________________ End GetٍMessage
-
+    }//_____________________________________________________________________________________________ End GetMessage
 
 
 }

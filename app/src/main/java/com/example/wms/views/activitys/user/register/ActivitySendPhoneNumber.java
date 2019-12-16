@@ -1,5 +1,6 @@
 package com.example.wms.views.activitys.user.register;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import com.example.wms.R;
 import com.example.wms.databinding.ActivitySendPhoneNumberBinding;
 import com.example.wms.viewmodels.user.register.ActivitySendPhoneNumberViewModel;
 import com.example.wms.views.activitys.SplashActivity;
+import com.example.wms.views.activitys.user.login.ActivityBeforLogin;
 import com.example.wms.views.application.ApplicationWMS;
 import com.example.wms.views.dialogs.DialogMessage;
 import com.example.wms.views.dialogs.DialogProgress;
@@ -282,19 +284,27 @@ public class ActivitySendPhoneNumber extends AppCompatActivity {
 
 
     private void ShowProgressDialog() {//___________________________________________________________ Start ShowProgressDialog
-        progress = new DialogProgress(ActivitySendPhoneNumber.this,
-                null, activitySendPhoneNumberViewModel);
-        progress.setCancelable(false);
+
+        Context context = ActivitySendPhoneNumber.this;
+        progress =ApplicationWMS
+                .getApplicationWMS(context)
+                .getUtilityComponent()
+                .getApplicationUtility()
+                .ShowProgress(context,null);
         progress.show(getSupportFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
     }//_____________________________________________________________________________________________ End ShowProgressDialog
 
 
 
+
     private void ShowMessage(String message, int color, Drawable icon) {//__________________________ Start ShowMessage
 
-        DialogMessage dialogMessage = new DialogMessage(ActivitySendPhoneNumber.this,message,color,icon);
-        dialogMessage.setCancelable(false);
-        dialogMessage.show(getSupportFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+        Context context = ActivitySendPhoneNumber.this;
+        ApplicationWMS
+                .getApplicationWMS(context)
+                .getUtilityComponent()
+                .getApplicationUtility()
+                .ShowMessage(context,message,color,icon,getSupportFragmentManager());
 
     }//_____________________________________________________________________________________________ End ShowMessage
 

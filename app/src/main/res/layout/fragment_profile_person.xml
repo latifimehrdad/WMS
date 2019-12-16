@@ -191,7 +191,7 @@
 
 
                 <LinearLayout
-                    android:id="@+id/LayoutPlace"
+                    android:id="@+id/LayoutRegion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
@@ -210,7 +210,7 @@
                         />
 
                     <TextView
-                        android:id="@+id/TextPlace"
+                        android:id="@+id/TextRegion"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"

@@ -90,7 +90,7 @@ public class FragmentBoothReceivePrimery extends Fragment implements OnMapReadyC
 
 
 
-    private View.OnKeyListener SetKey(View view){//_________________________________________________ Start SetKey
+    private View.OnKeyListener SetKey(View view){//_________________________________________________ Start SetBackClickAndGoHome
         return new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -105,7 +105,7 @@ public class FragmentBoothReceivePrimery extends Fragment implements OnMapReadyC
                 return true;
             }
         };
-    }//_____________________________________________________________________________________________ End SetKey
+    }//_____________________________________________________________________________________________ End SetBackClickAndGoHome
 
 
 

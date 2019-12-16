@@ -2,7 +2,6 @@ package com.example.wms.views.fragments.packrequest;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import androidx.fragment.app.Fragment;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentPackRequestAddressBinding;
 import com.example.wms.viewmodels.packrequest.FragmentPackRequestAddressViewModel;
-import com.example.wms.views.activitys.MainActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -27,7 +25,7 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.wms.utility.StaticFunctions.SetKey;
+import static com.example.wms.utility.StaticFunctions.SetBackClickAndGoHome;
 
 public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCallback {
 
@@ -96,12 +94,12 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
     private void BackClick(View view) {//____________________________________________________________________ Start BackClick
         view.setFocusableInTouchMode(true);
         view.requestFocus();
-        view.setOnKeyListener(SetKey(view));
-        FPRAMaterialSpinnerType.setOnKeyListener(SetKey(FPRAMaterialSpinnerType));
-        UnitCount.setOnKeyListener(SetKey(UnitCount));
-        FPRAMaterialSpinnerUser.setOnKeyListener(SetKey(FPRAMaterialSpinnerUser));
-        PersonCount.setOnKeyListener(SetKey(PersonCount));
-        fpraEditAddress.setOnKeyListener(SetKey(fpraEditAddress));
+        view.setOnKeyListener(SetBackClickAndGoHome(true));
+        FPRAMaterialSpinnerType.setOnKeyListener(SetBackClickAndGoHome(true));
+        UnitCount.setOnKeyListener(SetBackClickAndGoHome(true));
+        FPRAMaterialSpinnerUser.setOnKeyListener(SetBackClickAndGoHome(true));
+        PersonCount.setOnKeyListener(SetBackClickAndGoHome(true));
+        fpraEditAddress.setOnKeyListener(SetBackClickAndGoHome(true));
 
     }//_____________________________________________________________________________________________ End BackClick
 

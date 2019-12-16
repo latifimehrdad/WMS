@@ -5,18 +5,13 @@ Create By Mehrdad Latifi in
 package com.example.wms.views.fragments.home;
 
 import android.content.Context;
-import android.graphics.Point;
 import android.os.Bundle;
 
 import android.os.Handler;
-import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
-import android.view.animation.RotateAnimation;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -33,8 +28,6 @@ import com.example.wms.views.custom.textview.VerticalTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.example.wms.utility.StaticFunctions.SetKey;
 
 public class FragmentHome extends Fragment {
 
@@ -205,7 +198,7 @@ public class FragmentHome extends Fragment {
     }//_____________________________________________________________________________________________ End BackClick
 
 
-    public View.OnKeyListener SetKeyExit(View view) {//_____________________________________________ Start SetKey
+    public View.OnKeyListener SetKeyExit(View view) {//_____________________________________________ Start SetBackClickAndGoHome
         return new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -225,7 +218,7 @@ public class FragmentHome extends Fragment {
                     return false;
             }
         };
-    }//_____________________________________________________________________________________________ End SetKey
+    }//_____________________________________________________________________________________________ End SetBackClickAndGoHome
 
 
 }

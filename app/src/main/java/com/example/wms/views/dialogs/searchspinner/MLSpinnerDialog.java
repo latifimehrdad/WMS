@@ -15,8 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.wms.R;
-import com.example.wms.models.ModelProvince;
-import com.example.wms.views.dialogs.searchspinner.OnSpinnerItemClick;
+import com.example.wms.models.ModelSpinnerItem;
 
 import java.util.ArrayList;
 
@@ -52,10 +51,10 @@ public class MLSpinnerDialog {
         this.style = style;
     }
 
-    public MLSpinnerDialog(Activity activity, ArrayList<ModelProvince> list, String dialogTitle, int style, String closeTitle) {
+    public MLSpinnerDialog(Activity activity, ArrayList<ModelSpinnerItem> list, String dialogTitle, int style, String closeTitle) {
         this.items = new ArrayList<>();
         this.items.clear();
-        for (ModelProvince item : list) {
+        for (ModelSpinnerItem item : list) {
             this.items.add(item.getTitle());
         }
         this.context = activity;

@@ -2,7 +2,6 @@ package com.example.wms.views.fragments.learn;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +16,13 @@ import androidx.fragment.app.Fragment;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentLearnItemsBinding;
 import com.example.wms.viewmodels.learn.FragmentLearnItemsViewModel;
-import com.example.wms.views.activitys.MainActivity;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.wms.utility.StaticFunctions.SetKey;
+import static com.example.wms.utility.StaticFunctions.SetBackClickAndGoHome;
 
 public class FragmentLearnItems extends Fragment {
 
@@ -237,7 +235,7 @@ public class FragmentLearnItems extends Fragment {
     private void BackClick(View view) {//____________________________________________________________________ Start BackClick
         view.setFocusableInTouchMode(true);
         view.requestFocus();
-        view.setOnKeyListener(SetKey(view));
+        view.setOnKeyListener(SetBackClickAndGoHome(true));
     }//_____________________________________________________________________________________________ End BackClick
 
 

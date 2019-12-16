@@ -1,6 +1,7 @@
 package com.example.wms.utility;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -10,9 +11,12 @@ import android.widget.Toast;
 
 
 import androidx.core.app.NotificationCompat;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.wms.R;
+import com.example.wms.views.activitys.user.login.ActivityBeforLogin;
 import com.example.wms.views.dialogs.DialogMessage;
+import com.example.wms.views.dialogs.DialogProgress;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -25,7 +29,6 @@ import retrofit2.Response;
 
 public class ApplicationUtility {
 
-//    private ArrayList<Citys> citys;
     //Type = "FullJalaliNumber = 1367/05/31"
     //Type = "YearJalaliNumber = 1367"
     //Type = "MonthJalaliNumber = 05"
@@ -34,11 +37,6 @@ public class ApplicationUtility {
     //Type = "MonthJalaliString = مرداد"
     //Type = "DayJalaliString = پنجشنبه"
 
-
-//    public ApplicationUtility() {
-//        citys = new ArrayList<>();
-//        initCity();
-//    }
 
     public String MiladiToJalali(Date MiladiDate, String Type) {//_____________________________________________________________________________________________ Start calcSolarCalendar
 
@@ -308,6 +306,26 @@ public class ApplicationUtility {
     }//_____________________________________________________________________________________________ End calcSolarCalendar
 
 
+    public void ShowMessage(Context c, String message, int color, Drawable icon, FragmentManager fm) {//_________ Start ShowMessage
+
+        DialogMessage dialogMessage = new DialogMessage(c, message, color, icon);
+        dialogMessage.setCancelable(false);
+        dialogMessage.show(fm, NotificationCompat.CATEGORY_PROGRESS);
+
+    }//_____________________________________________________________________________________________ End ShowMessage
+
+
+
+    public DialogProgress ShowProgress(Context c, String title) {//_________________________________ Start ShowMessage
+
+        DialogProgress progress = new DialogProgress(c, title);
+        progress.setCancelable(false);
+        return progress;
+
+    }//_____________________________________________________________________________________________ End ShowMessage
+
+
+
 
     public void CustomToastShow(Context context, String message, int color) {
 
@@ -523,58 +541,7 @@ public class ApplicationUtility {
         return Boolean.valueOf(false);
     }
 
-//    public String[] getName() {
-//        List<String> city = new ArrayList<>();
-//        for (Citys item : citys)
-//            city.add(item.getName());
-//        String[] array = new String[city.size()];
-//        city.toArray(array);
-//        return array;
-//    }
 
-//    public double[] getLatLong(int position) {
-//        double[] latlong = {citys.get(position).getLat(),citys.get(position).getLong()};
-//        return latlong;
-//    }
-
-//    public double getLong(int position) {
-//        return citys.get(position).getLong();
-//    }
-
-//    private void initCity() {
-//        citys.add(new Citys("انتخاب استان", 0.0, 0.0));
-//        citys.add(new Citys("آذربایجان شرقی", 38.0524675, 46.2849927));
-//        citys.add(new Citys("آذربایجان غربی", 37.5296071, 45.0465487));
-//        citys.add(new Citys("اردبیل", 38.246471, 48.295052));
-//        citys.add(new Citys("اصفهان", 32.65139, 51.679192));
-//        citys.add(new Citys("البرز", 35.491716, 50.574495));
-//        citys.add(new Citys("ایلام", 33.638531, 46.422649));
-//        citys.add(new Citys("بوشهر", 28922041, 50.833092));
-//        citys.add(new Citys("تهران", 35.415903, 51.201698));
-//        citys.add(new Citys("چهارمحال و بختیاری", 32.3555942, 50.8274267));
-//        citys.add(new Citys("خراسان جنوبی", 32.8462159, 592911422));
-//        citys.add(new Citys("خراسان رضوی", 36.3, 59.6));
-//        citys.add(new Citys("خراسان شمالی", 37.4524383, 57.3235177));
-//        citys.add(new Citys("خوزستان", 31.5317162, 49.8803281));
-//        citys.add(new Citys("زنجان", 36.67094, 48.485111));
-//        citys.add(new Citys("سمنان", 35.572269, 53.396049));
-//        citys.add(new Citys("سیستان و بلوچستان", 29.4545786, 60.853647));
-//        citys.add(new Citys("فارس", 29.6496884, 52.5088696));
-//        citys.add(new Citys("قزوین", 36.266819, 50.003811));
-//        citys.add(new Citys("قم", 34.643711, 50.89064));
-//        citys.add(new Citys("کردستان", 35.3029422, 47.0026312));
-//        citys.add(new Citys("کرمان", 3028027, 5706702));
-//        citys.add(new Citys("کرمانشاه", 34.346481, 46.420559));
-//        citys.add(new Citys("کهگیلویه وبویراحمد", 30.392547, 51.36106));
-//        citys.add(new Citys("گلستان", 36.8633914, 54.4485782));
-//        citys.add(new Citys("گیلان", 37.223431, 49.6355091));
-//        citys.add(new Citys("لرستان", 33.4666667, 48.35));
-//        citys.add(new Citys("مازندران", 36.5658333, 53.0597222));
-//        citys.add(new Citys("مرکزی", 34.0800112, 49.6772334));
-//        citys.add(new Citys("هرمزگان", 27.1833333, 56.2666667));
-//        citys.add(new Citys("همدان", 34.8065, 485162472));
-//        citys.add(new Citys("یزد", 3189661, 54.36068));
-//    }
 
 
 }

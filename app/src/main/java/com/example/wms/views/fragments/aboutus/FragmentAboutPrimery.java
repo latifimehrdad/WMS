@@ -2,7 +2,6 @@ package com.example.wms.views.fragments.aboutus;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +12,10 @@ import androidx.fragment.app.Fragment;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentAboutPrimeryBinding;
 import com.example.wms.viewmodels.aboutus.FragmentAboutPrimeryViewModel;
-import com.example.wms.views.activitys.MainActivity;
 
 import butterknife.ButterKnife;
 
-import static com.example.wms.utility.StaticFunctions.SetKey;
+import static com.example.wms.utility.StaticFunctions.SetBackClickAndGoHome;
 
 public class FragmentAboutPrimery extends Fragment {
 
@@ -56,7 +54,7 @@ public class FragmentAboutPrimery extends Fragment {
     private void BackClick(View view) {//____________________________________________________________________ Start BackClick
         view.setFocusableInTouchMode(true);
         view.requestFocus();
-        view.setOnKeyListener(SetKey(view));
+        view.setOnKeyListener(SetBackClickAndGoHome(true));
     }//_____________________________________________________________________________________________ End BackClick
 
 

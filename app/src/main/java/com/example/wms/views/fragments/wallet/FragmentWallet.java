@@ -218,7 +218,7 @@ public class FragmentWallet extends Fragment {
 
 
 
-    private View.OnKeyListener SetKey(View view){//_________________________________________________ Start SetKey
+    private View.OnKeyListener SetKey(View view){//_________________________________________________ Start SetBackClickAndGoHome
         return new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -231,7 +231,7 @@ public class FragmentWallet extends Fragment {
                 return true;
             }
         };
-    }//_____________________________________________________________________________________________ End SetKey
+    }//_____________________________________________________________________________________________ End SetBackClickAndGoHome
 
 
 

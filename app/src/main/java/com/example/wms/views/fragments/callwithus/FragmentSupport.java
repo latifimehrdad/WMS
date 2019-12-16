@@ -2,7 +2,6 @@ package com.example.wms.views.fragments.callwithus;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +13,12 @@ import androidx.fragment.app.Fragment;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentSupportBinding;
 import com.example.wms.viewmodels.callwithus.FragmentSupportViewModel;
-import com.example.wms.views.activitys.MainActivity;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.wms.utility.StaticFunctions.SetKey;
+import static com.example.wms.utility.StaticFunctions.SetBackClickAndGoHome;
 
 public class FragmentSupport extends Fragment {
 
@@ -70,10 +68,10 @@ public class FragmentSupport extends Fragment {
     private void BackClick(View view) {//____________________________________________________________________ Start BackClick
         view.setFocusableInTouchMode(true);
         view.requestFocus();
-        view.setOnKeyListener(SetKey(view));
-        fsEditSubject.setOnKeyListener(SetKey(fsEditSubject));
-        fsEditDescription.setOnKeyListener(SetKey(fsEditDescription));
-        MaterialSpinner1.setOnKeyListener(SetKey(MaterialSpinner1));
+        view.setOnKeyListener(SetBackClickAndGoHome(true));
+        fsEditSubject.setOnKeyListener(SetBackClickAndGoHome(true));
+        fsEditDescription.setOnKeyListener(SetBackClickAndGoHome(true));
+        MaterialSpinner1.setOnKeyListener(SetBackClickAndGoHome(true));
 
     }//_____________________________________________________________________________________________ End BackClick
 

@@ -7,39 +7,38 @@ package com.example.wms.viewmodels.user.profile;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.wms.daggers.retrofit.RetrofitApis;
 import com.example.wms.daggers.retrofit.RetrofitComponent;
-import com.example.wms.models.ModelProvince;
-import com.example.wms.models.ModelProvinces;
-import com.example.wms.models.ModelResponsePrimery;
-import com.example.wms.models.ModelToken;
+import com.example.wms.models.ModelProfileInfo;
+import com.example.wms.models.ModelResponcePrimery;
+import com.example.wms.models.ModelSpinnerItem;
+import com.example.wms.models.ModelSpinnerItems;
+import com.example.wms.utility.StaticFunctions;
+import com.example.wms.views.activitys.MainActivity;
 import com.example.wms.views.application.ApplicationWMS;
 
 import java.util.ArrayList;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.example.wms.utility.StaticFunctions.CheckResponse;
-import static com.example.wms.utility.StaticFunctions.GetٍMessage;
+import static com.example.wms.utility.StaticFunctions.GetAuthorization;
+import static com.example.wms.utility.StaticFunctions.GetMessage;
 
 public class FragmentProfilePersonViewModel {
 
     private Context context;
     public PublishSubject<String> Observables = null;
-    private boolean isCancel;
-    private ArrayList<ModelProvince> provinces;
-    private ArrayList<ModelProvince> Citys;
-    private ArrayList<ModelProvince> Plases;
+    private ArrayList<ModelSpinnerItem> provinces;
+    private ArrayList<ModelSpinnerItem> Citys;
+    private ArrayList<ModelSpinnerItem> Regions;
+    private ModelProfileInfo.ModelProfile profile;
     private String MessageResponcse;
     private String ProvinceId;
     private String CityId;
-    private String PlaceId;
+    private String RegionId;
     private String FirstName;
     private String LastName;
     private int Gender;
@@ -49,54 +48,54 @@ public class FragmentProfilePersonViewModel {
     public FragmentProfilePersonViewModel(Context context) {//_____________________________________ Start FragmentProfilePersonViewModel
         this.context = context;
         Observables = PublishSubject.create();
-        ObserverObservables();
     }//_____________________________________________________________________________________________ End FragmentProfilePersonViewModel
 
 
-    private void ObserverObservables() {//__________________________________________________________ Start ObserverObservables
-        Observables
-                .observeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableObserver<String>() {
-                    @Override
-                    public void onNext(String s) {
-                        switch (s) {
-                            case "CancelByUser":
-                                isCancel = true;
-                                break;
-                        }
-                    }
 
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-
-    }//_____________________________________________________________________________________________ End ObserverObservables
-
-
-    public void EditProfile() {//___________________________________________________________________ Start GetPlasesList
-        isCancel = false;
+    public void GetProfileInfo() {//________________________________________________________________ Start GetProfileInfo
+        StaticFunctions.isCancel = false;
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
                         .getApplicationWMS(context)
                         .getRetrofitComponent();
 
-        String Authorization = "Bearer ";
-        SharedPreferences prefs = context.getSharedPreferences("wmstoken", 0);
-        if (prefs != null) {
-            String access_token = prefs.getString("accesstoken", null);
-            if (access_token != null)
-                Authorization = Authorization + access_token;
-        }
+        String Authorization = GetAuthorization(context);
 
+        retrofitComponent
+                .getRetrofitApiInterface()
+                .getProfileInfo(
+                        Authorization)
+                .enqueue(new Callback<ModelProfileInfo>() {
+                    @Override
+                    public void onResponse(Call<ModelProfileInfo> call, Response<ModelProfileInfo> response) {
+                        if (StaticFunctions.isCancel)
+                            return;
+                        MessageResponcse = CheckResponse(response, false);
+                        if (MessageResponcse == null) {
+                            profile = response.body().getResult();
+                            Observables.onNext("SuccessfulProfile");
+                        } else
+                            Observables.onNext("Error");
+                    }
+
+                    @Override
+                    public void onFailure(Call<ModelProfileInfo> call, Throwable t) {
+                        Observables.onNext("Failure");
+                    }
+                });
+    }//_____________________________________________________________________________________________ End GetProfileInfo
+
+
+    public void EditProfile() {//___________________________________________________________________ Start GetPlasesList
+        StaticFunctions.isCancel = false;
+
+        RetrofitComponent retrofitComponent =
+                ApplicationWMS
+                        .getApplicationWMS(context)
+                        .getRetrofitComponent();
+
+        String Authorization = GetAuthorization(context);
 
         retrofitComponent
                 .getRetrofitApiInterface()
@@ -107,23 +106,30 @@ public class FragmentProfilePersonViewModel {
                         getCitizenType(),
                         getCityId(),
                         getReferenceCode(),
-                        getPlaceId(),
+                        getRegionId(),
                         Authorization)
-                .enqueue(new Callback<ModelResponsePrimery>() {
+                .enqueue(new Callback<ModelResponcePrimery>() {
                     @Override
-                    public void onResponse(Call<ModelResponsePrimery> call, Response<ModelResponsePrimery> response) {
-                        if (isCancel)
+                    public void onResponse(Call<ModelResponcePrimery> call, Response<ModelResponcePrimery> response) {
+                        if (StaticFunctions.isCancel)
                             return;
                         MessageResponcse = CheckResponse(response, false);
                         if (MessageResponcse == null) {
-                            MessageResponcse = GetٍMessage(response);
+                            MessageResponcse = GetMessage(response);
+                            SharedPreferences.Editor token =
+                                    context.getSharedPreferences("wmstoken", 0).edit();
+
+                            token.putBoolean("complateprofile", true);
+                            token.apply();
+
+                            MainActivity.complateprofile = true;
                             Observables.onNext("SuccessfulEdit");
                         } else
                             Observables.onNext("Error");
                     }
 
                     @Override
-                    public void onFailure(Call<ModelResponsePrimery> call, Throwable t) {
+                    public void onFailure(Call<ModelResponcePrimery> call, Throwable t) {
                         Observables.onNext("Failure");
                     }
                 });
@@ -132,42 +138,36 @@ public class FragmentProfilePersonViewModel {
 
 
     public void GetPlasesList() {//________________________________________________ Start GetPlasesList
-        isCancel = false;
+        StaticFunctions.isCancel = false;
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
                         .getApplicationWMS(context)
                         .getRetrofitComponent();
 
-        String Authorization = "Bearer ";
-        SharedPreferences prefs = context.getSharedPreferences("wmstoken", 0);
-        if (prefs != null) {
-            String access_token = prefs.getString("accesstoken", null);
-            if (access_token != null)
-                Authorization = Authorization + access_token;
-        }
+        String Authorization = GetAuthorization(context);
 
 
         retrofitComponent
                 .getRetrofitApiInterface()
-                .getPlaces(
+                .getRegions(
                         getCityId(),
                         Authorization)
-                .enqueue(new Callback<ModelProvinces>() {
+                .enqueue(new Callback<ModelSpinnerItems>() {
                     @Override
-                    public void onResponse(Call<ModelProvinces> call, Response<ModelProvinces> response) {
-                        if (isCancel)
+                    public void onResponse(Call<ModelSpinnerItems> call, Response<ModelSpinnerItems> response) {
+                        if (StaticFunctions.isCancel)
                             return;
                         MessageResponcse = CheckResponse(response, false);
                         if (MessageResponcse == null) {
-                            Plases = response.body().getResult();
-                            Observables.onNext("SuccessfulPlace");
+                            Regions = response.body().getResult();
+                            Observables.onNext("SuccessfulRegion");
                         } else
                             Observables.onNext("Error");
                     }
 
                     @Override
-                    public void onFailure(Call<ModelProvinces> call, Throwable t) {
+                    public void onFailure(Call<ModelSpinnerItems> call, Throwable t) {
                         Observables.onNext("Failure");
                     }
                 });
@@ -176,20 +176,14 @@ public class FragmentProfilePersonViewModel {
 
 
     public void GetCitysList() {//__________________________________________________________________ Start GetCitysList
-        isCancel = false;
+        StaticFunctions.isCancel = false;
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
                         .getApplicationWMS(context)
                         .getRetrofitComponent();
 
-        String Authorization = "Bearer ";
-        SharedPreferences prefs = context.getSharedPreferences("wmstoken", 0);
-        if (prefs != null) {
-            String access_token = prefs.getString("accesstoken", null);
-            if (access_token != null)
-                Authorization = Authorization + access_token;
-        }
+        String Authorization = GetAuthorization(context);
 
 
         retrofitComponent
@@ -197,10 +191,10 @@ public class FragmentProfilePersonViewModel {
                 .getCitys(
                         getProvinceId(),
                         Authorization)
-                .enqueue(new Callback<ModelProvinces>() {
+                .enqueue(new Callback<ModelSpinnerItems>() {
                     @Override
-                    public void onResponse(Call<ModelProvinces> call, Response<ModelProvinces> response) {
-                        if (isCancel)
+                    public void onResponse(Call<ModelSpinnerItems> call, Response<ModelSpinnerItems> response) {
+                        if (StaticFunctions.isCancel)
                             return;
                         MessageResponcse = CheckResponse(response, false);
                         if (MessageResponcse == null) {
@@ -211,7 +205,7 @@ public class FragmentProfilePersonViewModel {
                     }
 
                     @Override
-                    public void onFailure(Call<ModelProvinces> call, Throwable t) {
+                    public void onFailure(Call<ModelSpinnerItems> call, Throwable t) {
                         Observables.onNext("Failure");
                     }
                 });
@@ -220,30 +214,24 @@ public class FragmentProfilePersonViewModel {
 
 
     public void GetProvincesList() {//______________________________________________________________ Start GetProvincesList
-        isCancel = false;
+        StaticFunctions.isCancel = false;
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
                         .getApplicationWMS(context)
                         .getRetrofitComponent();
 
-        String Authorization = "Bearer ";
-        SharedPreferences prefs = context.getSharedPreferences("wmstoken", 0);
-        if (prefs != null) {
-            String access_token = prefs.getString("accesstoken", null);
-            if (access_token != null)
-                Authorization = Authorization + access_token;
-        }
+        String Authorization = GetAuthorization(context);
 
 
         retrofitComponent
                 .getRetrofitApiInterface()
                 .getProvinces(
                         Authorization)
-                .enqueue(new Callback<ModelProvinces>() {
+                .enqueue(new Callback<ModelSpinnerItems>() {
                     @Override
-                    public void onResponse(Call<ModelProvinces> call, Response<ModelProvinces> response) {
-                        if (isCancel)
+                    public void onResponse(Call<ModelSpinnerItems> call, Response<ModelSpinnerItems> response) {
+                        if (StaticFunctions.isCancel)
                             return;
                         MessageResponcse = CheckResponse(response, false);
                         if (MessageResponcse == null) {
@@ -254,7 +242,7 @@ public class FragmentProfilePersonViewModel {
                     }
 
                     @Override
-                    public void onFailure(Call<ModelProvinces> call, Throwable t) {
+                    public void onFailure(Call<ModelSpinnerItems> call, Throwable t) {
                         Observables.onNext("Failure");
                     }
                 });
@@ -262,7 +250,8 @@ public class FragmentProfilePersonViewModel {
     }//_____________________________________________________________________________________________ End GetProvincesList
 
 
-    public ArrayList<ModelProvince> getProvinces() {//______________________________________________ Start getProvinces
+
+    public ArrayList<ModelSpinnerItem> getProvinces() {//______________________________________________ Start getProvinces
         return provinces;
     }//_____________________________________________________________________________________________ End getProvinces
 
@@ -272,14 +261,14 @@ public class FragmentProfilePersonViewModel {
     }//_____________________________________________________________________________________________ End getMessageResponcse
 
 
-    public ArrayList<ModelProvince> getCitys() {//__________________________________________________ Start getCitys
+    public ArrayList<ModelSpinnerItem> getCitys() {//__________________________________________________ Start getCitys
         return Citys;
     }//_____________________________________________________________________________________________ End getCitys
 
 
-    public ArrayList<ModelProvince> getPlases() {//_________________________________________________ Start getPlases
-        return Plases;
-    }//_____________________________________________________________________________________________ End getPlases
+    public ArrayList<ModelSpinnerItem> getRegions() {//_________________________________________________ Start getRegions
+        return Regions;
+    }//_____________________________________________________________________________________________ End getRegions
 
 
     public String getProvinceId() {//_______________________________________________________________ Start getProvinceId
@@ -300,13 +289,13 @@ public class FragmentProfilePersonViewModel {
         CityId = cityId;
     }//_____________________________________________________________________________________________ End setCityId
 
-    public String getPlaceId() {//__________________________________________________________________ Start getPlaceId
-        return PlaceId;
-    }//_____________________________________________________________________________________________ End getPlaceId
+    public String getRegionId() {//__________________________________________________________________ Start getRegionId
+        return RegionId;
+    }//_____________________________________________________________________________________________ End getRegionId
 
-    public void setPlaceId(String placeId) {//______________________________________________________ Start setPlaceId
-        PlaceId = placeId;
-    }//_____________________________________________________________________________________________ End setPlaceId
+    public void setRegionId(String regionId) {//______________________________________________________ Start setRegionId
+        RegionId = regionId;
+    }//_____________________________________________________________________________________________ End setRegionId
 
 
     public String getFirstName() {//________________________________________________________________ Start getFirstName
@@ -348,4 +337,12 @@ public class FragmentProfilePersonViewModel {
     public void setReferenceCode(Integer referenceCode) {//_________________________________________ Start setReferenceCode
         ReferenceCode = referenceCode;
     }//_____________________________________________________________________________________________ End setReferenceCode
+
+    public ModelProfileInfo.ModelProfile getProfile() {//___________________________________________ Start getProfile
+        return profile;
+    }//_____________________________________________________________________________________________ End getProfile
+
+    public void setProfile(ModelProfileInfo.ModelProfile profile) {//_______________________________ Start setProfile
+        this.profile = profile;
+    }//_____________________________________________________________________________________________ End setProfile
 }

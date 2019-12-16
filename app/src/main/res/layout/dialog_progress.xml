@@ -4,24 +4,8 @@
     <data>
         
         <variable
-            name="sendphonenumber"
-            type="com.example.wms.viewmodels.user.register.ActivitySendPhoneNumberViewModel" />
-
-        <variable
-            name="beforlogin"
-            type="com.example.wms.viewmodels.user.login.ActivityBeforLoginViewModel" />
-
-        <variable
-            name="splash"
-            type="com.example.wms.viewmodels.main.SplashActivityViewModel" />
-
-        <variable
-            name="verifycode"
-            type="com.example.wms.viewmodels.user.register.ActivityVerifyCodeViewModel" />
-
-        <variable
-            name="profileperson"
-            type="com.example.wms.viewmodels.user.profile.FragmentProfilePersonViewModel" />
+            name="string"
+            type="String" />
 
     </data>
 

@@ -6,6 +6,7 @@ package com.example.wms.views.fragments.profile;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +17,9 @@ import androidx.fragment.app.Fragment;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentProfileCodeBinding;
 import com.example.wms.viewmodels.user.profile.FragmentProfileCodeViewModel;
+import com.example.wms.views.activitys.MainActivity;
 
 import butterknife.ButterKnife;
-
-import static com.example.wms.utility.StaticFunctions.SetKey;
 
 public class FragmentProfileCode extends Fragment {
 
@@ -39,21 +39,33 @@ public class FragmentProfileCode extends Fragment {
     }//_____________________________________________________________________________________________ End onCreateView
 
 
-    public FragmentProfileCode() {//_______________________________________________________________ Start FragmentProfileCode
-    }//_____________________________________________________________________________________________ End FragmentProfileCode
-
-
-    public FragmentProfileCode(Context context) {//________________________________________________ Start FragmentProfileCode
-        this.context = context;
-    }//_____________________________________________________________________________________________ End FragmentProfileCode
-
-
     private void BackClick(View view) {//____________________________________________________________________ Start BackClick
         view.setFocusableInTouchMode(true);
         view.requestFocus();
         view.setOnKeyListener(SetKey(view));
     }//_____________________________________________________________________________________________ End BackClick
 
+
+    public View.OnKeyListener SetKey(View view) {//____________________________________________ Start SetBackClickAndGoHome
+        return new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                if (event.getAction() != KeyEvent.ACTION_DOWN)
+                    return true;
+
+                if (keyCode != 4) {
+                    return false;
+                }
+                if (MainActivity.complateprofile) {
+                    MainActivity.FragmentMessage.onNext("Main");
+                    return true;
+                } else {
+                    return true;
+                }
+            }
+        };
+    }//_____________________________________________________________________________________________ End SetBackClickAndGoHome
 
 
 }

@@ -4,6 +4,7 @@ Create By Mehrdad Latifi in
  */
 package com.example.wms.views.activitys;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
@@ -184,20 +185,15 @@ public class SplashActivity extends AppCompatActivity {
     }//_____________________________________________________________________________________________ End ShowBeforLoginActivity
 
 
-    private void ShowProgressDialog() {//___________________________________________________________ Start ShowProgressDialog
-        progress = new DialogProgress(SplashActivity.this,
-                null, splashActivityViewModel);
-
-        progress.setCancelable(false);
-        progress.show(getSupportFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
-    }//_____________________________________________________________________________________________ End ShowProgressDialog
-
 
     private void ShowMessage(String message, int color, Drawable icon) {//__________________________ Start ShowMessage
 
-        DialogMessage dialogMessage = new DialogMessage(SplashActivity.this, message, color, icon);
-        dialogMessage.setCancelable(false);
-        dialogMessage.show(getSupportFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+        Context context = SplashActivity.this;
+        ApplicationWMS
+                .getApplicationWMS(context)
+                .getUtilityComponent()
+                .getApplicationUtility()
+                .ShowMessage(context,message,color,icon,getSupportFragmentManager());
 
     }//_____________________________________________________________________________________________ End ShowMessage
 

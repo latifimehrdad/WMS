@@ -2,7 +2,7 @@ package com.example.wms.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ModelProvince {
+public class ModelSpinnerItem {
 
     @SerializedName("id")
     String id;
@@ -10,10 +10,10 @@ public class ModelProvince {
     @SerializedName("title")
     String title;
 
-    public ModelProvince() {
+    public ModelSpinnerItem() {
     }
 
-    public ModelProvince(String id, String title) {
+    public ModelSpinnerItem(String id, String title) {
         this.id = id;
         this.title = title;
     }

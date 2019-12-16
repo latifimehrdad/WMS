@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,11 +23,15 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.wms.R;
+import com.example.wms.daggers.utility.UtilityComponent;
 import com.example.wms.databinding.FragmentProfilePersonBinding;
-import com.example.wms.models.ModelProvince;
+import com.example.wms.models.ModelProfileInfo;
+import com.example.wms.models.ModelSpinnerItem;
 import com.example.wms.viewmodels.user.profile.FragmentProfilePersonViewModel;
 import com.example.wms.views.activitys.MainActivity;
 import com.example.wms.views.activitys.user.login.ActivityBeforLogin;
+import com.example.wms.views.activitys.user.register.ActivitySendPhoneNumber;
+import com.example.wms.views.application.ApplicationWMS;
 import com.example.wms.views.dialogs.DialogMessage;
 import com.example.wms.views.dialogs.DialogProgress;
 import com.example.wms.views.dialogs.searchspinner.MLSpinnerDialog;
@@ -42,7 +45,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.example.wms.utility.StaticFunctions.SetKey;
+import static com.example.wms.utility.StaticFunctions.SetBackClickAndGoHome;
 import static com.example.wms.utility.StaticFunctions.TextChangeForChangeBack;
 
 public class FragmentProfilePerson extends Fragment {
@@ -51,17 +54,20 @@ public class FragmentProfilePerson extends Fragment {
     private FragmentProfilePersonViewModel fragmentProfilePersonViewModel;
     private DialogProgress progress;
     private MLSpinnerDialog spinnerProvinces;
-    private ArrayList<ModelProvince> ProvincesList;
+    private ArrayList<ModelSpinnerItem> ProvincesList;
     private String ProvinceId = "-1";
     private Boolean ClickProvince = false;
     private MLSpinnerDialog spinnerCity;
-    private ArrayList<ModelProvince> CitysList;
+    private ArrayList<ModelSpinnerItem> CitysList;
     private String CityId = "-1";
     private Boolean ClickCity = false;
-    private MLSpinnerDialog spinnerPlace;
-    private ArrayList<ModelProvince> PlacesList;
-    private String PlaceId = "-1";
+    private MLSpinnerDialog spinnerRegion;
+    private ArrayList<ModelSpinnerItem> RegionsList;
+    private String RegionId = "-1";
     private Boolean ClickPlace = false;
+    private ModelProfileInfo.ModelProfile profile;
+    private ArrayList<ModelSpinnerItem> UserType;
+    private View view;
 
     private String UserTypeId = "-1";
 
@@ -74,11 +80,11 @@ public class FragmentProfilePerson extends Fragment {
     @BindView(R.id.TextCity)
     TextView TextCity;
 
-    @BindView(R.id.LayoutPlace)
-    LinearLayout LayoutPlace;
+    @BindView(R.id.LayoutRegion)
+    LinearLayout LayoutRegion;
 
-    @BindView(R.id.TextPlace)
-    TextView TextPlace;
+    @BindView(R.id.TextRegion)
+    TextView TextRegion;
 
     @BindView(R.id.LayoutUser)
     LinearLayout LayoutUser;
@@ -123,9 +129,9 @@ public class FragmentProfilePerson extends Fragment {
                 .inflate(inflater, R.layout.fragment_profile_person, container, false);
         fragmentProfilePersonViewModel = new FragmentProfilePersonViewModel(context);
         binding.setPerson(fragmentProfilePersonViewModel);
-        View view = binding.getRoot();
+        view = binding.getRoot();
         ButterKnife.bind(this, view);
-        BackClick(view);
+        BackClick(MainActivity.complateprofile);
         return view;
     }//_____________________________________________________________________________________________ Start onCreateView
 
@@ -136,17 +142,17 @@ public class FragmentProfilePerson extends Fragment {
         ObserverObservables();
         TextProvinces.setText(getResources().getString(R.string.ChooseProvinces));
         TextCity.setText(getResources().getString(R.string.City_Prompt));
-        TextPlace.setText(getResources().getString(R.string.ChoosePlace));
+        TextRegion.setText(getResources().getString(R.string.ChooseRegion));
         TextUser.setText(getResources().getString(R.string.ChooseUser));
         ClickProvince = false;
         ClickCity = false;
         ClickPlace = false;
-        GetProvinces();
+        GetProfileInfo();
         SetClick();
         SetTextWatcher();
         SetItemUser();
         GenderCode = -1;
-        CheckProfile();
+        GetPhoneNumber();
     }//_____________________________________________________________________________________________ End onStart
 
 
@@ -183,7 +189,7 @@ public class FragmentProfilePerson extends Fragment {
         });
 
 
-        LayoutPlace.setOnClickListener(new View.OnClickListener() {
+        LayoutRegion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (CityId.equalsIgnoreCase("-1")) {
@@ -192,10 +198,10 @@ public class FragmentProfilePerson extends Fragment {
                             getResources().getDrawable(R.drawable.ic_error));
                 } else {
                     ClickPlace = true;
-                    if ((PlacesList == null) || (PlacesList.size() == 0))
+                    if ((RegionsList == null) || (RegionsList.size() == 0))
                         GetPlaces();
                     else
-                        spinnerPlace.showSpinerDialog();
+                        spinnerRegion.showSpinerDialog();
                 }
             }
         });
@@ -233,7 +239,7 @@ public class FragmentProfilePerson extends Fragment {
                     fragmentProfilePersonViewModel.setGender(GenderCode);
                     fragmentProfilePersonViewModel.setCitizenType(Integer.valueOf(UserTypeId));
                     fragmentProfilePersonViewModel.setCityId(CityId);
-                    fragmentProfilePersonViewModel.setPlaceId(PlaceId);
+                    fragmentProfilePersonViewModel.setRegionId(RegionId);
                     fragmentProfilePersonViewModel.setReferenceCode(
                             Integer.valueOf(editReferenceCode.getText().toString())
                     );
@@ -252,7 +258,7 @@ public class FragmentProfilePerson extends Fragment {
         boolean gender = false;
         boolean privence = false;
         boolean city = false;
-        boolean place = false;
+        boolean region = false;
         boolean user = false;
         boolean reference = true;
 
@@ -302,11 +308,11 @@ public class FragmentProfilePerson extends Fragment {
         } else
             city = true;
 
-        if (PlaceId.equalsIgnoreCase("-1")) {
-            LayoutPlace.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
-            place = false;
+        if (RegionId.equalsIgnoreCase("-1")) {
+            LayoutRegion.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
+            region = false;
         } else
-            place = true;
+            region = true;
 
         if (UserTypeId.equalsIgnoreCase("-1")) {
             LayoutUser.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
@@ -315,7 +321,7 @@ public class FragmentProfilePerson extends Fragment {
             user = true;
 
 
-        if (firstname && lastname && gender && privence && city && place && user && reference)
+        if (firstname && lastname && gender && privence && city && region && user && reference)
             return true;
         else
             return false;
@@ -336,7 +342,7 @@ public class FragmentProfilePerson extends Fragment {
 
         LayoutCity.setBackgroundColor(getResources().getColor(R.color.mlEdit));
 
-        LayoutPlace.setBackgroundColor(getResources().getColor(R.color.mlEdit));
+        LayoutRegion.setBackgroundColor(getResources().getColor(R.color.mlEdit));
 
         LayoutUser.setBackgroundColor(getResources().getColor(R.color.mlEdit));
 
@@ -346,7 +352,7 @@ public class FragmentProfilePerson extends Fragment {
     }//_____________________________________________________________________________________________ End SetTextWatcher
 
 
-    private void CheckProfile() {//_________________________________________________________________ Start CheckProfile
+    private void GetPhoneNumber() {//_______________________________________________________________ Start GetPhoneNumber
 
         SharedPreferences prefs = context.getSharedPreferences("wmstoken", 0);
         if (prefs == null) {
@@ -357,14 +363,65 @@ public class FragmentProfilePerson extends Fragment {
                 EditPhoneNumber.setText(PhoneNumber);
         }
 
-    }//_____________________________________________________________________________________________ End CheckProfile
+    }//_____________________________________________________________________________________________ End GetPhoneNumber
 
 
-    private void BackClick(View view) {//____________________________________________________________________ Start BackClick
+    private void BackClick(boolean execute) {//_____________________________________________________ Start BackClick
         view.setFocusableInTouchMode(true);
         view.requestFocus();
-        view.setOnKeyListener(SetKey(view));
+        view.setOnKeyListener(SetBackClickAndGoHome(execute));
+        editFirsName.setOnKeyListener(SetBackClickAndGoHome(execute));
+        edtiLastName.setOnKeyListener(SetBackClickAndGoHome(execute));
+        editReferenceCode.setOnKeyListener(SetBackClickAndGoHome(execute));
     }//_____________________________________________________________________________________________ End BackClick
+
+
+    private void GetProfileInfo() {//_______________________________________________________________ Start GetProfileInfo
+        ShowProgressDialog();
+        fragmentProfilePersonViewModel.GetProfileInfo();
+    }//_____________________________________________________________________________________________ End GetProfileInfo
+
+
+    private void SetProfileInfo() {//_______________________________________________________________ Start SetProfileInfo
+        if (profile.getFirstName() != null) {
+            editFirsName.setText(profile.getFirstName());
+
+            if (profile.getLastName() != null)
+                edtiLastName.setText(profile.getLastName());
+
+            if (profile.getProvince() != null) {
+                TextProvinces.setText(profile.getProvince().getTitle());
+                ProvinceId = profile.getProvince().getId();
+            }
+
+            if (profile.getCity() != null) {
+                TextCity.setText(profile.getCity().getTitle());
+                CityId = profile.getCity().getId();
+            }
+
+            if (profile.getNeighbourhood() != null) {
+                TextRegion.setText(profile.getNeighbourhood().getTitle());
+                RegionId = profile.getNeighbourhood().getId();
+            }
+
+            if (profile.getCitizenType() != null) {
+                TextUser.setText(UserType.get(profile.getCitizenType()).getTitle());
+                UserTypeId = String.valueOf(profile.getCitizenType());
+            }
+
+            if (profile.getReferenceCode() != null)
+                editReferenceCode.setText(String.valueOf(profile.getReferenceCode()));
+
+            if(profile.getGender() == 0)
+                radioWoman.setChecked(true);
+            else
+                radioMan.setChecked(true);
+
+            GenderCode = profile.getGender();
+        }
+
+
+    }//_____________________________________________________________________________________________ End SetProfileInfo
 
 
     private void GetProvinces() {//_________________________________________________________________ Start GetProvinces
@@ -401,10 +458,16 @@ public class FragmentProfilePerson extends Fragment {
                                 if (progress != null)
                                     progress.dismiss();
                                 switch (s) {
+                                    case "SuccessfulProfile":
+                                        profile = fragmentProfilePersonViewModel.getProfile();
+                                        SetProfileInfo();
+                                        break;
                                     case "SuccessfulEdit":
                                         ShowMessage(fragmentProfilePersonViewModel.getMessageResponcse()
                                                 , getResources().getColor(R.color.mlWhite),
                                                 getResources().getDrawable(R.drawable.ic_check));
+                                        MainActivity.complateprofile = true;
+                                        BackClick(true);
                                         break;
                                     case "SuccessfulProvince":
                                         ProvincesList = fragmentProfilePersonViewModel.getProvinces();
@@ -414,9 +477,9 @@ public class FragmentProfilePerson extends Fragment {
                                         CitysList = fragmentProfilePersonViewModel.getCitys();
                                         SetItemCity();
                                         break;
-                                    case "SuccessfulPlace":
-                                        PlacesList = fragmentProfilePersonViewModel.getPlases();
-                                        SetItemPlace();
+                                    case "SuccessfulRegion":
+                                        RegionsList = fragmentProfilePersonViewModel.getRegions();
+                                        SetItemRegion();
                                         break;
                                     case "Error":
                                         ShowMessage(fragmentProfilePersonViewModel.getMessageResponcse()
@@ -429,7 +492,6 @@ public class FragmentProfilePerson extends Fragment {
                                                 getResources().getDrawable(R.drawable.ic_error));
                                         break;
                                     default:
-
                                         break;
                                 }
                             }
@@ -451,19 +513,23 @@ public class FragmentProfilePerson extends Fragment {
 
 
     private void ShowProgressDialog() {//___________________________________________________________ Start ShowProgressDialog
-        progress = new DialogProgress(context
-                , null, fragmentProfilePersonViewModel);
 
-        progress.setCancelable(false);
+        progress = ApplicationWMS
+                .getApplicationWMS(context)
+                .getUtilityComponent()
+                .getApplicationUtility()
+                .ShowProgress(context,null);
         progress.show(getChildFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
     }//_____________________________________________________________________________________________ End ShowProgressDialog
 
 
     private void ShowMessage(String message, int color, Drawable icon) {//__________________________ Start ShowMessage
 
-        DialogMessage dialogMessage = new DialogMessage(context, message, color, icon);
-        dialogMessage.setCancelable(false);
-        dialogMessage.show(getChildFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+        ApplicationWMS
+                .getApplicationWMS(context)
+                .getUtilityComponent()
+                .getApplicationUtility()
+                .ShowMessage(context,message,color,icon,getChildFragmentManager());
 
     }//_____________________________________________________________________________________________ End ShowMessage
 
@@ -473,13 +539,13 @@ public class FragmentProfilePerson extends Fragment {
         TextProvinces.setText(getResources().getString(R.string.ChooseProvinces));
         CitysList = null;
         ClickCity = false;
-        PlacesList = null;
+        RegionsList = null;
         ClickPlace = false;
         ProvinceId = "-1";
         CityId = "-1";
-        PlaceId = "-1";
+        RegionId = "-1";
         TextCity.setText(getResources().getString(R.string.City_Prompt));
-        TextPlace.setText(getResources().getString(R.string.ChoosePlace));
+        TextRegion.setText(getResources().getString(R.string.ChooseRegion));
         //spinnerDialog = new SpinnerDialog(getActivity(),items,"Select or Search City","Close Button Text");// With No Animation
         spinnerProvinces = new MLSpinnerDialog(
                 getActivity(),
@@ -497,12 +563,12 @@ public class FragmentProfilePerson extends Fragment {
                 ProvinceId = ProvincesList.get(position).getId();
                 CitysList = null;
                 ClickCity = false;
-                PlacesList = null;
+                RegionsList = null;
                 ClickPlace = false;
                 CityId = "-1";
-                PlaceId = "-1";
+                RegionId = "-1";
                 TextCity.setText(getResources().getString(R.string.City_Prompt));
-                TextPlace.setText(getResources().getString(R.string.ChoosePlace));
+                TextRegion.setText(getResources().getString(R.string.ChooseRegion));
                 LayoutProvinces.setBackgroundColor(getResources().getColor(R.color.mlEdit));
                 GetCitys();
             }
@@ -516,12 +582,12 @@ public class FragmentProfilePerson extends Fragment {
 
     private void SetItemCity() {//__________________________________________________________________ Start SetItemCity
 
-        PlacesList = null;
+        RegionsList = null;
         ClickPlace = false;
         CityId = "-1";
-        PlaceId = "-1";
+        RegionId = "-1";
         TextCity.setText(getResources().getString(R.string.City_Prompt));
-        TextPlace.setText(getResources().getString(R.string.ChoosePlace));
+        TextRegion.setText(getResources().getString(R.string.ChooseRegion));
         //spinnerDialog = new SpinnerDialog(getActivity(),items,"Select or Search City","Close Button Text");// With No Animation
         spinnerCity = new MLSpinnerDialog(
                 getActivity(),
@@ -537,10 +603,10 @@ public class FragmentProfilePerson extends Fragment {
             public void onClick(String item, int position) {
                 TextCity.setText(item);
                 CityId = CitysList.get(position).getId();
-                PlacesList = null;
+                RegionsList = null;
                 ClickPlace = false;
-                PlaceId = "-1";
-                TextPlace.setText(getResources().getString(R.string.ChoosePlace));
+                RegionId = "-1";
+                TextRegion.setText(getResources().getString(R.string.ChooseRegion));
                 LayoutCity.setBackgroundColor(getResources().getColor(R.color.mlEdit));
                 GetPlaces();
             }
@@ -553,48 +619,48 @@ public class FragmentProfilePerson extends Fragment {
     }//_____________________________________________________________________________________________ End SetItemCity
 
 
-    private void SetItemPlace() {//_________________________________________________________________ Start SetItemPlace
+    private void SetItemRegion() {//________________________________________________________________ Start SetItemRegion
 
-        TextPlace.setText(getResources().getString(R.string.ChoosePlace));
-        PlaceId = "-1";
+        TextRegion.setText(getResources().getString(R.string.ChooseRegion));
+        RegionId = "-1";
         //spinnerDialog = new SpinnerDialog(getActivity(),items,"Select or Search City","Close Button Text");// With No Animation
-        spinnerPlace = new MLSpinnerDialog(
+        spinnerRegion = new MLSpinnerDialog(
                 getActivity(),
-                PlacesList,
-                getResources().getString(R.string.Place_Search),
+                RegionsList,
+                getResources().getString(R.string.Region_Search),
                 R.style.DialogAnimations_SmileWindow,
                 getResources().getString(R.string.Ignor));// With 	Animation
-        spinnerPlace.setCancellable(true); // for cancellable
-        spinnerPlace.setShowKeyboard(false);// for open keyboard by default
-        spinnerPlace.bindOnSpinerListener(new OnSpinnerItemClick() {
+        spinnerRegion.setCancellable(true); // for cancellable
+        spinnerRegion.setShowKeyboard(false);// for open keyboard by default
+        spinnerRegion.bindOnSpinerListener(new OnSpinnerItemClick() {
             @Override
             public void onClick(String item, int position) {
-                TextPlace.setText(item);
-                PlaceId = PlacesList.get(position).getId();
-                LayoutPlace.setBackgroundColor(getResources().getColor(R.color.mlEdit));
+                TextRegion.setText(item);
+                RegionId = RegionsList.get(position).getId();
+                LayoutRegion.setBackgroundColor(getResources().getColor(R.color.mlEdit));
             }
         });
 
         if (ClickPlace)
-            spinnerPlace.showSpinerDialog();
+            spinnerRegion.showSpinerDialog();
 
-    }//_____________________________________________________________________________________________ End SetItemPlace
+    }//_____________________________________________________________________________________________ End SetItemRegion
 
 
     private void SetItemUser() {//__________________________________________________________________ Start SetItemUser
 
         TextUser.setText(getResources().getString(R.string.ChooseUser));
-        ArrayList<ModelProvince> items = new ArrayList<>();
         MLSpinnerDialog spinnerUser;
-        items.add(new ModelProvince("0", "خانوار"));
-        items.add(new ModelProvince("1", "مدیر ساختمان"));
-        items.add(new ModelProvince("2", "سرایدار"));
-        items.add(new ModelProvince("3", "، دانش آموز"));
-        items.add(new ModelProvince("4", "سایر"));
+        UserType = new ArrayList<>();
+        UserType.add(new ModelSpinnerItem("0", "خانوار"));
+        UserType.add(new ModelSpinnerItem("1", "مدیر ساختمان"));
+        UserType.add(new ModelSpinnerItem("2", "سرایدار"));
+        UserType.add(new ModelSpinnerItem("3", "، دانش آموز"));
+        UserType.add(new ModelSpinnerItem("4", "سایر"));
         //spinnerDialog = new SpinnerDialog(getActivity(),items,"Select or Search City","Close Button Text");// With No Animation
         spinnerUser = new MLSpinnerDialog(
                 getActivity(),
-                items,
+                UserType,
                 getResources().getString(R.string.User_Search),
                 R.style.DialogAnimations_SmileWindow,
                 getResources().getString(R.string.Ignor));// With 	Animation
@@ -604,7 +670,7 @@ public class FragmentProfilePerson extends Fragment {
             @Override
             public void onClick(String item, int position) {
                 TextUser.setText(item);
-                UserTypeId = items.get(position).getId();
+                UserTypeId = UserType.get(position).getId();
                 LayoutUser.setBackgroundColor(getResources().getColor(R.color.mlEdit));
             }
         });

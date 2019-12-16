@@ -2,24 +2,20 @@ package com.example.wms.views.fragments.lottery;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentLotteryPrimeryBinding;
 import com.example.wms.viewmodels.lottery.FragmentLotteryPrimeryViewModel;
-import com.example.wms.views.activitys.MainActivity;
 
 import butterknife.ButterKnife;
 
-import static com.example.wms.utility.StaticFunctions.SetKey;
+import static com.example.wms.utility.StaticFunctions.SetBackClickAndGoHome;
 
 public class FragmentLotteryPrimery extends Fragment {
 
@@ -59,7 +55,7 @@ public class FragmentLotteryPrimery extends Fragment {
     private void BackClick(View view) {//____________________________________________________________________ Start BackClick
         view.setFocusableInTouchMode(true);
         view.requestFocus();
-        view.setOnKeyListener(SetKey(view));
+        view.setOnKeyListener(SetBackClickAndGoHome(true));
     }//_____________________________________________________________________________________________ End BackClick
 
 

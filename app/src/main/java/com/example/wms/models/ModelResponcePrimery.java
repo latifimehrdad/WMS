@@ -4,11 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-public class ModelRegisterCitizen {
-
+public class ModelResponcePrimery {
 
     @SerializedName("messages")
-    private ArrayList<ModelMessage> messages;
+    ArrayList<ModelMessage> messages;
 
     public ArrayList<ModelMessage> getMessages() {
         return messages;

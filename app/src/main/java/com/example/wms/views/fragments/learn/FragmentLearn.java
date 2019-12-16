@@ -20,7 +20,7 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.wms.utility.StaticFunctions.SetKey;
+import static com.example.wms.utility.StaticFunctions.SetBackClickAndGoHome;
 
 public class FragmentLearn extends Fragment {
 
@@ -88,7 +88,7 @@ public class FragmentLearn extends Fragment {
     private void BackClick(View view) {//____________________________________________________________________ Start BackClick
         view.setFocusableInTouchMode(true);
         view.requestFocus();
-        view.setOnKeyListener(SetKey(view));
+        view.setOnKeyListener(SetBackClickAndGoHome(true));
     }//_____________________________________________________________________________________________ End BackClick
 
 

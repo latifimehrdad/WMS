@@ -6,8 +6,8 @@
     <string name="ProvincesSearch">جستجوی استان</string>
     <string name="City_Prompt">انتخاب شهر</string>
     <string name="City_Search">جستجوی شهر</string>
-    <string name="ChoosePlace">انتخاب منطقه</string>
-    <string name="Place_Search">جستجوی منطقه</string>
+    <string name="ChooseRegion">انتخاب منطقه</string>
+    <string name="Region_Search">جستجوی منطقه</string>
     <string name="ChooseUser">انتخاب کاربر</string>
     <string name="User_Search">جستجوی کاربر</string>
 

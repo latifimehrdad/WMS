@@ -102,6 +102,7 @@ public class ActivityBeforLogin extends AppCompatActivity {
         LoginClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (CheckEmpty()) {
                     ShowProgressDialog();
                     activityBeforLoginViewModel.GetLoginToken(
@@ -249,29 +250,17 @@ public class ActivityBeforLogin extends AppCompatActivity {
 
 
     private void ShowProgressDialog() {//___________________________________________________________ Start ShowProgressDialog
-        progress = new DialogProgress(ActivityBeforLogin.this
-                , null, activityBeforLoginViewModel);
 
-        progress.setCancelable(false);
+        Context context = ActivityBeforLogin.this;
+        progress = ApplicationWMS
+                .getApplicationWMS(context)
+                .getUtilityComponent()
+                .getApplicationUtility()
+                .ShowProgress(context,null);
         progress.show(getSupportFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+
     }//_____________________________________________________________________________________________ End ShowProgressDialog
 
-
-    public static View.OnKeyListener SetKey(View view) {//_________________________________________________ Start SetKey
-        return new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-
-                if (event.getAction() != KeyEvent.ACTION_DOWN)
-                    return true;
-
-                if (keyCode != 4) {
-                    return false;
-                }
-                return true;
-            }
-        };
-    }//_____________________________________________________________________________________________ End SetKey
 
 
     private void SetTextWatcher() {//_______________________________________________________________ Start SetTextWatcher
@@ -289,9 +278,12 @@ public class ActivityBeforLogin extends AppCompatActivity {
 
     private void ShowMessage(String message, int color, Drawable icon) {//__________________________ Start ShowMessage
 
-        DialogMessage dialogMessage = new DialogMessage(ActivityBeforLogin.this,message,color,icon);
-        dialogMessage.setCancelable(false);
-        dialogMessage.show(getSupportFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+        Context context = ActivityBeforLogin.this;
+        ApplicationWMS
+                .getApplicationWMS(context)
+                .getUtilityComponent()
+                .getApplicationUtility()
+                .ShowMessage(context,message,color,icon,getSupportFragmentManager());
 
     }//_____________________________________________________________________________________________ End ShowMessage
 
