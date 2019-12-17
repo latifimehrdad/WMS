@@ -30,12 +30,13 @@
 
 
         <EditText
+            android:id="@+id/editBuildingRenovationCode"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_20sdp"
             android:background="@drawable/edit_normal_background"
             android:hint="@string/RegisterPersonCodeNew"
-            android:inputType="number"
+            android:inputType="textPersonName"
             android:padding="@dimen/_2sdp"
             android:textColor="@color/mlBlack"
             android:textSize="@dimen/_12sdp"
@@ -54,6 +55,7 @@
 
 
         <Button
+            android:id="@+id/btnSendCode"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_25sdp"

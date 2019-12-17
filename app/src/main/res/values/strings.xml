@@ -10,6 +10,8 @@
     <string name="Region_Search">جستجوی منطقه</string>
     <string name="ChooseUser">انتخاب کاربر</string>
     <string name="User_Search">جستجوی کاربر</string>
+    <string name="ChooseBank">انتخاب بانک</string>
+    <string name="Bank_Search">جستجوی بانک</string>
 
 
     <string-array name="City">
@@ -166,5 +168,9 @@
     <string name="EmptyFirstName">لطفا نام را وارد کنید</string>
     <string name="EmptyLastName">لطفا نام خانوادگی را وارد کنید</string>
     <string name="EmptyReferenceCode">لطفا کد معرف را وارد کنید</string>
+    <string name="GetUserAccountNumber">دریافت اطلاعات حساب</string>
+    <string name="GetBanks">دریافت لیست بانکها</string>
+    <string name="EmptyAccountNumber">لطفا شماره حساب را وارد کنید</string>
+    <string name="GetBuildingRenovationCode">دریافت کئ نوسازی</string>
 
 </resources>

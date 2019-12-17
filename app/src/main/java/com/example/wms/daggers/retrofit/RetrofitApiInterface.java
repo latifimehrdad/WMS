@@ -1,9 +1,11 @@
 package com.example.wms.daggers.retrofit;
 
+import com.example.wms.models.ModelBuildingRenovationCode;
 import com.example.wms.models.ModelProfileInfo;
 import com.example.wms.models.ModelResponcePrimery;
 import com.example.wms.models.ModelSpinnerItems;
 import com.example.wms.models.ModelToken;
+import com.example.wms.models.ModelUserAccounts;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -105,6 +107,51 @@ public interface RetrofitApiInterface {
 
     @GET(Version + "/citizen/info")
     Call<ModelProfileInfo> getProfileInfo
+            (
+                    @Header("Authorization") String Authorization
+
+            );
+
+
+    @GET(Version + "/citizen/citizenbank")
+    Call<ModelUserAccounts> getUserAccountNumber
+            (
+                    @Header("Authorization") String Authorization
+
+            );
+
+
+
+    @GET(Version + "/bank/banks")
+    Call<ModelSpinnerItems> getBanks
+            (
+                    @Header("Authorization") String Authorization
+
+            );
+
+
+    @FormUrlEncoded
+    @POST(Version + "/citizen/editcitizenbank")
+    Call<ModelResponcePrimery> SendAccountNumber
+            (
+                    @Field("Bank.Id") String FirstName,
+                    @Field("AccountNumber") String LastName,
+                    @Header("Authorization") String Authorization
+
+            );
+
+
+    @FormUrlEncoded
+    @POST(Version + "/citizen/editbuildingrenovationcode")
+    Call<ModelResponcePrimery> SendBuildingRenovationCode
+            (
+                    @Field("BuildingRenovationCode") String BuildingRenovationCode,
+                    @Header("Authorization") String Authorization
+
+            );
+
+    @GET(Version + "/citizen/buildingrenovationcode")
+    Call<ModelBuildingRenovationCode> getBuildingRenovationCode
             (
                     @Header("Authorization") String Authorization
 

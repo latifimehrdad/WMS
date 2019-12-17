@@ -336,7 +336,7 @@ public class FragmentProfilePerson extends Fragment {
         edtiLastName.setBackgroundResource(R.drawable.edit_normal_background);
         edtiLastName.addTextChangedListener(TextChangeForChangeBack(edtiLastName));
 
-        layoutGender.setBackgroundColor(getResources().getColor(R.color.mlWhite));
+        layoutGender.setBackgroundColor(getResources().getColor(R.color.mlEdit));
 
         LayoutProvinces.setBackgroundColor(getResources().getColor(R.color.mlEdit));
 

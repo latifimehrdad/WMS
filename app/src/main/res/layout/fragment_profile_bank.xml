@@ -16,11 +16,13 @@
         android:paddingTop="@dimen/_10sdp"
         android:paddingBottom="@dimen/_10sdp"
         android:gravity="center"
+        android:background="@color/mlWhite"
         >
 
 
 
         <EditText
+            android:id="@+id/editAccountNumber"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_10sdp"
@@ -70,6 +72,7 @@
 
 
         <Button
+            android:id="@+id/btnSendAccountNumber"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_25sdp"
