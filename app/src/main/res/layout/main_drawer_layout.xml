@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_width="@dimen/_150sdp"
+    android:layout_width="@dimen/_200sdp"
     android:layout_height="match_parent"
     android:layout_gravity="end"
     android:background="@color/mlWhite"
@@ -26,14 +26,57 @@
                 android:padding="@dimen/_5sdp"
                 >
 
-                <ImageView
-                    android:layout_width="@dimen/_50sdp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:src="@drawable/ic_account_circle"
-                    android:tint="@color/colorPrimaryDark"
-                    />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp">
+
+                    <ImageView
+                        android:id="@+id/logoProfile"
+                        android:layout_width="@dimen/_50sdp"
+                        android:layout_height="@dimen/_50sdp"
+                        android:src="@drawable/ic_account_circle"
+                        android:tint="@color/colorPrimaryDark"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        />
+
+                    <LinearLayout
+                        android:id="@+id/ExitProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/logoProfile"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:orientation="vertical"
+                        android:gravity="right"
+                        >
+
+                        <ImageView
+                            android:layout_width="@dimen/_15sdp"
+                            android:layout_height="@dimen/_15sdp"
+                            android:src="@drawable/ic_exit"
+                            android:tint="@color/mlHomeAveScore"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/mlHomeAveScore"
+                            android:textSize="@dimen/_8sdp"
+                            android:text="@string/ExitAccount"
+                            android:gravity="right"
+                            />
+
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+
 
                 <TextView
+                    android:id="@+id/ProfileName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimaryDark"
@@ -43,8 +86,6 @@
                     android:layout_marginTop="@dimen/_2sdp"
                     android:text="نام کاربر"
                     />
-
-
 
                 <LinearLayout
                     android:id="@+id/LayoutEdit"

@@ -4,6 +4,7 @@ Create By Mehrdad Latifi in
  */
 package com.example.wms.views.activitys;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -20,6 +21,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -93,6 +95,12 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.LayoutEdit)
     LinearLayout LayoutEdit;
 
+    @BindView(R.id.ExitProfile)
+    LinearLayout ExitProfile;
+
+    @BindView(R.id.ProfileName)
+    TextView ProfileName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {//__________________________________________ Start onCreate
         super.onCreate(savedInstanceState);
@@ -129,6 +137,49 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void SetClicks() {//____________________________________________________________________ Start
+
+        mDrawer.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(@NonNull View drawerView) {
+                ProfileName.setText(GetUserNameProfile());
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
+
+
+        ExitProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor token =
+                        MainActivity.this.getSharedPreferences("wmstoken", 0).edit();
+
+                token.putBoolean("complateprofile", false);
+                token.putString("accesstoken", null);
+                token.putString("tokentype", null);
+                token.putInt("expiresin", 0);
+                token.putString("phonenumber", null);
+                token.putString("clientid", null);
+                token.putString("issued", null);
+                token.putString("expires", null);
+                token.apply();
+                MainActivity.complateprofile = false;
+                ShowSpalshActivity();
+            }
+        });
 
         MainActivityChargeWallet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,6 +237,24 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }//_____________________________________________________________________________________________ End
+
+
+    private String GetUserNameProfile() {//_________________________________________________________ Start GetUserNameProfile
+
+        SharedPreferences prefs = this.getSharedPreferences("wmstoken", 0);
+
+        if (prefs == null) {
+            return "نام کاربر";
+        } else {
+            String name = prefs.getString("name", "");
+            String lastName = prefs.getString("lastName", "");
+            if ((name.equalsIgnoreCase("")) && (lastName.equalsIgnoreCase("")))
+                return "نام کاربر";
+            else
+                return name + " " + lastName;
+        }
+
+    }//_____________________________________________________________________________________________ End GetUserNameProfile
 
 
     private void FragmentShowObserver() {//_________________________________________________________ Start FragmentShowObserver
@@ -406,29 +475,29 @@ public class MainActivity extends AppCompatActivity {
     public void selectDrawerItem(MenuItem menuItem) {//_____________________________________________ Start selectDrawerItem
         // Create a new fragment and specify the fragment to show based on nav item clicked
         if (complateprofile)
-        switch (menuItem.getItemId()) {
-            case R.id.nav_request_package:
-                MainActivity.this.ShowFragmentPAckRequest();
-                break;
-            case R.id.nav_seperation:
-                MainActivity.this.ShowFragmentLearn();
-                break;
-            case R.id.nav_collect:
-                MainActivity.this.ShowFragmentCollectRequest();
-                break;
-            case R.id.nav_clottery:
-                MainActivity.this.ShowFragmentLottery();
-                break;
-            case R.id.nav_about:
-                MainActivity.this.ShowFragmentAbout();
-                break;
-            case R.id.nav_support:
-                MainActivity.this.ShowFragmentCall();
-                break;
-            case R.id.nav_home:
-                MainActivity.this.ShowFragmentHome();
-                break;
-        }
+            switch (menuItem.getItemId()) {
+                case R.id.nav_request_package:
+                    MainActivity.this.ShowFragmentPAckRequest();
+                    break;
+                case R.id.nav_seperation:
+                    MainActivity.this.ShowFragmentLearn();
+                    break;
+                case R.id.nav_collect:
+                    MainActivity.this.ShowFragmentCollectRequest();
+                    break;
+                case R.id.nav_clottery:
+                    MainActivity.this.ShowFragmentLottery();
+                    break;
+                case R.id.nav_about:
+                    MainActivity.this.ShowFragmentAbout();
+                    break;
+                case R.id.nav_support:
+                    MainActivity.this.ShowFragmentCall();
+                    break;
+                case R.id.nav_home:
+                    MainActivity.this.ShowFragmentHome();
+                    break;
+            }
 
         try {
 

@@ -241,7 +241,7 @@ public class FragmentProfilePerson extends Fragment {
                     fragmentProfilePersonViewModel.setCityId(CityId);
                     fragmentProfilePersonViewModel.setRegionId(RegionId);
                     fragmentProfilePersonViewModel.setReferenceCode(
-                            Integer.valueOf(editReferenceCode.getText().toString())
+                            editReferenceCode.getText().toString()
                     );
                     fragmentProfilePersonViewModel.EditProfile();
                 }
@@ -260,16 +260,16 @@ public class FragmentProfilePerson extends Fragment {
         boolean city = false;
         boolean region = false;
         boolean user = false;
-        boolean reference = true;
+//        boolean reference = true;
 
 
-        if (editReferenceCode.getText().length() < 1) {
-            editReferenceCode.setBackgroundResource(R.drawable.edit_empty_background);
-            editReferenceCode.setError(getResources().getString(R.string.EmptyReferenceCode));
-            editReferenceCode.requestFocus();
-            reference = false;
-        } else
-            reference = true;
+//        if (editReferenceCode.getText().length() < 1) {
+//            editReferenceCode.setBackgroundResource(R.drawable.edit_empty_background);
+//            editReferenceCode.setError(getResources().getString(R.string.EmptyReferenceCode));
+//            editReferenceCode.requestFocus();
+//            reference = false;
+//        } else
+//            reference = true;
 
 
         if (edtiLastName.getText().length() < 1) {
@@ -296,6 +296,11 @@ public class FragmentProfilePerson extends Fragment {
         } else
             gender = true;
 
+        if(radioMan.isChecked())
+            GenderCode = 1;
+        else
+            GenderCode = 0;
+
         if (ProvinceId.equalsIgnoreCase("-1")) {
             LayoutProvinces.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
             privence = false;
@@ -321,7 +326,7 @@ public class FragmentProfilePerson extends Fragment {
             user = true;
 
 
-        if (firstname && lastname && gender && privence && city && region && user && reference)
+        if (firstname && lastname && gender && privence && city && region && user)
             return true;
         else
             return false;
@@ -336,7 +341,7 @@ public class FragmentProfilePerson extends Fragment {
         edtiLastName.setBackgroundResource(R.drawable.edit_normal_background);
         edtiLastName.addTextChangedListener(TextChangeForChangeBack(edtiLastName));
 
-        layoutGender.setBackgroundColor(getResources().getColor(R.color.mlEdit));
+        layoutGender.setBackgroundColor(getResources().getColor(R.color.mlWhite));
 
         LayoutProvinces.setBackgroundColor(getResources().getColor(R.color.mlEdit));
 

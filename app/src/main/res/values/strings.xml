@@ -171,6 +171,7 @@
     <string name="GetUserAccountNumber">دریافت اطلاعات حساب</string>
     <string name="GetBanks">دریافت لیست بانکها</string>
     <string name="EmptyAccountNumber">لطفا شماره حساب را وارد کنید</string>
-    <string name="GetBuildingRenovationCode">دریافت کئ نوسازی</string>
+    <string name="GetBuildingRenovationCode">دریافت کد نوسازی</string>
+    <string name="ExitAccount">خروج از حساب</string>
 
 </resources>

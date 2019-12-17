@@ -3,6 +3,7 @@ package com.example.wms.daggers.retrofit;
 import com.example.wms.models.ModelBuildingRenovationCode;
 import com.example.wms.models.ModelProfileInfo;
 import com.example.wms.models.ModelResponcePrimery;
+import com.example.wms.models.ModelSettingInfo;
 import com.example.wms.models.ModelSpinnerItems;
 import com.example.wms.models.ModelToken;
 import com.example.wms.models.ModelUserAccounts;
@@ -98,7 +99,7 @@ public interface RetrofitApiInterface {
                     @Field("Gender") int Gender,
                     @Field("CitizenType") Integer CitizenType,
                     @Field("City.Id") String CityId,
-                    @Field("ReferenceCode") Integer ReferenceCode,
+                    @Field("ReferenceCode") String ReferenceCode,
                     @Field("Neighbourhood.Id") String NeighbourhoodId,
                     @Header("Authorization") String Authorization
 
@@ -152,6 +153,14 @@ public interface RetrofitApiInterface {
 
     @GET(Version + "/citizen/buildingrenovationcode")
     Call<ModelBuildingRenovationCode> getBuildingRenovationCode
+            (
+                    @Header("Authorization") String Authorization
+
+            );
+
+
+    @GET(Version + "/citizen/settinginfo")
+    Call<ModelSettingInfo> getSettingInfo
             (
                     @Header("Authorization") String Authorization
 

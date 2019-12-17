@@ -160,13 +160,14 @@ public class ActivityBeforLogin extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (progress != null)
-                                    progress.dismiss();
+
                                 switch (s) {
                                     case "SuccessfulToken":
                                         activityBeforLoginViewModel.GetLoginInformation();
                                         break;
                                     case "Successful":
+                                        if (progress != null)
+                                            progress.dismiss();
                                         Handler handler = new Handler();
                                         handler.postDelayed(new Runnable() {
                                             @Override
@@ -177,17 +178,22 @@ public class ActivityBeforLogin extends AppCompatActivity {
                                         finish();
                                         break;
                                     case "Error":
+                                        if (progress != null)
+                                            progress.dismiss();
                                         ShowMessage(activityBeforLoginViewModel.getMessageResponse()
                                         ,getResources().getColor(R.color.mlWhite),
                                                 getResources().getDrawable(R.drawable.ic_error));
                                         break;
                                     case "Failure":
+                                        if (progress != null)
+                                            progress.dismiss();
                                         ShowMessage(getResources().getString(R.string.NetworkError),
                                                 getResources().getColor(R.color.mlWhite),
                                                 getResources().getDrawable(R.drawable.ic_error));
                                         break;
                                     default:
-
+                                        if (progress != null)
+                                            progress.dismiss();
                                         break;
                                 }
                             }

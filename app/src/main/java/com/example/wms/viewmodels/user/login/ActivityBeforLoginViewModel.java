@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.example.wms.daggers.retrofit.RetrofitApis;
 import com.example.wms.daggers.retrofit.RetrofitComponent;
+import com.example.wms.models.ModelSettingInfo;
 import com.example.wms.models.ModelToken;
 import com.example.wms.utility.StaticFunctions;
 import com.example.wms.views.application.ApplicationWMS;
@@ -26,6 +27,7 @@ public class ActivityBeforLoginViewModel {
     public PublishSubject<String> Observables = null;
     private ModelToken modelToken;
     private String MessageResponcse;
+    private ModelSettingInfo.ModelProfileSetting profile;
 
     public ActivityBeforLoginViewModel(Context context) {//_________________________________________ Start ActivityBeforLoginViewModel
         this.context = context;
@@ -54,15 +56,14 @@ public class ActivityBeforLoginViewModel {
                 .enqueue(new Callback<ModelToken>() {
                     @Override
                     public void onResponse(Call<ModelToken> call, Response<ModelToken> response) {
-                        if(StaticFunctions.isCancel)
+                        if (StaticFunctions.isCancel)
                             return;
                         MessageResponcse = CheckResponse(response, true);
                         if (MessageResponcse == null) {
                             modelToken = response.body();
                             SaveToken();
                             Observables.onNext("SuccessfulToken");
-                        }
-                        else
+                        } else
                             Observables.onNext("Error");
                     }
 
@@ -76,8 +77,52 @@ public class ActivityBeforLoginViewModel {
 
 
     public void GetLoginInformation() {//___________________________________________________________ Start GetLoginInformation
-        Observables.onNext("Successful");
+
+        StaticFunctions.isCancel = false;
+
+        RetrofitComponent retrofitComponent =
+                ApplicationWMS
+                        .getApplicationWMS(context)
+                        .getRetrofitComponent();
+
+        String Authorization = GetAuthorization(context);
+
+        retrofitComponent
+                .getRetrofitApiInterface()
+                .getSettingInfo(
+                        Authorization)
+                .enqueue(new Callback<ModelSettingInfo>() {
+                    @Override
+                    public void onResponse(Call<ModelSettingInfo> call, Response<ModelSettingInfo> response) {
+                        if (StaticFunctions.isCancel)
+                            return;
+                        MessageResponcse = CheckResponse(response, true);
+                        if (MessageResponcse == null) {
+                            profile = response.body().getResult();
+                            SaveProfile();
+                            Observables.onNext("Successful");
+                        } else
+                            Observables.onNext("Error");
+                    }
+
+                    @Override
+                    public void onFailure(Call<ModelSettingInfo> call, Throwable t) {
+                        Observables.onNext("Failure");
+                    }
+                });
+
     }//_____________________________________________________________________________________________ End GetLoginInformation
+
+
+    private void SaveProfile() {//__________________________________________________________________ Start SaveProfile
+        SharedPreferences.Editor token =
+                context.getSharedPreferences("wmstoken", 0).edit();
+        token.putString("name",profile.getName());
+        token.putString("lastName",profile.getLastName());
+        token.putInt("gender",profile.getGender());
+        token.putBoolean("complateprofile",profile.getProfileCompleted());
+        token.apply();
+    }//_____________________________________________________________________________________________ End SaveProfile
 
 
     private void SaveToken() {//____________________________________________________________________ Start SaveToken

@@ -43,7 +43,7 @@ public class FragmentProfilePersonViewModel {
     private String LastName;
     private int Gender;
     private Integer CitizenType;
-    private Integer ReferenceCode;
+    private String ReferenceCode;
 
     public FragmentProfilePersonViewModel(Context context) {//_____________________________________ Start FragmentProfilePersonViewModel
         this.context = context;
@@ -116,11 +116,7 @@ public class FragmentProfilePersonViewModel {
                         MessageResponcse = CheckResponse(response, false);
                         if (MessageResponcse == null) {
                             MessageResponcse = GetMessage(response);
-                            SharedPreferences.Editor token =
-                                    context.getSharedPreferences("wmstoken", 0).edit();
-
-                            token.putBoolean("complateprofile", true);
-                            token.apply();
+                            SaveProfile();
 
                             MainActivity.complateprofile = true;
                             Observables.onNext("SuccessfulEdit");
@@ -135,6 +131,18 @@ public class FragmentProfilePersonViewModel {
                 });
 
     }//_____________________________________________________________________________________________ End GetPlasesList
+
+
+    private void SaveProfile() {//__________________________________________________________________ Start SaveProfile
+        SharedPreferences.Editor token =
+                context.getSharedPreferences("wmstoken", 0).edit();
+        token.putString("name",getFirstName());
+        token.putString("lastName",getLastName());
+        token.putInt("gender",getGender());
+        token.putBoolean("complateprofile",true);
+        token.apply();
+    }//_____________________________________________________________________________________________ End SaveProfile
+
 
 
     public void GetPlasesList() {//________________________________________________ Start GetPlasesList
@@ -330,11 +338,11 @@ public class FragmentProfilePersonViewModel {
         CitizenType = citizenType;
     }//_____________________________________________________________________________________________ End setCitizenType
 
-    public Integer getReferenceCode() {//___________________________________________________________ Start getReferenceCode
+    public String getReferenceCode() {//___________________________________________________________ Start getReferenceCode
         return ReferenceCode;
     }//_____________________________________________________________________________________________ End getReferenceCode
 
-    public void setReferenceCode(Integer referenceCode) {//_________________________________________ Start setReferenceCode
+    public void setReferenceCode(String referenceCode) {//_________________________________________ Start setReferenceCode
         ReferenceCode = referenceCode;
     }//_____________________________________________________________________________________________ End setReferenceCode
 
