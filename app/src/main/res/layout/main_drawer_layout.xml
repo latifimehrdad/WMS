@@ -40,36 +40,6 @@
                         android:layout_centerHorizontal="true"
                         />
 
-                    <LinearLayout
-                        android:id="@+id/ExitProfile"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/logoProfile"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_marginLeft="@dimen/_5sdp"
-                        android:orientation="vertical"
-                        android:gravity="right"
-                        >
-
-                        <ImageView
-                            android:layout_width="@dimen/_15sdp"
-                            android:layout_height="@dimen/_15sdp"
-                            android:src="@drawable/ic_exit"
-                            android:tint="@color/mlHomeAveScore"
-                            />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/mlHomeAveScore"
-                            android:textSize="@dimen/_8sdp"
-                            android:text="@string/ExitAccount"
-                            android:gravity="right"
-                            />
-
-
-                    </LinearLayout>
-
 
                 </RelativeLayout>
 
@@ -136,6 +106,45 @@
                 app:menu="@menu/drawer_view" >
 
             </com.google.android.material.navigation.NavigationView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary"
+                android:layout_marginTop="@dimen/_1sdp"
+                />
+
+            <LinearLayout
+                android:id="@+id/ExitProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/logoProfile"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingRight="@dimen/_5sdp"
+                >
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/ic_exit"
+                    android:tint="@color/mlHomeAveScore"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/mlHomeAveScore"
+                    android:textSize="@dimen/_10sdp"
+                    android:text="@string/ExitAccount"
+                    android:gravity="right"
+                    />
+
+
+            </LinearLayout>
 
         </LinearLayout>
 

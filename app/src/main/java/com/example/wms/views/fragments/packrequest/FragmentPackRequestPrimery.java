@@ -39,6 +39,7 @@ public class FragmentPackRequestPrimery extends Fragment {
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        this.context = getContext();
         FragmentPackRequestPrimeryBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_pack_request_primery,container,false
         );
@@ -48,16 +49,6 @@ public class FragmentPackRequestPrimery extends Fragment {
         BackClick(view);
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
-
-
-    public FragmentPackRequestPrimery(Context context) {//__________________________________________ Start FragmentPackRequestPrimery
-        this.context = context;
-    }//_____________________________________________________________________________________________ End FragmentPackRequestPrimery
-
-
-    public FragmentPackRequestPrimery() {//_________________________________________________________ Start FragmentPackRequestPrimery
-
-    }//_____________________________________________________________________________________________ End FragmentPackRequestPrimery
 
 
 

@@ -30,8 +30,13 @@ public class ApplicationWMS extends MultiDexApplication {
         ConfigurationCalligraphy();
         ConfigrationRetrofitComponent();
         ConfigrationUtilityComponent();
+        initPlaces();
     }//_____________________________________________________________________________________________ End onCreate
 
+
+    private void initPlaces() {
+
+    }
 
     private void ConfigrationUtilityComponent() {//_________________________________________________ Start ConfigrationUtilityComponent
         utilityComponent = DaggerUtilityComponent

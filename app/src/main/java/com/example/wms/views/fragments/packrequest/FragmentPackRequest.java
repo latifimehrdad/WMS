@@ -60,15 +60,12 @@ public class FragmentPackRequest extends Fragment {
     }//_____________________________________________________________________________________________ End onStart
 
 
-    private void SetTabs() {//______________________________________________________________________ Start SetTabs
-
-        FragmentPackRequestPrimery requestPrimery = new FragmentPackRequestPrimery(context);
-        FragmentPackRequestAddress requestAddress = new FragmentPackRequestAddress(context);
+    private void SetTabs() {//______________________________________________________________________ Start SetTabs);
 
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getChildFragmentManager(), FragmentPagerItems.with(context)
-                .add(R.string.FragmentPackRequestAddress, requestAddress.getClass())
-                .add(R.string.FragmentPackRequestPrimery, requestPrimery.getClass())
+                .add(R.string.FragmentPackRequestAddress, FragmentPackRequestAddress.class)
+                .add(R.string.FragmentPackRequestPrimery, FragmentPackRequestPrimery.class)
                 .create());
 
         FragmentPackRequestView.setAdapter(adapter);

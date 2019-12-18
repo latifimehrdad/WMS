@@ -46,6 +46,9 @@ import com.example.wms.views.fragments.lottery.FragmentLottery;
 import com.example.wms.views.fragments.packrequest.FragmentPackRequest;
 import com.example.wms.views.fragments.profile.FragmentProfile;
 import com.example.wms.views.fragments.wallet.FragmentWallet;
+import com.google.android.gms.location.places.GeoDataClient;
+import com.google.android.gms.location.places.PlaceDetectionClient;
+import com.google.android.gms.location.places.Places;
 import com.google.android.material.navigation.NavigationView;
 
 import butterknife.BindView;
@@ -125,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
         setupDrawerContent(nvDrawer);
         ShowSpalshActivity();
         checkLocationPermission();
-
         //itemCycleMenuWidget.setMenuItems(Collection<CycleMenuItem> items);
     }//_____________________________________________________________________________________________ End SetBindingView
 
@@ -176,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
                 token.putString("issued", null);
                 token.putString("expires", null);
                 token.apply();
+                mDrawer.closeDrawer(Gravity.RIGHT);
                 MainActivity.complateprofile = false;
                 ShowSpalshActivity();
             }
@@ -506,7 +509,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Highlight the selected item has been done by NavigationView
-        menuItem.setChecked(true);
+        menuItem.setChecked(false);
         // Set action bar title
         setTitle(menuItem.getTitle());
         // Close the navigation drawer

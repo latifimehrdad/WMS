@@ -155,7 +155,7 @@
     <string name="EmptyPassword">رمز ورود باید حداقل 6 حرف باشد</string>
     <string name="EmptyPasswordConfirm">تکرار رمز ورود اشتباه است</string>
     <string name="PleaseWait">درحال برقراری ارتباط ...</string>
-    <string name="Ignor">بیخیال</string>
+    <string name="Ignor">بستن</string>
     <string name="ForgetPassword">آیا رمز ورود خود را فراموش کرده اید؟</string>
     <string name="Editrofile">ویرایش اطلاعات</string>
     <string name="NetworkError">خطا در اتصال به سرور</string>
