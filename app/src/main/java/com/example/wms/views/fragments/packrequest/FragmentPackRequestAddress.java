@@ -236,7 +236,7 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
 //            e.printStackTrace();
 //        }
 
-        mehrdadLatifiMap.showCurrentPlace(context);
+//        mehrdadLatifiMap.showCurrentPlace(context);
         mehrdadLatifiMap.setML_LatLongs(latLngs);
         mehrdadLatifiMap.setML_Stroke_Width(2.0f);
         mehrdadLatifiMap.setML_Fill_Color(getResources().getColor(R.color.mlPolyline));
