@@ -35,7 +35,14 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.maps.android.geojson.GeoJsonGeometryCollection;
 import com.jaredrummler.materialspinner.MaterialSpinner;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -59,6 +66,7 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
     private boolean FullScreen = false;
     private StringBuilder mResult;
     private PublishSubject<String> Observables = null;
+    MehrdadLatifiMap mehrdadLatifiMap = new MehrdadLatifiMap();
 
 
     @BindView(R.id.FPRAMaterialSpinnerType)
@@ -185,7 +193,7 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Observables.onNext("address");
+                        Observables.onNext("TextAddress");
                     }
                 }, 1000);
 
@@ -215,24 +223,34 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
 
     private void DrawPolyline() {
         List<LatLng> latLngs = new ArrayList<>();
-        latLngs.add(new LatLng(35.831414,50.959419));
-        latLngs.add(new LatLng(35.830170,50.961350));
-        latLngs.add(new LatLng(35.829100,50.963453));
-        latLngs.add(new LatLng(35.827395,50.962080));
-        latLngs.add(new LatLng(35.827586, 50.960814));
-        latLngs.add(new LatLng(35.828960,50.961050));
-        latLngs.add(new LatLng(35.829343, 50.958894));
-        latLngs.add(new LatLng(35.831414,50.959419));
-        MehrdadLatifiMap mehrdadLatifiMap = new MehrdadLatifiMap();
-        mehrdadLatifiMap.setML_LatLong(latLngs);
+//        String json = "[[50.9983097,35.8313515],[50.9985491,35.831239],[50.9987017,35.8311867],[50.9996985,35.8310453],[51.0015582,35.8309464],[51.0021977,35.8309355],[51.0027549,35.8309489],[51.0050454,35.8308562],[51.0080309,35.8307547],[51.0081905,35.8292293],[51.0082644,35.8291793],[51.0082772,35.828537],[51.0083355,35.8283533],[51.0084536,35.8282969],[51.0107476,35.8282431],[51.0124799,35.8281881],[51.0132275,35.8281854],[51.0143343,35.8281813],[51.0150261,35.8281766],[51.0152658,35.8281675],[51.0178447,35.8280693],[51.0194079,35.8280096],[51.0192486,35.8259208],[51.0200085,35.8260055],[51.0207817,35.8267213],[51.0207629,35.8269947],[51.0210863,35.8272432],[51.021361,35.827278],[51.0226699,35.8281305],[51.0237214,35.8286524],[51.0249444,35.8288786],[51.025953,35.8290178],[51.0269193,35.8291523],[51.0290079,35.8301198],[51.0312824,35.8306938],[51.0326922,35.8309055],[51.0327573,35.8324122],[51.0327092,35.8329466],[51.0323198,35.8332278],[51.0316474,35.8334803],[51.0310875,35.8334788],[51.0311554,35.834033],[51.0308121,35.8359466],[51.0300729,35.838509],[51.0293141,35.8402818],[51.0279135,35.8413692],[51.0248002,35.8426872],[51.0222757,35.8434183],[51.0194276,35.8444216],[51.0189108,35.8447545],[51.0187593,35.845079],[51.0197193,35.8462434],[51.0196447,35.846723],[51.0188081,35.8476081],[51.0175834,35.8491472],[51.0165401,35.8502976],[51.0119393,35.847193],[51.0075603,35.8469112],[51.0074384,35.8457755],[51.0073646,35.8453486],[51.0062469,35.8438203],[51.0039567,35.8406629],[51.0029268,35.8392689],[51.0028511,35.8391664],[51.0017534,35.8385798],[51.0007241,35.8381164],[51.0014633,35.8371517],[51.0017481,35.8368436],[51.0024841,35.8361429],[51.0025572,35.8360727],[51.0019056,35.8353943],[51.0005213,35.8338243],[51.0002582,35.8335325],[50.999926,35.8331188],[50.9990536,35.8321167],[50.998794,35.8318491],[50.9983097,35.8313515]]";
+//        try {
+//            JSONArray jsonArr = new JSONArray(json);
+//            for(int i = 0; i < jsonArr.length(); i++){
+//                //JSONObject object = jsonArr.getJSONObject(i);
+//                JSONArray j = jsonArr.getJSONArray(i);
+//                latLngs.add(new LatLng(j.getDouble(0),j.getDouble(1)));
+//
+//            }
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+
+        mehrdadLatifiMap.showCurrentPlace(context);
+        mehrdadLatifiMap.setML_LatLongs(latLngs);
         mehrdadLatifiMap.setML_Stroke_Width(2.0f);
         mehrdadLatifiMap.setML_Fill_Color(getResources().getColor(R.color.mlPolyline));
         mehrdadLatifiMap.setML_Stroke_Color(getResources().getColor(R.color.colorAccent));
         mehrdadLatifiMap.setGoogleMap(mMap);
-        mehrdadLatifiMap.DrawPolygon(false);
-        LatLng negra = new LatLng(35.831414, 50.959419);
+//        mehrdadLatifiMap.DrawPolygon(false);
+//        mehrdadLatifiMap.AutoZoom();
+
+//        Observables.onNext("LatLongAddress");
+//        mehrdadLatifiMap.DrawPolygon(false);
+//        LatLng negra = new LatLng(35.831414, 50.959419);
+//        mehrdadLatifiMap.DrawCircle(negra, 4000);
 //        mehrdadLatifiMap.AddMarker(negra,"Negra","0",R.drawable.ic_check);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(negra, 13));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLngs.get(0), 13));
     }
 
 
@@ -246,74 +264,100 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                LatLng negra = mMap.getCameraPosition().target;
-                                try {
-                                    Geocoder geocoder;
-                                    List<Address> addresses;
-                                    Locale locale = new Locale("fa_IR");
-                                    Locale.setDefault(locale);
-                                    geocoder = new Geocoder(context, locale);
-                                    addresses = geocoder.getFromLocation(negra.latitude, negra.longitude, 5); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
-                                    String LongAddress = "";
-                                    Address LongPosition = addresses.get(0);
-                                    for(Address longAddress: addresses){
-                                        String ad = longAddress.getAddressLine(0);
-                                        if(ad.length() > LongAddress.length()){
-                                            LongAddress = ad;
-                                            LongPosition = longAddress;
+                                switch (s) {
+                                    case "TextAddress":
+                                        String LongAddress = "";
+                                        LatLng negra = mMap.getCameraPosition().target;
+                                        try {
+                                            Geocoder geocoder;
+                                            List<Address> addresses;
+                                            Locale locale = new Locale("fa_IR");
+                                            Locale.setDefault(locale);
+                                            geocoder = new Geocoder(context, locale);
+                                            addresses = geocoder.getFromLocation(negra.latitude, negra.longitude, 5); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+
+                                            if (addresses.size() == 0) {
+                                                textChoose.setText(LongAddress);
+                                                textChoose.setVisibility(View.VISIBLE);
+                                                MarkerGif.setVisibility(View.GONE);
+                                                return;
+                                            }
+                                            Address LongPosition = addresses.get(0);
+                                            for (Address longAddress : addresses) {
+                                                String ad = longAddress.getAddressLine(0);
+                                                if (ad.length() > LongAddress.length()) {
+                                                    LongAddress = ad;
+                                                    LongPosition = longAddress;
+                                                }
+                                            }
+                                            //String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                                            String city = LongPosition.getLocality();
+                                            String state = LongPosition.getAdminArea();
+                                            String country = LongPosition.getCountryName();
+                                            String SubLocality = LongPosition.getSubLocality();
+                                            String knownName = LongPosition.getFeatureName();
+                                            String thoroughfare = LongPosition.getThoroughfare();
+                                            String Sunthoroughfare = LongPosition.getSubThoroughfare();
+                                            StringBuilder address = new StringBuilder();
+                                            address.append("");
+                                            if ((country != null) && (!country.equalsIgnoreCase("null"))) {
+                                                address.append(country);
+                                                address.append(" ");
+                                            }
+
+                                            if ((state != null) && (!state.equalsIgnoreCase("null"))) {
+                                                address.append(state);
+                                                address.append(" ");
+                                            }
+
+                                            if ((city != null) && (!city.equalsIgnoreCase("null"))) {
+                                                address.append(city);
+                                                address.append(" ");
+                                            }
+
+                                            if ((thoroughfare != null) && (!thoroughfare.equalsIgnoreCase("null"))) {
+                                                address.append(thoroughfare);
+                                                address.append(" ");
+                                            }
+
+                                            if ((Sunthoroughfare != null) && (!Sunthoroughfare.equalsIgnoreCase("null"))) {
+                                                address.append(Sunthoroughfare);
+                                                address.append(" ");
+                                            }
+
+                                            if ((SubLocality != null) && (!SubLocality.equalsIgnoreCase("null"))) {
+                                                address.append(SubLocality);
+                                                address.append(" ");
+                                            }
+                                            if ((knownName != null) &&
+                                                    (!knownName.equalsIgnoreCase("null"))
+                                                    && (!knownName.equalsIgnoreCase(thoroughfare)))
+                                                address.append(knownName);
+                                            fpraEditAddress.setText(address);
+                                            textChoose.setVisibility(View.VISIBLE);
+                                            MarkerGif.setVisibility(View.GONE);
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                            textChoose.setText(LongAddress);
+                                            textChoose.setVisibility(View.VISIBLE);
+                                            MarkerGif.setVisibility(View.GONE);
                                         }
-                                    }
-                                    //String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-                                    String city = LongPosition.getLocality();
-                                    String state = LongPosition.getAdminArea();
-                                    String country = LongPosition.getCountryName();
-                                    String SubLocality = LongPosition.getSubLocality();
-                                    String knownName = LongPosition.getFeatureName();
-                                    String thoroughfare = LongPosition.getThoroughfare();
-                                    String Sunthoroughfare = LongPosition.getSubThoroughfare();
-                                    StringBuilder address = new StringBuilder();
-                                    address.append("");
-                                    if ((country != null) && (!country.equalsIgnoreCase("null"))) {
-                                        address.append(country);
-                                        address.append(" ");
-                                    }
-
-                                    if ((state != null) && (!state.equalsIgnoreCase("null"))) {
-                                        address.append(state);
-                                        address.append(" ");
-                                    }
-
-                                    if ((city != null) && (!city.equalsIgnoreCase("null"))) {
-                                        address.append(city);
-                                        address.append(" ");
-                                    }
-
-                                    if ((thoroughfare != null) && (!thoroughfare.equalsIgnoreCase("null"))) {
-                                        address.append(thoroughfare);
-                                        address.append(" ");
-                                    }
-
-                                    if ((Sunthoroughfare != null) && (!Sunthoroughfare.equalsIgnoreCase("null"))) {
-                                        address.append(Sunthoroughfare);
-                                        address.append(" ");
-                                    }
-
-                                    if ((SubLocality != null) && (!SubLocality.equalsIgnoreCase("null"))) {
-                                        address.append(SubLocality);
-                                        address.append(" ");
-                                    }
-                                    if ((knownName != null) &&
-                                            (!knownName.equalsIgnoreCase("null"))
-                                    && (!knownName.equalsIgnoreCase(thoroughfare)))
-                                        address.append(knownName);
-                                    fpraEditAddress.setText(address);
-                                    textChoose.setVisibility(View.VISIBLE);
-                                    MarkerGif.setVisibility(View.GONE);
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                    textChoose.setVisibility(View.VISIBLE);
-                                    MarkerGif.setVisibility(View.GONE);
+                                        break;
+                                    case "LatLongAddress":
+                                        mehrdadLatifiMap.findAddress(context,"عظیمیه", Observables);
+                                        break;
+                                    case "FindAddress":
+                                        mehrdadLatifiMap.AddMarker(
+                                                mehrdadLatifiMap.getML_FindAddress()
+                                                ,"address"
+                                                ,"find"
+                                                ,
+                                                R.drawable.ic_check
+                                        );
+                                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mehrdadLatifiMap.getML_FindAddress(), 14));
+                                        break;
                                 }
+
                             }
                         });
                     }
@@ -330,6 +374,8 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
                 });
 
     }//_____________________________________________________________________________________________ End ObserverObservables
+
+
 
 
 }

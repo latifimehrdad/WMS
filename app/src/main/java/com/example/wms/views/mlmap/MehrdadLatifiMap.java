@@ -1,19 +1,34 @@
 package com.example.wms.views.mlmap;
 
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.location.Address;
+import android.location.Geocoder;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
 
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.PlaceDetectionClient;
+import com.google.android.gms.location.places.PlaceLikelihood;
+import com.google.android.gms.location.places.PlaceLikelihoodBufferResponse;
+import com.google.android.gms.location.places.Places;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.Dash;
 import com.google.android.gms.maps.model.Gap;
 import com.google.android.gms.maps.model.JointType;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PatternItem;
@@ -26,14 +41,18 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.maps.android.PolyUtil;
 
-
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+
+import io.reactivex.subjects.PublishSubject;
 
 public class MehrdadLatifiMap {
 
     private GoogleMap googleMap;
-    private List<LatLng> ML_LatLong;
+    private List<LatLng> ML_LatLongs;
     private int ML_Stroke_Color = 0;
     private Float ML_Stroke_Width = 3f;
     private int ML_PATTERN_DASH_LENGTH_PX = 0;
@@ -41,12 +60,13 @@ public class MehrdadLatifiMap {
     private int ML_PATTERN_DASH_LENGTH_Color = 0;
     private int ML_PATTERN_GAP_LENGTH_Color = 0;
     private int ML_Fill_Color = 0;
+    private LatLng ML_FindAddress;
 
 
     public void DrawPolylines() {//_________________________________________________________________ Start DrawPolylines
         Polyline polyline = getGoogleMap().addPolyline(new PolylineOptions()
                 .clickable(true)
-                .addAll(getML_LatLong()));
+                .addAll(getML_LatLongs()));
         stylePolyline(polyline);
     }//_____________________________________________________________________________________________ End DrawPolylines
 
@@ -54,7 +74,7 @@ public class MehrdadLatifiMap {
     public void DrawPolygon(boolean Pattern) {//_______________________________ Start DrawPolylines
         Polygon polygon = getGoogleMap().addPolygon(new PolygonOptions()
                 .clickable(true)
-                .addAll(getML_LatLong()));
+                .addAll(getML_LatLongs()));
         stylePolygon(polygon, Pattern);
     }//_____________________________________________________________________________________________ End DrawPolylines
 
@@ -90,6 +110,12 @@ public class MehrdadLatifiMap {
     }//_____________________________________________________________________________________________ End isInside
 
 
+    public Boolean isInside(LatLng point) {//_______________________________________________________ Start isInside
+        return
+                PolyUtil.containsLocation(point, getML_LatLongs(), true);
+    }//_____________________________________________________________________________________________ End isInside
+
+
     public void getDeviceLocation(FragmentActivity context) {//_____________________________________ Start getDeviceLocation
         try {
             if (true) {
@@ -118,11 +144,138 @@ public class MehrdadLatifiMap {
 
     public void AddMarker(LatLng latLng, String title, String tag, int icon) {//____________________ Start AddMarker
         Marker marker1 = getGoogleMap().addMarker(new MarkerOptions()
-        .position(latLng)
-        .title(title)
-        .icon(BitmapDescriptorFactory.fromResource(icon)));
+                .position(latLng)
+                .title(title)
+                .icon(BitmapDescriptorFactory.fromResource(icon)));
         marker1.setTag(tag);
     }//_____________________________________________________________________________________________ End AddMarker
+
+
+    public void DrawCircle(LatLng latLng, double radius) {//________________________________________ Start DrawCircle
+        Circle circle = getGoogleMap().addCircle(new CircleOptions()
+                .center(latLng)
+                .radius(radius)
+                .strokeWidth(getML_Stroke_Width())
+                .strokeColor(getML_Stroke_Color())
+                .fillColor(getML_Fill_Color()));
+    }//_____________________________________________________________________________________________ End DrawCircle
+
+
+    public void findAddress(Context c, String location, PublishSubject<String> Observables) {//_____ Start findAddress
+        if (location != null && !location.equalsIgnoreCase("")) {
+            Locale locale = new Locale("fa_IR");
+            Locale.setDefault(locale);
+            Geocoder geocoder = new Geocoder(c, locale);
+
+            try {
+                List<Address> addressList;
+                addressList = geocoder.getFromLocationName(location, 1);
+                if (addressList.size() > 0) {
+                    setML_FindAddress(new LatLng(addressList.get(0).getLatitude(), addressList.get(0).getLongitude()));
+                    Observables.onNext("FindAddress");
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }//_____________________________________________________________________________________________ End findAddress
+
+
+    public ArrayList<LatLng> getCirclePoint(LatLng centre, double radius) {//_____________________________________________________________________________________________ Start getCirclePoint
+        ArrayList<LatLng> points = new ArrayList<LatLng>();
+
+        double EARTH_RADIUS = 6378100.0;
+        double lat = centre.latitude * Math.PI / 180.0;
+        double lon = centre.longitude * Math.PI / 180.0;
+
+        for (double t = 0; t <= Math.PI * 2; t += 0.3) {
+            double latPoint = lat + (radius / EARTH_RADIUS) * Math.sin(t);
+            double lonPoint = lon + (radius / EARTH_RADIUS) * Math.cos(t) / Math.cos(lat);
+            LatLng point = new LatLng(latPoint * 180.0 / Math.PI, lonPoint * 180.0 / Math.PI);
+            points.add(point);
+
+        }
+
+        return points;
+    }//_____________________________________________________________________________________________ End getCirclePoint
+
+
+    public void AutoZoom() {//_______________________________________________________________________ Start AutoZoom
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        for (LatLng latLng : getML_LatLongs()) {
+            builder.include(latLng);
+        }
+        LatLngBounds bounds = builder.build();
+        int padding = 0; // offset from edges of the map in pixels
+        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+        getGoogleMap().animateCamera(cu);
+    }//_____________________________________________________________________________________________ End AutoZoom
+
+
+    public void showCurrentPlace(Context context) {
+
+
+        if (true) {
+
+
+            // Get the likely places - that is, the businesses and other points of interest that
+            // are the best match for the device's current location.
+            @SuppressWarnings("MissingPermission")
+            final PlaceDetectionClient mPlaceDetectionClient = Places.getPlaceDetectionClient(context, null);
+            Task<PlaceLikelihoodBufferResponse> placeResult = mPlaceDetectionClient.getCurrentPlace(null);
+            placeResult.addOnCompleteListener
+                    (new OnCompleteListener<PlaceLikelihoodBufferResponse>() {
+                        @Override
+                        public void onComplete(@NonNull Task<PlaceLikelihoodBufferResponse> task) {
+                            if (task.isSuccessful() && task.getResult() != null) {
+                                PlaceLikelihoodBufferResponse likelyPlaces = task.getResult();
+
+                                // Set the count, handling cases where less than 5 entries are returned.
+                                int count;
+                                if (likelyPlaces.getCount() < 10) {
+                                    count = likelyPlaces.getCount();
+                                } else {
+                                    count = 10;
+                                }
+
+                                int i = 0;
+                                String[] mLikelyPlaceNames;
+                                String[] mLikelyPlaceAddresses;
+                                String[] mLikelyPlaceAttributions;
+                                LatLng[] mLikelyPlaceLatLngs;
+
+                                mLikelyPlaceNames = new String[count];
+                                mLikelyPlaceAddresses = new String[count];
+                                mLikelyPlaceAttributions = new String[count];
+                                mLikelyPlaceLatLngs = new LatLng[count];
+
+                                for (PlaceLikelihood placeLikelihood : likelyPlaces) {
+                                    // Build a list of likely places to show the user.
+                                    mLikelyPlaceNames[i] = (String) placeLikelihood.getPlace().getName();
+                                    mLikelyPlaceAddresses[i] = (String) placeLikelihood.getPlace()
+                                            .getAddress();
+                                    mLikelyPlaceAttributions[i] = (String) placeLikelihood.getPlace()
+                                            .getAttributions();
+                                    mLikelyPlaceLatLngs[i] = placeLikelihood.getPlace().getLatLng();
+
+                                    i++;
+                                    if (i > (count - 1)) {
+                                        break;
+                                    }
+                                }
+
+                                // Release the place likelihood buffer, to avoid memory leaks.
+                                likelyPlaces.release();
+
+                                // Show a dialog offering the user the list of likely places, and add a
+                                // marker at the selected place.
+
+                            }
+                        }
+                    });
+        }
+    }
 
 
 
@@ -130,12 +283,12 @@ public class MehrdadLatifiMap {
 
     //______________________________________________________________________________________________ Start Getter AND Setter
 
-    public List<LatLng> getML_LatLong() {
-        return ML_LatLong;
+    public List<LatLng> getML_LatLongs() {
+        return ML_LatLongs;
     }
 
-    public void setML_LatLong(List<LatLng> ML_LatLong) {
-        this.ML_LatLong = ML_LatLong;
+    public void setML_LatLongs(List<LatLng> ML_LatLong) {
+        this.ML_LatLongs = ML_LatLong;
     }
 
     public int getML_Stroke_Color() {
@@ -202,6 +355,13 @@ public class MehrdadLatifiMap {
         this.googleMap = googleMap;
     }
 
+    public LatLng getML_FindAddress() {
+        return ML_FindAddress;
+    }
+
+    public void setML_FindAddress(LatLng ML_FindAddress) {
+        this.ML_FindAddress = ML_FindAddress;
+    }
 
     //______________________________________________________________________________________________ End Getter AND Setter
 }
