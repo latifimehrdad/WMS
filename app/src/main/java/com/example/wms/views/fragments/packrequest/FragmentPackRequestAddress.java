@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 import com.cunoraz.gifview.library.GifView;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentPackRequestAddressBinding;
+import com.example.wms.services.BackgroundServiceLocation;
 import com.example.wms.viewmodels.packrequest.FragmentPackRequestAddressViewModel;
 
 import com.example.wms.views.mlmap.MehrdadLatifiMap;
@@ -164,6 +165,10 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
             public void onCameraMoveStarted(int i) {
                 textChoose.setVisibility(View.GONE);
                 MarkerGif.setVisibility(View.VISIBLE);
+                if (markerInfo.getVisibility() == View.VISIBLE) {
+                    SetAnimationTopToBottom();
+                    markerInfo.setVisibility(View.GONE);
+                }
             }
         });
 
@@ -179,21 +184,28 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                SetAnimationBottomToTop();
-                markerInfo.setVisibility(View.VISIBLE);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        SetAnimationBottomToTop();
+                        markerInfo.setVisibility(View.VISIBLE);
+                    }
+                }, 500);
+
                 return false;
             }
         });
 
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                if (markerInfo.getVisibility() == View.VISIBLE) {
-                    SetAnimationTopToBottom();
-                    markerInfo.setVisibility(View.GONE);
-                }
-            }
-        });
+//        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+//            @Override
+//            public void onMapClick(LatLng latLng) {
+//                if (markerInfo.getVisibility() == View.VISIBLE) {
+//                    SetAnimationTopToBottom();
+//                    markerInfo.setVisibility(View.GONE);
+//                }
+//            }
+//        });
 
         DrawPolyline();
     }//_____________________________________________________________________________________________ End Void onMapReady
@@ -206,17 +218,16 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
             public void onClick(View v) {
                 textChoose.setVisibility(View.GONE);
                 MarkerGif.setVisibility(View.VISIBLE);
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Observables.onNext("TextAddress");
-                    }
-                }, 1000);
-
-
+                BackgroundServiceLocation.Observers = Observables;
+                LatLng negra = mMap.getCameraPosition().target;
+                Intent intent = new Intent(context, BackgroundServiceLocation.class);
+                intent.putExtra("jobtype", "TextAddress");
+                intent.putExtra("latlong", negra);
+                context.startService(intent);
             }
         });
+
+
 
         imgFullScreen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -239,6 +250,7 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
         wazeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mehrdadLatifiMap.findAddress(context,"عظیمیه",Observables);
 //                String uri = "waze://?ll=35.838930, 51.014575&navigate=yes";
 //                startActivity(new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri)));
             }
@@ -253,7 +265,7 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
         m1 = mehrdadLatifiMap.AddMarker(negra, null, "0", R.drawable.ic_check);
 
 
-        negra = new LatLng(35.831414, 50.969419);
+        negra = new LatLng(35.841414, 50.969419);
         m2 = mehrdadLatifiMap.AddMarker(negra, "Negra2", "1", R.drawable.ic_check);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(negra, 13));
 
@@ -303,86 +315,15 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
                             @Override
                             public void run() {
                                 switch (s) {
-                                    case "TextAddress":
-                                        String LongAddress = "";
-                                        LatLng negra = mMap.getCameraPosition().target;
-                                        try {
-                                            Geocoder geocoder;
-                                            List<Address> addresses;
-                                            Locale locale = new Locale("fa_IR");
-                                            Locale.setDefault(locale);
-                                            geocoder = new Geocoder(context, locale);
-                                            addresses = geocoder.getFromLocation(negra.latitude, negra.longitude, 5); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
-
-                                            if (addresses.size() == 0) {
-                                                textChoose.setText(LongAddress);
-                                                textChoose.setVisibility(View.VISIBLE);
-                                                MarkerGif.setVisibility(View.GONE);
-                                                return;
-                                            }
-                                            Address LongPosition = addresses.get(0);
-                                            for (Address longAddress : addresses) {
-                                                String ad = longAddress.getAddressLine(0);
-                                                if (ad.length() > LongAddress.length()) {
-                                                    LongAddress = ad;
-                                                    LongPosition = longAddress;
-                                                }
-                                            }
-                                            //String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-                                            String city = LongPosition.getLocality();
-                                            String state = LongPosition.getAdminArea();
-                                            String country = LongPosition.getCountryName();
-                                            String SubLocality = LongPosition.getSubLocality();
-                                            String knownName = LongPosition.getFeatureName();
-                                            String thoroughfare = LongPosition.getThoroughfare();
-                                            String Sunthoroughfare = LongPosition.getSubThoroughfare();
-                                            StringBuilder address = new StringBuilder();
-                                            address.append("");
-                                            if ((country != null) && (!country.equalsIgnoreCase("null"))) {
-                                                address.append(country);
-                                                address.append(" ");
-                                            }
-
-                                            if ((state != null) && (!state.equalsIgnoreCase("null"))) {
-                                                address.append(state);
-                                                address.append(" ");
-                                            }
-
-                                            if ((city != null) && (!city.equalsIgnoreCase("null"))) {
-                                                address.append(city);
-                                                address.append(" ");
-                                            }
-
-                                            if ((thoroughfare != null) && (!thoroughfare.equalsIgnoreCase("null"))) {
-                                                address.append(thoroughfare);
-                                                address.append(" ");
-                                            }
-
-                                            if ((Sunthoroughfare != null) && (!Sunthoroughfare.equalsIgnoreCase("null"))) {
-                                                address.append(Sunthoroughfare);
-                                                address.append(" ");
-                                            }
-
-                                            if ((SubLocality != null) && (!SubLocality.equalsIgnoreCase("null"))) {
-                                                address.append(SubLocality);
-                                                address.append(" ");
-                                            }
-                                            if ((knownName != null) &&
-                                                    (!knownName.equalsIgnoreCase("null"))
-                                                    && (!knownName.equalsIgnoreCase(thoroughfare)))
-                                                address.append(knownName);
-                                            fpraEditAddress.setText(address);
-                                            textChoose.setVisibility(View.VISIBLE);
-                                            MarkerGif.setVisibility(View.GONE);
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                            textChoose.setText(LongAddress);
-                                            textChoose.setVisibility(View.VISIBLE);
-                                            MarkerGif.setVisibility(View.GONE);
-                                        }
+                                    case "NoAddress":
+                                        fpraEditAddress.setText("");
+                                        textChoose.setVisibility(View.VISIBLE);
+                                        MarkerGif.setVisibility(View.GONE);
                                         break;
-                                    case "LatLongAddress":
-                                        mehrdadLatifiMap.findAddress(context, "عظیمیه", Observables);
+                                    case "GetAddress":
+                                        fpraEditAddress.setText(BackgroundServiceLocation.ServiceResult);
+                                        textChoose.setVisibility(View.VISIBLE);
+                                        MarkerGif.setVisibility(View.GONE);
                                         break;
                                     case "FindAddress":
                                         mehrdadLatifiMap.AddMarker(

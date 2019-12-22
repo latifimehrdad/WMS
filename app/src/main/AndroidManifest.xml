@@ -41,6 +41,8 @@
 
         <activity android:name=".views.activitys.user.register.ActivityVerifyCode"/>
 
+        <service android:name=".services.BackgroundServiceLocation"/>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />

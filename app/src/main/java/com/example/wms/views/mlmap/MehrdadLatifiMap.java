@@ -174,10 +174,12 @@ public class MehrdadLatifiMap {
                 if (addressList.size() > 0) {
                     setML_FindAddress(new LatLng(addressList.get(0).getLatitude(), addressList.get(0).getLongitude()));
                     Observables.onNext("FindAddress");
-                }
+                } else
+                    Observables.onNext("NoAddress");
 
             } catch (IOException e) {
                 e.printStackTrace();
+                Observables.onNext("NoAddress");
             }
         }
     }//_____________________________________________________________________________________________ End findAddress
