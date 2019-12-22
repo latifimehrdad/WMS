@@ -142,12 +142,13 @@ public class MehrdadLatifiMap {
     }//_____________________________________________________________________________________________ End getDeviceLocation
 
 
-    public void AddMarker(LatLng latLng, String title, String tag, int icon) {//____________________ Start AddMarker
-        Marker marker1 = getGoogleMap().addMarker(new MarkerOptions()
+    public Marker AddMarker(LatLng latLng, String title, String tag, int icon) {//__________________ Start AddMarker
+        Marker marker = getGoogleMap().addMarker(new MarkerOptions()
                 .position(latLng)
                 .title(title)
                 .icon(BitmapDescriptorFactory.fromResource(icon)));
-        marker1.setTag(tag);
+        marker.setTag(tag);
+        return marker;
     }//_____________________________________________________________________________________________ End AddMarker
 
 
