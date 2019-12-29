@@ -207,7 +207,8 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
 //            }
 //        });
 
-        DrawPolyline();
+        //mehrdadLatifiMap.getDeviceLocation(getActivity());
+        //DrawPolyline();
     }//_____________________________________________________________________________________________ End Void onMapReady
 
 

@@ -127,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
         SetClicks();
         setupDrawerContent(nvDrawer);
         ShowSpalshActivity();
+        //ShowFragmentPAckRequest();
         checkLocationPermission();
         //itemCycleMenuWidget.setMenuItems(Collection<CycleMenuItem> items);
     }//_____________________________________________________________________________________________ End SetBindingView
