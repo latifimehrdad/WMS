@@ -82,13 +82,13 @@
     <string name="Edit">ویرایش</string>
     <string name="Cancel">لغو</string>
     <string name="CallBooth">تماس با غرفه</string>
-    
+
     <string name="Plastics">پلاستیک ها</string>
     <string name="PlasticsNote">انواع ظروف پلاستيكي، روكش ها و كيسه هاي پلاستيكي ،قوطی آب معدنی،
 قوطی شیر ، قوطی مواد پاک کننده ، قوطی شامپو ، سی دی ، ظروف لبنیات ،
 ظروف شفاف پلاستیکی، ظروف کریستالی ،طناد هاي پلاستيكي، دسته جارو ،
 سبد میوه ، اسباد بازي هاي پلاستيكي، فيلم هاي عكاسي، انواع ابر و اسفنج</string>
-    
+
     <string name="Metals">فلزات</string>
     <string name="Glass">شیشه</string>
     <string name="Electronics">الکترونیک</string>
@@ -174,5 +174,9 @@
     <string name="GetBuildingRenovationCode">دریافت کد نوسازی</string>
     <string name="ExitAccount">خروج از حساب</string>
     <string name="WazeNavigation">"مسیریابی"</string>
+    <string name="RegisterOK">ثبت نام با موفقیت انجام شد</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

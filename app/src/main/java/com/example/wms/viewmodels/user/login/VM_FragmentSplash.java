@@ -2,7 +2,7 @@
 Create By Mehrdad Latifi in
 1398/09/09 - 12:08 PM
  */
-package com.example.wms.viewmodels.main;
+package com.example.wms.viewmodels.user.login;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -19,17 +19,17 @@ import retrofit2.Response;
 
 import static com.example.wms.utility.StaticFunctions.CheckResponse;
 
-public class SplashActivityViewModel {
+public class VM_FragmentSplash {
 
     private Context context;
-    public PublishSubject<String> Observables = null;
+    private PublishSubject<String> Observables = null;
     private ModelToken modelToken;
     private String MessageResponcse;
 
-    public SplashActivityViewModel(Context context) {//_____________________________________________ Start SplashActivityViewModel
+    public VM_FragmentSplash(Context context) {//_____________________________________________ Start VM_FragmentSplash
         this.context = context;
         Observables = PublishSubject.create();
-    }//_____________________________________________________________________________________________ End SplashActivityViewModel
+    }//_____________________________________________________________________________________________ End VM_FragmentSplash
 
 
     public void GetTokenFromServer() {//____________________________________________________________ Start GetTokenFromServer
@@ -94,4 +94,9 @@ public class SplashActivityViewModel {
     public String getMessageResponcse() {//_________________________________________________________ Start getMessageResponcse
         return MessageResponcse;
     }//_____________________________________________________________________________________________ End getMessageResponcse
+
+
+    public PublishSubject<String> getObservables() {//______________________________________________ Start getObservables
+        return Observables;
+    }//_____________________________________________________________________________________________ End getObservables
 }

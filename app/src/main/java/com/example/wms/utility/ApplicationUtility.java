@@ -14,18 +14,13 @@ import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.wms.R;
-import com.example.wms.views.activitys.user.login.ActivityBeforLogin;
 import com.example.wms.views.dialogs.DialogMessage;
 import com.example.wms.views.dialogs.DialogProgress;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
-
-import retrofit2.Response;
 
 public class ApplicationUtility {
 

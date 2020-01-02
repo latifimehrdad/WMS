@@ -19,19 +19,20 @@ import retrofit2.Response;
 import static com.example.wms.utility.StaticFunctions.CheckResponse;
 import static com.example.wms.utility.StaticFunctions.GetAuthorization;
 
-public class ActivitySendPhoneNumberViewModel {
+public class VM_FragmentVerifyCode {
 
     private Context context;
-    public PublishSubject<String> Observables = null;
+    private PublishSubject<String> Observables = null;
     private String MessageResponse;
 
-    public ActivitySendPhoneNumberViewModel(Context context) {//____________________________________ Start ActivitySendPhoneNumberViewModel
+
+    public VM_FragmentVerifyCode(Context context) {//_________________________________________ Start VM_FragmentVerifyCode
         this.context = context;
         Observables = PublishSubject.create();
-    }//_____________________________________________________________________________________________ End ActivitySendPhoneNumberViewModel
+    }//_____________________________________________________________________________________________ End VM_FragmentVerifyCode
 
 
-    public void SendNumber(String PhoneNumbet, String Password) {//________________________________ Start SendNumber
+    public void SendVerifyCode(String PhoneNumbet, String VerifyCode) {//___________________________ Start SendVerifyCode
         StaticFunctions.isCancel = false;
 
         RetrofitComponent retrofitComponent =
@@ -44,19 +45,19 @@ public class ActivitySendPhoneNumberViewModel {
 
         retrofitComponent
                 .getRetrofitApiInterface()
-                .SendPhoneNumber(
-                        PhoneNumbet, Password, Password, Authorization
+                .SendVerifyCode(
+                        PhoneNumbet, VerifyCode, Authorization
                 )
                 .enqueue(new Callback<ModelResponcePrimery>() {
                     @Override
                     public void onResponse(Call<ModelResponcePrimery> call, Response<ModelResponcePrimery> response) {
                         if (!StaticFunctions.isCancel) {
-                            MessageResponse = CheckResponse(response,false);
-                            if(MessageResponse == null)
+                            MessageResponse = CheckResponse(response, false);
+                            if (MessageResponse == null)
                                 Observables.onNext("Successful");
-                            else {
+                            else
                                 Observables.onNext("Error");
-                            }
+
                         }
                     }
 
@@ -67,12 +68,15 @@ public class ActivitySendPhoneNumberViewModel {
                     }
                 });
 
-    }//_____________________________________________________________________________________________ End SendNumber
+    }//_____________________________________________________________________________________________ End SendVerifyCode
 
 
-    public String getMessageResponse() {//__________________________________________________________ Start getMessageResponse
+    public String getMessageresponse() {//__________________________________________________________ Staring getMessageresponse
         return MessageResponse;
-    }//_____________________________________________________________________________________________ End getMessageResponse
+    }//_____________________________________________________________________________________________ End getMessageresponse
 
 
+    public PublishSubject<String> getObservables() {//______________________________________________ Staring getObservables
+        return Observables;
+    }//_____________________________________________________________________________________________ End getObservables
 }

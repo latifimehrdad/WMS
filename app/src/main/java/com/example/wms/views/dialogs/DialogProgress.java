@@ -15,11 +15,6 @@ import androidx.fragment.app.DialogFragment;
 import com.example.wms.R;
 import com.example.wms.databinding.DialogProgressBinding;
 import com.example.wms.utility.StaticFunctions;
-import com.example.wms.viewmodels.main.SplashActivityViewModel;
-import com.example.wms.viewmodels.user.login.ActivityBeforLoginViewModel;
-import com.example.wms.viewmodels.user.profile.FragmentProfilePersonViewModel;
-import com.example.wms.viewmodels.user.register.ActivitySendPhoneNumberViewModel;
-import com.example.wms.viewmodels.user.register.ActivityVerifyCodeViewModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

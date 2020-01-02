@@ -21,18 +21,18 @@ import retrofit2.Response;
 import static com.example.wms.utility.StaticFunctions.CheckResponse;
 import static com.example.wms.utility.StaticFunctions.GetAuthorization;
 
-public class ActivityBeforLoginViewModel {
+public class VM_FragmentLogin {
 
     private Context context;
-    public PublishSubject<String> Observables = null;
+    private PublishSubject<String> Observables = null;
     private ModelToken modelToken;
     private String MessageResponcse;
     private ModelSettingInfo.ModelProfileSetting profile;
 
-    public ActivityBeforLoginViewModel(Context context) {//_________________________________________ Start ActivityBeforLoginViewModel
+    public VM_FragmentLogin(Context context) {//_________________________________________ Start VM_FragmentLogin
         this.context = context;
         Observables = PublishSubject.create();
-    }//_____________________________________________________________________________________________ End ActivityBeforLoginViewModel
+    }//_____________________________________________________________________________________________ End VM_FragmentLogin
 
 
     public void GetLoginToken(String PhoneNumbet, String Password) {//______________________________ Start GetLoginToken
@@ -147,4 +147,7 @@ public class ActivityBeforLoginViewModel {
     }//_____________________________________________________________________________________________ End getMessageResponse
 
 
+    public PublishSubject<String> getObservables() {//______________________________________________ Start getObservables
+        return Observables;
+    }//_____________________________________________________________________________________________ End getObservables
 }

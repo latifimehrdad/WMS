@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="phonenumber"
+            type="com.example.wms.viewmodels.user.register.VM_FragmentSendNumber" />
+    </data>
+
+    <FrameLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".views.fragments.user.register.FragmentSendNumber">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/mlWhite"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginRight="@dimen/_15sdp"
+                        android:gravity="center"
+                        android:text="@string/HeyWhatsPhoneNumber"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/_12sdp" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginRight="@dimen/_15sdp"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:text="@string/EnterPhoneNumber"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/_10sdp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <EditText
+                            android:id="@+id/EditPhoneNumber"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_weight="2"
+                            android:background="@drawable/edit_normal_background"
+                            android:gravity="center"
+                            android:hint="@string/MobileNumber"
+                            android:inputType="number"
+                            android:maxLength="11"
+                            android:maxLines="1"
+                            android:padding="@dimen/_2sdp"
+                            android:textColor="@color/mlBlack"
+                            android:textSize="@dimen/_12sdp" />
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical|right"
+                            android:padding="@dimen/_5sdp">
+
+                            <ImageView
+                                android:id="@+id/ImgPassVisible"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:tint="@color/colorPrimary"
+                                android:src="@drawable/ic_visibility" />
+
+                        </LinearLayout>
+
+                        <EditText
+                            android:id="@+id/EditPassword"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_weight="2"
+                            android:background="@drawable/edit_normal_background"
+                            android:gravity="center"
+                            android:hint="@string/NewPassword"
+                            android:maxLines="1"
+                            android:padding="@dimen/_2sdp"
+                            android:textColor="@color/mlBlack"
+                            android:textSize="@dimen/_12sdp" />
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical|right"
+                            android:padding="@dimen/_5sdp">
+
+                            <ImageView
+                                android:id="@+id/ImgPassConfVisible"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:tint="@color/colorPrimary"
+                                android:src="@drawable/ic_visibility" />
+
+                        </LinearLayout>
+
+                        <EditText
+                            android:id="@+id/EditPasswordConfirm"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_weight="2"
+                            android:background="@drawable/edit_normal_background"
+                            android:gravity="center"
+                            android:hint="@string/NewPasswordConfirm"
+                            android:maxLines="1"
+                            android:padding="@dimen/_2sdp"
+                            android:textColor="@color/mlBlack"
+                            android:textSize="@dimen/_12sdp" />
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+
+                        <RelativeLayout
+                            android:id="@+id/btnGetVerifyCode"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_weight="2"
+                            android:background="@drawable/save_info_button">
+
+                            <TextView
+                                android:id="@+id/txtLoading"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="@string/GetCode"
+                                android:textColor="@color/mlWhite"
+                                android:textSize="@dimen/_13sdp"
+                                android:gravity="right|center_vertical"
+                                android:paddingRight="@dimen/_5sdp"
+                                />
+
+                            <ImageView
+                                android:id="@+id/imgLoading"
+                                android:layout_width="@dimen/_25sdp"
+                                android:layout_height="@dimen/_25sdp"
+                                android:src="@drawable/ic_play_for_work"
+                                android:layout_alignParentLeft="true"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                android:layout_centerVertical="true"
+                                />
+
+                            <com.cunoraz.gifview.library.GifView
+                                android:id="@+id/gifLoading"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                android:visibility="invisible"
+                                custom:gif="@drawable/loading" />
+
+                        </RelativeLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </ScrollView>
+
+
+        </LinearLayout>
+    </FrameLayout>
+
+
+</layout>

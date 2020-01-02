@@ -40,7 +40,9 @@
         android:layout_above="@id/centerLayout"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="invisible"
+        >
 
         <RelativeLayout
             android:id="@+id/LayoutChoose"

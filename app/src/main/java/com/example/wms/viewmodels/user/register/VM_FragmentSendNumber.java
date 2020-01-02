@@ -19,21 +19,19 @@ import retrofit2.Response;
 import static com.example.wms.utility.StaticFunctions.CheckResponse;
 import static com.example.wms.utility.StaticFunctions.GetAuthorization;
 
-public class ActivityVerifyCodeViewModel {
+public class VM_FragmentSendNumber {
 
     private Context context;
-    public PublishSubject<String> Observables = null;
+    private PublishSubject<String> Observables = null;
     private String MessageResponse;
 
-
-    public ActivityVerifyCodeViewModel(Context context) {//_________________________________________ Start ActivityVerifyCodeViewModel
+    public VM_FragmentSendNumber(Context context) {//____________________________________ Start VM_FragmentSendNumber
         this.context = context;
         Observables = PublishSubject.create();
-    }//_____________________________________________________________________________________________ End ActivityVerifyCodeViewModel
+    }//_____________________________________________________________________________________________ End VM_FragmentSendNumber
 
 
-    public void SendVerifyCode(String PhoneNumbet, String VerifyCode) {//___________________________ Start SendVerifyCode
-        StaticFunctions.isCancel = false;
+    public void SendNumber(String PhoneNumbet, String Password) {//________________________________ Start SendNumber
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
@@ -45,19 +43,19 @@ public class ActivityVerifyCodeViewModel {
 
         retrofitComponent
                 .getRetrofitApiInterface()
-                .SendVerifyCode(
-                        PhoneNumbet, VerifyCode, Authorization
+                .SendPhoneNumber(
+                        PhoneNumbet, Password, Password, Authorization
                 )
                 .enqueue(new Callback<ModelResponcePrimery>() {
                     @Override
                     public void onResponse(Call<ModelResponcePrimery> call, Response<ModelResponcePrimery> response) {
                         if (!StaticFunctions.isCancel) {
-                            MessageResponse = CheckResponse(response, false);
-                            if (MessageResponse == null)
+                            MessageResponse = CheckResponse(response,false);
+                            if(MessageResponse == null)
                                 Observables.onNext("Successful");
-                            else
+                            else {
                                 Observables.onNext("Error");
-
+                            }
                         }
                     }
 
@@ -68,12 +66,15 @@ public class ActivityVerifyCodeViewModel {
                     }
                 });
 
-    }//_____________________________________________________________________________________________ End SendVerifyCode
+    }//_____________________________________________________________________________________________ End SendNumber
 
 
-    public String getMessageresponse() {//__________________________________________________________ Staring getMessageresponse
+    public String getMessageResponse() {//__________________________________________________________ Start getMessageResponse
         return MessageResponse;
-    }//_____________________________________________________________________________________________ End getMessageresponse
+    }//_____________________________________________________________________________________________ End getMessageResponse
 
 
+    public PublishSubject<String> getObservables() {//______________________________________________ Start getObservables
+        return Observables;
+    }//_____________________________________________________________________________________________ End getObservables
 }

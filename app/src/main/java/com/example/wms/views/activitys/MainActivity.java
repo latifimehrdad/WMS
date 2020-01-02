@@ -134,8 +134,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void ShowSpalshActivity() {//___________________________________________________________ Start ShowSpalshActivity
-        Intent intent = new Intent(MainActivity.this, SplashActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(MainActivity.this, SplashActivity.class);
+//        startActivity(intent);
     }//_____________________________________________________________________________________________ End ShowSpalshActivity
 
 

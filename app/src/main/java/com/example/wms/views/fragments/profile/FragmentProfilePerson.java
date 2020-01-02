@@ -23,16 +23,12 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.wms.R;
-import com.example.wms.daggers.utility.UtilityComponent;
 import com.example.wms.databinding.FragmentProfilePersonBinding;
 import com.example.wms.models.ModelProfileInfo;
 import com.example.wms.models.ModelSpinnerItem;
 import com.example.wms.viewmodels.user.profile.FragmentProfilePersonViewModel;
 import com.example.wms.views.activitys.MainActivity;
-import com.example.wms.views.activitys.user.login.ActivityBeforLogin;
-import com.example.wms.views.activitys.user.register.ActivitySendPhoneNumber;
 import com.example.wms.views.application.ApplicationWMS;
-import com.example.wms.views.dialogs.DialogMessage;
 import com.example.wms.views.dialogs.DialogProgress;
 import com.example.wms.views.dialogs.searchspinner.MLSpinnerDialog;
 import com.example.wms.views.dialogs.searchspinner.OnSpinnerItemClick;
