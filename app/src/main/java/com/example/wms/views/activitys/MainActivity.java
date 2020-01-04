@@ -5,6 +5,7 @@ Create By Mehrdad Latifi in
 package com.example.wms.views.activitys;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -14,7 +15,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 import android.Manifest;
 import android.content.Context;
@@ -51,6 +55,7 @@ import com.example.wms.views.fragments.wallet.FragmentWallet;
 import com.google.android.gms.location.places.GeoDataClient;
 import com.google.android.gms.location.places.PlaceDetectionClient;
 import com.google.android.gms.location.places.Places;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import butterknife.BindView;
@@ -67,21 +72,7 @@ public class MainActivity extends AppCompatActivity {
     private MainActivityViewModel mainActivityViewModel;
     public static boolean complateprofile = false;
     private NavController navController;
-
-    @BindView(R.id.MainActivityChargeWallet)
-    ImageView MainActivityChargeWallet;
-
-    @BindView(R.id.MainActivityOrder)
-    ImageView MainActivityOrder;
-
-    @BindView(R.id.footerLogo)
-    ImageView footerLogo;
-
-    @BindView(R.id.textOrder)
-    TextView textOrder;
-
-    @BindView(R.id.textWallet)
-    TextView textWallet;
+    private AppBarConfiguration appBarConfiguration;
 
     @BindView(R.id.MainMenu)
     ImageView MainMenu;
@@ -89,17 +80,17 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawer;
 
-    @BindView(R.id.nvView)
-    NavigationView nvDrawer;
-
-    @BindView(R.id.LayoutEdit)
-    LinearLayout LayoutEdit;
-
     @BindView(R.id.ExitProfile)
     LinearLayout ExitProfile;
 
     @BindView(R.id.ProfileName)
     TextView ProfileName;
+
+    @BindView(R.id.nvView)
+    NavigationView nvView;
+
+    @BindView(R.id.BottomNav1)
+    BottomNavigationView BottomNav1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {//__________________________________________ Start onCreate
@@ -114,14 +105,29 @@ public class MainActivity extends AppCompatActivity {
         binding.setMain(mainActivityViewModel);
         ButterKnife.bind(this);
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        appBarConfiguration =
+                new AppBarConfiguration.Builder(navController.getGraph())
+                        .setDrawerLayout(mDrawer)
+                        .build();
+
+        NavigationUI.setupWithNavController(BottomNav1, navController);
+        NavigationUI.setupWithNavController(nvView, navController);
         SetClicks();
-        setupDrawerContent(nvDrawer);
+        //setupDrawerContent(nvView);
         checkLocationPermission();
     }//_____________________________________________________________________________________________ End SetBindingView
 
 
 
     private void SetClicks() {//____________________________________________________________________ Start
+
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController controller,
+                                             @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                mDrawer.closeDrawer(Gravity.RIGHT);
+            }
+        });
 
         mDrawer.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
@@ -167,21 +173,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        MainActivityChargeWallet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //if (complateprofile)
-                //ShowFragmentWallet();
-            }
-        });
-
-        MainActivityOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //if (complateprofile)
-                //ShowFragmentOrder();
-            }
-        });
 
         MainMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,37 +181,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        LayoutEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //ShowFragmentRegister();
-                mDrawer.closeDrawer(Gravity.RIGHT);
-            }
-        });
 
-        footerLogo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //if (complateprofile)
-                //ShowFragmentHome();
-            }
-        });
-
-        textOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //if (complateprofile)
-                //ShowFragmentOrder();
-            }
-        });
-
-        textWallet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //if (complateprofile)
-                //ShowFragmentWallet();
-            }
-        });
 
     }//_____________________________________________________________________________________________ End
 

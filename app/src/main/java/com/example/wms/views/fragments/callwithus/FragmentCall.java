@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentCallBinding;
-import com.example.wms.viewmodels.callwithus.FragmentCallWithUsViewModel;
+import com.example.wms.viewmodels.callwithus.VM_FragmentCallWithUs;
 
 import butterknife.ButterKnife;
 
@@ -21,44 +21,35 @@ import static com.example.wms.utility.StaticFunctions.SetBackClickAndGoHome;
 public class FragmentCall extends Fragment {
 
     private Context context;
-    private FragmentCallWithUsViewModel fragmentCallWithUsViewModel;
+    private VM_FragmentCallWithUs VMFragmentCallWithUs;
+    private View view;
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
+        this.context = getContext();
         FragmentCallBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_call, container, false
         );
-        fragmentCallWithUsViewModel = new FragmentCallWithUsViewModel(context);
-        binding.setCall(fragmentCallWithUsViewModel);
-        View view = binding.getRoot();
+        VMFragmentCallWithUs = new VM_FragmentCallWithUs(context);
+        binding.setCall(VMFragmentCallWithUs);
+        view = binding.getRoot();
         ButterKnife.bind(this, view);
-        BackClick(view);
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
 
-    public FragmentCall(Context context) {//________________________________________________________ Start FragmentCall
-        this.context = context;
-    }//_____________________________________________________________________________________________ End FragmentCall
 
-
-    public FragmentCall() {//_______________________________________________________________________ Start FragmentCall
-    }//_____________________________________________________________________________________________ End FragmentCall
+    public FragmentCall() {//_______________________________________________________________________ Start VM_FragmentCall
+    }//_____________________________________________________________________________________________ End VM_FragmentCall
 
 
     @Override
     public void onStart() {//_______________________________________________________________________ Start onStart
         super.onStart();
     }//_____________________________________________________________________________________________ End onStart
-
-
-
-
-    private void BackClick(View view) {//____________________________________________________________________ Start BackClick
-        view.setFocusableInTouchMode(true);
-        view.requestFocus();
-        view.setOnKeyListener(SetBackClickAndGoHome(true));
-    }//_____________________________________________________________________________________________ End BackClick
 
 
 

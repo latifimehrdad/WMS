@@ -4,7 +4,7 @@
     <data>
         <variable
             name="callus"
-            type="com.example.wms.viewmodels.callwithus.FragmentCallWithUsViewModel" />
+            type="com.example.wms.viewmodels.callwithus.VM_FragmentCallWithUs" />
     </data>
 
     <RelativeLayout

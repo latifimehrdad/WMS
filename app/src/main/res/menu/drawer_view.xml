@@ -1,41 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="none">
+
+
 
         <item
-            android:id="@+id/nav_home"
+            android:id="@id/fragmentHome"
             android:icon="@drawable/ic_home_black_24dp"
             android:title="@string/Home" />
 
         <item
-            android:id="@+id/nav_request_package"
+            android:id="@id/fragmentProfile"
+            android:icon="@drawable/ic_mode_edit"
+            android:title="@string/Editrofile"
+            />
+
+        <item
+            android:id="@id/fragmentPackRequest"
             android:icon="@drawable/logorequestpackage"
             android:title="@string/FragmentPackRequestPrimery"/>
 
         <item
-            android:id="@+id/nav_seperation"
+            android:id="@id/fragmentLearn"
             android:icon="@drawable/logoseperation"
             android:title="@string/FragmentSeparation"/>
 
         <item
-            android:id="@+id/nav_collect"
+            android:id="@id/fragmentCollectRequest"
             android:icon="@drawable/logocar"
             android:title="@string/FragmentCollectRequst"/>
 
         <item
-            android:id="@+id/nav_clottery"
+            android:id="@id/fragmentLottery"
             android:icon="@drawable/logolottery"
             android:title="@string/Lottery"/>
 
         <item
-            android:id="@+id/nav_support"
+            android:id="@id/fragmentCallWithUs"
             android:icon="@drawable/ic_supervisor_account_black_24dp"
             android:title="@string/SupportApp" />
 
 
         <item
-            android:id="@+id/nav_about"
+            android:id="@id/fragmentAbout"
             android:icon="@drawable/ic_phone_in_talk_black_24dp"
             android:title="@string/AboutUs" />
 

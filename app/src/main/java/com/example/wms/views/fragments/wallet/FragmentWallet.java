@@ -12,8 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentWalletBinding;
-import com.example.wms.viewmodels.wallet.FragmentWalletViewModel;
-import com.example.wms.views.activitys.MainActivity;
+import com.example.wms.viewmodels.wallet.VM_FragmentWallet;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -34,29 +33,28 @@ import butterknife.ButterKnife;
 public class FragmentWallet extends Fragment {
 
     private Context context;
-    private FragmentWalletViewModel fragmentWalletViewModel;
+    private VM_FragmentWallet vm_fragmentWallet;
+    private View view;
     String[] months = {"فرردین","اردیبهشت","خرداد","تیر","مرداد","شهریور","مهر","آبان","آذر","دی","بهمن","اسفند"};
 
     @BindView(R.id.chart)
     BarChart chart;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
+        this.context = getContext();
         FragmentWalletBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_wallet, container, false
         );
-        fragmentWalletViewModel = new FragmentWalletViewModel(context);
-        binding.setWallet(fragmentWalletViewModel);
-        View view = binding.getRoot();
+        vm_fragmentWallet = new VM_FragmentWallet(context);
+        binding.setWallet(vm_fragmentWallet);
+        view = binding.getRoot();
         ButterKnife.bind(this, view);
-        BackClick(view);
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
-
-
-    public FragmentWallet(Context context) {//______________________________________________________ Start FragmentWallet
-        this.context = context;
-    }//_____________________________________________________________________________________________ End FragmentWallet
 
 
     public FragmentWallet() {//_____________________________________________________________________ Start FragmentWallet
@@ -68,7 +66,6 @@ public class FragmentWallet extends Fragment {
         super.onStart();
         SetChart();
     }//_____________________________________________________________________________________________ End onStart
-
 
 
 
@@ -207,33 +204,6 @@ public class FragmentWallet extends Fragment {
             chart.setData(data);
         }
     }
-
-
-    private void BackClick(View view) {//____________________________________________________________________ Start BackClick
-        view.setFocusableInTouchMode(true);
-        view.requestFocus();
-        view.setOnKeyListener(SetKey(view));
-    }//_____________________________________________________________________________________________ End BackClick
-
-
-
-
-    private View.OnKeyListener SetKey(View view){//_________________________________________________ Start SetBackClickAndGoHome
-        return new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode != 4) {
-                    return false;
-                }
-                keyCode = 0;
-                event = null;
-                //MainActivity.FragmentMessage.onNext("Main");
-                return true;
-            }
-        };
-    }//_____________________________________________________________________________________________ End SetBackClickAndGoHome
-
-
 
 
 }

@@ -12,7 +12,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentAboutBinding;
-import com.example.wms.viewmodels.aboutus.FragmentAboutViewModel;
+import com.example.wms.viewmodels.aboutus.VM_FragmentAbout;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
@@ -25,7 +25,8 @@ import static com.example.wms.utility.StaticFunctions.SetBackClickAndGoHome;
 public class FragmentAbout extends Fragment {
 
     private Context context;
-    private FragmentAboutViewModel fragmentAboutViewModel;
+    private VM_FragmentAbout vm_fragmentAbout;
+    private View view;
 
     @BindView(R.id.FragmentAboutTab)
     SmartTabLayout FragmentAboutTab;
@@ -34,23 +35,20 @@ public class FragmentAbout extends Fragment {
     ViewPager FragmentAboutView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
+        this.context = getContext();
         FragmentAboutBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_about, container, false
         );
-        fragmentAboutViewModel = new FragmentAboutViewModel(context);
-        binding.setAbout(fragmentAboutViewModel);
-        View view = binding.getRoot();
+        vm_fragmentAbout = new VM_FragmentAbout(context);
+        binding.setAbout(vm_fragmentAbout);
+        view = binding.getRoot();
         ButterKnife.bind(this, view);
-        BackClick(view);
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
-
-
-    public FragmentAbout(Context context) {//_______________________________________________________ Start FragmentAbout
-        this.context = context;
-    }//_____________________________________________________________________________________________ End FragmentAbout
-
 
 
     public FragmentAbout() {//______________________________________________________________________ Start FragmentAbout
@@ -66,12 +64,9 @@ public class FragmentAbout extends Fragment {
 
     private void SetTabs() {//______________________________________________________________________ Start SetTabs
 
-
-        FragmentAboutPrimery fragmentAboutPrimery = new FragmentAboutPrimery(context);
-
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getChildFragmentManager(), FragmentPagerItems.with(context)
-                .add(R.string.AboutUs, fragmentAboutPrimery.getClass())
+                .add(R.string.AboutUs, FragmentAboutPrimery.class)
 
                 .create());
 
@@ -79,15 +74,6 @@ public class FragmentAbout extends Fragment {
         FragmentAboutTab.setViewPager(FragmentAboutView);
 
     }//_____________________________________________________________________________________________ End SetTabs
-
-
-
-    private void BackClick(View view) {//____________________________________________________________________ Start BackClick
-        view.setFocusableInTouchMode(true);
-        view.requestFocus();
-        view.setOnKeyListener(SetBackClickAndGoHome(true));
-    }//_____________________________________________________________________________________________ End BackClick
-
 
 
 }

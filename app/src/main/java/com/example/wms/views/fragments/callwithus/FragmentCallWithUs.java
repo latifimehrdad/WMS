@@ -12,7 +12,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentCallWithUsBinding;
-import com.example.wms.viewmodels.callwithus.FragmentCallWithUsViewModel;
+import com.example.wms.viewmodels.callwithus.VM_FragmentCallWithUs;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
@@ -25,7 +25,8 @@ import static com.example.wms.utility.StaticFunctions.SetBackClickAndGoHome;
 public class FragmentCallWithUs extends Fragment {
 
     private Context context;
-    private FragmentCallWithUsViewModel fragmentCallWithUsViewModel;
+    private VM_FragmentCallWithUs vm_fragmentCallWithUs;
+    private View view;
 
     @BindView(R.id.FragmentCallWithUsTab)
     SmartTabLayout FragmentCallWithUsTab;
@@ -34,21 +35,20 @@ public class FragmentCallWithUs extends Fragment {
     ViewPager FragmentCallWithUsView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
+        this.context = getContext();
         FragmentCallWithUsBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_call_with_us, container, false
         );
-        fragmentCallWithUsViewModel = new FragmentCallWithUsViewModel(context);
-        binding.setCallus(fragmentCallWithUsViewModel);
-        View view = binding.getRoot();
+        vm_fragmentCallWithUs = new VM_FragmentCallWithUs(context);
+        binding.setCallus(vm_fragmentCallWithUs);
+        view = binding.getRoot();
         ButterKnife.bind(this, view);
-        BackClick(view);
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
-
-    public FragmentCallWithUs(Context context) {//__________________________________________________ Start FragmentCallWithUs
-        this.context = context;
-    }//_____________________________________________________________________________________________ End FragmentCallWithUs
 
 
     public FragmentCallWithUs() {//_________________________________________________________________ Start FragmentCallWithUs
@@ -64,14 +64,10 @@ public class FragmentCallWithUs extends Fragment {
 
     private void SetTabs() {//______________________________________________________________________ Start SetTabs
 
-
-        FragmentCall fragmentCall = new FragmentCall(context);
-        FragmentSupport fragmentSupport = new FragmentSupport(context);
-
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getChildFragmentManager(), FragmentPagerItems.with(context)
-                .add(R.string.CallWithUs, fragmentCall.getClass())
-                .add(R.string.SupportApp, fragmentSupport.getClass())
+                .add(R.string.CallWithUs, FragmentCall.class)
+                .add(R.string.SupportApp, FragmentSupport.class)
                 .create());
 
         FragmentCallWithUsView.setAdapter(adapter);
@@ -79,15 +75,6 @@ public class FragmentCallWithUs extends Fragment {
         FragmentCallWithUsView.setCurrentItem(1);
 
     }//_____________________________________________________________________________________________ End SetTabs
-
-
-
-    private void BackClick(View view) {//____________________________________________________________________ Start BackClick
-        view.setFocusableInTouchMode(true);
-        view.requestFocus();
-        view.setOnKeyListener(SetBackClickAndGoHome(true));
-    }//_____________________________________________________________________________________________ End BackClick
-
 
 
 

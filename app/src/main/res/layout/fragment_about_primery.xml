@@ -5,7 +5,7 @@
 
         <variable
             name="aboutprimery"
-            type="com.example.wms.viewmodels.aboutus.FragmentAboutPrimeryViewModel" />
+            type="com.example.wms.viewmodels.aboutus.VM_FragmentAboutPrimary" />
     </data>
 
     <ScrollView

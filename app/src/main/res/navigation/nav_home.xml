@@ -57,6 +57,42 @@
             app:exitAnim="@anim/slide_out_right"
             />
 
+        <action
+            android:id="@+id/action_fragmentHome_to_fragmentCallWithUs"
+            app:destination="@id/fragmentCallWithUs"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            />
+
+        <action
+            android:id="@+id/action_fragmentHome_to_fragmentAbout"
+            app:destination="@id/fragmentAbout"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            />
+
+        <action
+            android:id="@+id/action_fragmentHome_to_fragmentWallet"
+            app:destination="@id/fragmentWallet"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            />
+
+        <action
+            android:id="@+id/action_fragmentHome_to_fragmentCollectRequestOrders"
+            app:destination="@id/fragmentCollectRequestOrders"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            />
+
 
     </fragment>
 
@@ -118,5 +154,25 @@
         android:name="com.example.wms.views.fragments.lottery.FragmentLottery"
         android:label="fragment_lottery"
         tools:layout="@layout/fragment_lottery" />
+    <fragment
+        android:id="@+id/fragmentCallWithUs"
+        android:name="com.example.wms.views.fragments.callwithus.FragmentCallWithUs"
+        android:label="fragment_call_with_us"
+        tools:layout="@layout/fragment_call_with_us" />
+    <fragment
+        android:id="@+id/fragmentAbout"
+        android:name="com.example.wms.views.fragments.aboutus.FragmentAbout"
+        android:label="fragment_about"
+        tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/fragmentWallet"
+        android:name="com.example.wms.views.fragments.wallet.FragmentWallet"
+        android:label="fragment_wallet"
+        tools:layout="@layout/fragment_wallet" />
+    <fragment
+        android:id="@+id/fragmentCollectRequestOrders"
+        android:name="com.example.wms.views.fragments.collectrequest.collectrequest.FragmentCollectRequestOrders"
+        android:label="fragment_collect_request_orders"
+        tools:layout="@layout/fragment_collect_request_orders" />
 
 </navigation>

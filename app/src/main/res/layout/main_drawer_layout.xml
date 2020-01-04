@@ -10,7 +10,9 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,36 +59,6 @@
                     android:text="نام کاربر"
                     />
 
-                <LinearLayout
-                    android:id="@+id/LayoutEdit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    >
-
-                    <ImageView
-                        android:layout_width="@dimen/_15sdp"
-                        android:layout_height="@dimen/_15sdp"
-                        android:layout_marginRight="@dimen/_2sdp"
-                        android:src="@drawable/ic_mode_edit"
-                        android:tint="@color/colorPrymeryVeryDark"
-                        />
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorPrymeryVeryDark"
-                        android:textSize="@dimen/_10sdp"
-                        android:gravity="center"
-                        android:maxLines="2"
-                        android:text="@string/Editrofile"
-                        />
-
-                </LinearLayout>
-
 
             </LinearLayout>
 
@@ -100,7 +72,7 @@
                 android:id="@+id/nvView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layoutDirection="rtl"
+                android:fitsSystemWindows="true"
                 android:background="@android:color/white"
                 app:itemIconTint="@color/colorPrimary"
                 app:menu="@menu/drawer_view" >
@@ -151,5 +123,13 @@
     </ScrollView>
 
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_20sdp"
+        android:gravity="center"
+        android:text="نسخه 1"
+        android:textSize="@dimen/_8sdp"
+        android:textColor="@color/colorPrimary"
+        />
 
 </LinearLayout>
