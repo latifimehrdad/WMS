@@ -4,7 +4,7 @@
     <data>
         <variable
             name="learn"
-            type="com.example.wms.viewmodels.learn.FragmentLearrnViewModel" />
+            type="com.example.wms.viewmodels.learn.VM_FragmentLearn" />
     </data>
 
     <RelativeLayout

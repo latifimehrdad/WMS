@@ -75,8 +75,8 @@ public class StaticFunctions {
                 if (keyCode != 4) {
                     return false;
                 }
-                if (execute)
-                    MainActivity.FragmentMessage.onNext("Main");
+                //if (execute)
+                    //MainActivity.FragmentMessage.onNext("Main");
                 return true;
             }
         };

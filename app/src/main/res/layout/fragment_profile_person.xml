@@ -5,7 +5,7 @@
     <data>
         <variable
             name="person"
-            type="com.example.wms.viewmodels.user.profile.FragmentProfilePersonViewModel" />
+            type="com.example.wms.viewmodels.user.profile.VM_FragmentProfilePerson" />
     </data>
 
     <LinearLayout

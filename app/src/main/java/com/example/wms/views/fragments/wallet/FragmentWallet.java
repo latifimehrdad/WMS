@@ -227,7 +227,7 @@ public class FragmentWallet extends Fragment {
                 }
                 keyCode = 0;
                 event = null;
-                MainActivity.FragmentMessage.onNext("Main");
+                //MainActivity.FragmentMessage.onNext("Main");
                 return true;
             }
         };

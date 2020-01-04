@@ -2,9 +2,6 @@ package com.example.wms.views.fragments.packrequest;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -25,7 +22,7 @@ import com.cunoraz.gifview.library.GifView;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentPackRequestAddressBinding;
 import com.example.wms.services.BackgroundServiceLocation;
-import com.example.wms.viewmodels.packrequest.FragmentPackRequestAddressViewModel;
+import com.example.wms.viewmodels.packrequest.VM_FragmentPackRequestAddress;
 
 import com.example.wms.views.mlmap.MehrdadLatifiMap;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -36,10 +33,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,12 +47,13 @@ import static com.example.wms.utility.StaticFunctions.SetBackClickAndGoHome;
 public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCallback {
 
     private Context context;
-    private FragmentPackRequestAddressViewModel fragmentPackRequestAddressViewModel;
+    private VM_FragmentPackRequestAddress vm_fragmentPackRequestAddress;
     private GoogleMap mMap;
     private boolean FullScreen = false;
     private StringBuilder mResult;
     private PublishSubject<String> Observables = null;
     private MehrdadLatifiMap mehrdadLatifiMap = new MehrdadLatifiMap();
+    private View view;
 
 
     @BindView(R.id.FPRAMaterialSpinnerType)
@@ -105,11 +101,10 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
         FragmentPackRequestAddressBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_pack_request_address, container, false
         );
-        fragmentPackRequestAddressViewModel = new FragmentPackRequestAddressViewModel(context);
-        binding.setRequstaddress(fragmentPackRequestAddressViewModel);
-        View view = binding.getRoot();
+        vm_fragmentPackRequestAddress = new VM_FragmentPackRequestAddress(context);
+        binding.setRequstaddress(vm_fragmentPackRequestAddress);
+        view = binding.getRoot();
         ButterKnife.bind(this, view);
-        BackClick(view);
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
 
@@ -136,19 +131,6 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
         FPRAMaterialSpinnerType.setItems("نوع واحد", "آپارتمان", "ویلایی");
         FPRAMaterialSpinnerUser.setItems("کاربری ساختمان", "تجاری", "مسکونی");
     }//_____________________________________________________________________________________________ End SetMaterialSpinnersItems
-
-
-    private void BackClick(View view) {//___________________________________________________________ Start BackClick
-        view.setFocusableInTouchMode(true);
-        view.requestFocus();
-        view.setOnKeyListener(SetBackClickAndGoHome(true));
-        FPRAMaterialSpinnerType.setOnKeyListener(SetBackClickAndGoHome(true));
-        UnitCount.setOnKeyListener(SetBackClickAndGoHome(true));
-        FPRAMaterialSpinnerUser.setOnKeyListener(SetBackClickAndGoHome(true));
-        PersonCount.setOnKeyListener(SetBackClickAndGoHome(true));
-        fpraEditAddress.setOnKeyListener(SetBackClickAndGoHome(true));
-
-    }//_____________________________________________________________________________________________ End BackClick
 
 
     @Override

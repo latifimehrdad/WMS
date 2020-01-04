@@ -4,7 +4,7 @@
     <data>
         <variable
             name="requestprimery"
-            type="com.example.wms.viewmodels.packrequest.FragmentPackRequestPrimeryViewModel" />
+            type="com.example.wms.viewmodels.packrequest.VM_FragmentPackRequestPrimary" />
     </data>
 
     <LinearLayout

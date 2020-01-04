@@ -12,7 +12,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentRecyclingCarBinding;
-import com.example.wms.viewmodels.collectrequest.recyclingcar.FragmentRecyclingCarViewModel;
+import com.example.wms.viewmodels.collectrequest.recyclingcar.VM_FragmentRecyclingCar;
 import com.example.wms.views.fragments.collectrequest.collectrequest.FragmentCollectRequestOrders;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
@@ -24,7 +24,8 @@ import butterknife.ButterKnife;
 public class FragmentRecyclingCar extends Fragment {
 
     private Context context;
-    private FragmentRecyclingCarViewModel fragmentRecyclingCarViewModel;
+    private VM_FragmentRecyclingCar vm_fragmentRecyclingCar;
+    private View view;
 
     @BindView(R.id.FragmentRecyclingTab)
     SmartTabLayout FragmentRecyclingTab;
@@ -33,22 +34,20 @@ public class FragmentRecyclingCar extends Fragment {
     ViewPager FragmentRecyclingView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
+        this.context = getContext();
         FragmentRecyclingCarBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_recycling_car, container, false
         );
-        fragmentRecyclingCarViewModel = new FragmentRecyclingCarViewModel(context);
-        binding.setRecyclingcar(fragmentRecyclingCarViewModel);
-        View view = binding.getRoot();
+        vm_fragmentRecyclingCar = new VM_FragmentRecyclingCar(context);
+        binding.setRecyclingcar(vm_fragmentRecyclingCar);
+        view = binding.getRoot();
         ButterKnife.bind(this, view);
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
-
-
-    public FragmentRecyclingCar(Context context) {//________________________________________________ Start FragmentRecyclingCar
-        this.context = context;
-    }//_____________________________________________________________________________________________ End FragmentRecyclingCar
-
 
     public FragmentRecyclingCar() {//_______________________________________________________________ Start FragmentRecyclingCar
     }//_____________________________________________________________________________________________ End FragmentRecyclingCar
@@ -63,13 +62,10 @@ public class FragmentRecyclingCar extends Fragment {
 
     private void SetTabs() {//______________________________________________________________________ Start SetTabs
 
-        FragmentRecyclingCarPrimery recyclingCarPrimery = new FragmentRecyclingCarPrimery(context);
-        FragmentCollectRequestOrders collectRequestOrders = new FragmentCollectRequestOrders(context);
-
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getChildFragmentManager(), FragmentPagerItems.with(context)
-                .add(R.string.FragmentCollectRequestOrder, collectRequestOrders.getClass())
-                .add(R.string.FragmentCollectRequestCar, recyclingCarPrimery.getClass())
+                .add(R.string.FragmentCollectRequestOrder, FragmentCollectRequestOrders.class)
+                .add(R.string.FragmentCollectRequestCar, FragmentRecyclingCarPrimery.class)
                 .create());
 
         FragmentRecyclingView.setAdapter(adapter);

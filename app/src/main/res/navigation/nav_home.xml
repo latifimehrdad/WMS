@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_home"
+    app:startDestination="@id/fragmentHome">
+
+    <fragment
+
+        android:id="@+id/fragmentHome"
+        android:name="com.example.wms.views.fragments.home.FragmentHome"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+
+        <action
+            android:id="@+id/action_fragmentHome_to_fragmentProfile"
+            app:destination="@id/fragmentProfile"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            />
+
+        <action
+            android:id="@+id/action_fragmentHome_to_fragmentPackRequest"
+            app:destination="@id/fragmentPackRequest"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            />
+
+        <action
+            android:id="@+id/action_fragmentHome_to_fragmentCollectRequest"
+            app:destination="@id/fragmentCollectRequest"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            />
+
+        <action
+            android:id="@+id/action_fragmentHome_to_fragmentLearn"
+            app:destination="@id/fragmentLearn"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            />
+
+        <action
+            android:id="@+id/action_fragmentHome_to_fragmentLottery"
+            app:destination="@id/fragmentLottery"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            />
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentProfile"
+        android:name="com.example.wms.views.fragments.profile.FragmentProfile"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/fragmentPackRequest"
+        android:name="com.example.wms.views.fragments.packrequest.FragmentPackRequest"
+        android:label="fragment_pack_request"
+        tools:layout="@layout/fragment_pack_request" />
+    <fragment
+        android:id="@+id/fragmentCollectRequest"
+        android:name="com.example.wms.views.fragments.collectrequest.collectrequest.FragmentCollectRequest"
+        android:label="fragment_collect_requst"
+        tools:layout="@layout/fragment_collect_requst" >
+
+        <action
+            android:id="@+id/action_fragmentCollectRequest_to_fragmentBoothReceive"
+            app:destination="@id/fragmentBoothReceive"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            />
+
+        <action
+            android:id="@+id/action_fragmentCollectRequest_to_fragmentRecyclingCar"
+            app:destination="@id/fragmentRecyclingCar"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentBoothReceive"
+        android:name="com.example.wms.views.fragments.collectrequest.boothreceive.FragmentBoothReceive"
+        android:label="fragment_booth_receive"
+        tools:layout="@layout/fragment_booth_receive" />
+
+    <fragment
+        android:id="@+id/fragmentRecyclingCar"
+        android:name="com.example.wms.views.fragments.collectrequest.recyclingcar.FragmentRecyclingCar"
+        android:label="fragment_recycling_car"
+        tools:layout="@layout/fragment_recycling_car" />
+    <fragment
+        android:id="@+id/fragmentLearn"
+        android:name="com.example.wms.views.fragments.learn.FragmentLearn"
+        android:label="fragment_learn"
+        tools:layout="@layout/fragment_learn" />
+    <fragment
+        android:id="@+id/fragmentLottery"
+        android:name="com.example.wms.views.fragments.lottery.FragmentLottery"
+        android:label="fragment_lottery"
+        tools:layout="@layout/fragment_lottery" />
+
+</navigation>

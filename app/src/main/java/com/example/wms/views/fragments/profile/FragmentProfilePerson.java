@@ -26,7 +26,7 @@ import com.example.wms.R;
 import com.example.wms.databinding.FragmentProfilePersonBinding;
 import com.example.wms.models.ModelProfileInfo;
 import com.example.wms.models.ModelSpinnerItem;
-import com.example.wms.viewmodels.user.profile.FragmentProfilePersonViewModel;
+import com.example.wms.viewmodels.user.profile.VM_FragmentProfilePerson;
 import com.example.wms.views.activitys.MainActivity;
 import com.example.wms.views.application.ApplicationWMS;
 import com.example.wms.views.dialogs.DialogProgress;
@@ -41,13 +41,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.example.wms.utility.StaticFunctions.SetBackClickAndGoHome;
 import static com.example.wms.utility.StaticFunctions.TextChangeForChangeBack;
 
 public class FragmentProfilePerson extends Fragment {
 
     private Context context;
-    private FragmentProfilePersonViewModel fragmentProfilePersonViewModel;
+    private VM_FragmentProfilePerson vm_fragmentProfilePerson;
+    private DisposableObserver<String> observer;
     private DialogProgress progress;
     private MLSpinnerDialog spinnerProvinces;
     private ArrayList<ModelSpinnerItem> ProvincesList;
@@ -123,11 +123,10 @@ public class FragmentProfilePerson extends Fragment {
         this.context = getContext();
         FragmentProfilePersonBinding binding = DataBindingUtil
                 .inflate(inflater, R.layout.fragment_profile_person, container, false);
-        fragmentProfilePersonViewModel = new FragmentProfilePersonViewModel(context);
-        binding.setPerson(fragmentProfilePersonViewModel);
+        vm_fragmentProfilePerson = new VM_FragmentProfilePerson(context);
+        binding.setPerson(vm_fragmentProfilePerson);
         view = binding.getRoot();
         ButterKnife.bind(this, view);
-        BackClick(MainActivity.complateprofile);
         return view;
     }//_____________________________________________________________________________________________ Start onCreateView
 
@@ -230,16 +229,16 @@ public class FragmentProfilePerson extends Fragment {
             public void onClick(View v) {
                 if (CheckEmpty()) {
                     ShowProgressDialog();
-                    fragmentProfilePersonViewModel.setFirstName(editFirsName.getText().toString());
-                    fragmentProfilePersonViewModel.setLastName(edtiLastName.getText().toString());
-                    fragmentProfilePersonViewModel.setGender(GenderCode);
-                    fragmentProfilePersonViewModel.setCitizenType(Integer.valueOf(UserTypeId));
-                    fragmentProfilePersonViewModel.setCityId(CityId);
-                    fragmentProfilePersonViewModel.setRegionId(RegionId);
-                    fragmentProfilePersonViewModel.setReferenceCode(
+                    vm_fragmentProfilePerson.setFirstName(editFirsName.getText().toString());
+                    vm_fragmentProfilePerson.setLastName(edtiLastName.getText().toString());
+                    vm_fragmentProfilePerson.setGender(GenderCode);
+                    vm_fragmentProfilePerson.setCitizenType(Integer.valueOf(UserTypeId));
+                    vm_fragmentProfilePerson.setCityId(CityId);
+                    vm_fragmentProfilePerson.setRegionId(RegionId);
+                    vm_fragmentProfilePerson.setReferenceCode(
                             editReferenceCode.getText().toString()
                     );
-                    fragmentProfilePersonViewModel.EditProfile();
+                    vm_fragmentProfilePerson.EditProfile();
                 }
             }
         });
@@ -256,17 +255,6 @@ public class FragmentProfilePerson extends Fragment {
         boolean city = false;
         boolean region = false;
         boolean user = false;
-//        boolean reference = true;
-
-
-//        if (editReferenceCode.getText().length() < 1) {
-//            editReferenceCode.setBackgroundResource(R.drawable.edit_empty_background);
-//            editReferenceCode.setError(getResources().getString(R.string.EmptyReferenceCode));
-//            editReferenceCode.requestFocus();
-//            reference = false;
-//        } else
-//            reference = true;
-
 
         if (edtiLastName.getText().length() < 1) {
             edtiLastName.setBackgroundResource(R.drawable.edit_empty_background);
@@ -367,19 +355,9 @@ public class FragmentProfilePerson extends Fragment {
     }//_____________________________________________________________________________________________ End GetPhoneNumber
 
 
-    private void BackClick(boolean execute) {//_____________________________________________________ Start BackClick
-        view.setFocusableInTouchMode(true);
-        view.requestFocus();
-        view.setOnKeyListener(SetBackClickAndGoHome(execute));
-        editFirsName.setOnKeyListener(SetBackClickAndGoHome(execute));
-        edtiLastName.setOnKeyListener(SetBackClickAndGoHome(execute));
-        editReferenceCode.setOnKeyListener(SetBackClickAndGoHome(execute));
-    }//_____________________________________________________________________________________________ End BackClick
-
-
     private void GetProfileInfo() {//_______________________________________________________________ Start GetProfileInfo
         ShowProgressDialog();
-        fragmentProfilePersonViewModel.GetProfileInfo();
+        vm_fragmentProfilePerson.GetProfileInfo();
     }//_____________________________________________________________________________________________ End GetProfileInfo
 
 
@@ -427,88 +405,91 @@ public class FragmentProfilePerson extends Fragment {
 
     private void GetProvinces() {//_________________________________________________________________ Start GetProvinces
         ShowProgressDialog();
-        fragmentProfilePersonViewModel.GetProvincesList();
+        vm_fragmentProfilePerson.GetProvincesList();
     }//_____________________________________________________________________________________________ End GetProvinces
 
 
     private void GetCitys() {//_____________________________________________________________________ Start GetCitys
         ShowProgressDialog();
-        fragmentProfilePersonViewModel.setProvinceId(ProvinceId);
-        fragmentProfilePersonViewModel.GetCitysList();
+        vm_fragmentProfilePerson.setProvinceId(ProvinceId);
+        vm_fragmentProfilePerson.GetCitysList();
     }//_____________________________________________________________________________________________ End GetCitys
 
 
     private void GetPlaces() {//____________________________________________________________________ Start GetPlaces
         ShowProgressDialog();
-        fragmentProfilePersonViewModel.setCityId(CityId);
-        fragmentProfilePersonViewModel.GetPlasesList();
+        vm_fragmentProfilePerson.setCityId(CityId);
+        vm_fragmentProfilePerson.GetPlasesList();
     }//_____________________________________________________________________________________________ End GetPlaces
 
 
     private void ObserverObservables() {//__________________________________________________________ Start ObserverObservables
-        fragmentProfilePersonViewModel
-                .Observables
-                .observeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableObserver<String>() {
+        observer = new DisposableObserver<String>() {
+            @Override
+            public void onNext(String s) {
+                getActivity().runOnUiThread(new Runnable() {
                     @Override
-                    public void onNext(String s) {
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (progress != null)
-                                    progress.dismiss();
-                                switch (s) {
-                                    case "SuccessfulProfile":
-                                        profile = fragmentProfilePersonViewModel.getProfile();
-                                        SetProfileInfo();
-                                        break;
-                                    case "SuccessfulEdit":
-                                        ShowMessage(fragmentProfilePersonViewModel.getMessageResponcse()
-                                                , getResources().getColor(R.color.mlWhite),
-                                                getResources().getDrawable(R.drawable.ic_check));
-                                        MainActivity.complateprofile = true;
-                                        BackClick(true);
-                                        break;
-                                    case "SuccessfulProvince":
-                                        ProvincesList = fragmentProfilePersonViewModel.getProvinces();
-                                        SetItemProvinces();
-                                        break;
-                                    case "SuccessfulCity":
-                                        CitysList = fragmentProfilePersonViewModel.getCitys();
-                                        SetItemCity();
-                                        break;
-                                    case "SuccessfulRegion":
-                                        RegionsList = fragmentProfilePersonViewModel.getRegions();
-                                        SetItemRegion();
-                                        break;
-                                    case "Error":
-                                        ShowMessage(fragmentProfilePersonViewModel.getMessageResponcse()
-                                                , getResources().getColor(R.color.mlWhite),
-                                                getResources().getDrawable(R.drawable.ic_error));
-                                        break;
-                                    case "Failure":
-                                        ShowMessage(getResources().getString(R.string.NetworkError),
-                                                getResources().getColor(R.color.mlWhite),
-                                                getResources().getDrawable(R.drawable.ic_error));
-                                        break;
-                                    default:
-                                        break;
-                                }
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
+                    public void run() {
+                        if (progress != null)
+                            progress.dismiss();
+                        switch (s) {
+                            case "SuccessfulProfile":
+                                profile = vm_fragmentProfilePerson.getProfile();
+                                SetProfileInfo();
+                                break;
+                            case "SuccessfulEdit":
+                                ShowMessage(vm_fragmentProfilePerson.getMessageResponcse()
+                                        , getResources().getColor(R.color.mlWhite),
+                                        getResources().getDrawable(R.drawable.ic_check));
+                                MainActivity.complateprofile = true;
+                                getActivity().onBackPressed();
+                                break;
+                            case "SuccessfulProvince":
+                                ProvincesList = vm_fragmentProfilePerson.getProvinces();
+                                SetItemProvinces();
+                                break;
+                            case "SuccessfulCity":
+                                CitysList = vm_fragmentProfilePerson.getCitys();
+                                SetItemCity();
+                                break;
+                            case "SuccessfulRegion":
+                                RegionsList = vm_fragmentProfilePerson.getRegions();
+                                SetItemRegion();
+                                break;
+                            case "Error":
+                                ShowMessage(vm_fragmentProfilePerson.getMessageResponcse()
+                                        , getResources().getColor(R.color.mlWhite),
+                                        getResources().getDrawable(R.drawable.ic_error));
+                                break;
+                            case "Failure":
+                                ShowMessage(getResources().getString(R.string.NetworkError),
+                                        getResources().getColor(R.color.mlWhite),
+                                        getResources().getDrawable(R.drawable.ic_error));
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 });
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+
+
+        vm_fragmentProfilePerson
+                .getObservables()
+                .observeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
 
     }//_____________________________________________________________________________________________ End ObserverObservables
 
@@ -686,4 +667,9 @@ public class FragmentProfilePerson extends Fragment {
     }//_____________________________________________________________________________________________ End SetItemUser
 
 
+    @Override
+    public void onDestroy() {//_____________________________________________________________________ Start onDestroy
+        super.onDestroy();
+        observer.dispose();
+    }//_____________________________________________________________________________________________ End onDestroy
 }

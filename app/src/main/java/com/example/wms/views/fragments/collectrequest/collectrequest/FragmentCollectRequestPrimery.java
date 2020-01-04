@@ -9,11 +9,12 @@ import android.widget.LinearLayout;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentCollectRequestPrimeryBinding;
-import com.example.wms.viewmodels.collectrequest.collectrequest.FragmentCollectRequestPrimeryViewModel;
-import com.example.wms.views.activitys.MainActivity;
+import com.example.wms.viewmodels.collectrequest.collectrequest.VM_FragmentCollectRequestPrimary;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,7 +24,9 @@ import static com.example.wms.utility.StaticFunctions.SetBackClickAndGoHome;
 public class FragmentCollectRequestPrimery extends Fragment {
 
     private Context context;
-    private FragmentCollectRequestPrimeryViewModel fragmentCollectRequestPrimeryViewModel;
+    private VM_FragmentCollectRequestPrimary vm_fragmentCollectRequestPrimary;
+    private View view;
+    private NavController navController;
 
     @BindView(R.id.fcrpRecyclingCar)
     LinearLayout fcrpRecyclingCar;
@@ -33,15 +36,18 @@ public class FragmentCollectRequestPrimery extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
+        this.context = getContext();
         FragmentCollectRequestPrimeryBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_collect_request_primery, container, false
         );
-        fragmentCollectRequestPrimeryViewModel = new FragmentCollectRequestPrimeryViewModel(context);
-        binding.setCollectprimery(fragmentCollectRequestPrimeryViewModel);
-        View view = binding.getRoot();
+        vm_fragmentCollectRequestPrimary = new VM_FragmentCollectRequestPrimary(context);
+        binding.setCollectprimery(vm_fragmentCollectRequestPrimary);
+        view = binding.getRoot();
         ButterKnife.bind(this, view);
-        BackClick(view);
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
 
@@ -50,13 +56,10 @@ public class FragmentCollectRequestPrimery extends Fragment {
     }//_____________________________________________________________________________________________ End FragmentCollectRequestPrimery
 
 
-    public FragmentCollectRequestPrimery(Context context) {//_______________________________________ Start FragmentCollectRequestPrimery
-        this.context = context;
-    }//_____________________________________________________________________________________________ End FragmentCollectRequestPrimery
-
     @Override
     public void onStart() {//_______________________________________________________________________ Start onStart
         super.onStart();
+        navController = Navigation.findNavController(view);
         SetClicks();
     }//_____________________________________________________________________________________________ End onStart
 
@@ -66,28 +69,18 @@ public class FragmentCollectRequestPrimery extends Fragment {
         fcrpRecyclingCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.FragmentMessage.onNext("RecyclingCar");
+                navController.navigate(R.id.action_fragmentCollectRequest_to_fragmentRecyclingCar);
             }
         });
 
         fcrpBoothReceive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.FragmentMessage.onNext("BoothReceive");
+                navController.navigate(R.id.action_fragmentCollectRequest_to_fragmentBoothReceive);
             }
         });
 
     }//_____________________________________________________________________________________________ End
-
-
-
-    private void BackClick(View view) {//____________________________________________________________________ Start BackClick
-        view.setFocusableInTouchMode(true);
-        view.requestFocus();
-        view.setOnKeyListener(SetBackClickAndGoHome(true));
-    }//_____________________________________________________________________________________________ End BackClick
-
-
 
 
 }

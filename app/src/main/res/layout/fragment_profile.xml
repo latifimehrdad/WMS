@@ -1,41 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="profile"
-            type="com.example.wms.viewmodels.user.profile.FragmentProfileViewModel" />
+            type="com.example.wms.viewmodels.user.profile.VM_FragmentProfile" />
     </data>
 
-    <RelativeLayout
-        android:orientation="vertical"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        tools:contexte=".views.fragments.profile.FragmentProfile">
 
-        <com.ogaclejapan.smarttablayout.SmartTabLayout
-            android:id="@+id/FragmentRegisteryTab"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
-            android:background="@color/colorPrimary"
-            app:stl_distributeEvenly="true"
-            app:stl_indicatorCornerRadius="1.5dp"
-            app:stl_indicatorInterpolation="smart"
-            app:stl_indicatorColor="@color/mlWhite"
-            app:stl_indicatorThickness="@dimen/_3sdp"
-            app:stl_defaultTabTextColor="@color/mlWhite"
-            app:stl_clickable="true"
-            />
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/FragmentRegisteryView"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/FragmentRegisteryTab"
-            android:background="@color/mlWhite"
-            />
+            android:orientation="vertical">
 
-    </RelativeLayout>
+            <com.ogaclejapan.smarttablayout.SmartTabLayout
+                android:id="@+id/FragmentRegisteryTab"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:background="@color/colorPrimary"
+                app:stl_clickable="true"
+                app:stl_defaultTabTextColor="@color/mlWhite"
+                app:stl_distributeEvenly="true"
+                app:stl_indicatorColor="@color/mlWhite"
+                app:stl_indicatorCornerRadius="1.5dp"
+                app:stl_indicatorInterpolation="smart"
+                app:stl_indicatorThickness="@dimen/_3sdp" />
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/FragmentRegisteryView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/FragmentRegisteryTab"
+                android:background="@color/mlWhite" />
+
+        </RelativeLayout>
+
+    </FrameLayout>
 
 
 </layout>

@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentLearnSeparationBinding;
-import com.example.wms.viewmodels.learn.FragmentLearnSeparationViewmodel;
+import com.example.wms.viewmodels.learn.VM_FragmentLearnSeparation;
 
 import butterknife.ButterKnife;
 
@@ -20,26 +20,24 @@ import static com.example.wms.utility.StaticFunctions.SetBackClickAndGoHome;
 public class FragmentLearnSeparation extends Fragment {
 
     private Context context;
-    private FragmentLearnSeparationViewmodel fragmentLearnSeparationViewmodel;
+    private VM_FragmentLearnSeparation vm_fragmentLearnSeparation;
+    private View view;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
+        this.context = getContext();
         FragmentLearnSeparationBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_learn_separation, container, false
         );
-        fragmentLearnSeparationViewmodel = new FragmentLearnSeparationViewmodel(context);
-        binding.setLearnseparation(fragmentLearnSeparationViewmodel);
-        View view = binding.getRoot();
+        vm_fragmentLearnSeparation = new VM_FragmentLearnSeparation(context);
+        binding.setLearnseparation(vm_fragmentLearnSeparation);
+        view = binding.getRoot();
         ButterKnife.bind(this, view);
-        BackClick(view);
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
-
-
-    public FragmentLearnSeparation(Context context) {//_____________________________________________ Start FragmentLearnSeparation
-        this.context = context;
-    }//_____________________________________________________________________________________________ End FragmentLearnSeparation
-
 
     public FragmentLearnSeparation() {//____________________________________________________________ Start FragmentLearnSeparation
     }//_____________________________________________________________________________________________ End FragmentLearnSeparation
@@ -49,13 +47,6 @@ public class FragmentLearnSeparation extends Fragment {
     public void onStart() {//_______________________________________________________________________ Start onStart
         super.onStart();
     }//_____________________________________________________________________________________________ End onStart
-
-
-    private void BackClick(View view) {//____________________________________________________________________ Start BackClick
-        view.setFocusableInTouchMode(true);
-        view.requestFocus();
-        view.setOnKeyListener(SetBackClickAndGoHome(true));
-    }//_____________________________________________________________________________________________ End BackClick
 
 
 

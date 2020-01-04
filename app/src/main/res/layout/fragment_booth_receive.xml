@@ -4,7 +4,7 @@
     <data>
         <variable
             name="boothreceive"
-            type="com.example.wms.viewmodels.collectrequest.boothreceive.FragmentBoothReceiveViewModel" />
+            type="com.example.wms.viewmodels.collectrequest.boothreceive.VM_FragmentBoothReceive" />
     </data>
 
     <RelativeLayout

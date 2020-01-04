@@ -27,10 +27,10 @@ import static com.example.wms.utility.StaticFunctions.CheckResponse;
 import static com.example.wms.utility.StaticFunctions.GetAuthorization;
 import static com.example.wms.utility.StaticFunctions.GetMessage;
 
-public class FragmentProfilePersonViewModel {
+public class VM_FragmentProfilePerson {
 
     private Context context;
-    public PublishSubject<String> Observables = null;
+    private PublishSubject<String> Observables = null;
     private ArrayList<ModelSpinnerItem> provinces;
     private ArrayList<ModelSpinnerItem> Citys;
     private ArrayList<ModelSpinnerItem> Regions;
@@ -45,10 +45,10 @@ public class FragmentProfilePersonViewModel {
     private Integer CitizenType;
     private String ReferenceCode;
 
-    public FragmentProfilePersonViewModel(Context context) {//_____________________________________ Start FragmentProfilePersonViewModel
+    public VM_FragmentProfilePerson(Context context) {//_____________________________________ Start VM_FragmentProfilePerson
         this.context = context;
         Observables = PublishSubject.create();
-    }//_____________________________________________________________________________________________ End FragmentProfilePersonViewModel
+    }//_____________________________________________________________________________________________ End VM_FragmentProfilePerson
 
 
 
@@ -353,4 +353,8 @@ public class FragmentProfilePersonViewModel {
     public void setProfile(ModelProfileInfo.ModelProfile profile) {//_______________________________ Start setProfile
         this.profile = profile;
     }//_____________________________________________________________________________________________ End setProfile
+
+    public PublishSubject<String> getObservables() {//______________________________________________ Start getObservables
+        return Observables;
+    }//_____________________________________________________________________________________________ End getObservables
 }

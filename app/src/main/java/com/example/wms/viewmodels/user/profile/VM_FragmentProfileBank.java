@@ -29,10 +29,10 @@ package com.example.wms.viewmodels.user.profile;
         import static com.example.wms.utility.StaticFunctions.GetAuthorization;
         import static com.example.wms.utility.StaticFunctions.GetMessage;
 
-public class FragmentProfileBankViewModel {
+public class VM_FragmentProfileBank {
 
     private Context context;
-    public PublishSubject<String> Observables = null;
+    private PublishSubject<String> Observables = null;
     private String MessageResponcse;
     private ArrayList<ModelSpinnerItem> banks;
     private ModelUserAccounts.ModelUserAccountNumber accountNumbers;
@@ -40,10 +40,10 @@ public class FragmentProfileBankViewModel {
     private String BankId;
 
 
-    public FragmentProfileBankViewModel(Context context) {//_______________________________________ Start FragmentProfileBankViewModel
+    public VM_FragmentProfileBank(Context context) {//_______________________________________ Start VM_FragmentProfileBank
         this.context = context;
         Observables = PublishSubject.create();
-    }//_____________________________________________________________________________________________ End FragmentProfileBankViewModel
+    }//_____________________________________________________________________________________________ End VM_FragmentProfileBank
 
 
     public void SendAccountNumber() {//_____________________________________________________________ Start SendAccountNumber
@@ -192,4 +192,9 @@ public class FragmentProfileBankViewModel {
     public ModelUserAccounts.ModelUserAccountNumber getAccountNumbers() {//_________________________ Start getAccountNumbers
         return accountNumbers;
     }//_____________________________________________________________________________________________ End getAccountNumbers
+
+
+    public PublishSubject<String> getObservables() {//______________________________________________ Start getObservables
+        return Observables;
+    }//_____________________________________________________________________________________________ End getObservables
 }

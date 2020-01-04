@@ -11,31 +11,29 @@ import androidx.fragment.app.Fragment;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentCollectRequestOrdersBinding;
-import com.example.wms.viewmodels.collectrequest.collectrequest.FragmentCollectRequestOrdersViewModel;
+import com.example.wms.viewmodels.collectrequest.collectrequest.VM_FragmentCollectRequestOrders;
 
 import static com.example.wms.utility.StaticFunctions.SetBackClickAndGoHome;
 
 public class FragmentCollectRequestOrders extends Fragment {
 
     private Context context;
-    private FragmentCollectRequestOrdersViewModel fragmentCollectRequestOrdersViewModel;
+    private VM_FragmentCollectRequestOrders vm_fragmentCollectRequestOrders;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
+        this.context = getContext();
         FragmentCollectRequestOrdersBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_collect_request_orders,container,false
         );
-        fragmentCollectRequestOrdersViewModel = new FragmentCollectRequestOrdersViewModel(context);
-        binding.setCollectorders(fragmentCollectRequestOrdersViewModel);
+        vm_fragmentCollectRequestOrders = new VM_FragmentCollectRequestOrders(context);
+        binding.setCollectorders(vm_fragmentCollectRequestOrders);
         View view = binding.getRoot();
-        BackClick(view);
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
-
-
-    public FragmentCollectRequestOrders(Context context) {//________________________________________ Start FragmentCollectRequestOrders
-        this.context = context;
-    }//_____________________________________________________________________________________________ End FragmentCollectRequestOrders
 
 
     public FragmentCollectRequestOrders() {//_______________________________________________________ Start FragmentCollectRequestOrders
@@ -46,16 +44,6 @@ public class FragmentCollectRequestOrders extends Fragment {
     public void onStart() {
         super.onStart();
     }//_____________________________________________________________________________________________ End onStart
-
-
-
-    private void BackClick(View view) {//____________________________________________________________________ Start BackClick
-        view.setFocusableInTouchMode(true);
-        view.requestFocus();
-        view.setOnKeyListener(SetBackClickAndGoHome(true));
-    }//_____________________________________________________________________________________________ End BackClick
-
-
 
 
 }

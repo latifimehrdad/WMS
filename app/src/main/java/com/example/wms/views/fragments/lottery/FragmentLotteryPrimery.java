@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentLotteryPrimeryBinding;
-import com.example.wms.viewmodels.lottery.FragmentLotteryPrimeryViewModel;
+import com.example.wms.viewmodels.lottery.VM_FragmentLotteryPrimary;
 
 import butterknife.ButterKnife;
 
@@ -20,25 +20,25 @@ import static com.example.wms.utility.StaticFunctions.SetBackClickAndGoHome;
 public class FragmentLotteryPrimery extends Fragment {
 
     private Context context;
-    private FragmentLotteryPrimeryViewModel fragmentLotteryPrimeryViewModel;
+    private VM_FragmentLotteryPrimary vm_fragmentLotteryPrimary;
+    private View view;
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
+        this.context = getContext();
         FragmentLotteryPrimeryBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_lottery_primery, container, false
         );
-        fragmentLotteryPrimeryViewModel = new FragmentLotteryPrimeryViewModel(context);
-        binding.setLotteryprimery(fragmentLotteryPrimeryViewModel);
-        View view = binding.getRoot();
+        vm_fragmentLotteryPrimary = new VM_FragmentLotteryPrimary(context);
+        binding.setLotteryprimery(vm_fragmentLotteryPrimary);
+        view = binding.getRoot();
         ButterKnife.bind(this, view);
-        BackClick(view);
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
-
-    public FragmentLotteryPrimery(Context context) {//______________________________________________ Start FragmentLotteryPrimery
-        this.context = context;
-    }//_____________________________________________________________________________________________ End FragmentLotteryPrimery
 
 
     public FragmentLotteryPrimery() {//_____________________________________________________________ Start FragmentLotteryPrimery
@@ -49,16 +49,6 @@ public class FragmentLotteryPrimery extends Fragment {
     public void onStart() {//_______________________________________________________________________ Start onStart
         super.onStart();
     }//_____________________________________________________________________________________________ End onStart
-
-
-
-    private void BackClick(View view) {//____________________________________________________________________ Start BackClick
-        view.setFocusableInTouchMode(true);
-        view.requestFocus();
-        view.setOnKeyListener(SetBackClickAndGoHome(true));
-    }//_____________________________________________________________________________________________ End BackClick
-
-
 
 
 }

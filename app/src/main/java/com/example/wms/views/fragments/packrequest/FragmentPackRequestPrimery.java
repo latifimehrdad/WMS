@@ -12,7 +12,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentPackRequestPrimeryBinding;
-import com.example.wms.viewmodels.packrequest.FragmentPackRequestViewModel;
+import com.example.wms.viewmodels.packrequest.VM_FragmentPackRequest;
+import com.example.wms.viewmodels.packrequest.VM_FragmentPackRequestPrimary;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import butterknife.BindView;
@@ -23,7 +24,8 @@ import static com.example.wms.utility.StaticFunctions.SetBackClickAndGoHome;
 public class FragmentPackRequestPrimery extends Fragment {
 
     private Context context;
-    private FragmentPackRequestViewModel fragmentPackRequestViewModel;
+    private VM_FragmentPackRequestPrimary vm_fragmentPackRequestPrimary;
+    private View view;
 
     @BindView(R.id.FPRPSpinnerHours)
     MaterialSpinner FPRPSpinnerHours;
@@ -43,10 +45,10 @@ public class FragmentPackRequestPrimery extends Fragment {
         FragmentPackRequestPrimeryBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_pack_request_primery,container,false
         );
-        fragmentPackRequestViewModel = new FragmentPackRequestViewModel(context);
-        View view = binding.getRoot();
+        vm_fragmentPackRequestPrimary = new VM_FragmentPackRequestPrimary(context);
+        binding.setRequestprimery(vm_fragmentPackRequestPrimary);
+        view = binding.getRoot();
         ButterKnife.bind(this, view);
-        BackClick(view);
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
 
@@ -88,18 +90,6 @@ public class FragmentPackRequestPrimery extends Fragment {
             }
         });
     }//_____________________________________________________________________________________________ End SetMaterialSpinnersItems
-
-
-
-    private void BackClick(View view) {//____________________________________________________________________ Start BackClick
-        view.setFocusableInTouchMode(true);
-        view.requestFocus();
-        view.setOnKeyListener(SetBackClickAndGoHome(true));
-        FPRPSpinnerHours.setOnKeyListener(SetBackClickAndGoHome(true));
-        FPRPSpinnerDay.setOnKeyListener(SetBackClickAndGoHome(true));
-
-
-    }//_____________________________________________________________________________________________ End BackClick
 
 
 

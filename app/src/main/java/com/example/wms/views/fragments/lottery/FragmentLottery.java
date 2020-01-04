@@ -12,7 +12,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentLotteryBinding;
-import com.example.wms.viewmodels.lottery.FragmentLotteryViewModel;
+import com.example.wms.viewmodels.lottery.VM_FragmentLottery;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
@@ -25,7 +25,8 @@ import static com.example.wms.utility.StaticFunctions.SetBackClickAndGoHome;
 public class FragmentLottery extends Fragment {
 
     private Context context;
-    private FragmentLotteryViewModel fragmentLotteryViewModel;
+    private VM_FragmentLottery vm_fragmentLottery;
+    private View view;
 
     @BindView(R.id.FragmentLotteryTab)
     SmartTabLayout FragmentLotteryTab;
@@ -36,22 +37,20 @@ public class FragmentLottery extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
+        this.context = getContext();
         FragmentLotteryBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_lottery, container, false
         );
-        fragmentLotteryViewModel = new FragmentLotteryViewModel(context);
-        binding.setLattery(fragmentLotteryViewModel);
-        View view = binding.getRoot();
+        vm_fragmentLottery = new VM_FragmentLottery(context);
+        binding.setLattery(vm_fragmentLottery);
+        view = binding.getRoot();
         ButterKnife.bind(this, view);
-        BackClick(view);
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
-
-
-    public FragmentLottery(Context context) {//_____________________________________________________ Start FragmentLottery
-        this.context = context;
-    }//_____________________________________________________________________________________________ End FragmentLottery
 
 
     public FragmentLottery() {//____________________________________________________________________ Start FragmentLottery
@@ -67,15 +66,11 @@ public class FragmentLottery extends Fragment {
 
     private void SetTabs() {//______________________________________________________________________ Start SetTabs
 
-        FragmentLotteryGiveScore FragmentLotteryGiveScore = new FragmentLotteryGiveScore(context);
-        FragmentLotteryResult lotteryResult = new FragmentLotteryResult(context);
-        FragmentLotteryPrimery lotteryPrimery = new FragmentLotteryPrimery(context);
-
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getChildFragmentManager(), FragmentPagerItems.with(context)
-                .add(R.string.HowGiveScore, FragmentLotteryGiveScore.getClass())
-                .add(R.string.LotteryResult, lotteryResult.getClass())
-                .add(R.string.Lottery, lotteryPrimery.getClass())
+                .add(R.string.HowGiveScore, FragmentLotteryGiveScore.class)
+                .add(R.string.LotteryResult, FragmentLotteryResult.class)
+                .add(R.string.Lottery, FragmentLotteryPrimery.class)
                 .create());
 
         FragmentLotteryView.setAdapter(adapter);
@@ -83,17 +78,6 @@ public class FragmentLottery extends Fragment {
         FragmentLotteryView.setCurrentItem(2);
 
     }//_____________________________________________________________________________________________ End SetTabs
-
-
-
-    private void BackClick(View view) {//____________________________________________________________________ Start BackClick
-        view.setFocusableInTouchMode(true);
-        view.requestFocus();
-        view.setOnKeyListener(SetBackClickAndGoHome(true));
-    }//_____________________________________________________________________________________________ End BackClick
-
-
-
 
 
 }

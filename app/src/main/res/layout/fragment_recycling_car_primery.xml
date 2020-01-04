@@ -4,7 +4,7 @@
     <data>
         <variable
             name="recyclingcarprimery"
-            type="com.example.wms.viewmodels.collectrequest.recyclingcar.FragmentRecyclingCarPrimeryViewModel" />
+            type="com.example.wms.viewmodels.collectrequest.recyclingcar.VM_FragmentRecyclingCarPrimary" />
     </data>
 
     <LinearLayout

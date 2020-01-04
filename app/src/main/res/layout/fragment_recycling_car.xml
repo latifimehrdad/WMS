@@ -5,7 +5,7 @@
     <data>
         <variable
             name="recyclingcar"
-            type="com.example.wms.viewmodels.collectrequest.recyclingcar.FragmentRecyclingCarViewModel" />
+            type="com.example.wms.viewmodels.collectrequest.recyclingcar.VM_FragmentRecyclingCar" />
     </data>
 
     <RelativeLayout

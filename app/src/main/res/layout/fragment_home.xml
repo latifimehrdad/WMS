@@ -1,286 +1,281 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="home"
-            type="com.example.wms.viewmodels.main.FragmentHomeViewModel" />
+            type="com.example.wms.viewmodels.main.VM_FragmentHome" />
     </data>
 
-
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="@dimen/_10sdp"
-        android:gravity="center_horizontal"
-        >
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="@dimen/_5sdp"
-            >
-
-            <ProgressBar
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="@dimen/_100sdp"
-                android:layout_height="@dimen/_100sdp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/circle_shape"
-                android:indeterminate="false"
-                android:progress="28"
-                android:progressDrawable="@drawable/circle_progressbar" />
-
-            <LinearLayout
-                android:id="@+id/youScorelayout"
-                android:layout_width="@dimen/_80sdp"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/HomeYouScore"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/_10sdp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="28"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/_10sdp" />
-
-            </LinearLayout>
-
-
-        </RelativeLayout>
-
+        tools:contexte=".views.fragments.home.FragmentHome">
 
         <LinearLayout
-            android:id="@+id/scoreLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/fhTextAve"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="bottom"
-                    android:text="80"
-                    android:textColor="@color/mlHomeAveScore"
-                    android:textSize="@dimen/_10sdp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_marginRight="@dimen/_5sdp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical|bottom"
-                    android:text="@string/HomeAveScore"
-                    android:textColor="@color/mlHomeAveScore"
-                    android:textSize="@dimen/_10sdp" />
-
-                <ImageView
-                    android:layout_width="@dimen/_25sdp"
-                    android:layout_height="@dimen/_25sdp"
-                    android:src="@drawable/logoavgscore" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="bottom"
-                    android:text="226"
-                    android:textColor="@color/mlHomeMaxScore"
-                    android:textSize="@dimen/_10sdp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_marginRight="@dimen/_5sdp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical|bottom"
-                    android:text="@string/HomeMaxScore"
-                    android:textColor="@color/mlHomeMaxScore"
-                    android:textSize="@dimen/_10sdp" />
-
-                <ImageView
-                    android:layout_width="@dimen/_25sdp"
-                    android:layout_height="@dimen/_25sdp"
-                    android:src="@drawable/logomaxscore" />
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/scoreLayoutChart"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="-8dp"
-            >
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/_15sdp"
-                    android:layout_height="@dimen/_15sdp"
-                    android:src="@drawable/logoavgscorechart" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/_15sdp"
-                    android:layout_height="@dimen/_15sdp"
-                    android:src="@drawable/logomaxscorechart" />
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-
-        <RelativeLayout
-            android:id="@+id/footerprimery"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:gravity="center"
-            >
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/_10sdp">
 
             <RelativeLayout
-                android:id="@+id/footer"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/_5sdp">
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/logomenu"
+                <ProgressBar
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_100sdp"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    />
+                    android:background="@drawable/circle_shape"
+                    android:indeterminate="false"
+                    android:progress="28"
+                    android:progressDrawable="@drawable/circle_progressbar" />
 
-                <TextView
-                    android:id="@+id/footerup"
-                    android:layout_width="@dimen/_10sdp"
-                    android:layout_height="@dimen/_10sdp"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:textColor="@color/mlWhite"
-                    android:textSize="@dimen/_11sdp"
-                    android:text="@string/FragmentPackRequestPrimery"
-                    android:gravity="center"
-                    />
-
-
-                <TextView
-                    android:id="@+id/footerdown"
-                    android:layout_width="@dimen/_10sdp"
-                    android:layout_height="@dimen/_10sdp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:textColor="@color/mlWhite"
-                    android:textSize="@dimen/_11sdp"
-                    android:text="@string/FragmentCollectRequst"
-                    android:gravity="center"
-                    />
-
-
-                <com.example.wms.views.custom.textview.VerticalTextView
-                    android:id="@+id/footerleft"
-                    android:layout_width="@dimen/_10sdp"
-                    android:layout_height="@dimen/_10sdp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:text="@string/Lottery"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/_11sdp"
-                    app:direction="downtoup"
-                    android:gravity="center"
-                    />
-
-                <com.example.wms.views.custom.textview.VerticalTextView
-                    android:id="@+id/footerright"
-                    android:layout_width="@dimen/_10sdp"
-                    android:layout_height="@dimen/_10sdp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:text="@string/FragmentSeparation"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/_11sdp"
-                    app:direction="downtoup"
-                    android:gravity="center"
-                    />
-
-
-                <TextView
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:id="@+id/youScorelayout"
+                    android:layout_width="@dimen/_80sdp"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@id/footerright"
-                    android:layout_toRightOf="@id/footerleft"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/_11sdp"
-                    android:text="@string/Letsnotthrowawaythefuture"
-                    android:gravity="center"
-                    />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/HomeYouScore"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/_10sdp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="28"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/_10sdp" />
+
+                </LinearLayout>
+
 
             </RelativeLayout>
 
-        </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/scoreLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/fhTextAve"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom"
+                        android:text="80"
+                        android:textColor="@color/mlHomeAveScore"
+                        android:textSize="@dimen/_10sdp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|bottom"
+                        android:text="@string/HomeAveScore"
+                        android:textColor="@color/mlHomeAveScore"
+                        android:textSize="@dimen/_10sdp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:src="@drawable/logoavgscore" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom"
+                        android:text="226"
+                        android:textColor="@color/mlHomeMaxScore"
+                        android:textSize="@dimen/_10sdp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|bottom"
+                        android:text="@string/HomeMaxScore"
+                        android:textColor="@color/mlHomeMaxScore"
+                        android:textSize="@dimen/_10sdp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:src="@drawable/logomaxscore" />
+
+                </LinearLayout>
 
 
+            </LinearLayout>
 
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/scoreLayoutChart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-8dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:src="@drawable/logoavgscorechart" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:src="@drawable/logomaxscorechart" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/footerprimery"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:gravity="center">
+
+                <RelativeLayout
+                    android:id="@+id/footer"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/logomenu" />
+
+                    <TextView
+                        android:id="@+id/footerup"
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+                        android:text="@string/FragmentPackRequestPrimery"
+                        android:textColor="@color/mlWhite"
+                        android:textSize="@dimen/_11sdp" />
+
+
+                    <TextView
+                        android:id="@+id/footerdown"
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+                        android:text="@string/FragmentCollectRequst"
+                        android:textColor="@color/mlWhite"
+                        android:textSize="@dimen/_11sdp" />
+
+
+                    <com.example.wms.views.custom.textview.VerticalTextView
+                        android:id="@+id/footerleft"
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:text="@string/Lottery"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/_11sdp"
+                        app:direction="downtoup" />
+
+                    <com.example.wms.views.custom.textview.VerticalTextView
+                        android:id="@+id/footerright"
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:text="@string/FragmentSeparation"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/_11sdp"
+                        app:direction="downtoup" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@id/footerright"
+                        android:layout_toRightOf="@id/footerleft"
+                        android:gravity="center"
+                        android:text="@string/Letsnotthrowawaythefuture"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/_11sdp" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </FrameLayout>
 
 
 </layout>

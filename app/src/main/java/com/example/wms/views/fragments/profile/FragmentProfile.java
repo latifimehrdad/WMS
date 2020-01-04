@@ -16,7 +16,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentProfileBinding;
-import com.example.wms.viewmodels.user.profile.FragmentProfileViewModel;
+import com.example.wms.viewmodels.user.profile.VM_FragmentProfile;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
@@ -24,12 +24,10 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.wms.utility.StaticFunctions.SetBackClickAndGoHome;
-
 public class FragmentProfile extends Fragment {
 
     private Context context;
-    private FragmentProfileViewModel fragmentProfileViewModel;
+    private VM_FragmentProfile vm_fragmentProfile;
 
     @BindView(R.id.FragmentRegisteryTab)
     SmartTabLayout FragmentRegisteryTab;
@@ -40,20 +38,20 @@ public class FragmentProfile extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        this.context = getContext();
         FragmentProfileBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_profile, container, false
         );
-        fragmentProfileViewModel = new FragmentProfileViewModel(context);
-        binding.setProfile(fragmentProfileViewModel);
+        vm_fragmentProfile = new VM_FragmentProfile(context);
+        binding.setProfile(vm_fragmentProfile);
         View view = binding.getRoot();
         ButterKnife.bind(this, view);
-        BackClick(view);
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
 
 
-    public FragmentProfile(Context context) {//____________________________________________________ Start FragmentProfile
-        this.context = context;
+    public FragmentProfile() {//____________________________________________________________________ Start FragmentProfile
+
     }//_____________________________________________________________________________________________ End FragmentProfile
 
 
@@ -79,14 +77,6 @@ public class FragmentProfile extends Fragment {
         FragmentRegisteryView.setCurrentItem(2);
 
     }//_____________________________________________________________________________________________ End SetTabs
-
-
-
-    private void BackClick(View view) {//____________________________________________________________________ Start BackClick
-        view.setFocusableInTouchMode(true);
-        view.requestFocus();
-        view.setOnKeyListener(SetBackClickAndGoHome(true));
-    }//_____________________________________________________________________________________________ End BackClick
 
 
 }

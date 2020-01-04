@@ -13,7 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentBoothReceiveBinding;
-import com.example.wms.viewmodels.collectrequest.boothreceive.FragmentBoothReceiveViewModel;
+import com.example.wms.viewmodels.collectrequest.boothreceive.VM_FragmentBoothReceive;
 import com.example.wms.views.fragments.collectrequest.collectrequest.FragmentCollectRequestOrders;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
@@ -25,7 +25,8 @@ import butterknife.ButterKnife;
 public class FragmentBoothReceive extends Fragment {
 
     private Context context;
-    private FragmentBoothReceiveViewModel fragmentBoothReceiveViewModel;
+    private VM_FragmentBoothReceive vm_fragmentBoothReceive;
+    private View view;
 
     @BindView(R.id.FragmentBoothTab)
     SmartTabLayout FragmentBoothTab;
@@ -35,20 +36,23 @@ public class FragmentBoothReceive extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
+        this.context = getContext();
         FragmentBoothReceiveBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_booth_receive,container, false
         );
-        fragmentBoothReceiveViewModel = new FragmentBoothReceiveViewModel(context);
-        binding.setBoothreceive(fragmentBoothReceiveViewModel);
-        View view = binding.getRoot();
+        vm_fragmentBoothReceive = new VM_FragmentBoothReceive(context);
+        binding.setBoothreceive(vm_fragmentBoothReceive);
+        view = binding.getRoot();
         ButterKnife.bind(this, view);
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
 
 
-    public FragmentBoothReceive(Context context) {//________________________________________________ Start FragmentBoothReceive
-        this.context = context;
+    public FragmentBoothReceive() {//_______________________________________________________________ Start FragmentBoothReceive
     }//_____________________________________________________________________________________________ End FragmentBoothReceive
 
 
@@ -62,13 +66,10 @@ public class FragmentBoothReceive extends Fragment {
 
     private void SetTabs() {//______________________________________________________________________ Start SetTabs
 
-        FragmentBoothReceivePrimery boothReceivePrimery = new FragmentBoothReceivePrimery(context);
-        FragmentCollectRequestOrders collectRequestOrders = new FragmentCollectRequestOrders(context);
-
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getChildFragmentManager(), FragmentPagerItems.with(context)
-                .add(R.string.FragmentCollectRequestOrder, collectRequestOrders.getClass())
-                .add(R.string.FragmentCollectRequestBooth, boothReceivePrimery.getClass())
+                .add(R.string.FragmentCollectRequestOrder, FragmentCollectRequestOrders.class)
+                .add(R.string.FragmentCollectRequestBooth, FragmentBoothReceivePrimery.class)
                 .create());
 
         FragmentBoothView.setAdapter(adapter);

@@ -4,7 +4,7 @@
     <data>
         <variable
             name="collectorders"
-            type="com.example.wms.viewmodels.collectrequest.collectrequest.FragmentCollectRequestOrdersViewModel" />
+            type="com.example.wms.viewmodels.collectrequest.collectrequest.VM_FragmentCollectRequestOrders" />
     </data>
 
     <LinearLayout

@@ -1,6 +1,8 @@
 package com.example.wms.views.activitys;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
@@ -26,7 +28,6 @@ public class LoginActivity extends AppCompatActivity {
     private VM_ActivityLogin vm_activityLogin;
     private NavController navController;
     boolean doubleBackToExitPressedOnce = false;
-
 
 
     @Override
@@ -58,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
 
         NavDestination navDestination = navController.getCurrentDestination();
         String fragment = navDestination.getLabel().toString();
-        if (!fragment.equalsIgnoreCase("fragment_fragment_login")){
+        if (!fragment.equalsIgnoreCase("fragment_fragment_login")) {
             super.onBackPressed();
             return;
         }
@@ -80,7 +81,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         }, 2000);
     }//_____________________________________________________________________________________________ End onBackPressed
-
 
 
 }

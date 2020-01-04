@@ -3,7 +3,7 @@
     <data>
         <variable
             name="givescore"
-            type="com.example.wms.viewmodels.lottery.FragmentLotteryGiveScoreViewModel" />
+            type="com.example.wms.viewmodels.lottery.VM_FragmentLotteryGiveScore" />
     </data>
 
     <LinearLayout

@@ -19,17 +19,17 @@ import static com.example.wms.utility.StaticFunctions.CheckResponse;
 import static com.example.wms.utility.StaticFunctions.GetAuthorization;
 import static com.example.wms.utility.StaticFunctions.GetMessage;
 
-public class FragmentProfileCodeViewModel {
+public class VM_FragmentProfileCode {
 
     private Context context;
-    public PublishSubject<String> Observables = null;
+    private PublishSubject<String> Observables = null;
     private String BuildingRenovationCode;
     private String MessageResponcse;
 
-    public FragmentProfileCodeViewModel(Context context) {//_______________________________________ Start FragmentProfileCodeViewModel
+    public VM_FragmentProfileCode(Context context) {//_______________________________________ Start VM_FragmentProfileCode
         this.context = context;
         Observables = PublishSubject.create();
-    }//_____________________________________________________________________________________________ End FragmentProfileCodeViewModel
+    }//_____________________________________________________________________________________________ End VM_FragmentProfileCode
 
 
 
@@ -124,4 +124,9 @@ public class FragmentProfileCodeViewModel {
     public String getMessageResponcse() {//_________________________________________________________ Start getMessageResponcse
         return MessageResponcse;
     }//_____________________________________________________________________________________________ End getMessageResponcse
+
+
+    public PublishSubject<String> getObservables() {//______________________________________________ Start getObservables
+        return Observables;
+    }//_____________________________________________________________________________________________ End getObservables
 }

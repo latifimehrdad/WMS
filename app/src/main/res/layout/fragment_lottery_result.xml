@@ -4,7 +4,7 @@
     <data>
         <variable
             name="lotteryresult"
-            type="com.example.wms.viewmodels.lottery.FragmentLotteryResultViewModel" />
+            type="com.example.wms.viewmodels.lottery.VM_FragmentLotteryResult" />
     </data>
 
     <LinearLayout

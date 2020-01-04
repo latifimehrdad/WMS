@@ -3,7 +3,7 @@
     <data>
         <variable
             name="lotteryprimery"
-            type="com.example.wms.viewmodels.lottery.FragmentLotteryPrimeryViewModel" />
+            type="com.example.wms.viewmodels.lottery.VM_FragmentLotteryPrimary" />
     </data>
 
     <LinearLayout

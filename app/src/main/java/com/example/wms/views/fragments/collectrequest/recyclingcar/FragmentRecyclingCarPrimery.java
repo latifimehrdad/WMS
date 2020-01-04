@@ -13,11 +13,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentRecyclingCarPrimeryBinding;
-import com.example.wms.viewmodels.collectrequest.recyclingcar.FragmentRecyclingCarPrimeryViewModel;
-import com.example.wms.views.activitys.MainActivity;
+import com.example.wms.viewmodels.collectrequest.recyclingcar.VM_FragmentRecyclingCarPrimary;
 import com.jaredrummler.materialspinner.MaterialSpinner;
-
-import org.w3c.dom.Text;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,7 +22,8 @@ import butterknife.ButterKnife;
 public class FragmentRecyclingCarPrimery extends Fragment {
 
     private Context context;
-    private FragmentRecyclingCarPrimeryViewModel fragmentRecyclingCarPrimeryViewModel;
+    private VM_FragmentRecyclingCarPrimary vm_fragmentRecyclingCarPrimary;
+    private View view;
 
     @BindView(R.id.FRCPSpinnerHours)
     MaterialSpinner FRCPSpinnerHours;
@@ -42,22 +40,20 @@ public class FragmentRecyclingCarPrimery extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
+        this.context = getContext();
         FragmentRecyclingCarPrimeryBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_recycling_car_primery, container, false
         );
-        fragmentRecyclingCarPrimeryViewModel = new FragmentRecyclingCarPrimeryViewModel(context);
-        binding.setRecyclingcarprimery(fragmentRecyclingCarPrimeryViewModel);
-        View view = binding.getRoot();
+        vm_fragmentRecyclingCarPrimary = new VM_FragmentRecyclingCarPrimary(context);
+        binding.setRecyclingcarprimery(vm_fragmentRecyclingCarPrimary);
+        view = binding.getRoot();
         ButterKnife.bind(this, view);
-        BackClick(view);
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
-
-
-    public FragmentRecyclingCarPrimery(Context context) {//_________________________________________ Start FragmentRecyclingCarPrimery
-        this.context = context;
-    }//_____________________________________________________________________________________________ End FragmentRecyclingCarPrimery
 
 
     public FragmentRecyclingCarPrimery() {//________________________________________________________ Start FragmentRecyclingCarPrimery
@@ -101,19 +97,6 @@ public class FragmentRecyclingCarPrimery extends Fragment {
 
 
 
-    private void BackClick(View view) {//____________________________________________________________________ Start BackClick
-        view.setFocusableInTouchMode(true);
-        view.requestFocus();
-        view.setOnKeyListener(SetKey(view));
-        FRCPSpinnerHours.setOnKeyListener(SetKey(FRCPSpinnerHours));
-        FRCPSpinnerDay.setOnKeyListener(SetKey(FRCPSpinnerDay));
-
-
-    }//_____________________________________________________________________________________________ End BackClick
-
-
-
-
     private View.OnKeyListener SetKey(View view){//_________________________________________________ Start SetBackClickAndGoHome
         return new View.OnKeyListener() {
             @Override
@@ -125,7 +108,7 @@ public class FragmentRecyclingCarPrimery extends Fragment {
                 if (keyCode != 4) {
                     return false;
                 }
-                MainActivity.FragmentMessage.onNext("CollectRequest");
+                //MainActivity.FragmentMessage.onNext("CollectRequest");
                 return true;
             }
         };

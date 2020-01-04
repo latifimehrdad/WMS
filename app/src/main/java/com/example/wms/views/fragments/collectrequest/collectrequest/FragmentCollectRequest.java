@@ -11,7 +11,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentCollectRequstBinding;
-import com.example.wms.viewmodels.collectrequest.collectrequest.FragmentCollectRequestViewModel;
+import com.example.wms.viewmodels.collectrequest.collectrequest.VM_FragmentCollectRequest;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
@@ -24,7 +24,8 @@ import static com.example.wms.utility.StaticFunctions.SetBackClickAndGoHome;
 public class FragmentCollectRequest extends Fragment {
 
     private Context context;
-    private FragmentCollectRequestViewModel fragmentCollectRequestViewModel;
+    private VM_FragmentCollectRequest vm_fragmentCollectRequest;
+    private View view;
 
     @BindView(R.id.FragmentCollectTab)
     SmartTabLayout FragmentCollectTab;
@@ -33,21 +34,23 @@ public class FragmentCollectRequest extends Fragment {
     ViewPager FragmentCollectView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
+        this.context = getContext();
         FragmentCollectRequstBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_collect_requst,container,false
         );
-        fragmentCollectRequestViewModel = new FragmentCollectRequestViewModel(context);
-        binding.setCollectrequest(fragmentCollectRequestViewModel);
-        View view = binding.getRoot();
+        vm_fragmentCollectRequest = new VM_FragmentCollectRequest(context);
+        binding.setCollectrequest(vm_fragmentCollectRequest);
+        view = binding.getRoot();
         ButterKnife.bind(this, view);
-        BackClick(view);
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
 
 
-    public FragmentCollectRequest(Context context) {//______________________________________________ Start FragmentCollectRequest
-        this.context = context;
+    public FragmentCollectRequest() {//_____________________________________________________________ Start FragmentCollectRequest
     }//_____________________________________________________________________________________________ End FragmentCollectRequest
 
 
@@ -60,13 +63,10 @@ public class FragmentCollectRequest extends Fragment {
 
     private void SetTabs() {//______________________________________________________________________ Start SetTabs
 
-        FragmentCollectRequestPrimery fragmentCollectRequestPrimery = new FragmentCollectRequestPrimery(context);
-        FragmentCollectRequestOrders collectRequestOrders = new FragmentCollectRequestOrders(context);
-
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getChildFragmentManager(), FragmentPagerItems.with(context)
-                .add(R.string.FragmentCollectRequestOrder, collectRequestOrders.getClass())
-                .add(R.string.FragmentCollectRequst, fragmentCollectRequestPrimery.getClass())
+                .add(R.string.FragmentCollectRequestOrder, FragmentCollectRequestOrders.class)
+                .add(R.string.FragmentCollectRequst, FragmentCollectRequestPrimery.class)
                 .create());
 
         FragmentCollectView.setAdapter(adapter);
@@ -74,15 +74,6 @@ public class FragmentCollectRequest extends Fragment {
         FragmentCollectView.setCurrentItem(1);
 
     }//_____________________________________________________________________________________________ End SetTabs
-
-
-
-    private void BackClick(View view) {//____________________________________________________________________ Start BackClick
-        view.setFocusableInTouchMode(true);
-        view.requestFocus();
-        view.setOnKeyListener(SetBackClickAndGoHome(true));
-    }//_____________________________________________________________________________________________ End BackClick
-
 
 
 

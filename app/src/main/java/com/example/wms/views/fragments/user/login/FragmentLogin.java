@@ -2,6 +2,8 @@ package com.example.wms.views.fragments.user.login;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -18,11 +20,15 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.cunoraz.gifview.library.GifView;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentFragmentLoginBinding;
+import com.example.wms.utility.StaticFunctions;
 import com.example.wms.viewmodels.user.login.VM_FragmentLogin;
+import com.example.wms.views.activitys.LoginActivity;
 import com.example.wms.views.activitys.MainActivity;
 import com.example.wms.views.application.ApplicationWMS;
 import com.example.wms.views.dialogs.DialogProgress;
@@ -49,7 +55,7 @@ public class FragmentLogin extends Fragment {
     private NavController navController;
 
     @BindView(R.id.LoginClick)
-    LinearLayout LoginClick;
+    RelativeLayout LoginClick;
 
     @BindView(R.id.SignUpClick)
     LinearLayout SignUpClick;
@@ -65,6 +71,15 @@ public class FragmentLogin extends Fragment {
 
     @BindView(R.id.ForgetPassword)
     TextView ForgetPassword;
+
+    @BindView(R.id.txtLoading)
+    TextView txtLoading;
+
+    @BindView(R.id.gifLoading)
+    GifView gifLoading;
+
+    @BindView(R.id.imgLoading)
+    ImageView imgLoading;
 
 
     public FragmentLogin() {//______________________________________________________________________ Start FragmentLogin
@@ -104,6 +119,8 @@ public class FragmentLogin extends Fragment {
         EditPassword.setInputType(InputType.TYPE_CLASS_TEXT |
                 InputType.TYPE_TEXT_VARIATION_PASSWORD);
         passVisible = false;
+        DismissLoading();
+        CheckLogin();
     }//_____________________________________________________________________________________________ End init
 
 
@@ -112,34 +129,34 @@ public class FragmentLogin extends Fragment {
         observer = new DisposableObserver<String>() {
             @Override
             public void onNext(String s) {
-                switch (s) {
-                    case "SuccessfulToken":
-                        vm_fragmentLogin.GetLoginInformation();
-                        break;
-                    case "Successful":
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                MainActivity.FragmentMessage.onNext("CheckProfile");
-                            }
-                        }, 100);
-//                                        finish();
-                        break;
-                    case "Error":
-                        ShowMessage(vm_fragmentLogin.getMessageResponse()
-                                , getResources().getColor(R.color.mlWhite),
-                                getResources().getDrawable(R.drawable.ic_error));
-                        break;
-                    case "Failure":
-                        ShowMessage(getResources().getString(R.string.NetworkError),
-                                getResources().getColor(R.color.mlWhite),
-                                getResources().getDrawable(R.drawable.ic_error));
-                        break;
-                    default:
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        DismissLoading();
+                        switch (s) {
+                            case "SuccessfulToken":
+                                vm_fragmentLogin.GetLoginInformation();
+                                break;
+                            case "Successful":
+                                CheckLogin();
+                                break;
+                            case "Error":
+                                ShowMessage(vm_fragmentLogin.getMessageResponse()
+                                        , getResources().getColor(R.color.mlWhite),
+                                        getResources().getDrawable(R.drawable.ic_error));
+                                break;
+                            case "Failure":
+                                ShowMessage(getResources().getString(R.string.NetworkError),
+                                        getResources().getColor(R.color.mlWhite),
+                                        getResources().getDrawable(R.drawable.ic_error));
+                                break;
+                            default:
 
-                        break;
-                }
+                                break;
+                        }
+                    }
+                });
+
             }
 
             @Override
@@ -160,6 +177,22 @@ public class FragmentLogin extends Fragment {
                 .subscribe(observer);
 
     }//_____________________________________________________________________________________________ End ObserverObservables
+
+
+
+    private void CheckLogin() {//___________________________________________________________________ Start CheckProfile
+
+        SharedPreferences prefs = context.getSharedPreferences("wmstoken", 0);
+        if (prefs != null) {
+            String PhoneNumber = prefs.getString("phonenumber", null);
+            if (PhoneNumber != null) {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        }
+
+    }//_____________________________________________________________________________________________ End CheckProfile
 
 
     private void SetTextWatcher() {//_______________________________________________________________ Start SetTextWatcher
@@ -188,7 +221,7 @@ public class FragmentLogin extends Fragment {
             public void onClick(View v) {
 
                 if (CheckEmpty()) {
-//                    ShowProgressDialog();
+                    ShowLoading();
                     vm_fragmentLogin.GetLoginToken(
                             EditPhoneNumber.getText().toString(),
                             EditPassword.getText().toString()
@@ -203,7 +236,7 @@ public class FragmentLogin extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("type", "singup");
                 bundle.putString("PhoneNumber", EditPhoneNumber.getText().toString());
-                navController.navigate(R.id.action_fragmentLogin_to_fragmentSendNumber,bundle);
+                navController.navigate(R.id.action_fragmentLogin_to_fragmentSendNumber, bundle);
             }
         });
 
@@ -280,6 +313,25 @@ public class FragmentLogin extends Fragment {
                 .getApplicationUtility()
                 .ShowMessage(context, message, color, icon, getFragmentManager());
     }//_____________________________________________________________________________________________ End ShowMessage
+
+
+    private void DismissLoading() {//_______________________________________________________________ Start DismissLoading
+        StaticFunctions.isCancel = true;
+        txtLoading.setText(getResources().getString(R.string.LogIn));
+        LoginClick.setBackground(getResources().getDrawable(R.drawable.save_info_button));
+        gifLoading.setVisibility(View.GONE);
+        imgLoading.setVisibility(View.VISIBLE);
+
+    }//_____________________________________________________________________________________________ End DismissLoading
+
+
+    private void ShowLoading() {//__________________________________________________________________ Start ShowLoading
+        StaticFunctions.isCancel = false;
+        txtLoading.setText(getResources().getString(R.string.Cancel));
+        LoginClick.setBackground(getResources().getDrawable(R.drawable.button_red));
+        gifLoading.setVisibility(View.VISIBLE);
+        imgLoading.setVisibility(View.INVISIBLE);
+    }//_____________________________________________________________________________________________ End ShowLoading
 
 
     @Override

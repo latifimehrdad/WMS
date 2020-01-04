@@ -5,6 +5,7 @@ Create By Mehrdad Latifi in
 package com.example.wms.views.fragments.home;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.os.Handler;
@@ -19,21 +20,26 @@ import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentHomeBinding;
-import com.example.wms.viewmodels.main.FragmentHomeViewModel;
-import com.example.wms.views.activitys.MainActivity;
+import com.example.wms.viewmodels.main.VM_FragmentHome;
 import com.example.wms.views.custom.textview.VerticalTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.example.wms.views.activitys.MainActivity.complateprofile;
+
 public class FragmentHome extends Fragment {
 
     private Context context;
-    private FragmentHomeViewModel fragmentHomeViewModel;
+    private VM_FragmentHome vm_fragmentHome;
     boolean doubleBackToExitPressedOnce = false;
+    private NavController navController;
+    private View view;
 
     @BindView(R.id.footerprimery)
     RelativeLayout footerprimery;
@@ -63,30 +69,35 @@ public class FragmentHome extends Fragment {
     LinearLayout scoreLayoutChart;
 
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
+        this.context = getActivity();
         FragmentHomeBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_home, container, false
         );
-        fragmentHomeViewModel = new FragmentHomeViewModel(context);
-        binding.setHome(fragmentHomeViewModel);
-        View view = binding.getRoot();
+        vm_fragmentHome = new VM_FragmentHome(context);
+        binding.setHome(vm_fragmentHome);
+        view = binding.getRoot();
         ButterKnife.bind(this, view);
         BackClick(view);
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
 
 
-    public FragmentHome(Context context) {//________________________________________________________ Start FragmentHome
-        this.context = context;
+    public FragmentHome() {//_______________________________________________________________________ Start FragmentHome
+
     }//_____________________________________________________________________________________________ End FragmentHome
 
 
     @Override
     public void onStart() {//_______________________________________________________________________ Start onStart
         super.onStart();
+        navController = Navigation.findNavController(view);
         SetLayout();
         SetClick();
-
+        CheckProfile();
     }//_____________________________________________________________________________________________ End onStart
 
 
@@ -96,28 +107,28 @@ public class FragmentHome extends Fragment {
         footerup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.FragmentMessage.onNext("PckRequest");
+                navController.navigate(R.id.action_fragmentHome_to_fragmentPackRequest);
             }
         });
 
         footerdown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.FragmentMessage.onNext("CollectRequest");
+                navController.navigate(R.id.action_fragmentHome_to_fragmentCollectRequest);
             }
         });
 
         footerleft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.FragmentMessage.onNext("Lottery");
+                navController.navigate(R.id.action_fragmentHome_to_fragmentLottery);
             }
         });
 
         footerright.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.FragmentMessage.onNext("Learn");
+                navController.navigate(R.id.action_fragmentHome_to_fragmentLearn);
             }
         });
 
@@ -125,21 +136,21 @@ public class FragmentHome extends Fragment {
         youScorelayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.FragmentMessage.onNext("Lottery");
+                navController.navigate(R.id.action_fragmentHome_to_fragmentLottery);
             }
         });
 
         scoreLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.FragmentMessage.onNext("Lottery");
+                navController.navigate(R.id.action_fragmentHome_to_fragmentLottery);
             }
         });
 
         scoreLayoutChart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.FragmentMessage.onNext("Lottery");
+                navController.navigate(R.id.action_fragmentHome_to_fragmentLottery);
             }
         });
 
@@ -219,6 +230,20 @@ public class FragmentHome extends Fragment {
             }
         };
     }//_____________________________________________________________________________________________ End SetBackClickAndGoHome
+
+
+    private void CheckProfile() {//_________________________________________________________________ Start CheckProfile
+
+        SharedPreferences prefs = context.getSharedPreferences("wmstoken", 0);
+        if (prefs == null) {
+
+        } else {
+            complateprofile = prefs.getBoolean("complateprofile", false);
+            if (complateprofile == false)
+                navController.navigate(R.id.action_fragmentHome_to_fragmentProfile);
+        }
+
+    }//_____________________________________________________________________________________________ End CheckProfile
 
 
 }

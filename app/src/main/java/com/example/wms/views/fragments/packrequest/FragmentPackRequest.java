@@ -12,7 +12,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentPackRequestBinding;
-import com.example.wms.viewmodels.packrequest.FragmentPackRequestViewModel;
+import com.example.wms.viewmodels.packrequest.VM_FragmentPackRequest;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
@@ -20,13 +20,12 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.wms.utility.StaticFunctions.SetBackClickAndGoHome;
-
 
 public class FragmentPackRequest extends Fragment {
 
     private Context context;
-    private FragmentPackRequestViewModel fragmentPackRequestViewModel;
+    private VM_FragmentPackRequest vm_fragmentPackRequest;
+    private View view;
 
     @BindView(R.id.FragmentPackRequestTab)
     SmartTabLayout FragmentPackRequestTab;
@@ -35,21 +34,24 @@ public class FragmentPackRequest extends Fragment {
     ViewPager FragmentPackRequestView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
+        this.context = getContext();
         FragmentPackRequestBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_pack_request, container, false
         );
-        fragmentPackRequestViewModel = new FragmentPackRequestViewModel(context);
-        binding.setPackrequst(fragmentPackRequestViewModel);
-        View view = binding.getRoot();
+        vm_fragmentPackRequest = new VM_FragmentPackRequest(context);
+        binding.setPackrequst(vm_fragmentPackRequest);
+        view = binding.getRoot();
         ButterKnife.bind(this, view);
-        BackClick(view);
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
 
 
-    public FragmentPackRequest(Context context) {//_________________________________________________ Start FragmentPackRequest
-        this.context = context;
+    public FragmentPackRequest() {//________________________________________________________________ Start FragmentPackRequest
+
     }//_____________________________________________________________________________________________ End FragmentPackRequest
 
 
@@ -74,14 +76,6 @@ public class FragmentPackRequest extends Fragment {
 
 
     }//_____________________________________________________________________________________________ End SetTabs
-
-
-
-    private void BackClick(View view) {//____________________________________________________________________ Start BackClick
-        view.setFocusableInTouchMode(true);
-        view.requestFocus();
-        view.setOnKeyListener(SetBackClickAndGoHome(true));
-    }//_____________________________________________________________________________________________ End BackClick
 
 
 

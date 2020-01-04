@@ -8,7 +8,6 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentProfileCodeBinding;
-import com.example.wms.viewmodels.user.profile.FragmentProfileCodeViewModel;
+import com.example.wms.viewmodels.user.profile.VM_FragmentProfileCode;
 import com.example.wms.views.activitys.MainActivity;
 import com.example.wms.views.application.ApplicationWMS;
 import com.example.wms.views.dialogs.DialogProgress;
@@ -38,9 +37,10 @@ import static com.example.wms.utility.StaticFunctions.TextChangeForChangeBack;
 public class FragmentProfileCode extends Fragment {
 
     private Context context;
-    private FragmentProfileCodeViewModel fragmentProfileCodeViewModel;
+    private VM_FragmentProfileCode vm_fragmentProfileCode;
     private View view;
     private DialogProgress progress;
+    private DisposableObserver<String> observer;
 
     @BindView(R.id.editBuildingRenovationCode)
     EditText editBuildingRenovationCode;
@@ -48,13 +48,16 @@ public class FragmentProfileCode extends Fragment {
     @BindView(R.id.btnSendCode)
     Button btnSendCode;
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
         this.context = getContext();
         FragmentProfileCodeBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_profile_code,container,false
         );
-        fragmentProfileCodeViewModel = new FragmentProfileCodeViewModel(context);
-        binding.setCode(fragmentProfileCodeViewModel);
+        vm_fragmentProfileCode = new VM_FragmentProfileCode(context);
+        binding.setCode(vm_fragmentProfileCode);
         view = binding.getRoot();
         ButterKnife.bind(this, view);
         return view;
@@ -68,69 +71,72 @@ public class FragmentProfileCode extends Fragment {
         ObserverObservables();
         SetTextWatcher();
         SetClick();
-
     }//_____________________________________________________________________________________________ End onStart
 
 
     private void GetCode() {//______________________________________________________________________ Start GetCode
         ShowProgressDialog(getResources().getString(R.string.GetBuildingRenovationCode));
-        fragmentProfileCodeViewModel.GetCode();
+        vm_fragmentProfileCode.GetCode();
     }//_____________________________________________________________________________________________ End GetCode
 
 
     private void ObserverObservables() {//__________________________________________________________ Start ObserverObservables
-        fragmentProfileCodeViewModel
-                .Observables
-                .observeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableObserver<String>() {
-                    @Override
-                    public void onNext(String s) {
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (progress != null)
-                                    progress.dismiss();
-                                switch (s) {
-                                    case "SuccessfulNull":
-                                        editBuildingRenovationCode.requestFocus();
-                                        break;
-                                    case "SuccessfulBank":
 
-                                        break;
-                                    case "SuccessfulEdit":
-                                        ShowMessage(fragmentProfileCodeViewModel.getMessageResponcse()
-                                                , getResources().getColor(R.color.mlWhite),
-                                                getResources().getDrawable(R.drawable.ic_check));
-                                        break;
-                                    case "SuccessfulGetCode":
-                                        editBuildingRenovationCode.setText(
-                                                fragmentProfileCodeViewModel
+        observer = new DisposableObserver<String>() {
+            @Override
+            public void onNext(String s) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (progress != null)
+                            progress.dismiss();
+                        switch (s) {
+                            case "SuccessfulNull":
+                                editBuildingRenovationCode.requestFocus();
+                                break;
+                            case "SuccessfulBank":
+
+                                break;
+                            case "SuccessfulEdit":
+                                ShowMessage(vm_fragmentProfileCode.getMessageResponcse()
+                                        , getResources().getColor(R.color.mlWhite),
+                                        getResources().getDrawable(R.drawable.ic_check));
+                                break;
+                            case "SuccessfulGetCode":
+                                editBuildingRenovationCode.setText(
+                                        vm_fragmentProfileCode
                                                 .getMessageResponcse()
-                                        );
-                                        break;
-                                    case "Failure":
-                                        ShowMessage(getResources().getString(R.string.NetworkError),
-                                                getResources().getColor(R.color.mlWhite),
-                                                getResources().getDrawable(R.drawable.ic_error));
-                                        break;
-                                    default:
-                                        break;
-                                }
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
+                                );
+                                break;
+                            case "Failure":
+                                ShowMessage(getResources().getString(R.string.NetworkError),
+                                        getResources().getColor(R.color.mlWhite),
+                                        getResources().getDrawable(R.drawable.ic_error));
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 });
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+
+
+        vm_fragmentProfileCode
+                .getObservables()
+                .observeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
 
     }//_____________________________________________________________________________________________ End ObserverObservables
 
@@ -156,8 +162,8 @@ public class FragmentProfileCode extends Fragment {
             public void onClick(View v) {
                 if (CheckEmpty()) {
                     ShowProgressDialog(null);
-                    fragmentProfileCodeViewModel.setBuildingRenovationCode(editBuildingRenovationCode.getText().toString());
-                    fragmentProfileCodeViewModel.SendCode();
+                    vm_fragmentProfileCode.setBuildingRenovationCode(editBuildingRenovationCode.getText().toString());
+                    vm_fragmentProfileCode.SendCode();
                 }
             }
         });
@@ -193,28 +199,12 @@ public class FragmentProfileCode extends Fragment {
     }//_____________________________________________________________________________________________ End ShowMessage
 
 
-    private void BackClick(boolean execute) {//_____________________________________________________ Start BackClick
-        view.setFocusableInTouchMode(true);
-        view.requestFocus();
-        view.setOnKeyListener(SetBackClickAndGoHome(execute));
-    }//_____________________________________________________________________________________________ End BackClick
-
 
     @Override
-    public void setMenuVisibility(boolean menuVisible) {//___________________________________________ Start setMenuVisibility
-        super.setMenuVisibility(menuVisible);
-        if (menuVisible) {
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    BackClick(MainActivity.complateprofile);
-                    GetCode();
-                }
-            },100);
-
-        }
-    }//_____________________________________________________________________________________________ End setMenuVisibility
+    public void onDestroy() {//_____________________________________________________________________ Start onDestroy
+        super.onDestroy();
+        observer.dispose();
+    }//_____________________________________________________________________________________________ End onDestroy
 
 
 }

@@ -7,7 +7,7 @@
 
         <variable
             name="requstaddress"
-            type="com.example.wms.viewmodels.packrequest.FragmentPackRequestAddressViewModel" />
+            type="com.example.wms.viewmodels.packrequest.VM_FragmentPackRequestAddress" />
     </data>
 
     <LinearLayout

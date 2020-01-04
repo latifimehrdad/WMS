@@ -5,7 +5,7 @@
     <data>
         <variable
             name="packrequst"
-            type="com.example.wms.viewmodels.packrequest.FragmentPackRequestViewModel" />
+            type="com.example.wms.viewmodels.packrequest.VM_FragmentPackRequest" />
     </data>
 
     <RelativeLayout

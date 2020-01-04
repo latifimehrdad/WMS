@@ -4,7 +4,7 @@
     <data>
         <variable
             name="collectrequest"
-            type="com.example.wms.viewmodels.collectrequest.collectrequest.FragmentCollectRequestViewModel" />
+            type="com.example.wms.viewmodels.collectrequest.collectrequest.VM_FragmentCollectRequest" />
     </data>
 
     <RelativeLayout

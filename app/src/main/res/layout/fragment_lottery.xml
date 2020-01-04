@@ -4,7 +4,7 @@
     <data>
         <variable
             name="lattery"
-            type="com.example.wms.viewmodels.lottery.FragmentLotteryViewModel" />
+            type="com.example.wms.viewmodels.lottery.VM_FragmentLottery" />
     </data>
 
     <RelativeLayout
