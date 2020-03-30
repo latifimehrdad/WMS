@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.wms.R;
@@ -45,6 +46,9 @@ public class FragmentSplash extends Fragment {
     @BindView(R.id.ImgLogo)
     ImageView ImgLogo;
 
+    @BindView(R.id.ButtonRefresh)
+    Button ButtonRefresh;
+
     public FragmentSplash() {//_____________________________________________________________________ Start FragmentSplash
         // Required empty public constructor
     }//_____________________________________________________________________________________________ End FragmentSplash
@@ -71,6 +75,15 @@ public class FragmentSplash extends Fragment {
     public void onStart() {//_______________________________________________________________________ Start onStart
         super.onStart();
         navController = Navigation.findNavController(view);
+        ButtonRefresh.setVisibility(View.GONE);
+
+        ButtonRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckToken();
+            }
+        });
+
         SetAnimation();
         ObserverObservables();
         CheckToken();
@@ -79,6 +92,8 @@ public class FragmentSplash extends Fragment {
 
 
     private void CheckToken() {//_______________________________ ___________________________________ Start CheckToken
+        ImgLogo.setVisibility(View.VISIBLE);
+        ButtonRefresh.setVisibility(View.GONE);
         SharedPreferences prefs = context.getSharedPreferences("wmstoken", 0);
         if (prefs == null) {
             GetTokenFromServer();
@@ -125,12 +140,16 @@ public class FragmentSplash extends Fragment {
                                 ShowMessage(getResources().getString(R.string.NetworkError),
                                         getResources().getColor(R.color.mlWhite),
                                         getResources().getDrawable(R.drawable.ic_error));
+                                ImgLogo.setVisibility(View.GONE);
+                                ButtonRefresh.setVisibility(View.VISIBLE);
                                 break;
 
                             case "Error":
                                 ShowMessage(vm_fragmentSplash.getMessageResponcse()
                                         , getResources().getColor(R.color.mlWhite),
                                         getResources().getDrawable(R.drawable.ic_error));
+                                ImgLogo.setVisibility(View.GONE);
+                                ButtonRefresh.setVisibility(View.VISIBLE);
                                 break;
                         }
                     }

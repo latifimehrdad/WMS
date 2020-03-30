@@ -22,9 +22,9 @@ import com.cunoraz.gifview.library.GifView;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentPackRequestAddressBinding;
 import com.example.wms.services.BackgroundServiceLocation;
+import com.example.wms.utility.MehrdadLatifiMap;
 import com.example.wms.viewmodels.packrequest.VM_FragmentPackRequestAddress;
 
-import com.example.wms.views.mlmap.MehrdadLatifiMap;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;

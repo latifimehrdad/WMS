@@ -26,7 +26,22 @@
                 android:id="@+id/ImgLogo"
                 android:layout_width="@dimen/_100sdp"
                 android:layout_height="@dimen/_100sdp"
+                android:visibility="gone"
                 android:src="@drawable/wmslogo" />
+
+            <Button
+                android:id="@+id/ButtonRefresh"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_25sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:background="@drawable/save_info_button"
+                android:text="@string/RegisterPerson"
+                android:visibility="gone"
+                android:textColor="@color/mlWhite"
+                android:textSize="@dimen/_13sdp" />
 
 
         </LinearLayout>

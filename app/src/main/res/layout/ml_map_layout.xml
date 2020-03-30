@@ -41,7 +41,6 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="invisible"
         >
 
         <RelativeLayout
