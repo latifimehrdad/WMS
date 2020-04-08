@@ -111,6 +111,9 @@ public class FragmentLogin extends Fragment {
         SetTextWatcher();
         SetClick();
         init();
+        if(observer != null)
+            observer.dispose();
+        observer = null;
         ObserverObservables();
     }//_____________________________________________________________________________________________ End onStart
 
@@ -337,7 +340,9 @@ public class FragmentLogin extends Fragment {
     @Override
     public void onDestroy() {//_____________________________________________________________________ Start onDestroy
         super.onDestroy();
-        observer.dispose();
+        if(observer != null)
+            observer.dispose();
+        observer = null;
     }//_____________________________________________________________________________________________ End onDestroy
 
 

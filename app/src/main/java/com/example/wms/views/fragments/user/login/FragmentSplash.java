@@ -85,6 +85,9 @@ public class FragmentSplash extends Fragment {
         });
 
         SetAnimation();
+        if(observer != null)
+            observer.dispose();
+        observer = null;
         ObserverObservables();
         CheckToken();
     }//_____________________________________________________________________________________________ End onStart
@@ -206,7 +209,9 @@ public class FragmentSplash extends Fragment {
     @Override
     public void onDestroy() {//_____________________________________________________________________ Start onDestroy
         super.onDestroy();
-        observer.dispose();
+        if(observer != null)
+            observer.dispose();
+        observer = null;
     }//_____________________________________________________________________________________________ End onDestroy
 
 

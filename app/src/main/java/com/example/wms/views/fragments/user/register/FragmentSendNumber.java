@@ -106,6 +106,9 @@ public class FragmentSendNumber extends Fragment {
         navController = Navigation.findNavController(view);
         SetClick();
         SetTextWatcher();
+        if(observer != null)
+            observer.dispose();
+        observer = null;
         ObserverObservables();
         init();
     }//_____________________________________________________________________________________________ End onStart
@@ -353,6 +356,8 @@ public class FragmentSendNumber extends Fragment {
     @Override
     public void onDestroy() {//_____________________________________________________________________ Start onDestroy
         super.onDestroy();
-        observer.dispose();
+        if(observer != null)
+            observer.dispose();
+        observer = null;
     }//_____________________________________________________________________________________________ End onDestroy
 }

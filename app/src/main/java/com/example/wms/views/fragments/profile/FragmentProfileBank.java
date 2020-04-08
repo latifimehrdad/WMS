@@ -82,6 +82,9 @@ public class FragmentProfileBank extends Fragment {
     @Override
     public void onStart() {//_______________________________________________________________________ Start onStart
         super.onStart();
+        if(observer != null)
+            observer.dispose();
+        observer = null;
         ObserverObservables();
         SetTextWatcher();
         SetClick();
@@ -283,5 +286,14 @@ public class FragmentProfileBank extends Fragment {
                 .ShowMessage(context, message, color, icon, getChildFragmentManager());
 
     }//_____________________________________________________________________________________________ End ShowMessage
+
+
+    @Override
+    public void onDestroy() {//_____________________________________________________________________ Start onDestroy
+        super.onDestroy();
+        if(observer != null)
+            observer.dispose();
+        observer = null;
+    }//_____________________________________________________________________________________________ End onDestroy
 
 }

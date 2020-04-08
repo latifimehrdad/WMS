@@ -175,4 +175,11 @@
         android:label="fragment_collect_request_orders"
         tools:layout="@layout/fragment_collect_request_orders" />
 
+    <fragment
+        android:id="@+id/fragmentGame"
+        android:name="com.example.wms.views.fragments.game.FragmentGame"
+        android:label="FragmentGame"
+        tools:layout="@layout/fragment_game"
+        />
+
 </navigation>

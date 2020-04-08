@@ -68,6 +68,9 @@ public class FragmentProfileCode extends Fragment {
     @Override
     public void onStart() {//_______________________________________________________________________ Start onStart
         super.onStart();
+        if(observer != null)
+            observer.dispose();
+        observer = null;
         ObserverObservables();
         SetTextWatcher();
         SetClick();
@@ -203,7 +206,9 @@ public class FragmentProfileCode extends Fragment {
     @Override
     public void onDestroy() {//_____________________________________________________________________ Start onDestroy
         super.onDestroy();
-        observer.dispose();
+        if(observer != null)
+            observer.dispose();
+        observer = null;
     }//_____________________________________________________________________________________________ End onDestroy
 
 

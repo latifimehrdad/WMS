@@ -36,6 +36,13 @@
             android:icon="@drawable/logolottery"
             android:title="@string/Lottery"/>
 
+
+        <item
+            android:id="@id/fragmentGame"
+            android:icon="@drawable/ic_airport_shuttle"
+            android:title="@string/Game"/>
+
+
         <item
             android:id="@id/fragmentCallWithUs"
             android:icon="@drawable/ic_supervisor_account_black_24dp"

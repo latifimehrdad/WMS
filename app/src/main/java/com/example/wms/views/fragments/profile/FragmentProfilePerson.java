@@ -134,6 +134,9 @@ public class FragmentProfilePerson extends Fragment {
     @Override
     public void onStart() {//_______________________________________________________________________ Start onStart
         super.onStart();
+        if(observer != null)
+            observer.dispose();
+        observer = null;
         ObserverObservables();
         TextProvinces.setText(getResources().getString(R.string.ChooseProvinces));
         TextCity.setText(getResources().getString(R.string.City_Prompt));
@@ -670,6 +673,8 @@ public class FragmentProfilePerson extends Fragment {
     @Override
     public void onDestroy() {//_____________________________________________________________________ Start onDestroy
         super.onDestroy();
-        observer.dispose();
+        if(observer != null)
+            observer.dispose();
+        observer = null;
     }//_____________________________________________________________________________________________ End onDestroy
 }

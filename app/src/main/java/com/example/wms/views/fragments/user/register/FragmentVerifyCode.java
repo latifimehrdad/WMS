@@ -48,6 +48,8 @@ public class FragmentVerifyCode extends Fragment {
     private String Password = "";
     private boolean ReTryGetSMSClick = false;
     private DialogProgress progress;
+    private Handler timer;
+    private Runnable runnable;
 
 
     @BindView(R.id.VerifyCode1)
@@ -104,6 +106,9 @@ public class FragmentVerifyCode extends Fragment {
         super.onStart();
         navController = Navigation.findNavController(view);
         SetPhoneNumberPAssword();
+        if(observer != null)
+            observer.dispose();
+        observer = null;
         ObserverObservables();
         VerifyCode1.requestFocus();
         SetBackVerifyCode();
@@ -138,8 +143,9 @@ public class FragmentVerifyCode extends Fragment {
         progressBar.setMax(Elapse * 2);
         progressBar.setProgress(Elapse);
         TimeElapsed.setVisibility(View.VISIBLE);
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+
+        timer = new Handler();
+        runnable = new Runnable() {
             @Override
             public void run() {
                 progressBar.setProgress(progressBar.getProgress() - 1);
@@ -149,12 +155,28 @@ public class FragmentVerifyCode extends Fragment {
                 TimeElapsed.setText(String.format("%02d", minutes) + " : " + String.format("%02d", seconds));
 
                 if (progressBar.getProgress() > 0)
-                    handler.postDelayed(this, 100);
+                    timer.postDelayed(this, 100);
                 else
                     ReTryGetSMS();
             }
-        }, 100);
+        };
+        timer.postDelayed(runnable, 100);
+
     }//_____________________________________________________________________________________________ End StartTimer
+
+
+
+    private void DismissProgress() {//______________________________________________________________ Start DismissProgress
+        if (progress != null)
+            progress.dismiss();
+
+        if(timer != null && runnable != null){
+            timer.removeCallbacks(runnable);
+            timer = null;
+            runnable = null;
+        }
+    }//_____________________________________________________________________________________________ End DismissProgress
+
 
 
 
@@ -390,7 +412,10 @@ public class FragmentVerifyCode extends Fragment {
     @Override
     public void onDestroy() {//_____________________________________________________________________ Start onDestroy
         super.onDestroy();
-        observer.dispose();
+        if(observer != null)
+            observer.dispose();
+        observer = null;
+        DismissProgress();
     }//_____________________________________________________________________________________________ End onDestroy
 
 

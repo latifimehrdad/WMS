@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="newgame"
+            type="String" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        >
+
+        <TextView
+            android:id="@+id/TextViewNew"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:background="@drawable/dw_button_game"
+            android:gravity="center"
+            android:textColor="@color/mlWhite"
+            android:textSize="@dimen/_12sdp"
+            fontPath="font/iransans_web_medium.ttf"
+            android:text="@string/StartGame"
+            />
+
+    </LinearLayout>
+
+
+</layout>

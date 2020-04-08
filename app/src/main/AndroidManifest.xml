@@ -35,6 +35,8 @@
 
         <activity android:name=".views.activitys.MainActivity"/>
 
+        <activity android:name=".game.controls.GameActivity"/>
+
         <service android:name=".services.BackgroundServiceLocation"/>
 
         <meta-data

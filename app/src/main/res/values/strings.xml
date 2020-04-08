@@ -176,6 +176,10 @@
     <string name="WazeNavigation">"مسیریابی"</string>
     <string name="RegisterOK">ثبت نام با موفقیت انجام شد</string>
 
+    <string name="Game">بازی</string>
+    <string name="StartGame">شروع بازی</string>
+    <string name="OnlineResponse">نتایج آنلاین</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
