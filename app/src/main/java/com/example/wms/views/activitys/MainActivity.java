@@ -12,10 +12,13 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
+import androidx.navigation.NavGraph;
+import androidx.navigation.NavInflater;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -27,13 +30,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,7 +78,10 @@ public class MainActivity extends AppCompatActivity {
     private MainActivityViewModel mainActivityViewModel;
     public static boolean complateprofile = false;
     private NavController navController;
-    private AppBarConfiguration appBarConfiguration;
+//    private AppBarConfiguration appBarConfiguration;
+    private boolean MenuOpen = false;
+    private boolean doubleBackToExitPressedOnce = false;
+    private boolean preLogin = false;
 
     @BindView(R.id.MainMenu)
     ImageView MainMenu;
@@ -92,6 +101,15 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.BottomNav1)
     BottomNavigationView BottomNav1;
 
+    @BindView(R.id.RelativeLayoutLoginHeader)
+    RelativeLayout RelativeLayoutLoginHeader;
+
+    @BindView(R.id.RelativeLayoutMainFooter)
+    RelativeLayout RelativeLayoutMainFooter;
+
+    @BindView(R.id.LinearLayoutFragment)
+    LinearLayout LinearLayoutFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {//__________________________________________ Start onCreate
         super.onCreate(savedInstanceState);
@@ -105,16 +123,15 @@ public class MainActivity extends AppCompatActivity {
         binding.setMain(mainActivityViewModel);
         ButterKnife.bind(this);
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        appBarConfiguration =
-                new AppBarConfiguration.Builder(navController.getGraph())
-                        .setDrawerLayout(mDrawer)
-                        .build();
-
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
+                .setDrawerLayout(mDrawer)
+                .build();
         NavigationUI.setupWithNavController(BottomNav1, navController);
         NavigationUI.setupWithNavController(nvView, navController);
         SetClicks();
         //setupDrawerContent(nvView);
         checkLocationPermission();
+        SetListener();
     }//_____________________________________________________________________________________________ End SetBindingView
 
 
@@ -137,12 +154,13 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onDrawerOpened(@NonNull View drawerView) {
+                MenuOpen = true;
                 ProfileName.setText(GetUserNameProfile());
             }
 
             @Override
             public void onDrawerClosed(@NonNull View drawerView) {
-
+                MenuOpen = false;
             }
 
             @Override
@@ -183,7 +201,59 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     }//_____________________________________________________________________________________________ End
+
+
+    private void SetListener() {//__________________________________________________________________ Start onCreate
+
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(
+                    @NonNull NavController controller,
+                    @NonNull NavDestination destination,
+                    @Nullable Bundle arguments) {
+
+                mDrawer.closeDrawer(Gravity.RIGHT);
+
+                String fragment = destination.getLabel().toString();
+                if ((fragment.equalsIgnoreCase("FragmentSplash")) ||
+                        (fragment.equalsIgnoreCase("FragmentLogin")) ||
+                        (fragment.equalsIgnoreCase("FragmentVerifyCode")) ||
+                        (fragment.equalsIgnoreCase("FragmentSendNumber"))) {
+                    if(!preLogin) {
+
+                        NavInflater navInflater = navController.getNavInflater();
+                        NavGraph graph = navInflater.inflate(R.navigation.nav_home);
+                        graph.setStartDestination(R.id.fragmentSplash);
+                        navController.setGraph(graph);
+                        RelativeLayoutLoginHeader.setVisibility(View.VISIBLE);
+                        RelativeLayoutMainFooter.setVisibility(View.GONE);
+                        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                        params.addRule(RelativeLayout.BELOW, R.id.RelativeLayoutLoginHeader);
+                        LinearLayoutFragment.setLayoutParams(params);
+                        preLogin = true;
+                    }
+
+                } else {
+                    if(preLogin) {
+                        preLogin = false;
+                        NavInflater navInflater = navController.getNavInflater();
+                        NavGraph graph = navInflater.inflate(R.navigation.nav_home);
+                        graph.setStartDestination(R.id.fragmentHome);
+                        navController.setGraph(graph);
+                        RelativeLayoutLoginHeader.setVisibility(View.GONE);
+                        RelativeLayoutMainFooter.setVisibility(View.VISIBLE);
+                        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                        params.addRule(RelativeLayout.BELOW, R.id.MainHeader);
+                        LinearLayoutFragment.setLayoutParams(params);
+                    }
+                }
+
+            }
+        });
+    }//_____________________________________________________________________________________________ End onCreate
+
 
 
     private String GetUserNameProfile() {//_________________________________________________________ Start GetUserNameProfile
@@ -391,44 +461,27 @@ public class MainActivity extends AppCompatActivity {
 //    }//_____________________________________________________________________________________________ End ShowFragmentOrder
 
 
-    private void setupDrawerContent(NavigationView navigationView) {//______________________________ Start setupDrawerContent
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        //selectDrawerItem(menuItem);
-                        return true;
-                    }
-                });
-    }//_____________________________________________________________________________________________ End setupDrawerContent
+//    private void setupDrawerContent(NavigationView navigationView) {//______________________________ Start setupDrawerContent
+//        navigationView.setNavigationItemSelectedListener(
+//                new NavigationView.OnNavigationItemSelectedListener() {
+//                    @Override
+//                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+//                        selectDrawerItem(menuItem);
+//                        return true;
+//                    }
+//                });
+//    }//_____________________________________________________________________________________________ End setupDrawerContent
 
 
 //    public void selectDrawerItem(MenuItem menuItem) {//_____________________________________________ Start selectDrawerItem
 //        // Create a new fragment and specify the fragment to show based on nav item clicked
 //        if (complateprofile)
-//            switch (menuItem.getItemId()) {
-//                case R.id.nav_request_package:
-//                    MainActivity.this.ShowFragmentPAckRequest();
-//                    break;
-//                case R.id.nav_seperation:
-//                    MainActivity.this.ShowFragmentLearn();
-//                    break;
-//                case R.id.nav_collect:
-//                    MainActivity.this.ShowFragmentCollectRequest();
-//                    break;
-//                case R.id.nav_clottery:
-//                    MainActivity.this.ShowFragmentLottery();
-//                    break;
-//                case R.id.nav_about:
-//                    MainActivity.this.ShowFragmentAbout();
-//                    break;
-//                case R.id.nav_support:
-//                    MainActivity.this.ShowFragmentCall();
-//                    break;
-//                case R.id.nav_home:
-//                    MainActivity.this.ShowFragmentHome();
-//                    break;
-//            }
+////            switch (menuItem.getItemId()) {
+////                case R.id.goto_game:
+////                    navController.navigate(R.id.action_goto_game);
+////                    break;
+////
+////            }
 //
 //        try {
 //
@@ -520,6 +573,43 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }//_____________________________________________________________________________________________ End onRequestPermissionsResult
+
+
+
+    @Override
+    public void onBackPressed() {//_________________________________________________________________ Start onBackPressed
+
+        if(MenuOpen) {
+            mDrawer.closeDrawer(Gravity.RIGHT);
+            return;
+        }
+
+        NavDestination navDestination = navController.getCurrentDestination();
+        String fragment = navDestination.getLabel().toString();
+        if ((!fragment.equalsIgnoreCase("FragmentLogin")) &&
+                (!fragment.equalsIgnoreCase("fragment_home"))) {
+            super.onBackPressed();
+            return;
+        }
+
+
+        if (doubleBackToExitPressedOnce) {
+            System.exit(1);
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "برای خروج 2 بار کلیک کنید", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
+
+    }//_____________________________________________________________________________________________ End onBackPressed
 
 
 }

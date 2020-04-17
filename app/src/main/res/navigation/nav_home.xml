@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_home"
-    app:startDestination="@id/fragmentHome">
+    app:startDestination="@id/fragmentSplash">
 
     <fragment
 
@@ -180,6 +180,107 @@
         android:name="com.example.wms.views.fragments.game.FragmentGame"
         android:label="FragmentGame"
         tools:layout="@layout/fragment_game"
+        />
+
+    <fragment
+        android:id="@+id/fragmentSplash"
+        android:name="com.example.wms.views.fragments.user.login.FragmentSplash"
+        android:label="FragmentSplash"
+        tools:layout="@layout/fragment_splash"
+        >
+
+        <action
+            android:id="@+id/action_fragmentSplash_to_fragmentLogin"
+            app:destination="@id/fragmentLogin"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentLogin"
+        android:name="com.example.wms.views.fragments.user.login.FragmentLogin"
+        android:label="FragmentLogin"
+        tools:layout="@layout/fragment_fragment_login"
+        >
+
+        <argument android:name="PhoneNumber"
+            android:defaultValue="null"/>
+
+        <argument android:name="Password"
+            android:defaultValue="null"/>
+
+        <argument android:name="type"
+            android:defaultValue="null"/>
+
+        <action
+            android:id="@+id/action_fragmentLogin_to_fragmentSendNumber"
+            app:destination="@id/fragmentSendNumber"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+
+        <action
+            android:id="@+id/action_fragmentLogin_to_fragmentHome"
+            app:destination="@id/fragmentHome"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentSendNumber"
+        android:name="com.example.wms.views.fragments.user.register.FragmentSendNumber"
+        android:label="FragmentSendNumber"
+        tools:layout="@layout/fragment_send_number"
+        >
+
+        <argument android:name="PhoneNumber"
+            android:defaultValue="null"/>
+
+        <argument android:name="Password"
+            android:defaultValue="null"/>
+
+        <action
+            android:id="@+id/action_fragmentSendNumber_to_fragmentVerifyCode"
+            app:destination="@id/fragmentVerifyCode"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentVerifyCode"
+        android:name="com.example.wms.views.fragments.user.register.FragmentVerifyCode"
+        android:label="FragmentVerifyCode"
+        tools:layout="@layout/fragment_verify_code"
+        >
+        <action
+            android:id="@+id/action_fragmentVerifyCode_to_fragmentLogin"
+            app:destination="@id/fragmentLogin"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
+    <action
+        android:id="@+id/action_goto_game"
+        app:destination="@id/fragmentGame"
+        app:popEnterAnim="@anim/slide_in_right"
+        app:popExitAnim="@anim/slide_out_left"
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/slide_out_right"
         />
 
 </navigation>

@@ -2,7 +2,6 @@ package com.example.wms.views.fragments.user.login;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.os.Handler;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,10 +26,7 @@ import com.example.wms.R;
 import com.example.wms.databinding.FragmentFragmentLoginBinding;
 import com.example.wms.utility.StaticFunctions;
 import com.example.wms.viewmodels.user.login.VM_FragmentLogin;
-import com.example.wms.views.activitys.LoginActivity;
-import com.example.wms.views.activitys.MainActivity;
 import com.example.wms.views.application.ApplicationWMS;
-import com.example.wms.views.dialogs.DialogProgress;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -189,9 +184,10 @@ public class FragmentLogin extends Fragment {
         if (prefs != null) {
             String PhoneNumber = prefs.getString("phonenumber", null);
             if (PhoneNumber != null) {
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-                getActivity().finish();
+                navController.navigate(R.id.action_fragmentLogin_to_fragmentHome);
+//                Intent intent = new Intent(getActivity(), MainActivity.class);
+//                startActivity(intent);
+//                getActivity().finish();
             }
         }
 

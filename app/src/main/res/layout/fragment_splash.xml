@@ -38,7 +38,7 @@
                 android:layout_marginRight="@dimen/_25sdp"
                 android:layout_marginBottom="@dimen/_20sdp"
                 android:background="@drawable/save_info_button"
-                android:text="@string/RegisterPerson"
+                android:text="@string/Retry"
                 android:visibility="gone"
                 android:textColor="@color/mlWhite"
                 android:textSize="@dimen/_13sdp" />

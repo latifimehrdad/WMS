@@ -75,28 +75,43 @@ public class FragmentSplash extends Fragment {
     public void onStart() {//_______________________________________________________________________ Start onStart
         super.onStart();
         navController = Navigation.findNavController(view);
+        ImgLogo.setVisibility(View.VISIBLE);
         ButtonRefresh.setVisibility(View.GONE);
+        SetAnimation();
 
         ButtonRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CheckToken();
+                ImgLogo.setVisibility(View.VISIBLE);
+                ButtonRefresh.setVisibility(View.GONE);
+                SetAnimation();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        CheckToken();
+                    }
+                },2000);
             }
         });
 
-        SetAnimation();
         if(observer != null)
             observer.dispose();
         observer = null;
         ObserverObservables();
-        CheckToken();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                CheckToken();
+            }
+        },2000);
+
     }//_____________________________________________________________________________________________ End onStart
 
 
 
     private void CheckToken() {//_______________________________ ___________________________________ Start CheckToken
-        ImgLogo.setVisibility(View.VISIBLE);
-        ButtonRefresh.setVisibility(View.GONE);
         SharedPreferences prefs = context.getSharedPreferences("wmstoken", 0);
         if (prefs == null) {
             GetTokenFromServer();
@@ -182,6 +197,7 @@ public class FragmentSplash extends Fragment {
 
     private void ConfigHandlerForExit() {//__________________________________________________________ Start ConfigHandlerForExit
 
+        ImgLogo.setVisibility(View.GONE);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override

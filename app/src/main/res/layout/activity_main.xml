@@ -26,20 +26,31 @@
                 android:id="@+id/MainHeader"
                 />
 
+            <include layout="@layout/layout_header"
+                android:id="@+id/RelativeLayoutLoginHeader"
+                />
 
-            <fragment
-                android:id="@+id/nav_host_fragment"
-                android:name="androidx.navigation.fragment.NavHostFragment"
+
+            <LinearLayout
+                android:id="@+id/LinearLayoutFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/MainHeader"
-                android:layout_marginBottom="@dimen/_45sdp"
-                app:defaultNavHost="true"
-                app:navGraph="@navigation/nav_home" />
+                >
+
+                <fragment
+                    android:id="@+id/nav_host_fragment"
+                    android:name="androidx.navigation.fragment.NavHostFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/_45sdp"
+                    app:defaultNavHost="true"
+                    app:navGraph="@navigation/nav_home" />
+
+            </LinearLayout>
+
 
 
             <include layout="@layout/main_footer"
-                android:id="@+id/MainFooter"
                 />
 
 

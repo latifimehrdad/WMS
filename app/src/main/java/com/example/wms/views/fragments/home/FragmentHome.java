@@ -81,7 +81,6 @@ public class FragmentHome extends Fragment {
         binding.setHome(vm_fragmentHome);
         view = binding.getRoot();
         ButterKnife.bind(this, view);
-        BackClick(view);
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
 
@@ -203,35 +202,6 @@ public class FragmentHome extends Fragment {
         }, 10);
     }//_____________________________________________________________________________________________ End SetLayout
 
-
-    private void BackClick(View view) {//____________________________________________________________________ Start BackClick
-        view.setFocusableInTouchMode(true);
-        view.requestFocus();
-        view.setOnKeyListener(SetKeyExit(view));
-    }//_____________________________________________________________________________________________ End BackClick
-
-
-    public View.OnKeyListener SetKeyExit(View view) {//_____________________________________________ Start SetBackClickAndGoHome
-        return new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-
-                if (!doubleBackToExitPressedOnce) {
-                    Toast.makeText(context,"برای خروج 2 بار کلیک کنید", Toast.LENGTH_SHORT).show();
-                    doubleBackToExitPressedOnce = true;
-                    new Handler().postDelayed(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            doubleBackToExitPressedOnce = false;
-                        }
-                    }, 2000);
-                    return true;
-                } else
-                    return false;
-            }
-        };
-    }//_____________________________________________________________________________________________ End SetBackClickAndGoHome
 
 
     private void CheckProfile() {//_________________________________________________________________ Start CheckProfile

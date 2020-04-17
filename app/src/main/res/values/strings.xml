@@ -49,6 +49,8 @@
     <string name="HomeFuture">آینده را دور نریزیم</string>
     <string name="HomeYouScore">امتیاز قرعه کشی</string>
 
+    <string name="Retry">تلاش مجدد</string>
+
     <string name="FragmentPackRequestPrimery">درخواست پکیج</string>
     <string name="FragmentPackRequestPrimerySet">ثبت درخواست</string>
     <string name="FragmentPackRequestPrimerySend">ارسال</string>
@@ -104,6 +106,7 @@
     <string name="YouScore">امتیاز شما</string>
     <string name="Score">امتیاز</string>
     <string name="Scores">امتیازات</string>
+    <string name="Winner">برنده ماه قبل</string>
     <string name="FriendsDefinitionAndReceiveBag">معرفی به دوستان و تحویل اولین کیسه تفکیک</string>
     <string name="FragmentLotteryReceiveBooth">تحویل هر کیسه به غرفه بازیافت</string>
     <string name="FragmentLotteryReceiveCar">تحویل هر کیسه به خودرو بازیافت</string>

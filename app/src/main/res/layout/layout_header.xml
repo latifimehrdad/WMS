@@ -5,7 +5,6 @@
     android:layout_height="@dimen/_150sdp">
 
     <com.example.wms.views.custom.MLCurveHeader
-        android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:PitOpenings="50"
