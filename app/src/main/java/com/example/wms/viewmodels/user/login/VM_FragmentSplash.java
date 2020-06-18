@@ -7,24 +7,25 @@ package com.example.wms.viewmodels.user.login;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.wms.R;
 import com.example.wms.daggers.retrofit.RetrofitApis;
 import com.example.wms.daggers.retrofit.RetrofitComponent;
 import com.example.wms.models.ModelToken;
+import com.example.wms.utility.StaticValues;
 import com.example.wms.views.application.ApplicationWMS;
 
 import io.reactivex.subjects.PublishSubject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 import static com.example.wms.utility.StaticFunctions.CheckResponse;
 
 public class VM_FragmentSplash {
 
     private Context context;
-    private PublishSubject<String> Observables = null;
+    private PublishSubject<Byte> Observables = null;
     private ModelToken modelToken;
-    private String MessageResponcse;
+    private String MessageResponse;
 
     public VM_FragmentSplash(Context context) {//_____________________________________________ Start VM_FragmentSplash
         this.context = context;
@@ -32,12 +33,33 @@ public class VM_FragmentSplash {
     }//_____________________________________________________________________________________________ End VM_FragmentSplash
 
 
-    public void GetTokenFromServer() {//____________________________________________________________ Start GetTokenFromServer
+    public void CheckToken() {//________________________________ ___________________________________ Start CheckToken
+        SharedPreferences prefs = context.getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0);
+        if (prefs == null) {
+            GetTokenFromServer();
+        } else {
+            String access_token = prefs.getString(context.getString(R.string.ML_AccessToken), null);
+            String expires = prefs.getString(context.getString(R.string.ML_Expires), null);
+            String PhoneNumber = prefs.getString(context.getString(R.string.ML_PhoneNumber), null);
+            if ((access_token == null) || (expires == null))
+                GetTokenFromServer();
+            else {
+                if (PhoneNumber != null) {
+                    Observables.onNext(StaticValues.ML_GoToHome);
+                } else
+                    GetTokenFromServer();
+            }
 
-        RetrofitComponent retrofitComponent =
-                ApplicationWMS
-                        .getApplicationWMS(context)
-                        .getRetrofitComponent();
+        }
+
+    }//_____________________________________________________________________________________________ End CheckToken
+
+
+    public void GetTokenFromServer() {//____________________________________________________________ GetTokenFromServer
+
+        RetrofitComponent retrofitComponent = ApplicationWMS
+                .getApplicationWMS(context)
+                .getRetrofitComponent();
 
         retrofitComponent
                 .getRetrofitApiInterface()
@@ -48,55 +70,53 @@ public class VM_FragmentSplash {
                 .enqueue(new Callback<ModelToken>() {
                     @Override
                     public void onResponse(Call<ModelToken> call, Response<ModelToken> response) {
-                        MessageResponcse = CheckResponse(response, true);
-                        if (MessageResponcse == null) {
+                        MessageResponse = CheckResponse(response, true);
+                        if (MessageResponse == null) {
                             modelToken = response.body();
                             SaveToken();
-                            Observables.onNext("Successful");
-                        }
-                        else
-                            Observables.onNext("Error");
-
-
+                        } else
+                            Observables.onNext(StaticValues.ML_ResponseError);
                     }
 
                     @Override
                     public void onFailure(Call<ModelToken> call, Throwable t) {
-                        Observables.onNext("Failure");
+                        Observables.onNext(StaticValues.ML_ResponseFailure);
                     }
                 });
 
+    }//_____________________________________________________________________________________________ GetTokenFromServer
 
-    }//_____________________________________________________________________________________________ End GetTokenFromServer
 
-
-    public ModelToken getModelToken() {//___________________________________________________________ Start getModelToken
+    public ModelToken getModelToken() {//___________________________________________________________ getModelToken
         return modelToken;
-    }//_____________________________________________________________________________________________ End getModelToken
+    }//_____________________________________________________________________________________________ getModelToken
 
 
-    private void SaveToken() {//____________________________________________________________________ Start SaveToken
+    private void SaveToken() {//____________________________________________________________________ SaveToken
 
-        SharedPreferences.Editor token =
-                context.getSharedPreferences("wmstoken", 0).edit();
+        SharedPreferences.Editor token = context
+                .getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0)
+                .edit();
 
-        token.putString("accesstoken", modelToken.getAccess_token());
-        token.putString("tokentype", modelToken.getToken_type());
-        token.putInt("expiresin", modelToken.getExpires_in());
-        token.putString("clientid", modelToken.getClient_id());
-        token.putString("issued", modelToken.getIssued());
-        token.putString("expires", modelToken.getExpires());
+        token.putString(context.getString(R.string.ML_AccessToken), modelToken.getAccess_token());
+        token.putString(context.getString(R.string.ML_TokenType), modelToken.getToken_type());
+        token.putInt(context.getString(R.string.ML_ExpireSin), modelToken.getExpires_in());
+        token.putString(context.getString(R.string.ML_ClientId), modelToken.getClient_id());
+        token.putString(context.getString(R.string.ML_Issued), modelToken.getIssued());
+        token.putString(context.getString(R.string.ML_Expires), modelToken.getExpires());
         token.apply();
+        Observables.onNext(StaticValues.ML_GotoLogin);
 
-    }//_____________________________________________________________________________________________ End SaveToken
-
-
-    public String getMessageResponcse() {//_________________________________________________________ Start getMessageResponcse
-        return MessageResponcse;
-    }//_____________________________________________________________________________________________ End getMessageResponcse
+    }//_____________________________________________________________________________________________ SaveToken
 
 
-    public PublishSubject<String> getObservables() {//______________________________________________ Start getObservables
+    public String getMessageResponse() {//__________________________________________________________ getMessageResponse
+        return MessageResponse;
+    }//_____________________________________________________________________________________________ getMessageResponse
+
+
+    public PublishSubject<Byte> getObservables() {//________________________________________________ getObservables
         return Observables;
-    }//_____________________________________________________________________________________________ End getObservables
+    }//_____________________________________________________________________________________________ getObservables
+
 }

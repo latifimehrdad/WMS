@@ -35,8 +35,9 @@
     <string name="Man">مرد</string>
     <string name="Woman">زن</string>
     <string name="MobileNumber">شماره موبایل</string>
-    <string name="NewPassword">رمز جدید</string>
     <string name="Password">رمز ورود</string>
+    <string name="ReTryPassword">تکرار رمز ورود</string>
+    <string name="NewPassword">رمز جدید</string>
     <string name="NewPasswordConfirm">تکرار رمز جدید</string>
     <string name="ReagentCode">کد معرف</string>
     <string name="AcountNumber">شماره حساب</string>
@@ -185,5 +186,22 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="ML_SharePreferences">SharePreferences</string>
+    <string name="ML_AccessToken">AccessToken</string>
+    <string name="ML_Expires">Expires</string>
+    <string name="ML_PhoneNumber">PhoneNumber</string>
+    <string name="ML_Password">Password</string>
+    <string name="ML_TokenType">TokentType</string>
+    <string name="ML_ExpireSin">ExpireSin</string>
+    <string name="ML_ClientId">ClientId</string>
+    <string name="ML_Issued">Issued</string>
+    <string name="ML_Name">Name</string>
+    <string name="ML_lastName">LastName</string>
+    <string name="ML_Gender">Gender</string>
+    <string name="ML_CompleteProfile">CompleteProfile</string>
+    <string name="ML_Type">Type</string>
+    <string name="ML_SingUp">SingUp</string>
+
 
 </resources>

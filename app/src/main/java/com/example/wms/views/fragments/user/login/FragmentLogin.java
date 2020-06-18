@@ -25,6 +25,7 @@ import com.cunoraz.gifview.library.GifView;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentFragmentLoginBinding;
 import com.example.wms.utility.StaticFunctions;
+import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.user.login.VM_FragmentLogin;
 import com.example.wms.views.application.ApplicationWMS;
 
@@ -46,7 +47,7 @@ public class FragmentLogin extends Fragment {
     private VM_FragmentLogin vm_fragmentLogin;
     private boolean passVisible;
     private View view;
-    private DisposableObserver<String> observer;
+    private DisposableObserver<Byte> observer;
     private NavController navController;
 
     @BindView(R.id.LoginClick)
@@ -77,81 +78,62 @@ public class FragmentLogin extends Fragment {
     ImageView imgLoading;
 
 
-    public FragmentLogin() {//______________________________________________________________________ Start FragmentLogin
+    public FragmentLogin() {//______________________________________________________________________ FragmentLogin
         // Required empty public constructor
-    }//_____________________________________________________________________________________________ End FragmentLogin
+    }//_____________________________________________________________________________________________ FragmentLogin
 
 
     @Override
     public View onCreateView(
             LayoutInflater inflater,
             ViewGroup container,
-            Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
-        context = getContext();
-        vm_fragmentLogin = new VM_FragmentLogin(context);
-        FragmentFragmentLoginBinding binding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_fragment_login, container, false
-        );
-        binding.setBeforlogin(vm_fragmentLogin);
-        view = binding.getRoot();
-        ButterKnife.bind(this, view);
+            Bundle savedInstanceState) {//__________________________________________________________ onCreateView
+        if (view == null) {
+            context = getContext();
+            vm_fragmentLogin = new VM_FragmentLogin(context);
+            FragmentFragmentLoginBinding binding = DataBindingUtil.inflate(
+                    inflater, R.layout.fragment_fragment_login, container, false
+            );
+            binding.setBeforlogin(vm_fragmentLogin);
+            view = binding.getRoot();
+            ButterKnife.bind(this, view);
+            init();
+        }
         return view;
-    }//_____________________________________________________________________________________________ End onCreateView
+    }//_____________________________________________________________________________________________ onCreateView
 
 
     @Override
-    public void onStart() {//_______________________________________________________________________ Start onStart
+    public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
         navController = Navigation.findNavController(view);
-        SetTextWatcher();
-        SetClick();
-        init();
         if(observer != null)
             observer.dispose();
         observer = null;
         ObserverObservables();
-    }//_____________________________________________________________________________________________ End onStart
+    }//_____________________________________________________________________________________________ onStart
 
 
-    private void init() {//_________________________________________________________________________ Start init
+    private void init() {//_________________________________________________________________________ init
         EditPassword.setInputType(InputType.TYPE_CLASS_TEXT |
                 InputType.TYPE_TEXT_VARIATION_PASSWORD);
         passVisible = false;
         DismissLoading();
-        CheckLogin();
-    }//_____________________________________________________________________________________________ End init
+        SetClick();
+        SetTextWatcher();
+    }//_____________________________________________________________________________________________ init
 
 
-    private void ObserverObservables() {//__________________________________________________________ Start ObserverObservables
+    private void ObserverObservables() {//__________________________________________________________ ObserverObservables
 
-        observer = new DisposableObserver<String>() {
+        observer = new DisposableObserver<Byte>() {
             @Override
-            public void onNext(String s) {
+            public void onNext(Byte s) {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         DismissLoading();
-                        switch (s) {
-                            case "SuccessfulToken":
-                                vm_fragmentLogin.GetLoginInformation();
-                                break;
-                            case "Successful":
-                                CheckLogin();
-                                break;
-                            case "Error":
-                                ShowMessage(vm_fragmentLogin.getMessageResponse()
-                                        , getResources().getColor(R.color.mlWhite),
-                                        getResources().getDrawable(R.drawable.ic_error));
-                                break;
-                            case "Failure":
-                                ShowMessage(getResources().getString(R.string.NetworkError),
-                                        getResources().getColor(R.color.mlWhite),
-                                        getResources().getDrawable(R.drawable.ic_error));
-                                break;
-                            default:
-
-                                break;
-                        }
+                        HandleAction(s);
                     }
                 });
 
@@ -174,44 +156,38 @@ public class FragmentLogin extends Fragment {
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
 
-    }//_____________________________________________________________________________________________ End ObserverObservables
+    }//_____________________________________________________________________________________________ ObserverObservables
 
 
-
-    private void CheckLogin() {//___________________________________________________________________ Start CheckProfile
-
-        SharedPreferences prefs = context.getSharedPreferences("wmstoken", 0);
-        if (prefs != null) {
-            String PhoneNumber = prefs.getString("phonenumber", null);
-            if (PhoneNumber != null) {
-                navController.navigate(R.id.action_fragmentLogin_to_fragmentHome);
-//                Intent intent = new Intent(getActivity(), MainActivity.class);
-//                startActivity(intent);
-//                getActivity().finish();
-            }
+    private void HandleAction(Byte action) {//______________________________________________________ HandleAction
+        if (action == StaticValues.ML_GoToHome) {
+            navController.navigate(R.id.action_fragmentLogin_to_fragmentHome);
+        } else if (action == StaticValues.ML_ResponseFailure) {
+            ShowMessage(getResources().getString(R.string.NetworkError),
+                    getResources().getColor(R.color.mlWhite),
+                    getResources().getDrawable(R.drawable.ic_error));
+        } else if (action == StaticValues.ML_ResponseError) {
+            ShowMessage(vm_fragmentLogin.getMessageResponse()
+                    , getResources().getColor(R.color.mlWhite),
+                    getResources().getDrawable(R.drawable.ic_error));
         }
+    }//_____________________________________________________________________________________________ HandleAction
 
-    }//_____________________________________________________________________________________________ End CheckProfile
 
-
-    private void SetTextWatcher() {//_______________________________________________________________ Start SetTextWatcher
+    private void SetTextWatcher() {//_______________________________________________________________ SetTextWatcher
         EditPhoneNumber.setBackgroundResource(R.drawable.edit_normal_background);
         EditPhoneNumber.addTextChangedListener(TextChangeForChangeBack(EditPhoneNumber));
         EditPassword.setBackgroundResource(R.drawable.edit_normal_background);
         EditPassword.addTextChangedListener(TextChangeForChangeBack(EditPassword));
-    }//_____________________________________________________________________________________________ End SetTextWatcher
+    }//_____________________________________________________________________________________________ SetTextWatcher
 
 
-    private void SetClick() {//_____________________________________________________________________ Start SetClick
+    private void SetClick() {//_____________________________________________________________________ SetClick
 
         ForgetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(ActivityBeforLogin.this, ActivitySendPhoneNumber.class);
-//                intent.putExtra("type", "forget");
-//                intent.putExtra("PhoneNumber", EditPhoneNumber.getText().toString());
-//                intent.putExtra("Password", EditPassword.getText().toString());
-//                startActivity(intent);
+
             }
         });
 
@@ -233,8 +209,8 @@ public class FragmentLogin extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString("type", "singup");
-                bundle.putString("PhoneNumber", EditPhoneNumber.getText().toString());
+                bundle.putString(context.getString(R.string.ML_Type), context.getString(R.string.ML_SingUp));
+                bundle.putString(context.getString(R.string.ML_PhoneNumber), EditPhoneNumber.getText().toString());
                 navController.navigate(R.id.action_fragmentLogin_to_fragmentSendNumber, bundle);
             }
         });
@@ -248,23 +224,21 @@ public class FragmentLogin extends Fragment {
                             InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                     ImgPassVisible.setImageResource(R.drawable.ic_visibility_off);
                     passVisible = true;
-                    EditPassword.setSelection(EditPassword.getText().length());
-
                 } else {
                     EditPassword.setInputType(InputType.TYPE_CLASS_TEXT |
                             InputType.TYPE_TEXT_VARIATION_PASSWORD);
                     ImgPassVisible.setImageResource(R.drawable.ic_visibility);
                     passVisible = false;
-                    EditPassword.setSelection(EditPassword.getText().length());
                 }
+                EditPassword.setSelection(EditPassword.getText().length());
             }
         });
 
 
-    }//_____________________________________________________________________________________________ End SetClick
+    }//_____________________________________________________________________________________________ SetClick
 
 
-    private Boolean CheckEmpty() {//________________________________________________________________ Start CheckEmpty
+    private Boolean CheckEmpty() {//________________________________________________________________ CheckEmpty
 
         boolean phone = false;
         boolean pass = false;
@@ -302,44 +276,53 @@ public class FragmentLogin extends Fragment {
         else
             return false;
 
-    }//_____________________________________________________________________________________________ End CheckEmpty
+    }//_____________________________________________________________________________________________ CheckEmpty
 
 
-    private void ShowMessage(String message, int color, Drawable icon) {//__________________________ Start ShowMessage
+    private void ShowMessage(String message, int color, Drawable icon) {//__________________________ ShowMessage
         ApplicationWMS
                 .getApplicationWMS(context)
                 .getUtilityComponent()
                 .getApplicationUtility()
                 .ShowMessage(context, message, color, icon, getFragmentManager());
-    }//_____________________________________________________________________________________________ End ShowMessage
+    }//_____________________________________________________________________________________________ ShowMessage
 
 
-    private void DismissLoading() {//_______________________________________________________________ Start DismissLoading
+    private void DismissLoading() {//_______________________________________________________________ DismissLoading
         StaticFunctions.isCancel = true;
         txtLoading.setText(getResources().getString(R.string.LogIn));
         LoginClick.setBackground(getResources().getDrawable(R.drawable.save_info_button));
         gifLoading.setVisibility(View.GONE);
         imgLoading.setVisibility(View.VISIBLE);
 
-    }//_____________________________________________________________________________________________ End DismissLoading
+    }//_____________________________________________________________________________________________ DismissLoading
 
 
-    private void ShowLoading() {//__________________________________________________________________ Start ShowLoading
+    private void ShowLoading() {//__________________________________________________________________ ShowLoading
         StaticFunctions.isCancel = false;
         txtLoading.setText(getResources().getString(R.string.Cancel));
         LoginClick.setBackground(getResources().getDrawable(R.drawable.button_red));
         gifLoading.setVisibility(View.VISIBLE);
         imgLoading.setVisibility(View.INVISIBLE);
-    }//_____________________________________________________________________________________________ End ShowLoading
+    }//_____________________________________________________________________________________________ ShowLoading
 
 
     @Override
-    public void onDestroy() {//_____________________________________________________________________ Start onDestroy
+    public void onDestroy() {//_____________________________________________________________________ onDestroy
         super.onDestroy();
         if(observer != null)
             observer.dispose();
         observer = null;
-    }//_____________________________________________________________________________________________ End onDestroy
+    }//_____________________________________________________________________________________________ onDestroy
 
+
+
+    @Override
+    public void onStop() {//________________________________________________________________________ onStop
+        super.onStop();
+        if (observer != null)
+            observer.dispose();
+        observer = null;
+    }//_____________________________________________________________________________________________ onStop
 
 }

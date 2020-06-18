@@ -28,6 +28,7 @@ public class FragmentProfile extends Fragment {
 
     private Context context;
     private VM_FragmentProfile vm_fragmentProfile;
+    private View view;
 
     @BindView(R.id.FragmentRegisteryTab)
     SmartTabLayout FragmentRegisteryTab;
@@ -37,32 +38,32 @@ public class FragmentProfile extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.context = getContext();
-        FragmentProfileBinding binding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_profile, container, false
-        );
-        vm_fragmentProfile = new VM_FragmentProfile(context);
-        binding.setProfile(vm_fragmentProfile);
-        View view = binding.getRoot();
-        ButterKnife.bind(this, view);
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {//__________________________________________________________ onCreateView
+        if (view == null) {
+            this.context = getContext();
+            FragmentProfileBinding binding = DataBindingUtil.inflate(
+                    inflater, R.layout.fragment_profile, container, false
+            );
+            vm_fragmentProfile = new VM_FragmentProfile(context);
+            binding.setProfile(vm_fragmentProfile);
+            view = binding.getRoot();
+            ButterKnife.bind(this, view);
+            SetTabs();
+        }
         return view;
-    }//_____________________________________________________________________________________________ End onCreateView
+    }//_____________________________________________________________________________________________ onCreateView
 
 
-    public FragmentProfile() {//____________________________________________________________________ Start FragmentProfile
+    public FragmentProfile() {//____________________________________________________________________ FragmentProfile
 
-    }//_____________________________________________________________________________________________ End FragmentProfile
-
-
-    @Override
-    public void onStart() {//_______________________________________________________________________ Start onStart
-        super.onStart();
-        SetTabs();
-    }//_____________________________________________________________________________________________ End onStart
+    }//_____________________________________________________________________________________________ FragmentProfile
 
 
-    private void SetTabs() {//______________________________________________________________________ Start SetTabs
+
+    private void SetTabs() {//______________________________________________________________________ SetTabs
 
 
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
@@ -76,7 +77,7 @@ public class FragmentProfile extends Fragment {
         FragmentRegisteryTab.setViewPager(FragmentRegisteryView);
         FragmentRegisteryView.setCurrentItem(2);
 
-    }//_____________________________________________________________________________________________ End SetTabs
+    }//_____________________________________________________________________________________________ SetTabs
 
 
 }

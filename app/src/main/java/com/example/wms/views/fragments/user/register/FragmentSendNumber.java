@@ -5,6 +5,8 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -24,6 +26,7 @@ import com.cunoraz.gifview.library.GifView;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentSendNumberBinding;
 import com.example.wms.utility.StaticFunctions;
+import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.user.register.VM_FragmentSendNumber;
 import com.example.wms.views.application.ApplicationWMS;
 
@@ -44,11 +47,10 @@ public class FragmentSendNumber extends Fragment {
     private VM_FragmentSendNumber vm_fragmentSendNumber;
     private NavController navController;
     private View view;
-    private DisposableObserver<String> observer;
+    private DisposableObserver<Byte> observer;
     private boolean passVisible;
-    private boolean passconfirmVisible;
+    private boolean passConfirmVisible;
     private String PhoneNumber;
-    private String Password;
     private String Type;
 
     @BindView(R.id.btnGetVerifyCode)
@@ -88,45 +90,48 @@ public class FragmentSendNumber extends Fragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
-        context = getContext();
-        vm_fragmentSendNumber = new VM_FragmentSendNumber(context);
-        FragmentSendNumberBinding binding = DataBindingUtil.inflate(
-                inflater,R.layout.fragment_send_number,container,false
-        );
-        binding.setPhonenumber(vm_fragmentSendNumber);
-        view = binding.getRoot();
-        ButterKnife.bind(this, view);
+        if (view == null) {
+            context = getContext();
+            vm_fragmentSendNumber = new VM_FragmentSendNumber(context);
+            FragmentSendNumberBinding binding = DataBindingUtil.inflate(
+                    inflater, R.layout.fragment_send_number, container, false
+            );
+            binding.setPhonenumber(vm_fragmentSendNumber);
+            view = binding.getRoot();
+            ButterKnife.bind(this, view);
+            init();
+        }
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
+
 
 
     @Override
     public void onStart() {//_______________________________________________________________________ Start onStart
         super.onStart();
-        navController = Navigation.findNavController(view);
-        SetClick();
-        SetTextWatcher();
+        //navController = Navigation.findNavController(view);
         if(observer != null)
             observer.dispose();
         observer = null;
         ObserverObservables();
-        init();
+        DismissLoading();
     }//_____________________________________________________________________________________________ End onStart
 
 
 
     private void init() {//_________________________________________________________________________ Start init
+        SetClick();
+        SetTextWatcher();
         EditPassword.setInputType(InputType.TYPE_CLASS_TEXT |
                 InputType.TYPE_TEXT_VARIATION_PASSWORD);
         passVisible = false;
-
         EditPasswordConfirm.setInputType(InputType.TYPE_CLASS_TEXT |
                 InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        passconfirmVisible = false;
-        PhoneNumber = getArguments().getString("PhoneNumber");
-        Type = getArguments().getString("type");
+        passConfirmVisible = false;
+        Bundle bundle = getArguments();
+        PhoneNumber = bundle.getString(context.getString(R.string.ML_PhoneNumber));
+        Type = bundle.getString(context.getString(R.string.ML_Type));
         EditPhoneNumber.setText(PhoneNumber);
-        DismissLoading();
     }//_____________________________________________________________________________________________ End init
 
 
@@ -134,39 +139,14 @@ public class FragmentSendNumber extends Fragment {
 
     private void ObserverObservables() {//__________________________________________________________ Start ObserverObservables
 
-        observer = new DisposableObserver<String>() {
+        observer = new DisposableObserver<Byte>() {
             @Override
-            public void onNext(String s) {
+            public void onNext(Byte s) {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         DismissLoading();
-                        switch (s) {
-                            case "Successful":
-                                Bundle bundle = new Bundle();
-                                bundle.putString("PhoneNumber", EditPhoneNumber.getText().toString());
-                                bundle.putString("Password",EditPassword.getText().toString());
-                                navController.navigate(
-                                        R.id.action_fragmentSendNumber_to_fragmentVerifyCode,
-                                        bundle
-                                );
-                                break;
-                            case "Failure":
-                                ShowMessage(getResources().getString(R.string.NetworkError),
-                                        getResources().getColor(R.color.mlWhite),
-                                        getResources().getDrawable(R.drawable.ic_error));
-                                EditPhoneNumber.requestFocus();
-                                break;
-                            case "Error":
-                                ShowMessage(vm_fragmentSendNumber.getMessageResponse(),
-                                        getResources().getColor(R.color.mlWhite),
-                                        getResources().getDrawable(R.drawable.ic_error));
-                                break;
-                            default:
-                                ShowMessage(s,getResources().getColor(R.color.mlWhite),
-                                        getResources().getDrawable(R.drawable.ic_error));
-                                break;
-                        }
+                        HandleAction(s);
                     }
                 });
             }
@@ -189,6 +169,29 @@ public class FragmentSendNumber extends Fragment {
                 .subscribe(observer);
 
     }//_____________________________________________________________________________________________ End ObserverObservables
+
+
+
+
+    private void HandleAction(Byte action) {//______________________________________________________ HandleAction
+        if (action == StaticValues.ML_Success) {
+            Bundle bundle = new Bundle();
+            bundle.putString(context.getString(R.string.ML_PhoneNumber), EditPhoneNumber.getText().toString());
+            bundle.putString(context.getString(R.string.ML_Password),EditPassword.getText().toString());
+            navController
+                    .navigate(R.id.action_fragmentSendNumber_to_fragmentVerifyCode, bundle);
+        } else if (action == StaticValues.ML_ResponseFailure) {
+            ShowMessage(getResources().getString(R.string.NetworkError),
+                    getResources().getColor(R.color.mlWhite),
+                    getResources().getDrawable(R.drawable.ic_error));
+            EditPhoneNumber.requestFocus();
+        } else if (action == StaticValues.ML_ResponseError) {
+            ShowMessage(vm_fragmentSendNumber.getMessageResponse(),
+                    getResources().getColor(R.color.mlWhite),
+                    getResources().getDrawable(R.drawable.ic_error));
+        }
+    }//_____________________________________________________________________________________________ HandleAction
+
 
 
     private void SetClick() {//_____________________________________________________________________ Start SetClick
@@ -233,20 +236,19 @@ public class FragmentSendNumber extends Fragment {
         ImgPassConfVisible.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!passconfirmVisible) {
+                if (!passConfirmVisible) {
                     EditPasswordConfirm.setInputType(InputType.TYPE_CLASS_TEXT |
                             InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                     ImgPassConfVisible.setImageResource(R.drawable.ic_visibility_off);
-                    passconfirmVisible = true;
-                    EditPasswordConfirm.setSelection(EditPasswordConfirm.getText().length());
+                    passConfirmVisible = true;
 
                 } else {
                     EditPasswordConfirm.setInputType(InputType.TYPE_CLASS_TEXT |
                             InputType.TYPE_TEXT_VARIATION_PASSWORD);
                     ImgPassConfVisible.setImageResource(R.drawable.ic_visibility);
-                    passconfirmVisible = false;
-                    EditPasswordConfirm.setSelection(EditPasswordConfirm.getText().length());
+                    passConfirmVisible = false;
                 }
+                EditPasswordConfirm.setSelection(EditPasswordConfirm.getText().length());
             }
         });
 
@@ -319,8 +321,8 @@ public class FragmentSendNumber extends Fragment {
 
         EditPasswordConfirm.setBackgroundResource(R.drawable.edit_normal_background);
         EditPasswordConfirm.addTextChangedListener(TextChangeForChangeBack(EditPasswordConfirm));
-
     }//_____________________________________________________________________________________________ End SetTextWatcher
+
 
     private void ShowMessage(String message, int color, Drawable icon) {//__________________________ Start ShowMessage
 
@@ -339,7 +341,6 @@ public class FragmentSendNumber extends Fragment {
         btnGetVerifyCode.setBackground(getResources().getDrawable(R.drawable.save_info_button));
         gifLoading.setVisibility(View.GONE);
         imgLoading.setVisibility(View.VISIBLE);
-
     }//_____________________________________________________________________________________________ End DismissLoading
 
 
@@ -360,4 +361,16 @@ public class FragmentSendNumber extends Fragment {
             observer.dispose();
         observer = null;
     }//_____________________________________________________________________________________________ End onDestroy
+
+
+
+    @Override
+    public void onStop() {//________________________________________________________________________ onStop
+        super.onStop();
+        if (observer != null)
+            observer.dispose();
+        observer = null;
+    }//_____________________________________________________________________________________________ onStop
+
+
 }

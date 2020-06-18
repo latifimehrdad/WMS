@@ -5,16 +5,15 @@ Create By Mehrdad Latifi in
 package com.example.wms.viewmodels.user.profile;
 
         import android.content.Context;
-        import android.content.SharedPreferences;
 
         import com.example.wms.daggers.retrofit.RetrofitComponent;
-        import com.example.wms.models.ModelProfileInfo;
 
         import com.example.wms.models.ModelResponcePrimery;
         import com.example.wms.models.ModelSpinnerItem;
         import com.example.wms.models.ModelSpinnerItems;
         import com.example.wms.models.ModelUserAccounts;
         import com.example.wms.utility.StaticFunctions;
+        import com.example.wms.utility.StaticValues;
         import com.example.wms.views.activitys.MainActivity;
         import com.example.wms.views.application.ApplicationWMS;
 
@@ -32,21 +31,21 @@ package com.example.wms.viewmodels.user.profile;
 public class VM_FragmentProfileBank {
 
     private Context context;
-    private PublishSubject<String> Observables = null;
-    private String MessageResponcse;
+    private PublishSubject<Byte> Observables = null;
+    private String MessageResponse;
     private ArrayList<ModelSpinnerItem> banks;
     private ModelUserAccounts.ModelUserAccountNumber accountNumbers;
     private String AccountNumber;
     private String BankId;
 
 
-    public VM_FragmentProfileBank(Context context) {//_______________________________________ Start VM_FragmentProfileBank
+    public VM_FragmentProfileBank(Context context) {//______________________________________________ VM_FragmentProfileBank
         this.context = context;
         Observables = PublishSubject.create();
-    }//_____________________________________________________________________________________________ End VM_FragmentProfileBank
+    }//_____________________________________________________________________________________________ VM_FragmentProfileBank
 
 
-    public void SendAccountNumber() {//_____________________________________________________________ Start SendAccountNumber
+    public void SendAccountNumber() {//_____________________________________________________________ SendAccountNumber
         StaticFunctions.isCancel = false;
 
         RetrofitComponent retrofitComponent =
@@ -67,24 +66,24 @@ public class VM_FragmentProfileBank {
                     public void onResponse(Call<ModelResponcePrimery> call, Response<ModelResponcePrimery> response) {
                         if (StaticFunctions.isCancel)
                             return;
-                        MessageResponcse = CheckResponse(response, false);
-                        if (MessageResponcse == null) {
-                            MessageResponcse = GetMessage(response);
+                        MessageResponse = CheckResponse(response, false);
+                        if (MessageResponse == null) {
+                            MessageResponse = GetMessage(response);
                             MainActivity.complateprofile = true;
-                            Observables.onNext("SuccessfulEdit");
+                            Observables.onNext(StaticValues.ML_EditProfile);
                         } else
-                            Observables.onNext("Error");
+                            Observables.onNext(StaticValues.ML_ResponseError);
                     }
 
                     @Override
                     public void onFailure(Call<ModelResponcePrimery> call, Throwable t) {
-                        Observables.onNext("Failure");
+                        Observables.onNext(StaticValues.ML_ResponseFailure);
                     }
                 });
-    }//_____________________________________________________________________________________________ End SendAccountNumber
+    }//_____________________________________________________________________________________________ SendAccountNumber
 
 
-    public void GetUserAccountNumber() {//__________________________________________________________ Start GetUserAccountNumber
+    public void GetUserAccountNumber() {//__________________________________________________________ GetUserAccountNumber
 
         StaticFunctions.isCancel = false;
 
@@ -104,28 +103,28 @@ public class VM_FragmentProfileBank {
                     public void onResponse(Call<ModelUserAccounts> call, Response<ModelUserAccounts> response) {
                         if (StaticFunctions.isCancel)
                             return;
-                        MessageResponcse = CheckResponse(response, false);
-                        if (MessageResponcse == null) {
+                        MessageResponse = CheckResponse(response, false);
+                        if (MessageResponse == null) {
                             if (response.body().getResult() == null)
-                                Observables.onNext("SuccessfulNull");
+                                Observables.onNext(StaticValues.ML_GetAccountNumberNull);
                             else {
                                 accountNumbers = response.body().getResult();
-                                Observables.onNext("SuccessfulGetAccount");
+                                Observables.onNext(StaticValues.ML_GetAccountNumbers);
                             }
                         } else
-                            Observables.onNext("Error");
+                            Observables.onNext(StaticValues.ML_ResponseError);
                     }
 
                     @Override
                     public void onFailure(Call<ModelUserAccounts> call, Throwable t) {
-                        Observables.onNext("Failure");
+                        Observables.onNext(StaticValues.ML_ResponseFailure);
                     }
                 });
 
-    }//_____________________________________________________________________________________________ End GetUserAccountNumber
+    }//_____________________________________________________________________________________________ GetUserAccountNumber
 
 
-    public void GetBanks() {//______________________________________________________________________ Start GetBanks
+    public void GetBanks() {//______________________________________________________________________ GetBanks
         StaticFunctions.isCancel = false;
 
         RetrofitComponent retrofitComponent =
@@ -145,56 +144,56 @@ public class VM_FragmentProfileBank {
                     public void onResponse(Call<ModelSpinnerItems> call, Response<ModelSpinnerItems> response) {
                         if (StaticFunctions.isCancel)
                             return;
-                        MessageResponcse = CheckResponse(response, false);
-                        if (MessageResponcse == null) {
+                        MessageResponse = CheckResponse(response, false);
+                        if (MessageResponse == null) {
                             banks = response.body().getResult();
-                            Observables.onNext("SuccessfulBank");
+                            Observables.onNext(StaticValues.ML_GetBanks);
                         } else
-                            Observables.onNext("Error");
+                            Observables.onNext(StaticValues.ML_ResponseError);
                     }
 
                     @Override
                     public void onFailure(Call<ModelSpinnerItems> call, Throwable t) {
-                        Observables.onNext("Failure");
+                        Observables.onNext(StaticValues.ML_ResponseFailure);
                     }
                 });
-    }//_____________________________________________________________________________________________ End GetBanks
+    }//_____________________________________________________________________________________________ GetBanks
 
 
-    public ArrayList<ModelSpinnerItem> getBanks() {//_______________________________________________ Start getBanks
+    public ArrayList<ModelSpinnerItem> getBanks() {//_______________________________________________ getBanks
         return banks;
-    }//_____________________________________________________________________________________________ End getBanks
+    }//_____________________________________________________________________________________________ getBanks
 
 
-    public String getAccountNumber() {//____________________________________________________________ Start getAccountNumber
+    public String getAccountNumber() {//____________________________________________________________ getAccountNumber
         return AccountNumber;
-    }//_____________________________________________________________________________________________ End getAccountNumber
+    }//_____________________________________________________________________________________________ getAccountNumber
 
 
-    public void setAccountNumber(String accountNumber) {//__________________________________________ Start setAccountNumber
+    public void setAccountNumber(String accountNumber) {//__________________________________________ setAccountNumber
         AccountNumber = accountNumber;
-    }//_____________________________________________________________________________________________ End setAccountNumber
+    }//_____________________________________________________________________________________________ setAccountNumber
 
 
-    public String getBankId() {//___________________________________________________________________ Start getBankId
+    public String getBankId() {//___________________________________________________________________ getBankId
         return BankId;
-    }//_____________________________________________________________________________________________ End getBankId
+    }//_____________________________________________________________________________________________ getBankId
 
-    public void setBankId(String bankId) {//________________________________________________________ Start setBankId
+    public void setBankId(String bankId) {//________________________________________________________ setBankId
         BankId = bankId;
-    }//_____________________________________________________________________________________________ End setBankId
+    }//_____________________________________________________________________________________________ setBankId
 
 
-    public String getMessageResponcse() {//_________________________________________________________ Start getMessageResponcse
-        return MessageResponcse;
-    }//_____________________________________________________________________________________________ End getMessageResponcse
+    public String getMessageResponse() {//__________________________________________________________ getMessageResponse
+        return MessageResponse;
+    }//_____________________________________________________________________________________________ getMessageResponse
 
-    public ModelUserAccounts.ModelUserAccountNumber getAccountNumbers() {//_________________________ Start getAccountNumbers
+    public ModelUserAccounts.ModelUserAccountNumber getAccountNumbers() {//_________________________ getAccountNumbers
         return accountNumbers;
-    }//_____________________________________________________________________________________________ End getAccountNumbers
+    }//_____________________________________________________________________________________________ getAccountNumbers
 
 
-    public PublishSubject<String> getObservables() {//______________________________________________ Start getObservables
+    public PublishSubject<Byte> getObservables() {//________________________________________________ getObservables
         return Observables;
-    }//_____________________________________________________________________________________________ End getObservables
+    }//_____________________________________________________________________________________________ getObservables
 }

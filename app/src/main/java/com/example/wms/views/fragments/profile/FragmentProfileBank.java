@@ -7,7 +7,6 @@ package com.example.wms.views.fragments.profile;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +22,8 @@ import androidx.fragment.app.Fragment;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentProfileBankBinding;
 import com.example.wms.models.ModelSpinnerItem;
+import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.user.profile.VM_FragmentProfileBank;
-import com.example.wms.views.activitys.MainActivity;
 import com.example.wms.views.application.ApplicationWMS;
 import com.example.wms.views.dialogs.DialogProgress;
 import com.example.wms.views.dialogs.searchspinner.MLSpinnerDialog;
@@ -38,7 +37,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.example.wms.utility.StaticFunctions.SetBackClickAndGoHome;
 import static com.example.wms.utility.StaticFunctions.TextChangeForChangeBack;
 
 public class FragmentProfileBank extends Fragment {
@@ -51,7 +49,7 @@ public class FragmentProfileBank extends Fragment {
     private boolean ClickBank = false;
     private ArrayList<ModelSpinnerItem> BanksList;
     private String BankId = "-1";
-    private DisposableObserver<String> observer;
+    private DisposableObserver<Byte> observer;
 
     @BindView(R.id.LayoutBank)
     LinearLayout LayoutBank;
@@ -66,33 +64,37 @@ public class FragmentProfileBank extends Fragment {
     Button btnSendAccountNumber;
 
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.context = getContext();
-        FragmentProfileBankBinding binding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_profile_bank, container, false
-        );
-        vm_fragmentProfileBank = new VM_FragmentProfileBank(context);
-        binding.setBank(vm_fragmentProfileBank);
-        view = binding.getRoot();
-        ButterKnife.bind(this, view);
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {//__________________________________________________________ onCreateView
+        if (view == null) {
+            this.context = getContext();
+            FragmentProfileBankBinding binding = DataBindingUtil.inflate(
+                    inflater, R.layout.fragment_profile_bank, container, false
+            );
+            vm_fragmentProfileBank = new VM_FragmentProfileBank(context);
+            binding.setBank(vm_fragmentProfileBank);
+            view = binding.getRoot();
+            ButterKnife.bind(this, view);
+            SetTextWatcher();
+            SetClick();
+        }
         return view;
-    }//_____________________________________________________________________________________________ Start onCreateView
+    }//_____________________________________________________________________________________________ onCreateView
 
 
     @Override
-    public void onStart() {//_______________________________________________________________________ Start onStart
+    public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
         if(observer != null)
             observer.dispose();
         observer = null;
         ObserverObservables();
-        SetTextWatcher();
-        SetClick();
-
-    }//_____________________________________________________________________________________________ End onStart
+    }//_____________________________________________________________________________________________ onStart
 
 
-    private void SetClick() {//_____________________________________________________________________ Start SetClick
+    private void SetClick() {//_____________________________________________________________________ SetClick
 
         LayoutBank.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,10 +119,10 @@ public class FragmentProfileBank extends Fragment {
             }
         });
 
-    }//_____________________________________________________________________________________________ End SetClick
+    }//_____________________________________________________________________________________________ SetClick
 
 
-    private Boolean CheckEmpty() {//________________________________________________________________ Start CheckEmpty
+    private Boolean CheckEmpty() {//________________________________________________________________ CheckEmpty
 
         boolean accountnumbert = false;
         boolean bank = false;
@@ -145,76 +147,39 @@ public class FragmentProfileBank extends Fragment {
             return false;
 
 
-    }//_____________________________________________________________________________________________ End CheckEmpty
+    }//_____________________________________________________________________________________________ CheckEmpty
 
 
-    private void GetBanks() {//_____________________________________________________________________ Start GetBanks
+    private void GetBanks() {//_____________________________________________________________________ GetBanks
         ShowProgressDialog(getResources().getString(R.string.GetBanks));
         vm_fragmentProfileBank.GetBanks();
-    }//_____________________________________________________________________________________________ End GetBanks
+    }//_____________________________________________________________________________________________ GetBanks
 
 
-    private void GeuUserAccountNumber() {//_________________________________________________________ Start GeuUserAccountNumber
+    private void GeuUserAccountNumber() {//_________________________________________________________ GeuUserAccountNumber
         ShowProgressDialog(getResources().getString(R.string.GetUserAccountNumber));
         vm_fragmentProfileBank.GetUserAccountNumber();
-    }//_____________________________________________________________________________________________ End GeuUserAccountNumber
+    }//_____________________________________________________________________________________________ GeuUserAccountNumber
 
 
-    private void SetTextWatcher() {//_______________________________________________________________ Start SetTextWatcher
+    private void SetTextWatcher() {//_______________________________________________________________ SetTextWatcher
         editAccountNumber.setBackgroundResource(R.drawable.edit_normal_background);
         editAccountNumber.addTextChangedListener(TextChangeForChangeBack(editAccountNumber));
-
         LayoutBank.setBackgroundColor(getResources().getColor(R.color.mlEdit));
+    }//_____________________________________________________________________________________________ SetTextWatcher
 
-    }//_____________________________________________________________________________________________ End SetTextWatcher
 
+    private void ObserverObservables() {//__________________________________________________________ ObserverObservables
 
-    private void ObserverObservables() {//__________________________________________________________ Start ObserverObservables
-
-        observer = new DisposableObserver<String>() {
+        observer = new DisposableObserver<Byte>() {
             @Override
-            public void onNext(String s) {
+            public void onNext(Byte s) {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         if (progress != null)
                             progress.dismiss();
-                        switch (s) {
-                            case "SuccessfulNull":
-                                editAccountNumber.requestFocus();
-                                break;
-                            case "SuccessfulBank":
-                                BanksList = vm_fragmentProfileBank.getBanks();
-                                SetItemBanks();
-                                break;
-                            case "SuccessfulEdit":
-                                ShowMessage(vm_fragmentProfileBank.getMessageResponcse()
-                                        , getResources().getColor(R.color.mlWhite),
-                                        getResources().getDrawable(R.drawable.ic_check));
-                                break;
-                            case "SuccessfulGetAccount":
-                                editAccountNumber.setText(vm_fragmentProfileBank
-                                        .getAccountNumbers()
-                                        .getAccountNumber());
-
-                                TextBank.setText(vm_fragmentProfileBank
-                                        .getAccountNumbers()
-                                        .getBank()
-                                        .getTitle());
-
-                                BankId = vm_fragmentProfileBank
-                                        .getAccountNumbers()
-                                        .getBank()
-                                        .getId();
-                                break;
-                            case "Failure":
-                                ShowMessage(getResources().getString(R.string.NetworkError),
-                                        getResources().getColor(R.color.mlWhite),
-                                        getResources().getDrawable(R.drawable.ic_error));
-                                break;
-                            default:
-                                break;
-                        }
+                        HandleAction(s);
                     }
                 });
             }
@@ -237,10 +202,48 @@ public class FragmentProfileBank extends Fragment {
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
 
-    }//_____________________________________________________________________________________________ End ObserverObservables
+    }//_____________________________________________________________________________________________ ObserverObservables
 
 
-    private void ShowProgressDialog(String title) {//_______________________________________________ Start ShowProgressDialog
+
+    private void HandleAction(Byte action) {//______________________________________________________ HandleAction
+        if (action == StaticValues.ML_EditProfile) {
+            ShowMessage(vm_fragmentProfileBank.getMessageResponse()
+                    , getResources().getColor(R.color.mlWhite),
+                    getResources().getDrawable(R.drawable.ic_check));
+        } else if (action == StaticValues.ML_GetAccountNumbers) {
+            editAccountNumber.setText(vm_fragmentProfileBank
+                    .getAccountNumbers()
+                    .getAccountNumber());
+
+            TextBank.setText(vm_fragmentProfileBank
+                    .getAccountNumbers()
+                    .getBank()
+                    .getTitle());
+
+            BankId = vm_fragmentProfileBank
+                    .getAccountNumbers()
+                    .getBank()
+                    .getId();
+        } else if (action == StaticValues.ML_GetAccountNumberNull) {
+            editAccountNumber.requestFocus();
+        } else if (action == StaticValues.ML_GetBanks) {
+            BanksList = vm_fragmentProfileBank.getBanks();
+            SetItemBanks();
+        } else if (action == StaticValues.ML_ResponseFailure) {
+            ShowMessage(getResources().getString(R.string.NetworkError),
+                    getResources().getColor(R.color.mlWhite),
+                    getResources().getDrawable(R.drawable.ic_error));
+        } else if (action == StaticValues.ML_ResponseError) {
+            ShowMessage(vm_fragmentProfileBank.getMessageResponse()
+                    , getResources().getColor(R.color.mlWhite),
+                    getResources().getDrawable(R.drawable.ic_error));
+        }
+    }//_____________________________________________________________________________________________ HandleAction
+
+
+
+    private void ShowProgressDialog(String title) {//_______________________________________________ ShowProgressDialog
 
         progress = ApplicationWMS
                 .getApplicationWMS(context)
@@ -248,10 +251,10 @@ public class FragmentProfileBank extends Fragment {
                 .getApplicationUtility()
                 .ShowProgress(context, title);
         progress.show(getChildFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
-    }//_____________________________________________________________________________________________ End ShowProgressDialog
+    }//_____________________________________________________________________________________________ ShowProgressDialog
 
 
-    private void SetItemBanks() {//_________________________________________________________________ Start SetItemBanks
+    private void SetItemBanks() {//_________________________________________________________________ SetItemBanks
         TextBank.setText(getResources().getString(R.string.ChooseBank));
         BankId = "-1";
         //spinnerDialog = new SpinnerDialog(getActivity(),items,"Select or Search City","Close Button Text");// With No Animation
@@ -274,10 +277,10 @@ public class FragmentProfileBank extends Fragment {
 
         if (ClickBank)
             spinnerBanks.showSpinerDialog();
-    }//_____________________________________________________________________________________________ End SetItemBanks
+    }//_____________________________________________________________________________________________ SetItemBanks
 
 
-    private void ShowMessage(String message, int color, Drawable icon) {//__________________________ Start ShowMessage
+    private void ShowMessage(String message, int color, Drawable icon) {//__________________________ ShowMessage
 
         ApplicationWMS
                 .getApplicationWMS(context)
@@ -285,15 +288,15 @@ public class FragmentProfileBank extends Fragment {
                 .getApplicationUtility()
                 .ShowMessage(context, message, color, icon, getChildFragmentManager());
 
-    }//_____________________________________________________________________________________________ End ShowMessage
+    }//_____________________________________________________________________________________________ ShowMessage
 
 
     @Override
-    public void onDestroy() {//_____________________________________________________________________ Start onDestroy
+    public void onDestroy() {//_____________________________________________________________________ onDestroy
         super.onDestroy();
         if(observer != null)
             observer.dispose();
         observer = null;
-    }//_____________________________________________________________________________________________ End onDestroy
+    }//_____________________________________________________________________________________________ onDestroy
 
 }

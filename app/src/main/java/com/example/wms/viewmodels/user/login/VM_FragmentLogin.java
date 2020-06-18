@@ -3,11 +3,13 @@ package com.example.wms.viewmodels.user.login;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.wms.R;
 import com.example.wms.daggers.retrofit.RetrofitApis;
 import com.example.wms.daggers.retrofit.RetrofitComponent;
 import com.example.wms.models.ModelSettingInfo;
 import com.example.wms.models.ModelToken;
 import com.example.wms.utility.StaticFunctions;
+import com.example.wms.utility.StaticValues;
 import com.example.wms.views.application.ApplicationWMS;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -24,18 +26,19 @@ import static com.example.wms.utility.StaticFunctions.GetAuthorization;
 public class VM_FragmentLogin {
 
     private Context context;
-    private PublishSubject<String> Observables = null;
+    private PublishSubject<Byte> Observables = null;
     private ModelToken modelToken;
-    private String MessageResponcse;
+    private String MessageResponse;
     private ModelSettingInfo.ModelProfileSetting profile;
+    private boolean CompleteProfile = false;
 
-    public VM_FragmentLogin(Context context) {//_________________________________________ Start VM_FragmentLogin
+    public VM_FragmentLogin(Context context) {//____________________________________________________ VM_FragmentLogin
         this.context = context;
         Observables = PublishSubject.create();
-    }//_____________________________________________________________________________________________ End VM_FragmentLogin
+    }//_____________________________________________________________________________________________ VM_FragmentLogin
 
 
-    public void GetLoginToken(String PhoneNumbet, String Password) {//______________________________ Start GetLoginToken
+    public void GetLoginToken(String PhoneNumber, String Password) {//______________________________ GetLoginToken
         StaticFunctions.isCancel = false;
 
         RetrofitComponent retrofitComponent =
@@ -50,7 +53,7 @@ public class VM_FragmentLogin {
                 .Login(RetrofitApis.client_id_value,
                         RetrofitApis.client_secret_value,
                         RetrofitApis.grant_type_password,
-                        PhoneNumbet,
+                        PhoneNumber,
                         Password,
                         Authorization)
                 .enqueue(new Callback<ModelToken>() {
@@ -58,25 +61,24 @@ public class VM_FragmentLogin {
                     public void onResponse(Call<ModelToken> call, Response<ModelToken> response) {
                         if (StaticFunctions.isCancel)
                             return;
-                        MessageResponcse = CheckResponse(response, true);
-                        if (MessageResponcse == null) {
+                        MessageResponse = CheckResponse(response, true);
+                        if (MessageResponse == null) {
                             modelToken = response.body();
                             SaveToken();
-                            Observables.onNext("SuccessfulToken");
                         } else
-                            Observables.onNext("Error");
+                            Observables.onNext(StaticValues.ML_ResponseError);
                     }
 
                     @Override
                     public void onFailure(Call<ModelToken> call, Throwable t) {
-                        Observables.onNext("Failure");
+                        Observables.onNext(StaticValues.ML_ResponseFailure);
                     }
                 });
 
-    }//_____________________________________________________________________________________________ End GetLoginToken
+    }//_____________________________________________________________________________________________ GetLoginToken
 
 
-    public void GetLoginInformation() {//___________________________________________________________ Start GetLoginInformation
+    public void GetLoginInformation() {//___________________________________________________________ GetLoginInformation
 
         StaticFunctions.isCancel = false;
 
@@ -96,58 +98,66 @@ public class VM_FragmentLogin {
                     public void onResponse(Call<ModelSettingInfo> call, Response<ModelSettingInfo> response) {
                         if (StaticFunctions.isCancel)
                             return;
-                        MessageResponcse = CheckResponse(response, true);
-                        if (MessageResponcse == null) {
+                        MessageResponse = CheckResponse(response, true);
+                        if (MessageResponse == null) {
                             profile = response.body().getResult();
                             SaveProfile();
-                            Observables.onNext("Successful");
                         } else
-                            Observables.onNext("Error");
+                            Observables.onNext(StaticValues.ML_ResponseError);
                     }
 
                     @Override
                     public void onFailure(Call<ModelSettingInfo> call, Throwable t) {
-                        Observables.onNext("Failure");
+                        Observables.onNext(StaticValues.ML_ResponseFailure);
                     }
                 });
 
-    }//_____________________________________________________________________________________________ End GetLoginInformation
+    }//_____________________________________________________________________________________________ GetLoginInformation
 
 
-    private void SaveProfile() {//__________________________________________________________________ Start SaveProfile
-        SharedPreferences.Editor token =
-                context.getSharedPreferences("wmstoken", 0).edit();
-        token.putString("name",profile.getName());
-        token.putString("lastName",profile.getLastName());
-        token.putInt("gender",profile.getGender());
-        token.putBoolean("complateprofile",profile.getProfileCompleted());
+    private void SaveProfile() {//__________________________________________________________________ SaveProfile
+        SharedPreferences.Editor token = context
+                .getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0)
+                .edit();
+        token.putString(context.getString(R.string.ML_Name),profile.getName());
+        token.putString(context.getString(R.string.ML_lastName),profile.getLastName());
+        token.putInt(context.getString(R.string.ML_Gender),profile.getGender());
+        token.putBoolean(context.getString(R.string.ML_CompleteProfile),profile.getProfileCompleted());
         token.apply();
-    }//_____________________________________________________________________________________________ End SaveProfile
+        Observables.onNext(StaticValues.ML_GoToHome);
+    }//_____________________________________________________________________________________________ SaveProfile
 
 
-    private void SaveToken() {//____________________________________________________________________ Start SaveToken
+    private void SaveToken() {//____________________________________________________________________ SaveToken
 
-        SharedPreferences.Editor token =
-                context.getSharedPreferences("wmstoken", 0).edit();
-
-        token.putString("accesstoken", modelToken.getAccess_token());
-        token.putString("tokentype", modelToken.getToken_type());
-        token.putInt("expiresin", modelToken.getExpires_in());
-        token.putString("phonenumber", modelToken.getPhoneNumber());
-        token.putString("clientid", modelToken.getClient_id());
-        token.putString("issued", modelToken.getIssued());
-        token.putString("expires", modelToken.getExpires());
+        SharedPreferences.Editor token = context
+                .getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0)
+                .edit();
+        token.putString(context.getString(R.string.ML_AccessToken), modelToken.getAccess_token());
+        token.putString(context.getString(R.string.ML_TokenType), modelToken.getToken_type());
+        token.putInt(context.getString(R.string.ML_ExpireSin), modelToken.getExpires_in());
+        token.putString(context.getString(R.string.ML_PhoneNumber), modelToken.getPhoneNumber());
+        token.putString(context.getString(R.string.ML_ClientId), modelToken.getClient_id());
+        token.putString(context.getString(R.string.ML_Issued), modelToken.getIssued());
+        token.putString(context.getString(R.string.ML_Expires), modelToken.getExpires());
         token.apply();
+        GetLoginInformation();
 
-    }//_____________________________________________________________________________________________ End SaveToken
-
-
-    public String getMessageResponse() {//__________________________________________________________ Start getMessageResponse
-        return MessageResponcse;
-    }//_____________________________________________________________________________________________ End getMessageResponse
+    }//_____________________________________________________________________________________________ SaveToken
 
 
-    public PublishSubject<String> getObservables() {//______________________________________________ Start getObservables
+    public String getMessageResponse() {//__________________________________________________________ getMessageResponse
+        return MessageResponse;
+    }//_____________________________________________________________________________________________ getMessageResponse
+
+
+    public PublishSubject<Byte> getObservables() {//________________________________________________ getObservables
         return Observables;
-    }//_____________________________________________________________________________________________ End getObservables
+    }//_____________________________________________________________________________________________ getObservables
+
+
+    public boolean isCompleteProfile() {//__________________________________________________________ isCompleteProfile
+        return CompleteProfile;
+    }//_____________________________________________________________________________________________ isCompleteProfile
+
 }

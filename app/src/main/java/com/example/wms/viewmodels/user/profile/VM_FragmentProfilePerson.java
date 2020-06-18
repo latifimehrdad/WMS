@@ -7,12 +7,14 @@ package com.example.wms.viewmodels.user.profile;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.wms.R;
 import com.example.wms.daggers.retrofit.RetrofitComponent;
 import com.example.wms.models.ModelProfileInfo;
 import com.example.wms.models.ModelResponcePrimery;
 import com.example.wms.models.ModelSpinnerItem;
 import com.example.wms.models.ModelSpinnerItems;
 import com.example.wms.utility.StaticFunctions;
+import com.example.wms.utility.StaticValues;
 import com.example.wms.views.activitys.MainActivity;
 import com.example.wms.views.application.ApplicationWMS;
 
@@ -30,12 +32,12 @@ import static com.example.wms.utility.StaticFunctions.GetMessage;
 public class VM_FragmentProfilePerson {
 
     private Context context;
-    private PublishSubject<String> Observables = null;
+    private PublishSubject<Byte> Observables = null;
     private ArrayList<ModelSpinnerItem> provinces;
-    private ArrayList<ModelSpinnerItem> Citys;
+    private ArrayList<ModelSpinnerItem> Cities;
     private ArrayList<ModelSpinnerItem> Regions;
     private ModelProfileInfo.ModelProfile profile;
-    private String MessageResponcse;
+    private String MessageResponse;
     private String ProvinceId;
     private String CityId;
     private String RegionId;
@@ -45,14 +47,14 @@ public class VM_FragmentProfilePerson {
     private Integer CitizenType;
     private String ReferenceCode;
 
-    public VM_FragmentProfilePerson(Context context) {//_____________________________________ Start VM_FragmentProfilePerson
+    public VM_FragmentProfilePerson(Context context) {//____________________________________________ VM_FragmentProfilePerson
         this.context = context;
         Observables = PublishSubject.create();
-    }//_____________________________________________________________________________________________ End VM_FragmentProfilePerson
+    }//_____________________________________________________________________________________________ VM_FragmentProfilePerson
 
 
 
-    public void GetProfileInfo() {//________________________________________________________________ Start GetProfileInfo
+    public void GetProfileInfo() {//________________________________________________________________ GetProfileInfo
         StaticFunctions.isCancel = false;
 
         RetrofitComponent retrofitComponent =
@@ -71,23 +73,23 @@ public class VM_FragmentProfilePerson {
                     public void onResponse(Call<ModelProfileInfo> call, Response<ModelProfileInfo> response) {
                         if (StaticFunctions.isCancel)
                             return;
-                        MessageResponcse = CheckResponse(response, false);
-                        if (MessageResponcse == null) {
+                        MessageResponse = CheckResponse(response, false);
+                        if (MessageResponse == null) {
                             profile = response.body().getResult();
-                            Observables.onNext("SuccessfulProfile");
+                            Observables.onNext(StaticValues.ML_GetProfileInfo);
                         } else
-                            Observables.onNext("Error");
+                            Observables.onNext(StaticValues.ML_ResponseError);
                     }
 
                     @Override
                     public void onFailure(Call<ModelProfileInfo> call, Throwable t) {
-                        Observables.onNext("Failure");
+                        Observables.onNext(StaticValues.ML_ResponseFailure);
                     }
                 });
-    }//_____________________________________________________________________________________________ End GetProfileInfo
+    }//_____________________________________________________________________________________________ GetProfileInfo
 
 
-    public void EditProfile() {//___________________________________________________________________ Start GetPlasesList
+    public void EditProfile() {//___________________________________________________________________ EditProfile
         StaticFunctions.isCancel = false;
 
         RetrofitComponent retrofitComponent =
@@ -113,39 +115,38 @@ public class VM_FragmentProfilePerson {
                     public void onResponse(Call<ModelResponcePrimery> call, Response<ModelResponcePrimery> response) {
                         if (StaticFunctions.isCancel)
                             return;
-                        MessageResponcse = CheckResponse(response, false);
-                        if (MessageResponcse == null) {
-                            MessageResponcse = GetMessage(response);
+                        MessageResponse = CheckResponse(response, false);
+                        if (MessageResponse == null) {
+                            MessageResponse = GetMessage(response);
                             SaveProfile();
-
-                            MainActivity.complateprofile = true;
-                            Observables.onNext("SuccessfulEdit");
                         } else
-                            Observables.onNext("Error");
+                            Observables.onNext(StaticValues.ML_ResponseError);
                     }
 
                     @Override
                     public void onFailure(Call<ModelResponcePrimery> call, Throwable t) {
-                        Observables.onNext("Failure");
+                        Observables.onNext(StaticValues.ML_ResponseFailure);
                     }
                 });
 
-    }//_____________________________________________________________________________________________ End GetPlasesList
+    }//_____________________________________________________________________________________________ EditProfile
 
 
-    private void SaveProfile() {//__________________________________________________________________ Start SaveProfile
+    private void SaveProfile() {//__________________________________________________________________ SaveProfile
         SharedPreferences.Editor token =
-                context.getSharedPreferences("wmstoken", 0).edit();
-        token.putString("name",getFirstName());
-        token.putString("lastName",getLastName());
-        token.putInt("gender",getGender());
-        token.putBoolean("complateprofile",true);
+                context.getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0).edit();
+        token.putString(context.getString(R.string.ML_Name),getFirstName());
+        token.putString(context.getString(R.string.ML_lastName),getLastName());
+        token.putInt(context.getString(R.string.ML_Gender),getGender());
+        token.putBoolean(context.getString(R.string.ML_CompleteProfile),true);
         token.apply();
-    }//_____________________________________________________________________________________________ End SaveProfile
+        MainActivity.complateprofile = true;
+        Observables.onNext(StaticValues.ML_EditProfile);
+    }//_____________________________________________________________________________________________ SaveProfile
 
 
 
-    public void GetPlasesList() {//________________________________________________ Start GetPlasesList
+    public void GetPlacesList() {//_________________________________________________________________ GetPlacesList
         StaticFunctions.isCancel = false;
 
         RetrofitComponent retrofitComponent =
@@ -166,24 +167,24 @@ public class VM_FragmentProfilePerson {
                     public void onResponse(Call<ModelSpinnerItems> call, Response<ModelSpinnerItems> response) {
                         if (StaticFunctions.isCancel)
                             return;
-                        MessageResponcse = CheckResponse(response, false);
-                        if (MessageResponcse == null) {
+                        MessageResponse = CheckResponse(response, false);
+                        if (MessageResponse == null) {
                             Regions = response.body().getResult();
-                            Observables.onNext("SuccessfulRegion");
+                            Observables.onNext(StaticValues.ML_GetRegion);
                         } else
-                            Observables.onNext("Error");
+                            Observables.onNext(StaticValues.ML_ResponseError);
                     }
 
                     @Override
                     public void onFailure(Call<ModelSpinnerItems> call, Throwable t) {
-                        Observables.onNext("Failure");
+                        Observables.onNext(StaticValues.ML_ResponseFailure);
                     }
                 });
 
-    }//_____________________________________________________________________________________________ End GetPlasesList
+    }//_____________________________________________________________________________________________ GetPlacesList
 
 
-    public void GetCitysList() {//__________________________________________________________________ Start GetCitysList
+    public void GetCitiesList() {//_________________________________________________________________ GetCitiesList
         StaticFunctions.isCancel = false;
 
         RetrofitComponent retrofitComponent =
@@ -204,24 +205,24 @@ public class VM_FragmentProfilePerson {
                     public void onResponse(Call<ModelSpinnerItems> call, Response<ModelSpinnerItems> response) {
                         if (StaticFunctions.isCancel)
                             return;
-                        MessageResponcse = CheckResponse(response, false);
-                        if (MessageResponcse == null) {
-                            Citys = response.body().getResult();
-                            Observables.onNext("SuccessfulCity");
+                        MessageResponse = CheckResponse(response, false);
+                        if (MessageResponse == null) {
+                            Cities = response.body().getResult();
+                            Observables.onNext(StaticValues.ML_GetCities);
                         } else
-                            Observables.onNext("Error");
+                            Observables.onNext(StaticValues.ML_ResponseError);
                     }
 
                     @Override
                     public void onFailure(Call<ModelSpinnerItems> call, Throwable t) {
-                        Observables.onNext("Failure");
+                        Observables.onNext(StaticValues.ML_ResponseFailure);
                     }
                 });
 
-    }//_____________________________________________________________________________________________ End GetCitysList
+    }//_____________________________________________________________________________________________ GetCitiesList
 
 
-    public void GetProvincesList() {//______________________________________________________________ Start GetProvincesList
+    public void GetProvincesList() {//______________________________________________________________ GetProvincesList
         StaticFunctions.isCancel = false;
 
         RetrofitComponent retrofitComponent =
@@ -241,120 +242,135 @@ public class VM_FragmentProfilePerson {
                     public void onResponse(Call<ModelSpinnerItems> call, Response<ModelSpinnerItems> response) {
                         if (StaticFunctions.isCancel)
                             return;
-                        MessageResponcse = CheckResponse(response, false);
-                        if (MessageResponcse == null) {
+                        MessageResponse = CheckResponse(response, false);
+                        if (MessageResponse == null) {
                             provinces = response.body().getResult();
-                            Observables.onNext("SuccessfulProvince");
+                            Observables.onNext(StaticValues.ML_GetProvince);
                         } else
-                            Observables.onNext("Error");
+                            Observables.onNext(StaticValues.ML_ResponseError);
                     }
 
                     @Override
                     public void onFailure(Call<ModelSpinnerItems> call, Throwable t) {
-                        Observables.onNext("Failure");
+                        Observables.onNext(StaticValues.ML_ResponseFailure);
                     }
                 });
 
-    }//_____________________________________________________________________________________________ End GetProvincesList
+    }//_____________________________________________________________________________________________ GetProvincesList
 
 
 
-    public ArrayList<ModelSpinnerItem> getProvinces() {//______________________________________________ Start getProvinces
+    public String GetPhoneNumber() {//______________________________________________________________ GetPhoneNumber
+
+        SharedPreferences prefs = context.getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0);
+        if (prefs == null) {
+            return "";
+        } else {
+            String PhoneNumber = prefs.getString(context.getString(R.string.ML_PhoneNumber), "");
+            return PhoneNumber;
+        }
+
+    }//_____________________________________________________________________________________________ GetPhoneNumber
+
+
+
+
+    public ArrayList<ModelSpinnerItem> getProvinces() {//___________________________________________ getProvinces
         return provinces;
-    }//_____________________________________________________________________________________________ End getProvinces
+    }//_____________________________________________________________________________________________ getProvinces
 
 
-    public String getMessageResponcse() {//_________________________________________________________ Start getMessageResponcse
-        return MessageResponcse;
-    }//_____________________________________________________________________________________________ End getMessageResponcse
+    public String getMessageResponse() {//_________________________________________________________ getMessageResponse
+        return MessageResponse;
+    }//_____________________________________________________________________________________________ getMessageResponse
 
 
-    public ArrayList<ModelSpinnerItem> getCitys() {//__________________________________________________ Start getCitys
-        return Citys;
-    }//_____________________________________________________________________________________________ End getCitys
+    public ArrayList<ModelSpinnerItem> getCities() {//_______________________________________________ getCities
+        return Cities;
+    }//_____________________________________________________________________________________________ getCities
 
 
-    public ArrayList<ModelSpinnerItem> getRegions() {//_________________________________________________ Start getRegions
+    public ArrayList<ModelSpinnerItem> getRegions() {//_____________________________________________ getRegions
         return Regions;
-    }//_____________________________________________________________________________________________ End getRegions
+    }//_____________________________________________________________________________________________ getRegions
 
 
-    public String getProvinceId() {//_______________________________________________________________ Start getProvinceId
+    public String getProvinceId() {//_______________________________________________________________ getProvinceId
         return ProvinceId;
-    }//_____________________________________________________________________________________________ End getProvinceId
+    }//_____________________________________________________________________________________________ getProvinceId
 
 
-    public void setProvinceId(String provinceId) {//________________________________________________ Start setProvinceId
+    public void setProvinceId(String provinceId) {//________________________________________________ setProvinceId
         ProvinceId = provinceId;
-    }//_____________________________________________________________________________________________ End setProvinceId
+    }//_____________________________________________________________________________________________ setProvinceId
 
 
-    public String getCityId() {//___________________________________________________________________ Start getCityId
+    public String getCityId() {//___________________________________________________________________ getCityId
         return CityId;
-    }//_____________________________________________________________________________________________ End getCityId
+    }//_____________________________________________________________________________________________ getCityId
 
-    public void setCityId(String cityId) {//________________________________________________________ Start setCityId
+    public void setCityId(String cityId) {//________________________________________________________ setCityId
         CityId = cityId;
-    }//_____________________________________________________________________________________________ End setCityId
+    }//_____________________________________________________________________________________________ setCityId
 
-    public String getRegionId() {//__________________________________________________________________ Start getRegionId
+    public String getRegionId() {//_________________________________________________________________ getRegionId
         return RegionId;
-    }//_____________________________________________________________________________________________ End getRegionId
+    }//_____________________________________________________________________________________________ getRegionId
 
-    public void setRegionId(String regionId) {//______________________________________________________ Start setRegionId
+    public void setRegionId(String regionId) {//____________________________________________________ setRegionId
         RegionId = regionId;
-    }//_____________________________________________________________________________________________ End setRegionId
+    }//_____________________________________________________________________________________________ setRegionId
 
 
-    public String getFirstName() {//________________________________________________________________ Start getFirstName
+    public String getFirstName() {//________________________________________________________________ getFirstName
         return FirstName;
-    }//_____________________________________________________________________________________________ End getFirstName
+    }//_____________________________________________________________________________________________ getFirstName
 
-    public void setFirstName(String firstName) {//__________________________________________________ Start setFirstName
+    public void setFirstName(String firstName) {//__________________________________________________ setFirstName
         FirstName = firstName;
-    }//_____________________________________________________________________________________________ End setFirstName
+    }//_____________________________________________________________________________________________ setFirstName
 
-    public String getLastName() {//_________________________________________________________________ Start getLastName
+    public String getLastName() {//_________________________________________________________________ getLastName
         return LastName;
-    }//_____________________________________________________________________________________________ End getLastName
+    }//_____________________________________________________________________________________________ getLastName
 
-    public void setLastName(String lastName) {//____________________________________________________ Start setLastName
+    public void setLastName(String lastName) {//____________________________________________________ setLastName
         LastName = lastName;
-    }//_____________________________________________________________________________________________ End setLastName
+    }//_____________________________________________________________________________________________ setLastName
 
-    public int getGender() {//______________________________________________________________________ Start getGender
+    public int getGender() {//______________________________________________________________________ getGender
         return Gender;
-    }//_____________________________________________________________________________________________ End getGender
+    }//_____________________________________________________________________________________________ getGender
 
-    public void setGender(int gender) {//___________________________________________________________ Start setGender
+    public void setGender(int gender) {//___________________________________________________________ setGender
         Gender = gender;
-    }//_____________________________________________________________________________________________ End setGender
+    }//_____________________________________________________________________________________________ setGender
 
-    public Integer getCitizenType() {//_____________________________________________________________ Start getCitizenType
+    public Integer getCitizenType() {//_____________________________________________________________ getCitizenType
         return CitizenType;
-    }//_____________________________________________________________________________________________ End getCitizenType
+    }//_____________________________________________________________________________________________ getCitizenType
 
-    public void setCitizenType(Integer citizenType) {//_____________________________________________ Start setCitizenType
+    public void setCitizenType(Integer citizenType) {//_____________________________________________ setCitizenType
         CitizenType = citizenType;
-    }//_____________________________________________________________________________________________ End setCitizenType
+    }//_____________________________________________________________________________________________ setCitizenType
 
-    public String getReferenceCode() {//___________________________________________________________ Start getReferenceCode
+    public String getReferenceCode() {//____________________________________________________________ getReferenceCode
         return ReferenceCode;
-    }//_____________________________________________________________________________________________ End getReferenceCode
+    }//_____________________________________________________________________________________________ getReferenceCode
 
-    public void setReferenceCode(String referenceCode) {//_________________________________________ Start setReferenceCode
+    public void setReferenceCode(String referenceCode) {//__________________________________________ setReferenceCode
         ReferenceCode = referenceCode;
-    }//_____________________________________________________________________________________________ End setReferenceCode
+    }//_____________________________________________________________________________________________ setReferenceCode
 
-    public ModelProfileInfo.ModelProfile getProfile() {//___________________________________________ Start getProfile
+    public ModelProfileInfo.ModelProfile getProfile() {//___________________________________________ getProfile
         return profile;
-    }//_____________________________________________________________________________________________ End getProfile
+    }//_____________________________________________________________________________________________ getProfile
 
-    public void setProfile(ModelProfileInfo.ModelProfile profile) {//_______________________________ Start setProfile
+    public void setProfile(ModelProfileInfo.ModelProfile profile) {//_______________________________ setProfile
         this.profile = profile;
-    }//_____________________________________________________________________________________________ End setProfile
+    }//_____________________________________________________________________________________________ setProfile
 
-    public PublishSubject<String> getObservables() {//______________________________________________ Start getObservables
+    public PublishSubject<Byte> getObservables() {//________________________________________________ getObservables
         return Observables;
-    }//_____________________________________________________________________________________________ End getObservables
+    }//_____________________________________________________________________________________________ getObservables
 }

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import com.example.wms.daggers.retrofit.RetrofitComponent;
 import com.example.wms.models.ModelResponcePrimery;
 import com.example.wms.utility.StaticFunctions;
+import com.example.wms.utility.StaticValues;
 import com.example.wms.views.application.ApplicationWMS;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -22,16 +23,16 @@ import static com.example.wms.utility.StaticFunctions.GetAuthorization;
 public class VM_FragmentSendNumber {
 
     private Context context;
-    private PublishSubject<String> Observables = null;
+    private PublishSubject<Byte> Observables = null;
     private String MessageResponse;
 
-    public VM_FragmentSendNumber(Context context) {//____________________________________ Start VM_FragmentSendNumber
+    public VM_FragmentSendNumber(Context context) {//_______________________________________________ VM_FragmentSendNumber
         this.context = context;
         Observables = PublishSubject.create();
-    }//_____________________________________________________________________________________________ End VM_FragmentSendNumber
+    }//_____________________________________________________________________________________________ VM_FragmentSendNumber
 
 
-    public void SendNumber(String PhoneNumbet, String Password) {//________________________________ Start SendNumber
+    public void SendNumber(String PhoneNumber, String Password) {//_________________________________ SendNumber
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
@@ -40,11 +41,10 @@ public class VM_FragmentSendNumber {
 
         String Authorization = GetAuthorization(context);
 
-
         retrofitComponent
                 .getRetrofitApiInterface()
                 .SendPhoneNumber(
-                        PhoneNumbet, Password, Password, Authorization
+                        PhoneNumber, Password, Password, Authorization
                 )
                 .enqueue(new Callback<ModelResponcePrimery>() {
                     @Override
@@ -52,9 +52,9 @@ public class VM_FragmentSendNumber {
                         if (!StaticFunctions.isCancel) {
                             MessageResponse = CheckResponse(response,false);
                             if(MessageResponse == null)
-                                Observables.onNext("Successful");
+                                Observables.onNext(StaticValues.ML_Success);
                             else {
-                                Observables.onNext("Error");
+                                Observables.onNext(StaticValues.ML_ResponseError);
                             }
                         }
                     }
@@ -62,19 +62,19 @@ public class VM_FragmentSendNumber {
                     @Override
                     public void onFailure(Call<ModelResponcePrimery> call, Throwable t) {
                         if (!StaticFunctions.isCancel)
-                            Observables.onNext("Failure");
+                            Observables.onNext(StaticValues.ML_ResponseFailure);
                     }
                 });
 
-    }//_____________________________________________________________________________________________ End SendNumber
+    }//_____________________________________________________________________________________________ SendNumber
 
 
-    public String getMessageResponse() {//__________________________________________________________ Start getMessageResponse
+    public String getMessageResponse() {//__________________________________________________________ getMessageResponse
         return MessageResponse;
-    }//_____________________________________________________________________________________________ End getMessageResponse
+    }//_____________________________________________________________________________________________ getMessageResponse
 
 
-    public PublishSubject<String> getObservables() {//______________________________________________ Start getObservables
+    public PublishSubject<Byte> getObservables() {//________________________________________________ getObservables
         return Observables;
-    }//_____________________________________________________________________________________________ End getObservables
+    }//_____________________________________________________________________________________________ getObservables
 }

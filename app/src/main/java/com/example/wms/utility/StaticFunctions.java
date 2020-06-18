@@ -18,8 +18,10 @@ import com.example.wms.views.activitys.MainActivity;
 import com.example.wms.views.application.ApplicationWMS;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -32,9 +34,9 @@ public class StaticFunctions {
 
     public static String GetAuthorization(Context context) {//______________________________________ Start GetAuthorization
         String Authorization = "Bearer ";
-        SharedPreferences prefs = context.getSharedPreferences("wmstoken", 0);
+        SharedPreferences prefs = context.getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0);
         if (prefs != null) {
-            String access_token = prefs.getString("accesstoken", null);
+            String access_token = prefs.getString(context.getString(R.string.ML_AccessToken), null);
             if (access_token != null)
                 Authorization = Authorization + access_token;
         }
@@ -95,28 +97,34 @@ public class StaticFunctions {
                     return "Failure";
                 }
             } else {
-                return GetErrorٍMessage(response);
+                return GetErrorMessage(response);
             }
         }
 
     }//_____________________________________________________________________________________________ End CheckResponse
 
 
-    public static String GetErrorٍMessage(Response response) {//_____________________________________ Start GetErrorٍMessage
+    public static String GetErrorMessage(Response response) {//_____________________________________ Start GetErrorMessage
         try {
             JSONObject jObjError = new JSONObject(response.errorBody().string());
-            JSONArray jsonArray = jObjError.getJSONArray("messages");
+            String jobErrorString = jObjError.toString();
             String message = "";
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject temp = new JSONObject(jsonArray.get(i).toString());
-                message = message + temp.getString("message");
-                message = message + "\n";
+            if (jobErrorString.contains("messages")) {
+                JSONArray jsonArray = jObjError.getJSONArray("messages");
+
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject temp = new JSONObject(jsonArray.get(i).toString());
+                    message = message + temp.getString("message");
+                    message = message + "\n";
+                }
+            } else {
+                message = message + jObjError.getString("message");
             }
             return message;
         } catch (Exception ex) {
-            return "Failure";
+            return ex.toString();
         }
-    }//_____________________________________________________________________________________________ End GetErrorٍMessage
+    }//_____________________________________________________________________________________________ End GetErrorMessage
 
 
     public static String GetMessage(Response<ModelResponcePrimery> response) {//____________________ Start GetMessage

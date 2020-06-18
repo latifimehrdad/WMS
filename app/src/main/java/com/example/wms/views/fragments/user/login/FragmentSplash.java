@@ -21,6 +21,7 @@ import android.widget.ImageView;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentSplashBinding;
+import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.user.login.VM_FragmentSplash;
 import com.example.wms.views.activitys.MainActivity;
 import com.example.wms.views.application.ApplicationWMS;
@@ -32,6 +33,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -40,7 +42,7 @@ public class FragmentSplash extends Fragment {
     private Context context;
     private VM_FragmentSplash vm_fragmentSplash;
     private View view;
-    private DisposableObserver<String> observer;
+    private DisposableObserver<Byte> observer;
     private NavController navController;
 
     @BindView(R.id.ImgLogo)
@@ -49,128 +51,87 @@ public class FragmentSplash extends Fragment {
     @BindView(R.id.ButtonRefresh)
     Button ButtonRefresh;
 
-    public FragmentSplash() {//_____________________________________________________________________ Start FragmentSplash
+    public FragmentSplash() {//_____________________________________________________________________ FragmentSplash
         // Required empty public constructor
-    }//_____________________________________________________________________________________________ End FragmentSplash
+    }//_____________________________________________________________________________________________ FragmentSplash
 
 
     @Override
     public View onCreateView(
             LayoutInflater inflater,
             ViewGroup container,
-            Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
-        context = getContext();
-        vm_fragmentSplash = new VM_FragmentSplash(context);
-        FragmentSplashBinding binding = DataBindingUtil.inflate(
-                inflater,R.layout.fragment_splash,container,false
-        );
-        binding.setSpalsh(vm_fragmentSplash);
-        view = binding.getRoot();
-        ButterKnife.bind(this, view);
+            Bundle savedInstanceState) {//__________________________________________________________ onCreateView
+        if (view == null) {
+            context = getContext();
+            vm_fragmentSplash = new VM_FragmentSplash(context);
+            FragmentSplashBinding binding = DataBindingUtil.inflate(
+                    inflater, R.layout.fragment_splash, container, false
+            );
+            binding.setSpalsh(vm_fragmentSplash);
+            view = binding.getRoot();
+            ButterKnife.bind(this, view);
+            SetOnclick();
+        }
         return view;
-    }//_____________________________________________________________________________________________ End onCreateView
+    }//_____________________________________________________________________________________________ onCreateView
 
 
     @Override
     public void onStart() {//_______________________________________________________________________ Start onStart
         super.onStart();
         navController = Navigation.findNavController(view);
-        ImgLogo.setVisibility(View.VISIBLE);
-        ButtonRefresh.setVisibility(View.GONE);
-        SetAnimation();
+        if (observer != null)
+            observer.dispose();
+        observer = null;
+        ObserverObservables();
+        CheckToken();
+    }//_____________________________________________________________________________________________ End onStart
+
+
+    private void SetOnclick() {//___________________________________________________________________ SetOnclick
 
         ButtonRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImgLogo.setVisibility(View.VISIBLE);
-                ButtonRefresh.setVisibility(View.GONE);
-                SetAnimation();
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        CheckToken();
-                    }
-                },2000);
+                CheckToken();
             }
         });
 
-        if(observer != null)
-            observer.dispose();
-        observer = null;
-        ObserverObservables();
+    }//_____________________________________________________________________________________________ SetOnclick
+
+
+    private void CheckToken() {//___________________________________________________________________ CheckToken
+
+        ImgLogo.setVisibility(View.VISIBLE);
+        ButtonRefresh.setVisibility(View.GONE);
+        SetAnimation();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                CheckToken();
+                vm_fragmentSplash.CheckToken();
             }
-        },2000);
+        }, 1000);
 
-    }//_____________________________________________________________________________________________ End onStart
-
-
-
-    private void CheckToken() {//_______________________________ ___________________________________ Start CheckToken
-        SharedPreferences prefs = context.getSharedPreferences("wmstoken", 0);
-        if (prefs == null) {
-            GetTokenFromServer();
-        } else {
-            String access_token = prefs.getString("accesstoken", null);
-            String expires = prefs.getString("expires", null);
-            if ((access_token == null) || (expires == null))
-                GetTokenFromServer();
-            else
-                ConfigHandlerForExit();
-        }
-
-    }//_____________________________________________________________________________________________ End CheckToken
+    }//_____________________________________________________________________________________________ CheckToken
 
 
-    private void GetTokenFromServer() {//___________________________________________________________ Start GetTokenFromServer
-        vm_fragmentSplash.GetTokenFromServer();
-    }//_____________________________________________________________________________________________ End GetTokenFromServer
-
-
-    private void SetAnimation() {//_________________________________________________________________ Start SetAnimation
+    private void SetAnimation() {//_________________________________________________________________ SetAnimation
         ImgLogo.startAnimation(AnimationUtils.loadAnimation(context, R.anim.bounce));
-    }//_____________________________________________________________________________________________ End SetAnimation
+    }//_____________________________________________________________________________________________ SetAnimation
 
 
+    private void ObserverObservables() {//__________________________________________________________ ObserverObservables
 
-    private void ObserverObservables() {//__________________________________________________________ Start ObserverObservables
-
-        observer = new DisposableObserver<String>() {
+        observer = new DisposableObserver<Byte>() {
             @Override
-            public void onNext(String s) {
+            public void onNext(Byte s) {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        switch (s) {
-                            case "CancelByUser":
-                                break;
-
-                            case "Successful":
-                                ConfigHandlerForExit();
-                                break;
-
-                            case "Failure":
-                                ShowMessage(getResources().getString(R.string.NetworkError),
-                                        getResources().getColor(R.color.mlWhite),
-                                        getResources().getDrawable(R.drawable.ic_error));
-                                ImgLogo.setVisibility(View.GONE);
-                                ButtonRefresh.setVisibility(View.VISIBLE);
-                                break;
-
-                            case "Error":
-                                ShowMessage(vm_fragmentSplash.getMessageResponcse()
-                                        , getResources().getColor(R.color.mlWhite),
-                                        getResources().getDrawable(R.drawable.ic_error));
-                                ImgLogo.setVisibility(View.GONE);
-                                ButtonRefresh.setVisibility(View.VISIBLE);
-                                break;
-                        }
+                        HandleAction(s);
                     }
+
                 });
             }
 
@@ -191,45 +152,59 @@ public class FragmentSplash extends Fragment {
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
 
-    }//_____________________________________________________________________________________________ End ObserverObservables
+    }//_____________________________________________________________________________________________ ObserverObservables
 
 
 
-    private void ConfigHandlerForExit() {//__________________________________________________________ Start ConfigHandlerForExit
+    private void HandleAction(Byte action) {//______________________________________________________ HandleAction
+        if (action == StaticValues.ML_GoToHome) {
+            navController.navigate(R.id.action_Splash_to_Home);
+        } else if (action == StaticValues.ML_GotoLogin) {
+            navController.navigate(R.id.action_fragmentSplash_to_fragmentLogin);
+        } else if (action == StaticValues.ML_ResponseFailure) {
+            ShowMessage(getResources().getString(R.string.NetworkError),
+                    getResources().getColor(R.color.mlWhite),
+                    getResources().getDrawable(R.drawable.ic_error));
+            ImgLogo.setVisibility(View.GONE);
+            ButtonRefresh.setVisibility(View.VISIBLE);
+        } else if (action == StaticValues.ML_ResponseError) {
+            ShowMessage(vm_fragmentSplash.getMessageResponse()
+                    , getResources().getColor(R.color.mlWhite),
+                    getResources().getDrawable(R.drawable.ic_error));
+            ImgLogo.setVisibility(View.GONE);
+            ButtonRefresh.setVisibility(View.VISIBLE);
+        }
+    }//_____________________________________________________________________________________________ HandleAction
 
-        ImgLogo.setVisibility(View.GONE);
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                navController.navigate(R.id.action_fragmentSplash_to_fragmentLogin);
-            }
-        }, 2000);
-
-    }//_____________________________________________________________________________________________ End ConfigHandlerForExit
 
 
-
-    private void ShowMessage(String message, int color, Drawable icon) {//__________________________ Start ShowMessage
+    private void ShowMessage(String message, int color, Drawable icon) {//__________________________ ShowMessage
 
         ApplicationWMS
                 .getApplicationWMS(context)
                 .getUtilityComponent()
                 .getApplicationUtility()
-                .ShowMessage(context,message,color,icon,getFragmentManager());
+                .ShowMessage(context, message, color, icon, getFragmentManager());
 
-    }//_____________________________________________________________________________________________ End ShowMessage
-
+    }//_____________________________________________________________________________________________ ShowMessage
 
 
     @Override
-    public void onDestroy() {//_____________________________________________________________________ Start onDestroy
+    public void onDestroy() {//_____________________________________________________________________ onDestroy
         super.onDestroy();
-        if(observer != null)
+        if (observer != null)
             observer.dispose();
         observer = null;
-    }//_____________________________________________________________________________________________ End onDestroy
+    }//_____________________________________________________________________________________________ onDestroy
 
+
+    @Override
+    public void onStop() {//________________________________________________________________________ onStop
+        super.onStop();
+        if (observer != null)
+            observer.dispose();
+        observer = null;
+    }//_____________________________________________________________________________________________ onStop
 
 
 }

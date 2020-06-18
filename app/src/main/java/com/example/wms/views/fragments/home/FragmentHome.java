@@ -25,21 +25,28 @@ import androidx.navigation.Navigation;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentHomeBinding;
+import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.main.VM_FragmentHome;
 import com.example.wms.views.custom.textview.VerticalTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
 
 import static com.example.wms.views.activitys.MainActivity.complateprofile;
 
+/**
+ * A simple {@link Fragment} subclass.
+ */
 public class FragmentHome extends Fragment {
 
     private Context context;
     private VM_FragmentHome vm_fragmentHome;
-    boolean doubleBackToExitPressedOnce = false;
     private NavController navController;
     private View view;
+//    private DisposableObserver<Byte> observer;
 
     @BindView(R.id.footerprimery)
     RelativeLayout footerprimery;
@@ -72,37 +79,101 @@ public class FragmentHome extends Fragment {
     public View onCreateView(
             LayoutInflater inflater,
             ViewGroup container,
-            Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
-        this.context = getActivity();
-        FragmentHomeBinding binding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_home, container, false
-        );
-        vm_fragmentHome = new VM_FragmentHome(context);
-        binding.setHome(vm_fragmentHome);
-        view = binding.getRoot();
-        ButterKnife.bind(this, view);
+            Bundle savedInstanceState) {//__________________________________________________________ onCreateView
+        if (view == null) {
+            this.context = getActivity();
+            FragmentHomeBinding binding = DataBindingUtil.inflate(
+                    inflater, R.layout.fragment_home, container, false
+            );
+            vm_fragmentHome = new VM_FragmentHome(context);
+            binding.setHome(vm_fragmentHome);
+            view = binding.getRoot();
+            ButterKnife.bind(this, view);
+            SetLayout();
+            SetClick();
+        }
         return view;
-    }//_____________________________________________________________________________________________ End onCreateView
+    }//_____________________________________________________________________________________________ onCreateView
 
 
-    public FragmentHome() {//_______________________________________________________________________ Start FragmentHome
+    public FragmentHome() {//_______________________________________________________________________ FragmentHome
 
-    }//_____________________________________________________________________________________________ End FragmentHome
+    }//_____________________________________________________________________________________________ FragmentHome
 
 
     @Override
-    public void onStart() {//_______________________________________________________________________ Start onStart
+    public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
         navController = Navigation.findNavController(view);
-        SetLayout();
-        SetClick();
         CheckProfile();
-    }//_____________________________________________________________________________________________ End onStart
+//        if(observer != null)
+//            observer.dispose();
+//        observer = null;
+//        ObserverObservables();
+    }//_____________________________________________________________________________________________ onStart
+
+
+    private void CheckProfile() {//___________________________________________________________________ CheckToken
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (!vm_fragmentHome.CheckProfile()) {
+                    navController.navigate(R.id.action_fragmentHome_to_fragmentProfile);
+                }
+            }
+        }, 10);
+
+    }//_____________________________________________________________________________________________ CheckToken
 
 
 
+//    private void ObserverObservables() {//__________________________________________________________ ObserverObservables
+//
+//        observer = new DisposableObserver<Byte>() {
+//            @Override
+//            public void onNext(Byte s) {
+//                getActivity().runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        HandleAction(s);
+//                    }
+//                });
+//
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//
+//            }
+//
+//            @Override
+//            public void onComplete() {
+//
+//            }
+//        };
+//
+//        vm_fragmentHome
+//                .getPublishSubject()
+//                .observeOn(Schedulers.io())
+//                .subscribeOn(AndroidSchedulers.mainThread())
+//                .subscribe(observer);
+//
+//
+//
+//    }//_____________________________________________________________________________________________ ObserverObservables
 
-    private void SetClick() {//_____________________________________________________________________ Start SetClick
+
+
+//    private void HandleAction(Byte action) {//______________________________________________________ HandleAction
+//        if (action == StaticValues.ML_GotoProfile) {
+//            navController.navigate(R.id.action_fragmentHome_to_fragmentProfile);
+//        }
+//    }//_____________________________________________________________________________________________ HandleAction
+
+
+
+    private void SetClick() {//_____________________________________________________________________ SetClick
 
 
         footerup.setOnClickListener(new View.OnClickListener() {
@@ -155,10 +226,10 @@ public class FragmentHome extends Fragment {
             }
         });
 
-    }//_____________________________________________________________________________________________ End SetClick
+    }//_____________________________________________________________________________________________ SetClick
 
 
-    private void SetLayout() {//____________________________________________________________________ Start SetLayout
+    private void SetLayout() {//____________________________________________________________________ SetLayout
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -200,22 +271,28 @@ public class FragmentHome extends Fragment {
 
             }
         }, 10);
-    }//_____________________________________________________________________________________________ End SetLayout
+    }//_____________________________________________________________________________________________ SetLayout
+
+
+    @Override
+    public void onDestroy() {//_____________________________________________________________________ onDestroy
+        super.onDestroy();
+//        if(observer != null)
+//            observer.dispose();
+//        observer = null;
+    }//_____________________________________________________________________________________________ onDestroy
 
 
 
-    private void CheckProfile() {//_________________________________________________________________ Start CheckProfile
+    @Override
+    public void onStop() {//________________________________________________________________________ onStop
+        super.onStop();
+//        if (observer != null)
+//            observer.dispose();
+//        observer = null;
+    }//_____________________________________________________________________________________________ onStop
 
-        SharedPreferences prefs = context.getSharedPreferences("wmstoken", 0);
-        if (prefs == null) {
 
-        } else {
-            complateprofile = prefs.getBoolean("complateprofile", false);
-            if (complateprofile == false)
-                navController.navigate(R.id.action_fragmentHome_to_fragmentProfile);
-        }
-
-    }//_____________________________________________________________________________________________ End CheckProfile
 
 
 }

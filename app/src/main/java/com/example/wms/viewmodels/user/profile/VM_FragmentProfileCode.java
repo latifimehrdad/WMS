@@ -5,8 +5,8 @@ import android.content.Context;
 import com.example.wms.daggers.retrofit.RetrofitComponent;
 import com.example.wms.models.ModelBuildingRenovationCode;
 import com.example.wms.models.ModelResponcePrimery;
-import com.example.wms.models.ModelUserAccounts;
 import com.example.wms.utility.StaticFunctions;
+import com.example.wms.utility.StaticValues;
 import com.example.wms.views.activitys.MainActivity;
 import com.example.wms.views.application.ApplicationWMS;
 
@@ -22,18 +22,18 @@ import static com.example.wms.utility.StaticFunctions.GetMessage;
 public class VM_FragmentProfileCode {
 
     private Context context;
-    private PublishSubject<String> Observables = null;
+    private PublishSubject<Byte> Observables = null;
     private String BuildingRenovationCode;
-    private String MessageResponcse;
+    private String MessageResponse;
 
-    public VM_FragmentProfileCode(Context context) {//_______________________________________ Start VM_FragmentProfileCode
+    public VM_FragmentProfileCode(Context context) {//______________________________________________ VM_FragmentProfileCode
         this.context = context;
         Observables = PublishSubject.create();
-    }//_____________________________________________________________________________________________ End VM_FragmentProfileCode
+    }//_____________________________________________________________________________________________ VM_FragmentProfileCode
 
 
 
-    public void SendCode() {//______________________________________________________________________ Start SendCode
+    public void SendCode() {//______________________________________________________________________ SendCode
         StaticFunctions.isCancel = false;
 
         RetrofitComponent retrofitComponent =
@@ -53,24 +53,24 @@ public class VM_FragmentProfileCode {
                     public void onResponse(Call<ModelResponcePrimery> call, Response<ModelResponcePrimery> response) {
                         if (StaticFunctions.isCancel)
                             return;
-                        MessageResponcse = CheckResponse(response, false);
-                        if (MessageResponcse == null) {
-                            MessageResponcse = GetMessage(response);
+                        MessageResponse = CheckResponse(response, false);
+                        if (MessageResponse == null) {
+                            MessageResponse = GetMessage(response);
                             MainActivity.complateprofile = true;
-                            Observables.onNext("SuccessfulEdit");
+                            Observables.onNext(StaticValues.ML_EditProfile);
                         } else
-                            Observables.onNext("Error");
+                            Observables.onNext(StaticValues.ML_ResponseError);
                     }
 
                     @Override
                     public void onFailure(Call<ModelResponcePrimery> call, Throwable t) {
-                        Observables.onNext("Failure");
+                        Observables.onNext(StaticValues.ML_ResponseFailure);
                     }
                 });
-    }//_____________________________________________________________________________________________ End SendCode
+    }//_____________________________________________________________________________________________ SendCode
 
 
-    public void GetCode() {//_______________________________________________________________________ Start GetCode
+    public void GetCode() {//_______________________________________________________________________ GetCode
 
         StaticFunctions.isCancel = false;
 
@@ -90,43 +90,43 @@ public class VM_FragmentProfileCode {
                     public void onResponse(Call<ModelBuildingRenovationCode> call, Response<ModelBuildingRenovationCode> response) {
                         if (StaticFunctions.isCancel)
                             return;
-                        MessageResponcse = CheckResponse(response, false);
-                        if (MessageResponcse == null) {
+                        MessageResponse = CheckResponse(response, false);
+                        if (MessageResponse == null) {
                             if (response.body().getResult() == null)
-                                Observables.onNext("SuccessfulNull");
+                                Observables.onNext(StaticValues.ML_GetAccountNumberNull);
                             else {
-                                MessageResponcse = response.body().getResult();
-                                Observables.onNext("SuccessfulGetCode");
+                                MessageResponse = response.body().getResult();
+                                Observables.onNext(StaticValues.ML_GetRenovationCode);
                             }
                         } else
-                            Observables.onNext("Error");
+                            Observables.onNext(StaticValues.ML_ResponseError);
                     }
 
                     @Override
                     public void onFailure(Call<ModelBuildingRenovationCode> call, Throwable t) {
-                        Observables.onNext("Failure");
+                        Observables.onNext(StaticValues.ML_ResponseFailure);
                     }
                 });
 
-    }//_____________________________________________________________________________________________ End GetCode
+    }//_____________________________________________________________________________________________ GetCode
 
 
-    public String getBuildingRenovationCode() {//___________________________________________________ Start getBuildingRenovationCode
+    public String getBuildingRenovationCode() {//___________________________________________________ getBuildingRenovationCode
         return BuildingRenovationCode;
-    }//_____________________________________________________________________________________________ End getBuildingRenovationCode
+    }//_____________________________________________________________________________________________ getBuildingRenovationCode
 
 
-    public void setBuildingRenovationCode(String buildingRenovationCode) {//________________________ Start setBuildingRenovationCode
+    public void setBuildingRenovationCode(String buildingRenovationCode) {//________________________ setBuildingRenovationCode
         BuildingRenovationCode = buildingRenovationCode;
-    }//_____________________________________________________________________________________________ End setBuildingRenovationCode
+    }//_____________________________________________________________________________________________ setBuildingRenovationCode
 
 
-    public String getMessageResponcse() {//_________________________________________________________ Start getMessageResponcse
-        return MessageResponcse;
-    }//_____________________________________________________________________________________________ End getMessageResponcse
+    public String getMessageResponse() {//__________________________________________________________ getMessageResponse
+        return MessageResponse;
+    }//_____________________________________________________________________________________________ getMessageResponse
 
 
-    public PublishSubject<String> getObservables() {//______________________________________________ Start getObservables
+    public PublishSubject<Byte> getObservables() {//________________________________________________ getObservables
         return Observables;
-    }//_____________________________________________________________________________________________ End getObservables
+    }//_____________________________________________________________________________________________ getObservables
 }

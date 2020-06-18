@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentVerifyCodeBinding;
+import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.user.register.VM_FragmentVerifyCode;
 import com.example.wms.views.application.ApplicationWMS;
 import com.example.wms.views.dialogs.DialogProgress;
@@ -42,7 +43,7 @@ public class FragmentVerifyCode extends Fragment {
     private Context context;
     private NavController navController;
     private View view;
-    private DisposableObserver<String> observer;
+    private DisposableObserver<Byte> observer;
     private VM_FragmentVerifyCode vm_fragmentVerifyCode;
     private String PhoneNumber = "";
     private String Password = "";
@@ -79,47 +80,54 @@ public class FragmentVerifyCode extends Fragment {
     @BindView(R.id.message)
     TextView message;
 
-    public FragmentVerifyCode() {//_________________________________________________________________ Start FragmentVerifyCode
+    public FragmentVerifyCode() {//_________________________________________________________________ FragmentVerifyCode
         // Required empty public constructor
-    }//_____________________________________________________________________________________________ End FragmentVerifyCode
+    }//_____________________________________________________________________________________________ FragmentVerifyCode
 
 
     @Override
     public View onCreateView(
             LayoutInflater inflater,
             ViewGroup container,
-            Bundle savedInstanceState) {//__________________________________________________________ Start onStart
-        context = getContext();
-        vm_fragmentVerifyCode = new VM_FragmentVerifyCode(context);
-        FragmentVerifyCodeBinding binding = DataBindingUtil.inflate(
-                inflater,R.layout.fragment_verify_code, container, false
-        );
-        binding.setVerifycode(vm_fragmentVerifyCode);
-        view = binding.getRoot();
-        ButterKnife.bind(this, view);
+            Bundle savedInstanceState) {//__________________________________________________________ onStart
+        if (view == null) {
+            context = getContext();
+            vm_fragmentVerifyCode = new VM_FragmentVerifyCode(context);
+            FragmentVerifyCodeBinding binding = DataBindingUtil.inflate(
+                    inflater, R.layout.fragment_verify_code, container, false
+            );
+            binding.setVerifycode(vm_fragmentVerifyCode);
+            view = binding.getRoot();
+            ButterKnife.bind(this, view);
+            init();
+        }
         return view;
-    }//_____________________________________________________________________________________________ End onStart
+    }//_____________________________________________________________________________________________ onStart
 
 
     @Override
-    public void onStart() {//_______________________________________________________________________ Start onStart
+    public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
         navController = Navigation.findNavController(view);
-        SetPhoneNumberPAssword();
-        if(observer != null)
+        if (observer != null)
             observer.dispose();
         observer = null;
         ObserverObservables();
+    }//_____________________________________________________________________________________________ onStart
+
+
+    private void init() {//_________________________________________________________________________ init
+        SetPhoneNumberPassword();
         VerifyCode1.requestFocus();
         SetBackVerifyCode();
         SetTextChangeListener();
         ReTryGetSMS();
         SetClick();
         StartTimer(60);
-    }//_____________________________________________________________________________________________ End onStart
+    }//_____________________________________________________________________________________________ init
 
 
-    private void SetClick() {//_____________________________________________________________________ Start SetClick
+    private void SetClick() {//_____________________________________________________________________ SetClick
 
         message.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,11 +137,10 @@ public class FragmentVerifyCode extends Fragment {
             }
         });
 
-    }//_____________________________________________________________________________________________ End SetClick
+    }//_____________________________________________________________________________________________ SetClick
 
 
-
-    private void StartTimer(int Elapse) {//___________________________________________________________________ Start StartTimer
+    private void StartTimer(int Elapse) {//_________________________________________________________ StartTimer
 
         ReTryGetSMSClick = false;
         TimeElapsed.setVisibility(View.VISIBLE);
@@ -149,9 +156,9 @@ public class FragmentVerifyCode extends Fragment {
             @Override
             public void run() {
                 progressBar.setProgress(progressBar.getProgress() - 1);
-                int mili = progressBar.getProgress() + 10;
-                int seconds = (int) (mili / 10) % 60;
-                int minutes = (int) ((mili / (10 * 60)) % 60);
+                int mil = progressBar.getProgress() + 10;
+                int seconds = (int) (mil / 10) % 60;
+                int minutes = (int) ((mil / (10 * 60)) % 60);
                 TimeElapsed.setText(String.format("%02d", minutes) + " : " + String.format("%02d", seconds));
 
                 if (progressBar.getProgress() > 0)
@@ -162,97 +169,46 @@ public class FragmentVerifyCode extends Fragment {
         };
         timer.postDelayed(runnable, 100);
 
-    }//_____________________________________________________________________________________________ End StartTimer
+    }//_____________________________________________________________________________________________ StartTimer
 
 
-
-    private void DismissProgress() {//______________________________________________________________ Start DismissProgress
+    private void DismissProgress() {//______________________________________________________________ DismissProgress
         if (progress != null)
             progress.dismiss();
 
-        if(timer != null && runnable != null){
+        if (timer != null && runnable != null) {
             timer.removeCallbacks(runnable);
             timer = null;
             runnable = null;
         }
-    }//_____________________________________________________________________________________________ End DismissProgress
+    }//_____________________________________________________________________________________________ DismissProgress
 
 
-
-
-    private void ReTryGetSMS() {//__________________________________________________________________ Start ReTryGetSMS
+    private void ReTryGetSMS() {//__________________________________________________________________ ReTryGetSMS
         TimeElapsed.setVisibility(View.GONE);
         ReTryGetSMSClick = true;
         message.setText(getResources().getString(R.string.ReTryGetSMS));
-    }//_____________________________________________________________________________________________ End ReTryGetSMS
+    }//_____________________________________________________________________________________________ ReTryGetSMS
 
 
-
-    private void SetPhoneNumberPAssword() {//_______________________________________________________ Start SetPhoneNumberPAssword
+    private void SetPhoneNumberPassword() {//_______________________________________________________ SetPhoneNumberPassword
         Bundle bundle = getArguments();
-        PhoneNumber = bundle.getString("PhoneNumber");
-        Password = bundle.getString("Password");
-    }//_____________________________________________________________________________________________ End SetPhoneNumberPAssword
+        PhoneNumber = bundle.getString(context.getString(R.string.ML_PhoneNumber));
+        Password = bundle.getString(context.getString(R.string.ML_Password));
+    }//_____________________________________________________________________________________________ SetPhoneNumberPassword
 
 
+    private void ObserverObservables() {//__________________________________________________________ ObserverObservables
 
-    private void ObserverObservables() {//__________________________________________________________ Start ObserverObservables
-
-        observer = new DisposableObserver<String>() {
+        observer = new DisposableObserver<Byte>() {
             @Override
-            public void onNext(String s) {
+            public void onNext(Byte s) {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         if (progress != null)
                             progress.dismiss();
-                        switch (s) {
-                            case "Successful":
-                                ShowMessage(getResources().getString(R.string.RegisterOK),
-                                        getResources().getColor(R.color.mlWhite),
-                                        getResources().getDrawable(R.drawable.ic_check));
-                                navController.navigate(R.id.action_fragmentVerifyCode_to_fragmentLogin);
-                                break;
-                            case "Failure":
-                                ShowMessage(getResources().getString(R.string.NetworkError),
-                                        getResources().getColor(R.color.mlWhite),
-                                        getResources().getDrawable(R.drawable.ic_error));
-                                VerifyCode1.setText("");
-                                VerifyCode2.setText("");
-                                VerifyCode3.setText("");
-                                VerifyCode4.setText("");
-                                VerifyCode5.setText("");
-                                VerifyCode6.setText("");
-                                VerifyCode1.requestFocus();
-                                SetBackVerifyCode();
-                                break;
-                            case "Error":
-                                ShowMessage(vm_fragmentVerifyCode.getMessageresponse(),
-                                        getResources().getColor(R.color.mlWhite),
-                                        getResources().getDrawable(R.drawable.ic_error));
-                                VerifyCode1.setText("");
-                                VerifyCode2.setText("");
-                                VerifyCode3.setText("");
-                                VerifyCode4.setText("");
-                                VerifyCode5.setText("");
-                                VerifyCode6.setText("");
-                                VerifyCode1.requestFocus();
-                                SetBackVerifyCode();
-                                break;
-                            default:
-                                ShowMessage(s,
-                                        getResources().getColor(R.color.mlWhite),
-                                        getResources().getDrawable(R.drawable.ic_error));
-                                VerifyCode1.setText("");
-                                VerifyCode2.setText("");
-                                VerifyCode3.setText("");
-                                VerifyCode4.setText("");
-                                VerifyCode5.setText("");
-                                VerifyCode6.setText("");
-                                VerifyCode1.requestFocus();
-                                SetBackVerifyCode();
-                                break;
-                        }
+                        HandleAction(s);
                     }
                 });
             }
@@ -275,22 +231,59 @@ public class FragmentVerifyCode extends Fragment {
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
 
-    }//_____________________________________________________________________________________________ End ObserverObservables
+    }//_____________________________________________________________________________________________ ObserverObservables
 
 
-    private void ShowMessage(String message, int color, Drawable icon) {//__________________________ Start ShowMessage
+    private void HandleAction(Byte action) {//______________________________________________________ HandleAction
+        if (action == StaticValues.ML_GotoLogin) {
+            ShowMessage(getResources().getString(R.string.RegisterOK),
+                    getResources().getColor(R.color.mlWhite),
+                    getResources().getDrawable(R.drawable.ic_check));
+            getActivity().onBackPressed();
+            getActivity().onBackPressed();
+//            navController.navigate(R.id.action_fragmentVerifyCode_to_fragmentLogin);
+        } else if (action == StaticValues.ML_ResponseFailure) {
+            ShowMessage(
+                    getResources().getString(R.string.NetworkError),
+                    getResources().getColor(R.color.mlWhite),
+                    getResources().getDrawable(R.drawable.ic_error));
+            VerifyCode1.setText("");
+            VerifyCode2.setText("");
+            VerifyCode3.setText("");
+            VerifyCode4.setText("");
+            VerifyCode5.setText("");
+            VerifyCode6.setText("");
+            VerifyCode1.requestFocus();
+            SetBackVerifyCode();
+        } else if (action == StaticValues.ML_ResponseError) {
+            ShowMessage(
+                    vm_fragmentVerifyCode.getMessageResponse(),
+                    getResources().getColor(R.color.mlWhite),
+                    getResources().getDrawable(R.drawable.ic_error));
+            VerifyCode1.setText("");
+            VerifyCode2.setText("");
+            VerifyCode3.setText("");
+            VerifyCode4.setText("");
+            VerifyCode5.setText("");
+            VerifyCode6.setText("");
+            VerifyCode1.requestFocus();
+            SetBackVerifyCode();
+        }
+    }//_____________________________________________________________________________________________ HandleAction
+
+
+    private void ShowMessage(String message, int color, Drawable icon) {//__________________________ ShowMessage
 
         ApplicationWMS
                 .getApplicationWMS(context)
                 .getUtilityComponent()
                 .getApplicationUtility()
-                .ShowMessage(context,message,color,icon,getFragmentManager());
+                .ShowMessage(context, message, color, icon, getFragmentManager());
 
-    }//_____________________________________________________________________________________________ End ShowMessage
+    }//_____________________________________________________________________________________________ ShowMessage
 
 
-
-    private void SetBackVerifyCode() {//____________________________________________________________ Start SetBackVerifyCode
+    private void SetBackVerifyCode() {//____________________________________________________________ SetBackVerifyCode
 
         Boolean c1 = SetBackVerifyCodeView(VerifyCode1);
         Boolean c2 = SetBackVerifyCodeView(VerifyCode2);
@@ -312,10 +305,10 @@ public class FragmentVerifyCode extends Fragment {
 
         }
 
-    }//_____________________________________________________________________________________________ End SetBackVerifyCode
+    }//_____________________________________________________________________________________________ SetBackVerifyCode
 
 
-    private Boolean SetBackVerifyCodeView(EditText editText) {//____________________________________ Satart SetBackVerifyCodeView
+    private Boolean SetBackVerifyCodeView(EditText editText) {//____________________________________ SetBackVerifyCodeView
 
         Boolean ret = false;
         if (editText.getText().length() == 0)
@@ -329,9 +322,9 @@ public class FragmentVerifyCode extends Fragment {
         }
         return ret;
 
-    }//_____________________________________________________________________________________________ End SetBackVerifyCodeView
+    }//_____________________________________________________________________________________________ SetBackVerifyCodeView
 
-    private void SetTextChangeListener() {//________________________________________________________ Start SetTextChangeListener
+    private void SetTextChangeListener() {//________________________________________________________ SetTextChangeListener
 
         VerifyCode1.addTextChangedListener(TextChange(VerifyCode2));
         VerifyCode2.addTextChangedListener(TextChange(VerifyCode3));
@@ -348,10 +341,10 @@ public class FragmentVerifyCode extends Fragment {
         VerifyCode6.setOnKeyListener(SetKeyBackSpace(VerifyCode5));
 
 
-    }//_____________________________________________________________________________________________ End SetTextChangeListener
+    }//_____________________________________________________________________________________________ SetTextChangeListener
 
 
-    private TextWatcher TextChange(EditText eNext) {//______________________________________________ Satart TextChange
+    private TextWatcher TextChange(EditText eNext) {//______________________________________________ TextChange
 
         return new TextWatcher() {
             @Override
@@ -372,10 +365,10 @@ public class FragmentVerifyCode extends Fragment {
             }
         };
 
-    }//_____________________________________________________________________________________________ End TextChange
+    }//_____________________________________________________________________________________________ TextChange
 
 
-    private View.OnKeyListener SetKeyBackSpace(EditText view) {//____________________________________ Start SetKeyBackSpace
+    private View.OnKeyListener SetKeyBackSpace(EditText view) {//___________________________________ SetKeyBackSpace
         return new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -394,29 +387,37 @@ public class FragmentVerifyCode extends Fragment {
                 return false;
             }
         };
-    }//_____________________________________________________________________________________________ End SetKeyBackSpace
+    }//_____________________________________________________________________________________________ SetKeyBackSpace
 
 
-    private void ShowProgressDialog() {//___________________________________________________________ Start ShowProgressDialog
+    private void ShowProgressDialog() {//___________________________________________________________ ShowProgressDialog
 
         progress = ApplicationWMS
                 .getApplicationWMS(context)
                 .getUtilityComponent()
                 .getApplicationUtility()
-                .ShowProgress(context,null);
+                .ShowProgress(context, null);
         progress.show(getFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
 
-    }//_____________________________________________________________________________________________ End ShowProgressDialog
+    }//_____________________________________________________________________________________________ ShowProgressDialog
 
 
     @Override
-    public void onDestroy() {//_____________________________________________________________________ Start onDestroy
+    public void onDestroy() {//_____________________________________________________________________ onDestroy
         super.onDestroy();
-        if(observer != null)
+        if (observer != null)
             observer.dispose();
         observer = null;
         DismissProgress();
-    }//_____________________________________________________________________________________________ End onDestroy
+    }//_____________________________________________________________________________________________ onDestroy
 
+
+    @Override
+    public void onStop() {//________________________________________________________________________ onStop
+        super.onStop();
+        if (observer != null)
+            observer.dispose();
+        observer = null;
+    }//_____________________________________________________________________________________________ onStop
 
 }

@@ -189,6 +189,7 @@
         tools:layout="@layout/fragment_splash"
         >
 
+
         <action
             android:id="@+id/action_fragmentSplash_to_fragmentLogin"
             app:destination="@id/fragmentLogin"
@@ -197,6 +198,16 @@
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             />
+
+        <action
+            android:id="@+id/action_Splash_to_Home"
+            app:destination="@id/fragmentHome"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            />
+
 
     </fragment>
 
@@ -207,13 +218,13 @@
         tools:layout="@layout/fragment_fragment_login"
         >
 
-        <argument android:name="PhoneNumber"
+        <argument android:name="@string/ML_PhoneNumber"
             android:defaultValue="null"/>
 
-        <argument android:name="Password"
+        <argument android:name="@string/ML_Password"
             android:defaultValue="null"/>
 
-        <argument android:name="type"
+        <argument android:name="@string/ML_Type"
             android:defaultValue="null"/>
 
         <action

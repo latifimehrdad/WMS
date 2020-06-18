@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import com.example.wms.daggers.retrofit.RetrofitComponent;
 import com.example.wms.models.ModelResponcePrimery;
 import com.example.wms.utility.StaticFunctions;
+import com.example.wms.utility.StaticValues;
 import com.example.wms.views.application.ApplicationWMS;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -22,17 +23,17 @@ import static com.example.wms.utility.StaticFunctions.GetAuthorization;
 public class VM_FragmentVerifyCode {
 
     private Context context;
-    private PublishSubject<String> Observables = null;
+    private PublishSubject<Byte> Observables = null;
     private String MessageResponse;
 
 
-    public VM_FragmentVerifyCode(Context context) {//_________________________________________ Start VM_FragmentVerifyCode
+    public VM_FragmentVerifyCode(Context context) {//_______________________________________________ VM_FragmentVerifyCode
         this.context = context;
         Observables = PublishSubject.create();
-    }//_____________________________________________________________________________________________ End VM_FragmentVerifyCode
+    }//_____________________________________________________________________________________________ VM_FragmentVerifyCode
 
 
-    public void SendVerifyCode(String PhoneNumbet, String VerifyCode) {//___________________________ Start SendVerifyCode
+    public void SendVerifyCode(String PhoneNumber, String VerifyCode) {//___________________________ SendVerifyCode
         StaticFunctions.isCancel = false;
 
         RetrofitComponent retrofitComponent =
@@ -46,7 +47,7 @@ public class VM_FragmentVerifyCode {
         retrofitComponent
                 .getRetrofitApiInterface()
                 .SendVerifyCode(
-                        PhoneNumbet, VerifyCode, Authorization
+                        PhoneNumber, VerifyCode, Authorization
                 )
                 .enqueue(new Callback<ModelResponcePrimery>() {
                     @Override
@@ -54,9 +55,9 @@ public class VM_FragmentVerifyCode {
                         if (!StaticFunctions.isCancel) {
                             MessageResponse = CheckResponse(response, false);
                             if (MessageResponse == null)
-                                Observables.onNext("Successful");
+                                Observables.onNext(StaticValues.ML_GotoLogin);
                             else
-                                Observables.onNext("Error");
+                                Observables.onNext(StaticValues.ML_ResponseError);
 
                         }
                     }
@@ -64,19 +65,19 @@ public class VM_FragmentVerifyCode {
                     @Override
                     public void onFailure(Call<ModelResponcePrimery> call, Throwable t) {
                         if (!StaticFunctions.isCancel)
-                            Observables.onNext("Failure");
+                            Observables.onNext(StaticValues.ML_ResponseFailure);
                     }
                 });
 
-    }//_____________________________________________________________________________________________ End SendVerifyCode
+    }//_____________________________________________________________________________________________ SendVerifyCode
 
 
-    public String getMessageresponse() {//__________________________________________________________ Staring getMessageresponse
+    public String getMessageResponse() {//__________________________________________________________ getMessageResponse
         return MessageResponse;
-    }//_____________________________________________________________________________________________ End getMessageresponse
+    }//_____________________________________________________________________________________________ getMessageResponse
 
 
-    public PublishSubject<String> getObservables() {//______________________________________________ Staring getObservables
+    public PublishSubject<Byte> getObservables() {//________________________________________________ getObservables
         return Observables;
-    }//_____________________________________________________________________________________________ End getObservables
+    }//_____________________________________________________________________________________________ getObservables
 }

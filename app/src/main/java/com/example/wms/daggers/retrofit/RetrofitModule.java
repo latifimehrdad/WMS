@@ -52,9 +52,9 @@ public class RetrofitModule {
     public OkHttpClient getOkHttpClient(Cache cache) {
         return new OkHttpClient.Builder()
                 .cache(cache)
-                .connectTimeout(60, TimeUnit.SECONDS)
-                .readTimeout(60,TimeUnit.SECONDS)
-                .writeTimeout(60,TimeUnit.SECONDS)
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30,TimeUnit.SECONDS)
+                .writeTimeout(30,TimeUnit.SECONDS)
                 .build();
     }
 
