@@ -45,7 +45,7 @@ public class FragmentWallet extends Fragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
-        this.context = getContext();
+        this.context = getActivity();
         FragmentWalletBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_wallet, container, false
         );

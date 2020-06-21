@@ -92,7 +92,7 @@ public class FragmentLearnItems extends Fragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
-        this.context = getContext();
+        this.context = getActivity();
         FragmentLearnItemsBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_learn_items, container, false
         );

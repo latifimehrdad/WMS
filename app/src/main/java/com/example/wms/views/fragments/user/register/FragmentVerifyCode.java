@@ -91,7 +91,7 @@ public class FragmentVerifyCode extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onStart
         if (view == null) {
-            context = getContext();
+            this.context = getActivity();
             vm_fragmentVerifyCode = new VM_FragmentVerifyCode(context);
             FragmentVerifyCodeBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_verify_code, container, false

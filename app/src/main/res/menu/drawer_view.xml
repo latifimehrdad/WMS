@@ -3,8 +3,6 @@
 
     <group android:checkableBehavior="none">
 
-
-
         <item
             android:id="@id/fragmentHome"
             android:icon="@drawable/ic_home_black_24dp"
@@ -16,20 +14,16 @@
             android:title="@string/Editrofile"
             />
 
-        <item
-            android:id="@id/fragmentPackRequest"
-            android:icon="@drawable/logorequestpackage"
-            android:title="@string/FragmentPackRequestPrimery"/>
 
         <item
             android:id="@id/fragmentLearn"
-            android:icon="@drawable/logoseperation"
+            android:icon="@drawable/ic_baseline_delete_sweep"
             android:title="@string/FragmentSeparation"/>
 
         <item
             android:id="@id/fragmentCollectRequest"
-            android:icon="@drawable/logocar"
-            android:title="@string/FragmentCollectRequst"/>
+            android:icon="@drawable/ic_baseline_local_shipping"
+            android:title="@string/FragmentCollectRequest"/>
 
         <item
             android:id="@id/fragmentLottery"
@@ -53,7 +47,6 @@
             android:id="@id/fragmentAbout"
             android:icon="@drawable/ic_phone_in_talk_black_24dp"
             android:title="@string/AboutUs" />
-
 
 
     </group>

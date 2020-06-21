@@ -62,7 +62,7 @@ public class FragmentSplash extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (view == null) {
-            context = getContext();
+            this.context = getActivity();
             vm_fragmentSplash = new VM_FragmentSplash(context);
             FragmentSplashBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_splash, container, false

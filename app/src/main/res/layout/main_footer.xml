@@ -10,17 +10,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_45sdp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         >
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/mlFooter"
-            android:paddingBottom="@dimen/_4sdp"
             android:orientation="vertical"
             android:gravity="center"
 
@@ -29,9 +28,10 @@
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/BottomNav1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:defaultFocusHighlightEnabled="false"
                 app:menu="@menu/bottom_nav1"
+                app:itemIconSize="@dimen/_15sdp"
                 />
 
 
@@ -42,8 +42,8 @@
 
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="@dimen/_60sdp"
-        android:layout_height="@dimen/_60sdp"
+        android:layout_width="@dimen/_55sdp"
+        android:layout_height="@dimen/_55sdp"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:src="@color/mlFooter"
@@ -54,14 +54,14 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/footerLogo"
-        android:layout_width="@dimen/_60sdp"
-        android:layout_height="@dimen/_60sdp"
+        android:layout_width="@dimen/_55sdp"
+        android:layout_height="@dimen/_55sdp"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:src="@drawable/wmslogo"
         android:padding="@dimen/_1sdp"
         app:civ_border_color="@color/mlFooter"
-        app:civ_border_width="@dimen/_10sdp"
+        app:civ_border_width="@dimen/_5sdp"
         />
 
 

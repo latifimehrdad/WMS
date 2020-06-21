@@ -91,7 +91,7 @@ public class FragmentSendNumber extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
         if (view == null) {
-            context = getContext();
+            this.context = getActivity();
             vm_fragmentSendNumber = new VM_FragmentSendNumber(context);
             FragmentSendNumberBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_send_number, container, false
@@ -109,7 +109,7 @@ public class FragmentSendNumber extends Fragment {
     @Override
     public void onStart() {//_______________________________________________________________________ Start onStart
         super.onStart();
-        //navController = Navigation.findNavController(view);
+        navController = Navigation.findNavController(view);
         if(observer != null)
             observer.dispose();
         observer = null;

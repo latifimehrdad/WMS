@@ -29,6 +29,16 @@ public class ModelSettingInfo extends ModelResponcePrimery {
         @SerializedName("isProfileCompleted")
         Boolean isProfileCompleted;
 
+        @SerializedName("isAddressCompleted")
+        Boolean isAddressCompleted;
+
+        @SerializedName("isPackageRequested")
+        Boolean isPackageRequested;
+
+        @SerializedName("package")
+        ModelPackage modelPackage;
+
+
         public String getName() {
             return name;
         }
@@ -59,6 +69,22 @@ public class ModelSettingInfo extends ModelResponcePrimery {
 
         public void setProfileCompleted(Boolean profileCompleted) {
             isProfileCompleted = profileCompleted;
+        }
+
+        public Boolean getAddressCompleted() {
+            return isAddressCompleted;
+        }
+
+        public void setAddressCompleted(Boolean addressCompleted) {
+            isAddressCompleted = addressCompleted;
+        }
+
+        public Boolean getPackageRequested() {
+            return isPackageRequested;
+        }
+
+        public ModelPackage getModelPackage() {
+            return modelPackage;
         }
     }
 }

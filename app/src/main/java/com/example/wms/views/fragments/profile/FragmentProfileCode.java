@@ -51,7 +51,7 @@ public class FragmentProfileCode extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (view == null) {
-            this.context = getContext();
+            this.context = getActivity();
             FragmentProfileCodeBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_profile_code, container, false
             );

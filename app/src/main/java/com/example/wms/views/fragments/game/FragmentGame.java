@@ -12,11 +12,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentGameBinding;
-import com.example.wms.databinding.FragmentPackRequestBinding;
 import com.example.wms.viewmodels.game.VM_GamePrimary;
-import com.example.wms.viewmodels.packrequest.VM_FragmentPackRequest;
-import com.example.wms.views.fragments.packrequest.FragmentPackRequestAddress;
-import com.example.wms.views.fragments.packrequest.FragmentPackRequestPrimery;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
@@ -41,7 +37,7 @@ public class FragmentGame extends Fragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
-        this.context = getContext();
+        this.context = getActivity();
         FragmentGameBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_game, container, false
         );

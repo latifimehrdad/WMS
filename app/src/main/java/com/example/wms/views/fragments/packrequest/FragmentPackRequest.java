@@ -37,45 +37,52 @@ public class FragmentPackRequest extends Fragment {
     public View onCreateView(
             LayoutInflater inflater,
             ViewGroup container,
-            Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
-        this.context = getContext();
-        FragmentPackRequestBinding binding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_pack_request, container, false
-        );
-        vm_fragmentPackRequest = new VM_FragmentPackRequest(context);
-        binding.setPackrequst(vm_fragmentPackRequest);
-        view = binding.getRoot();
-        ButterKnife.bind(this, view);
+            Bundle savedInstanceState) {//__________________________________________________________ onCreateView
+        if (view == null) {
+            this.context = getActivity();
+            FragmentPackRequestBinding binding = DataBindingUtil.inflate(
+                    inflater, R.layout.fragment_pack_request, container, false
+            );
+            vm_fragmentPackRequest = new VM_FragmentPackRequest(context);
+            binding.setPackrequst(vm_fragmentPackRequest);
+            view = binding.getRoot();
+            ButterKnife.bind(this, view);
+        }
         return view;
-    }//_____________________________________________________________________________________________ End onCreateView
+    }//_____________________________________________________________________________________________ onCreateView
 
 
-    public FragmentPackRequest() {//________________________________________________________________ Start FragmentPackRequest
+    public FragmentPackRequest() {//________________________________________________________________ FragmentPackRequest
 
-    }//_____________________________________________________________________________________________ End FragmentPackRequest
+    }//_____________________________________________________________________________________________ FragmentPackRequest
 
 
     @Override
-    public void onStart() {//_______________________________________________________________________ Start onStart
+    public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
         SetTabs();
-    }//_____________________________________________________________________________________________ End onStart
+    }//_____________________________________________________________________________________________ onStart
 
 
-    private void SetTabs() {//______________________________________________________________________ Start SetTabs);
+    private void SetTabs() {//______________________________________________________________________ SetTabs;
 
-        FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
+        FragmentPagerItemAdapter adapterLocation = new FragmentPagerItemAdapter(
                 getChildFragmentManager(), FragmentPagerItems.with(context)
                 .add(R.string.FragmentPackRequestAddress, FragmentPackRequestAddress.class)
-                .add(R.string.FragmentPackRequestPrimery, FragmentPackRequestPrimery.class)
                 .create());
 
-        FragmentPackRequestView.setAdapter(adapter);
+        FragmentPagerItemAdapter adapterRequest = new FragmentPagerItemAdapter(
+                getChildFragmentManager(), FragmentPagerItems.with(context)
+                .add(R.string.FragmentPackRequestPrimary, FragmentPackRequestPrimary.class)
+                .create());
+
+
+        FragmentPackRequestView.setAdapter(adapterLocation);
         FragmentPackRequestTab.setViewPager(FragmentPackRequestView);
-        FragmentPackRequestView.setCurrentItem(1);
+//        FragmentPackRequestView.setCurrentItem(0);
 
 
-    }//_____________________________________________________________________________________________ End SetTabs
+    }//_____________________________________________________________________________________________ SetTabs
 
 
 

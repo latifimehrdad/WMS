@@ -40,7 +40,7 @@ public class FragmentBoothReceive extends Fragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
-        this.context = getContext();
+        this.context = getActivity();
         FragmentBoothReceiveBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_booth_receive,container, false
         );

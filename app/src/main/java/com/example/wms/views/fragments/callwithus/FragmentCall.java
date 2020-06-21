@@ -30,7 +30,7 @@ public class FragmentCall extends Fragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
-        this.context = getContext();
+        this.context = getActivity();
         FragmentCallBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_call, container, false
         );

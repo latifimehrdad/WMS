@@ -19,8 +19,6 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.wms.utility.StaticFunctions.SetBackClickAndGoHome;
-
 public class FragmentCollectRequest extends Fragment {
 
     private Context context;
@@ -38,7 +36,7 @@ public class FragmentCollectRequest extends Fragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
-        this.context = getContext();
+        this.context = getActivity();
         FragmentCollectRequstBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_collect_requst,container,false
         );
@@ -66,7 +64,7 @@ public class FragmentCollectRequest extends Fragment {
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getChildFragmentManager(), FragmentPagerItems.with(context)
                 .add(R.string.FragmentCollectRequestOrder, FragmentCollectRequestOrders.class)
-                .add(R.string.FragmentCollectRequst, FragmentCollectRequestPrimery.class)
+                .add(R.string.FragmentCollectRequest, FragmentCollectRequestPrimery.class)
                 .create());
 
         FragmentCollectView.setAdapter(adapter);

@@ -15,6 +15,7 @@ import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
@@ -49,13 +50,22 @@ public class RetrofitModule {
 
     @Provides
     @DaggerScope
-    public OkHttpClient getOkHttpClient(Cache cache) {
+    public OkHttpClient getOkHttpClient(Cache cache, HttpLoggingInterceptor interceptor) {
         return new OkHttpClient.Builder()
                 .cache(cache)
+                .addNetworkInterceptor(interceptor)
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30,TimeUnit.SECONDS)
                 .writeTimeout(30,TimeUnit.SECONDS)
                 .build();
+    }
+
+    @Provides
+    @DaggerScope
+    public HttpLoggingInterceptor getHttpLoggingInterceptor() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        return interceptor;
     }
 
     @Provides

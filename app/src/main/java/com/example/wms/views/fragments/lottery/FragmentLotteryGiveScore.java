@@ -28,6 +28,7 @@ public class FragmentLotteryGiveScore extends Fragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
+        this.context = getActivity();
         FragmentLotteryGiveScoreBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_lottery_give_score, container, false
         );

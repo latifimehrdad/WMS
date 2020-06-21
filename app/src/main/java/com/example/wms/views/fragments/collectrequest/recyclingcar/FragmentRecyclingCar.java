@@ -38,7 +38,7 @@ public class FragmentRecyclingCar extends Fragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
-        this.context = getContext();
+        this.context = getActivity();
         FragmentRecyclingCarBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_recycling_car, container, false
         );

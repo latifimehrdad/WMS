@@ -5,7 +5,7 @@
     android:layout_width="@dimen/_200sdp"
     android:layout_height="match_parent"
     android:layout_gravity="end"
-    android:background="@color/mlWhite"
+    android:background="@color/mlMenu2"
     >
 
     <ScrollView
@@ -37,7 +37,7 @@
                         android:layout_width="@dimen/_50sdp"
                         android:layout_height="@dimen/_50sdp"
                         android:src="@drawable/ic_account_circle"
-                        android:tint="@color/colorPrimaryDark"
+                        android:tint="@color/mlWhite"
                         android:layout_centerVertical="true"
                         android:layout_centerHorizontal="true"
                         />
@@ -51,7 +51,7 @@
                     android:id="@+id/ProfileName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/mlWhite"
                     android:textSize="@dimen/_10sdp"
                     android:gravity="center"
                     android:maxLines="2"
@@ -65,7 +65,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorPrimary"
+                android:background="@color/mlFooter"
                 />
 
             <com.google.android.material.navigation.NavigationView
@@ -73,8 +73,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
-                android:background="@android:color/white"
-                app:itemIconTint="@color/colorPrimary"
+                android:background="@color/mlMenu"
+                app:itemIconTint="@color/mlWhite"
+                app:itemTextColor="@color/mlWhite"
+                android:layoutDirection="rtl"
                 app:menu="@menu/drawer_view" >
 
             </com.google.android.material.navigation.NavigationView>
@@ -82,7 +84,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorPrimary"
+                android:background="@color/mlFooter"
                 android:layout_marginTop="@dimen/_1sdp"
                 />
 
@@ -99,6 +101,17 @@
                 android:paddingRight="@dimen/_5sdp"
                 >
 
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/mlHomeAveScore"
+                    android:textSize="@dimen/_10sdp"
+                    android:text="@string/ExitAccount"
+                    android:gravity="right"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    />
+
                 <ImageView
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
@@ -106,14 +119,7 @@
                     android:tint="@color/mlHomeAveScore"
                     />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/mlHomeAveScore"
-                    android:textSize="@dimen/_10sdp"
-                    android:text="@string/ExitAccount"
-                    android:gravity="right"
-                    />
+
 
 
             </LinearLayout>

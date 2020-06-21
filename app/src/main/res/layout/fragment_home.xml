@@ -188,7 +188,7 @@
 
 
             <RelativeLayout
-                android:id="@+id/footerprimery"
+                android:id="@+id/FooterPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/_15sdp"
@@ -214,7 +214,7 @@
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
                         android:gravity="center"
-                        android:text="@string/FragmentPackRequestPrimery"
+                        android:text="@string/FragmentPackRequestPrimary"
                         android:textColor="@color/mlWhite"
                         android:textSize="@dimen/_11sdp" />
 
@@ -226,7 +226,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
                         android:gravity="center"
-                        android:text="@string/FragmentCollectRequst"
+                        android:text="@string/FragmentCollectRequest"
                         android:textColor="@color/mlWhite"
                         android:textSize="@dimen/_11sdp" />
 

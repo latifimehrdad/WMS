@@ -28,7 +28,7 @@ public class FragmentLearnSeparation extends Fragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
-        this.context = getContext();
+        this.context = getActivity();
         FragmentLearnSeparationBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_learn_separation, container, false
         );

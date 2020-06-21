@@ -13,6 +13,7 @@ import com.example.wms.daggers.retrofit.RetrofitApis;
 import com.example.wms.daggers.retrofit.RetrofitComponent;
 import com.example.wms.models.ModelMessage;
 import com.example.wms.models.ModelResponcePrimery;
+import com.example.wms.models.ModelSettingInfo;
 import com.example.wms.models.ModelToken;
 import com.example.wms.views.activitys.MainActivity;
 import com.example.wms.views.application.ApplicationWMS;
@@ -23,6 +24,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,6 +33,47 @@ import retrofit2.Response;
 public class StaticFunctions {
 
     public static Boolean isCancel = false;
+
+
+    public static boolean SaveProfile(
+            Context context,
+            ModelSettingInfo.ModelProfileSetting profile) {//_______________________________________ SaveProfile
+        SharedPreferences.Editor token = context
+                .getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0)
+                .edit();
+        token.putString(context.getString(R.string.ML_Name), profile.getName());
+        token.putString(context.getString(R.string.ML_lastName), profile.getLastName());
+        token.putInt(context.getString(R.string.ML_Gender), profile.getGender());
+        token.putBoolean(context.getString(R.string.ML_CompleteProfile), profile.getProfileCompleted());
+        token.putBoolean(context.getString(R.string.ML_AddressCompleted), profile.getAddressCompleted());
+        token.putBoolean(context.getString(R.string.ML_IsPackageState), profile.getPackageRequested());
+        token.putInt(context.getString(R.string.ML_PackageRequest), profile.getModelPackage().getPackageRequest());
+        Date d = profile.getModelPackage().getRequestDate();
+        if (d != null)
+            token.putString(context.getString(R.string.ML_PackageRequestDate), String.valueOf(d));
+        token.apply();
+        return true;
+    }//_____________________________________________________________________________________________ SaveProfile
+
+
+    public static boolean SaveToken(Context context, ModelToken modelToken) {//_____________________ SaveToken
+
+        SharedPreferences.Editor token = context
+                .getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0)
+                .edit();
+
+        token.putString(context.getString(R.string.ML_AccessToken), modelToken.getAccess_token());
+        token.putString(context.getString(R.string.ML_TokenType), modelToken.getToken_type());
+        token.putInt(context.getString(R.string.ML_ExpireSin), modelToken.getExpires_in());
+        token.putString(context.getString(R.string.ML_PhoneNumber), modelToken.getPhoneNumber());
+        token.putString(context.getString(R.string.ML_ClientId), modelToken.getClient_id());
+        token.putString(context.getString(R.string.ML_Issued), modelToken.getIssued());
+        token.putString(context.getString(R.string.ML_Expires), modelToken.getExpires());
+        token.apply();
+        return true;
+
+    }//_____________________________________________________________________________________________ SaveToken
+
 
     public static String GetAuthorization(Context context) {//______________________________________ Start GetAuthorization
         String Authorization = "Bearer ";
@@ -44,7 +87,7 @@ public class StaticFunctions {
     }//_____________________________________________________________________________________________ End GetAuthorization
 
 
-    public static TextWatcher TextChangeForChangeBack(EditText editText) {//______________________________ Satart TextChangeForChangeBack
+    public static TextWatcher TextChangeForChangeBack(EditText editText) {//________________________ Satart TextChangeForChangeBack
 
         return new TextWatcher() {
             @Override
@@ -78,7 +121,7 @@ public class StaticFunctions {
                     return false;
                 }
                 //if (execute)
-                    //MainActivity.FragmentMessage.onNext("Main");
+                //MainActivity.FragmentMessage.onNext("Main");
                 return true;
             }
         };

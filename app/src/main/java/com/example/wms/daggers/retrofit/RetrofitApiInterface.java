@@ -1,10 +1,13 @@
 package com.example.wms.daggers.retrofit;
 
 import com.example.wms.models.ModelBuildingRenovationCode;
+import com.example.wms.models.ModelGetAddress;
+import com.example.wms.models.ModelHousingBuildings;
 import com.example.wms.models.ModelProfileInfo;
 import com.example.wms.models.ModelResponcePrimery;
 import com.example.wms.models.ModelSettingInfo;
 import com.example.wms.models.ModelSpinnerItems;
+import com.example.wms.models.ModelTimeSheetTimes;
 import com.example.wms.models.ModelToken;
 import com.example.wms.models.ModelUserAccounts;
 
@@ -15,6 +18,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 public interface RetrofitApiInterface {
 
@@ -72,7 +76,7 @@ public interface RetrofitApiInterface {
             );
 
 
-    @GET(Version + "/region/cities")
+    @GET(Version + "/region/citiesbyprovince")
     Call<ModelSpinnerItems> getCitys
             (
                     @Query("Id") String Id,
@@ -166,5 +170,22 @@ public interface RetrofitApiInterface {
 
             );
 
+    @GET()
+    Call<ModelGetAddress> getAddress(
+            @Url String url
+    );
+
+
+    @GET(Version + "/housing/buildings")
+    Call<ModelHousingBuildings> getHousingBuildings
+            (
+                    @Header("Authorization") String Authorization
+            );
+
+    @GET(Version + "/timesheet/times")
+    Call<ModelTimeSheetTimes> getTimes
+            (
+                    @Header("Authorization") String Authorization
+            );
 
 }

@@ -542,7 +542,7 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/mlBlack"
                             android:textSize="@dimen/_8sdp"
-                            android:text="@string/FragmentPackRequestPrimerySet"
+                            android:text="@string/FragmentPackRequestPrimarySet"
                             android:layout_alignParentLeft="true"
                             />
 
@@ -551,7 +551,7 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/mlBlack"
                             android:textSize="@dimen/_8sdp"
-                            android:text="@string/FragmentPackRequestPrimeryReceive"
+                            android:text="@string/FragmentPackRequestPrimaryReceive"
                             android:layout_alignParentRight="true"
                             android:layout_marginRight="@dimen/_5sdp"
                             />
@@ -561,7 +561,7 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/mlBlack"
                             android:textSize="@dimen/_8sdp"
-                            android:text="@string/FragmentPackRequestPrimerySend"
+                            android:text="@string/FragmentPackRequestPrimarySend"
                             android:layout_centerHorizontal="true"
                             android:background="@drawable/layout_border_black"
                             />
@@ -1135,7 +1135,7 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/mlBlack"
                             android:textSize="@dimen/_8sdp"
-                            android:text="@string/FragmentPackRequestPrimerySet"
+                            android:text="@string/FragmentPackRequestPrimarySet"
                             android:layout_alignParentLeft="true"
                             />
 
@@ -1144,7 +1144,7 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/mlBlack"
                             android:textSize="@dimen/_8sdp"
-                            android:text="@string/FragmentPackRequestPrimeryReceive"
+                            android:text="@string/FragmentPackRequestPrimaryReceive"
                             android:layout_alignParentRight="true"
                             android:layout_marginRight="@dimen/_5sdp"
                             />
@@ -1154,7 +1154,7 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/mlBlack"
                             android:textSize="@dimen/_8sdp"
-                            android:text="@string/FragmentPackRequestPrimerySend"
+                            android:text="@string/FragmentPackRequestPrimarySend"
                             android:layout_centerHorizontal="true"
                             android:background="@drawable/layout_border_black"
                             />

@@ -10,18 +10,15 @@ import android.content.SharedPreferences;
 import com.example.wms.R;
 import com.example.wms.utility.StaticValues;
 
-import io.reactivex.subjects.PublishSubject;
-
 import static com.example.wms.views.activitys.MainActivity.complateprofile;
 
 public class VM_FragmentHome {
 
     private Context context;
-    private PublishSubject<Byte> publishSubject;
+
 
     public VM_FragmentHome(Context context) {//_____________________________________________________ VM_FragmentHome
         this.context = context;
-        publishSubject = PublishSubject.create();
     }//_____________________________________________________________________________________________ VM_FragmentHome
 
 
@@ -38,7 +35,38 @@ public class VM_FragmentHome {
     }//_____________________________________________________________________________________________ CheckProfile
 
 
-    public PublishSubject<Byte> getPublishSubject() {
-        return publishSubject;
-    }
+
+    public boolean IsPackageState() {//_____________________________________________________________ IsPackageState
+        SharedPreferences prefs = context.getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0);
+        if (prefs == null) {
+            return false;
+        } else {
+            return prefs.getBoolean(context.getString(R.string.ML_IsPackageState), false);
+        }
+    }//_____________________________________________________________________________________________ IsPackageState
+
+
+
+    public int GetPackageState() {//________________________________________________________________ CheckGetPackage
+
+        SharedPreferences prefs = context.getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0);
+        if (prefs == null) {
+            return 0;
+        } else {
+            return prefs.getInt(context.getString(R.string.ML_PackageRequest), 0);
+        }
+    }//_____________________________________________________________________________________________ CheckGetPackage
+
+
+
+    public boolean IsAddressCompleted() {//_________________________________________________________ IsAddressCompleted
+        SharedPreferences prefs = context.getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0);
+        if (prefs == null) {
+            return false;
+        } else {
+            return prefs.getBoolean(context.getString(R.string.ML_AddressCompleted), false);
+        }
+    }//_____________________________________________________________________________________________ IsAddressCompleted
+
+
 }

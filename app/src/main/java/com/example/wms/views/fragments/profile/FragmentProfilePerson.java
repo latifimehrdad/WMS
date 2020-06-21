@@ -124,7 +124,7 @@ public class FragmentProfilePerson extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (view == null) {
-            this.context = getContext();
+            this.context = getActivity();
             FragmentProfilePersonBinding binding = DataBindingUtil
                     .inflate(inflater, R.layout.fragment_profile_person, container, false);
             vm_fragmentProfilePerson = new VM_FragmentProfilePerson(context);

@@ -40,7 +40,7 @@ public class FragmentCollectRequestPrimery extends Fragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
-        this.context = getContext();
+        this.context = getActivity();
         FragmentCollectRequestPrimeryBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_collect_request_primery, container, false
         );

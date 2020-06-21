@@ -6,6 +6,7 @@ package com.example.wms.views.fragments.home;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import android.os.Handler;
@@ -25,17 +26,12 @@ import androidx.navigation.Navigation;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentHomeBinding;
-import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.main.VM_FragmentHome;
+import com.example.wms.views.application.ApplicationWMS;
 import com.example.wms.views.custom.textview.VerticalTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
-
-import static com.example.wms.views.activitys.MainActivity.complateprofile;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,10 +42,9 @@ public class FragmentHome extends Fragment {
     private VM_FragmentHome vm_fragmentHome;
     private NavController navController;
     private View view;
-//    private DisposableObserver<Byte> observer;
 
-    @BindView(R.id.footerprimery)
-    RelativeLayout footerprimery;
+    @BindView(R.id.FooterPrimary)
+    RelativeLayout FooterPrimary;
 
     @BindView(R.id.footer)
     RelativeLayout footer;
@@ -106,10 +101,6 @@ public class FragmentHome extends Fragment {
         super.onStart();
         navController = Navigation.findNavController(view);
         CheckProfile();
-//        if(observer != null)
-//            observer.dispose();
-//        observer = null;
-//        ObserverObservables();
     }//_____________________________________________________________________________________________ onStart
 
 
@@ -127,59 +118,28 @@ public class FragmentHome extends Fragment {
     }//_____________________________________________________________________________________________ CheckToken
 
 
-
-//    private void ObserverObservables() {//__________________________________________________________ ObserverObservables
-//
-//        observer = new DisposableObserver<Byte>() {
-//            @Override
-//            public void onNext(Byte s) {
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        HandleAction(s);
-//                    }
-//                });
-//
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//
-//            }
-//
-//            @Override
-//            public void onComplete() {
-//
-//            }
-//        };
-//
-//        vm_fragmentHome
-//                .getPublishSubject()
-//                .observeOn(Schedulers.io())
-//                .subscribeOn(AndroidSchedulers.mainThread())
-//                .subscribe(observer);
-//
-//
-//
-//    }//_____________________________________________________________________________________________ ObserverObservables
-
-
-
-//    private void HandleAction(Byte action) {//______________________________________________________ HandleAction
-//        if (action == StaticValues.ML_GotoProfile) {
-//            navController.navigate(R.id.action_fragmentHome_to_fragmentProfile);
-//        }
-//    }//_____________________________________________________________________________________________ HandleAction
-
-
-
     private void SetClick() {//_____________________________________________________________________ SetClick
 
 
         footerup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(R.id.action_fragmentHome_to_fragmentPackRequest);
+                if (vm_fragmentHome.IsPackageState()) {
+                    if (vm_fragmentHome.GetPackageState() == 3)
+                        ShowMessage(
+                                context.getResources().getString(R.string.GetPackage),
+                                getResources().getColor(R.color.mlWhite),
+                                getResources().getDrawable(R.drawable.ic_error));
+                    else
+                        navController.navigate(R.id.action_fragmentHome_to_fragmentPackRequestPrimary);
+                } else {
+                    if (vm_fragmentHome.IsAddressCompleted())
+                        navController.navigate(R.id.action_fragmentHome_to_fragmentPackRequestPrimary);
+                    else
+                        navController.navigate(R.id.action_fragmentHome_to_fragmentPackRequestAddress);
+
+
+                }
             }
         });
 
@@ -229,14 +189,25 @@ public class FragmentHome extends Fragment {
     }//_____________________________________________________________________________________________ SetClick
 
 
+    private void ShowMessage(String message, int color, Drawable icon) {//__________________________ ShowMessage
+
+        ApplicationWMS
+                .getApplicationWMS(context)
+                .getUtilityComponent()
+                .getApplicationUtility()
+                .ShowMessage(context, message, color, icon, getChildFragmentManager());
+
+    }//_____________________________________________________________________________________________ ShowMessage
+
+
     private void SetLayout() {//____________________________________________________________________ SetLayout
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                int width = footerprimery.getMeasuredWidth();
-                int height = footerprimery.getMeasuredHeight();
+                int width = FooterPrimary.getMeasuredWidth();
+                int height = FooterPrimary.getMeasuredHeight();
 
                 if (width < height)
                     height = width;
@@ -277,22 +248,14 @@ public class FragmentHome extends Fragment {
     @Override
     public void onDestroy() {//_____________________________________________________________________ onDestroy
         super.onDestroy();
-//        if(observer != null)
-//            observer.dispose();
-//        observer = null;
+        ;
     }//_____________________________________________________________________________________________ onDestroy
-
 
 
     @Override
     public void onStop() {//________________________________________________________________________ onStop
         super.onStop();
-//        if (observer != null)
-//            observer.dispose();
-//        observer = null;
     }//_____________________________________________________________________________________________ onStop
-
-
 
 
 }

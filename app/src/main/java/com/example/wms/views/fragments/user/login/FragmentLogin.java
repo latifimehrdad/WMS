@@ -89,7 +89,7 @@ public class FragmentLogin extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (view == null) {
-            context = getContext();
+            this.context = getActivity();
             vm_fragmentLogin = new VM_FragmentLogin(context);
             FragmentFragmentLoginBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_fragment_login, container, false

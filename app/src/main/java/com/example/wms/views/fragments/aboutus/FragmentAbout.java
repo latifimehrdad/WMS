@@ -39,7 +39,7 @@ public class FragmentAbout extends Fragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
-        this.context = getContext();
+        this.context = getActivity();
         FragmentAboutBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_about, container, false
         );

@@ -31,6 +31,7 @@ public class FragmentGameScore extends Fragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
+        this.context = getActivity();
         FragmentGameScoreBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_game_score, container, false
         );

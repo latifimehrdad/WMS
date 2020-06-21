@@ -40,7 +40,7 @@
     <string name="NewPassword">رمز جدید</string>
     <string name="NewPasswordConfirm">تکرار رمز جدید</string>
     <string name="ReagentCode">کد معرف</string>
-    <string name="AcountNumber">شماره حساب</string>
+    <string name="AccountNumber">شماره حساب</string>
     <string name="Save">ثبت</string>
     <string name="RegisterCode">با ثبت کد نوسازی مربوط به بنای خود می توانید از 10٪ تخفیف عوارض شهرداری بهره مند گردید</string>
     <string name="RegisterKM">برای استفاده از تخفیف، میبایست بار تحویلی در هر سال بیشتر از 20 کیلوگرم باشد</string>
@@ -52,12 +52,12 @@
 
     <string name="Retry">تلاش مجدد</string>
 
-    <string name="FragmentPackRequestPrimery">درخواست پکیج</string>
-    <string name="FragmentPackRequestPrimerySet">ثبت درخواست</string>
-    <string name="FragmentPackRequestPrimerySend">ارسال</string>
-    <string name="FragmentPackRequestPrimeryReceive">تحویل</string>
+    <string name="FragmentPackRequestPrimary">درخواست پکیج</string>
+    <string name="FragmentPackRequestPrimarySet">ثبت درخواست</string>
+    <string name="FragmentPackRequestPrimarySend">ارسال</string>
+    <string name="FragmentPackRequestPrimaryReceive">تحویل</string>
 
-    <string name="FragmentCollectRequst">درخواست جمع آوری</string>
+    <string name="FragmentCollectRequest">درخواست جمع آوری</string>
     <string name="FragmentCollectRequestOrder">سفارشات</string>
 
     <string name="PetBottel">بطری پت</string>
@@ -179,10 +179,15 @@
     <string name="ExitAccount">خروج از حساب</string>
     <string name="WazeNavigation">"مسیریابی"</string>
     <string name="RegisterOK">ثبت نام با موفقیت انجام شد</string>
-
+    <string name="NotFoundLocation">موقعیت شما یافت نشد</string>
     <string name="Game">بازی</string>
     <string name="StartGame">شروع بازی</string>
     <string name="OnlineResponse">نتایج آنلاین</string>
+    <string name="OutOfIran">آدرس انتخابی خارج از ایران است</string>
+    <string name="EmptyAddress">لطفا آدرس را انتخاب نمایید</string>
+    <string name="EmptyPersonCount">لطفا تعداد نفرات را وارد نمایید</string>
+    <string name="EmptyUnitCount">لطفا تعداد واحدها را وارد نمایید</string>
+    <string name="GetPackage">شما قبلا پکیج را دریافت کرده اید</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -202,6 +207,10 @@
     <string name="ML_CompleteProfile">CompleteProfile</string>
     <string name="ML_Type">Type</string>
     <string name="ML_SingUp">SingUp</string>
+    <string name="ML_AddressCompleted">AddressCompleted</string>
+    <string name="ML_IsPackageState">IsPackageState</string>
+    <string name="ML_PackageRequest">PackageRequest</string>
+    <string name="ML_PackageRequestDate">PackageRequestDate</string>
 
 
 </resources>

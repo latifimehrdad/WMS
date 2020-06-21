@@ -28,7 +28,7 @@ public class FragmentAboutPrimery extends Fragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
-        this.context = getContext();
+        this.context = getActivity();
         FragmentAboutPrimeryBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_about_primery, container, false
         );

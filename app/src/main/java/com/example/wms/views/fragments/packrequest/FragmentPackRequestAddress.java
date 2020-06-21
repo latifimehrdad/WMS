@@ -1,9 +1,16 @@
 package com.example.wms.views.fragments.packrequest;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,34 +22,39 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.cunoraz.gifview.library.GifView;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentPackRequestAddressBinding;
-import com.example.wms.services.BackgroundServiceLocation;
-import com.example.wms.utility.MehrdadLatifiMap;
+import com.example.wms.models.ModelSpinnerItem;
+import com.example.wms.utility.StaticFunctions;
+import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.packrequest.VM_FragmentPackRequestAddress;
 
+import com.example.wms.views.application.ApplicationWMS;
+import com.example.wms.views.dialogs.DialogProgress;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.jaredrummler.materialspinner.MaterialSpinner;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
-import io.reactivex.subjects.PublishSubject;
 
-import static com.example.wms.utility.StaticFunctions.SetBackClickAndGoHome;
+import static com.example.wms.utility.StaticFunctions.TextChangeForChangeBack;
 
 public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCallback {
 
@@ -50,26 +62,34 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
     private VM_FragmentPackRequestAddress vm_fragmentPackRequestAddress;
     private GoogleMap mMap;
     private boolean FullScreen = false;
-    private StringBuilder mResult;
-    private PublishSubject<String> Observables = null;
-    private MehrdadLatifiMap mehrdadLatifiMap = new MehrdadLatifiMap();
     private View view;
+    private LocationManager locationManager;
+    public MyLocationListener listener;
+    private Integer TryToLocation = 0;
+    private final int TWO_MINUTES = 1000 * 60 * 2;
+    private Location previousBestLocation = null;
+    private Location GPSLocation = null;
+    private Location NetworkLocation = null;
+    private boolean getLocation = false;
+    private DisposableObserver<Byte> disposableObserver;
+    private LatLng LocationAddress;
+    private DialogProgress progress;
 
 
-    @BindView(R.id.FPRAMaterialSpinnerType)
-    MaterialSpinner FPRAMaterialSpinnerType;
+    @BindView(R.id.MaterialSpinnerType)
+    MaterialSpinner MaterialSpinnerType;
 
-    @BindView(R.id.UnitCount)
-    EditText UnitCount;
+    @BindView(R.id.EditTextUnitCount)
+    EditText EditTextUnitCount;
 
-    @BindView(R.id.FPRAMaterialSpinnerUser)
-    MaterialSpinner FPRAMaterialSpinnerUser;
+    @BindView(R.id.MaterialSpinnerUses)
+    MaterialSpinner MaterialSpinnerUses;
 
-    @BindView(R.id.PersonCount)
-    EditText PersonCount;
+    @BindView(R.id.EditTextPersonCount)
+    EditText EditTextPersonCount;
 
-    @BindView(R.id.fpraEditAddress)
-    EditText fpraEditAddress;
+    @BindView(R.id.EditTextAddress)
+    EditText EditTextAddress;
 
     @BindView(R.id.imgFullScreen)
     ImageView imgFullScreen;
@@ -80,7 +100,6 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
     @BindView(R.id.LayoutChoose)
     RelativeLayout LayoutChoose;
 
-
     @BindView(R.id.textChoose)
     TextView textChoose;
 
@@ -90,51 +109,165 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
     @BindView(R.id.markerInfo)
     LinearLayout markerInfo;
 
-    @BindView(R.id.wazeLayout)
-    LinearLayout wazeLayout;
+    @BindView(R.id.RelativeLayoutSave)
+    RelativeLayout RelativeLayoutSave;
 
-    Marker m1;
-    Marker m2;
+    @BindView(R.id.imgLoading)
+    ImageView imgLoading;
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.context = getContext();
-        FragmentPackRequestAddressBinding binding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_pack_request_address, container, false
-        );
-        vm_fragmentPackRequestAddress = new VM_FragmentPackRequestAddress(context);
-        binding.setRequstaddress(vm_fragmentPackRequestAddress);
-        view = binding.getRoot();
-        ButterKnife.bind(this, view);
+    @BindView(R.id.txtLoading)
+    TextView txtLoading;
+
+    @BindView(R.id.gifLoading)
+    GifView gifLoading;
+
+
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {//__________________________________________________________ onCreateView
+        if (view == null) {
+            this.context = getActivity();
+            FragmentPackRequestAddressBinding binding = DataBindingUtil.inflate(
+                    inflater, R.layout.fragment_pack_request_address, container, false
+            );
+            vm_fragmentPackRequestAddress = new VM_FragmentPackRequestAddress(context);
+            binding.setRequstaddress(vm_fragmentPackRequestAddress);
+            view = binding.getRoot();
+            ButterKnife.bind(this, view);
+            init();
+
+        }
         return view;
-    }//_____________________________________________________________________________________________ End onCreateView
+    }//_____________________________________________________________________________________________ onCreateView
 
 
     @Override
-    public void onStart() {//_______________________________________________________________________ Start onStart
+    public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        Observables = PublishSubject.create();
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
-                .findFragmentById(R.id.fpraMap);
-        mapFragment.getMapAsync(this);
-
-        SetMaterialSpinnersItems();
-        SetOnClick();
         FullScreen = false;
         textChoose.setVisibility(View.VISIBLE);
         MarkerGif.setVisibility(View.GONE);
+        if (disposableObserver != null)
+            disposableObserver.dispose();
         ObserverObservables();
 
-    }//_____________________________________________________________________________________________ End onStart
+    }//_____________________________________________________________________________________________ onStart
 
 
-    private void SetMaterialSpinnersItems() {//_____________________________________________________ Start SetMaterialSpinnersItems
-        FPRAMaterialSpinnerType.setItems("نوع واحد", "آپارتمان", "ویلایی");
-        FPRAMaterialSpinnerUser.setItems("کاربری ساختمان", "تجاری", "مسکونی");
-    }//_____________________________________________________________________________________________ End SetMaterialSpinnersItems
+    private void init() {//_________________________________________________________________________ init
+
+        SetTextWatcher();
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
+                .findFragmentById(R.id.fpraMap);
+        mapFragment.getMapAsync(this);
+//        SetMaterialSpinnersItems();
+        SetOnClick();
+        DismissLoading();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                vm_fragmentPackRequestAddress.GetTypeBuilding();
+            }
+        },100);
 
 
+    }//_____________________________________________________________________________________________ init
+
+
+    private void GetCurrentLocation() {//___________________________________________________________ Start GetCurrentLocation
+
+        textChoose.setVisibility(View.GONE);
+        MarkerGif.setVisibility(View.VISIBLE);
+
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+        } else {
+            TryToLocation++;
+            if (TryToLocation > 3) {
+                textChoose.setVisibility(View.VISIBLE);
+                MarkerGif.setVisibility(View.GONE);
+                LatLng current = new LatLng(35.831350, 50.998434);
+                float zoom = (float) 16;
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(current, zoom));
+
+                ShowMessage(
+                        getResources().getString(R.string.NotFoundLocation)
+                        , getResources().getColor(R.color.mlWhite),
+                        getResources().getDrawable(R.drawable.ic_error));
+
+
+                return;
+            }
+
+            locationManager = (LocationManager) context.getSystemService(context.LOCATION_SERVICE);
+            listener = new MyLocationListener();
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, (LocationListener) listener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, listener);
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    locationManager.removeUpdates(listener);
+                    if (GPSLocation != null) {
+                        GetTrueLocationAndMove(GPSLocation);
+                    } else if (NetworkLocation != null) {
+                        GetTrueLocationAndMove(NetworkLocation);
+                    } else {
+                        GetCurrentLocation();
+                    }
+                }
+            }, 5 * 1000);
+        }
+    }//_____________________________________________________________________________________________ End GetCurrentLocation
+
+
+    private void GetTrueLocationAndMove(Location location) {//______________________________________ Start GetTrueLocationAndMove
+        getLocation = true;
+        textChoose.setVisibility(View.VISIBLE);
+        MarkerGif.setVisibility(View.GONE);
+        LatLng current = new LatLng(location.getLatitude(), location.getLongitude());
+        float zoom = (float) 16;
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(current, zoom));
+    }//_____________________________________________________________________________________________ End GetTrueLocationAndMove
+
+
+    public class MyLocationListener implements LocationListener {//_________________________________ Start MyLocationListener
+
+        public void onLocationChanged(final Location loc) {
+
+            if (isBetterLocation(loc, previousBestLocation)) {
+                if (loc.getProvider().equalsIgnoreCase("gps"))
+                    GPSLocation = loc;
+                else
+                    NetworkLocation = loc;
+            }
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        public void onProviderDisabled(String provider) {
+
+        }
+
+
+        public void onProviderEnabled(String provider) {
+
+        }
+    }//_____________________________________________________________________________________________ End MyLocationListener
+
+
+    @SuppressLint("MissingPermission")
     @Override
-    public void onMapReady(GoogleMap googleMap) {//_____________________________________________________________________________________________ Start Void onMapReady
+    public void onMapReady(GoogleMap googleMap) {//_________________________________________________ Void onMapReady
         mMap = googleMap;
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(true);
@@ -142,6 +275,13 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
         mMap.getUiSettings().setMapToolbarEnabled(false);
         markerInfo.setVisibility(View.GONE);
 
+        mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+            @Override
+            public void onMapLoaded() {
+                TryToLocation = 0;
+                GetCurrentLocation();
+            }
+        });
 
         mMap.setOnCameraMoveStartedListener(new GoogleMap.OnCameraMoveStartedListener() {
             @Override
@@ -164,53 +304,20 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
         });
 
 
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        SetAnimationBottomToTop();
-                        markerInfo.setVisibility(View.VISIBLE);
-                    }
-                }, 500);
-
-                return false;
-            }
-        });
-
-//        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-//            @Override
-//            public void onMapClick(LatLng latLng) {
-//                if (markerInfo.getVisibility() == View.VISIBLE) {
-//                    SetAnimationTopToBottom();
-//                    markerInfo.setVisibility(View.GONE);
-//                }
-//            }
-//        });
-
-        //mehrdadLatifiMap.getDeviceLocation(getActivity());
-        DrawPolyline();
-    }//_____________________________________________________________________________________________ End Void onMapReady
+    }//_____________________________________________________________________________________________ onMapReady
 
 
-    private void SetOnClick() {//___________________________________________________________________ Start SetOnClick
+    private void SetOnClick() {//___________________________________________________________________ SetOnClick
 
         LayoutChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 textChoose.setVisibility(View.GONE);
                 MarkerGif.setVisibility(View.VISIBLE);
-                BackgroundServiceLocation.Observers = Observables;
-                LatLng negra = mMap.getCameraPosition().target;
-                Intent intent = new Intent(context, BackgroundServiceLocation.class);
-                intent.putExtra("jobtype", "TextAddress");
-                intent.putExtra("latlong", negra);
-                context.startService(intent);
+                LocationAddress = mMap.getCameraPosition().target;
+                vm_fragmentPackRequestAddress.GetAddress(LocationAddress.latitude, LocationAddress.longitude);
             }
         });
-
 
 
         imgFullScreen.setOnClickListener(new View.OnClickListener() {
@@ -231,125 +338,317 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
         });
 
 
-        wazeLayout.setOnClickListener(new View.OnClickListener() {
+        RelativeLayoutSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mehrdadLatifiMap.findAddress(context,"عظیمیه",Observables);
-//                String uri = "waze://?ll=35.838930, 51.014575&navigate=yes";
-//                startActivity(new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri)));
+                if (CheckEmpty())
+                    ShowLoading();
             }
         });
 
-    }//_____________________________________________________________________________________________ End SetOnClick
+
+        MaterialSpinnerUses.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (vm_fragmentPackRequestAddress.getBuildingTypes() == null) {
+                    ShowProgressDialog();
+                    vm_fragmentPackRequestAddress.GetTypeBuilding();
+                } else
+                    SetMaterialSpinnerUses();
+            }
+        });
+
+        MaterialSpinnerUses.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+                MaterialSpinnerUses.setBackgroundColor(context.getResources().getColor(R.color.mlEdit));
+            }
+        });
+
+        MaterialSpinnerType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (vm_fragmentPackRequestAddress.getBuildingTypes() == null) {
+                    ShowProgressDialog();
+                    vm_fragmentPackRequestAddress.GetTypeBuilding();
+                } else
+                    SetMaterialSpinnerType();
+            }
+        });
+
+        MaterialSpinnerType.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+                MaterialSpinnerType.setBackgroundColor(context.getResources().getColor(R.color.mlEdit));
+            }
+        });
+
+    }//_____________________________________________________________________________________________ SetOnClick
 
 
-    private void DrawPolyline() {
-        mehrdadLatifiMap.setGoogleMap(mMap);
-        List<LatLng> latLngs = new ArrayList<>();
-        latLngs.add(new LatLng(35.835548, 51.010237));
-        latLngs.add(new LatLng(35.835139, 51.019668));
+    private void ShowProgressDialog() {//___________________________________________________________ ShowProgressDialog
 
-//        LatLng negra = new LatLng(35.831414, 50.959419);
-//        m1 = mehrdadLatifiMap.AddMarker(negra, null, "0", R.drawable.ic_check);
-//
-//
-//        negra = new LatLng(35.841414, 50.969419);
-//        m2 = mehrdadLatifiMap.AddMarker(negra, "Negra2", "1", R.drawable.ic_check);
-//        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(negra, 13));
-
-//        List<LatLng> latLngs = new ArrayList<>();
-//        String json = "[[50.9983097,35.8313515],[50.9985491,35.831239],[50.9987017,35.8311867],[50.9996985,35.8310453],[51.0015582,35.8309464],[51.0021977,35.8309355],[51.0027549,35.8309489],[51.0050454,35.8308562],[51.0080309,35.8307547],[51.0081905,35.8292293],[51.0082644,35.8291793],[51.0082772,35.828537],[51.0083355,35.8283533],[51.0084536,35.8282969],[51.0107476,35.8282431],[51.0124799,35.8281881],[51.0132275,35.8281854],[51.0143343,35.8281813],[51.0150261,35.8281766],[51.0152658,35.8281675],[51.0178447,35.8280693],[51.0194079,35.8280096],[51.0192486,35.8259208],[51.0200085,35.8260055],[51.0207817,35.8267213],[51.0207629,35.8269947],[51.0210863,35.8272432],[51.021361,35.827278],[51.0226699,35.8281305],[51.0237214,35.8286524],[51.0249444,35.8288786],[51.025953,35.8290178],[51.0269193,35.8291523],[51.0290079,35.8301198],[51.0312824,35.8306938],[51.0326922,35.8309055],[51.0327573,35.8324122],[51.0327092,35.8329466],[51.0323198,35.8332278],[51.0316474,35.8334803],[51.0310875,35.8334788],[51.0311554,35.834033],[51.0308121,35.8359466],[51.0300729,35.838509],[51.0293141,35.8402818],[51.0279135,35.8413692],[51.0248002,35.8426872],[51.0222757,35.8434183],[51.0194276,35.8444216],[51.0189108,35.8447545],[51.0187593,35.845079],[51.0197193,35.8462434],[51.0196447,35.846723],[51.0188081,35.8476081],[51.0175834,35.8491472],[51.0165401,35.8502976],[51.0119393,35.847193],[51.0075603,35.8469112],[51.0074384,35.8457755],[51.0073646,35.8453486],[51.0062469,35.8438203],[51.0039567,35.8406629],[51.0029268,35.8392689],[51.0028511,35.8391664],[51.0017534,35.8385798],[51.0007241,35.8381164],[51.0014633,35.8371517],[51.0017481,35.8368436],[51.0024841,35.8361429],[51.0025572,35.8360727],[51.0019056,35.8353943],[51.0005213,35.8338243],[51.0002582,35.8335325],[50.999926,35.8331188],[50.9990536,35.8321167],[50.998794,35.8318491],[50.9983097,35.8313515]]";
-//        try {
-//            JSONArray jsonArr = new JSONArray(json);
-//            for(int i = 0; i < jsonArr.length(); i++){
-//                //JSONObject object = jsonArr.getJSONObject(i);
-//                JSONArray j = jsonArr.getJSONArray(i);
-//                latLngs.add(new LatLng(j.getDouble(0),j.getDouble(1)));
-//
-//            }
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-
-//        mehrdadLatifiMap.showCurrentPlace(context);
-//        mehrdadLatifiMap.setML_LatLongs(latLngs);
-//        mehrdadLatifiMap.setML_Stroke_Width(2.0f);
-//        mehrdadLatifiMap.setML_Fill_Color(getResources().getColor(R.color.mlPolyline));
-//        mehrdadLatifiMap.setML_Stroke_Color(getResources().getColor(R.color.colorAccent));
-
-//        mehrdadLatifiMap.DrawPolygon(false);
-//        mehrdadLatifiMap.AutoZoom();
-
-//        Observables.onNext("LatLongAddress");
-//        mehrdadLatifiMap.DrawPolygon(false);
-
-//        mehrdadLatifiMap.DrawCircle(negra, 4000);
+        progress = ApplicationWMS
+                .getApplicationWMS(context)
+                .getUtilityComponent()
+                .getApplicationUtility()
+                .ShowProgress(context, null);
+        progress.show(getChildFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+    }//_____________________________________________________________________________________________ ShowProgressDialog
 
 
-//        negra = new LatLng(35.831414, 50.969419);
-//        mehrdadLatifiMap.AddMarker(negra,"Negra","0",R.drawable.ic_check);
-//        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(negra, 13));
-    }
+
+    private void SetMaterialSpinnerType() {//_______________________________________________________ SetMaterialSpinnerType
+        if (progress != null)
+            progress.dismiss();
+        List<String> buildingTypes = new ArrayList<>();
+        buildingTypes.add("نوع واحد");
+        for (ModelSpinnerItem item : vm_fragmentPackRequestAddress.getBuildingTypes().getBuildingTypes())
+            buildingTypes.add(item.getTitle());
+        MaterialSpinnerType.setItems(buildingTypes);
+        SetMaterialSpinnerUses();
+    }//_____________________________________________________________________________________________ SetMaterialSpinnerType
 
 
-    private void ObserverObservables() {//__________________________________________________________ Start ObserverObservables
-        Observables
-                .observeOn(Schedulers.io())
-                .subscribeOn(Schedulers.io())
-                .subscribe(new DisposableObserver<String>() {
+    private void SetMaterialSpinnerUses() {//_______________________________________________________ SetMaterialSpinnerUses
+        List<String> buildingUses = new ArrayList<>();
+        buildingUses.add("کاربری ساختمان");
+        for (ModelSpinnerItem item : vm_fragmentPackRequestAddress.getBuildingTypes().getBuildingUses())
+            buildingUses.add(item.getTitle());
+        MaterialSpinnerUses.setItems(buildingUses);
+    }//_____________________________________________________________________________________________ SetMaterialSpinnerUses
+
+
+    private void SetTextWatcher() {//_______________________________________________________________ SetTextWatcher
+        EditTextAddress.setBackgroundResource(R.color.mlEdit);
+        EditTextAddress.addTextChangedListener(TextChangeForChangeBack(EditTextAddress));
+        EditTextPersonCount.setBackgroundResource(R.color.mlEdit);
+        EditTextPersonCount.addTextChangedListener(TextChangeForChangeBack(EditTextPersonCount));
+        EditTextUnitCount.setBackgroundResource(R.color.mlEdit);
+        EditTextUnitCount.addTextChangedListener(TextChangeForChangeBack(EditTextUnitCount));
+    }//_____________________________________________________________________________________________ SetTextWatcher
+
+
+    private Boolean CheckEmpty() {//________________________________________________________________ CheckEmpty
+
+        boolean address = false;
+        boolean personcount = false;
+        boolean unitcount = false;
+        boolean spinneruser = false;
+        boolean spinnertype = false;
+
+
+        if (MaterialSpinnerType.getSelectedIndex() == 0) {
+            MaterialSpinnerType.setBackgroundColor(context.getResources().getColor(R.color.mlEditEmpty));
+            MaterialSpinnerType.requestFocus();
+            spinnertype = false;
+        } else
+            spinnertype = true;
+
+        if (MaterialSpinnerUses.getSelectedIndex() == 0) {
+            MaterialSpinnerUses.setBackgroundColor(context.getResources().getColor(R.color.mlEditEmpty));
+            MaterialSpinnerUses.requestFocus();
+            spinneruser = false;
+        } else
+            spinneruser = true;
+
+        if (EditTextUnitCount.getText().length() < 1) {
+            EditTextUnitCount.setBackgroundResource(R.drawable.edit_empty_background);
+            EditTextUnitCount.setError(getResources().getString(R.string.EmptyUnitCount));
+            EditTextUnitCount.requestFocus();
+            unitcount = false;
+        } else
+            unitcount = true;
+
+        if (EditTextPersonCount.getText().length() < 1) {
+            EditTextPersonCount.setBackgroundResource(R.drawable.edit_empty_background);
+            EditTextPersonCount.setError(getResources().getString(R.string.EmptyPersonCount));
+            EditTextPersonCount.requestFocus();
+            personcount = false;
+        } else
+            personcount = true;
+
+
+        if (EditTextAddress.getText().length() < 1 || LocationAddress == null) {
+            EditTextAddress.setBackgroundResource(R.drawable.edit_empty_background);
+            EditTextAddress.setError(getResources().getString(R.string.EmptyAddress));
+            EditTextAddress.requestFocus();
+            address = false;
+        } else
+            address = true;
+
+
+        if (address && personcount && unitcount && spinneruser && spinnertype)
+            return true;
+        else
+            return false;
+
+    }//_____________________________________________________________________________________________ CheckEmpty
+
+
+    private void ObserverObservables() {//__________________________________________________________ ObserverObservables
+        disposableObserver = new DisposableObserver<Byte>() {
+            @Override
+            public void onNext(Byte s) {
+                getActivity().runOnUiThread(new Runnable() {
                     @Override
-                    public void onNext(String s) {
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                switch (s) {
-                                    case "NoAddress":
-                                        fpraEditAddress.setText("");
-                                        textChoose.setVisibility(View.VISIBLE);
-                                        MarkerGif.setVisibility(View.GONE);
-                                        break;
-                                    case "GetAddress":
-                                        fpraEditAddress.setText(BackgroundServiceLocation.ServiceResult);
-                                        textChoose.setVisibility(View.VISIBLE);
-                                        MarkerGif.setVisibility(View.GONE);
-                                        break;
-                                    case "FindAddress":
-                                        mehrdadLatifiMap.AddMarker(
-                                                mehrdadLatifiMap.getML_FindAddress()
-                                                , "address"
-                                                , "find"
-                                                ,
-                                                R.drawable.ic_check
-                                        );
-                                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mehrdadLatifiMap.getML_FindAddress(), 14));
-                                        break;
-                                }
-
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
+                    public void run() {
+                        textChoose.setVisibility(View.VISIBLE);
+                        MarkerGif.setVisibility(View.GONE);
+                        HandleAction(s);
                     }
                 });
 
-    }//_____________________________________________________________________________________________ End ObserverObservables
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+
+        vm_fragmentPackRequestAddress
+                .getObservables()
+                .observeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(disposableObserver);
+
+    }//_____________________________________________________________________________________________ ObserverObservables
 
 
-    private void SetAnimationBottomToTop() {//______________________________________________________ Start SetAnimationBottomToTop
+    private void HandleAction(Byte action) {//______________________________________________________ HandleAction
+
+        if (action == StaticValues.ML_GetAddress) {
+            vm_fragmentPackRequestAddress.SetAddress();
+        } else if (action == StaticValues.ML_GetHousingBuildings) {
+            SetMaterialSpinnerType();
+        } else if (action == StaticValues.ML_SetAddress) {
+            EditTextAddress.setText(vm_fragmentPackRequestAddress.getAddressString());
+        } else if (action == StaticValues.ML_ResponseFailure) {
+            ShowMessage(getResources().getString(R.string.NetworkError),
+                    getResources().getColor(R.color.mlWhite),
+                    getResources().getDrawable(R.drawable.ic_error));
+        } else if (action == StaticValues.ML_ResponseError) {
+            ShowMessage(vm_fragmentPackRequestAddress.getMessageResponse()
+                    , getResources().getColor(R.color.mlWhite),
+                    getResources().getDrawable(R.drawable.ic_error));
+        }
+    }//_____________________________________________________________________________________________ HandleAction
+
+
+    protected boolean isBetterLocation(Location location, Location currentBestLocation) {//_________ Start isBetterLocation
+        if (currentBestLocation == null) {
+            // A new location is always better than no location
+            return true;
+        }
+
+        // Check whether the new location fix is newer or older
+        long timeDelta = location.getTime() - currentBestLocation.getTime();
+        boolean isSignificantlyNewer = timeDelta > TWO_MINUTES;
+        boolean isSignificantlyOlder = timeDelta < -TWO_MINUTES;
+        boolean isNewer = timeDelta > 0;
+
+        // If it's been more than two minutes since the current location, use the new location
+        // because the user has likely moved
+        if (isSignificantlyNewer) {
+            return true;
+            // If the new location is more than two minutes older, it must be worse
+        } else if (isSignificantlyOlder) {
+            return false;
+        }
+
+        // Check whether the new location fix is more or less accurate
+        int accuracyDelta = (int) (location.getAccuracy() - currentBestLocation.getAccuracy());
+        boolean isLessAccurate = accuracyDelta > 0;
+        boolean isMoreAccurate = accuracyDelta < 0;
+        boolean isSignificantlyLessAccurate = accuracyDelta > 200;
+
+        // Check if the old and new location are from the same provider
+        boolean isFromSameProvider = isSameProvider(location.getProvider(),
+                currentBestLocation.getProvider());
+
+        // Determine location quality using a combination of timeliness and accuracy
+        if (isMoreAccurate) {
+            return true;
+        } else if (isNewer && !isLessAccurate) {
+            return true;
+        } else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider) {
+            return true;
+        }
+        return false;
+    }//_____________________________________________________________________________________________ End isBetterLocation
+
+
+    private boolean isSameProvider(String provider1, String provider2) {//__________________________ Start isSameProvider
+        if (provider1 == null) {
+            return provider2 == null;
+        }
+        return provider1.equals(provider2);
+    }//_____________________________________________________________________________________________ End isSameProvider
+
+
+    private void ShowMessage(String message, int color, Drawable icon) {//__________________________ ShowMessage
+
+        ApplicationWMS
+                .getApplicationWMS(context)
+                .getUtilityComponent()
+                .getApplicationUtility()
+                .ShowMessage(context, message, color, icon, getChildFragmentManager());
+
+    }//_____________________________________________________________________________________________ ShowMessage
+
+
+    private void DismissLoading() {//_______________________________________________________________ DismissLoading
+        StaticFunctions.isCancel = true;
+        txtLoading.setText(getResources().getString(R.string.Save));
+        RelativeLayoutSave.setBackground(getResources().getDrawable(R.drawable.save_info_button));
+        gifLoading.setVisibility(View.GONE);
+        imgLoading.setVisibility(View.VISIBLE);
+
+    }//_____________________________________________________________________________________________ DismissLoading
+
+
+    private void ShowLoading() {//__________________________________________________________________ ShowLoading
+        StaticFunctions.isCancel = false;
+        txtLoading.setText(getResources().getString(R.string.Cancel));
+        RelativeLayoutSave.setBackground(getResources().getDrawable(R.drawable.button_red));
+        gifLoading.setVisibility(View.VISIBLE);
+        imgLoading.setVisibility(View.INVISIBLE);
+    }//_____________________________________________________________________________________________ ShowLoading
+
+
+    private void SetAnimationBottomToTop() {//______________________________________________________ SetAnimationBottomToTop
         markerInfo.startAnimation(AnimationUtils.loadAnimation(context, R.anim.slide_in_bottom));
-    }//_____________________________________________________________________________________________ End SetAnimationBottomToTop
+    }//_____________________________________________________________________________________________ SetAnimationBottomToTop
 
 
-    private void SetAnimationTopToBottom() {//______________________________________________________ Start SetAnimationTopToBottom
+    private void SetAnimationTopToBottom() {//______________________________________________________ SetAnimationTopToBottom
         markerInfo.startAnimation(AnimationUtils.loadAnimation(context, R.anim.slide_out_bottom));
-    }//_____________________________________________________________________________________________ End SetAnimationTopToBottom
+    }//_____________________________________________________________________________________________ SetAnimationTopToBottom
+
+
+    @Override
+    public void onDestroy() {//_____________________________________________________________________ onDestroy
+        super.onDestroy();
+        if(disposableObserver != null)
+            disposableObserver.dispose();
+        disposableObserver = null;
+    }//_____________________________________________________________________________________________ onDestroy
+
+
+
+    @Override
+    public void onStop() {//________________________________________________________________________ onStop
+        super.onStop();
+        if (disposableObserver != null)
+            disposableObserver.dispose();
+        disposableObserver = null;
+    }//_____________________________________________________________________________________________ onStop
+
 
 }

@@ -22,15 +22,6 @@
             />
 
         <action
-            android:id="@+id/action_fragmentHome_to_fragmentPackRequest"
-            app:destination="@id/fragmentPackRequest"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"
-            />
-
-        <action
             android:id="@+id/action_fragmentHome_to_fragmentCollectRequest"
             app:destination="@id/fragmentCollectRequest"
             app:popEnterAnim="@anim/slide_in_right"
@@ -93,6 +84,24 @@
             app:exitAnim="@anim/slide_out_right"
             />
 
+        <action
+            android:id="@+id/action_fragmentHome_to_fragmentPackRequestAddress"
+            app:destination="@id/fragmentPackRequestAddress"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            />
+
+        <action
+            android:id="@+id/action_fragmentHome_to_fragmentPackRequestPrimary"
+            app:destination="@id/fragmentPackRequestPrimary"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            />
+
 
     </fragment>
 
@@ -102,11 +111,6 @@
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
 
-    <fragment
-        android:id="@+id/fragmentPackRequest"
-        android:name="com.example.wms.views.fragments.packrequest.FragmentPackRequest"
-        android:label="fragment_pack_request"
-        tools:layout="@layout/fragment_pack_request" />
     <fragment
         android:id="@+id/fragmentCollectRequest"
         android:name="com.example.wms.views.fragments.collectrequest.collectrequest.FragmentCollectRequest"
@@ -275,6 +279,7 @@
         android:label="FragmentVerifyCode"
         tools:layout="@layout/fragment_verify_code"
         >
+
         <action
             android:id="@+id/action_fragmentVerifyCode_to_fragmentLogin"
             app:destination="@id/fragmentLogin"
@@ -282,6 +287,7 @@
             app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"/>
+
 
     </fragment>
 
@@ -292,6 +298,30 @@
         app:popExitAnim="@anim/slide_out_left"
         app:enterAnim="@anim/slide_in_left"
         app:exitAnim="@anim/slide_out_right"
+        />
+
+    <fragment
+        android:id="@+id/fragmentPackRequestAddress"
+        android:name="com.example.wms.views.fragments.packrequest.FragmentPackRequestAddress"
+        android:label="FragmentPackRequestAddress"
+        tools:layout="@layout/fragment_pack_request_address"
+        >
+
+        <action
+            android:id="@+id/action_fragmentPackRequestAddress_to_fragmentPackRequestPrimary"
+            app:destination="@id/fragmentPackRequestPrimary"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentPackRequestPrimary"
+        android:name="com.example.wms.views.fragments.packrequest.FragmentPackRequestPrimary"
+        android:label="FragmentPackRequestPrimary"
+        tools:layout="@layout/fragment_pack_request_primary"
         />
 
 </navigation>

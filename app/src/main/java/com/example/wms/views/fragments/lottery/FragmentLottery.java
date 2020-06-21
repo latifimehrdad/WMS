@@ -41,7 +41,7 @@ public class FragmentLottery extends Fragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
-        this.context = getContext();
+        this.context = getActivity();
         FragmentLotteryBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_lottery, container, false
         );

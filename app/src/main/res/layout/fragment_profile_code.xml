@@ -8,6 +8,11 @@
             type="com.example.wms.viewmodels.user.profile.VM_FragmentProfileCode" />
     </data>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -71,6 +76,8 @@
 
     </LinearLayout>
 
+
+    </ScrollView>
 
 </layout>
 

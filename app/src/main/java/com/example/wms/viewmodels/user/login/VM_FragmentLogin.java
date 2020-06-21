@@ -64,7 +64,9 @@ public class VM_FragmentLogin {
                         MessageResponse = CheckResponse(response, true);
                         if (MessageResponse == null) {
                             modelToken = response.body();
-                            SaveToken();
+                            if (StaticFunctions.SaveToken(context, modelToken))
+                                GetLoginInformation();
+//                            SaveToken();
                         } else
                             Observables.onNext(StaticValues.ML_ResponseError);
                     }
@@ -101,7 +103,9 @@ public class VM_FragmentLogin {
                         MessageResponse = CheckResponse(response, true);
                         if (MessageResponse == null) {
                             profile = response.body().getResult();
-                            SaveProfile();
+                            if (StaticFunctions.SaveProfile(context,profile))
+                                Observables.onNext(StaticValues.ML_GoToHome);
+//                            SaveProfile();
                         } else
                             Observables.onNext(StaticValues.ML_ResponseError);
                     }
@@ -115,35 +119,39 @@ public class VM_FragmentLogin {
     }//_____________________________________________________________________________________________ GetLoginInformation
 
 
-    private void SaveProfile() {//__________________________________________________________________ SaveProfile
-        SharedPreferences.Editor token = context
-                .getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0)
-                .edit();
-        token.putString(context.getString(R.string.ML_Name),profile.getName());
-        token.putString(context.getString(R.string.ML_lastName),profile.getLastName());
-        token.putInt(context.getString(R.string.ML_Gender),profile.getGender());
-        token.putBoolean(context.getString(R.string.ML_CompleteProfile),profile.getProfileCompleted());
-        token.apply();
-        Observables.onNext(StaticValues.ML_GoToHome);
-    }//_____________________________________________________________________________________________ SaveProfile
+//    private void SaveProfile() {//__________________________________________________________________ SaveProfile
+//        SharedPreferences.Editor token = context
+//                .getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0)
+//                .edit();
+//        token.putString(context.getString(R.string.ML_Name),profile.getName());
+//        token.putString(context.getString(R.string.ML_lastName),profile.getLastName());
+//        token.putInt(context.getString(R.string.ML_Gender),profile.getGender());
+//        token.putBoolean(context.getString(R.string.ML_CompleteProfile),profile.getProfileCompleted());
+//        token.putBoolean(context.getString(R.string.ML_AddressCompleted),profile.getAddressCompleted());
+//        token.putBoolean(context.getString(R.string.ML_IsPackageState),profile.getIsPackageState());
+//        token.putInt(context.getString(R.string.ML_PackageRequest),profile.getPackageRequest());
+//        token.apply();
+//        Observables.onNext(StaticValues.ML_GoToHome);
+//    }//_____________________________________________________________________________________________ SaveProfile
 
 
-    private void SaveToken() {//____________________________________________________________________ SaveToken
-
-        SharedPreferences.Editor token = context
-                .getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0)
-                .edit();
-        token.putString(context.getString(R.string.ML_AccessToken), modelToken.getAccess_token());
-        token.putString(context.getString(R.string.ML_TokenType), modelToken.getToken_type());
-        token.putInt(context.getString(R.string.ML_ExpireSin), modelToken.getExpires_in());
-        token.putString(context.getString(R.string.ML_PhoneNumber), modelToken.getPhoneNumber());
-        token.putString(context.getString(R.string.ML_ClientId), modelToken.getClient_id());
-        token.putString(context.getString(R.string.ML_Issued), modelToken.getIssued());
-        token.putString(context.getString(R.string.ML_Expires), modelToken.getExpires());
-        token.apply();
-        GetLoginInformation();
-
-    }//_____________________________________________________________________________________________ SaveToken
+//    private void SaveToken() {//____________________________________________________________________ SaveToken
+//
+//        SharedPreferences.Editor token = context
+//                .getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0)
+//                .edit();
+//
+//        token.putString(context.getString(R.string.ML_AccessToken), modelToken.getAccess_token());
+//        token.putString(context.getString(R.string.ML_TokenType), modelToken.getToken_type());
+//        token.putInt(context.getString(R.string.ML_ExpireSin), modelToken.getExpires_in());
+//        token.putString(context.getString(R.string.ML_PhoneNumber), modelToken.getPhoneNumber());
+//        token.putString(context.getString(R.string.ML_ClientId), modelToken.getClient_id());
+//        token.putString(context.getString(R.string.ML_Issued), modelToken.getIssued());
+//        token.putString(context.getString(R.string.ML_Expires), modelToken.getExpires());
+//        token.apply();
+//        GetLoginInformation();
+//
+//    }//_____________________________________________________________________________________________ SaveToken
 
 
     public String getMessageResponse() {//__________________________________________________________ getMessageResponse

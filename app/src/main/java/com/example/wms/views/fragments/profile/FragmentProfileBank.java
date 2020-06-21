@@ -69,7 +69,7 @@ public class FragmentProfileBank extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (view == null) {
-            this.context = getContext();
+            this.context = getActivity();
             FragmentProfileBankBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_profile_bank, container, false
             );

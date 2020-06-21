@@ -16,4 +16,9 @@ public class StaticValues {
     public static Byte ML_GetAccountNumberNull = 12;
     public static Byte ML_GetBanks = 13;
     public static Byte ML_GetRenovationCode = 14;
+    public static Byte ML_GetAddress = 15;
+    public static Byte ML_SetAddress = 16;
+    public static Byte ML_GetHousingBuildings = 17;
+    public static Byte ML_GetTimeSheetTimes = 18;
+
 }
