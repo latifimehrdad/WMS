@@ -99,6 +99,7 @@ public class FragmentSendNumber extends Fragment {
             binding.setPhonenumber(vm_fragmentSendNumber);
             view = binding.getRoot();
             ButterKnife.bind(this, view);
+            DismissLoading();
             init();
         }
         return view;
@@ -174,6 +175,7 @@ public class FragmentSendNumber extends Fragment {
 
 
     private void HandleAction(Byte action) {//______________________________________________________ HandleAction
+        DismissLoading();
         if (action == StaticValues.ML_Success) {
             Bundle bundle = new Bundle();
             bundle.putString(context.getString(R.string.ML_PhoneNumber), EditPhoneNumber.getText().toString());
@@ -199,7 +201,8 @@ public class FragmentSendNumber extends Fragment {
         btnGetVerifyCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (!StaticFunctions.isCancel)
+                    return;
                 if (CheckEmpty()) {
                     ShowLoading();
                     vm_fragmentSendNumber.SendNumber(

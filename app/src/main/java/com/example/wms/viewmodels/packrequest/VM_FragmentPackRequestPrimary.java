@@ -6,11 +6,14 @@ import android.content.SharedPreferences;
 import com.example.wms.R;
 import com.example.wms.daggers.retrofit.RetrofitComponent;
 import com.example.wms.models.ModelHousingBuildings;
+import com.example.wms.models.ModelResponcePrimery;
 import com.example.wms.models.ModelTimeSheetTimes;
 import com.example.wms.models.ModelTimes;
 import com.example.wms.utility.StaticFunctions;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.views.application.ApplicationWMS;
+
+import java.util.Date;
 
 import io.reactivex.subjects.PublishSubject;
 import retrofit2.Call;
@@ -19,6 +22,7 @@ import retrofit2.Response;
 
 import static com.example.wms.utility.StaticFunctions.CheckResponse;
 import static com.example.wms.utility.StaticFunctions.GetAuthorization;
+import static com.example.wms.utility.StaticFunctions.GetMessage;
 
 public class VM_FragmentPackRequestPrimary {
 
@@ -31,6 +35,44 @@ public class VM_FragmentPackRequestPrimary {
         this.context = context;
         Observables = PublishSubject.create();
     }//_____________________________________________________________________________________________ VM_FragmentPackRequestPrimary
+
+
+
+    public void SendPackageRequest(Integer timeId) {//______________________________________________ SendPackageRequest
+
+        StaticFunctions.isCancel = false;
+        RetrofitComponent retrofitComponent = ApplicationWMS
+                .getApplicationWMS(context)
+                .getRetrofitComponent();
+
+        String Authorization = GetAuthorization(context);
+
+        retrofitComponent
+                .getRetrofitApiInterface()
+                .SendPackageRequest(
+                        timeId,
+                        Authorization)
+                .enqueue(new Callback<ModelResponcePrimery>() {
+                    @Override
+                    public void onResponse(Call<ModelResponcePrimery> call, Response<ModelResponcePrimery> response) {
+                        if (StaticFunctions.isCancel)
+                            return;
+                        MessageResponse = CheckResponse(response, false);
+                        if (MessageResponse == null) {
+                            MessageResponse = GetMessage(response);
+                            Observables.onNext(StaticValues.ML_SendPackageRequest);
+                        } else
+                            Observables.onNext(StaticValues.ML_ResponseError);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ModelResponcePrimery> call, Throwable t) {
+
+                    }
+                });
+
+    }//_____________________________________________________________________________________________ SendPackageRequest
 
 
 

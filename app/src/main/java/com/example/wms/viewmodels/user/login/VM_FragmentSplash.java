@@ -119,6 +119,8 @@ public class VM_FragmentSplash {
 
     public void GetTokenFromServer() {//____________________________________________________________ GetTokenFromServer
 
+        StaticFunctions.isCancel = false;
+
         RetrofitComponent retrofitComponent = ApplicationWMS
                 .getApplicationWMS(context)
                 .getRetrofitComponent();

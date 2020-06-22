@@ -12,6 +12,7 @@ import com.example.wms.R;
 import com.example.wms.daggers.retrofit.RetrofitApis;
 import com.example.wms.daggers.retrofit.RetrofitComponent;
 import com.example.wms.models.ModelMessage;
+import com.example.wms.models.ModelPackage;
 import com.example.wms.models.ModelResponcePrimery;
 import com.example.wms.models.ModelSettingInfo;
 import com.example.wms.models.ModelToken;
@@ -23,8 +24,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,10 +51,22 @@ public class StaticFunctions {
         token.putBoolean(context.getString(R.string.ML_CompleteProfile), profile.getProfileCompleted());
         token.putBoolean(context.getString(R.string.ML_AddressCompleted), profile.getAddressCompleted());
         token.putBoolean(context.getString(R.string.ML_IsPackageState), profile.getPackageRequested());
-        token.putInt(context.getString(R.string.ML_PackageRequest), profile.getModelPackage().getPackageRequest());
-        Date d = profile.getModelPackage().getRequestDate();
-        if (d != null)
-            token.putString(context.getString(R.string.ML_PackageRequestDate), String.valueOf(d));
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US);
+        if (profile.getPackageRequested()) {
+            token.putInt(context.getString(R.string.ML_PackageRequest), profile.getModelPackage().getPackageRequest());
+            Date d = profile.getModelPackage().getRequestDate();
+            if (d != null)
+                token.putString(context.getString(R.string.ML_PackageRequestDate), simpleDateFormat.format(d));
+
+            Date dfrom = profile.getModelPackage().getFromDeliver();
+            if (dfrom != null)
+                token.putString(context.getString(R.string.ML_PackageRequestFrom), simpleDateFormat.format(dfrom));
+
+            Date dto = profile.getModelPackage().getToDeliver();
+            if (dto != null)
+                token.putString(context.getString(R.string.ML_PackageRequestTo), simpleDateFormat.format(dto));
+
+        }
         token.apply();
         return true;
     }//_____________________________________________________________________________________________ SaveProfile
@@ -73,6 +89,46 @@ public class StaticFunctions {
         return true;
 
     }//_____________________________________________________________________________________________ SaveToken
+
+
+    public static ModelPackage PackageRequestDate(Context context) {//______________________________ Start GetAuthorization
+        SharedPreferences prefs = context.getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0);
+        if (prefs != null) {
+            ModelPackage modelPackage = new ModelPackage();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US);
+            String sDate = prefs.getString(context.getString(R.string.ML_PackageRequestDate), null);
+            Date date;
+            if (sDate != null) {
+                try {
+                    date = simpleDateFormat.parse(sDate);
+                    modelPackage.setRequestDate(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+            sDate = prefs.getString(context.getString(R.string.ML_PackageRequestFrom), null);
+            if (sDate != null) {
+                try {
+                    date = simpleDateFormat.parse(sDate);
+                    modelPackage.setFromDeliver(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+            sDate = prefs.getString(context.getString(R.string.ML_PackageRequestTo), null);
+            if (sDate != null) {
+                try {
+                    date = simpleDateFormat.parse(sDate);
+                    modelPackage.setToDeliver(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return modelPackage;
+        } else
+        return null;
+    }//_____________________________________________________________________________________________ End GetAuthorization
 
 
     public static String GetAuthorization(Context context) {//______________________________________ Start GetAuthorization

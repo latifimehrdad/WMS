@@ -178,7 +178,7 @@
                         android:layout_centerHorizontal="true"
                         android:padding="@dimen/_2sdp"
                         app:stepCount="3"
-                        app:currentCount="1"
+                        app:currentCount="0"
                         app:circleColorType="fill"
                         app:circleRadius="@dimen/_15sdp"
                         app:lineWidth="5dp"

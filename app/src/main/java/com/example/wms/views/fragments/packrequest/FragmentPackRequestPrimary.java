@@ -14,19 +14,24 @@ import android.widget.TextView;
 import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentPackRequestPrimaryBinding;
+import com.example.wms.models.ModelPackage;
 import com.example.wms.models.ModelSpinnerItem;
 import com.example.wms.models.ModelTime;
 import com.example.wms.models.ModelTimes;
 import com.example.wms.utility.ApplicationUtility;
+import com.example.wms.utility.StaticFunctions;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.packrequest.VM_FragmentPackRequestPrimary;
 import com.example.wms.views.application.ApplicationWMS;
 import com.example.wms.views.dialogs.DialogProgress;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,6 +52,9 @@ public class FragmentPackRequestPrimary extends Fragment {
     private View view;
     private DialogProgress progress;
     private DisposableObserver<Byte> disposableObserver;
+    private Integer timeId;
+    private Integer TimePosition;
+    private NavController navController;
 
     @BindView(R.id.FPRPSpinnerHours)
     MaterialSpinner FPRPSpinnerHours;
@@ -93,17 +101,21 @@ public class FragmentPackRequestPrimary extends Fragment {
     @Override
     public void onStart() {//_______________________________________________________________________ Start onStart
         super.onStart();
+        navController = Navigation.findNavController(view);
         if (disposableObserver != null)
             disposableObserver.dispose();
         ObserverObservables();
 
-        if (vm_fragmentPackRequestPrimary.IsPackageState()) {
-            FPRPStatusViewScroller.getStatusView().setCurrentCount(vm_fragmentPackRequestPrimary.GetPackageState());
-            if (vm_fragmentPackRequestPrimary.GetPackageState() != 0) {
+        Integer state = vm_fragmentPackRequestPrimary.GetPackageState();
+        boolean isPackage = vm_fragmentPackRequestPrimary.IsPackageState();
+
+        if (isPackage) {
+            FPRPStatusViewScroller.getStatusView().setCurrentCount(state + 1);
+            if (state != 0) {
                 RelativeLayoutSave.setVisibility(View.GONE);
                 LinearLayoutPackageState.setVisibility(View.VISIBLE);
                 FPRPSpinnerDay.setVisibility(View.GONE);
-
+                SetPackageDate(StaticFunctions.PackageRequestDate(context));
             }
         } else {
             RelativeLayoutSave.setVisibility(View.VISIBLE);
@@ -158,10 +170,27 @@ public class FragmentPackRequestPrimary extends Fragment {
 
 
     private void HandleAction(Byte action) {//______________________________________________________ HandleAction
+        if (progress != null)
+        progress.dismiss();
+        StaticFunctions.isCancel = true;
+        if (action == StaticValues.ML_SendPackageRequest) {
+            RelativeLayoutSave.setVisibility(View.GONE);
+            LinearLayoutPackageState.setVisibility(View.VISIBLE);
+            FPRPSpinnerDay.setVisibility(View.GONE);
+            FPRPStatusViewScroller.getStatusView().setCurrentCount(2);
+            ModelPackage modelPackage = new ModelPackage();
+            modelPackage.setRequestDate(vm_fragmentPackRequestPrimary.getModelTimes().getTimes().get(TimePosition).getDate());
+            modelPackage.setFromDeliver(vm_fragmentPackRequestPrimary.getModelTimes().getTimes().get(TimePosition).getFrom());
+            modelPackage.setToDeliver(vm_fragmentPackRequestPrimary.getModelTimes().getTimes().get(TimePosition).getTo());
+            SetPackageDate(modelPackage);
+            ShowMessage(vm_fragmentPackRequestPrimary.getMessageResponse()
+                    , getResources().getColor(R.color.mlWhite),
+                    getResources().getDrawable(R.drawable.ic_check));
 
-        if (action == StaticValues.ML_GetTimeSheetTimes) {
+        } else if (action == StaticValues.ML_GetTimeSheetTimes) {
             SetMaterialSpinnersTimes();
-        } else if (action == StaticValues.ML_ResponseFailure) {
+        }
+            else if (action == StaticValues.ML_ResponseFailure) {
             ShowMessage(getResources().getString(R.string.NetworkError),
                     getResources().getColor(R.color.mlWhite),
                     getResources().getDrawable(R.drawable.ic_error));
@@ -172,6 +201,22 @@ public class FragmentPackRequestPrimary extends Fragment {
         }
     }//_____________________________________________________________________________________________ HandleAction
 
+
+
+    private void SetPackageDate(ModelPackage modelPackage) {//______________________________________ SetPackageDate
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.US);
+        ApplicationUtility utility = ApplicationWMS
+                .getApplicationWMS(context)
+                .getUtilityComponent()
+                .getApplicationUtility();
+        textDate.setText(utility.MiladiToJalali(
+                modelPackage.getFromDeliver(),"FullJalaliString"));
+        StringBuilder builder = new StringBuilder();
+        builder.append(simpleDateFormat.format(modelPackage.getFromDeliver()));
+        builder.append(" تا ");
+        builder.append(simpleDateFormat.format(modelPackage.getToDeliver()));
+        textTime.setText(builder.toString());
+    }//_____________________________________________________________________________________________ SetPackageDate
 
 
     private void SetOnClick() {//___________________________________________________________________ SetOnClick
@@ -190,11 +235,38 @@ public class FragmentPackRequestPrimary extends Fragment {
         FPRPSpinnerDay.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+                TimePosition = position - 1;
+                timeId = vm_fragmentPackRequestPrimary.getModelTimes().getTimes().get(TimePosition).getId();
                 FPRPSpinnerDay.setBackgroundColor(context.getResources().getColor(R.color.mlEdit));
             }
         });
 
+        RelativeLayoutSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (StaticFunctions.isCancel) {
+                    if (CheckEmpty()) {ShowProgressDialog();
+                        vm_fragmentPackRequestPrimary.SendPackageRequest(timeId);
+                    }
+                }
+            }
+        });
+
+
     }//_____________________________________________________________________________________________ SetOnClick
+
+
+
+    private Boolean CheckEmpty() {//________________________________________________________________ CheckEmpty
+
+        if (FPRPSpinnerDay.getSelectedIndex() == 0) {
+            FPRPSpinnerDay.setBackgroundColor(context.getResources().getColor(R.color.mlEditEmpty));
+            FPRPSpinnerDay.requestFocus();
+            return false;
+        } else
+            return true;
+    }//_____________________________________________________________________________________________ CheckEmpty
+
 
 
     private void ShowMessage(String message, int color, Drawable icon) {//__________________________ ShowMessage
@@ -210,6 +282,7 @@ public class FragmentPackRequestPrimary extends Fragment {
 
     private void ShowProgressDialog() {//___________________________________________________________ ShowProgressDialog
 
+        StaticFunctions.isCancel = false;
         progress = ApplicationWMS
                 .getApplicationWMS(context)
                 .getUtilityComponent()

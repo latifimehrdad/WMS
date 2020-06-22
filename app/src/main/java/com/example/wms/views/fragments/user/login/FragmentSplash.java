@@ -21,6 +21,7 @@ import android.widget.ImageView;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentSplashBinding;
+import com.example.wms.utility.StaticFunctions;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.user.login.VM_FragmentSplash;
 import com.example.wms.views.activitys.MainActivity;
@@ -62,6 +63,7 @@ public class FragmentSplash extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (view == null) {
+            StaticFunctions.isCancel = true;
             this.context = getActivity();
             vm_fragmentSplash = new VM_FragmentSplash(context);
             FragmentSplashBinding binding = DataBindingUtil.inflate(
@@ -93,7 +95,8 @@ public class FragmentSplash extends Fragment {
         ButtonRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CheckToken();
+                if (StaticFunctions.isCancel)
+                    CheckToken();
             }
         });
 
@@ -155,8 +158,8 @@ public class FragmentSplash extends Fragment {
     }//_____________________________________________________________________________________________ ObserverObservables
 
 
-
     private void HandleAction(Byte action) {//______________________________________________________ HandleAction
+        StaticFunctions.isCancel = true;
         if (action == StaticValues.ML_GoToHome) {
             navController.navigate(R.id.action_Splash_to_Home);
         } else if (action == StaticValues.ML_GotoLogin) {
@@ -177,7 +180,6 @@ public class FragmentSplash extends Fragment {
     }//_____________________________________________________________________________________________ HandleAction
 
 
-
     private void ShowMessage(String message, int color, Drawable icon) {//__________________________ ShowMessage
 
         ApplicationWMS
@@ -195,6 +197,7 @@ public class FragmentSplash extends Fragment {
         if (observer != null)
             observer.dispose();
         observer = null;
+        StaticFunctions.isCancel = true;
     }//_____________________________________________________________________________________________ onDestroy
 
 

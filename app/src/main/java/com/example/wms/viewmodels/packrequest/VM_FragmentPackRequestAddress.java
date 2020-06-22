@@ -7,6 +7,7 @@ import com.example.wms.daggers.retrofit.RetrofitComponent;
 import com.example.wms.models.ModelBuildingTypes;
 import com.example.wms.models.ModelGetAddress;
 import com.example.wms.models.ModelHousingBuildings;
+import com.example.wms.models.ModelResponcePrimery;
 import com.example.wms.utility.StaticFunctions;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.views.application.ApplicationWMS;
@@ -18,6 +19,7 @@ import retrofit2.Response;
 
 import static com.example.wms.utility.StaticFunctions.CheckResponse;
 import static com.example.wms.utility.StaticFunctions.GetAuthorization;
+import static com.example.wms.utility.StaticFunctions.GetMessage;
 
 public class VM_FragmentPackRequestAddress {
 
@@ -32,6 +34,59 @@ public class VM_FragmentPackRequestAddress {
         this.context = context;
         Observables = PublishSubject.create();
     }//_____________________________________________________________________________________________ VM_FragmentPackRequestAddress
+
+
+
+    public void SaveAddress(
+            String Address,
+            double lat,
+            double lng,
+            Long BuildingTypeId,
+            Integer BuildingTypeCount,
+            Long BuildingUseId,
+            Integer BuildingUseCount) {
+
+        StaticFunctions.isCancel = false;
+
+        RetrofitComponent retrofitComponent = ApplicationWMS
+                .getApplicationWMS(context)
+                .getRetrofitComponent();
+
+        String Authorization = GetAuthorization(context);
+
+        retrofitComponent
+                .getRetrofitApiInterface()
+                .EditUserAddress(
+                        Address,
+                        lat,
+                        lng,
+                        BuildingTypeId,
+                        BuildingTypeCount,
+                        BuildingUseId,
+                        BuildingUseCount,
+                        Authorization
+                )
+                .enqueue(new Callback<ModelResponcePrimery>() {
+                    @Override
+                    public void onResponse(Call<ModelResponcePrimery> call, Response<ModelResponcePrimery> response) {
+                        if (StaticFunctions.isCancel)
+                            return;
+                        MessageResponse = CheckResponse(response, false);
+                        if (MessageResponse == null) {
+                            MessageResponse = GetMessage(response);
+                            Observables.onNext(StaticValues.ML_EditUserAddress);
+                        } else
+                            Observables.onNext(StaticValues.ML_ResponseError);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ModelResponcePrimery> call, Throwable t) {
+                        Observables.onNext(StaticValues.ML_ResponseFailure);
+                    }
+                });
+
+    }
 
 
 

@@ -89,6 +89,7 @@ public class FragmentLogin extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (view == null) {
+            StaticFunctions.isCancel = true;
             this.context = getActivity();
             vm_fragmentLogin = new VM_FragmentLogin(context);
             FragmentFragmentLoginBinding binding = DataBindingUtil.inflate(
@@ -160,6 +161,7 @@ public class FragmentLogin extends Fragment {
 
 
     private void HandleAction(Byte action) {//______________________________________________________ HandleAction
+        DismissLoading();
         if (action == StaticValues.ML_GoToHome) {
             navController.navigate(R.id.action_fragmentLogin_to_fragmentHome);
         } else if (action == StaticValues.ML_ResponseFailure) {

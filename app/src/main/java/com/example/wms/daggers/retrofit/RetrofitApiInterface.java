@@ -188,4 +188,30 @@ public interface RetrofitApiInterface {
                     @Header("Authorization") String Authorization
             );
 
+
+    @FormUrlEncoded
+    @POST(Version + "/package/packagerequest")
+    Call<ModelResponcePrimery> SendPackageRequest
+            (
+                    @Field("TimeId") Integer TimeId,
+                    @Header("Authorization") String Authorization
+
+            );
+
+
+    @FormUrlEncoded
+    @POST(Version + "/citizen/edituseraddress")
+    Call<ModelResponcePrimery> EditUserAddress
+            (
+                    @Field("Address") String Address,
+                    @Field("Latitude") double Latitude,
+                    @Field("Longitude") double Longitude,
+                    @Field("BuildingTypeId") Long BuildingTypeId,
+                    @Field("BuildingTypeCount") Integer BuildingTypeCount,
+                    @Field("BuildingUseId") Long BuildingUseId,
+                    @Field("BuildingUseCount") Integer BuildingUseCount,
+                    @Header("Authorization") String Authorization
+
+            );
+
 }

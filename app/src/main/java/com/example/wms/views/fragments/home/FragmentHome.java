@@ -124,13 +124,14 @@ public class FragmentHome extends Fragment {
         footerup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (vm_fragmentHome.IsPackageState()) {
-                    if (vm_fragmentHome.GetPackageState() == 3)
-                        ShowMessage(
-                                context.getResources().getString(R.string.GetPackage),
-                                getResources().getColor(R.color.mlWhite),
-                                getResources().getDrawable(R.drawable.ic_error));
-                    else
+//                    if (vm_fragmentHome.GetPackageState() == 3)
+//                        ShowMessage(
+//                                context.getResources().getString(R.string.GetPackage),
+//                                getResources().getColor(R.color.mlWhite),
+//                                getResources().getDrawable(R.drawable.ic_error));
+//                    else
                         navController.navigate(R.id.action_fragmentHome_to_fragmentPackRequestPrimary);
                 } else {
                     if (vm_fragmentHome.IsAddressCompleted())

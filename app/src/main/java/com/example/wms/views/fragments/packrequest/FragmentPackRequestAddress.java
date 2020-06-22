@@ -26,6 +26,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.cunoraz.gifview.library.GifView;
 import com.example.wms.R;
@@ -74,6 +76,9 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
     private DisposableObserver<Byte> disposableObserver;
     private LatLng LocationAddress;
     private DialogProgress progress;
+    private Long BuildingTypeId;
+    private Long BuildingUseId;
+    private NavController navController;
 
 
     @BindView(R.id.MaterialSpinnerType)
@@ -135,8 +140,8 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
             binding.setRequstaddress(vm_fragmentPackRequestAddress);
             view = binding.getRoot();
             ButterKnife.bind(this, view);
+            DismissLoading();
             init();
-
         }
         return view;
     }//_____________________________________________________________________________________________ onCreateView
@@ -145,6 +150,7 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
+        navController = Navigation.findNavController(view);
         FullScreen = false;
         textChoose.setVisibility(View.VISIBLE);
         MarkerGif.setVisibility(View.GONE);
@@ -341,8 +347,21 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
         RelativeLayoutSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (CheckEmpty())
+                if (!StaticFunctions.isCancel)
+                    return;
+
+                if (CheckEmpty()) {
                     ShowLoading();
+                    vm_fragmentPackRequestAddress.SaveAddress(
+                            EditTextAddress.getText().toString(),
+                            LocationAddress.latitude,
+                            LocationAddress.longitude,
+                            BuildingTypeId,
+                            Integer.valueOf(EditTextUnitCount.getText().toString()),
+                            BuildingUseId,
+                            Integer.valueOf(EditTextPersonCount.getText().toString())
+                    );
+                }
             }
         });
 
@@ -361,6 +380,7 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
         MaterialSpinnerUses.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+                BuildingUseId = Long.valueOf(vm_fragmentPackRequestAddress.getBuildingTypes().getBuildingUses().get(position -1).getId());
                 MaterialSpinnerUses.setBackgroundColor(context.getResources().getColor(R.color.mlEdit));
             }
         });
@@ -379,6 +399,7 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
         MaterialSpinnerType.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+                BuildingTypeId = Long.valueOf(vm_fragmentPackRequestAddress.getBuildingTypes().getBuildingTypes().get(position-1).getId());
                 MaterialSpinnerType.setBackgroundColor(context.getResources().getColor(R.color.mlEdit));
             }
         });
@@ -522,10 +543,16 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
 
 
     private void HandleAction(Byte action) {//______________________________________________________ HandleAction
-
+        DismissLoading();
         if (action == StaticValues.ML_GetAddress) {
             vm_fragmentPackRequestAddress.SetAddress();
-        } else if (action == StaticValues.ML_GetHousingBuildings) {
+        } else if (action == StaticValues.ML_EditUserAddress) {
+            ShowMessage(vm_fragmentPackRequestAddress.getMessageResponse()
+                    , getResources().getColor(R.color.mlWhite),
+                    getResources().getDrawable(R.drawable.ic_check));
+            navController.navigate(R.id.action_fragmentPackRequestAddress_to_fragmentPackRequestPrimary);
+        }
+        else if (action == StaticValues.ML_GetHousingBuildings) {
             SetMaterialSpinnerType();
         } else if (action == StaticValues.ML_SetAddress) {
             EditTextAddress.setText(vm_fragmentPackRequestAddress.getAddressString());
@@ -538,6 +565,7 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
                     , getResources().getColor(R.color.mlWhite),
                     getResources().getDrawable(R.drawable.ic_error));
         }
+
     }//_____________________________________________________________________________________________ HandleAction
 
 

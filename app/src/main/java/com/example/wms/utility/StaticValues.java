@@ -20,5 +20,7 @@ public class StaticValues {
     public static Byte ML_SetAddress = 16;
     public static Byte ML_GetHousingBuildings = 17;
     public static Byte ML_GetTimeSheetTimes = 18;
+    public static Byte ML_SendPackageRequest = 19;
+    public static Byte ML_EditUserAddress = 20;
 
 }
