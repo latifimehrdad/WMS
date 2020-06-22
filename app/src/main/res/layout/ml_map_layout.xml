@@ -92,6 +92,7 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:gravity="bottom"
+        android:visibility="gone"
         >
 
         <LinearLayout

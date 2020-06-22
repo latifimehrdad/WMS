@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentProfileBankBinding;
 import com.example.wms.models.ModelSpinnerItem;
+import com.example.wms.utility.StaticFunctions;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.user.profile.VM_FragmentProfileBank;
 import com.example.wms.views.application.ApplicationWMS;
@@ -111,6 +112,7 @@ public class FragmentProfileBank extends Fragment {
             @Override
             public void onClick(View v) {
                 if (CheckEmpty()) {
+                    StaticFunctions.hideKeyboard(getActivity());
                     ShowProgressDialog(null);
                     vm_fragmentProfileBank.setAccountNumber(editAccountNumber.getText().toString());
                     vm_fragmentProfileBank.setBankId(BankId);

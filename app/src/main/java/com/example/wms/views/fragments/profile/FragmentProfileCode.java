@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentProfileCodeBinding;
+import com.example.wms.utility.StaticFunctions;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.user.profile.VM_FragmentProfileCode;
 import com.example.wms.views.application.ApplicationWMS;
@@ -165,6 +166,7 @@ public class FragmentProfileCode extends Fragment {
             @Override
             public void onClick(View v) {
                 if (CheckEmpty()) {
+                    StaticFunctions.hideKeyboard(getActivity());
                     ShowProgressDialog(null);
                     vm_fragmentProfileCode.setBuildingRenovationCode(editBuildingRenovationCode.getText().toString());
                     vm_fragmentProfileCode.SendCode();

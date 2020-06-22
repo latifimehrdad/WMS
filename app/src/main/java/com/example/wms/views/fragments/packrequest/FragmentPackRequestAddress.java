@@ -39,6 +39,7 @@ import com.example.wms.viewmodels.packrequest.VM_FragmentPackRequestAddress;
 
 import com.example.wms.views.application.ApplicationWMS;
 import com.example.wms.views.dialogs.DialogProgress;
+import com.example.wms.views.fragments.home.FragmentHome;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -666,6 +667,7 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
         if(disposableObserver != null)
             disposableObserver.dispose();
         disposableObserver = null;
+        FragmentHome.requestPackage = false;
     }//_____________________________________________________________________________________________ onDestroy
 
 

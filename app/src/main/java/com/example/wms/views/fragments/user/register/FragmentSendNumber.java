@@ -123,11 +123,11 @@ public class FragmentSendNumber extends Fragment {
     private void init() {//_________________________________________________________________________ Start init
         SetClick();
         SetTextWatcher();
-        EditPassword.setInputType(InputType.TYPE_CLASS_TEXT |
-                InputType.TYPE_TEXT_VARIATION_PASSWORD);
+//        EditPassword.setInputType(InputType.TYPE_CLASS_TEXT |
+//                InputType.TYPE_TEXT_VARIATION_PASSWORD);
         passVisible = false;
-        EditPasswordConfirm.setInputType(InputType.TYPE_CLASS_TEXT |
-                InputType.TYPE_TEXT_VARIATION_PASSWORD);
+//        EditPasswordConfirm.setInputType(InputType.TYPE_CLASS_TEXT |
+//                InputType.TYPE_TEXT_VARIATION_PASSWORD);
         passConfirmVisible = false;
         Bundle bundle = getArguments();
         PhoneNumber = bundle.getString(context.getString(R.string.ML_PhoneNumber));

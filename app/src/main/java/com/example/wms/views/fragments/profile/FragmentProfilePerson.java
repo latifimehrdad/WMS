@@ -25,6 +25,7 @@ import com.example.wms.R;
 import com.example.wms.databinding.FragmentProfilePersonBinding;
 import com.example.wms.models.ModelProfileInfo;
 import com.example.wms.models.ModelSpinnerItem;
+import com.example.wms.utility.StaticFunctions;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.user.profile.VM_FragmentProfilePerson;
 import com.example.wms.views.activitys.MainActivity;
@@ -242,6 +243,7 @@ public class FragmentProfilePerson extends Fragment {
             @Override
             public void onClick(View v) {
                 if (CheckEmpty()) {
+                    StaticFunctions.hideKeyboard(getActivity());
                     ShowProgressDialog();
                     vm_fragmentProfilePerson.setFirstName(editFirsName.getText().toString());
                     vm_fragmentProfilePerson.setLastName(edtiLastName.getText().toString());

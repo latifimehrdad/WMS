@@ -97,6 +97,7 @@
                             android:gravity="center"
                             android:hint="@string/Password"
                             android:maxLines="1"
+                            android:inputType="numberPassword"
                             android:padding="@dimen/_2sdp"
                             android:textColor="@color/mlBlack"
                             android:textSize="@dimen/_12sdp" />

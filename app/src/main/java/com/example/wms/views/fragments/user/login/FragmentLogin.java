@@ -116,8 +116,8 @@ public class FragmentLogin extends Fragment {
 
 
     private void init() {//_________________________________________________________________________ init
-        EditPassword.setInputType(InputType.TYPE_CLASS_TEXT |
-                InputType.TYPE_TEXT_VARIATION_PASSWORD);
+//        EditPassword.setInputType(InputType.TYPE_CLASS_TEXT |
+//                InputType.TYPE);
         passVisible = false;
         DismissLoading();
         SetClick();
@@ -199,6 +199,7 @@ public class FragmentLogin extends Fragment {
 
                 if (CheckEmpty()) {
                     ShowLoading();
+                    StaticFunctions.hideKeyboard(getActivity());
                     vm_fragmentLogin.GetLoginToken(
                             EditPhoneNumber.getText().toString(),
                             EditPassword.getText().toString()

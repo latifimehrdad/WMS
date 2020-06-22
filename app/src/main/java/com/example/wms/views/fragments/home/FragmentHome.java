@@ -26,6 +26,7 @@ import androidx.navigation.Navigation;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentHomeBinding;
+import com.example.wms.utility.StaticFunctions;
 import com.example.wms.viewmodels.main.VM_FragmentHome;
 import com.example.wms.views.application.ApplicationWMS;
 import com.example.wms.views.custom.textview.VerticalTextView;
@@ -42,6 +43,7 @@ public class FragmentHome extends Fragment {
     private VM_FragmentHome vm_fragmentHome;
     private NavController navController;
     private View view;
+    public static boolean requestPackage = false;
 
     @BindView(R.id.FooterPrimary)
     RelativeLayout FooterPrimary;
@@ -84,8 +86,16 @@ public class FragmentHome extends Fragment {
             binding.setHome(vm_fragmentHome);
             view = binding.getRoot();
             ButterKnife.bind(this, view);
-            SetLayout();
+            StaticFunctions.hideKeyboard(getActivity());
             SetClick();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    SetLayout();
+                }
+            },500);
+
         }
         return view;
     }//_____________________________________________________________________________________________ onCreateView
@@ -101,6 +111,14 @@ public class FragmentHome extends Fragment {
         super.onStart();
         navController = Navigation.findNavController(view);
         CheckProfile();
+
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                SetLayout();
+//            }
+//        },1000);
     }//_____________________________________________________________________________________________ onStart
 
 
@@ -125,6 +143,7 @@ public class FragmentHome extends Fragment {
             @Override
             public void onClick(View v) {
 
+
                 if (vm_fragmentHome.IsPackageState()) {
 //                    if (vm_fragmentHome.GetPackageState() == 3)
 //                        ShowMessage(
@@ -132,12 +151,17 @@ public class FragmentHome extends Fragment {
 //                                getResources().getColor(R.color.mlWhite),
 //                                getResources().getDrawable(R.drawable.ic_error));
 //                    else
+                    requestPackage = false;
                         navController.navigate(R.id.action_fragmentHome_to_fragmentPackRequestPrimary);
                 } else {
-                    if (vm_fragmentHome.IsAddressCompleted())
+                    if (vm_fragmentHome.IsAddressCompleted()) {
+                        requestPackage = false;
                         navController.navigate(R.id.action_fragmentHome_to_fragmentPackRequestPrimary);
-                    else
+                    }
+                    else {
+                        requestPackage = true;
                         navController.navigate(R.id.action_fragmentHome_to_fragmentPackRequestAddress);
+                    }
 
 
                 }
@@ -147,6 +171,7 @@ public class FragmentHome extends Fragment {
         footerdown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 navController.navigate(R.id.action_fragmentHome_to_fragmentCollectRequest);
             }
         });

@@ -7,6 +7,7 @@ import com.example.wms.R;
 import com.example.wms.daggers.retrofit.RetrofitComponent;
 import com.example.wms.models.ModelHousingBuildings;
 import com.example.wms.models.ModelResponcePrimery;
+import com.example.wms.models.ModelSettingInfo;
 import com.example.wms.models.ModelTimeSheetTimes;
 import com.example.wms.models.ModelTimes;
 import com.example.wms.utility.StaticFunctions;
@@ -60,7 +61,7 @@ public class VM_FragmentPackRequestPrimary {
                         MessageResponse = CheckResponse(response, false);
                         if (MessageResponse == null) {
                             MessageResponse = GetMessage(response);
-                            Observables.onNext(StaticValues.ML_SendPackageRequest);
+                            GetLoginInformation();
                         } else
                             Observables.onNext(StaticValues.ML_ResponseError);
 
@@ -73,6 +74,45 @@ public class VM_FragmentPackRequestPrimary {
                 });
 
     }//_____________________________________________________________________________________________ SendPackageRequest
+
+
+
+    public void GetLoginInformation() {//___________________________________________________________ GetLoginInformation
+
+        StaticFunctions.isCancel = false;
+
+        RetrofitComponent retrofitComponent =
+                ApplicationWMS
+                        .getApplicationWMS(context)
+                        .getRetrofitComponent();
+
+        String Authorization = GetAuthorization(context);
+
+        retrofitComponent
+                .getRetrofitApiInterface()
+                .getSettingInfo(
+                        Authorization)
+                .enqueue(new Callback<ModelSettingInfo>() {
+                    @Override
+                    public void onResponse(Call<ModelSettingInfo> call, Response<ModelSettingInfo> response) {
+                        if (StaticFunctions.isCancel)
+                            return;
+                        String m = CheckResponse(response, true);
+                        if (m == null) {
+                            if (StaticFunctions.SaveProfile(context,response.body().getResult()))
+                                Observables.onNext(StaticValues.ML_SendPackageRequest);
+//                            SaveProfile();
+                        } else
+                            Observables.onNext(StaticValues.ML_ResponseError);
+                    }
+
+                    @Override
+                    public void onFailure(Call<ModelSettingInfo> call, Throwable t) {
+                        Observables.onNext(StaticValues.ML_ResponseFailure);
+                    }
+                });
+
+    }//_____________________________________________________________________________________________ GetLoginInformation
 
 
 

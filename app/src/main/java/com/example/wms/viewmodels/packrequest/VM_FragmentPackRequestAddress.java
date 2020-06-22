@@ -8,6 +8,7 @@ import com.example.wms.models.ModelBuildingTypes;
 import com.example.wms.models.ModelGetAddress;
 import com.example.wms.models.ModelHousingBuildings;
 import com.example.wms.models.ModelResponcePrimery;
+import com.example.wms.models.ModelSettingInfo;
 import com.example.wms.utility.StaticFunctions;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.views.application.ApplicationWMS;
@@ -44,7 +45,7 @@ public class VM_FragmentPackRequestAddress {
             Long BuildingTypeId,
             Integer BuildingTypeCount,
             Long BuildingUseId,
-            Integer BuildingUseCount) {
+            Integer BuildingUseCount) {//___________________________________________________________ SaveAddress
 
         StaticFunctions.isCancel = false;
 
@@ -74,7 +75,8 @@ public class VM_FragmentPackRequestAddress {
                         MessageResponse = CheckResponse(response, false);
                         if (MessageResponse == null) {
                             MessageResponse = GetMessage(response);
-                            Observables.onNext(StaticValues.ML_EditUserAddress);
+                            GetLoginInformation();
+
                         } else
                             Observables.onNext(StaticValues.ML_ResponseError);
 
@@ -86,7 +88,46 @@ public class VM_FragmentPackRequestAddress {
                     }
                 });
 
-    }
+    }//_____________________________________________________________________________________________ SaveAddress
+
+
+
+    public void GetLoginInformation() {//___________________________________________________________ GetLoginInformation
+
+        StaticFunctions.isCancel = false;
+
+        RetrofitComponent retrofitComponent =
+                ApplicationWMS
+                        .getApplicationWMS(context)
+                        .getRetrofitComponent();
+
+        String Authorization = GetAuthorization(context);
+
+        retrofitComponent
+                .getRetrofitApiInterface()
+                .getSettingInfo(
+                        Authorization)
+                .enqueue(new Callback<ModelSettingInfo>() {
+                    @Override
+                    public void onResponse(Call<ModelSettingInfo> call, Response<ModelSettingInfo> response) {
+                        if (StaticFunctions.isCancel)
+                            return;
+                        String m = CheckResponse(response, true);
+                        if (m == null) {
+                            if (StaticFunctions.SaveProfile(context,response.body().getResult()))
+                                Observables.onNext(StaticValues.ML_EditUserAddress);
+//                            SaveProfile();
+                        } else
+                            Observables.onNext(StaticValues.ML_ResponseError);
+                    }
+
+                    @Override
+                    public void onFailure(Call<ModelSettingInfo> call, Throwable t) {
+                        Observables.onNext(StaticValues.ML_ResponseFailure);
+                    }
+                });
+
+    }//_____________________________________________________________________________________________ GetLoginInformation
 
 
 

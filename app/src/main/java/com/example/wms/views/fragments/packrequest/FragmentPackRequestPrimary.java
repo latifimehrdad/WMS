@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.packrequest.VM_FragmentPackRequestPrimary;
 import com.example.wms.views.application.ApplicationWMS;
 import com.example.wms.views.dialogs.DialogProgress;
+import com.example.wms.views.fragments.home.FragmentHome;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import java.text.DateFormat;
@@ -221,6 +223,22 @@ public class FragmentPackRequestPrimary extends Fragment {
 
     private void SetOnClick() {//___________________________________________________________________ SetOnClick
 
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+                    if (FragmentHome.requestPackage) {
+                        getActivity().onBackPressed();
+                        getActivity().onBackPressed();
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
+
         FPRPSpinnerDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -352,6 +370,7 @@ public class FragmentPackRequestPrimary extends Fragment {
         if(disposableObserver != null)
             disposableObserver.dispose();
         disposableObserver = null;
+        FragmentHome.requestPackage = false;
     }//_____________________________________________________________________________________________ onDestroy
 
 
@@ -363,6 +382,7 @@ public class FragmentPackRequestPrimary extends Fragment {
             disposableObserver.dispose();
         disposableObserver = null;
     }//_____________________________________________________________________________________________ onStop
+
 
 
 
