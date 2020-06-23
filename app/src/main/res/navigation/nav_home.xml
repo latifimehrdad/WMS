@@ -325,4 +325,20 @@
         tools:layout="@layout/fragment_pack_request_primary"
         />
 
+    <fragment
+        android:id="@+id/creatorFragment"
+        android:name="com.example.wms.views.fragments.home.CreatorFragment"
+        android:label="CreatorFragment"
+        tools:layout="@layout/fragment_creator"/>
+
+    <action
+        android:id="@+id/action_goto_creator"
+        app:destination="@id/creatorFragment"
+        app:popEnterAnim="@anim/slide_in_right"
+        app:popExitAnim="@anim/slide_out_left"
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/slide_out_right"
+        />
+
+
 </navigation>

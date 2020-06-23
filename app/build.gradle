@@ -117,6 +117,7 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment:$nav_version"
     implementation "androidx.navigation:navigation-ui:$nav_version"
 
+    implementation 'com.codesgood:justifiedtextview:1.1.0'
 //    implementation 'com.google.android.gms:play-services-maps:15.+'
 //    implementation 'com.google.android.gms:play-services-places:16.0.0'
 //    implementation 'com.google.android.gms:play-services-gcm:15.+'

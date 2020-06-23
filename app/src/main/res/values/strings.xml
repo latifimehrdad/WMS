@@ -21,7 +21,7 @@
     </string-array>
 
 
-    <string name="app_name">نگرا</string>
+    <string name="app_name">سمتام</string>
 
     <string name="WMSFromFist">سیستم مدیریت تفکیک از مبدأ</string>
     <string name="Orders">سفارشات</string>
@@ -188,6 +188,11 @@
     <string name="EmptyPersonCount">لطفا تعداد نفرات را وارد نمایید</string>
     <string name="EmptyUnitCount">لطفا تعداد واحدها را وارد نمایید</string>
     <string name="GetPackage">شما قبلا پکیج را دریافت کرده اید</string>
+    <string name="TurnOnGps">موقعیت مکانی دستگاه خود را روشن کنید</string>
+    <string name="CopyRight">تولید شده توسط گروه نگرا</string>
+    <string name="About">درباره تولید کننده</string>
+    <string name="NgraSite">آدرس سایت : http://www.ngra.ir</string>
+    <string name="Tel">تلفن تماس : 02691009001</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

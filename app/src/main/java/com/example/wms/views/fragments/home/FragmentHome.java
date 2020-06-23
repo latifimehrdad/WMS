@@ -94,7 +94,7 @@ public class FragmentHome extends Fragment {
                 public void run() {
                     SetLayout();
                 }
-            },500);
+            }, 500);
 
         }
         return view;
@@ -143,6 +143,13 @@ public class FragmentHome extends Fragment {
             @Override
             public void onClick(View v) {
 
+                if (StaticFunctions.isLocationEnabled(context)) {
+                    ShowMessage(
+                            context.getResources().getString(R.string.TurnOnGps),
+                            getResources().getColor(R.color.mlWhite),
+                            getResources().getDrawable(R.drawable.ic_error));
+                    return;
+                }
 
                 if (vm_fragmentHome.IsPackageState()) {
 //                    if (vm_fragmentHome.GetPackageState() == 3)
@@ -152,13 +159,12 @@ public class FragmentHome extends Fragment {
 //                                getResources().getDrawable(R.drawable.ic_error));
 //                    else
                     requestPackage = false;
-                        navController.navigate(R.id.action_fragmentHome_to_fragmentPackRequestPrimary);
+                    navController.navigate(R.id.action_fragmentHome_to_fragmentPackRequestPrimary);
                 } else {
                     if (vm_fragmentHome.IsAddressCompleted()) {
                         requestPackage = false;
                         navController.navigate(R.id.action_fragmentHome_to_fragmentPackRequestPrimary);
-                    }
-                    else {
+                    } else {
                         requestPackage = true;
                         navController.navigate(R.id.action_fragmentHome_to_fragmentPackRequestAddress);
                     }
