@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/mlWhite"
+    android:padding="@dimen/_10sdp"
+    android:gravity="center">
+
+
+    <TextView
+        android:id="@+id/TextViewQuestionTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/mlBlack"
+        android:textSize="@dimen/_11sdp"
+        android:gravity="center"
+        fontPath="fonts/iransans_web_medium.ttf"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_10sdp"
+        >
+
+        <LinearLayout
+            android:id="@+id/LinearLayoutNo"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@drawable/dw_back_question_left"
+            >
+
+            <ImageView
+                android:id="@+id/ImageViewNo"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_2sdp"
+                android:src="@drawable/ic_cancel_black_24dp"
+                android:tint="@color/mlWhite"
+                />
+
+            <TextView
+                android:id="@+id/TextViewNo"
+                fontPath="fonts/iransans_web_medium.ttf"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="52dp"
+                android:layout_marginRight="@dimen/_2sdp"
+                android:gravity="center"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingRight="@dimen/_5sdp"
+                android:maxLines="2"
+                android:text="@string/ML_TurnOffLocation"
+                android:textColor="@color/mlWhite"
+                android:textSize="@dimen/_9sdp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayoutYes"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@drawable/dw_back_question_right"
+            >
+
+            <TextView
+                android:id="@+id/TextViewYes"
+                fontPath="fonts/iransans_web_medium.ttf"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="52dp"
+                android:layout_marginRight="@dimen/_2sdp"
+                android:gravity="center"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingRight="@dimen/_5sdp"
+                android:maxLines="2"
+                android:text="@string/ML_TurnOnLocation"
+                android:textColor="@color/mlWhite"
+                android:textSize="@dimen/_9sdp" />
+
+            <ImageView
+                android:id="@+id/ImageViewYes"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginLeft="@dimen/_2sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:src="@drawable/ic_baseline_my_location"
+                android:tint="@color/mlWhite"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

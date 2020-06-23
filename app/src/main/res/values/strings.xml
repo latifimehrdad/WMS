@@ -188,11 +188,13 @@
     <string name="EmptyPersonCount">لطفا تعداد نفرات را وارد نمایید</string>
     <string name="EmptyUnitCount">لطفا تعداد واحدها را وارد نمایید</string>
     <string name="GetPackage">شما قبلا پکیج را دریافت کرده اید</string>
-    <string name="TurnOnGps">موقعیت مکانی دستگاه خود را روشن کنید</string>
+    <string name="TurnOnGps">موقعیت مکانی دستگاه شما خاموش است. تمایل به روشن کردن آن دارید؟</string>
     <string name="CopyRight">تولید شده توسط گروه نگرا</string>
     <string name="About">درباره تولید کننده</string>
     <string name="NgraSite">آدرس سایت : http://www.ngra.ir</string>
     <string name="Tel">تلفن تماس : 02691009001</string>
+    <string name="ML_TurnOnLocation">روشن شود</string>
+    <string name="ML_TurnOffLocation">خاموش بماند</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

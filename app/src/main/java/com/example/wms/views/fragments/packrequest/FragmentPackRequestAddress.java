@@ -2,7 +2,9 @@ package com.example.wms.views.fragments.packrequest;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
@@ -10,10 +12,12 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -80,6 +84,7 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
     private Long BuildingTypeId;
     private Long BuildingUseId;
     private NavController navController;
+    private Dialog dialogQuestion;
 
 
     @BindView(R.id.MaterialSpinnerType)
@@ -158,12 +163,16 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
         if (disposableObserver != null)
             disposableObserver.dispose();
         ObserverObservables();
+        if (TryToLocation == -1)
+            GetCurrentLocation();
 
     }//_____________________________________________________________________________________________ onStart
 
 
     private void init() {//_________________________________________________________________________ init
 
+        textChoose.setVisibility(View.GONE);
+        MarkerGif.setVisibility(View.VISIBLE);
         SetTextWatcher();
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
                 .findFragmentById(R.id.fpraMap);
@@ -177,10 +186,75 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
             public void run() {
                 vm_fragmentPackRequestAddress.GetTypeBuilding();
             }
-        },100);
+        }, 100);
 
 
     }//_____________________________________________________________________________________________ init
+
+
+    private void ShowRequestTypeDialog() {//________________________________________________________ Start ShowRequestTypeDialog
+        TryToLocation = -1;
+        if (dialogQuestion != null)
+            if (dialogQuestion.isShowing())
+                dialogQuestion.dismiss();
+        dialogQuestion = null;
+        dialogQuestion = new Dialog(context);
+        dialogQuestion.setCancelable(false);
+        dialogQuestion.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogQuestion.setContentView(R.layout.dialog_question);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        Window window = dialogQuestion.getWindow();
+        lp.copyFrom(window.getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        window.setAttributes(lp);
+
+        TextView TextViewQuestionTitle = (TextView) dialogQuestion
+                .findViewById(R.id.TextViewQuestionTitle);
+        TextViewQuestionTitle.setText(context.getResources().getString(R.string.TurnOnGps));
+
+        TextView TextViewYes = (TextView) dialogQuestion
+                .findViewById(R.id.TextViewYes);
+        TextViewYes.setText(context.getResources().getString(R.string.ML_TurnOnLocation));
+
+        TextView TextViewNo = (TextView) dialogQuestion
+                .findViewById(R.id.TextViewNo);
+        TextViewNo.setText(context.getResources().getString(R.string.ML_TurnOffLocation));
+
+        ImageView ImageViewYes = (ImageView) dialogQuestion
+                .findViewById(R.id.ImageViewYes);
+
+        ImageViewYes.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_my_location));
+
+
+        LinearLayout LinearLayoutYes = (LinearLayout) dialogQuestion
+                .findViewById(R.id.LinearLayoutYes);
+
+        LinearLayout LinearLayoutNo = (LinearLayout) dialogQuestion
+                .findViewById(R.id.LinearLayoutNo);
+
+        LinearLayoutNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                textChoose.setVisibility(View.VISIBLE);
+                MarkerGif.setVisibility(View.GONE);
+                LatLng current = new LatLng(35.831350, 50.998434);
+                float zoom = (float) 16;
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(current, zoom));
+                dialogQuestion.dismiss();
+            }
+        });
+
+        LinearLayoutYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(intent);
+                dialogQuestion.dismiss();
+            }
+        });
+
+        dialogQuestion.show();
+    }//_____________________________________________________________________________________________ End ShowRequestTypeDialog
 
 
     private void GetCurrentLocation() {//___________________________________________________________ Start GetCurrentLocation
@@ -285,8 +359,12 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
         mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
             public void onMapLoaded() {
-                TryToLocation = 0;
-                GetCurrentLocation();
+                if (!StaticFunctions.isLocationEnabled(context)) {
+                    ShowRequestTypeDialog();
+                } else {
+                    TryToLocation = 0;
+                    GetCurrentLocation();
+                }
             }
         });
 
@@ -381,7 +459,7 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
         MaterialSpinnerUses.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
-                BuildingUseId = Long.valueOf(vm_fragmentPackRequestAddress.getBuildingTypes().getBuildingUses().get(position -1).getId());
+                BuildingUseId = Long.valueOf(vm_fragmentPackRequestAddress.getBuildingTypes().getBuildingUses().get(position - 1).getId());
                 MaterialSpinnerUses.setBackgroundColor(context.getResources().getColor(R.color.mlEdit));
             }
         });
@@ -400,7 +478,7 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
         MaterialSpinnerType.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
-                BuildingTypeId = Long.valueOf(vm_fragmentPackRequestAddress.getBuildingTypes().getBuildingTypes().get(position-1).getId());
+                BuildingTypeId = Long.valueOf(vm_fragmentPackRequestAddress.getBuildingTypes().getBuildingTypes().get(position - 1).getId());
                 MaterialSpinnerType.setBackgroundColor(context.getResources().getColor(R.color.mlEdit));
             }
         });
@@ -417,7 +495,6 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
                 .ShowProgress(context, null);
         progress.show(getChildFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
     }//_____________________________________________________________________________________________ ShowProgressDialog
-
 
 
     private void SetMaterialSpinnerType() {//_______________________________________________________ SetMaterialSpinnerType
@@ -552,8 +629,7 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
                     , getResources().getColor(R.color.mlWhite),
                     getResources().getDrawable(R.drawable.ic_check));
             navController.navigate(R.id.action_fragmentPackRequestAddress_to_fragmentPackRequestPrimary);
-        }
-        else if (action == StaticValues.ML_GetHousingBuildings) {
+        } else if (action == StaticValues.ML_GetHousingBuildings) {
             SetMaterialSpinnerType();
         } else if (action == StaticValues.ML_SetAddress) {
             EditTextAddress.setText(vm_fragmentPackRequestAddress.getAddressString());
@@ -664,12 +740,11 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
     @Override
     public void onDestroy() {//_____________________________________________________________________ onDestroy
         super.onDestroy();
-        if(disposableObserver != null)
+        if (disposableObserver != null)
             disposableObserver.dispose();
         disposableObserver = null;
         FragmentHome.requestPackage = false;
     }//_____________________________________________________________________________________________ onDestroy
-
 
 
     @Override
