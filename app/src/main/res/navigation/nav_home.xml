@@ -107,7 +107,7 @@
 
     <fragment
         android:id="@+id/fragmentProfile"
-        android:name="com.example.wms.views.fragments.profile.FragmentProfile"
+        android:name="com.example.wms.views.fragments.user.profile.FragmentProfile"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
 

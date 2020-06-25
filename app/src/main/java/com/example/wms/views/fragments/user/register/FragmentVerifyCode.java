@@ -339,8 +339,6 @@ public class FragmentVerifyCode extends Fragment {
         VerifyCode4.setOnKeyListener(SetKeyBackSpace(VerifyCode3));
         VerifyCode5.setOnKeyListener(SetKeyBackSpace(VerifyCode4));
         VerifyCode6.setOnKeyListener(SetKeyBackSpace(VerifyCode5));
-
-
     }//_____________________________________________________________________________________________ SetTextChangeListener
 
 

@@ -8,6 +8,11 @@
         <variable
             name="beforlogin"
             type="com.example.wms.viewmodels.user.login.VM_FragmentLogin" />
+
+        <variable
+            name="login"
+            type="com.example.wms.viewmodels.user.login.VM_Login" />
+
     </data>
 
     <FrameLayout

@@ -7,6 +7,11 @@
         <variable
             name="phonenumber"
             type="com.example.wms.viewmodels.user.register.VM_FragmentSendNumber" />
+
+        <variable
+            name="signup"
+            type="com.example.wms.viewmodels.user.register.VM_SignUp" />
+
     </data>
 
     <FrameLayout

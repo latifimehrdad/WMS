@@ -7,6 +7,11 @@
         <variable
             name="spalsh"
             type="com.example.wms.viewmodels.user.login.VM_FragmentSplash" />
+
+        <variable
+            name="vm_splash"
+            type="com.example.wms.viewmodels.user.login.VM_Splash" />
+
     </data>
 
     <FrameLayout
@@ -45,6 +50,7 @@
 
 
         </LinearLayout>
+
     </FrameLayout>
 
 </layout>

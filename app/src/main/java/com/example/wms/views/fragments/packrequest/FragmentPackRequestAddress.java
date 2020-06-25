@@ -132,6 +132,9 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
     @BindView(R.id.gifLoading)
     GifView gifLoading;
 
+    @BindView(R.id.TextViewWaitMap)
+    TextView TextViewWaitMap;
+
 
     public View onCreateView(
             LayoutInflater inflater,
@@ -157,6 +160,7 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
         navController = Navigation.findNavController(view);
+        TextViewWaitMap.setVisibility(View.VISIBLE);
         FullScreen = false;
         textChoose.setVisibility(View.VISIBLE);
         MarkerGif.setVisibility(View.GONE);
@@ -359,6 +363,7 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
         mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
             public void onMapLoaded() {
+                TextViewWaitMap.setVisibility(View.GONE);
                 if (!StaticFunctions.isLocationEnabled(context)) {
                     ShowRequestTypeDialog();
                 } else {

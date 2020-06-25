@@ -12,9 +12,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.NavGraph;
@@ -31,47 +28,23 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.wms.R;
 import com.example.wms.databinding.ActivityMainBinding;
 import com.example.wms.viewmodels.main.MainActivityViewModel;
-import com.example.wms.views.fragments.aboutus.FragmentAbout;
-import com.example.wms.views.fragments.callwithus.FragmentCallWithUs;
-import com.example.wms.views.fragments.collectrequest.collectrequest.FragmentCollectRequestOrders;
-import com.example.wms.views.fragments.home.FragmentHome;
-import com.example.wms.views.fragments.collectrequest.collectrequest.FragmentCollectRequest;
-import com.example.wms.views.fragments.collectrequest.boothreceive.FragmentBoothReceive;
-import com.example.wms.views.fragments.collectrequest.recyclingcar.FragmentRecyclingCar;
-import com.example.wms.views.fragments.learn.FragmentLearn;
-import com.example.wms.views.fragments.lottery.FragmentLottery;
-import com.example.wms.views.fragments.packrequest.FragmentPackRequest;
-import com.example.wms.views.fragments.profile.FragmentProfile;
-import com.example.wms.views.fragments.wallet.FragmentWallet;
-import com.google.android.gms.location.places.GeoDataClient;
-import com.google.android.gms.location.places.PlaceDetectionClient;
-import com.google.android.gms.location.places.Places;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
-import io.reactivex.subjects.PublishSubject;
 
 public class MainActivity extends AppCompatActivity {
 

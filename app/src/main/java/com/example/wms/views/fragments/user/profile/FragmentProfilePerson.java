@@ -2,7 +2,7 @@
 Create By Mehrdad Latifi in
 1398/09/09 - 12:08 PM
  */
-package com.example.wms.views.fragments.profile;
+package com.example.wms.views.fragments.user.profile;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

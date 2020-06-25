@@ -7,6 +7,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,6 +32,7 @@ public class DialogMessage extends DialogFragment {
     private String Title;
     private int color;
     private Drawable icon;
+    private int tintColor;
 
     @BindView(R.id.DialogIgnor)
     Button DialogIgnor;
@@ -44,11 +47,17 @@ public class DialogMessage extends DialogFragment {
     ImageView DialogImg;
 
 
-    public DialogMessage(Context context, String title, int color, Drawable icon) {//_______________ Start DialogMessage
+    public DialogMessage(
+            Context context,
+            String title,
+            int color,
+            Drawable icon,
+            int tintColor) {//______________________________________________________________________ Start DialogMessage
         this.context = context;
         Title = title;
         this.color = color;
         this.icon = icon;
+        this.tintColor = tintColor;
 
     }//_____________________________________________________________________________________________ End DialogMessage
 
@@ -67,12 +76,16 @@ public class DialogMessage extends DialogFragment {
         layout.setBackgroundColor(color);
         DialogTitle.setText(Title);
         DialogImg.setImageDrawable(icon);
+        DialogImg.setColorFilter(tintColor);
         DialogIgnor.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 DialogMessage.this.dismiss();
             }
         });
-        return new AlertDialog.Builder(context).setView(view).create();
+        Dialog dialog = new AlertDialog.Builder(context).setView(view).create();
+        Animation buttom = AnimationUtils.loadAnimation(context, R.anim.slide_in_bottom);
+        view.setAnimation(buttom);
+        return dialog;
     }//_____________________________________________________________________________________________ End onCreateDialog
 
 }

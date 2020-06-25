@@ -174,5 +174,15 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/TextViewWaitMap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/mlWhite"
+        android:textSize="@dimen/_13sdp"
+        android:textColor="@color/mlBlack"
+        android:text=""
+        fontPath="font/iransans_web_medium.ttf"
+        />
 
 </RelativeLayout>

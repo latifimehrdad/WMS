@@ -1,6 +1,8 @@
 package com.example.wms.utility;
 
 public class StaticValues {
+
+//    public static boolean isCancel = true;
     public static Byte ML_ResponseError = 0;
     public static Byte ML_ResponseFailure = 1;
     public static Byte ML_GoToHome = 2;
