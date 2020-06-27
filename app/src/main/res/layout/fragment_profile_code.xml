@@ -6,6 +6,10 @@
         <variable
             name="code"
             type="com.example.wms.viewmodels.user.profile.VM_FragmentProfileCode" />
+
+        <variable
+            name="vm_code"
+            type="com.example.wms.viewmodels.user.profile.VM_ProfileCode" />
     </data>
 
     <ScrollView
