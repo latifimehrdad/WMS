@@ -301,14 +301,18 @@ public class ApplicationUtility {
     }//_____________________________________________________________________________________________ End calcSolarCalendar
 
 
-    public void ShowMessage(Context c, String message, int color, Drawable icon, FragmentManager fm) {//_________ Start ShowMessage
+    public void ShowMessage(
+            Context context,
+            String message,
+            int color,
+            Drawable icon,
+            FragmentManager fm) {//_________ Start ShowMessage
 
-        DialogMessage dialogMessage = new DialogMessage(c, message, color, icon);
+        DialogMessage dialogMessage = new DialogMessage(context, message, color, icon,0);
         dialogMessage.setCancelable(false);
         dialogMessage.show(fm, NotificationCompat.CATEGORY_PROGRESS);
 
     }//_____________________________________________________________________________________________ End ShowMessage
-
 
 
     public DialogProgress ShowProgress(Context c, String title) {//_________________________________ Start ShowMessage
@@ -318,8 +322,6 @@ public class ApplicationUtility {
         return progress;
 
     }//_____________________________________________________________________________________________ End ShowMessage
-
-
 
 
     public void CustomToastShow(Context context, String message, int color) {
@@ -535,8 +537,6 @@ public class ApplicationUtility {
         }
         return Boolean.valueOf(false);
     }
-
-
 
 
 }

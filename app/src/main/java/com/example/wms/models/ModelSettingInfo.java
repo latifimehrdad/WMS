@@ -2,7 +2,7 @@ package com.example.wms.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ModelSettingInfo extends ModelResponcePrimery {
+public class ModelSettingInfo extends ModelResponsePrimary {
 
     @SerializedName("result")
     ModelProfileSetting result;

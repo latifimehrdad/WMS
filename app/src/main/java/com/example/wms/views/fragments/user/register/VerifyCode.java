@@ -70,7 +70,6 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
     TextView message;
 
 
-
     public VerifyCode() {//_________________________________________________________________________ VerifyCode
     }//_____________________________________________________________________________________________ VerifyCode
 
@@ -93,7 +92,6 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
     }//_____________________________________________________________________________________________ onCreateView
 
 
-
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
@@ -111,7 +109,6 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
         SetOnclick();
         StartTimer(60);
     }//_____________________________________________________________________________________________ End init
-
 
 
     @Override
@@ -180,7 +177,6 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
     }//_____________________________________________________________________________________________ SetOnclick
 
 
-
     private void StartTimer(int Elapse) {//_________________________________________________________ StartTimer
 
         ReTryGetSMSClick = false;
@@ -213,15 +209,11 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
     }//_____________________________________________________________________________________________ StartTimer
 
 
-
-
     private void ReTryGetSMS() {//__________________________________________________________________ ReTryGetSMS
         TimeElapsed.setVisibility(View.GONE);
         ReTryGetSMSClick = true;
         message.setText(getResources().getString(R.string.ReTryGetSMS));
     }//_____________________________________________________________________________________________ ReTryGetSMS
-
-
 
 
     private void SetTextChangeListener() {//________________________________________________________ SetTextChangeListener
@@ -240,7 +232,6 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
         VerifyCode5.setOnKeyListener(SetKeyBackSpace(VerifyCode4));
         VerifyCode6.setOnKeyListener(SetKeyBackSpace(VerifyCode5));
     }//_____________________________________________________________________________________________ SetTextChangeListener
-
 
 
     private TextWatcher TextChange(EditText eNext) {//______________________________________________ TextChange
@@ -267,7 +258,6 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
     }//_____________________________________________________________________________________________ TextChange
 
 
-
     private View.OnKeyListener SetKeyBackSpace(EditText view) {//___________________________________ SetKeyBackSpace
         return new View.OnKeyListener() {
             @Override
@@ -290,7 +280,6 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
     }//_____________________________________________________________________________________________ SetKeyBackSpace
 
 
-
     private void SetBackVerifyCode() {//____________________________________________________________ SetBackVerifyCode
 
         Boolean c1 = SetBackVerifyCodeView(VerifyCode1);
@@ -299,6 +288,9 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
         Boolean c4 = SetBackVerifyCodeView(VerifyCode4);
         Boolean c5 = SetBackVerifyCodeView(VerifyCode5);
         Boolean c6 = SetBackVerifyCodeView(VerifyCode6);
+
+        if (!isAccessClick())
+            return;
 
         if (c1 && c2 && c3 && c4 && c5 && c6) {
             String code = VerifyCode1.getText().toString() +
@@ -309,8 +301,9 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
                     VerifyCode6.getText().toString();
 
             ShowProgressDialog();
-            vm_verifyCode.SendVerifyCode(PhoneNumber, code);
-
+            vm_verifyCode.setPhoneNumber(PhoneNumber);
+            vm_verifyCode.setVerifyCode(code);
+            vm_verifyCode.SendVerifyCode();
         }
 
     }//_____________________________________________________________________________________________ SetBackVerifyCode
@@ -333,7 +326,6 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
     }//_____________________________________________________________________________________________ SetBackVerifyCodeView
 
 
-
     private void ShowProgressDialog() {//___________________________________________________________ ShowProgressDialog
 
         progress = ApplicationWMS
@@ -344,7 +336,6 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
         progress.show(getFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
 
     }//_____________________________________________________________________________________________ ShowProgressDialog
-
 
 
     private void SetPhoneNumberPassword() {//_______________________________________________________ SetPhoneNumberPassword

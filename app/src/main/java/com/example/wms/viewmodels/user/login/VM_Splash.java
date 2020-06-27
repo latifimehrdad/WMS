@@ -26,13 +26,13 @@ public class VM_Splash extends VM_Primary {
     private ModelToken modelToken;
     private ModelSettingInfo.ModelProfileSetting profile;
 
+
     public VM_Splash(Context context) {//___________________________________________________________ VM_Splash
         this.context = context;
     }//_____________________________________________________________________________________________ VM_Splash
 
 
-
-    public void CheckToken() {//________________________________ ___________________________________ Start CheckToken
+    public void CheckToken() {//____________________________________________________________________ CheckToken
 
         SharedPreferences prefs = context.getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0);
         if (prefs == null) {
@@ -52,8 +52,7 @@ public class VM_Splash extends VM_Primary {
 
         }
 
-    }//_____________________________________________________________________________________________ End CheckToken
-
+    }//_____________________________________________________________________________________________ CheckToken
 
 
     public void GetTokenFromServer() {//____________________________________________________________ GetTokenFromServer
@@ -89,7 +88,6 @@ public class VM_Splash extends VM_Primary {
     }//_____________________________________________________________________________________________ GetTokenFromServer
 
 
-
     public void GetLoginInformation() {//___________________________________________________________ GetLoginInformation
 
         RetrofitComponent retrofitComponent =
@@ -111,7 +109,7 @@ public class VM_Splash extends VM_Primary {
                         setResponseMessage(CheckResponse(response, true));
                         if (getResponseMessage() == null) {
                             profile = response.body().getResult();
-                            if (StaticFunctions.SaveProfile(context,profile))
+                            if (StaticFunctions.SaveProfile(context, profile))
                                 getPublishSubject().onNext(StaticValues.ML_GoToHome);
                         } else
                             getPublishSubject().onNext(StaticValues.ML_ResponseError);
@@ -124,7 +122,6 @@ public class VM_Splash extends VM_Primary {
                 });
 
     }//_____________________________________________________________________________________________ GetLoginInformation
-
 
 
 }

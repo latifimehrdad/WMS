@@ -77,7 +77,7 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
         }
 
         if (action == StaticValues.ML_GotoLogin) {
-            navController.navigate(R.id.action_fragmentSplash_to_fragmentLogin);
+            navController.navigate(R.id.action_splash_to_login);
             return;
         }
 

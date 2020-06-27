@@ -14,29 +14,21 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.example.wms.R;
-import com.example.wms.daggers.retrofit.RetrofitApis;
-import com.example.wms.daggers.retrofit.RetrofitComponent;
 import com.example.wms.models.ModelMessage;
 import com.example.wms.models.ModelPackage;
-import com.example.wms.models.ModelResponcePrimery;
+import com.example.wms.models.ModelResponsePrimary;
 import com.example.wms.models.ModelSettingInfo;
 import com.example.wms.models.ModelToken;
-import com.example.wms.views.activitys.MainActivity;
-import com.example.wms.views.application.ApplicationWMS;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class StaticFunctions {
@@ -265,7 +257,7 @@ public class StaticFunctions {
     }//_____________________________________________________________________________________________ End GetErrorMessage
 
 
-    public static String GetMessage(Response<ModelResponcePrimery> response) {//____________________ Start GetMessage
+    public static String GetMessage(Response<ModelResponsePrimary> response) {//____________________ Start GetMessage
         try {
             ArrayList<ModelMessage> modelMessages = response.body().getMessages();
             String message = "";

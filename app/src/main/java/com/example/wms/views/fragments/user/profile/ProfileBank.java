@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
@@ -62,7 +61,7 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (getView() == null) {
             FragmentProfileBankBinding binding = DataBindingUtil.inflate(
-                    inflater, R.layout.fragment_profile_bank,container, false);
+                    inflater, R.layout.fragment_profile_bank, container, false);
             vm_profileBank = new VM_ProfileBank(getContext());
             binding.setVmBank(vm_profileBank);
             setView(binding.getRoot());
@@ -73,7 +72,6 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
     }//_____________________________________________________________________________________________ onCreateView
 
 
-
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
@@ -82,14 +80,10 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
     }//_____________________________________________________________________________________________ onStart
 
 
-
-
     private void init() {//_________________________________________________________________________ Start init
         SetTextWatcher();
         SetClick();
     }//_____________________________________________________________________________________________ End init
-
-
 
 
     @Override
@@ -152,7 +146,6 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 
 
-
     private void SetItemBanks() {//_________________________________________________________________ SetItemBanks
         TextBank.setText(getResources().getString(R.string.ChooseBank));
         BankId = "-1";
@@ -174,9 +167,8 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
             }
         });
 
-            spinnerBanks.showSpinerDialog();
+        spinnerBanks.showSpinerDialog();
     }//_____________________________________________________________________________________________ SetItemBanks
-
 
 
     private void SetClick() {//_____________________________________________________________________ SetClick
@@ -194,10 +186,17 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
         btnSendAccountNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (!isAccessClick())
+                    return;
+
                 if (CheckEmpty()) {
+                    setAccessClick(false);
                     StaticFunctions.hideKeyboard(getActivity());
                     ShowProgressDialog(null);
-                    vm_profileBank.SendAccountNumber(editAccountNumber.getText().toString(), BankId);
+                    vm_profileBank.setAccountNumber(editAccountNumber.getText().toString());
+                    vm_profileBank.setBankId(BankId);
+                    vm_profileBank.SendAccountNumber();
                 }
             }
         });
@@ -211,12 +210,10 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
     }//_____________________________________________________________________________________________ GetBanks
 
 
-
     private void GeuUserAccountNumber() {//_________________________________________________________ GeuUserAccountNumber
         ShowProgressDialog(getResources().getString(R.string.GetUserAccountNumber));
         vm_profileBank.GetUserAccountNumber();
     }//_____________________________________________________________________________________________ GeuUserAccountNumber
-
 
 
     private void SetTextWatcher() {//_______________________________________________________________ SetTextWatcher
@@ -251,7 +248,6 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
             return false;
 
     }//_____________________________________________________________________________________________ CheckEmpty
-
 
 
     private void ShowProgressDialog(String title) {//_______________________________________________ ShowProgressDialog

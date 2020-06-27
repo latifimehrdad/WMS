@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.example.wms.daggers.retrofit.RetrofitComponent;
 import com.example.wms.models.ModelBuildingRenovationCode;
-import com.example.wms.models.ModelResponcePrimery;
+import com.example.wms.models.ModelResponsePrimary;
 import com.example.wms.utility.StaticFunctions;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.views.activitys.MainActivity;
@@ -48,9 +48,9 @@ public class VM_FragmentProfileCode {
                 .SendBuildingRenovationCode(
                         getBuildingRenovationCode(),
                         Authorization)
-                .enqueue(new Callback<ModelResponcePrimery>() {
+                .enqueue(new Callback<ModelResponsePrimary>() {
                     @Override
-                    public void onResponse(Call<ModelResponcePrimery> call, Response<ModelResponcePrimery> response) {
+                    public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
                         if (StaticFunctions.isCancel)
                             return;
                         MessageResponse = CheckResponse(response, false);
@@ -63,7 +63,7 @@ public class VM_FragmentProfileCode {
                     }
 
                     @Override
-                    public void onFailure(Call<ModelResponcePrimery> call, Throwable t) {
+                    public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
                         Observables.onNext(StaticValues.ML_ResponseFailure);
                     }
                 });

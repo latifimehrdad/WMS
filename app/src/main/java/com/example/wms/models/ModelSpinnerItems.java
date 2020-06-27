@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-public class ModelSpinnerItems extends ModelResponcePrimery {
+public class ModelSpinnerItems extends ModelResponsePrimary {
 
     @SerializedName("result")
     ArrayList<ModelSpinnerItem> result;

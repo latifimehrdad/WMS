@@ -69,7 +69,6 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
     }//_____________________________________________________________________________________________ Login
 
 
-
     @Override
     public View onCreateView(
             LayoutInflater inflater,
@@ -123,6 +122,14 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
             return;
         }
 
+        if (action == StaticValues.ML_RequestCancel) {
+            ShowMessage(getResources().getString(R.string.RequestCancel)
+                    , getResources().getColor(R.color.mlWhite),
+                    getResources().getDrawable(R.drawable.ic_error),
+                    getResources().getColor(R.color.mlBlack));
+            return;
+        }
+
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 
 
@@ -132,7 +139,6 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
         SetOnclick();
         SetTextWatcher();
     }//_____________________________________________________________________________________________ init
-
 
 
     private void SetOnclick() {//___________________________________________________________________ SetOnclick
@@ -148,21 +154,21 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
             @Override
             public void onClick(View v) {
 
-                if (!isAccessClick())
+                if (!isAccessClick()) {
+                    vm_login.CancelRequest();
                     return;
+                }
 
                 if (CheckEmpty()) {
                     setAccessClick(false);
                     ShowLoading();
                     StaticFunctions.hideKeyboard(getActivity());
-                    vm_login.GetLoginToken(
-                            EditPhoneNumber.getText().toString(),
-                            EditPassword.getText().toString()
-                    );
+                    vm_login.setPhoneNumber(EditPhoneNumber.getText().toString());
+                    vm_login.setPassword(EditPassword.getText().toString());
+                    vm_login.GetLoginToken();
                 }
             }
         });
-
 
 
         SignUpClick.setOnClickListener(new View.OnClickListener() {
@@ -199,9 +205,7 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
         });
 
 
-
     }//_____________________________________________________________________________________________ SetOnclick
-
 
 
     private void DismissLoading() {//_______________________________________________________________ DismissLoading
@@ -212,7 +216,6 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
     }//_____________________________________________________________________________________________ DismissLoading
 
 
-
     private void ShowLoading() {//__________________________________________________________________ ShowLoading
         txtLoading.setText(getResources().getString(R.string.Cancel));
         LoginClick.setBackground(getResources().getDrawable(R.drawable.button_red));
@@ -221,14 +224,12 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
     }//_____________________________________________________________________________________________ ShowLoading
 
 
-
     private void SetTextWatcher() {//_______________________________________________________________ SetTextWatcher
         EditPhoneNumber.setBackgroundResource(R.drawable.edit_normal_background);
         EditPhoneNumber.addTextChangedListener(TextChangeForChangeBack(EditPhoneNumber));
         EditPassword.setBackgroundResource(R.drawable.edit_normal_background);
         EditPassword.addTextChangedListener(TextChangeForChangeBack(EditPassword));
     }//_____________________________________________________________________________________________ SetTextWatcher
-
 
 
     private Boolean CheckEmpty() {//________________________________________________________________ CheckEmpty
@@ -268,7 +269,6 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
             return false;
 
     }//_____________________________________________________________________________________________ CheckEmpty
-
 
 
 }

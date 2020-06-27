@@ -24,5 +24,6 @@ public class StaticValues {
     public static Byte ML_GetTimeSheetTimes = 18;
     public static Byte ML_SendPackageRequest = 19;
     public static Byte ML_EditUserAddress = 20;
+    public static Byte ML_RequestCancel = 21;
 
 }

@@ -2,9 +2,7 @@ package com.example.wms.models;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-
-public class ModelUserAccounts extends ModelResponcePrimery {
+public class ModelUserAccounts extends ModelResponsePrimary {
 
     @SerializedName("result")
     ModelUserAccountNumber result;

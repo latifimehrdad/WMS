@@ -17,11 +17,9 @@ import androidx.navigation.Navigation;
 import com.cunoraz.gifview.library.GifView;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentSendNumberBinding;
-import com.example.wms.utility.StaticFunctions;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.user.register.VM_SignUp;
 import com.example.wms.views.fragments.FragmentPrimary;
-import com.example.wms.views.fragments.user.login.Splash;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -84,7 +82,6 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
     }//_____________________________________________________________________________________________ onCreateView
 
 
-
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
@@ -113,7 +110,7 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
         if (action == StaticValues.ML_Success) {
             Bundle bundle = new Bundle();
             bundle.putString(getContext().getString(R.string.ML_PhoneNumber), EditPhoneNumber.getText().toString());
-            bundle.putString(getContext().getString(R.string.ML_Password),EditPassword.getText().toString());
+            bundle.putString(getContext().getString(R.string.ML_Password), EditPassword.getText().toString());
             navController
                     .navigate(R.id.action_fragmentSendNumber_to_fragmentVerifyCode, bundle);
         } else if (action == StaticValues.ML_ResponseFailure) {
@@ -144,9 +141,6 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
     }//_____________________________________________________________________________________________ End SetTextWatcher
 
 
-
-
-
     private void SetOnclick() {//___________________________________________________________________ SetOnclick
 
         btnGetVerifyCode.setOnClickListener(new View.OnClickListener() {
@@ -157,10 +151,10 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
 
                 if (CheckEmpty()) {
                     ShowLoading();
-                    vm_signUp.SendNumber(
-                            EditPhoneNumber.getText().toString(),
-                            EditPassword.getText().toString()
-                    );
+                    setAccessClick(false);
+                    vm_signUp.setPhoneNumber(EditPhoneNumber.getText().toString());
+                    vm_signUp.setPassword(EditPassword.getText().toString());
+                    vm_signUp.SendNumber();
                 }
 
             }
@@ -211,7 +205,6 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
 
 
     private void DismissLoading() {//_______________________________________________________________ Start DismissLoading
-        StaticFunctions.isCancel = true;
         txtLoading.setText(getResources().getString(R.string.GetCode));
         btnGetVerifyCode.setBackground(getResources().getDrawable(R.drawable.save_info_button));
         gifLoading.setVisibility(View.GONE);
@@ -219,9 +212,7 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
     }//_____________________________________________________________________________________________ End DismissLoading
 
 
-
     private void ShowLoading() {//__________________________________________________________________ Start ShowLoading
-        StaticFunctions.isCancel = false;
         txtLoading.setText(getResources().getString(R.string.Cancel));
         btnGetVerifyCode.setBackground(getResources().getDrawable(R.drawable.button_red));
         gifLoading.setVisibility(View.VISIBLE);

@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.example.wms.daggers.retrofit.RetrofitComponent;
 import com.example.wms.models.ModelBuildingRenovationCode;
-import com.example.wms.models.ModelResponcePrimery;
+import com.example.wms.models.ModelResponsePrimary;
 import com.example.wms.utility.StaticFunctions;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.VM_Primary;
@@ -22,13 +22,14 @@ import static com.example.wms.utility.StaticFunctions.GetMessage;
 public class VM_ProfileCode extends VM_Primary {
 
     private Context context;
+    private String BuildingRenovationCode;
 
     public VM_ProfileCode(Context context) {//______________________________________________________ VM_ProfileCode
         this.context = context;
     }//_____________________________________________________________________________________________ VM_ProfileCode
 
 
-    public void SendCode(String BuildingRenovationCode) {//_________________________________________ SendCode
+    public void SendCode() {//_________________________________________ SendCode
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
@@ -42,9 +43,9 @@ public class VM_ProfileCode extends VM_Primary {
                 .SendBuildingRenovationCode(
                         BuildingRenovationCode,
                         Authorization)
-                .enqueue(new Callback<ModelResponcePrimery>() {
+                .enqueue(new Callback<ModelResponsePrimary>() {
                     @Override
-                    public void onResponse(Call<ModelResponcePrimery> call, Response<ModelResponcePrimery> response) {
+                    public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
                         if (StaticFunctions.isCancel)
                             return;
                         setResponseMessage(CheckResponse(response, false));
@@ -57,7 +58,7 @@ public class VM_ProfileCode extends VM_Primary {
                     }
 
                     @Override
-                    public void onFailure(Call<ModelResponcePrimery> call, Throwable t) {
+                    public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
                         getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
                     }
                 });
@@ -103,4 +104,11 @@ public class VM_ProfileCode extends VM_Primary {
     }//_____________________________________________________________________________________________ GetCode
 
 
+    public String getBuildingRenovationCode() {//___________________________________________________ getBuildingRenovationCode
+        return BuildingRenovationCode;
+    }//_____________________________________________________________________________________________ getBuildingRenovationCode
+
+    public void setBuildingRenovationCode(String buildingRenovationCode) {//________________________ setBuildingRenovationCode
+        BuildingRenovationCode = buildingRenovationCode;
+    }//_____________________________________________________________________________________________ setBuildingRenovationCode
 }

@@ -3,8 +3,7 @@ package com.example.wms.viewmodels.user.register;
 import android.content.Context;
 
 import com.example.wms.daggers.retrofit.RetrofitComponent;
-import com.example.wms.models.ModelResponcePrimery;
-import com.example.wms.utility.StaticFunctions;
+import com.example.wms.models.ModelResponsePrimary;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.VM_Primary;
 import com.example.wms.views.application.ApplicationWMS;
@@ -19,13 +18,17 @@ import static com.example.wms.utility.StaticFunctions.GetAuthorization;
 public class VM_SignUp extends VM_Primary {
 
     private Context context;
+    private String PhoneNumber;
+    private String Password;
+    private Call<ModelResponsePrimary> primaryCall;
+
 
     public VM_SignUp(Context context) {//___________________________________________________________ VM_SignUp
         this.context = context;
     }//_____________________________________________________________________________________________ VM_SignUp
 
 
-    public void SendNumber(String PhoneNumber, String Password) {//_________________________________ SendNumber
+    public void SendNumber() {//____________________________________________________________________ SendNumber
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
@@ -34,29 +37,47 @@ public class VM_SignUp extends VM_Primary {
 
         String Authorization = GetAuthorization(context);
 
-        retrofitComponent
+        primaryCall = retrofitComponent
                 .getRetrofitApiInterface()
                 .SendPhoneNumber(
-                        PhoneNumber, Password, Password, Authorization
-                )
-                .enqueue(new Callback<ModelResponcePrimery>() {
-                    @Override
-                    public void onResponse(Call<ModelResponcePrimery> call, Response<ModelResponcePrimery> response) {
-                            setResponseMessage(CheckResponse(response,false));
-                            if(getResponseMessage() == null)
-                                getPublishSubject().onNext(StaticValues.ML_Success);
-                            else {
-                                getPublishSubject().onNext(StaticValues.ML_ResponseError);
-                            }
-                    }
+                        getPhoneNumber(),
+                        getPassword(),
+                        getPassword(),
+                        Authorization);
 
-                    @Override
-                    public void onFailure(Call<ModelResponcePrimery> call, Throwable t) {
-                            getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
-                    }
-                });
+        primaryCall.enqueue(new Callback<ModelResponsePrimary>() {
+            @Override
+            public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
+                setResponseMessage(CheckResponse(response, false));
+                if (getResponseMessage() == null)
+                    getPublishSubject().onNext(StaticValues.ML_Success);
+                else {
+                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
+                getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
+            }
+        });
 
     }//_____________________________________________________________________________________________ SendNumber
 
 
+    public String getPhoneNumber() {//______________________________________________________________ getPhoneNumber
+        return PhoneNumber;
+    }//_____________________________________________________________________________________________ getPhoneNumber
+
+    public void setPhoneNumber(String phoneNumber) {//______________________________________________ setPhoneNumber
+        PhoneNumber = phoneNumber;
+    }//_____________________________________________________________________________________________ setPhoneNumber
+
+    public String getPassword() {//_________________________________________________________________ getPassword
+        return Password;
+    }//_____________________________________________________________________________________________ getPassword
+
+    public void setPassword(String password) {//____________________________________________________ setPassword
+        Password = password;
+    }//_____________________________________________________________________________________________ setPassword
 }

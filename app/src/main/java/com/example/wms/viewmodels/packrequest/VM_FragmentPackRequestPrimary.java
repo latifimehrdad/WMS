@@ -5,16 +5,13 @@ import android.content.SharedPreferences;
 
 import com.example.wms.R;
 import com.example.wms.daggers.retrofit.RetrofitComponent;
-import com.example.wms.models.ModelHousingBuildings;
-import com.example.wms.models.ModelResponcePrimery;
+import com.example.wms.models.ModelResponsePrimary;
 import com.example.wms.models.ModelSettingInfo;
 import com.example.wms.models.ModelTimeSheetTimes;
 import com.example.wms.models.ModelTimes;
 import com.example.wms.utility.StaticFunctions;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.views.application.ApplicationWMS;
-
-import java.util.Date;
 
 import io.reactivex.subjects.PublishSubject;
 import retrofit2.Call;
@@ -53,9 +50,9 @@ public class VM_FragmentPackRequestPrimary {
                 .SendPackageRequest(
                         timeId,
                         Authorization)
-                .enqueue(new Callback<ModelResponcePrimery>() {
+                .enqueue(new Callback<ModelResponsePrimary>() {
                     @Override
-                    public void onResponse(Call<ModelResponcePrimery> call, Response<ModelResponcePrimery> response) {
+                    public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
                         if (StaticFunctions.isCancel)
                             return;
                         MessageResponse = CheckResponse(response, false);
@@ -68,7 +65,7 @@ public class VM_FragmentPackRequestPrimary {
                     }
 
                     @Override
-                    public void onFailure(Call<ModelResponcePrimery> call, Throwable t) {
+                    public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
 
                     }
                 });

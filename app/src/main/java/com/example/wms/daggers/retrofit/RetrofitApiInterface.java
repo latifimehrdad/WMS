@@ -4,7 +4,7 @@ import com.example.wms.models.ModelBuildingRenovationCode;
 import com.example.wms.models.ModelGetAddress;
 import com.example.wms.models.ModelHousingBuildings;
 import com.example.wms.models.ModelProfileInfo;
-import com.example.wms.models.ModelResponcePrimery;
+import com.example.wms.models.ModelResponsePrimary;
 import com.example.wms.models.ModelSettingInfo;
 import com.example.wms.models.ModelSpinnerItems;
 import com.example.wms.models.ModelTimeSheetTimes;
@@ -35,7 +35,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/account/registercitizen")
-    Call<ModelResponcePrimery> SendPhoneNumber
+    Call<ModelResponsePrimary> SendPhoneNumber
             (
                     @Field("Mobile") String PhoneNumber,
                     @Field("Password") String Password,
@@ -46,7 +46,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/account/confirmmobile")
-    Call<ModelResponcePrimery> SendVerifyCode
+    Call<ModelResponsePrimary> SendVerifyCode
             (
                     @Field("Mobile") String PhoneNumber,
                     @Field("Code") String Password,
@@ -96,7 +96,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/citizen/editprofile")
-    Call<ModelResponcePrimery> EditProfile
+    Call<ModelResponsePrimary> EditProfile
             (
                     @Field("FirstName") String FirstName,
                     @Field("LastName") String LastName,
@@ -137,7 +137,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/citizen/editcitizenbank")
-    Call<ModelResponcePrimery> SendAccountNumber
+    Call<ModelResponsePrimary> SendAccountNumber
             (
                     @Field("Bank.Id") String FirstName,
                     @Field("AccountNumber") String LastName,
@@ -148,7 +148,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/citizen/editbuildingrenovationcode")
-    Call<ModelResponcePrimery> SendBuildingRenovationCode
+    Call<ModelResponsePrimary> SendBuildingRenovationCode
             (
                     @Field("BuildingRenovationCode") String BuildingRenovationCode,
                     @Header("Authorization") String Authorization
@@ -191,7 +191,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/package/packagerequest")
-    Call<ModelResponcePrimery> SendPackageRequest
+    Call<ModelResponsePrimary> SendPackageRequest
             (
                     @Field("TimeId") Integer TimeId,
                     @Header("Authorization") String Authorization
@@ -201,7 +201,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/citizen/edituseraddress")
-    Call<ModelResponcePrimery> EditUserAddress
+    Call<ModelResponsePrimary> EditUserAddress
             (
                     @Field("Address") String Address,
                     @Field("Latitude") double Latitude,

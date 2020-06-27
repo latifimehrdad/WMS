@@ -3,7 +3,7 @@ package com.example.wms.viewmodels.user.profile;
 import android.content.Context;
 
 import com.example.wms.daggers.retrofit.RetrofitComponent;
-import com.example.wms.models.ModelResponcePrimery;
+import com.example.wms.models.ModelResponsePrimary;
 import com.example.wms.models.ModelSpinnerItem;
 import com.example.wms.models.ModelSpinnerItems;
 import com.example.wms.models.ModelUserAccounts;
@@ -12,7 +12,6 @@ import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.VM_Primary;
 import com.example.wms.views.activitys.MainActivity;
 import com.example.wms.views.application.ApplicationWMS;
-import com.example.wms.views.fragments.FragmentPrimary;
 
 import java.util.ArrayList;
 
@@ -29,14 +28,16 @@ public class VM_ProfileBank extends VM_Primary {
     private Context context;
     private ModelUserAccounts.ModelUserAccountNumber accountNumbers;
     private ArrayList<ModelSpinnerItem> banks;
+    private String AccountNumber;
+    private String BankId;
+
 
     public VM_ProfileBank(Context context) {//______________________________________________________ VM_ProFileBank
         this.context = context;
     }//_____________________________________________________________________________________________ VM_ProFileBank
 
 
-
-    public void SendAccountNumber(String AccountNumber, String BankId) {//__________________________ SendAccountNumber
+    public void SendAccountNumber() {//_____________________________________________________________ SendAccountNumber
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
@@ -48,12 +49,12 @@ public class VM_ProfileBank extends VM_Primary {
         retrofitComponent
                 .getRetrofitApiInterface()
                 .SendAccountNumber(
-                        BankId,
-                        AccountNumber,
+                        getBankId(),
+                        getAccountNumber(),
                         Authorization)
-                .enqueue(new Callback<ModelResponcePrimery>() {
+                .enqueue(new Callback<ModelResponsePrimary>() {
                     @Override
-                    public void onResponse(Call<ModelResponcePrimery> call, Response<ModelResponcePrimery> response) {
+                    public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
                         if (StaticFunctions.isCancel)
                             return;
                         setResponseMessage(CheckResponse(response, false));
@@ -66,18 +67,14 @@ public class VM_ProfileBank extends VM_Primary {
                     }
 
                     @Override
-                    public void onFailure(Call<ModelResponcePrimery> call, Throwable t) {
+                    public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
                         getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
                     }
                 });
     }//_____________________________________________________________________________________________ SendAccountNumber
 
 
-
-
     public void GetUserAccountNumber() {//__________________________________________________________ GetUserAccountNumber
-
-        StaticFunctions.isCancel = false;
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
@@ -116,10 +113,7 @@ public class VM_ProfileBank extends VM_Primary {
     }//_____________________________________________________________________________________________ GetUserAccountNumber
 
 
-
-
     public void GetBanks() {//______________________________________________________________________ GetBanks
-        StaticFunctions.isCancel = false;
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
@@ -154,7 +148,6 @@ public class VM_ProfileBank extends VM_Primary {
     }//_____________________________________________________________________________________________ GetBanks
 
 
-
     public ModelUserAccounts.ModelUserAccountNumber getAccountNumbers() {//_________________________ getAccountNumbers
         return accountNumbers;
     }//_____________________________________________________________________________________________ getAccountNumbers
@@ -164,5 +157,19 @@ public class VM_ProfileBank extends VM_Primary {
         return banks;
     }//_____________________________________________________________________________________________ getBanks
 
+    public String getAccountNumber() {//____________________________________________________________ getAccountNumber
+        return AccountNumber;
+    }//_____________________________________________________________________________________________ getAccountNumber
 
+    public void setAccountNumber(String accountNumber) {//_______________________________________________ setAccountNumber
+        AccountNumber = accountNumber;
+    }//_____________________________________________________________________________________________ setAccountNumber
+
+    public String getBankId() {//___________________________________________________________________ getBankId
+        return BankId;
+    }//_____________________________________________________________________________________________ getBankId
+
+    public void setBankId(String bankId) {//________________________________________________________ setBankId
+        BankId = bankId;
+    }//_____________________________________________________________________________________________ setBankId
 }

@@ -60,7 +60,6 @@ public class ProfileCode extends FragmentPrimary implements FragmentPrimary.GetM
     }//_____________________________________________________________________________________________ onCreateView
 
 
-
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
@@ -69,13 +68,10 @@ public class ProfileCode extends FragmentPrimary implements FragmentPrimary.GetM
     }//_____________________________________________________________________________________________ onStart
 
 
-
     private void init() {//_________________________________________________________________________ Start init
         SetTextWatcher();
         SetClick();
     }//_____________________________________________________________________________________________ End init
-
-
 
 
     @Override
@@ -123,16 +119,20 @@ public class ProfileCode extends FragmentPrimary implements FragmentPrimary.GetM
         btnSendCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!isAccessClick())
+                    return;
+
                 if (CheckEmpty()) {
+                    setAccessClick(false);
                     StaticFunctions.hideKeyboard(getActivity());
                     ShowProgressDialog(null);
-                    vm_profileCode.SendCode(editBuildingRenovationCode.getText().toString());
+                    vm_profileCode.setBuildingRenovationCode(editBuildingRenovationCode.getText().toString());
+                    vm_profileCode.SendCode();
                 }
             }
         });
 
     }//_____________________________________________________________________________________________ SetClick
-
 
 
     private void ShowProgressDialog(String title) {//_______________________________________________ ShowProgressDialog
@@ -144,7 +144,6 @@ public class ProfileCode extends FragmentPrimary implements FragmentPrimary.GetM
                 .ShowProgress(getContext(), title);
         progress.show(getChildFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
     }//_____________________________________________________________________________________________ ShowProgressDialog
-
 
 
     private Boolean CheckEmpty() {//________________________________________________________________ CheckEmpty
@@ -160,12 +159,10 @@ public class ProfileCode extends FragmentPrimary implements FragmentPrimary.GetM
     }//_____________________________________________________________________________________________ CheckEmpty
 
 
-
     private void SetTextWatcher() {//_______________________________________________________________ SetTextWatcher
         editBuildingRenovationCode.setBackgroundResource(R.drawable.edit_normal_background);
         editBuildingRenovationCode.addTextChangedListener(TextChangeForChangeBack(editBuildingRenovationCode));
     }//_____________________________________________________________________________________________ SetTextWatcher
-
 
 
 }

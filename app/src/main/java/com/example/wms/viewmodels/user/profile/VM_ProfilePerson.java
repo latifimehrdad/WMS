@@ -6,10 +6,9 @@ import android.content.SharedPreferences;
 import com.example.wms.R;
 import com.example.wms.daggers.retrofit.RetrofitComponent;
 import com.example.wms.models.ModelProfileInfo;
-import com.example.wms.models.ModelResponcePrimery;
+import com.example.wms.models.ModelResponsePrimary;
 import com.example.wms.models.ModelSpinnerItem;
 import com.example.wms.models.ModelSpinnerItems;
-import com.example.wms.utility.StaticFunctions;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.VM_Primary;
 import com.example.wms.views.activitys.MainActivity;
@@ -63,8 +62,6 @@ public class VM_ProfilePerson extends VM_Primary {
                 .enqueue(new Callback<ModelProfileInfo>() {
                     @Override
                     public void onResponse(Call<ModelProfileInfo> call, Response<ModelProfileInfo> response) {
-                        if (StaticFunctions.isCancel)
-                            return;
                         setResponseMessage(CheckResponse(response, false));
                         if (getResponseMessage() == null) {
                             profile = response.body().getResult();
@@ -83,7 +80,6 @@ public class VM_ProfilePerson extends VM_Primary {
 
 
     public void EditProfile() {//___________________________________________________________________ EditProfile
-        StaticFunctions.isCancel = false;
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
@@ -103,11 +99,10 @@ public class VM_ProfilePerson extends VM_Primary {
                         getReferenceCode(),
                         getRegionId(),
                         Authorization)
-                .enqueue(new Callback<ModelResponcePrimery>() {
+                .enqueue(new Callback<ModelResponsePrimary>() {
                     @Override
-                    public void onResponse(Call<ModelResponcePrimery> call, Response<ModelResponcePrimery> response) {
-                        if (StaticFunctions.isCancel)
-                            return;
+                    public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
+
                         setResponseMessage(CheckResponse(response, false));
                         if (getResponseMessage() == null) {
                             setResponseMessage(GetMessage(response));
@@ -117,7 +112,7 @@ public class VM_ProfilePerson extends VM_Primary {
                     }
 
                     @Override
-                    public void onFailure(Call<ModelResponcePrimery> call, Throwable t) {
+                    public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
                         getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
                     }
                 });
@@ -127,7 +122,6 @@ public class VM_ProfilePerson extends VM_Primary {
 
 
     public void GetPlacesList() {//_________________________________________________________________ GetPlacesList
-        StaticFunctions.isCancel = false;
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
@@ -145,8 +139,6 @@ public class VM_ProfilePerson extends VM_Primary {
                 .enqueue(new Callback<ModelSpinnerItems>() {
                     @Override
                     public void onResponse(Call<ModelSpinnerItems> call, Response<ModelSpinnerItems> response) {
-                        if (StaticFunctions.isCancel)
-                            return;
                         setResponseMessage(CheckResponse(response, false));
                         if (getResponseMessage() == null) {
                             Regions = response.body().getResult();
@@ -165,7 +157,6 @@ public class VM_ProfilePerson extends VM_Primary {
 
 
     public void GetCitiesList() {//_________________________________________________________________ GetCitiesList
-        StaticFunctions.isCancel = false;
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
@@ -183,8 +174,6 @@ public class VM_ProfilePerson extends VM_Primary {
                 .enqueue(new Callback<ModelSpinnerItems>() {
                     @Override
                     public void onResponse(Call<ModelSpinnerItems> call, Response<ModelSpinnerItems> response) {
-                        if (StaticFunctions.isCancel)
-                            return;
                         setResponseMessage(CheckResponse(response, false));
                         if (getResponseMessage() == null) {
                             Cities = response.body().getResult();
@@ -204,7 +193,6 @@ public class VM_ProfilePerson extends VM_Primary {
 
 
     public void GetProvincesList() {//______________________________________________________________ GetProvincesList
-        StaticFunctions.isCancel = false;
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
@@ -214,15 +202,15 @@ public class VM_ProfilePerson extends VM_Primary {
         String Authorization = GetAuthorization(context);
 
 
-        retrofitComponent
+
+        Call<ModelSpinnerItems> call = retrofitComponent
                 .getRetrofitApiInterface()
                 .getProvinces(
-                        Authorization)
-                .enqueue(new Callback<ModelSpinnerItems>() {
+                        Authorization);
+
+                call.enqueue(new Callback<ModelSpinnerItems>() {
                     @Override
                     public void onResponse(Call<ModelSpinnerItems> call, Response<ModelSpinnerItems> response) {
-                        if (StaticFunctions.isCancel)
-                            return;
                         setResponseMessage(CheckResponse(response, false));
                         if (getResponseMessage() == null) {
                             provinces = response.body().getResult();
@@ -242,6 +230,7 @@ public class VM_ProfilePerson extends VM_Primary {
 
 
     private void SaveProfile() {//__________________________________________________________________ SaveProfile
+
         SharedPreferences.Editor token =
                 context.getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0).edit();
         token.putString(context.getString(R.string.ML_Name),getFirstName());

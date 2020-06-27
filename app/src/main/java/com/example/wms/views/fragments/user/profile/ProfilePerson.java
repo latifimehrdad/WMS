@@ -234,7 +234,10 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!isAccessClick())
+                    return;
                 if (CheckEmpty()) {
+                    setAccessClick(false);
                     StaticFunctions.hideKeyboard(getActivity());
                     ShowProgressDialog();
                     vm_profilePerson.setFirstName(editFirsName.getText().toString());
