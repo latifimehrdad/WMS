@@ -1,22 +1,17 @@
-/*
-Create By Mehrdad Latifi in
-1398/09/09 - 12:08 PM
- */
 package com.example.wms.views.fragments.user.profile;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentProfileBinding;
-import com.example.wms.viewmodels.user.profile.VM_FragmentProfile;
+import com.example.wms.viewmodels.user.profile.VM_Profile;
+import com.example.wms.views.fragments.FragmentPrimary;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
@@ -24,11 +19,9 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FragmentProfile extends Fragment {
+public class Profile extends FragmentPrimary {
 
-    private Context context;
-    private VM_FragmentProfile vm_fragmentProfile;
-    private View view;
+    private VM_Profile vm_profile;
 
     @BindView(R.id.FragmentRegistryTab)
     SmartTabLayout FragmentRegistryTab;
@@ -37,29 +30,28 @@ public class FragmentProfile extends Fragment {
     ViewPager FragmentRegistryView;
 
 
+    public Profile() {//____________________________________________________________________________ Profile
+
+    }//_____________________________________________________________________________________________ Profile
+
+
+
     @Override
     public View onCreateView(
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
-        if (view == null) {
-            this.context = getActivity();
+        if (getView() == null) {
             FragmentProfileBinding binding = DataBindingUtil.inflate(
-                    inflater, R.layout.fragment_profile, container, false
-            );
-            vm_fragmentProfile = new VM_FragmentProfile(context);
-            binding.setProfile(vm_fragmentProfile);
-            view = binding.getRoot();
-            ButterKnife.bind(this, view);
+                    inflater, R.layout.fragment_profile, container, false);
+            vm_profile = new VM_Profile(getContext());
+            binding.setVmProfile(vm_profile);
+            setView(binding.getRoot());
+            ButterKnife.bind(this, getView());
             SetTabs();
         }
-        return view;
+        return getView();
     }//_____________________________________________________________________________________________ onCreateView
-
-
-    public FragmentProfile() {//____________________________________________________________________ FragmentProfile
-
-    }//_____________________________________________________________________________________________ FragmentProfile
 
 
 
@@ -67,7 +59,7 @@ public class FragmentProfile extends Fragment {
 
 
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
-                getChildFragmentManager(), FragmentPagerItems.with(context)
+                getChildFragmentManager(), FragmentPagerItems.with(getContext())
                 .add(R.string.RegisterPersonCodeNew, FragmentProfileCode.class)
                 .add(R.string.RegisterPersonBank, FragmentProfileBank.class)
                 .add(R.string.RegisterPerson, FragmentProfilePerson.class)

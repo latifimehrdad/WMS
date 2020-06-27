@@ -7,6 +7,10 @@
         <variable
             name="bank"
             type="com.example.wms.viewmodels.user.profile.VM_FragmentProfileBank" />
+
+        <variable
+            name="vm_bank"
+            type="com.example.wms.viewmodels.user.profile.VM_ProfileBank" />
     </data>
 
     <ScrollView
