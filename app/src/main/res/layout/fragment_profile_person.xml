@@ -6,6 +6,10 @@
         <variable
             name="person"
             type="com.example.wms.viewmodels.user.profile.VM_FragmentProfilePerson" />
+
+        <variable
+            name="vm_person"
+            type="com.example.wms.viewmodels.user.profile.VM_ProfilePerson" />
     </data>
 
     <LinearLayout

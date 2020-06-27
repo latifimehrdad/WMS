@@ -1,11 +1,5 @@
-/*
-Create By Mehrdad Latifi in
-1398/09/09 - 12:08 PM
- */
 package com.example.wms.views.fragments.user.profile;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +11,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentProfilePersonBinding;
@@ -27,29 +24,26 @@ import com.example.wms.models.ModelProfileInfo;
 import com.example.wms.models.ModelSpinnerItem;
 import com.example.wms.utility.StaticFunctions;
 import com.example.wms.utility.StaticValues;
-import com.example.wms.viewmodels.user.profile.VM_FragmentProfilePerson;
+import com.example.wms.viewmodels.user.profile.VM_ProfilePerson;
 import com.example.wms.views.activitys.MainActivity;
 import com.example.wms.views.application.ApplicationWMS;
 import com.example.wms.views.dialogs.DialogProgress;
 import com.example.wms.views.dialogs.searchspinner.MLSpinnerDialog;
 import com.example.wms.views.dialogs.searchspinner.OnSpinnerItemClick;
+import com.example.wms.views.fragments.FragmentPrimary;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
 
 import static com.example.wms.utility.StaticFunctions.TextChangeForChangeBack;
 
-public class FragmentProfilePerson extends Fragment {
+public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
 
-    private Context context;
-    private VM_FragmentProfilePerson vm_fragmentProfilePerson;
-    private DisposableObserver<Byte> observer;
-    private DialogProgress progress;
+
+    private NavController navController;
+    private VM_ProfilePerson vm_profilePerson;
     private MLSpinnerDialog spinnerProvinces;
     private ArrayList<ModelSpinnerItem> ProvincesList;
     private String ProvinceId = "-1";
@@ -62,13 +56,10 @@ public class FragmentProfilePerson extends Fragment {
     private ArrayList<ModelSpinnerItem> RegionsList;
     private String RegionId = "-1";
     private Boolean ClickPlace = false;
-    private ModelProfileInfo.ModelProfile profile;
-    private ArrayList<ModelSpinnerItem> UserType;
-    private View view;
-
-    private String UserTypeId = "-1";
-
+    private DialogProgress progress;
     private int GenderCode = -1;
+    private ArrayList<ModelSpinnerItem> UserType;
+    private String UserTypeId = "-1";
 
 
     @BindView(R.id.LayoutCity)
@@ -119,36 +110,36 @@ public class FragmentProfilePerson extends Fragment {
     @BindView(R.id.EditPhoneNumber)
     EditText EditPhoneNumber;
 
+
+    @Nullable
+    @Override
     public View onCreateView(
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
-        if (view == null) {
-            this.context = getActivity();
-            FragmentProfilePersonBinding binding = DataBindingUtil
-                    .inflate(inflater, R.layout.fragment_profile_person, container, false);
-            vm_fragmentProfilePerson = new VM_FragmentProfilePerson(context);
-            binding.setPerson(vm_fragmentProfilePerson);
-            view = binding.getRoot();
-            ButterKnife.bind(this, view);
+        if (getView() == null) {
+            FragmentProfilePersonBinding binding = DataBindingUtil.inflate(
+                    inflater, R.layout.fragment_profile_person, container, false);
+            vm_profilePerson = new VM_ProfilePerson(getContext());
+            binding.setVmPerson(vm_profilePerson);
+            setView(binding.getRoot());
+            ButterKnife.bind(this, getView());
             init();
         }
-        return view;
+        return getView();
     }//_____________________________________________________________________________________________ onCreateView
 
 
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        if(observer != null)
-            observer.dispose();
-        observer = null;
-        ObserverObservables();
+        setGetMessageFromObservable(ProfilePerson.this, vm_profilePerson.getPublishSubject());
+        navController = Navigation.findNavController(getView());
     }//_____________________________________________________________________________________________ onStart
 
 
 
-    private void init() {//_________________________________________________________________________ init
+    private void init() {//_________________________________________________________________________ Start init
         TextProvinces.setText(getResources().getString(R.string.ChooseProvinces));
         TextCity.setText(getResources().getString(R.string.City_Prompt));
         TextRegion.setText(getResources().getString(R.string.ChooseRegion));
@@ -161,8 +152,8 @@ public class FragmentProfilePerson extends Fragment {
         SetTextWatcher();
         SetItemUser();
         GenderCode = -1;
-        EditPhoneNumber.setText(vm_fragmentProfilePerson.GetPhoneNumber());
-    }//_____________________________________________________________________________________________ init
+        EditPhoneNumber.setText(vm_profilePerson.GetPhoneNumber());
+    }//_____________________________________________________________________________________________ End init
 
 
     private void SetClick() {//_____________________________________________________________________ SetClick
@@ -185,7 +176,8 @@ public class FragmentProfilePerson extends Fragment {
                 if (ProvinceId.equalsIgnoreCase("-1")) {
                     ShowMessage(getResources().getString(R.string.PleaseChooseProvince)
                             , getResources().getColor(R.color.mlWhite),
-                            getResources().getDrawable(R.drawable.ic_error));
+                            getResources().getDrawable(R.drawable.ic_error),
+                            getResources().getColor(R.color.mlBlack));
                 } else {
                     ClickCity = true;
                     if ((CitiesList == null) || (CitiesList.size() == 0))
@@ -204,7 +196,8 @@ public class FragmentProfilePerson extends Fragment {
                 if (CityId.equalsIgnoreCase("-1")) {
                     ShowMessage(getResources().getString(R.string.PleaseChooseCity)
                             , getResources().getColor(R.color.mlWhite),
-                            getResources().getDrawable(R.drawable.ic_error));
+                            getResources().getDrawable(R.drawable.ic_error),
+                            getResources().getColor(R.color.mlBlack));
                 } else {
                     ClickPlace = true;
                     if ((RegionsList == null) || (RegionsList.size() == 0))
@@ -244,16 +237,16 @@ public class FragmentProfilePerson extends Fragment {
                 if (CheckEmpty()) {
                     StaticFunctions.hideKeyboard(getActivity());
                     ShowProgressDialog();
-                    vm_fragmentProfilePerson.setFirstName(editFirsName.getText().toString());
-                    vm_fragmentProfilePerson.setLastName(edtiLastName.getText().toString());
-                    vm_fragmentProfilePerson.setGender(GenderCode);
-                    vm_fragmentProfilePerson.setCitizenType(Integer.valueOf(UserTypeId));
-                    vm_fragmentProfilePerson.setCityId(CityId);
-                    vm_fragmentProfilePerson.setRegionId(RegionId);
-                    vm_fragmentProfilePerson.setReferenceCode(
+                    vm_profilePerson.setFirstName(editFirsName.getText().toString());
+                    vm_profilePerson.setLastName(edtiLastName.getText().toString());
+                    vm_profilePerson.setGender(GenderCode);
+                    vm_profilePerson.setCitizenType(Integer.valueOf(UserTypeId));
+                    vm_profilePerson.setCityId(CityId);
+                    vm_profilePerson.setRegionId(RegionId);
+                    vm_profilePerson.setReferenceCode(
                             editReferenceCode.getText().toString()
                     );
-                    vm_fragmentProfilePerson.EditProfile();
+                    vm_profilePerson.EditProfile();
                 }
             }
         });
@@ -261,110 +254,66 @@ public class FragmentProfilePerson extends Fragment {
     }//_____________________________________________________________________________________________ SetClick
 
 
-    private Boolean CheckEmpty() {//________________________________________________________________ CheckEmpty
+    @Override
+    public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
-        boolean firstname = false;
-        boolean lastname = false;
-        boolean gender = false;
-        boolean privence = false;
-        boolean city = false;
-        boolean region = false;
-        boolean user = false;
+        setAccessClick(true);
 
-        if (edtiLastName.getText().length() < 1) {
-            edtiLastName.setBackgroundResource(R.drawable.edit_empty_background);
-            edtiLastName.setError(getResources().getString(R.string.EmptyLastName));
-            edtiLastName.requestFocus();
-            lastname = false;
-        } else
-            lastname = true;
+        if (action == StaticValues.ML_GetProfileInfo) {
+            SetProfileInfo();
+            return;
+        }
 
+        if (action == StaticValues.ML_EditProfile) {
+            ShowMessage(vm_profilePerson.getResponseMessage()
+                    , getResources().getColor(R.color.mlWhite),
+                    getResources().getDrawable(R.drawable.ic_check),
+                    getResources().getColor(R.color.mlBlack));
+            MainActivity.complateprofile = true;
+            getActivity().onBackPressed();
+            return;
+        }
 
-        if (editFirsName.getText().length() < 1) {
-            editFirsName.setBackgroundResource(R.drawable.edit_empty_background);
-            editFirsName.setError(getResources().getString(R.string.EmptyFirstName));
-            editFirsName.requestFocus();
-            firstname = false;
-        } else
-            firstname = true;
+        if (action == StaticValues.ML_GetRegion) {
+            RegionsList = vm_profilePerson.getRegions();
+            SetItemRegion();
+            return;
+        }
 
+        if (action == StaticValues.ML_GetCities) {
+            CitiesList = vm_profilePerson.getCities();
+            SetItemCity();
+            return;
+        }
 
-        if ((!radioMan.isChecked()) && (!radioWoman.isChecked())) {
-            layoutGender.setBackground(getResources().getDrawable(R.drawable.edit_empty_background));
-            gender = false;
-        } else
-            gender = true;
+        if (action == StaticValues.ML_GetProvince) {
+            ProvincesList = vm_profilePerson.getProvinces();
+            SetItemProvinces();
+            return;
+        }
 
-        if(radioMan.isChecked())
-            GenderCode = 1;
-        else
-            GenderCode = 0;
+        if (action == StaticValues.ML_ResponseFailure) {
+            ShowMessage(getResources().getString(R.string.NetworkError),
+                    getResources().getColor(R.color.mlWhite),
+                    getResources().getDrawable(R.drawable.ic_error),
+                    getResources().getColor(R.color.mlBlack));
+            return;
+        }
 
-        if (ProvinceId.equalsIgnoreCase("-1")) {
-            LayoutProvinces.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
-            privence = false;
-        } else
-            privence = true;
+        if (action == StaticValues.ML_ResponseError) {
+            ShowMessage(vm_profilePerson.getResponseMessage()
+                    , getResources().getColor(R.color.mlWhite),
+                    getResources().getDrawable(R.drawable.ic_error),
+                    getResources().getColor(R.color.mlBlack));
+            return;
+        }
 
-        if (CityId.equalsIgnoreCase("-1")) {
-            LayoutCity.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
-            city = false;
-        } else
-            city = true;
+    }//_____________________________________________________________________________________________ GetMessageFromObservable
 
-        if (RegionId.equalsIgnoreCase("-1")) {
-            LayoutRegion.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
-            region = false;
-        } else
-            region = true;
-
-        if (UserTypeId.equalsIgnoreCase("-1")) {
-            LayoutUser.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
-            user = false;
-        } else
-            user = true;
-
-
-        if (firstname && lastname && gender && privence && city && region && user)
-            return true;
-        else
-            return false;
-
-    }//_____________________________________________________________________________________________ CheckEmpty
-
-
-    private void SetTextWatcher() {//_______________________________________________________________ SetTextWatcher
-        editFirsName.setBackgroundResource(R.drawable.edit_normal_background);
-        editFirsName.addTextChangedListener(TextChangeForChangeBack(editFirsName));
-
-        edtiLastName.setBackgroundResource(R.drawable.edit_normal_background);
-        edtiLastName.addTextChangedListener(TextChangeForChangeBack(edtiLastName));
-
-        layoutGender.setBackgroundColor(getResources().getColor(R.color.mlWhite));
-
-        LayoutProvinces.setBackgroundColor(getResources().getColor(R.color.mlEdit));
-
-        LayoutCity.setBackgroundColor(getResources().getColor(R.color.mlEdit));
-
-        LayoutRegion.setBackgroundColor(getResources().getColor(R.color.mlEdit));
-
-        LayoutUser.setBackgroundColor(getResources().getColor(R.color.mlEdit));
-
-        editReferenceCode.setBackgroundResource(R.drawable.edit_normal_background);
-        editReferenceCode.addTextChangedListener(TextChangeForChangeBack(editReferenceCode));
-
-    }//_____________________________________________________________________________________________ SetTextWatcher
-
-
-
-
-    private void GetProfileInfo() {//_______________________________________________________________ GetProfileInfo
-        ShowProgressDialog();
-        vm_fragmentProfilePerson.GetProfileInfo();
-    }//_____________________________________________________________________________________________ GetProfileInfo
 
 
     private void SetProfileInfo() {//_______________________________________________________________ SetProfileInfo
+        ModelProfileInfo.ModelProfile profile = vm_profilePerson.getProfile();
         if (profile.getFirstName() != null) {
             editFirsName.setText(profile.getFirstName());
 
@@ -404,115 +353,6 @@ public class FragmentProfilePerson extends Fragment {
 
 
     }//_____________________________________________________________________________________________ SetProfileInfo
-
-
-    private void GetProvinces() {//_________________________________________________________________ GetProvinces
-        ShowProgressDialog();
-        vm_fragmentProfilePerson.GetProvincesList();
-    }//_____________________________________________________________________________________________ GetProvinces
-
-
-    private void GetCitys() {//_____________________________________________________________________ GetCitys
-        ShowProgressDialog();
-        vm_fragmentProfilePerson.setProvinceId(ProvinceId);
-        vm_fragmentProfilePerson.GetCitiesList();
-    }//_____________________________________________________________________________________________ GetCitys
-
-
-    private void GetPlaces() {//____________________________________________________________________ GetPlaces
-        ShowProgressDialog();
-        vm_fragmentProfilePerson.setCityId(CityId);
-        vm_fragmentProfilePerson.GetPlacesList();
-    }//_____________________________________________________________________________________________ GetPlaces
-
-
-    private void ObserverObservables() {//__________________________________________________________ ObserverObservables
-        observer = new DisposableObserver<Byte>() {
-            @Override
-            public void onNext(Byte s) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (progress != null)
-                            progress.dismiss();
-                        HandleAction(s);
-                    }
-                });
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        };
-
-
-        vm_fragmentProfilePerson
-                .getObservables()
-                .observeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
-
-    }//_____________________________________________________________________________________________ ObserverObservables
-
-
-    private void HandleAction(Byte action) {//______________________________________________________ HandleAction
-        if (action == StaticValues.ML_GetProfileInfo) {
-            profile = vm_fragmentProfilePerson.getProfile();
-            SetProfileInfo();
-        } else if (action == StaticValues.ML_EditProfile) {
-            ShowMessage(vm_fragmentProfilePerson.getMessageResponse()
-                    , getResources().getColor(R.color.mlWhite),
-                    getResources().getDrawable(R.drawable.ic_check));
-            MainActivity.complateprofile = true;
-            getActivity().onBackPressed();
-        } else if (action == StaticValues.ML_GetRegion) {
-            RegionsList = vm_fragmentProfilePerson.getRegions();
-            SetItemRegion();
-        } else if (action == StaticValues.ML_GetCities) {
-            CitiesList = vm_fragmentProfilePerson.getCities();
-            SetItemCity();
-        }
-        else if (action == StaticValues.ML_GetProvince) {
-            ProvincesList = vm_fragmentProfilePerson.getProvinces();
-            SetItemProvinces();
-        } else if (action == StaticValues.ML_ResponseFailure) {
-            ShowMessage(getResources().getString(R.string.NetworkError),
-                    getResources().getColor(R.color.mlWhite),
-                    getResources().getDrawable(R.drawable.ic_error));
-        } else if (action == StaticValues.ML_ResponseError) {
-            ShowMessage(vm_fragmentProfilePerson.getMessageResponse()
-                    , getResources().getColor(R.color.mlWhite),
-                    getResources().getDrawable(R.drawable.ic_error));
-        }
-    }//_____________________________________________________________________________________________ HandleAction
-
-
-    private void ShowProgressDialog() {//___________________________________________________________ ShowProgressDialog
-
-        progress = ApplicationWMS
-                .getApplicationWMS(context)
-                .getUtilityComponent()
-                .getApplicationUtility()
-                .ShowProgress(context,null);
-        progress.show(getChildFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
-    }//_____________________________________________________________________________________________ ShowProgressDialog
-
-
-    private void ShowMessage(String message, int color, Drawable icon) {//__________________________ ShowMessage
-
-        ApplicationWMS
-                .getApplicationWMS(context)
-                .getUtilityComponent()
-                .getApplicationUtility()
-                .ShowMessage(context,message,color,icon,getChildFragmentManager());
-
-    }//_____________________________________________________________________________________________ ShowMessage
 
 
     private void SetItemProvinces() {//_____________________________________________________________ SetItemProvinces
@@ -600,6 +440,7 @@ public class FragmentProfilePerson extends Fragment {
     }//_____________________________________________________________________________________________ SetItemCity
 
 
+
     private void SetItemRegion() {//________________________________________________________________ SetItemRegion
 
         TextRegion.setText(getResources().getString(R.string.ChooseRegion));
@@ -626,6 +467,80 @@ public class FragmentProfilePerson extends Fragment {
             spinnerRegion.showSpinerDialog();
 
     }//_____________________________________________________________________________________________ SetItemRegion
+
+
+
+    private Boolean CheckEmpty() {//________________________________________________________________ CheckEmpty
+
+        boolean firstname = false;
+        boolean lastname = false;
+        boolean gender = false;
+        boolean privence = false;
+        boolean city = false;
+        boolean region = false;
+        boolean user = false;
+
+        if (edtiLastName.getText().length() < 1) {
+            edtiLastName.setBackgroundResource(R.drawable.edit_empty_background);
+            edtiLastName.setError(getResources().getString(R.string.EmptyLastName));
+            edtiLastName.requestFocus();
+            lastname = false;
+        } else
+            lastname = true;
+
+
+        if (editFirsName.getText().length() < 1) {
+            editFirsName.setBackgroundResource(R.drawable.edit_empty_background);
+            editFirsName.setError(getResources().getString(R.string.EmptyFirstName));
+            editFirsName.requestFocus();
+            firstname = false;
+        } else
+            firstname = true;
+
+
+        if ((!radioMan.isChecked()) && (!radioWoman.isChecked())) {
+            layoutGender.setBackground(getResources().getDrawable(R.drawable.edit_empty_background));
+            gender = false;
+        } else
+            gender = true;
+
+        if(radioMan.isChecked())
+            GenderCode = 1;
+        else
+            GenderCode = 0;
+
+        if (ProvinceId.equalsIgnoreCase("-1")) {
+            LayoutProvinces.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
+            privence = false;
+        } else
+            privence = true;
+
+        if (CityId.equalsIgnoreCase("-1")) {
+            LayoutCity.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
+            city = false;
+        } else
+            city = true;
+
+        if (RegionId.equalsIgnoreCase("-1")) {
+            LayoutRegion.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
+            region = false;
+        } else
+            region = true;
+
+        if (UserTypeId.equalsIgnoreCase("-1")) {
+            LayoutUser.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
+            user = false;
+        } else
+            user = true;
+
+
+        if (firstname && lastname && gender && privence && city && region && user)
+            return true;
+        else
+            return false;
+
+    }//_____________________________________________________________________________________________ CheckEmpty
+
 
 
     private void SetItemUser() {//__________________________________________________________________ SetItemUser
@@ -666,23 +581,64 @@ public class FragmentProfilePerson extends Fragment {
     }//_____________________________________________________________________________________________ SetItemUser
 
 
-    @Override
-    public void onDestroy() {//_____________________________________________________________________ onDestroy
-        super.onDestroy();
-        if(observer != null)
-            observer.dispose();
-        observer = null;
-    }//_____________________________________________________________________________________________ onDestroy
+
+    private void GetCitys() {//_____________________________________________________________________ GetCitys
+        ShowProgressDialog();
+        vm_profilePerson.setProvinceId(ProvinceId);
+        vm_profilePerson.GetCitiesList();
+    }//_____________________________________________________________________________________________ GetCitys
 
 
+    private void GetProvinces() {//_________________________________________________________________ GetProvinces
+        ShowProgressDialog();
+        vm_profilePerson.GetProvincesList();
+    }//_____________________________________________________________________________________________ GetProvinces
 
-    @Override
-    public void onStop() {//________________________________________________________________________ onStop
-        super.onStop();
-        if (observer != null)
-            observer.dispose();
-        observer = null;
-    }//_____________________________________________________________________________________________ onStop
 
+    private void GetPlaces() {//____________________________________________________________________ GetPlaces
+        ShowProgressDialog();
+        vm_profilePerson.setCityId(CityId);
+        vm_profilePerson.GetPlacesList();
+    }//_____________________________________________________________________________________________ GetPlaces
+
+
+    private void GetProfileInfo() {//_______________________________________________________________ GetProfileInfo
+        ShowProgressDialog();
+        vm_profilePerson.GetProfileInfo();
+    }//_____________________________________________________________________________________________ GetProfileInfo
+
+
+    private void ShowProgressDialog() {//___________________________________________________________ ShowProgressDialog
+
+        progress = ApplicationWMS
+                .getApplicationWMS(getContext())
+                .getUtilityComponent()
+                .getApplicationUtility()
+                .ShowProgress(getContext(),null);
+        progress.show(getChildFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+    }//_____________________________________________________________________________________________ ShowProgressDialog
+
+
+    private void SetTextWatcher() {//_______________________________________________________________ SetTextWatcher
+        editFirsName.setBackgroundResource(R.drawable.edit_normal_background);
+        editFirsName.addTextChangedListener(TextChangeForChangeBack(editFirsName));
+
+        edtiLastName.setBackgroundResource(R.drawable.edit_normal_background);
+        edtiLastName.addTextChangedListener(TextChangeForChangeBack(edtiLastName));
+
+        layoutGender.setBackgroundColor(getResources().getColor(R.color.mlWhite));
+
+        LayoutProvinces.setBackgroundColor(getResources().getColor(R.color.mlEdit));
+
+        LayoutCity.setBackgroundColor(getResources().getColor(R.color.mlEdit));
+
+        LayoutRegion.setBackgroundColor(getResources().getColor(R.color.mlEdit));
+
+        LayoutUser.setBackgroundColor(getResources().getColor(R.color.mlEdit));
+
+        editReferenceCode.setBackgroundResource(R.drawable.edit_normal_background);
+        editReferenceCode.addTextChangedListener(TextChangeForChangeBack(editReferenceCode));
+
+    }//_____________________________________________________________________________________________ SetTextWatcher
 
 }
