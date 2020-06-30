@@ -29,8 +29,10 @@ public class FragmentPrimary extends Fragment {
         void GetMessageFromObservable(Byte action);
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 
-    public FragmentPrimary() {
-    }
+
+    public FragmentPrimary() {//____________________________________________________________________ FragmentPrimary
+    }//_____________________________________________________________________________________________ FragmentPrimary
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {//_____________________________________________ onCreate

@@ -21,6 +21,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.Manifest;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -28,6 +30,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -154,19 +157,35 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SharedPreferences.Editor token =
-                        MainActivity.this.getSharedPreferences("wmstoken", 0).edit();
+                        MainActivity.this.getSharedPreferences(getString(R.string.ML_SharePreferences), 0).edit();
 
-                token.putBoolean("complateprofile", false);
-                token.putString("accesstoken", null);
-                token.putString("tokentype", null);
-                token.putInt("expiresin", 0);
-                token.putString("phonenumber", null);
-                token.putString("clientid", null);
-                token.putString("issued", null);
-                token.putString("expires", null);
+                token.putBoolean(getString(R.string.ML_CompleteProfile), false);
+                token.putString(getString(R.string.ML_AccessToken), null);
+                token.putString(getString(R.string.ML_TokenType), null);
+                token.putInt(getString(R.string.ML_ExpireSin), 0);
+                token.putString(getString(R.string.ML_PhoneNumber), null);
+                token.putString(getString(R.string.ML_ClientId), null);
+                token.putString(getString(R.string.ML_Issued), null);
+                token.putString(getString(R.string.ML_Expires), null);
                 token.apply();
                 mDrawer.closeDrawer(Gravity.RIGHT);
                 MainActivity.complateprofile = false;
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent mStartActivity = new Intent(MainActivity.this, MainActivity.class);
+                        mStartActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        mStartActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        int mPendingIntentId = 7126;
+                        PendingIntent mPendingIntent = PendingIntent.getActivity(MainActivity.this, mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+                        AlarmManager mgr = (AlarmManager) MainActivity.this.getSystemService(Context.ALARM_SERVICE);
+                        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
+                        System.exit(0);
+                    }
+                }, 1000);
+
                 //ShowSpalshActivity();
             }
         });

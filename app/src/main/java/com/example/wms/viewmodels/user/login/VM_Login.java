@@ -62,10 +62,7 @@ public class VM_Login extends VM_Primary {
 
             @Override
             public void onFailure(Call<ModelToken> call, Throwable t) {
-                if (getPrimaryCall().isCanceled())
-                    getPublishSubject().onNext(StaticValues.ML_RequestCancel);
-                else
-                    getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
+                OnFailureRequest();
             }
         });
 
@@ -99,10 +96,9 @@ public class VM_Login extends VM_Primary {
 
             @Override
             public void onFailure(Call<ModelSettingInfo> call, Throwable t) {
-                if (getPrimaryCall().isCanceled())
-                    getPublishSubject().onNext(StaticValues.ML_RequestCancel);
-                else
-                    getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
+                OnFailureRequest();
+
+
             }
         });
 

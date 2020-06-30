@@ -20,7 +20,6 @@ public class VM_SignUp extends VM_Primary {
     private Context context;
     private String PhoneNumber;
     private String Password;
-    private Call<ModelResponsePrimary> primaryCall;
 
 
     public VM_SignUp(Context context) {//___________________________________________________________ VM_SignUp
@@ -37,15 +36,15 @@ public class VM_SignUp extends VM_Primary {
 
         String Authorization = GetAuthorization(context);
 
-        primaryCall = retrofitComponent
+        setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .SendPhoneNumber(
                         getPhoneNumber(),
                         getPassword(),
                         getPassword(),
-                        Authorization);
+                        Authorization));
 
-        primaryCall.enqueue(new Callback<ModelResponsePrimary>() {
+        getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
             @Override
             public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
                 setResponseMessage(CheckResponse(response, false));
@@ -58,7 +57,7 @@ public class VM_SignUp extends VM_Primary {
 
             @Override
             public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
-                getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
+                OnFailureRequest();
             }
         });
 

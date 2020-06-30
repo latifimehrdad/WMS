@@ -1,5 +1,7 @@
 package com.example.wms.viewmodels;
 
+import com.example.wms.utility.StaticValues;
+
 import io.reactivex.subjects.PublishSubject;
 import retrofit2.Call;
 
@@ -12,6 +14,15 @@ public class VM_Primary {
     public VM_Primary() {//_________________________________________________________________________ VM_Primary
         publishSubject = PublishSubject.create();
     }//_____________________________________________________________________________________________ VM_Primary
+
+
+    public void OnFailureRequest() {//______________________________________________________________ OnFailureRequest
+        if (getPrimaryCall().isCanceled())
+            getPublishSubject().onNext(StaticValues.ML_RequestCancel);
+        else
+            getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
+    }//_____________________________________________________________________________________________ OnFailureRequest
+
 
     public void CancelRequest() {//_________________________________________________________________ CancelRequest
         if (PrimaryCall != null)
