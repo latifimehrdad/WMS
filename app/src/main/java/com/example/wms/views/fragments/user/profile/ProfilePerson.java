@@ -42,7 +42,6 @@ import static com.example.wms.utility.StaticFunctions.TextChangeForChangeBack;
 public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
 
 
-    private NavController navController;
     private VM_ProfilePerson vm_profilePerson;
     private MLSpinnerDialog spinnerProvinces;
     private ArrayList<ModelSpinnerItem> ProvincesList;
@@ -133,10 +132,11 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(ProfilePerson.this, vm_profilePerson.getPublishSubject());
-        navController = Navigation.findNavController(getView());
+        setGetMessageFromObservable(
+                ProfilePerson.this,
+                vm_profilePerson.getPublishSubject(),
+                vm_profilePerson);
     }//_____________________________________________________________________________________________ onStart
-
 
 
     private void init() {//_________________________________________________________________________ Start init
@@ -234,23 +234,24 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isAccessClick())
-                    return;
-                if (CheckEmpty()) {
-                    setAccessClick(false);
-                    StaticFunctions.hideKeyboard(getActivity());
-                    ShowProgressDialog();
-                    vm_profilePerson.setFirstName(editFirsName.getText().toString());
-                    vm_profilePerson.setLastName(edtiLastName.getText().toString());
-                    vm_profilePerson.setGender(GenderCode);
-                    vm_profilePerson.setCitizenType(Integer.valueOf(UserTypeId));
-                    vm_profilePerson.setCityId(CityId);
-                    vm_profilePerson.setRegionId(RegionId);
-                    vm_profilePerson.setReferenceCode(
-                            editReferenceCode.getText().toString()
-                    );
-                    vm_profilePerson.EditProfile();
-                }
+                if (isAccessClick()) {
+                    if (CheckEmpty()) {
+                        setAccessClick(false);
+                        StaticFunctions.hideKeyboard(getActivity());
+                        ShowProgressDialog();
+                        vm_profilePerson.setFirstName(editFirsName.getText().toString());
+                        vm_profilePerson.setLastName(edtiLastName.getText().toString());
+                        vm_profilePerson.setGender(GenderCode);
+                        vm_profilePerson.setCitizenType(Integer.valueOf(UserTypeId));
+                        vm_profilePerson.setCityId(CityId);
+                        vm_profilePerson.setRegionId(RegionId);
+                        vm_profilePerson.setReferenceCode(
+                                editReferenceCode.getText().toString()
+                        );
+                        vm_profilePerson.EditProfile();
+                    }
+                } else
+                    vm_profilePerson.CancelRequest();
             }
         });
 
@@ -261,6 +262,8 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
     public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         setAccessClick(true);
+        if (progress != null)
+            progress.dismiss();
 
         if (action == StaticValues.ML_GetProfileInfo) {
             SetProfileInfo();
@@ -268,12 +271,8 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
         }
 
         if (action == StaticValues.ML_EditProfile) {
-            ShowMessage(vm_profilePerson.getResponseMessage()
-                    , getResources().getColor(R.color.mlWhite),
-                    getResources().getDrawable(R.drawable.ic_check),
-                    getResources().getColor(R.color.mlBlack));
             MainActivity.complateprofile = true;
-            getActivity().onBackPressed();
+            //getActivity().onBackPressed();
             return;
         }
 
@@ -295,24 +294,8 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
             return;
         }
 
-        if (action == StaticValues.ML_ResponseFailure) {
-            ShowMessage(getResources().getString(R.string.NetworkError),
-                    getResources().getColor(R.color.mlWhite),
-                    getResources().getDrawable(R.drawable.ic_error),
-                    getResources().getColor(R.color.mlBlack));
-            return;
-        }
-
-        if (action == StaticValues.ML_ResponseError) {
-            ShowMessage(vm_profilePerson.getResponseMessage()
-                    , getResources().getColor(R.color.mlWhite),
-                    getResources().getDrawable(R.drawable.ic_error),
-                    getResources().getColor(R.color.mlBlack));
-            return;
-        }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
-
 
 
     private void SetProfileInfo() {//_______________________________________________________________ SetProfileInfo
@@ -346,7 +329,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
             if (profile.getReferenceCode() != null)
                 editReferenceCode.setText(String.valueOf(profile.getReferenceCode()));
 
-            if(profile.getGender() == 0)
+            if (profile.getGender() == 0)
                 radioWoman.setChecked(true);
             else
                 radioMan.setChecked(true);
@@ -443,7 +426,6 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
     }//_____________________________________________________________________________________________ SetItemCity
 
 
-
     private void SetItemRegion() {//________________________________________________________________ SetItemRegion
 
         TextRegion.setText(getResources().getString(R.string.ChooseRegion));
@@ -470,7 +452,6 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
             spinnerRegion.showSpinerDialog();
 
     }//_____________________________________________________________________________________________ SetItemRegion
-
 
 
     private Boolean CheckEmpty() {//________________________________________________________________ CheckEmpty
@@ -507,7 +488,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
         } else
             gender = true;
 
-        if(radioMan.isChecked())
+        if (radioMan.isChecked())
             GenderCode = 1;
         else
             GenderCode = 0;
@@ -543,7 +524,6 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
             return false;
 
     }//_____________________________________________________________________________________________ CheckEmpty
-
 
 
     private void SetItemUser() {//__________________________________________________________________ SetItemUser
@@ -584,7 +564,6 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
     }//_____________________________________________________________________________________________ SetItemUser
 
 
-
     private void GetCitys() {//_____________________________________________________________________ GetCitys
         ShowProgressDialog();
         vm_profilePerson.setProvinceId(ProvinceId);
@@ -617,7 +596,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
                 .getApplicationWMS(getContext())
                 .getUtilityComponent()
                 .getApplicationUtility()
-                .ShowProgress(getContext(),null);
+                .ShowProgress(getContext(), null);
         progress.show(getChildFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
     }//_____________________________________________________________________________________________ ShowProgressDialog
 

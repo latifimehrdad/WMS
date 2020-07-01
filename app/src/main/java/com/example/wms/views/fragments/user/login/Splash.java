@@ -60,7 +60,10 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(Splash.this, vm_splash.getPublishSubject());
+        setGetMessageFromObservable(
+                Splash.this,
+                vm_splash.getPublishSubject(),
+                vm_splash);
         navController = Navigation.findNavController(getView());
         if (isAccessClick())
             CheckToken();
@@ -70,9 +73,8 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
     @Override
     public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
-        setAccessClick(true);
         if (action == StaticValues.ML_GoToHome) {
-            navController.navigate(R.id.action_Splash_to_Home);
+            navController.navigate(R.id.action_splash_to_home);
             return;
         }
 
@@ -81,25 +83,15 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
             return;
         }
 
-        if (action == StaticValues.ML_ResponseFailure) {
-            ShowMessage(getResources().getString(R.string.NetworkError),
-                    getResources().getColor(R.color.mlWhite),
-                    getResources().getDrawable(R.drawable.ic_error),
-                    getResources().getColor(R.color.mlBlack));
-            ImgLogo.setVisibility(View.GONE);
+        if (action == StaticValues.ML_ResponseFailure
+                        || action == StaticValues.ML_ResponseError
+                        || action == StaticValues.ML_RequestCancel) {
+            ImgLogo.setAnimation(null);
+            ImgLogo.setVisibility(View.INVISIBLE);
             ButtonRefresh.setVisibility(View.VISIBLE);
             return;
         }
 
-        if (action == StaticValues.ML_ResponseError) {
-            ShowMessage(vm_splash.getResponseMessage()
-                    , getResources().getColor(R.color.mlWhite),
-                    getResources().getDrawable(R.drawable.ic_error),
-                    getResources().getColor(R.color.mlBlack));
-            ImgLogo.setVisibility(View.GONE);
-            ButtonRefresh.setVisibility(View.VISIBLE);
-            return;
-        }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 

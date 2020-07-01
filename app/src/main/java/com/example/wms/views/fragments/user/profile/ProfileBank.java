@@ -34,7 +34,6 @@ import static com.example.wms.utility.StaticFunctions.TextChangeForChangeBack;
 
 public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
 
-    private NavController navController;
     private VM_ProfileBank vm_profileBank;
     private String BankId = "-1";
     private DialogProgress progress;
@@ -68,15 +67,17 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
             ButterKnife.bind(this, getView());
             init();
         }
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return getView();
     }//_____________________________________________________________________________________________ onCreateView
 
 
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(ProfileBank.this, vm_profileBank.getPublishSubject());
-        navController = Navigation.findNavController(getView());
+        setGetMessageFromObservable(
+                ProfileBank.this,
+                vm_profileBank.getPublishSubject(),
+                vm_profileBank);
     }//_____________________________________________________________________________________________ onStart
 
 
@@ -91,11 +92,10 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
 
         setAccessClick(true);
 
+        if (progress != null)
+            progress.dismiss();
+
         if (action == StaticValues.ML_EditProfile) {
-            ShowMessage(vm_profileBank.getResponseMessage()
-                    , getResources().getColor(R.color.mlWhite),
-                    getResources().getDrawable(R.drawable.ic_check),
-                    getResources().getColor(R.color.mlBlack));
             return;
         }
 
@@ -124,22 +124,6 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
 
         if (action == StaticValues.ML_GetBanks) {
             SetItemBanks();
-            return;
-        }
-
-        if (action == StaticValues.ML_ResponseFailure) {
-            ShowMessage(getResources().getString(R.string.NetworkError),
-                    getResources().getColor(R.color.mlWhite),
-                    getResources().getDrawable(R.drawable.ic_error),
-                    getResources().getColor(R.color.mlBlack));
-            return;
-        }
-
-        if (action == StaticValues.ML_ResponseError) {
-            ShowMessage(vm_profileBank.getResponseMessage()
-                    , getResources().getColor(R.color.mlWhite),
-                    getResources().getDrawable(R.drawable.ic_error),
-                    getResources().getColor(R.color.mlBlack));
             return;
         }
 

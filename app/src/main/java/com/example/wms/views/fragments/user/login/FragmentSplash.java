@@ -186,7 +186,7 @@ public class FragmentSplash extends Fragment {
                 .getApplicationWMS(context)
                 .getUtilityComponent()
                 .getApplicationUtility()
-                .ShowMessage(context, message, color, icon, getFragmentManager());
+                .ShowMessage(context, message, color, icon, getFragmentManager(),0);
 
     }//_____________________________________________________________________________________________ ShowMessage
 

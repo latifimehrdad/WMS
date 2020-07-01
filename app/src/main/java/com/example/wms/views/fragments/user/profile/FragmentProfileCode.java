@@ -200,7 +200,7 @@ public class FragmentProfileCode extends Fragment {
                 .getApplicationWMS(context)
                 .getUtilityComponent()
                 .getApplicationUtility()
-                .ShowMessage(context, message, color, icon, getChildFragmentManager());
+                .ShowMessage(context, message, color, icon, getChildFragmentManager(),0);
 
     }//_____________________________________________________________________________________________ ShowMessage
 

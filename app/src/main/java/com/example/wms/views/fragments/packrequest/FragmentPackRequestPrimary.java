@@ -293,7 +293,7 @@ public class FragmentPackRequestPrimary extends Fragment {
                 .getApplicationWMS(context)
                 .getUtilityComponent()
                 .getApplicationUtility()
-                .ShowMessage(context, message, color, icon, getChildFragmentManager());
+                .ShowMessage(context, message, color, icon, getChildFragmentManager(),0);
 
     }//_____________________________________________________________________________________________ ShowMessage
 

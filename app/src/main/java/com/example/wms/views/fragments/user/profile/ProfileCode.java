@@ -30,7 +30,6 @@ import static com.example.wms.utility.StaticFunctions.TextChangeForChangeBack;
 
 public class ProfileCode extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
 
-    private NavController navController;
     private VM_ProfileCode vm_profileCode;
     private DialogProgress progress;
 
@@ -63,8 +62,10 @@ public class ProfileCode extends FragmentPrimary implements FragmentPrimary.GetM
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(ProfileCode.this, vm_profileCode.getPublishSubject());
-        navController = Navigation.findNavController(getView());
+        setGetMessageFromObservable(
+                ProfileCode.this,
+                vm_profileCode.getPublishSubject(),
+                vm_profileCode);
     }//_____________________________________________________________________________________________ onStart
 
 
@@ -78,36 +79,23 @@ public class ProfileCode extends FragmentPrimary implements FragmentPrimary.GetM
     public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         setAccessClick(true);
+        if (progress != null)
+            progress.dismiss();
 
         if (action == StaticValues.ML_EditProfile) {
-            ShowMessage(vm_profileCode.getResponseMessage()
-                    , getResources().getColor(R.color.mlWhite),
-                    getResources().getDrawable(R.drawable.ic_check),
-                    getResources().getColor(R.color.mlWhite));
+            return;
         }
 
         if (action == StaticValues.ML_GetRenovationCode) {
             editBuildingRenovationCode.setText(
                     vm_profileCode.getResponseMessage()
             );
+            return;
         }
 
         if (action == StaticValues.ML_GetAccountNumberNull) {
             editBuildingRenovationCode.requestFocus();
-        }
-
-        if (action == StaticValues.ML_ResponseFailure) {
-            ShowMessage(getResources().getString(R.string.NetworkError),
-                    getResources().getColor(R.color.mlWhite),
-                    getResources().getDrawable(R.drawable.ic_error),
-                    getResources().getColor(R.color.mlWhite));
-        }
-
-        if (action == StaticValues.ML_ResponseError) {
-            ShowMessage(vm_profileCode.getResponseMessage()
-                    , getResources().getColor(R.color.mlWhite),
-                    getResources().getDrawable(R.drawable.ic_error),
-                    getResources().getColor(R.color.mlBlack));
+            return;
         }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable

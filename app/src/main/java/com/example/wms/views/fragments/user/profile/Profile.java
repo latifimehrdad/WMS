@@ -58,11 +58,18 @@ public class Profile extends FragmentPrimary {
     private void SetTabs() {//______________________________________________________________________ SetTabs
 
 
+//        FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
+//                getChildFragmentManager(), FragmentPagerItems.with(getContext())
+//                .add(R.string.RegisterPersonCodeNew, FragmentProfileCode.class)
+//                .add(R.string.RegisterPersonBank, FragmentProfileBank.class)
+//                .add(R.string.RegisterPerson, FragmentProfilePerson.class)
+//                .create());
+
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getChildFragmentManager(), FragmentPagerItems.with(getContext())
-                .add(R.string.RegisterPersonCodeNew, FragmentProfileCode.class)
-                .add(R.string.RegisterPersonBank, FragmentProfileBank.class)
-                .add(R.string.RegisterPerson, FragmentProfilePerson.class)
+                .add(R.string.RegisterPersonCodeNew, ProfileCode.class)
+                .add(R.string.RegisterPersonBank, ProfileBank.class)
+                .add(R.string.RegisterPerson, ProfilePerson.class)
                 .create());
 
         FragmentRegistryView.setAdapter(adapter);

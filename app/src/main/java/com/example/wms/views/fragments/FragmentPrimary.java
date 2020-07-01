@@ -8,7 +8,11 @@ import android.view.View;
 import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.wms.R;
+import com.example.wms.utility.ApplicationUtility;
 import com.example.wms.utility.StaticValues;
+import com.example.wms.viewmodels.VM_Primary;
+import com.example.wms.views.application.ApplicationWMS;
 import com.example.wms.views.dialogs.DialogMessage;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -23,9 +27,11 @@ public class FragmentPrimary extends Fragment {
     private View view;
     private GetMessageFromObservable getMessageFromObservable;
     private boolean AccessClick;
+    private VM_Primary vm_primary;
 
 
     public interface GetMessageFromObservable {//___________________________________________________ GetMessageFromObservable
+
         void GetMessageFromObservable(Byte action);
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 
@@ -80,11 +86,13 @@ public class FragmentPrimary extends Fragment {
 
     public void setGetMessageFromObservable(
             GetMessageFromObservable getMessageFromObservable,
-            PublishSubject<Byte> publishSubject) {//________________________________________________ setGetMessageFromObservable
+            PublishSubject<Byte> publishSubject,
+            VM_Primary vm_primary) {//______________________________________________________________ setGetMessageFromObservable
         this.getMessageFromObservable = getMessageFromObservable;
         if (disposableObserver != null)
             disposableObserver.dispose();
         disposableObserver = null;
+        this.vm_primary = vm_primary;
         SetObserverToObservable(publishSubject);
     }//_____________________________________________________________________________________________ setGetMessageFromObservable
 
@@ -94,13 +102,7 @@ public class FragmentPrimary extends Fragment {
         disposableObserver = new DisposableObserver<Byte>() {
             @Override
             public void onNext(Byte aByte) {
-                getActivity()
-                        .runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                getMessageFromObservable.GetMessageFromObservable(aByte);
-                            }
-                        });
+                actionHandler(aByte);
             }
 
             @Override
@@ -122,14 +124,54 @@ public class FragmentPrimary extends Fragment {
     }//_____________________________________________________________________________________________ SetObserverToObservable
 
 
-    public void ShowMessage(String message, int color, Drawable icon, int tintColor) {//___________ ShowMessage
+    private void actionHandler(Byte action) {//_____________________________________________________ actionHandler
+        getActivity()
+                .runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        setAccessClick(true);
+
+                        getMessageFromObservable.GetMessageFromObservable(action);
+
+                        if (vm_primary.getResponseMessage() == null)
+                            return;
+
+                        if (vm_primary.getResponseMessage().equalsIgnoreCase(""))
+                            return;
+
+                        if ((action == StaticValues.ML_RequestCancel)
+                                || (action == StaticValues.ML_ResponseError)
+                                || (action == StaticValues.ML_ResponseFailure))
+                            ShowMessage(vm_primary.getResponseMessage(),
+                                    getResources().getColor(R.color.mlWhite),
+                                    getResources().getDrawable(R.drawable.ic_error),
+                                    getResources().getColor(R.color.mlBlack));
+                        else
+                            ShowMessage(vm_primary.getResponseMessage()
+                                    , getResources().getColor(R.color.mlWhite),
+                                    getResources().getDrawable(R.drawable.ic_check),
+                                    getResources().getColor(R.color.mlBlack));
+
+                    }
+                });
+    }//_____________________________________________________________________________________________ actionHandler
+
+
+    public void ShowMessage(String message, int color, Drawable icon, int tintColor) {//____________ ShowMessage
+
+//        ApplicationUtility utility = ApplicationWMS
+//                .getApplicationWMS(getContext())
+//                .getUtilityComponent()
+//                .getApplicationUtility();
+//
+//        utility.ShowMessage(getContext(),message,color,icon,getChildFragmentManager(),tintColor);
 
         DialogMessage dialogMessage = new DialogMessage(getContext(), message, color, icon, tintColor);
         dialogMessage.setCancelable(false);
         dialogMessage.show(getFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
 
     }//_____________________________________________________________________________________________ ShowMessage
-
 
 
     public boolean isAccessClick() {//______________________________________________________________ isAccessClick

@@ -91,7 +91,10 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(Login.this, vm_login.getPublishSubject());
+        setGetMessageFromObservable(
+                Login.this,
+                vm_login.getPublishSubject(),
+                vm_login);
         navController = Navigation.findNavController(getView());
     }//_____________________________________________________________________________________________ onStart
 
@@ -102,33 +105,10 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
         setAccessClick(true);
         DismissLoading();
         if (action == StaticValues.ML_GoToHome) {
-            navController.navigate(R.id.action_fragmentLogin_to_fragmentHome);
+            navController.navigate(R.id.action_login_to_home);
             return;
         }
 
-        if (action == StaticValues.ML_ResponseFailure) {
-            ShowMessage(getResources().getString(R.string.NetworkError),
-                    getResources().getColor(R.color.mlWhite),
-                    getResources().getDrawable(R.drawable.ic_error),
-                    getResources().getColor(R.color.mlBlack));
-            return;
-        }
-
-        if (action == StaticValues.ML_ResponseError) {
-            ShowMessage(vm_login.getResponseMessage()
-                    , getResources().getColor(R.color.mlWhite),
-                    getResources().getDrawable(R.drawable.ic_error),
-                    getResources().getColor(R.color.mlBlack));
-            return;
-        }
-
-        if (action == StaticValues.ML_RequestCancel) {
-            ShowMessage(getResources().getString(R.string.RequestCancel)
-                    , getResources().getColor(R.color.mlWhite),
-                    getResources().getDrawable(R.drawable.ic_error),
-                    getResources().getColor(R.color.mlBlack));
-            return;
-        }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 
@@ -181,7 +161,7 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
                 Bundle bundle = new Bundle();
                 bundle.putString(getContext().getString(R.string.ML_Type), getContext().getString(R.string.ML_SingUp));
                 bundle.putString(getContext().getString(R.string.ML_PhoneNumber), EditPhoneNumber.getText().toString());
-                navController.navigate(R.id.action_fragmentLogin_to_fragmentSendNumber, bundle);
+                navController.navigate(R.id.action_login_to_signUp, bundle);
             }
         });
 

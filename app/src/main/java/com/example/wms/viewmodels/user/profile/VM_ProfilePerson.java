@@ -20,9 +20,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.wms.utility.StaticFunctions.CheckResponse;
-import static com.example.wms.utility.StaticFunctions.GetAuthorization;
-import static com.example.wms.utility.StaticFunctions.GetMessage;
 
 public class VM_ProfilePerson extends VM_Primary {
 
@@ -45,7 +42,6 @@ public class VM_ProfilePerson extends VM_Primary {
     }//_____________________________________________________________________________________________ VM_ProfilePerson
 
 
-
     public void GetProfileInfo() {//________________________________________________________________ GetProfileInfo
 
         RetrofitComponent retrofitComponent =
@@ -55,28 +51,28 @@ public class VM_ProfilePerson extends VM_Primary {
 
         String Authorization = GetAuthorization(context);
 
-        retrofitComponent
+        setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .getProfileInfo(
-                        Authorization)
-                .enqueue(new Callback<ModelProfileInfo>() {
-                    @Override
-                    public void onResponse(Call<ModelProfileInfo> call, Response<ModelProfileInfo> response) {
-                        setResponseMessage(CheckResponse(response, false));
-                        if (getResponseMessage() == null) {
-                            profile = response.body().getResult();
-                            getPublishSubject().onNext(StaticValues.ML_GetProfileInfo);
-                        } else
-                            getPublishSubject().onNext(StaticValues.ML_ResponseError);
-                    }
+                        Authorization));
 
-                    @Override
-                    public void onFailure(Call<ModelProfileInfo> call, Throwable t) {
-                        getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
-                    }
-                });
+        getPrimaryCall().enqueue(new Callback<ModelProfileInfo>() {
+            @Override
+            public void onResponse(Call<ModelProfileInfo> call, Response<ModelProfileInfo> response) {
+                setResponseMessage(CheckResponse(response, false));
+                if (getResponseMessage() == null) {
+                    profile = response.body().getResult();
+                    getPublishSubject().onNext(StaticValues.ML_GetProfileInfo);
+                } else
+                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
+            }
+
+            @Override
+            public void onFailure(Call<ModelProfileInfo> call, Throwable t) {
+                OnFailureRequest(context);
+            }
+        });
     }//_____________________________________________________________________________________________ GetProfileInfo
-
 
 
     public void EditProfile() {//___________________________________________________________________ EditProfile
@@ -88,7 +84,7 @@ public class VM_ProfilePerson extends VM_Primary {
 
         String Authorization = GetAuthorization(context);
 
-        retrofitComponent
+        setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .EditProfile(
                         getFirstName(),
@@ -98,27 +94,26 @@ public class VM_ProfilePerson extends VM_Primary {
                         getCityId(),
                         getReferenceCode(),
                         getRegionId(),
-                        Authorization)
-                .enqueue(new Callback<ModelResponsePrimary>() {
-                    @Override
-                    public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
+                        Authorization));
 
-                        setResponseMessage(CheckResponse(response, false));
-                        if (getResponseMessage() == null) {
-                            setResponseMessage(GetMessage(response));
-                            SaveProfile();
-                        } else
-                            getPublishSubject().onNext(StaticValues.ML_ResponseError);
-                    }
+        getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
+            @Override
+            public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
+                setResponseMessage(CheckResponse(response, false));
+                if (getResponseMessage() == null) {
+                    setResponseMessage(GetMessage(response));
+                    SaveProfile();
+                } else
+                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
+            }
 
-                    @Override
-                    public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
-                        getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
-                    }
-                });
+            @Override
+            public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
+                OnFailureRequest(context);
+            }
+        });
 
     }//_____________________________________________________________________________________________ EditProfile
-
 
 
     public void GetPlacesList() {//_________________________________________________________________ GetPlacesList
@@ -149,7 +144,7 @@ public class VM_ProfilePerson extends VM_Primary {
 
                     @Override
                     public void onFailure(Call<ModelSpinnerItems> call, Throwable t) {
-                        getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
+                        OnFailureRequest(context);
                     }
                 });
 
@@ -184,12 +179,11 @@ public class VM_ProfilePerson extends VM_Primary {
 
                     @Override
                     public void onFailure(Call<ModelSpinnerItems> call, Throwable t) {
-                        getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
+                        OnFailureRequest(context);
                     }
                 });
 
     }//_____________________________________________________________________________________________ GetCitiesList
-
 
 
     public void GetProvincesList() {//______________________________________________________________ GetProvincesList
@@ -202,46 +196,43 @@ public class VM_ProfilePerson extends VM_Primary {
         String Authorization = GetAuthorization(context);
 
 
-
         Call<ModelSpinnerItems> call = retrofitComponent
                 .getRetrofitApiInterface()
                 .getProvinces(
                         Authorization);
 
-                call.enqueue(new Callback<ModelSpinnerItems>() {
-                    @Override
-                    public void onResponse(Call<ModelSpinnerItems> call, Response<ModelSpinnerItems> response) {
-                        setResponseMessage(CheckResponse(response, false));
-                        if (getResponseMessage() == null) {
-                            provinces = response.body().getResult();
-                            getPublishSubject().onNext(StaticValues.ML_GetProvince);
-                        } else
-                            getPublishSubject().onNext(StaticValues.ML_ResponseError);
-                    }
+        call.enqueue(new Callback<ModelSpinnerItems>() {
+            @Override
+            public void onResponse(Call<ModelSpinnerItems> call, Response<ModelSpinnerItems> response) {
+                setResponseMessage(CheckResponse(response, false));
+                if (getResponseMessage() == null) {
+                    provinces = response.body().getResult();
+                    getPublishSubject().onNext(StaticValues.ML_GetProvince);
+                } else
+                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
+            }
 
-                    @Override
-                    public void onFailure(Call<ModelSpinnerItems> call, Throwable t) {
-                        getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
-                    }
-                });
+            @Override
+            public void onFailure(Call<ModelSpinnerItems> call, Throwable t) {
+                OnFailureRequest(context);
+            }
+        });
 
     }//_____________________________________________________________________________________________ GetProvincesList
-
 
 
     private void SaveProfile() {//__________________________________________________________________ SaveProfile
 
         SharedPreferences.Editor token =
                 context.getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0).edit();
-        token.putString(context.getString(R.string.ML_Name),getFirstName());
-        token.putString(context.getString(R.string.ML_lastName),getLastName());
-        token.putInt(context.getString(R.string.ML_Gender),getGender());
-        token.putBoolean(context.getString(R.string.ML_CompleteProfile),true);
+        token.putString(context.getString(R.string.ML_Name), getFirstName());
+        token.putString(context.getString(R.string.ML_lastName), getLastName());
+        token.putInt(context.getString(R.string.ML_Gender), getGender());
+        token.putBoolean(context.getString(R.string.ML_CompleteProfile), true);
         token.apply();
         MainActivity.complateprofile = true;
         getPublishSubject().onNext(StaticValues.ML_EditProfile);
     }//_____________________________________________________________________________________________ SaveProfile
-
 
 
     public String GetPhoneNumber() {//______________________________________________________________ GetPhoneNumber
@@ -255,7 +246,6 @@ public class VM_ProfilePerson extends VM_Primary {
         }
 
     }//_____________________________________________________________________________________________ GetPhoneNumber
-
 
 
     public String getFirstName() {//________________________________________________________________ getFirstName

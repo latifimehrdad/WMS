@@ -19,10 +19,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.wms.R;
-import com.example.wms.databinding.FragmentSendNumberBinding;
 import com.example.wms.databinding.FragmentVerifyCodeBinding;
 import com.example.wms.utility.StaticValues;
-import com.example.wms.viewmodels.user.register.VM_SignUp;
 import com.example.wms.viewmodels.user.register.VM_VerifyCode;
 import com.example.wms.views.application.ApplicationWMS;
 import com.example.wms.views.dialogs.DialogProgress;
@@ -95,7 +93,10 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(VerifyCode.this, vm_verifyCode.getPublishSubject());
+        setGetMessageFromObservable(
+                VerifyCode.this,
+                vm_verifyCode.getPublishSubject(),
+                vm_verifyCode);
         navController = Navigation.findNavController(getView());
     }//_____________________________________________________________________________________________ onStart
 
@@ -117,21 +118,14 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
         setAccessClick(true);
         if (action == StaticValues.ML_GotoLogin) {
             DismissProgress();
-            ShowMessage(getResources().getString(R.string.RegisterOK),
-                    getResources().getColor(R.color.mlWhite),
-                    getResources().getDrawable(R.drawable.ic_check),
-                    getResources().getColor(R.color.mlBlack));
             getActivity().onBackPressed();
             getActivity().onBackPressed();
             return;
         }
 
-        if (action == StaticValues.ML_ResponseFailure) {
-            ShowMessage(
-                    getResources().getString(R.string.NetworkError),
-                    getResources().getColor(R.color.mlWhite),
-                    getResources().getDrawable(R.drawable.ic_error),
-                    getResources().getColor(R.color.mlBlack));
+        if (action == StaticValues.ML_Success ||
+                action == StaticValues.ML_ResponseFailure ||
+                action == StaticValues.ML_ResponseError) {
             VerifyCode1.setText("");
             VerifyCode2.setText("");
             VerifyCode3.setText("");
@@ -140,15 +134,11 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
             VerifyCode6.setText("");
             VerifyCode1.requestFocus();
             SetBackVerifyCode();
+            StartTimer(60);
             return;
         }
 
-        if (action == StaticValues.ML_ResponseError) {
-            ShowMessage(
-                    vm_verifyCode.getResponseMessage(),
-                    getResources().getColor(R.color.mlWhite),
-                    getResources().getDrawable(R.drawable.ic_error),
-                    getResources().getColor(R.color.mlBlack));
+        if (action == StaticValues.ML_ResponseFailure || action == StaticValues.ML_ResponseError) {
             VerifyCode1.setText("");
             VerifyCode2.setText("");
             VerifyCode3.setText("");
@@ -169,8 +159,10 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
         message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ReTryGetSMSClick)
-                    StartTimer(Integer.valueOf(VerifyCode1.getText().toString() + VerifyCode2.getText().toString()));
+                if (ReTryGetSMSClick) {
+                    vm_verifyCode.setPassword(Password);
+                    vm_verifyCode.SendNumber();
+                }
             }
         });
 

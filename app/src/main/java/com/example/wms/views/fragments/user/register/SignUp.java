@@ -85,7 +85,10 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(SignUp.this, vm_signUp.getPublishSubject());
+        setGetMessageFromObservable(
+                SignUp.this,
+                vm_signUp.getPublishSubject(),
+                vm_signUp);
         navController = Navigation.findNavController(getView());
     }//_____________________________________________________________________________________________ onStart
 
@@ -105,25 +108,14 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
     @Override
     public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
-        setAccessClick(true);
         DismissLoading();
         if (action == StaticValues.ML_Success) {
             Bundle bundle = new Bundle();
             bundle.putString(getContext().getString(R.string.ML_PhoneNumber), EditPhoneNumber.getText().toString());
             bundle.putString(getContext().getString(R.string.ML_Password), EditPassword.getText().toString());
             navController
-                    .navigate(R.id.action_fragmentSendNumber_to_fragmentVerifyCode, bundle);
-        } else if (action == StaticValues.ML_ResponseFailure) {
-            ShowMessage(getResources().getString(R.string.NetworkError),
-                    getResources().getColor(R.color.mlWhite),
-                    getResources().getDrawable(R.drawable.ic_error),
-                    getResources().getColor(R.color.mlBlack));
-            EditPhoneNumber.requestFocus();
-        } else if (action == StaticValues.ML_ResponseError) {
-            ShowMessage(vm_signUp.getResponseMessage(),
-                    getResources().getColor(R.color.mlWhite),
-                    getResources().getDrawable(R.drawable.ic_error),
-                    getResources().getColor(R.color.mlBlack));
+                    .navigate(R.id.action_signUp_to_verifyCode, bundle);
+            return;
         }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
@@ -146,17 +138,16 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
         btnGetVerifyCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isAccessClick())
-                    return;
-
-                if (CheckEmpty()) {
-                    ShowLoading();
-                    setAccessClick(false);
-                    vm_signUp.setPhoneNumber(EditPhoneNumber.getText().toString());
-                    vm_signUp.setPassword(EditPassword.getText().toString());
-                    vm_signUp.SendNumber();
-                }
-
+                if (isAccessClick()) {
+                    if (CheckEmpty()) {
+                        ShowLoading();
+                        setAccessClick(false);
+                        vm_signUp.setPhoneNumber(EditPhoneNumber.getText().toString());
+                        vm_signUp.setPassword(EditPassword.getText().toString());
+                        vm_signUp.SendNumber();
+                    }
+                } else
+                    vm_signUp.CancelRequest();
             }
         });
 

@@ -19,12 +19,100 @@
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             />
+
+        <action
+            android:id="@+id/action_splash_to_home"
+            app:destination="@id/home"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            />
+
     </fragment>
 
     <fragment
         android:id="@+id/login"
         android:name="com.example.wms.views.fragments.user.login.Login"
         android:label="Login"
-        tools:layout="@layout/fragment_fragment_login"/>
+        tools:layout="@layout/fragment_fragment_login">
+
+        <argument android:name="@string/ML_PhoneNumber"
+            android:defaultValue="null"/>
+
+        <argument android:name="@string/ML_Password"
+            android:defaultValue="null"/>
+
+        <argument android:name="@string/ML_Type"
+            android:defaultValue="null"/>
+
+        <action
+            android:id="@+id/action_login_to_signUp"
+            app:destination="@id/signUp"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+        <action
+            android:id="@+id/action_login_to_home"
+            app:destination="@id/home"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/signUp"
+        android:name="com.example.wms.views.fragments.user.register.SignUp"
+        android:label="SignUp"
+        tools:layout="@layout/fragment_send_number">
+
+        <argument android:name="PhoneNumber"
+            android:defaultValue="null"/>
+
+        <argument android:name="Password"
+            android:defaultValue="null"/>
+
+        <action
+            android:id="@+id/action_signUp_to_verifyCode"
+            app:destination="@id/verifyCode"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/verifyCode"
+        android:name="com.example.wms.views.fragments.user.register.VerifyCode"
+        android:label="VerifyCode"
+        tools:layout="@layout/fragment_verify_code"/>
+
+    <fragment
+        android:id="@+id/home"
+        android:name="com.example.wms.views.fragments.home.Home"
+        android:label="Home"
+        tools:layout="@layout/fragment_home"
+        >
+
+        <action
+            android:id="@+id/action_home_to_profile"
+            app:destination="@id/profile"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.example.wms.views.fragments.user.profile.Profile"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile"/>
 
 </navigation>

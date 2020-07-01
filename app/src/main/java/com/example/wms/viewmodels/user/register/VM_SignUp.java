@@ -12,9 +12,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.wms.utility.StaticFunctions.CheckResponse;
-import static com.example.wms.utility.StaticFunctions.GetAuthorization;
-
 public class VM_SignUp extends VM_Primary {
 
     private Context context;
@@ -48,8 +45,10 @@ public class VM_SignUp extends VM_Primary {
             @Override
             public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
                 setResponseMessage(CheckResponse(response, false));
-                if (getResponseMessage() == null)
+                if (getResponseMessage() == null) {
+                    setResponseMessage(GetMessage(response));
                     getPublishSubject().onNext(StaticValues.ML_Success);
+                }
                 else {
                     getPublishSubject().onNext(StaticValues.ML_ResponseError);
                 }
@@ -57,7 +56,7 @@ public class VM_SignUp extends VM_Primary {
 
             @Override
             public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
-                OnFailureRequest();
+                OnFailureRequest(context);
             }
         });
 

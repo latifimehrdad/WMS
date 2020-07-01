@@ -61,29 +61,30 @@ public class VM_Splash extends VM_Primary {
                 .getApplicationWMS(context)
                 .getRetrofitComponent();
 
-        retrofitComponent
+        setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .getToken(
                         RetrofitApis.client_id_value,
                         RetrofitApis.client_secret_value,
-                        RetrofitApis.grant_type_value)
-                .enqueue(new Callback<ModelToken>() {
-                    @Override
-                    public void onResponse(Call<ModelToken> call, Response<ModelToken> response) {
-                        setResponseMessage(CheckResponse(response, true));
-                        if (getResponseMessage() == null) {
-                            modelToken = response.body();
-                            if (StaticFunctions.SaveToken(context, modelToken))
-                                getPublishSubject().onNext(StaticValues.ML_GotoLogin);
-                        } else
-                            getPublishSubject().onNext(StaticValues.ML_ResponseError);
-                    }
+                        RetrofitApis.grant_type_value));
 
-                    @Override
-                    public void onFailure(Call<ModelToken> call, Throwable t) {
-                        getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
-                    }
-                });
+        getPrimaryCall().enqueue(new Callback<ModelToken>() {
+            @Override
+            public void onResponse(Call<ModelToken> call, Response<ModelToken> response) {
+                setResponseMessage(CheckResponse(response, true));
+                if (getResponseMessage() == null) {
+                    modelToken = response.body();
+                    if (StaticFunctions.SaveToken(context, modelToken))
+                        getPublishSubject().onNext(StaticValues.ML_GotoLogin);
+                } else
+                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
+            }
+
+            @Override
+            public void onFailure(Call<ModelToken> call, Throwable t) {
+                OnFailureRequest(context);
+            }
+        });
 
     }//_____________________________________________________________________________________________ GetTokenFromServer
 
@@ -97,29 +98,28 @@ public class VM_Splash extends VM_Primary {
 
         String Authorization = GetAuthorization(context);
 
-        retrofitComponent
+        setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .getSettingInfo(
-                        Authorization)
-                .enqueue(new Callback<ModelSettingInfo>() {
-                    @Override
-                    public void onResponse(Call<ModelSettingInfo> call, Response<ModelSettingInfo> response) {
-                        if (StaticFunctions.isCancel)
-                            return;
-                        setResponseMessage(CheckResponse(response, true));
-                        if (getResponseMessage() == null) {
-                            profile = response.body().getResult();
-                            if (StaticFunctions.SaveProfile(context, profile))
-                                getPublishSubject().onNext(StaticValues.ML_GoToHome);
-                        } else
-                            getPublishSubject().onNext(StaticValues.ML_ResponseError);
-                    }
+                        Authorization));
 
-                    @Override
-                    public void onFailure(Call<ModelSettingInfo> call, Throwable t) {
-                        getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
-                    }
-                });
+        getPrimaryCall().enqueue(new Callback<ModelSettingInfo>() {
+            @Override
+            public void onResponse(Call<ModelSettingInfo> call, Response<ModelSettingInfo> response) {
+                setResponseMessage(CheckResponse(response, true));
+                if (getResponseMessage() == null) {
+                    profile = response.body().getResult();
+                    if (StaticFunctions.SaveProfile(context, profile))
+                        getPublishSubject().onNext(StaticValues.ML_GoToHome);
+                } else
+                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
+            }
+
+            @Override
+            public void onFailure(Call<ModelSettingInfo> call, Throwable t) {
+                OnFailureRequest(context);
+            }
+        });
 
     }//_____________________________________________________________________________________________ GetLoginInformation
 

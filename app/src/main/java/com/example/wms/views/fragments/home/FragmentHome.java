@@ -223,11 +223,11 @@ public class FragmentHome extends Fragment {
 
     private void ShowMessage(String message, int color, Drawable icon) {//__________________________ ShowMessage
 
-        ApplicationWMS
-                .getApplicationWMS(context)
-                .getUtilityComponent()
-                .getApplicationUtility()
-                .ShowMessage(context, message, color, icon, getChildFragmentManager());
+//        ApplicationWMS
+//                .getApplicationWMS(context)
+//                .getUtilityComponent()
+//                .getApplicationUtility()
+//                .ShowMessage(context, message, color, icon, getChildFragmentManager());
 
     }//_____________________________________________________________________________________________ ShowMessage
 

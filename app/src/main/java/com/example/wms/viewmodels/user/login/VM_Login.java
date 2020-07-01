@@ -62,7 +62,7 @@ public class VM_Login extends VM_Primary {
 
             @Override
             public void onFailure(Call<ModelToken> call, Throwable t) {
-                OnFailureRequest();
+                OnFailureRequest(context);
             }
         });
 
@@ -96,7 +96,7 @@ public class VM_Login extends VM_Primary {
 
             @Override
             public void onFailure(Call<ModelSettingInfo> call, Throwable t) {
-                OnFailureRequest();
+                OnFailureRequest(context);
 
 
             }

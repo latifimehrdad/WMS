@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private MainActivityViewModel mainActivityViewModel;
     public static boolean complateprofile = false;
     private NavController navController;
-//    private AppBarConfiguration appBarConfiguration;
+    //    private AppBarConfiguration appBarConfiguration;
     private boolean MenuOpen = false;
     private boolean doubleBackToExitPressedOnce = false;
     private boolean preLogin = false;
@@ -116,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
         checkLocationPermission();
         SetListener();
     }//_____________________________________________________________________________________________ End SetBindingView
-
 
 
     private void SetClicks() {//____________________________________________________________________ Start
@@ -233,15 +232,16 @@ public class MainActivity extends AppCompatActivity {
                 mDrawer.closeDrawer(Gravity.RIGHT);
 
                 String fragment = destination.getLabel().toString();
-                if ((fragment.equalsIgnoreCase("FragmentSplash")) ||
-                        (fragment.equalsIgnoreCase("FragmentLogin")) ||
-                        (fragment.equalsIgnoreCase("FragmentVerifyCode")) ||
-                        (fragment.equalsIgnoreCase("FragmentSendNumber"))) {
-                    if(!preLogin) {
-
+                if (
+                        (fragment.equalsIgnoreCase("Splash")) ||
+                                (fragment.equalsIgnoreCase("Login")) ||
+                                (fragment.equalsIgnoreCase("SignUp")) ||
+                                (fragment.equalsIgnoreCase("VerifyCode"))
+                ) {
+                    if (!preLogin) {
                         NavInflater navInflater = navController.getNavInflater();
-                        NavGraph graph = navInflater.inflate(R.navigation.nav_home);
-                        graph.setStartDestination(R.id.fragmentSplash);
+                        NavGraph graph = navInflater.inflate(R.navigation.nav_host);
+                        graph.setStartDestination(R.id.splash);
                         navController.setGraph(graph);
                         RelativeLayoutLoginHeader.setVisibility(View.VISIBLE);
                         RelativeLayoutMainFooter.setVisibility(View.GONE);
@@ -252,11 +252,11 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 } else {
-                    if(preLogin) {
+                    if (preLogin) {
                         preLogin = false;
                         NavInflater navInflater = navController.getNavInflater();
-                        NavGraph graph = navInflater.inflate(R.navigation.nav_home);
-                        graph.setStartDestination(R.id.fragmentHome);
+                        NavGraph graph = navInflater.inflate(R.navigation.nav_host);
+                        graph.setStartDestination(R.id.home);
                         navController.setGraph(graph);
                         RelativeLayoutLoginHeader.setVisibility(View.GONE);
                         RelativeLayoutMainFooter.setVisibility(View.VISIBLE);
@@ -271,16 +271,15 @@ public class MainActivity extends AppCompatActivity {
     }//_____________________________________________________________________________________________ End onCreate
 
 
-
     private String GetUserNameProfile() {//_________________________________________________________ Start GetUserNameProfile
 
-        SharedPreferences prefs = this.getSharedPreferences("wmstoken", 0);
+        SharedPreferences prefs = this.getSharedPreferences(getResources().getString(R.string.ML_SharePreferences), 0);
 
         if (prefs == null) {
             return "نام کاربر";
         } else {
-            String name = prefs.getString("name", "");
-            String lastName = prefs.getString("lastName", "");
+            String name = prefs.getString(getString(R.string.ML_Name), "");
+            String lastName = prefs.getString(getString(R.string.ML_lastName), "");
             if ((name.equalsIgnoreCase("")) && (lastName.equalsIgnoreCase("")))
                 return "نام کاربر";
             else
@@ -591,11 +590,10 @@ public class MainActivity extends AppCompatActivity {
     }//_____________________________________________________________________________________________ End onRequestPermissionsResult
 
 
-
     @Override
     public void onBackPressed() {//_________________________________________________________________ Start onBackPressed
 
-        if(MenuOpen) {
+        if (MenuOpen) {
             mDrawer.closeDrawer(Gravity.RIGHT);
             return;
         }

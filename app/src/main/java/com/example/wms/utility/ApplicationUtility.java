@@ -33,7 +33,7 @@ public class ApplicationUtility {
     //Type = "DayJalaliString = پنجشنبه"
 
 
-    public String MiladiToJalali(Date MiladiDate, String Type) {//_____________________________________________________________________________________________ Start calcSolarCalendar
+    public String MiladiToJalali(Date MiladiDate, String Type) {//__________________________________ calcSolarCalendar
 
         String strWeekDay = "";
         String strMonth = "";
@@ -298,7 +298,7 @@ public class ApplicationUtility {
         }
 
         return result;
-    }//_____________________________________________________________________________________________ End calcSolarCalendar
+    }//_____________________________________________________________________________________________ calcSolarCalendar
 
 
     public void ShowMessage(
@@ -306,13 +306,14 @@ public class ApplicationUtility {
             String message,
             int color,
             Drawable icon,
-            FragmentManager fm) {//_________ Start ShowMessage
+            FragmentManager fm,
+            int tintColor) {//______________________________________________________________________ ShowMessage
 
-        DialogMessage dialogMessage = new DialogMessage(context, message, color, icon,0);
+        DialogMessage dialogMessage = new DialogMessage(context, message, color, icon,tintColor);
         dialogMessage.setCancelable(false);
         dialogMessage.show(fm, NotificationCompat.CATEGORY_PROGRESS);
 
-    }//_____________________________________________________________________________________________ End ShowMessage
+    }//_____________________________________________________________________________________________ ShowMessage
 
 
     public DialogProgress ShowProgress(Context c, String title) {//_________________________________ Start ShowMessage

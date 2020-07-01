@@ -19,9 +19,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.wms.utility.StaticFunctions.CheckResponse;
-import static com.example.wms.utility.StaticFunctions.GetAuthorization;
-import static com.example.wms.utility.StaticFunctions.GetMessage;
 
 public class VM_ProfileBank extends VM_Primary {
 
@@ -46,31 +43,32 @@ public class VM_ProfileBank extends VM_Primary {
 
         String Authorization = GetAuthorization(context);
 
-        retrofitComponent
+        setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .SendAccountNumber(
                         getBankId(),
                         getAccountNumber(),
-                        Authorization)
-                .enqueue(new Callback<ModelResponsePrimary>() {
-                    @Override
-                    public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
-                        if (StaticFunctions.isCancel)
-                            return;
-                        setResponseMessage(CheckResponse(response, false));
-                        if (getResponseMessage() == null) {
-                            setResponseMessage(GetMessage(response));
-                            MainActivity.complateprofile = true;
-                            getPublishSubject().onNext(StaticValues.ML_EditProfile);
-                        } else
-                            getPublishSubject().onNext(StaticValues.ML_ResponseError);
-                    }
+                        Authorization));
 
-                    @Override
-                    public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
-                        getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
-                    }
-                });
+        getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
+            @Override
+            public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
+                if (StaticFunctions.isCancel)
+                    return;
+                setResponseMessage(CheckResponse(response, false));
+                if (getResponseMessage() == null) {
+                    setResponseMessage(GetMessage(response));
+                    MainActivity.complateprofile = true;
+                    getPublishSubject().onNext(StaticValues.ML_EditProfile);
+                } else
+                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
+            }
+
+            @Override
+            public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
+                OnFailureRequest(context);
+            }
+        });
     }//_____________________________________________________________________________________________ SendAccountNumber
 
 
@@ -83,32 +81,33 @@ public class VM_ProfileBank extends VM_Primary {
 
         String Authorization = GetAuthorization(context);
 
-        retrofitComponent
+        setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .getUserAccountNumber(
-                        Authorization)
-                .enqueue(new Callback<ModelUserAccounts>() {
-                    @Override
-                    public void onResponse(Call<ModelUserAccounts> call, Response<ModelUserAccounts> response) {
-                        if (StaticFunctions.isCancel)
-                            return;
-                        setResponseMessage(CheckResponse(response, false));
-                        if (getResponseMessage() == null) {
-                            if (response.body().getResult() == null)
-                                getPublishSubject().onNext(StaticValues.ML_GetAccountNumberNull);
-                            else {
-                                accountNumbers = response.body().getResult();
-                                getPublishSubject().onNext(StaticValues.ML_GetAccountNumbers);
-                            }
-                        } else
-                            getPublishSubject().onNext(StaticValues.ML_ResponseError);
-                    }
+                        Authorization));
 
-                    @Override
-                    public void onFailure(Call<ModelUserAccounts> call, Throwable t) {
-                        getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
+        getPrimaryCall().enqueue(new Callback<ModelUserAccounts>() {
+            @Override
+            public void onResponse(Call<ModelUserAccounts> call, Response<ModelUserAccounts> response) {
+                if (StaticFunctions.isCancel)
+                    return;
+                setResponseMessage(CheckResponse(response, false));
+                if (getResponseMessage() == null) {
+                    if (response.body().getResult() == null)
+                        getPublishSubject().onNext(StaticValues.ML_GetAccountNumberNull);
+                    else {
+                        accountNumbers = response.body().getResult();
+                        getPublishSubject().onNext(StaticValues.ML_GetAccountNumbers);
                     }
-                });
+                } else
+                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
+            }
+
+            @Override
+            public void onFailure(Call<ModelUserAccounts> call, Throwable t) {
+                OnFailureRequest(context);
+            }
+        });
 
     }//_____________________________________________________________________________________________ GetUserAccountNumber
 
@@ -123,28 +122,30 @@ public class VM_ProfileBank extends VM_Primary {
         String Authorization = GetAuthorization(context);
 
 
-        retrofitComponent
+        setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .getBanks(
-                        Authorization)
-                .enqueue(new Callback<ModelSpinnerItems>() {
-                    @Override
-                    public void onResponse(Call<ModelSpinnerItems> call, Response<ModelSpinnerItems> response) {
-                        if (StaticFunctions.isCancel)
-                            return;
-                        setResponseMessage(CheckResponse(response, false));
-                        if (getResponseMessage() == null) {
-                            banks = response.body().getResult();
-                            getPublishSubject().onNext(StaticValues.ML_GetBanks);
-                        } else
-                            getPublishSubject().onNext(StaticValues.ML_ResponseError);
-                    }
+                        Authorization));
 
-                    @Override
-                    public void onFailure(Call<ModelSpinnerItems> call, Throwable t) {
-                        getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
-                    }
-                });
+        getPrimaryCall().enqueue(new Callback<ModelSpinnerItems>() {
+            @Override
+            public void onResponse(Call<ModelSpinnerItems> call, Response<ModelSpinnerItems> response) {
+                if (StaticFunctions.isCancel)
+                    return;
+                setResponseMessage(CheckResponse(response, false));
+                if (getResponseMessage() == null) {
+                    banks = response.body().getResult();
+                    getPublishSubject().onNext(StaticValues.ML_GetBanks);
+                } else
+                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
+            }
+
+            @Override
+            public void onFailure(Call<ModelSpinnerItems> call, Throwable t) {
+                OnFailureRequest(context);
+            }
+        });
+
     }//_____________________________________________________________________________________________ GetBanks
 
 
