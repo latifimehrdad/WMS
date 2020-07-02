@@ -97,8 +97,6 @@ public class VM_Login extends VM_Primary {
             @Override
             public void onFailure(Call<ModelSettingInfo> call, Throwable t) {
                 OnFailureRequest(context);
-
-
             }
         });
 

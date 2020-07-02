@@ -49,7 +49,6 @@ public class VM_Splash extends VM_Primary {
                 } else
                     GetTokenFromServer();
             }
-
         }
 
     }//_____________________________________________________________________________________________ CheckToken

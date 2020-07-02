@@ -232,16 +232,24 @@ public class MainActivity extends AppCompatActivity {
                 mDrawer.closeDrawer(Gravity.RIGHT);
 
                 String fragment = destination.getLabel().toString();
+
                 if (
-                        (fragment.equalsIgnoreCase("Splash")) ||
-                                (fragment.equalsIgnoreCase("Login")) ||
-                                (fragment.equalsIgnoreCase("SignUp")) ||
-                                (fragment.equalsIgnoreCase("VerifyCode"))
+                        (fragment.equalsIgnoreCase("FragmentSplash")) ||
+                                (fragment.equalsIgnoreCase("FragmentLogin")) ||
+                                (fragment.equalsIgnoreCase("FragmentSendNumber")) ||
+                                (fragment.equalsIgnoreCase("FragmentVerifyCode"))
                 ) {
+//                if (
+//                        (fragment.equalsIgnoreCase("Splash")) ||
+//                                (fragment.equalsIgnoreCase("Login")) ||
+//                                (fragment.equalsIgnoreCase("SignUp")) ||
+//                                (fragment.equalsIgnoreCase("VerifyCode"))
+//                ) {
                     if (!preLogin) {
                         NavInflater navInflater = navController.getNavInflater();
-                        NavGraph graph = navInflater.inflate(R.navigation.nav_host);
-                        graph.setStartDestination(R.id.splash);
+                        NavGraph graph = navInflater.inflate(R.navigation.nav_home);
+                        graph.setStartDestination(R.id.fragmentSplash);
+//                        graph.setStartDestination(R.id.splash);
                         navController.setGraph(graph);
                         RelativeLayoutLoginHeader.setVisibility(View.VISIBLE);
                         RelativeLayoutMainFooter.setVisibility(View.GONE);
@@ -255,8 +263,9 @@ public class MainActivity extends AppCompatActivity {
                     if (preLogin) {
                         preLogin = false;
                         NavInflater navInflater = navController.getNavInflater();
-                        NavGraph graph = navInflater.inflate(R.navigation.nav_host);
-                        graph.setStartDestination(R.id.home);
+                        NavGraph graph = navInflater.inflate(R.navigation.nav_home);
+                        graph.setStartDestination(R.id.fragmentHome);
+//                        graph.setStartDestination(R.id.home);
                         navController.setGraph(graph);
                         RelativeLayoutLoginHeader.setVisibility(View.GONE);
                         RelativeLayoutMainFooter.setVisibility(View.VISIBLE);

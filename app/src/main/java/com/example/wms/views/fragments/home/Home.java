@@ -135,20 +135,20 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
         footerup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(R.id.action_home_to_profile);
-//                if (vm_home.IsPackageState()) {
-//                    requestPackage = false;
-//                    navController.navigate(R.id.action_fragmentHome_to_fragmentPackRequestPrimary);
-//                } else {
-//                    if (vm_home.IsAddressCompleted()) {
-//                        requestPackage = false;
-//                        navController.navigate(R.id.action_fragmentHome_to_fragmentPackRequestPrimary);
-//                    } else {
-//                        requestPackage = true;
-//                        navController.navigate(R.id.action_fragmentHome_to_fragmentPackRequestAddress);
-//                    }
-//
-//                }
+
+                if (vm_home.IsPackageState()) {
+                    requestPackage = false;
+                    navController.navigate(R.id.action_home_to_packageRequestPrimary);
+                } else {
+                    if (vm_home.IsAddressCompleted()) {
+                        requestPackage = false;
+                        navController.navigate(R.id.action_home_to_packageRequestPrimary);
+                    } else {
+                        requestPackage = true;
+                        navController.navigate(R.id.action_home_to_packageRequestAddress);
+                    }
+
+                }
             }
         });
 

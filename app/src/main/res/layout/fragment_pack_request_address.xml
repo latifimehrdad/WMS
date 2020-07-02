@@ -8,6 +8,11 @@
         <variable
             name="requstaddress"
             type="com.example.wms.viewmodels.packrequest.VM_FragmentPackRequestAddress" />
+
+        <variable
+            name="vm_requestAddress"
+            type="com.example.wms.viewmodels.packrequest.VM_PackageRequestAddress" />
+
     </data>
 
     <LinearLayout

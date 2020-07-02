@@ -6,6 +6,11 @@
         <variable
             name="requestprimery"
             type="com.example.wms.viewmodels.packrequest.VM_FragmentPackRequestPrimary" />
+
+        <variable
+            name="vm_requestprimary"
+            type="com.example.wms.viewmodels.packrequest.VM_PackageRequestPrimary" />
+
     </data>
 
     <LinearLayout

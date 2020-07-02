@@ -11,31 +11,24 @@ import com.example.wms.models.ModelResponsePrimary;
 import com.example.wms.models.ModelSettingInfo;
 import com.example.wms.utility.StaticFunctions;
 import com.example.wms.utility.StaticValues;
+import com.example.wms.viewmodels.VM_Primary;
 import com.example.wms.views.application.ApplicationWMS;
 
-import io.reactivex.subjects.PublishSubject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.wms.utility.StaticFunctions.CheckResponse;
-import static com.example.wms.utility.StaticFunctions.GetAuthorization;
-import static com.example.wms.utility.StaticFunctions.GetMessage;
 
-public class VM_FragmentPackRequestAddress {
+public class VM_PackageRequestAddress extends VM_Primary {
 
     private Context context;
-    private PublishSubject<Byte> Observables;
+    private ModelBuildingTypes buildingTypes;
     private ModelGetAddress address;
     private String AddressString;
-    private String MessageResponse;
-    private ModelBuildingTypes buildingTypes;
 
-    public VM_FragmentPackRequestAddress(Context context) {//_______________________________________ VM_FragmentPackRequestAddress
+    public VM_PackageRequestAddress(Context context) {//____________________________________________ VM_PackageRequestAddress
         this.context = context;
-        Observables = PublishSubject.create();
-    }//_____________________________________________________________________________________________ VM_FragmentPackRequestAddress
-
+    }//_____________________________________________________________________________________________ VM_PackageRequestAddress
 
 
     public void SaveAddress(
@@ -47,15 +40,13 @@ public class VM_FragmentPackRequestAddress {
             Long BuildingUseId,
             Integer BuildingUseCount) {//___________________________________________________________ SaveAddress
 
-        StaticFunctions.isCancel = false;
-
         RetrofitComponent retrofitComponent = ApplicationWMS
                 .getApplicationWMS(context)
                 .getRetrofitComponent();
 
         String Authorization = GetAuthorization(context);
 
-        retrofitComponent
+        setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .EditUserAddress(
                         Address,
@@ -65,36 +56,33 @@ public class VM_FragmentPackRequestAddress {
                         BuildingTypeCount,
                         BuildingUseId,
                         BuildingUseCount,
-                        Authorization
-                )
-                .enqueue(new Callback<ModelResponsePrimary>() {
-                    @Override
-                    public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
-                        if (StaticFunctions.isCancel)
-                            return;
-                        MessageResponse = CheckResponse(response, false);
-                        if (MessageResponse == null) {
-                            MessageResponse = GetMessage(response);
-                            GetLoginInformation();
+                        Authorization));
 
-                        } else
-                            Observables.onNext(StaticValues.ML_ResponseError);
+        getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
+            @Override
+            public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
+                if (StaticFunctions.isCancel)
+                    return;
+                setResponseMessage(CheckResponse(response, false));
+                if (getResponseMessage() == null) {
+                    setResponseMessage(GetMessage(response));
+                    GetLoginInformation();
 
-                    }
+                } else
+                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
 
-                    @Override
-                    public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
-                        Observables.onNext(StaticValues.ML_ResponseFailure);
-                    }
-                });
+            }
+
+            @Override
+            public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
+                OnFailureRequest(context);
+            }
+        });
 
     }//_____________________________________________________________________________________________ SaveAddress
 
 
-
     public void GetLoginInformation() {//___________________________________________________________ GetLoginInformation
-
-        StaticFunctions.isCancel = false;
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
@@ -103,32 +91,32 @@ public class VM_FragmentPackRequestAddress {
 
         String Authorization = GetAuthorization(context);
 
-        retrofitComponent
+        setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .getSettingInfo(
-                        Authorization)
-                .enqueue(new Callback<ModelSettingInfo>() {
-                    @Override
-                    public void onResponse(Call<ModelSettingInfo> call, Response<ModelSettingInfo> response) {
-                        if (StaticFunctions.isCancel)
-                            return;
-                        String m = CheckResponse(response, true);
-                        if (m == null) {
-                            if (StaticFunctions.SaveProfile(context,response.body().getResult()))
-                                Observables.onNext(StaticValues.ML_EditUserAddress);
-//                            SaveProfile();
-                        } else
-                            Observables.onNext(StaticValues.ML_ResponseError);
-                    }
+                        Authorization));
 
-                    @Override
-                    public void onFailure(Call<ModelSettingInfo> call, Throwable t) {
-                        Observables.onNext(StaticValues.ML_ResponseFailure);
-                    }
-                });
+        getPrimaryCall().enqueue(new Callback<ModelSettingInfo>() {
+            @Override
+            public void onResponse(Call<ModelSettingInfo> call, Response<ModelSettingInfo> response) {
+
+                String m = CheckResponse(response, true);
+                if (m == null) {
+                    if (StaticFunctions.SaveProfile(context, response.body().getResult()))
+                        getPublishSubject().onNext(StaticValues.ML_EditUserAddress);
+                } else {
+                    setResponseMessage(CheckResponse(response, true));
+                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ModelSettingInfo> call, Throwable t) {
+                OnFailureRequest(context);
+            }
+        });
 
     }//_____________________________________________________________________________________________ GetLoginInformation
-
 
 
     public void GetTypeBuilding() {//_______________________________________________________________ GetTypeBuilding
@@ -140,28 +128,29 @@ public class VM_FragmentPackRequestAddress {
 
         String Authorization = GetAuthorization(context);
 
-        retrofitComponent
+        setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getHousingBuildings(Authorization)
-                .enqueue(new Callback<ModelHousingBuildings>() {
-                    @Override
-                    public void onResponse(Call<ModelHousingBuildings> call, Response<ModelHousingBuildings> response) {
-                        if (StaticFunctions.isCancel)
-                            return;
-                        MessageResponse = CheckResponse(response, false);
-                        if (MessageResponse == null) {
-                            buildingTypes = response.body().getResult();
-                            Observables.onNext(StaticValues.ML_GetHousingBuildings);
-                        } else
-                            Observables.onNext(StaticValues.ML_ResponseError);
+                .getHousingBuildings(Authorization));
 
-                    }
+        getPrimaryCall().enqueue(new Callback<ModelHousingBuildings>() {
+            @Override
+            public void onResponse(Call<ModelHousingBuildings> call, Response<ModelHousingBuildings> response) {
+                if (StaticFunctions.isCancel)
+                    return;
+                setResponseMessage(CheckResponse(response, false));
+                if (getResponseMessage() == null) {
+                    buildingTypes = response.body().getResult();
+                    getPublishSubject().onNext(StaticValues.ML_GetHousingBuildings);
+                } else
+                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
 
-                    @Override
-                    public void onFailure(Call<ModelHousingBuildings> call, Throwable t) {
-                        Observables.onNext(StaticValues.ML_ResponseFailure);
-                    }
-                });
+            }
+
+            @Override
+            public void onFailure(Call<ModelHousingBuildings> call, Throwable t) {
+                OnFailureRequest(context);
+            }
+        });
 
     }//_____________________________________________________________________________________________ GetTypeBuilding
 
@@ -174,36 +163,38 @@ public class VM_FragmentPackRequestAddress {
 
         String url = "http://nominatim.openstreetmap.org/reverse?format=json&lat=" + lat + "&lon=" + lon + "&zoom=22&addressdetails=5";
 
-        retrofitComponent
+        setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getAddress(url)
-                .enqueue(new Callback<ModelGetAddress>() {
-                    @Override
-                    public void onResponse(Call<ModelGetAddress> call, Response<ModelGetAddress> response) {
-                        if (response.body() == null) {
-                            address = new ModelGetAddress();
-                            address.setLat(String.valueOf(lat));
-                            address.setLon(String.valueOf(lon));
-                        } else {
-                            address = response.body();
-                            if (address.getAddress() == null) {
-                                address.setLat(String.valueOf(lat));
-                                address.setLon(String.valueOf(lon));
-                            }
-                        }
-                        Observables.onNext(StaticValues.ML_GetAddress);
-                    }
+                .getAddress(url));
 
-                    @Override
-                    public void onFailure(Call<ModelGetAddress> call, Throwable t) {
-                        address = new ModelGetAddress();
+        getPrimaryCall().enqueue(new Callback<ModelGetAddress>() {
+            @Override
+            public void onResponse(Call<ModelGetAddress> call, Response<ModelGetAddress> response) {
+                if (response.body() == null) {
+                    address = new ModelGetAddress();
+                    address.setLat(String.valueOf(lat));
+                    address.setLon(String.valueOf(lon));
+                } else {
+                    address = response.body();
+                    if (address.getAddress() == null) {
                         address.setLat(String.valueOf(lat));
                         address.setLon(String.valueOf(lon));
-                        Observables.onNext(StaticValues.ML_ResponseFailure);
                     }
-                });
+                }
+                getPublishSubject().onNext(StaticValues.ML_GetAddress);
+            }
+
+            @Override
+            public void onFailure(Call<ModelGetAddress> call, Throwable t) {
+                address = new ModelGetAddress();
+                address.setLat(String.valueOf(lat));
+                address.setLon(String.valueOf(lon));
+                OnFailureRequest(context);
+            }
+        });
 
     }//_____________________________________________________________________________________________ GetAddress
+
 
 
 
@@ -222,14 +213,14 @@ public class VM_FragmentPackRequestAddress {
                 addressString.append("، ");
 
                 if(!country.equalsIgnoreCase("ایران")) {
-                    MessageResponse = context.getResources().getString(R.string.OutOfIran);
-                    Observables.onNext(StaticValues.ML_ResponseError);
+                    setResponseMessage(context.getResources().getString(R.string.OutOfIran));
+                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
                     return;
                 }
 
             } else {
-                MessageResponse = context.getResources().getString(R.string.OutOfIran);
-                Observables.onNext(StaticValues.ML_ResponseError);
+                setResponseMessage(context.getResources().getString(R.string.OutOfIran));
+                getPublishSubject().onNext(StaticValues.ML_ResponseError);
                 return;
             }
 
@@ -286,21 +277,9 @@ public class VM_FragmentPackRequestAddress {
             AddressString = "";
         }
 
-        Observables.onNext(StaticValues.ML_SetAddress);
+        getPublishSubject().onNext(StaticValues.ML_SetAddress);
 
     }//_____________________________________________________________________________________________ End SetAddress
-
-
-
-    public PublishSubject<Byte> getObservables() {//________________________________________________ getObservables
-        return Observables;
-    }//_____________________________________________________________________________________________ getObservables
-
-
-
-    public ModelGetAddress getAddress() {//_________________________________________________________ getAddress
-        return address;
-    }//_____________________________________________________________________________________________ getAddress
 
 
 
@@ -309,12 +288,9 @@ public class VM_FragmentPackRequestAddress {
     }//_____________________________________________________________________________________________ getAddressString
 
 
-    public String getMessageResponse() {//__________________________________________________________ getMessageResponse
-        return MessageResponse;
-    }//_____________________________________________________________________________________________ getMessageResponse
-
     public ModelBuildingTypes getBuildingTypes() {//________________________________________________ getBuildingTypes
         return buildingTypes;
     }//_____________________________________________________________________________________________ getBuildingTypes
+
 
 }

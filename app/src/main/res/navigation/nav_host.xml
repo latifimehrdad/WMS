@@ -107,6 +107,22 @@
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"/>
 
+        <action
+            android:id="@+id/action_home_to_packageRequestAddress"
+            app:destination="@id/packageRequestAddress"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+        <action
+            android:id="@+id/action_home_to_packageRequestPrimary"
+            app:destination="@id/packageRequestPrimary"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
     </fragment>
 
     <fragment
@@ -114,5 +130,46 @@
         android:name="com.example.wms.views.fragments.user.profile.Profile"
         android:label="Profile"
         tools:layout="@layout/fragment_profile"/>
+
+    <fragment
+        android:id="@+id/packageRequestAddress"
+        android:name="com.example.wms.views.fragments.packrequest.PackageRequestAddress"
+        android:label="PackageRequestAddress"
+        tools:layout="@layout/fragment_pack_request_address"
+        >
+
+        <action
+            android:id="@+id/action_packageRequestAddress_to_packageRequestPrimary"
+            app:destination="@id/packageRequestPrimary"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/packageRequestPrimary"
+        android:name="com.example.wms.views.fragments.packrequest.PackageRequestPrimary"
+        android:label="PackageRequestPrimary"
+        tools:layout="@layout/fragment_pack_request_primary"
+        />
+
+    <fragment
+        android:id="@+id/creatorFragment"
+        android:name="com.example.wms.views.fragments.home.CreatorFragment"
+        android:label="CreatorFragment"
+        tools:layout="@layout/fragment_creator"
+        />
+
+
+    <action
+        android:id="@+id/action_goto_creator"
+        app:destination="@id/creatorFragment"
+        app:popEnterAnim="@anim/slide_in_right"
+        app:popExitAnim="@anim/slide_out_left"
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/slide_out_right"
+        />
 
 </navigation>

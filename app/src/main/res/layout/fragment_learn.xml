@@ -5,6 +5,10 @@
         <variable
             name="learn"
             type="com.example.wms.viewmodels.learn.VM_FragmentLearn" />
+
+        <variable
+            name="vm_Learn"
+            type="com.example.wms.viewmodels.learn.VM_Learn" />
     </data>
 
     <RelativeLayout

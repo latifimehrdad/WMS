@@ -160,6 +160,9 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
         navController = Navigation.findNavController(view);
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
+                .findFragmentById(R.id.fpraMap);
+        mapFragment.getMapAsync(this);
         TextViewWaitMap.setVisibility(View.VISIBLE);
         FullScreen = false;
         textChoose.setVisibility(View.VISIBLE);
@@ -178,9 +181,6 @@ public class FragmentPackRequestAddress extends Fragment implements OnMapReadyCa
         textChoose.setVisibility(View.GONE);
         MarkerGif.setVisibility(View.VISIBLE);
         SetTextWatcher();
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
-                .findFragmentById(R.id.fpraMap);
-        mapFragment.getMapAsync(this);
 //        SetMaterialSpinnersItems();
         SetOnClick();
         DismissLoading();

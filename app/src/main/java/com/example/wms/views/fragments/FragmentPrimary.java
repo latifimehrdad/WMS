@@ -146,12 +146,12 @@ public class FragmentPrimary extends Fragment {
                             ShowMessage(vm_primary.getResponseMessage(),
                                     getResources().getColor(R.color.mlWhite),
                                     getResources().getDrawable(R.drawable.ic_error),
-                                    getResources().getColor(R.color.mlBlack));
+                                    getResources().getColor(R.color.mlCollectRight1));
                         else
                             ShowMessage(vm_primary.getResponseMessage()
                                     , getResources().getColor(R.color.mlWhite),
                                     getResources().getDrawable(R.drawable.ic_check),
-                                    getResources().getColor(R.color.mlBlack));
+                                    getResources().getColor(R.color.colorPrimaryDark));
 
                     }
                 });
@@ -159,13 +159,6 @@ public class FragmentPrimary extends Fragment {
 
 
     public void ShowMessage(String message, int color, Drawable icon, int tintColor) {//____________ ShowMessage
-
-//        ApplicationUtility utility = ApplicationWMS
-//                .getApplicationWMS(getContext())
-//                .getUtilityComponent()
-//                .getApplicationUtility();
-//
-//        utility.ShowMessage(getContext(),message,color,icon,getChildFragmentManager(),tintColor);
 
         DialogMessage dialogMessage = new DialogMessage(getContext(), message, color, icon, tintColor);
         dialogMessage.setCancelable(false);
