@@ -123,6 +123,70 @@
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"/>
 
+        <action
+            android:id="@+id/action_home_to_learn"
+            app:destination="@id/learn"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+        <action
+            android:id="@+id/action_home_to_collectRequest"
+            app:destination="@id/collectRequest"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+        <action
+            android:id="@+id/action_home_to_lottery"
+            app:destination="@id/lottery"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+        <action
+            android:id="@+id/action_home_to_about"
+            app:destination="@id/about"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+        <action
+            android:id="@+id/action_home_to_callWithUs"
+            app:destination="@id/callWithUs"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+        <action
+            android:id="@+id/action_home_to_collectRequestOrder"
+            app:destination="@id/collectRequestOrder"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+        <action
+            android:id="@+id/action_home_to_wallet"
+            app:destination="@id/wallet"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+        <action
+            android:id="@+id/action_home_to_game"
+            app:destination="@id/game"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
     </fragment>
 
     <fragment
@@ -171,5 +235,83 @@
         app:enterAnim="@anim/slide_in_left"
         app:exitAnim="@anim/slide_out_right"
         />
+
+    <fragment
+        android:id="@+id/learn"
+        android:name="com.example.wms.views.fragments.learn.Learn"
+        android:label="Learn"
+        tools:layout="@layout/fragment_learn"/>
+
+    <fragment
+        android:id="@+id/collectRequest"
+        android:name="com.example.wms.views.fragments.collectrequest.collectrequest.CollectRequest"
+        android:label="CollectRequest"
+        tools:layout="@layout/fragment_learn">
+
+        <action
+            android:id="@+id/action_collectRequest_to_boothReceive"
+            app:destination="@id/boothReceive"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+        <action
+            android:id="@+id/action_collectRequest_to_recyclingCar"
+            app:destination="@id/recyclingCar"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/boothReceive"
+        android:name="com.example.wms.views.fragments.collectrequest.boothreceive.BoothReceive"
+        android:label="BoothReceive"
+        tools:layout="@layout/fragment_booth_receive"/>
+
+    <fragment
+        android:id="@+id/recyclingCar"
+        android:name="com.example.wms.views.fragments.collectrequest.recyclingcar.RecyclingCar"
+        android:label="RecyclingCar"
+        tools:layout="@layout/fragment_recycling_car"/>
+
+    <fragment
+        android:id="@+id/lottery"
+        android:name="com.example.wms.views.fragments.lottery.Lottery"
+        android:label="Lottery"
+        tools:layout="@layout/fragment_lottery"/>
+
+    <fragment
+        android:id="@+id/about"
+        android:name="com.example.wms.views.fragments.aboutus.About"
+        android:label="About"
+        tools:layout="@layout/fragment_about_primery"/>
+
+    <fragment
+        android:id="@+id/callWithUs"
+        android:name="com.example.wms.views.fragments.callwithus.CallWithUs"
+        android:label="CallWithUs"
+        tools:layout="@layout/fragment_call_with_us"/>
+
+    <fragment
+        android:id="@+id/collectRequestOrder"
+        android:name="com.example.wms.views.fragments.collectrequest.collectrequest.CollectRequestOrder"
+        android:label="CollectRequestOrder"
+        tools:layout="@layout/fragment_collect_request_orders"/>
+
+    <fragment
+        android:id="@+id/wallet"
+        android:name="com.example.wms.views.fragments.wallet.Wallet"
+        android:label="Wallet"
+        tools:layout="@layout/fragment_wallet"/>
+
+    <fragment
+        android:id="@+id/game"
+        android:name="com.example.wms.views.fragments.game.Game"
+        android:label="Game"
+        tools:layout="@layout/fragment_game"/>
 
 </navigation>

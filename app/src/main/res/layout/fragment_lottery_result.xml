@@ -5,6 +5,11 @@
         <variable
             name="lotteryresult"
             type="com.example.wms.viewmodels.lottery.VM_FragmentLotteryResult" />
+
+        <variable
+            name="VM_LotteryResult"
+            type="com.example.wms.viewmodels.lottery.VM_LotteryResult" />
+
     </data>
 
     <LinearLayout

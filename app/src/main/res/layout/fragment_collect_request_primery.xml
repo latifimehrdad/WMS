@@ -4,6 +4,10 @@
         <variable
             name="collectprimery"
             type="com.example.wms.viewmodels.collectrequest.collectrequest.VM_FragmentCollectRequestPrimary" />
+
+        <variable
+            name="VM_CollectPrimary"
+            type="com.example.wms.viewmodels.collectrequest.collectrequest.VM_CollectRequestPrimary" />
     </data>
 
     <LinearLayout

@@ -156,21 +156,21 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
             @Override
             public void onClick(View v) {
 
-                navController.navigate(R.id.action_fragmentHome_to_fragmentCollectRequest);
+                navController.navigate(R.id.action_home_to_collectRequest);
             }
         });
 
         footerleft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(R.id.action_fragmentHome_to_fragmentLottery);
+                navController.navigate(R.id.action_home_to_lottery);
             }
         });
 
         footerright.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(R.id.action_fragmentHome_to_fragmentLearn);
+                navController.navigate(R.id.action_home_to_learn);
             }
         });
 
@@ -178,21 +178,21 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
         youScorelayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(R.id.action_fragmentHome_to_fragmentLottery);
+                navController.navigate(R.id.action_home_to_lottery);
             }
         });
 
         scoreLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(R.id.action_fragmentHome_to_fragmentLottery);
+                navController.navigate(R.id.action_home_to_lottery);
             }
         });
 
         scoreLayoutChart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(R.id.action_fragmentHome_to_fragmentLottery);
+                navController.navigate(R.id.action_home_to_lottery);
             }
         });
 

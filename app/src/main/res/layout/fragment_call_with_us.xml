@@ -5,6 +5,10 @@
         <variable
             name="callus"
             type="com.example.wms.viewmodels.callwithus.VM_FragmentCallWithUs" />
+
+        <variable
+            name="VM_Call"
+            type="com.example.wms.viewmodels.callwithus.VM_CallWithUs" />
     </data>
 
     <RelativeLayout

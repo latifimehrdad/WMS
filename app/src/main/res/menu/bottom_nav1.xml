@@ -3,18 +3,18 @@
 
 
     <item
-        android:id="@id/fragmentCollectRequestOrders"
+        android:id="@id/collectRequestOrder"
         android:icon="@drawable/logoorder"
         android:title="@string/Orders"/>
 
 
         <item
-            android:id="@id/fragmentHome"
+            android:id="@id/home"
             android:title=""/>
 
 
     <item
-        android:id="@id/fragmentWallet"
+        android:id="@id/wallet"
         android:icon="@drawable/logowallet"
         android:title="@string/ChargingBag"/>
 

@@ -5,6 +5,11 @@
         <variable
             name="lattery"
             type="com.example.wms.viewmodels.lottery.VM_FragmentLottery" />
+
+        <variable
+            name="VM_Lottery"
+            type="com.example.wms.viewmodels.lottery.VM_Lottery" />
+
     </data>
 
     <RelativeLayout

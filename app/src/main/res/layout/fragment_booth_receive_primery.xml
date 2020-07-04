@@ -6,6 +6,11 @@
         <variable
             name="boothreceiveprimery"
             type="com.example.wms.viewmodels.collectrequest.boothreceive.VM_FragmentBoothReceivePrimary" />
+
+        <variable
+            name="VM_BoothReceivePrimary"
+            type="com.example.wms.viewmodels.collectrequest.boothreceive.VM_BoothReceivePrimary" />
+
     </data>
 
     <LinearLayout

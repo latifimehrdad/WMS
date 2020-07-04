@@ -5,6 +5,11 @@
         <variable
             name="learnitem"
             type="com.example.wms.viewmodels.learn.VM_FragmentLearnItems" />
+
+        <variable
+            name="vm_LearmItem"
+            type="com.example.wms.viewmodels.learn.VM_LearnItem" />
+
     </data>
 
     <LinearLayout

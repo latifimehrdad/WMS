@@ -170,7 +170,7 @@
         tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/fragmentWallet"
-        android:name="com.example.wms.views.fragments.wallet.FragmentWallet"
+        android:name="com.example.wms.views.fragments.wallet.Wallet"
         android:label="fragment_wallet"
         tools:layout="@layout/fragment_wallet" />
     <fragment
@@ -181,7 +181,7 @@
 
     <fragment
         android:id="@+id/fragmentGame"
-        android:name="com.example.wms.views.fragments.game.FragmentGame"
+        android:name="com.example.wms.views.fragments.game.Game"
         android:label="FragmentGame"
         tools:layout="@layout/fragment_game"
         />

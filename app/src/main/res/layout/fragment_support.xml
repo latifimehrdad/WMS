@@ -5,6 +5,11 @@
         <variable
             name="support"
             type="com.example.wms.viewmodels.callwithus.VM_FragmentSupport" />
+
+        <variable
+            name="VM_Support"
+            type="com.example.wms.viewmodels.callwithus.VM_Support" />
+
     </data>
 
     <ScrollView

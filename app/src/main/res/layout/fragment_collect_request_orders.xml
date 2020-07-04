@@ -5,6 +5,10 @@
         <variable
             name="collectorders"
             type="com.example.wms.viewmodels.collectrequest.collectrequest.VM_FragmentCollectRequestOrders" />
+
+        <variable
+            name="VM_CollectOrder"
+            type="com.example.wms.viewmodels.collectrequest.collectrequest.VM_CollectRequestOrder" />
     </data>
 
     <LinearLayout

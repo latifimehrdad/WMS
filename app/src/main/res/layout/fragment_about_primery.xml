@@ -6,6 +6,10 @@
         <variable
             name="aboutprimery"
             type="com.example.wms.viewmodels.aboutus.VM_FragmentAboutPrimary" />
+
+        <variable
+            name="VM_About"
+            type="com.example.wms.viewmodels.aboutus.VM_About" />
     </data>
 
     <ScrollView
@@ -17,18 +21,28 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/_10sdp"
             android:gravity="center"
-            android:orientation="vertical"
-            android:padding="@dimen/_10sdp">
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:background="@color/mlCollectItems"
+                android:textColor="@color/mlWhite"
+                android:textSize="@dimen/_10sdp"
+                android:text="@string/AboutUs"
+                android:gravity="center"
+                />
 
             <ImageView
                 android:layout_width="@dimen/_120sdp"
                 android:layout_height="@dimen/_120sdp"
-                android:src="@drawable/wmslogo" />
+                android:src="@drawable/wmslogo"
+                android:layout_margin="@dimen/_10sdp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_margin="@dimen/_10sdp"
                 android:background="@drawable/layout_collect_item"
                 android:orientation="vertical"
                 android:padding="@dimen/_5sdp">

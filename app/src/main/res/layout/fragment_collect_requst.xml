@@ -5,6 +5,11 @@
         <variable
             name="collectrequest"
             type="com.example.wms.viewmodels.collectrequest.collectrequest.VM_FragmentCollectRequest" />
+
+        <variable
+            name="VM_CollectRequest"
+            type="com.example.wms.viewmodels.collectrequest.collectrequest.VM_CollectRequest" />
+
     </data>
 
     <RelativeLayout

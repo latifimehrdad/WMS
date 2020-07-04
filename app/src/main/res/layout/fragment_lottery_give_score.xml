@@ -4,6 +4,10 @@
         <variable
             name="givescore"
             type="com.example.wms.viewmodels.lottery.VM_FragmentLotteryGiveScore" />
+
+        <variable
+            name="VM_LotteryGiveScore"
+            type="com.example.wms.viewmodels.lottery.VM_LotteryGiveScore" />
     </data>
 
     <LinearLayout

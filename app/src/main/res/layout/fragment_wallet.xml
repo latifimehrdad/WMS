@@ -4,6 +4,10 @@
         <variable
             name="wallet"
             type="com.example.wms.viewmodels.wallet.VM_FragmentWallet" />
+
+        <variable
+            name="VM_Wallet"
+            type="com.example.wms.viewmodels.wallet.VM_Wallet" />
     </data>
 
     <LinearLayout

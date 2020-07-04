@@ -4,6 +4,10 @@
         <variable
             name="learnseparation"
             type="com.example.wms.viewmodels.learn.VM_FragmentLearnSeparation" />
+
+        <variable
+            name="VM_LearnSeparation"
+            type="com.example.wms.viewmodels.learn.VM_LearnSeparation" />
     </data>
 
     <LinearLayout

@@ -5,6 +5,10 @@
         <variable
             name="recyclingcarprimery"
             type="com.example.wms.viewmodels.collectrequest.recyclingcar.VM_FragmentRecyclingCarPrimary" />
+
+        <variable
+            name="VM_RecyclingPrimary"
+            type="com.example.wms.viewmodels.collectrequest.recyclingcar.VM_RecyclingCarPrimary" />
     </data>
 
     <LinearLayout

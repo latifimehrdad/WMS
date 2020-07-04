@@ -2,7 +2,9 @@ package com.example.wms.viewmodels.game;
 
 import android.content.Context;
 
-public class VM_GamePrimary {
+import com.example.wms.viewmodels.VM_Primary;
+
+public class VM_GamePrimary extends VM_Primary {
 
     private Context context;
 

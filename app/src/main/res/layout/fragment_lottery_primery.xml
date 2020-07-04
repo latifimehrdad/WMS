@@ -4,6 +4,10 @@
         <variable
             name="lotteryprimery"
             type="com.example.wms.viewmodels.lottery.VM_FragmentLotteryPrimary" />
+
+        <variable
+            name="VM_LotteryPrimary"
+            type="com.example.wms.viewmodels.lottery.VM_LotteryPrimary" />
     </data>
 
     <LinearLayout
