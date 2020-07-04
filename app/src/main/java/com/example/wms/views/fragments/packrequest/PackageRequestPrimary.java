@@ -82,7 +82,6 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
     GifView gifLoading;
 
 
-
     @Nullable
     @Override
     public View onCreateView(
@@ -100,7 +99,6 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
         }
         return getView();
     }//_____________________________________________________________________________________________ onCreateView
-
 
 
     @Override
@@ -133,11 +131,10 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
                 public void run() {
                     vm_packageRequestPrimary.GetTypeTimes();
                 }
-            },50);
+            }, 50);
         }
 
     }//_____________________________________________________________________________________________ onStart
-
 
 
     @Override
@@ -168,7 +165,6 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 
 
-
     private void SetPackageDate(ModelPackage modelPackage) {//______________________________________ SetPackageDate
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.US);
         ApplicationUtility utility = ApplicationWMS
@@ -176,14 +172,13 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
                 .getUtilityComponent()
                 .getApplicationUtility();
         textDate.setText(utility.MiladiToJalali(
-                modelPackage.getFromDeliver(),"FullJalaliString"));
+                modelPackage.getFromDeliver(), "FullJalaliString"));
         StringBuilder builder = new StringBuilder();
         builder.append(simpleDateFormat.format(modelPackage.getFromDeliver()));
         builder.append(" تا ");
         builder.append(simpleDateFormat.format(modelPackage.getToDeliver()));
         textTime.setText(builder.toString());
     }//_____________________________________________________________________________________________ SetPackageDate
-
 
 
     private void SetOnClick() {//___________________________________________________________________ SetOnClick
@@ -197,10 +192,11 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
                     if (Home.requestPackage) {
                         getActivity().onBackPressed();
                         getActivity().onBackPressed();
-                    }
-                    return true;
-                }
-                return true;
+                        return true;
+                    } else
+                        return false;
+                } else
+                    return false;
             }
         });
 
@@ -218,6 +214,8 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
         FPRPSpinnerDay.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+                if (position == 0)
+                    return;
                 TimePosition = position - 1;
                 timeId = vm_packageRequestPrimary.getModelTimes().getTimes().get(TimePosition).getId();
                 FPRPSpinnerDay.setBackgroundColor(getContext().getResources().getColor(R.color.mlEdit));
@@ -240,7 +238,6 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
     }//_____________________________________________________________________________________________ SetOnClick
 
 
-
     private Boolean CheckEmpty() {//________________________________________________________________ CheckEmpty
 
         if (FPRPSpinnerDay.getSelectedIndex() == 0) {
@@ -250,7 +247,6 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
         } else
             return true;
     }//_____________________________________________________________________________________________ CheckEmpty
-
 
 
     private void SetMaterialSpinnersTimes() {//_____________________________________________________ SetMaterialSpinnersTimes
@@ -266,7 +262,7 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
         buildingTypes.add("انتخاب تاریخ دریافت");
         for (ModelTime item : vm_packageRequestPrimary.getModelTimes().getTimes()) {
             StringBuilder builder = new StringBuilder();
-            builder.append(utility.MiladiToJalali(item.getDate(),"FullJalaliString"));
+            builder.append(utility.MiladiToJalali(item.getDate(), "FullJalaliString"));
             builder.append(" از ساعت ");
             builder.append(simpleDateFormat.format(item.getFrom()));
             builder.append(" تا ");
@@ -277,7 +273,6 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
         FPRPSpinnerDay.setItems(buildingTypes);
 
     }//_____________________________________________________________________________________________ SetMaterialSpinnersTimes
-
 
 
     private void DismissLoading() {//_______________________________________________________________ DismissLoading
@@ -297,8 +292,6 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
         gifLoading.setVisibility(View.VISIBLE);
         imgLoading.setVisibility(View.INVISIBLE);
     }//_____________________________________________________________________________________________ ShowLoading
-
-
 
 
     private void ShowProgressDialog() {//___________________________________________________________ ShowProgressDialog

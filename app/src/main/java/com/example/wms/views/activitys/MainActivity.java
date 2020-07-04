@@ -38,6 +38,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.wms.R;
 import com.example.wms.databinding.ActivityMainBinding;
@@ -609,32 +610,30 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        super.onBackPressed();
+        NavDestination navDestination = navController.getCurrentDestination();
+        String fragment = navDestination.getLabel().toString();
+        if ((!fragment.equalsIgnoreCase("Login")) &&
+                (!fragment.equalsIgnoreCase("Home"))) {
+            super.onBackPressed();
+            return;
+        }
 
-//        NavDestination navDestination = navController.getCurrentDestination();
-//        String fragment = navDestination.getLabel().toString();
-//        if ((!fragment.equalsIgnoreCase("FragmentLogin")) &&
-//                (!fragment.equalsIgnoreCase("fragment_home"))) {
-//            super.onBackPressed();
-//            return;
-//        }
-//
-//
-//        if (doubleBackToExitPressedOnce) {
-//            System.exit(1);
-//            return;
-//        }
-//
-//        this.doubleBackToExitPressedOnce = true;
-//        Toast.makeText(this, "برای خروج 2 بار کلیک کنید", Toast.LENGTH_SHORT).show();
-//
-//        new Handler().postDelayed(new Runnable() {
-//
-//            @Override
-//            public void run() {
-//                doubleBackToExitPressedOnce = false;
-//            }
-//        }, 2000);
+
+        if (doubleBackToExitPressedOnce) {
+            System.exit(1);
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "برای خروج 2 بار کلیک کنید", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
 
     }//_____________________________________________________________________________________________ End onBackPressed
 
