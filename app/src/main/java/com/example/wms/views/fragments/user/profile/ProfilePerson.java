@@ -259,7 +259,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
 
 
     @Override
-    public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         setAccessClick(true);
         if (progress != null)

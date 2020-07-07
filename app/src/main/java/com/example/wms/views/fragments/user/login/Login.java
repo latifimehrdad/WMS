@@ -19,10 +19,8 @@ import com.cunoraz.gifview.library.GifView;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentFragmentLoginBinding;
 
-import com.example.wms.utility.StaticFunctions;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.user.login.VM_Login;
-import com.example.wms.viewmodels.user.login.VM_Splash;
 import com.example.wms.views.fragments.FragmentPrimary;
 
 import org.jetbrains.annotations.NotNull;
@@ -103,7 +101,7 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
 
 
     @Override
-    public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         DismissLoading();
         if (action.equals(StaticValues.ML_GoToHome)) {

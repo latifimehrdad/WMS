@@ -106,7 +106,7 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
 
 
     @Override
-    public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
 
         DismissLoading();

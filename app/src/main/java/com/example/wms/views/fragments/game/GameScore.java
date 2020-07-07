@@ -50,7 +50,7 @@ public class GameScore extends FragmentPrimary implements FragmentPrimary.GetMes
 
 
     @Override
-    public void GetMessageFromObservable(Byte action) {
+    public void getMessageFromObservable(Byte action) {
 
     }
 }

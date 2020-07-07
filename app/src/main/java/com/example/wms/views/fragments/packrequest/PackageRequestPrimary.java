@@ -147,7 +147,7 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
 
 
     @Override
-    public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         setAccessClick(true);
 

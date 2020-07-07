@@ -4,21 +4,14 @@
     xmlns:custom="http://schemas.android.com/apk/res-auto">
 
     <data>
-
-        <variable
-            name="beforlogin"
-            type="com.example.wms.viewmodels.user.login.VM_FragmentLogin" />
-
         <variable
             name="login"
             type="com.example.wms.viewmodels.user.login.VM_Login" />
-
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".views.fragments.user.login.FragmentLogin">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"

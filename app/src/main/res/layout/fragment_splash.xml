@@ -3,22 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <variable
-            name="spalsh"
-            type="com.example.wms.viewmodels.user.login.VM_FragmentSplash" />
-
         <variable
             name="vm_splash"
             type="com.example.wms.viewmodels.user.login.VM_Splash" />
-
     </data>
 
     <FrameLayout
 
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".views.fragments.user.login.FragmentSplash">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"

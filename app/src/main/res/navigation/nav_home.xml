@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_home"
-    app:startDestination="@id/fragmentSplash">
+    app:startDestination="@id/fragmentHome">
 
     <fragment
 
@@ -186,69 +186,6 @@
         tools:layout="@layout/fragment_game"
         />
 
-    <fragment
-        android:id="@+id/fragmentSplash"
-        android:name="com.example.wms.views.fragments.user.login.FragmentSplash"
-        android:label="FragmentSplash"
-        tools:layout="@layout/fragment_splash"
-        >
-
-
-        <action
-            android:id="@+id/action_fragmentSplash_to_fragmentLogin"
-            app:destination="@id/fragmentLogin"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"
-            />
-
-        <action
-            android:id="@+id/action_Splash_to_Home"
-            app:destination="@id/fragmentHome"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"
-            />
-
-
-    </fragment>
-
-    <fragment
-        android:id="@+id/fragmentLogin"
-        android:name="com.example.wms.views.fragments.user.login.FragmentLogin"
-        android:label="FragmentLogin"
-        tools:layout="@layout/fragment_fragment_login"
-        >
-
-        <argument android:name="@string/ML_PhoneNumber"
-            android:defaultValue="null"/>
-
-        <argument android:name="@string/ML_Password"
-            android:defaultValue="null"/>
-
-        <argument android:name="@string/ML_Type"
-            android:defaultValue="null"/>
-
-        <action
-            android:id="@+id/action_fragmentLogin_to_fragmentSendNumber"
-            app:destination="@id/fragmentSendNumber"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
-
-
-        <action
-            android:id="@+id/action_fragmentLogin_to_fragmentHome"
-            app:destination="@id/fragmentHome"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
-
-    </fragment>
 
     <fragment
         android:id="@+id/fragmentSendNumber"
@@ -279,14 +216,6 @@
         android:label="FragmentVerifyCode"
         tools:layout="@layout/fragment_verify_code"
         >
-
-        <action
-            android:id="@+id/action_fragmentVerifyCode_to_fragmentLogin"
-            app:destination="@id/fragmentLogin"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
 
 
     </fragment>

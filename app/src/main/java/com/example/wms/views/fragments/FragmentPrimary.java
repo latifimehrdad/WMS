@@ -1,7 +1,6 @@
 package com.example.wms.views.fragments;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -11,10 +10,8 @@ import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.wms.R;
-import com.example.wms.utility.ApplicationUtility;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.VM_Primary;
-import com.example.wms.views.application.ApplicationWMS;
 import com.example.wms.views.dialogs.DialogMessage;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -34,7 +31,7 @@ public class FragmentPrimary extends Fragment {
 
     public interface GetMessageFromObservable {//___________________________________________________ GetMessageFromObservable
 
-        void GetMessageFromObservable(Byte action);
+        void getMessageFromObservable(Byte action);
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 
 
@@ -73,7 +70,6 @@ public class FragmentPrimary extends Fragment {
     public Activity getContext() {//________________________________________________________________ getContext
         return context;
     }//_____________________________________________________________________________________________ getContext
-
 
 
     @Override
@@ -128,59 +124,56 @@ public class FragmentPrimary extends Fragment {
 
 
     private void actionHandler(Byte action) {//_____________________________________________________ actionHandler
-        getActivity()
-                .runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
+        if (getContext() != null) {
+            getContext().runOnUiThread(() -> {
+                getMessageFromObservable.getMessageFromObservable(action);
 
-                        setAccessClick(true);
+                if (vm_primary.getResponseMessage() == null)
+                    return;
 
-                        getMessageFromObservable.GetMessageFromObservable(action);
+                if (vm_primary.getResponseMessage().equalsIgnoreCase(""))
+                    return;
 
-                        if (vm_primary.getResponseMessage() == null)
-                            return;
+                if ((action.equals(StaticValues.ML_RequestCancel))
+                        || (action.equals(StaticValues.ML_ResponseError))
+                        || (action.equals(StaticValues.ML_ResponseFailure)))
+                    ShowMessage(vm_primary.getResponseMessage(),
+                            getResources().getColor(R.color.mlWhite),
+                            getResources().getDrawable(R.drawable.ic_error),
+                            getResources().getColor(R.color.mlCollectRight1));
+                else
+                    ShowMessage(vm_primary.getResponseMessage()
+                            , getResources().getColor(R.color.mlWhite),
+                            getResources().getDrawable(R.drawable.ic_check),
+                            getResources().getColor(R.color.colorPrimaryDark));
 
-                        if (vm_primary.getResponseMessage().equalsIgnoreCase(""))
-                            return;
-
-                        if ((action == StaticValues.ML_RequestCancel)
-                                || (action == StaticValues.ML_ResponseError)
-                                || (action == StaticValues.ML_ResponseFailure))
-                            ShowMessage(vm_primary.getResponseMessage(),
-                                    getResources().getColor(R.color.mlWhite),
-                                    getResources().getDrawable(R.drawable.ic_error),
-                                    getResources().getColor(R.color.mlCollectRight1));
-                        else
-                            ShowMessage(vm_primary.getResponseMessage()
-                                    , getResources().getColor(R.color.mlWhite),
-                                    getResources().getDrawable(R.drawable.ic_check),
-                                    getResources().getColor(R.color.colorPrimaryDark));
-
-                    }
-                });
+            });
+        }
     }//_____________________________________________________________________________________________ actionHandler
 
 
     public void ShowMessage(String message, int color, Drawable icon, int tintColor) {//____________ ShowMessage
 
-        DialogMessage dialogMessage = new DialogMessage(getContext(), message, color, icon, tintColor);
-        dialogMessage.setCancelable(false);
-        dialogMessage.show(getFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+        if (getFragmentManager() != null) {
+            DialogMessage dialogMessage = new DialogMessage(getContext(), message, color, icon, tintColor);
+            dialogMessage.setCancelable(false);
+            dialogMessage.show(getFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+        }
 
     }//_____________________________________________________________________________________________ ShowMessage
 
 
     public void hideKeyboard() {//__________________________________________________________________ hideKeyboard
-        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
-        //Find the currently focused view, so we can grab the correct window token from it.
-        View view = getContext().getCurrentFocus();
-        //If no view currently has focus, create a new one, just so we can grab a window token from it
-        if (view == null) {
-            view = new View(getContext());
+        if (getContext() != null) {
+            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+            View view = getContext().getCurrentFocus();
+            if (view == null) {
+                view = new View(getContext());
+            }
+            if (imm != null)
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }//_____________________________________________________________________________________________ hideKeyboard
-
 
 
     public boolean isAccessClick() {//______________________________________________________________ isAccessClick
