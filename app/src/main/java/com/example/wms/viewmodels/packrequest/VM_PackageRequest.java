@@ -1,15 +1,14 @@
 package com.example.wms.viewmodels.packrequest;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.example.wms.viewmodels.VM_Primary;
 
 public class VM_PackageRequest extends VM_Primary {
 
-    private Context context;
-
-    public VM_PackageRequest(Context context) {//___________________________________________________ VM_PackageRequest
-        this.context = context;
+    public VM_PackageRequest(Activity context) {//___________________________________________________ VM_PackageRequest
+        setContext(context);
     }//_____________________________________________________________________________________________ VM_PackageRequest
 
 }

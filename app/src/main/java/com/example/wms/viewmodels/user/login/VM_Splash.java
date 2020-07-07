@@ -1,5 +1,6 @@
 package com.example.wms.viewmodels.user.login;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -22,25 +23,24 @@ import static com.example.wms.utility.StaticFunctions.GetAuthorization;
 
 public class VM_Splash extends VM_Primary {
 
-    private Context context;
     private ModelToken modelToken;
     private ModelSettingInfo.ModelProfileSetting profile;
 
 
-    public VM_Splash(Context context) {//___________________________________________________________ VM_Splash
-        this.context = context;
+    public VM_Splash(Activity context) {//__________________________________________________________ VM_Splash
+        setContext(context);
     }//_____________________________________________________________________________________________ VM_Splash
 
 
     public void CheckToken() {//____________________________________________________________________ CheckToken
 
-        SharedPreferences prefs = context.getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0);
+        SharedPreferences prefs = getContext().getSharedPreferences(getContext().getString(R.string.ML_SharePreferences), 0);
         if (prefs == null) {
             GetTokenFromServer();
         } else {
-            String access_token = prefs.getString(context.getString(R.string.ML_AccessToken), null);
-            String expires = prefs.getString(context.getString(R.string.ML_Expires), null);
-            String PhoneNumber = prefs.getString(context.getString(R.string.ML_PhoneNumber), null);
+            String access_token = prefs.getString(getContext().getString(R.string.ML_AccessToken), null);
+            String expires = prefs.getString(getContext().getString(R.string.ML_Expires), null);
+            String PhoneNumber = prefs.getString(getContext().getString(R.string.ML_PhoneNumber), null);
             if ((access_token == null) || (expires == null))
                 GetTokenFromServer();
             else {
@@ -57,7 +57,7 @@ public class VM_Splash extends VM_Primary {
     public void GetTokenFromServer() {//____________________________________________________________ GetTokenFromServer
 
         RetrofitComponent retrofitComponent = ApplicationWMS
-                .getApplicationWMS(context)
+                .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
         setPrimaryCall(retrofitComponent
@@ -73,7 +73,7 @@ public class VM_Splash extends VM_Primary {
                 setResponseMessage(CheckResponse(response, true));
                 if (getResponseMessage() == null) {
                     modelToken = response.body();
-                    if (StaticFunctions.SaveToken(context, modelToken))
+                    if (StaticFunctions.SaveToken(getContext(), modelToken))
                         getPublishSubject().onNext(StaticValues.ML_GotoLogin);
                 } else
                     getPublishSubject().onNext(StaticValues.ML_ResponseError);
@@ -81,7 +81,7 @@ public class VM_Splash extends VM_Primary {
 
             @Override
             public void onFailure(Call<ModelToken> call, Throwable t) {
-                OnFailureRequest(context);
+                OnFailureRequest();
             }
         });
 
@@ -92,10 +92,10 @@ public class VM_Splash extends VM_Primary {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
-                        .getApplicationWMS(context)
+                        .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization(context);
+        String Authorization = GetAuthorization();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -108,7 +108,7 @@ public class VM_Splash extends VM_Primary {
                 setResponseMessage(CheckResponse(response, true));
                 if (getResponseMessage() == null) {
                     profile = response.body().getResult();
-                    if (StaticFunctions.SaveProfile(context, profile))
+                    if (StaticFunctions.SaveProfile(getContext(), profile))
                         getPublishSubject().onNext(StaticValues.ML_GoToHome);
                 } else
                     getPublishSubject().onNext(StaticValues.ML_ResponseError);
@@ -116,7 +116,7 @@ public class VM_Splash extends VM_Primary {
 
             @Override
             public void onFailure(Call<ModelSettingInfo> call, Throwable t) {
-                OnFailureRequest(context);
+                OnFailureRequest();
             }
         });
 

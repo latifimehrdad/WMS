@@ -1,5 +1,6 @@
 package com.example.wms.viewmodels.packrequest;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.example.wms.R;
@@ -21,13 +22,12 @@ import retrofit2.Response;
 
 public class VM_PackageRequestAddress extends VM_Primary {
 
-    private Context context;
     private ModelBuildingTypes buildingTypes;
     private ModelGetAddress address;
     private String AddressString;
 
-    public VM_PackageRequestAddress(Context context) {//____________________________________________ VM_PackageRequestAddress
-        this.context = context;
+    public VM_PackageRequestAddress(Activity context) {//___________________________________________ VM_PackageRequestAddress
+        setContext(context);
     }//_____________________________________________________________________________________________ VM_PackageRequestAddress
 
 
@@ -41,10 +41,10 @@ public class VM_PackageRequestAddress extends VM_Primary {
             Integer BuildingUseCount) {//___________________________________________________________ SaveAddress
 
         RetrofitComponent retrofitComponent = ApplicationWMS
-                .getApplicationWMS(context)
+                .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
-        String Authorization = GetAuthorization(context);
+        String Authorization = GetAuthorization();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -75,7 +75,7 @@ public class VM_PackageRequestAddress extends VM_Primary {
 
             @Override
             public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
-                OnFailureRequest(context);
+                OnFailureRequest();
             }
         });
 
@@ -86,10 +86,10 @@ public class VM_PackageRequestAddress extends VM_Primary {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
-                        .getApplicationWMS(context)
+                        .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization(context);
+        String Authorization = GetAuthorization();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -102,7 +102,7 @@ public class VM_PackageRequestAddress extends VM_Primary {
 
                 String m = CheckResponse(response, true);
                 if (m == null) {
-                    if (StaticFunctions.SaveProfile(context, response.body().getResult()))
+                    if (StaticFunctions.SaveProfile(getContext(), response.body().getResult()))
                         getPublishSubject().onNext(StaticValues.ML_EditUserAddress);
                 } else {
                     setResponseMessage(CheckResponse(response, true));
@@ -112,7 +112,7 @@ public class VM_PackageRequestAddress extends VM_Primary {
 
             @Override
             public void onFailure(Call<ModelSettingInfo> call, Throwable t) {
-                OnFailureRequest(context);
+                OnFailureRequest();
             }
         });
 
@@ -123,10 +123,10 @@ public class VM_PackageRequestAddress extends VM_Primary {
 
         StaticFunctions.isCancel = false;
         RetrofitComponent retrofitComponent = ApplicationWMS
-                .getApplicationWMS(context)
+                .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
-        String Authorization = GetAuthorization(context);
+        String Authorization = GetAuthorization();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -148,7 +148,7 @@ public class VM_PackageRequestAddress extends VM_Primary {
 
             @Override
             public void onFailure(Call<ModelHousingBuildings> call, Throwable t) {
-                OnFailureRequest(context);
+                OnFailureRequest();
             }
         });
 
@@ -158,7 +158,7 @@ public class VM_PackageRequestAddress extends VM_Primary {
     public void GetAddress(double lat, double lon) {//______________________________________________ GetAddress
 
         RetrofitComponent retrofitComponent = ApplicationWMS
-                .getApplicationWMS(context)
+                .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
         String url = "http://nominatim.openstreetmap.org/reverse?format=json&lat=" + lat + "&lon=" + lon + "&zoom=22&addressdetails=5";
@@ -189,7 +189,7 @@ public class VM_PackageRequestAddress extends VM_Primary {
                 address = new ModelGetAddress();
                 address.setLat(String.valueOf(lat));
                 address.setLon(String.valueOf(lon));
-                OnFailureRequest(context);
+                OnFailureRequest();
             }
         });
 
@@ -213,13 +213,13 @@ public class VM_PackageRequestAddress extends VM_Primary {
                 addressString.append("، ");
 
                 if(!country.equalsIgnoreCase("ایران")) {
-                    setResponseMessage(context.getResources().getString(R.string.OutOfIran));
+                    setResponseMessage(getContext().getResources().getString(R.string.OutOfIran));
                     getPublishSubject().onNext(StaticValues.ML_ResponseError);
                     return;
                 }
 
             } else {
-                setResponseMessage(context.getResources().getString(R.string.OutOfIran));
+                setResponseMessage(getContext().getResources().getString(R.string.OutOfIran));
                 getPublishSubject().onNext(StaticValues.ML_ResponseError);
                 return;
             }

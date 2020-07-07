@@ -110,18 +110,20 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
                 vm_packageRequestPrimary.getPublishSubject(),
                 vm_packageRequestPrimary);
 
-        Integer state = vm_packageRequestPrimary.GetPackageState();
-        boolean isPackage = vm_packageRequestPrimary.IsPackageState();
+        SetStatusPackageRequest();
 
-        if (isPackage) {
-            FPRPStatusViewScroller.getStatusView().setCurrentCount(state + 1);
-            if (state != 0) {
-                RelativeLayoutSave.setVisibility(View.GONE);
-                LinearLayoutPackageState.setVisibility(View.VISIBLE);
-                FPRPSpinnerDay.setVisibility(View.GONE);
-                SetPackageDate(StaticFunctions.PackageRequestDate(getContext()));
-            }
-        } else {
+
+
+    }//_____________________________________________________________________________________________ onStart
+
+
+
+    private void  SetStatusPackageRequest() {//_____________________________________________________ SetStatusPackageRequest
+
+
+        Byte statues = vm_packageRequestPrimary.GetPackageStatus();
+
+        if (statues == StaticValues.PR_NotRequested) {
             RelativeLayoutSave.setVisibility(View.VISIBLE);
             LinearLayoutPackageState.setVisibility(View.GONE);
             FPRPSpinnerDay.setVisibility(View.VISIBLE);
@@ -132,9 +134,17 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
                     vm_packageRequestPrimary.GetTypeTimes();
                 }
             }, 50);
+        } else {
+            FPRPStatusViewScroller.getStatusView().setCurrentCount(statues + 1);
+            RelativeLayoutSave.setVisibility(View.GONE);
+            LinearLayoutPackageState.setVisibility(View.VISIBLE);
+            FPRPSpinnerDay.setVisibility(View.GONE);
+            SetPackageDate(StaticFunctions.PackageRequestDate(getContext()));
         }
 
-    }//_____________________________________________________________________________________________ onStart
+
+    }//_____________________________________________________________________________________________ SetStatusPackageRequest
+
 
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.wms.viewmodels.user.profile;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.example.wms.daggers.retrofit.RetrofitComponent;
@@ -18,11 +19,10 @@ import retrofit2.Response;
 
 public class VM_ProfileCode extends VM_Primary {
 
-    private Context context;
     private String BuildingRenovationCode;
 
-    public VM_ProfileCode(Context context) {//______________________________________________________ VM_ProfileCode
-        this.context = context;
+    public VM_ProfileCode(Activity context) {//_____________________________________________________ VM_ProfileCode
+        setContext(context);
     }//_____________________________________________________________________________________________ VM_ProfileCode
 
 
@@ -30,10 +30,10 @@ public class VM_ProfileCode extends VM_Primary {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
-                        .getApplicationWMS(context)
+                        .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization(context);
+        String Authorization = GetAuthorization();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -57,7 +57,7 @@ public class VM_ProfileCode extends VM_Primary {
 
             @Override
             public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
-                OnFailureRequest(context);
+                OnFailureRequest();
             }
         });
     }//_____________________________________________________________________________________________ SendCode
@@ -67,10 +67,10 @@ public class VM_ProfileCode extends VM_Primary {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
-                        .getApplicationWMS(context)
+                        .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization(context);
+        String Authorization = GetAuthorization();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -96,7 +96,7 @@ public class VM_ProfileCode extends VM_Primary {
 
             @Override
             public void onFailure(Call<ModelBuildingRenovationCode> call, Throwable t) {
-                OnFailureRequest(context);
+                OnFailureRequest();
             }
         });
 

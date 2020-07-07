@@ -1,5 +1,6 @@
 package com.example.wms.viewmodels.user.login;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.example.wms.daggers.retrofit.RetrofitApis;
@@ -20,13 +21,12 @@ import static com.example.wms.utility.StaticFunctions.GetAuthorization;
 
 public class VM_Login extends VM_Primary {
 
-    private Context context;
     private ModelToken modelToken;
     private String PhoneNumber;
     private String Password;
 
-    public VM_Login(Context context) {//____________________________________________________________ VM_Login
-        this.context = context;
+    public VM_Login(Activity context) {//___________________________________________________________ VM_Login
+        setContext(context);
     }//_____________________________________________________________________________________________ VM_Login
 
 
@@ -34,10 +34,10 @@ public class VM_Login extends VM_Primary {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
-                        .getApplicationWMS(context)
+                        .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization(context);
+        String Authorization = GetAuthorization();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -54,7 +54,7 @@ public class VM_Login extends VM_Primary {
                 setResponseMessage(CheckResponse(response, true));
                 if (getResponseMessage() == null) {
                     modelToken = response.body();
-                    if (StaticFunctions.SaveToken(context, modelToken))
+                    if (StaticFunctions.SaveToken(getContext(), modelToken))
                         GetLoginInformation();
                 } else
                     getPublishSubject().onNext(StaticValues.ML_ResponseError);
@@ -62,7 +62,7 @@ public class VM_Login extends VM_Primary {
 
             @Override
             public void onFailure(Call<ModelToken> call, Throwable t) {
-                OnFailureRequest(context);
+                OnFailureRequest();
             }
         });
 
@@ -73,10 +73,10 @@ public class VM_Login extends VM_Primary {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
-                        .getApplicationWMS(context)
+                        .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization(context);
+        String Authorization = GetAuthorization();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -88,7 +88,7 @@ public class VM_Login extends VM_Primary {
             public void onResponse(Call<ModelSettingInfo> call, Response<ModelSettingInfo> response) {
                 setResponseMessage(CheckResponse(response, true));
                 if (getResponseMessage() == null) {
-                    if (StaticFunctions.SaveProfile(context, response.body().getResult()))
+                    if (StaticFunctions.SaveProfile(getContext(), response.body().getResult()))
                         getPublishSubject().onNext(StaticValues.ML_GoToHome);
                 } else
                     getPublishSubject().onNext(StaticValues.ML_ResponseError);
@@ -96,7 +96,7 @@ public class VM_Login extends VM_Primary {
 
             @Override
             public void onFailure(Call<ModelSettingInfo> call, Throwable t) {
-                OnFailureRequest(context);
+                OnFailureRequest();
             }
         });
 

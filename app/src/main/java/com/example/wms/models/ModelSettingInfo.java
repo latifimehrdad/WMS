@@ -32,9 +32,6 @@ public class ModelSettingInfo extends ModelResponsePrimary {
         @SerializedName("isAddressCompleted")
         Boolean isAddressCompleted;
 
-        @SerializedName("isPackageRequested")
-        Boolean isPackageRequested;
-
         @SerializedName("package")
         ModelPackage modelPackage;
 
@@ -77,10 +74,6 @@ public class ModelSettingInfo extends ModelResponsePrimary {
 
         public void setAddressCompleted(Boolean addressCompleted) {
             isAddressCompleted = addressCompleted;
-        }
-
-        public Boolean getPackageRequested() {
-            return isPackageRequested;
         }
 
         public ModelPackage getModelPackage() {

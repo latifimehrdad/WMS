@@ -1,5 +1,6 @@
 package com.example.wms.viewmodels;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -22,15 +23,16 @@ public class VM_Primary {
     private PublishSubject<Byte> publishSubject;
     private String ResponseMessage;
     private Call PrimaryCall;
+    private Activity context;
 
     public VM_Primary() {//_________________________________________________________________________ VM_Primary
         publishSubject = PublishSubject.create();
     }//_____________________________________________________________________________________________ VM_Primary
 
 
-    public static String GetAuthorization(Context context) {//______________________________________ GetAuthorization
+    public String GetAuthorization() {//____________________________________________________________ GetAuthorization
         String Authorization = "Bearer ";
-        SharedPreferences prefs = context.getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0);
+        SharedPreferences prefs = getContext().getSharedPreferences(getContext().getString(R.string.ML_SharePreferences), 0);
         if (prefs != null) {
             String access_token = prefs.getString(context.getString(R.string.ML_AccessToken), null);
             if (access_token != null)
@@ -100,13 +102,13 @@ public class VM_Primary {
 
 
 
-    public void OnFailureRequest(Context context) {//_______________________________________________ OnFailureRequest
+    public void OnFailureRequest() {//______________________________________________________________ OnFailureRequest
         if (getPrimaryCall().isCanceled()) {
-            setResponseMessage(context.getResources().getString(R.string.RequestCancel));
+            setResponseMessage(getContext().getResources().getString(R.string.RequestCancel));
             getPublishSubject().onNext(StaticValues.ML_RequestCancel);
         }
         else {
-            setResponseMessage(context.getResources().getString(R.string.NetworkError));
+            setResponseMessage(getContext().getResources().getString(R.string.NetworkError));
             getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
         }
     }//_____________________________________________________________________________________________ OnFailureRequest
@@ -139,4 +141,15 @@ public class VM_Primary {
     public void setResponseMessage(String responseMessage) {//______________________________________ setResponseMessage
         ResponseMessage = responseMessage;
     }//_____________________________________________________________________________________________ setResponseMessage
+
+
+    public Activity getContext() {//________________________________________________________________ getContext
+        return context;
+    }//_____________________________________________________________________________________________ getContext
+
+
+    public void setContext(Activity context) {//____________________________________________________ setContext
+        this.context = context;
+    }//_____________________________________________________________________________________________ setContext
+
 }

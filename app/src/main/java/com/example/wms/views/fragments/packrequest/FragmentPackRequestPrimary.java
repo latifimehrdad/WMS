@@ -109,9 +109,9 @@ public class FragmentPackRequestPrimary extends Fragment {
         ObserverObservables();
 
         Integer state = vm_fragmentPackRequestPrimary.GetPackageState();
-        boolean isPackage = vm_fragmentPackRequestPrimary.IsPackageState();
+        //boolean isPackage = vm_fragmentPackRequestPrimary.IsPackageState();
 
-        if (isPackage) {
+        if (true) {
             FPRPStatusViewScroller.getStatusView().setCurrentCount(state + 1);
             if (state != 0) {
                 RelativeLayoutSave.setVisibility(View.GONE);

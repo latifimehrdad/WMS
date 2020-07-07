@@ -1,6 +1,6 @@
 package com.example.wms.viewmodels.main;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Handler;
 
@@ -12,21 +12,19 @@ import static com.example.wms.views.activitys.MainActivity.complateprofile;
 
 public class VM_Home extends VM_Primary {
 
-    private Context context;
-
-    public VM_Home(Context context) {//_____________________________________________________________ VM_Home
-        this.context = context;
+    public VM_Home(Activity context) {//____________________________________________________________ VM_Home
+        setContext(context);
     }//_____________________________________________________________________________________________ VM_Home
 
 
 
     public void CheckProfile() {//__________________________________________________________________ CheckProfile
 
-        SharedPreferences prefs = context.getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0);
+        SharedPreferences prefs = getContext().getSharedPreferences(getContext().getString(R.string.ML_SharePreferences), 0);
         if (prefs == null) {
             complateprofile = false;
         } else {
-            complateprofile = prefs.getBoolean(context.getString(R.string.ML_CompleteProfile), false);
+            complateprofile = prefs.getBoolean(getContext().getString(R.string.ML_CompleteProfile), false);
         }
 
         if (!complateprofile) {
@@ -42,35 +40,24 @@ public class VM_Home extends VM_Primary {
     }//_____________________________________________________________________________________________ CheckProfile
 
 
-    public boolean IsPackageState() {//_____________________________________________________________ IsPackageState
-        SharedPreferences prefs = context.getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0);
-        if (prefs == null) {
-            return false;
-        } else {
-            return prefs.getBoolean(context.getString(R.string.ML_IsPackageState), false);
-        }
-    }//_____________________________________________________________________________________________ IsPackageState
-
-
-
     public int GetPackageState() {//________________________________________________________________ CheckGetPackage
 
-        SharedPreferences prefs = context.getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0);
+        SharedPreferences prefs = getContext().getSharedPreferences(getContext().getString(R.string.ML_SharePreferences), 0);
         if (prefs == null) {
             return 0;
         } else {
-            return prefs.getInt(context.getString(R.string.ML_PackageRequest), 0);
+            return prefs.getInt(getContext().getString(R.string.ML_PackageRequestStatus), 0);
         }
     }//_____________________________________________________________________________________________ CheckGetPackage
 
 
 
     public boolean IsAddressCompleted() {//_________________________________________________________ IsAddressCompleted
-        SharedPreferences prefs = context.getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0);
+        SharedPreferences prefs = getContext().getSharedPreferences(getContext().getString(R.string.ML_SharePreferences), 0);
         if (prefs == null) {
             return false;
         } else {
-            return prefs.getBoolean(context.getString(R.string.ML_AddressCompleted), false);
+            return prefs.getBoolean(getContext().getString(R.string.ML_AddressCompleted), false);
         }
     }//_____________________________________________________________________________________________ IsAddressCompleted
 

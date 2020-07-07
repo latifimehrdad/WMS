@@ -1,15 +1,14 @@
 package com.example.wms.viewmodels.user.profile;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.example.wms.viewmodels.VM_Primary;
 
 public class VM_Profile extends VM_Primary {
 
-    private Context context;
-
-    public VM_Profile(Context context) {//__________________________________________________________ VM_Profile
-        this.context = context;
+    public VM_Profile(Activity context) {//_________________________________________________________ VM_Profile
+        setContext(context);
     }//_____________________________________________________________________________________________ VM_Profile
 
 }

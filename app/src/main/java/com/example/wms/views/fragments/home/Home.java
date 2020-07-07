@@ -113,7 +113,6 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
     @Override
     public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
-        setAccessClick(true);
         if (action == StaticValues.ML_GotoProfile) {
             navController.navigate(R.id.action_home_to_profile);
             return;

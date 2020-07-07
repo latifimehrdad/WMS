@@ -1,14 +1,13 @@
 package com.example.wms.viewmodels.game;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.example.wms.viewmodels.VM_Primary;
 
 public class VM_GamePrimary extends VM_Primary {
 
-    private Context context;
-
-    public VM_GamePrimary(Context context) {//______________________________________________________ Start VM_GamePrimary
-        this.context = context;
+    public VM_GamePrimary(Activity context) {//______________________________________________________ Start VM_GamePrimary
+        setContext(context);
     }//_____________________________________________________________________________________________ End VM_GamePrimary
 }

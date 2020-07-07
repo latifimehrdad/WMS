@@ -1,12 +1,15 @@
 package com.example.wms.viewmodels.wallet;
 
+import android.app.Activity;
 import android.content.Context;
 
-public class VM_Wallet {
+import com.example.wms.viewmodels.VM_Primary;
 
-    private Context context;
+public class VM_Wallet extends VM_Primary {
 
-    public VM_Wallet(Context context) {//___________________________________________________________ VM_Wallet
-        this.context = context;
+
+    public VM_Wallet(Activity context) {//__________________________________________________________ VM_Wallet
+        setContext(context);
     }//_____________________________________________________________________________________________ VM_Wallet
+
 }

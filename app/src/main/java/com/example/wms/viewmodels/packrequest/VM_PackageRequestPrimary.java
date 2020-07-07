@@ -1,6 +1,6 @@
 package com.example.wms.viewmodels.packrequest;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.SharedPreferences;
 
 import com.example.wms.R;
@@ -21,21 +21,20 @@ import retrofit2.Response;
 
 public class VM_PackageRequestPrimary extends VM_Primary {
 
-    private Context context;
     private ModelTimes modelTimes;
 
-    public VM_PackageRequestPrimary(Context context) {//____________________________________________ VM_PackageRequestPrimary
-        this.context = context;
+    public VM_PackageRequestPrimary(Activity context) {//___________________________________________ VM_PackageRequestPrimary
+        setContext(context);
     }//_____________________________________________________________________________________________ VM_PackageRequestPrimary
 
 
     public void SendPackageRequest(Integer timeId) {//______________________________________________ SendPackageRequest
 
         RetrofitComponent retrofitComponent = ApplicationWMS
-                .getApplicationWMS(context)
+                .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
-        String Authorization = GetAuthorization(context);
+        String Authorization = GetAuthorization();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -58,7 +57,7 @@ public class VM_PackageRequestPrimary extends VM_Primary {
 
             @Override
             public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
-                OnFailureRequest(context);
+                OnFailureRequest();
             }
         });
 
@@ -69,10 +68,10 @@ public class VM_PackageRequestPrimary extends VM_Primary {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
-                        .getApplicationWMS(context)
+                        .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization(context);
+        String Authorization = GetAuthorization();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -84,7 +83,7 @@ public class VM_PackageRequestPrimary extends VM_Primary {
             public void onResponse(Call<ModelSettingInfo> call, Response<ModelSettingInfo> response) {
                 String m = CheckResponse(response, true);
                 if (m == null) {
-                    if (StaticFunctions.SaveProfile(context, response.body().getResult()))
+                    if (StaticFunctions.SaveProfile(getContext(), response.body().getResult()))
                         getPublishSubject().onNext(StaticValues.ML_SendPackageRequest);
                 } else
                     getPublishSubject().onNext(StaticValues.ML_ResponseError);
@@ -92,7 +91,7 @@ public class VM_PackageRequestPrimary extends VM_Primary {
 
             @Override
             public void onFailure(Call<ModelSettingInfo> call, Throwable t) {
-                OnFailureRequest(context);
+                OnFailureRequest();
             }
         });
 
@@ -102,10 +101,10 @@ public class VM_PackageRequestPrimary extends VM_Primary {
     public void GetTypeTimes() {//__________________________________________________________________ GetTypeTimes
 
         RetrofitComponent retrofitComponent = ApplicationWMS
-                .getApplicationWMS(context)
+                .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
-        String Authorization = GetAuthorization(context);
+        String Authorization = GetAuthorization();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -127,33 +126,23 @@ public class VM_PackageRequestPrimary extends VM_Primary {
 
             @Override
             public void onFailure(Call<ModelTimeSheetTimes> call, Throwable t) {
-                OnFailureRequest(context);
+                OnFailureRequest();
             }
         });
 
     }//_____________________________________________________________________________________________ GetTypeTimes
 
 
-    public boolean IsPackageState() {//_____________________________________________________________ IsPackageState
-        SharedPreferences prefs = context.getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0);
-        if (prefs == null) {
-            return false;
-        } else {
-            return prefs.getBoolean(context.getString(R.string.ML_IsPackageState), false);
-        }
-    }//_____________________________________________________________________________________________ IsPackageState
+    public Byte GetPackageStatus() {//_______________________________________________________________ GetPackageStatus
 
-
-
-    public int GetPackageState() {//________________________________________________________________ CheckGetPackage
-
-        SharedPreferences prefs = context.getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0);
+        SharedPreferences prefs = getContext().getSharedPreferences(getContext().getString(R.string.ML_SharePreferences), 0);
         if (prefs == null) {
             return 0;
         } else {
-            return prefs.getInt(context.getString(R.string.ML_PackageRequest), 0);
+            int status = prefs.getInt(getContext().getString(R.string.ML_PackageRequestStatus), 0);
+            return (byte) prefs.getInt(getContext().getString(R.string.ML_PackageRequestStatus), 0);
         }
-    }//_____________________________________________________________________________________________ CheckGetPackage
+    }//_____________________________________________________________________________________________ GetPackageStatus
 
 
 

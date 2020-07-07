@@ -1,5 +1,6 @@
 package com.example.wms.viewmodels.user.register;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.example.wms.daggers.retrofit.RetrofitComponent;
@@ -14,13 +15,13 @@ import retrofit2.Response;
 
 public class VM_SignUp extends VM_Primary {
 
-    private Context context;
+
     private String PhoneNumber;
     private String Password;
 
 
-    public VM_SignUp(Context context) {//___________________________________________________________ VM_SignUp
-        this.context = context;
+    public VM_SignUp(Activity context) {//___________________________________________________________ VM_SignUp
+        setContext(context);
     }//_____________________________________________________________________________________________ VM_SignUp
 
 
@@ -28,10 +29,10 @@ public class VM_SignUp extends VM_Primary {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
-                        .getApplicationWMS(context)
+                        .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization(context);
+        String Authorization = GetAuthorization();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -56,7 +57,7 @@ public class VM_SignUp extends VM_Primary {
 
             @Override
             public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
-                OnFailureRequest(context);
+                OnFailureRequest();
             }
         });
 

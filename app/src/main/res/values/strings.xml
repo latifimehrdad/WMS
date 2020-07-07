@@ -217,7 +217,7 @@
     <string name="ML_SingUp">SingUp</string>
     <string name="ML_AddressCompleted">AddressCompleted</string>
     <string name="ML_IsPackageState">IsPackageState</string>
-    <string name="ML_PackageRequest">PackageRequest</string>
+    <string name="ML_PackageRequestStatus">PackageRequestStatus</string>
     <string name="ML_PackageRequestDate">PackageRequestDate</string>
     <string name="ML_PackageRequestFrom">PackageRequestFrom</string>
     <string name="ML_PackageRequestTo">PackageRequestTo</string>

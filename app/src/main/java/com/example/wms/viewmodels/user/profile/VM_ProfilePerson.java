@@ -1,5 +1,6 @@
 package com.example.wms.viewmodels.user.profile;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -23,7 +24,6 @@ import retrofit2.Response;
 
 public class VM_ProfilePerson extends VM_Primary {
 
-    private Context context;
     private ModelProfileInfo.ModelProfile profile;
     private ArrayList<ModelSpinnerItem> Regions;
     private ArrayList<ModelSpinnerItem> Cities;
@@ -37,8 +37,8 @@ public class VM_ProfilePerson extends VM_Primary {
     private String RegionId;
     private String ProvinceId;
 
-    public VM_ProfilePerson(Context context) {//____________________________________________________ VM_ProfilePerson
-        this.context = context;
+    public VM_ProfilePerson(Activity context) {//___________________________________________________ VM_ProfilePerson
+        setContext(context);
     }//_____________________________________________________________________________________________ VM_ProfilePerson
 
 
@@ -46,10 +46,10 @@ public class VM_ProfilePerson extends VM_Primary {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
-                        .getApplicationWMS(context)
+                        .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization(context);
+        String Authorization = GetAuthorization();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -69,7 +69,7 @@ public class VM_ProfilePerson extends VM_Primary {
 
             @Override
             public void onFailure(Call<ModelProfileInfo> call, Throwable t) {
-                OnFailureRequest(context);
+                OnFailureRequest();
             }
         });
     }//_____________________________________________________________________________________________ GetProfileInfo
@@ -79,10 +79,10 @@ public class VM_ProfilePerson extends VM_Primary {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
-                        .getApplicationWMS(context)
+                        .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization(context);
+        String Authorization = GetAuthorization();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -109,7 +109,7 @@ public class VM_ProfilePerson extends VM_Primary {
 
             @Override
             public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
-                OnFailureRequest(context);
+                OnFailureRequest();
             }
         });
 
@@ -120,10 +120,10 @@ public class VM_ProfilePerson extends VM_Primary {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
-                        .getApplicationWMS(context)
+                        .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization(context);
+        String Authorization = GetAuthorization();
 
 
         retrofitComponent
@@ -144,7 +144,7 @@ public class VM_ProfilePerson extends VM_Primary {
 
                     @Override
                     public void onFailure(Call<ModelSpinnerItems> call, Throwable t) {
-                        OnFailureRequest(context);
+                        OnFailureRequest();
                     }
                 });
 
@@ -155,10 +155,10 @@ public class VM_ProfilePerson extends VM_Primary {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
-                        .getApplicationWMS(context)
+                        .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization(context);
+        String Authorization = GetAuthorization();
 
 
         retrofitComponent
@@ -179,7 +179,7 @@ public class VM_ProfilePerson extends VM_Primary {
 
                     @Override
                     public void onFailure(Call<ModelSpinnerItems> call, Throwable t) {
-                        OnFailureRequest(context);
+                        OnFailureRequest();
                     }
                 });
 
@@ -190,10 +190,10 @@ public class VM_ProfilePerson extends VM_Primary {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
-                        .getApplicationWMS(context)
+                        .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization(context);
+        String Authorization = GetAuthorization();
 
 
         Call<ModelSpinnerItems> call = retrofitComponent
@@ -214,7 +214,7 @@ public class VM_ProfilePerson extends VM_Primary {
 
             @Override
             public void onFailure(Call<ModelSpinnerItems> call, Throwable t) {
-                OnFailureRequest(context);
+                OnFailureRequest();
             }
         });
 
@@ -224,11 +224,11 @@ public class VM_ProfilePerson extends VM_Primary {
     private void SaveProfile() {//__________________________________________________________________ SaveProfile
 
         SharedPreferences.Editor token =
-                context.getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0).edit();
-        token.putString(context.getString(R.string.ML_Name), getFirstName());
-        token.putString(context.getString(R.string.ML_lastName), getLastName());
-        token.putInt(context.getString(R.string.ML_Gender), getGender());
-        token.putBoolean(context.getString(R.string.ML_CompleteProfile), true);
+                getContext().getSharedPreferences(getContext().getString(R.string.ML_SharePreferences), 0).edit();
+        token.putString(getContext().getString(R.string.ML_Name), getFirstName());
+        token.putString(getContext().getString(R.string.ML_lastName), getLastName());
+        token.putInt(getContext().getString(R.string.ML_Gender), getGender());
+        token.putBoolean(getContext().getString(R.string.ML_CompleteProfile), true);
         token.apply();
         MainActivity.complateprofile = true;
         getPublishSubject().onNext(StaticValues.ML_EditProfile);
@@ -237,11 +237,11 @@ public class VM_ProfilePerson extends VM_Primary {
 
     public String GetPhoneNumber() {//______________________________________________________________ GetPhoneNumber
 
-        SharedPreferences prefs = context.getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0);
+        SharedPreferences prefs = getContext().getSharedPreferences(getContext().getString(R.string.ML_SharePreferences), 0);
         if (prefs == null) {
             return "";
         } else {
-            String PhoneNumber = prefs.getString(context.getString(R.string.ML_PhoneNumber), "");
+            String PhoneNumber = prefs.getString(getContext().getString(R.string.ML_PhoneNumber), "");
             return PhoneNumber;
         }
 

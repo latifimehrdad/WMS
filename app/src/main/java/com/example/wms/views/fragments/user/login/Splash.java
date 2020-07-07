@@ -65,8 +65,7 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
                 vm_splash.getPublishSubject(),
                 vm_splash);
         navController = Navigation.findNavController(getView());
-        if (isAccessClick())
-            CheckToken();
+        CheckToken();
     }//_____________________________________________________________________________________________ onStart
 
 
@@ -84,8 +83,8 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
         }
 
         if (action == StaticValues.ML_ResponseFailure
-                        || action == StaticValues.ML_ResponseError
-                        || action == StaticValues.ML_RequestCancel) {
+                || action == StaticValues.ML_ResponseError
+                || action == StaticValues.ML_RequestCancel) {
             ImgLogo.setAnimation(null);
             ImgLogo.setVisibility(View.INVISIBLE);
             ButtonRefresh.setVisibility(View.VISIBLE);
@@ -105,7 +104,6 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                setAccessClick(false);
                 vm_splash.CheckToken();
             }
         }, 1000);
@@ -123,8 +121,7 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
         ButtonRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isAccessClick())
-                    CheckToken();
+                CheckToken();
             }
         });
 

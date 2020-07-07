@@ -1,5 +1,6 @@
 package com.example.wms.views.fragments.game;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,7 +23,7 @@ import butterknife.ButterKnife;
 
 public class Game extends Fragment {
 
-    private Context context;
+    private Activity context;
     private VM_GamePrimary vm_gamePrimary;
     private View view;
 

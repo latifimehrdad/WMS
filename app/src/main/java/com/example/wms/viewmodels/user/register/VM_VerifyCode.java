@@ -1,5 +1,6 @@
 package com.example.wms.viewmodels.user.register;
 
+import android.app.Activity;
 import android.content.Context;
 import com.example.wms.daggers.retrofit.RetrofitComponent;
 import com.example.wms.models.ModelResponsePrimary;
@@ -13,14 +14,13 @@ import retrofit2.Response;
 
 public class VM_VerifyCode extends VM_Primary {
 
-    private Context context;
     private String PhoneNumber;
     private String VerifyCode;
     private String Password;
 
 
-    public VM_VerifyCode(Context context) {//_______________________________________________________ VM_VerifyCode
-        this.context = context;
+    public VM_VerifyCode(Activity context) {//_______________________________________________________ VM_VerifyCode
+        setContext(context);
     }//_____________________________________________________________________________________________ VM_VerifyCode
 
 
@@ -28,10 +28,10 @@ public class VM_VerifyCode extends VM_Primary {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
-                        .getApplicationWMS(context)
+                        .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization(context);
+        String Authorization = GetAuthorization();
 
         retrofitComponent
                 .getRetrofitApiInterface()
@@ -55,7 +55,7 @@ public class VM_VerifyCode extends VM_Primary {
 
                     @Override
                     public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
-                        OnFailureRequest(context);
+                        OnFailureRequest();
                     }
                 });
 
@@ -67,10 +67,10 @@ public class VM_VerifyCode extends VM_Primary {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
-                        .getApplicationWMS(context)
+                        .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization(context);
+        String Authorization = GetAuthorization();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -95,7 +95,7 @@ public class VM_VerifyCode extends VM_Primary {
 
             @Override
             public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
-                OnFailureRequest(context);
+                OnFailureRequest();
             }
         });
 

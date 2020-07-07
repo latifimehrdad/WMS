@@ -81,10 +81,9 @@ public class StaticFunctions {
         token.putInt(context.getString(R.string.ML_Gender), profile.getGender());
         token.putBoolean(context.getString(R.string.ML_CompleteProfile), profile.getProfileCompleted());
         token.putBoolean(context.getString(R.string.ML_AddressCompleted), profile.getAddressCompleted());
-        token.putBoolean(context.getString(R.string.ML_IsPackageState), profile.getPackageRequested());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US);
-        if (profile.getPackageRequested()) {
-            token.putInt(context.getString(R.string.ML_PackageRequest), profile.getModelPackage().getPackageRequest());
+        if (profile.getModelPackage() != null) {
+            token.putInt(context.getString(R.string.ML_PackageRequestStatus), profile.getModelPackage().getPackageRequest());
             Date d = profile.getModelPackage().getRequestDate();
             if (d != null)
                 token.putString(context.getString(R.string.ML_PackageRequestDate), simpleDateFormat.format(d));

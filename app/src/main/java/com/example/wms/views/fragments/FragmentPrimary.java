@@ -1,5 +1,6 @@
 package com.example.wms.views.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -23,7 +24,7 @@ import io.reactivex.subjects.PublishSubject;
 public class FragmentPrimary extends Fragment {
 
     private DisposableObserver<Byte> disposableObserver;
-    private Context context;
+    private Activity context;
     private View view;
     private GetMessageFromObservable getMessageFromObservable;
     private boolean AccessClick;
@@ -68,7 +69,7 @@ public class FragmentPrimary extends Fragment {
 
 
     @Override
-    public Context getContext() {//_________________________________________________________________ getContext
+    public Activity getContext() {//________________________________________________________________ getContext
         return context;
     }//_____________________________________________________________________________________________ getContext
 
