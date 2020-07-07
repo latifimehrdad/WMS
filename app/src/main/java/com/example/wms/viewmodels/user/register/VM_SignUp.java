@@ -1,8 +1,6 @@
 package com.example.wms.viewmodels.user.register;
 
 import android.app.Activity;
-import android.content.Context;
-
 import com.example.wms.daggers.retrofit.RetrofitComponent;
 import com.example.wms.models.ModelResponsePrimary;
 import com.example.wms.utility.StaticValues;

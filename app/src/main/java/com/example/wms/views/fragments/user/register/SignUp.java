@@ -21,6 +21,8 @@ import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.user.register.VM_SignUp;
 import com.example.wms.views.fragments.FragmentPrimary;
 
+import org.jetbrains.annotations.NotNull;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -31,8 +33,6 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
     private NavController navController;
     private boolean passVisible;
     private boolean passConfirmVisible;
-    private String PhoneNumber;
-    private String Type;
     private VM_SignUp vm_signUp;
 
 
@@ -66,7 +66,7 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (getView() == null) {
@@ -89,7 +89,8 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
                 SignUp.this,
                 vm_signUp.getPublishSubject(),
                 vm_signUp);
-        navController = Navigation.findNavController(getView());
+        if (getView() != null)
+            navController = Navigation.findNavController(getView());
     }//_____________________________________________________________________________________________ onStart
 
 
@@ -99,9 +100,10 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
         passVisible = false;
         passConfirmVisible = false;
         Bundle bundle = getArguments();
-        PhoneNumber = bundle.getString(getContext().getString(R.string.ML_PhoneNumber));
-        Type = bundle.getString(getContext().getString(R.string.ML_Type));
-        EditPhoneNumber.setText(PhoneNumber);
+        if (bundle != null && getContext() != null) {
+            String phoneNumber = bundle.getString(getContext().getString(R.string.ML_PhoneNumber));
+            EditPhoneNumber.setText(phoneNumber);
+        }
     }//_____________________________________________________________________________________________ End init
 
 
@@ -110,13 +112,14 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
 
 
         DismissLoading();
-        if (action == StaticValues.ML_Success) {
-            Bundle bundle = new Bundle();
-            bundle.putString(getContext().getString(R.string.ML_PhoneNumber), EditPhoneNumber.getText().toString());
-            bundle.putString(getContext().getString(R.string.ML_Password), EditPassword.getText().toString());
-            navController
-                    .navigate(R.id.action_signUp_to_verifyCode, bundle);
-            return;
+        if (action.equals(StaticValues.ML_Success)) {
+            if (getContext() != null) {
+                Bundle bundle = new Bundle();
+                bundle.putString(getContext().getString(R.string.ML_PhoneNumber), EditPhoneNumber.getText().toString());
+                bundle.putString(getContext().getString(R.string.ML_Password), EditPassword.getText().toString());
+                navController
+                        .navigate(R.id.action_signUp_to_verifyCode, bundle);
+            }
         }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
@@ -136,61 +139,51 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
 
     private void SetOnclick() {//___________________________________________________________________ SetOnclick
 
-        btnGetVerifyCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isAccessClick()) {
-                    if (CheckEmpty()) {
-                        ShowLoading();
-                        setAccessClick(false);
-                        vm_signUp.setPhoneNumber(EditPhoneNumber.getText().toString());
-                        vm_signUp.setPassword(EditPassword.getText().toString());
-                        vm_signUp.SendNumber();
-                    }
-                } else
-                    vm_signUp.CancelRequest();
-            }
+        btnGetVerifyCode.setOnClickListener(v -> {
+            if (isAccessClick()) {
+                if (CheckEmpty()) {
+                    ShowLoading();
+                    setAccessClick(false);
+                    vm_signUp.setPhoneNumber(EditPhoneNumber.getText().toString());
+                    vm_signUp.setPassword(EditPassword.getText().toString());
+                    vm_signUp.SendNumber();
+                }
+            } else
+                vm_signUp.CancelRequest();
         });
 
 
-        ImgPassVisible.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!passVisible) {
-                    EditPassword.setInputType(InputType.TYPE_CLASS_TEXT |
-                            InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                    ImgPassVisible.setImageResource(R.drawable.ic_visibility_off);
-                    passVisible = true;
-                    EditPassword.setSelection(EditPassword.getText().length());
+        ImgPassVisible.setOnClickListener(v -> {
+            if (!passVisible) {
+                EditPassword.setInputType(InputType.TYPE_CLASS_TEXT |
+                        InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                ImgPassVisible.setImageResource(R.drawable.ic_visibility_off);
+                passVisible = true;
 
-                } else {
-                    EditPassword.setInputType(InputType.TYPE_CLASS_TEXT |
-                            InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    ImgPassVisible.setImageResource(R.drawable.ic_visibility);
-                    passVisible = false;
-                    EditPassword.setSelection(EditPassword.getText().length());
-                }
+            } else {
+                EditPassword.setInputType(InputType.TYPE_CLASS_TEXT |
+                        InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                ImgPassVisible.setImageResource(R.drawable.ic_visibility);
+                passVisible = false;
             }
+            EditPassword.setSelection(EditPassword.getText().length());
         });
 
 
-        ImgPassConfVisible.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!passConfirmVisible) {
-                    EditPasswordConfirm.setInputType(InputType.TYPE_CLASS_TEXT |
-                            InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                    ImgPassConfVisible.setImageResource(R.drawable.ic_visibility_off);
-                    passConfirmVisible = true;
+        ImgPassConfVisible.setOnClickListener(v -> {
+            if (!passConfirmVisible) {
+                EditPasswordConfirm.setInputType(InputType.TYPE_CLASS_TEXT |
+                        InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                ImgPassConfVisible.setImageResource(R.drawable.ic_visibility_off);
+                passConfirmVisible = true;
 
-                } else {
-                    EditPasswordConfirm.setInputType(InputType.TYPE_CLASS_TEXT |
-                            InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    ImgPassConfVisible.setImageResource(R.drawable.ic_visibility);
-                    passConfirmVisible = false;
-                }
-                EditPasswordConfirm.setSelection(EditPasswordConfirm.getText().length());
+            } else {
+                EditPasswordConfirm.setInputType(InputType.TYPE_CLASS_TEXT |
+                        InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                ImgPassConfVisible.setImageResource(R.drawable.ic_visibility);
+                passConfirmVisible = false;
             }
+            EditPasswordConfirm.setSelection(EditPasswordConfirm.getText().length());
         });
 
     }//_____________________________________________________________________________________________ SetOnclick
@@ -214,9 +207,9 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
 
     private Boolean CheckEmpty() {//________________________________________________________________ Start CheckEmpty
 
-        boolean phone = false;
-        boolean pass = false;
-        boolean passconf = false;
+        boolean phone;
+        boolean pass;
+        boolean passconf;
 
         if (!EditPasswordConfirm.getText().toString().equalsIgnoreCase(EditPassword.getText().toString())) {
             EditPassword.setText("");
@@ -260,10 +253,7 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
         }
 
 
-        if (phone && pass && passconf)
-            return true;
-        else
-            return false;
+        return phone && pass && passconf;
 
     }//_____________________________________________________________________________________________ End CheckEmpty
 

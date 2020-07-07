@@ -1,9 +1,9 @@
 package com.example.wms.views.fragments.user.register;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -15,8 +15,6 @@ import android.widget.TextView;
 
 import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentVerifyCodeBinding;
@@ -26,12 +24,13 @@ import com.example.wms.views.application.ApplicationWMS;
 import com.example.wms.views.dialogs.DialogProgress;
 import com.example.wms.views.fragments.FragmentPrimary;
 
+import org.jetbrains.annotations.NotNull;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
 
-    private NavController navController;
     private VM_VerifyCode vm_verifyCode;
     private String PhoneNumber = "";
     private String Password = "";
@@ -74,7 +73,7 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (getView() == null) {
@@ -97,7 +96,6 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
                 VerifyCode.this,
                 vm_verifyCode.getPublishSubject(),
                 vm_verifyCode);
-        navController = Navigation.findNavController(getView());
     }//_____________________________________________________________________________________________ onStart
 
 
@@ -108,7 +106,7 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
         SetTextChangeListener();
         ReTryGetSMS();
         SetOnclick();
-        StartTimer(60);
+        StartTimer(59);
     }//_____________________________________________________________________________________________ End init
 
 
@@ -116,16 +114,18 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
     public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         setAccessClick(true);
-        if (action == StaticValues.ML_GotoLogin) {
+        if (action.equals(StaticValues.ML_GotoLogin)) {
             DismissProgress();
-            getActivity().onBackPressed();
-            getActivity().onBackPressed();
+            if (getContext() != null) {
+                getContext().onBackPressed();
+                getContext().onBackPressed();
+            }
             return;
         }
 
-        if (action == StaticValues.ML_Success ||
-                action == StaticValues.ML_ResponseFailure ||
-                action == StaticValues.ML_ResponseError) {
+        if (action.equals(StaticValues.ML_Success) ||
+                action.equals(StaticValues.ML_ResponseFailure) ||
+                action.equals(StaticValues.ML_ResponseError)) {
             VerifyCode1.setText("");
             VerifyCode2.setText("");
             VerifyCode3.setText("");
@@ -135,19 +135,6 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
             VerifyCode1.requestFocus();
             SetBackVerifyCode();
             StartTimer(60);
-            return;
-        }
-
-        if (action == StaticValues.ML_ResponseFailure || action == StaticValues.ML_ResponseError) {
-            VerifyCode1.setText("");
-            VerifyCode2.setText("");
-            VerifyCode3.setText("");
-            VerifyCode4.setText("");
-            VerifyCode5.setText("");
-            VerifyCode6.setText("");
-            VerifyCode1.requestFocus();
-            SetBackVerifyCode();
-            return;
         }
 
 
@@ -156,13 +143,10 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
 
     private void SetOnclick() {//___________________________________________________________________ SetOnclick
 
-        message.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ReTryGetSMSClick) {
-                    vm_verifyCode.setPassword(Password);
-                    vm_verifyCode.SendNumber();
-                }
+        message.setOnClickListener(v -> {
+            if (ReTryGetSMSClick) {
+                vm_verifyCode.setPassword(Password);
+                vm_verifyCode.SendNumber();
             }
         });
 
@@ -182,12 +166,13 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
 
         timer = new Handler();
         runnable = new Runnable() {
+            @SuppressLint({"DefaultLocale", "SetTextI18n"})
             @Override
             public void run() {
                 progressBar.setProgress(progressBar.getProgress() - 1);
                 int mil = progressBar.getProgress() + 10;
-                int seconds = (int) (mil / 10) % 60;
-                int minutes = (int) ((mil / (10 * 60)) % 60);
+                int seconds = (mil / 10) % 60;
+                int minutes = (mil / (10 * 60)) % 60;
                 TimeElapsed.setText(String.format("%02d", minutes) + " : " + String.format("%02d", seconds));
 
                 if (progressBar.getProgress() > 0)
@@ -251,23 +236,20 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
 
 
     private View.OnKeyListener SetKeyBackSpace(EditText view) {//___________________________________ SetKeyBackSpace
-        return new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
+        return (v, keyCode, event) -> {
 
-                EditText edit = (EditText) v;
-                if (keyCode == 67) {
-                    if (event.getAction() != KeyEvent.ACTION_DOWN)
-                        return true;
-                    if (edit.getText().length() == 0) {
-                        view.requestFocus();
-                        SetBackVerifyCode();
-                        return true;
-                    } else
-                        return false;
-                }
-                return false;
+            EditText edit = (EditText) v;
+            if (keyCode == 67) {
+                if (event.getAction() != KeyEvent.ACTION_DOWN)
+                    return true;
+                if (edit.getText().length() == 0) {
+                    view.requestFocus();
+                    SetBackVerifyCode();
+                    return true;
+                } else
+                    return false;
             }
+            return false;
         };
     }//_____________________________________________________________________________________________ SetKeyBackSpace
 
@@ -303,7 +285,7 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
 
     private Boolean SetBackVerifyCodeView(EditText editText) {//____________________________________ SetBackVerifyCodeView
 
-        Boolean ret = false;
+        boolean ret = false;
         if (editText.getText().length() == 0)
             if (editText.isFocused())
                 editText.setBackground(getResources().getDrawable(R.drawable.edit_verify_code_index));
@@ -320,20 +302,24 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
 
     private void ShowProgressDialog() {//___________________________________________________________ ShowProgressDialog
 
-        progress = ApplicationWMS
-                .getApplicationWMS(getContext())
-                .getUtilityComponent()
-                .getApplicationUtility()
-                .ShowProgress(getContext(), null);
-        progress.show(getFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+        if (getContext() != null && getFragmentManager() != null) {
+            progress = ApplicationWMS
+                    .getApplicationWMS(getContext())
+                    .getUtilityComponent()
+                    .getApplicationUtility()
+                    .ShowProgress(getContext(), null);
+            progress.show(getFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+        }
 
     }//_____________________________________________________________________________________________ ShowProgressDialog
 
 
     private void SetPhoneNumberPassword() {//_______________________________________________________ SetPhoneNumberPassword
         Bundle bundle = getArguments();
-        PhoneNumber = bundle.getString(getContext().getString(R.string.ML_PhoneNumber));
-        Password = bundle.getString(getContext().getString(R.string.ML_Password));
+        if (bundle != null && getContext() != null) {
+            PhoneNumber = bundle.getString(getContext().getString(R.string.ML_PhoneNumber));
+            Password = bundle.getString(getContext().getString(R.string.ML_Password));
+        }
     }//_____________________________________________________________________________________________ SetPhoneNumberPassword
 
 
