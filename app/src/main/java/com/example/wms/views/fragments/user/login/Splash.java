@@ -15,10 +15,11 @@ import androidx.navigation.Navigation;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentSplashBinding;
-import com.example.wms.utility.StaticFunctions;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.user.login.VM_Splash;
 import com.example.wms.views.fragments.FragmentPrimary;
+
+import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,7 +42,7 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (getView() == null) {
@@ -64,7 +65,8 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
                 Splash.this,
                 vm_splash.getPublishSubject(),
                 vm_splash);
-        navController = Navigation.findNavController(getView());
+        if (getView() != null)
+            navController = Navigation.findNavController(getView());
         CheckToken();
     }//_____________________________________________________________________________________________ onStart
 
@@ -72,23 +74,22 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
     @Override
     public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
-        if (action == StaticValues.ML_GoToHome) {
+        if (action.equals(StaticValues.ML_GoToHome)) {
             navController.navigate(R.id.action_splash_to_home);
             return;
         }
 
-        if (action == StaticValues.ML_GotoLogin) {
+        if (action.equals(StaticValues.ML_GotoLogin)) {
             navController.navigate(R.id.action_splash_to_login);
             return;
         }
 
-        if (action == StaticValues.ML_ResponseFailure
-                || action == StaticValues.ML_ResponseError
-                || action == StaticValues.ML_RequestCancel) {
+        if (action.equals(StaticValues.ML_ResponseFailure)
+                || action.equals(StaticValues.ML_ResponseError)
+                || action.equals(StaticValues.ML_RequestCancel)) {
             ImgLogo.setAnimation(null);
             ImgLogo.setVisibility(View.INVISIBLE);
             ButtonRefresh.setVisibility(View.VISIBLE);
-            return;
         }
 
 
@@ -118,12 +119,7 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
 
     private void SetOnclick() {//___________________________________________________________________ SetOnclick
 
-        ButtonRefresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CheckToken();
-            }
-        });
+        ButtonRefresh.setOnClickListener(v -> CheckToken());
 
     }//_____________________________________________________________________________________________ SetOnclick
 

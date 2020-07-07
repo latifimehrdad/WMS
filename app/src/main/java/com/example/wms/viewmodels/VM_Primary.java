@@ -1,7 +1,6 @@
 package com.example.wms.viewmodels;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.wms.R;
@@ -42,7 +41,6 @@ public class VM_Primary {
     }//_____________________________________________________________________________________________ GetAuthorization
 
 
-
     public String CheckResponse(Response response, Boolean Authorization) {//_______________________ CheckResponse
         if (response.body() != null)
             return null;
@@ -62,24 +60,23 @@ public class VM_Primary {
     }//_____________________________________________________________________________________________ CheckResponse
 
 
-
     public String GetErrorMessage(Response response) {//____________________________________________ GetErrorMessage
         try {
             JSONObject jObjError = new JSONObject(response.errorBody().string());
             String jobErrorString = jObjError.toString();
-            String message = "";
+            StringBuilder message = new StringBuilder();
             if (jobErrorString.contains("messages")) {
                 JSONArray jsonArray = jObjError.getJSONArray("messages");
 
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject temp = new JSONObject(jsonArray.get(i).toString());
-                    message = message + temp.getString("message");
-                    message = message + "\n";
+                    message.append(temp.getString("message"));
+                    message.append("\n");
                 }
             } else {
-                message = message + jObjError.getString("message");
+                message.append(jObjError.getString("message"));
             }
-            return message;
+            return message.toString();
         } catch (Exception ex) {
             return ex.toString();
         }
@@ -89,25 +86,23 @@ public class VM_Primary {
     public String GetMessage(Response<ModelResponsePrimary> response) {//___________________________ GetMessage
         try {
             ArrayList<ModelMessage> modelMessages = response.body().getMessages();
-            String message = "";
+            StringBuilder message = new StringBuilder();
             for (int i = 0; i < modelMessages.size(); i++) {
-                message = message + modelMessages.get(i).getMessage();
-                message = message + "\n";
+                message.append(modelMessages.get(i).getMessage());
+                message.append("\n");
             }
-            return message;
+            return message.toString();
         } catch (Exception ex) {
             return "Failure";
         }
     }//_____________________________________________________________________________________________ GetMessage
 
 
-
     public void OnFailureRequest() {//______________________________________________________________ OnFailureRequest
         if (getPrimaryCall().isCanceled()) {
-            setResponseMessage(getContext().getResources().getString(R.string.RequestCancel));
+            setResponseMessage("");
             getPublishSubject().onNext(StaticValues.ML_RequestCancel);
-        }
-        else {
+        } else {
             setResponseMessage(getContext().getResources().getString(R.string.NetworkError));
             getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
         }
@@ -115,8 +110,10 @@ public class VM_Primary {
 
 
     public void CancelRequest() {//_________________________________________________________________ CancelRequest
-        if (PrimaryCall != null)
+        if (PrimaryCall != null) {
             PrimaryCall.cancel();
+            PrimaryCall = null;
+        }
     }//_____________________________________________________________________________________________ CancelRequest
 
 
@@ -125,7 +122,7 @@ public class VM_Primary {
     }//_____________________________________________________________________________________________ getPrimaryCall
 
     public void setPrimaryCall(Call primaryCall) {//________________________________________________ setPrimaryCall
-        PrimaryCall = null;
+        CancelRequest();
         PrimaryCall = primaryCall;
     }//_____________________________________________________________________________________________ setPrimaryCall
 

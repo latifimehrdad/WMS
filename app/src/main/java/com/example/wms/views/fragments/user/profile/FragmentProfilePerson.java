@@ -242,7 +242,7 @@ public class FragmentProfilePerson extends Fragment {
             @Override
             public void onClick(View v) {
                 if (CheckEmpty()) {
-                    StaticFunctions.hideKeyboard(getActivity());
+                    //StaticFunctions.hideKeyboard(getActivity());
                     ShowProgressDialog();
                     vm_fragmentProfilePerson.setFirstName(editFirsName.getText().toString());
                     vm_fragmentProfilePerson.setLastName(edtiLastName.getText().toString());

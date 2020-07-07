@@ -22,15 +22,13 @@ import static com.example.wms.utility.StaticFunctions.GetAuthorization;
 public class VM_Login extends VM_Primary {
 
     private ModelToken modelToken;
-    private String PhoneNumber;
-    private String Password;
 
     public VM_Login(Activity context) {//___________________________________________________________ VM_Login
         setContext(context);
     }//_____________________________________________________________________________________________ VM_Login
 
 
-    public void GetLoginToken() {//_________________________________________________________________ GetLoginToken
+    public void GetLoginToken(String PhoneNumber, String Password) {//______________________________ GetLoginToken
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
@@ -44,8 +42,8 @@ public class VM_Login extends VM_Primary {
                 .Login(RetrofitApis.client_id_value,
                         RetrofitApis.client_secret_value,
                         RetrofitApis.grant_type_password,
-                        getPhoneNumber(),
-                        getPassword(),
+                        PhoneNumber,
+                        Password,
                         Authorization));
 
         getPrimaryCall().enqueue(new Callback<ModelToken>() {
@@ -102,20 +100,4 @@ public class VM_Login extends VM_Primary {
 
     }//_____________________________________________________________________________________________ GetLoginInformation
 
-
-    public String getPhoneNumber() {//______________________________________________________________ getPhoneNumber
-        return PhoneNumber;
-    }//_____________________________________________________________________________________________ getPhoneNumber
-
-    public void setPhoneNumber(String phoneNumber) {//______________________________________________ setPhoneNumber
-        PhoneNumber = phoneNumber;
-    }//_____________________________________________________________________________________________ setPhoneNumber
-
-    public String getPassword() {//_________________________________________________________________ getPassword
-        return Password;
-    }//_____________________________________________________________________________________________ getPassword
-
-    public void setPassword(String password) {//____________________________________________________ setPassword
-        Password = password;
-    }//_____________________________________________________________________________________________ setPassword
 }

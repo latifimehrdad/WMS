@@ -25,6 +25,8 @@ import com.example.wms.viewmodels.user.login.VM_Login;
 import com.example.wms.viewmodels.user.login.VM_Splash;
 import com.example.wms.views.fragments.FragmentPrimary;
 
+import org.jetbrains.annotations.NotNull;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -71,7 +73,7 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (getView() == null) {
@@ -95,20 +97,18 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
                 Login.this,
                 vm_login.getPublishSubject(),
                 vm_login);
-        navController = Navigation.findNavController(getView());
+        if (getView() != null)
+            navController = Navigation.findNavController(getView());
     }//_____________________________________________________________________________________________ onStart
 
 
     @Override
     public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
-        setAccessClick(true);
         DismissLoading();
-        if (action == StaticValues.ML_GoToHome) {
+        if (action.equals(StaticValues.ML_GoToHome)) {
             navController.navigate(R.id.action_login_to_home);
-            return;
         }
-
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 
@@ -123,41 +123,24 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
 
     private void SetOnclick() {//___________________________________________________________________ SetOnclick
 
-        ForgetPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        ForgetPassword.setOnClickListener(v -> {
 
-            }
         });
 
-        LoginClick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        LoginClick.setOnClickListener(v -> {
 
-                if (!isAccessClick()) {
-                    vm_login.CancelRequest();
-                    return;
-                }
-
-                if (CheckEmpty()) {
-                    setAccessClick(false);
-                    ShowLoading();
-                    StaticFunctions.hideKeyboard(getActivity());
-                    vm_login.setPhoneNumber(EditPhoneNumber.getText().toString());
-                    vm_login.setPassword(EditPassword.getText().toString());
-                    vm_login.GetLoginToken();
-                }
+            if (CheckEmpty()) {
+                ShowLoading();
+                hideKeyboard();
+                vm_login.GetLoginToken(
+                        EditPhoneNumber.getText().toString(),
+                        EditPassword.getText().toString());
             }
         });
 
 
-        SignUpClick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (!isAccessClick())
-                    return;
-
+        SignUpClick.setOnClickListener(v -> {
+            if (getContext() != null) {
                 Bundle bundle = new Bundle();
                 bundle.putString(getContext().getString(R.string.ML_Type), getContext().getString(R.string.ML_SingUp));
                 bundle.putString(getContext().getString(R.string.ML_PhoneNumber), EditPhoneNumber.getText().toString());
@@ -166,22 +149,19 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
         });
 
 
-        ImgPassVisible.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!passVisible) {
-                    EditPassword.setInputType(InputType.TYPE_CLASS_TEXT |
-                            InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                    ImgPassVisible.setImageResource(R.drawable.ic_visibility_off);
-                    passVisible = true;
-                } else {
-                    EditPassword.setInputType(InputType.TYPE_CLASS_TEXT |
-                            InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    ImgPassVisible.setImageResource(R.drawable.ic_visibility);
-                    passVisible = false;
-                }
-                EditPassword.setSelection(EditPassword.getText().length());
+        ImgPassVisible.setOnClickListener(v -> {
+            if (!passVisible) {
+                EditPassword.setInputType(InputType.TYPE_CLASS_TEXT |
+                        InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                ImgPassVisible.setImageResource(R.drawable.ic_visibility_off);
+                passVisible = true;
+            } else {
+                EditPassword.setInputType(InputType.TYPE_CLASS_TEXT |
+                        InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                ImgPassVisible.setImageResource(R.drawable.ic_visibility);
+                passVisible = false;
             }
+            EditPassword.setSelection(EditPassword.getText().length());
         });
 
 
@@ -214,8 +194,8 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
 
     private Boolean CheckEmpty() {//________________________________________________________________ CheckEmpty
 
-        boolean phone = false;
-        boolean pass = false;
+        boolean phone;
+        boolean pass;
 
         if (EditPassword.getText().length() < 6) {
             EditPassword.setBackgroundResource(R.drawable.edit_empty_background);
@@ -243,10 +223,7 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
             }
         }
 
-        if (phone && pass)
-            return true;
-        else
-            return false;
+        return phone && pass;
 
     }//_____________________________________________________________________________________________ CheckEmpty
 

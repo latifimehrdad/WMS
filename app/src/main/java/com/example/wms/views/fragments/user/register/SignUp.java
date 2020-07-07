@@ -108,6 +108,7 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
     @Override
     public void GetMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
+
         DismissLoading();
         if (action == StaticValues.ML_Success) {
             Bundle bundle = new Bundle();

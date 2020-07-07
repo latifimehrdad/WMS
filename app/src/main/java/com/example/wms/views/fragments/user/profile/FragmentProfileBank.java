@@ -112,7 +112,7 @@ public class FragmentProfileBank extends Fragment {
             @Override
             public void onClick(View v) {
                 if (CheckEmpty()) {
-                    StaticFunctions.hideKeyboard(getActivity());
+                    //StaticFunctions.hideKeyboard(getActivity());
                     ShowProgressDialog(null);
                     vm_fragmentProfileBank.setAccountNumber(editAccountNumber.getText().toString());
                     vm_fragmentProfileBank.setBankId(BankId);

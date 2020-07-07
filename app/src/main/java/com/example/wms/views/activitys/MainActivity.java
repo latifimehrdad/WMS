@@ -42,6 +42,7 @@ import android.widget.Toast;
 
 import com.example.wms.R;
 import com.example.wms.databinding.ActivityMainBinding;
+import com.example.wms.utility.StaticFunctions;
 import com.example.wms.viewmodels.main.MainActivityViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -156,35 +157,25 @@ public class MainActivity extends AppCompatActivity {
         ExitProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor token =
-                        MainActivity.this.getSharedPreferences(getString(R.string.ML_SharePreferences), 0).edit();
+                if (StaticFunctions.LogOut(MainActivity.this)) {
+                    mDrawer.closeDrawer(Gravity.RIGHT);
+                    MainActivity.complateprofile = false;
 
-                token.putBoolean(getString(R.string.ML_CompleteProfile), false);
-                token.putString(getString(R.string.ML_AccessToken), null);
-                token.putString(getString(R.string.ML_TokenType), null);
-                token.putInt(getString(R.string.ML_ExpireSin), 0);
-                token.putString(getString(R.string.ML_PhoneNumber), null);
-                token.putString(getString(R.string.ML_ClientId), null);
-                token.putString(getString(R.string.ML_Issued), null);
-                token.putString(getString(R.string.ML_Expires), null);
-                token.apply();
-                mDrawer.closeDrawer(Gravity.RIGHT);
-                MainActivity.complateprofile = false;
-
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent mStartActivity = new Intent(MainActivity.this, MainActivity.class);
-                        mStartActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        mStartActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        int mPendingIntentId = 7126;
-                        PendingIntent mPendingIntent = PendingIntent.getActivity(MainActivity.this, mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
-                        AlarmManager mgr = (AlarmManager) MainActivity.this.getSystemService(Context.ALARM_SERVICE);
-                        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
-                        System.exit(0);
-                    }
-                }, 1000);
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent mStartActivity = new Intent(MainActivity.this, MainActivity.class);
+                            mStartActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            mStartActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            int mPendingIntentId = 7126;
+                            PendingIntent mPendingIntent = PendingIntent.getActivity(MainActivity.this, mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+                            AlarmManager mgr = (AlarmManager) MainActivity.this.getSystemService(Context.ALARM_SERVICE);
+                            mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
+                            System.exit(0);
+                        }
+                    }, 1000);
+                }
 
                 //ShowSpalshActivity();
             }

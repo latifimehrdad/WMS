@@ -29,7 +29,6 @@ import com.example.wms.viewmodels.packrequest.VM_PackageRequestPrimary;
 import com.example.wms.views.application.ApplicationWMS;
 import com.example.wms.views.dialogs.DialogProgress;
 import com.example.wms.views.fragments.FragmentPrimary;
-import com.example.wms.views.fragments.home.FragmentHome;
 import com.example.wms.views.fragments.home.Home;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
@@ -199,7 +198,7 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
-                    if (Home.requestPackage) {
+                    if (Home.TwoBackToHome) {
                         getActivity().onBackPressed();
                         getActivity().onBackPressed();
                         return true;

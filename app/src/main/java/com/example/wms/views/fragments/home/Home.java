@@ -9,7 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
@@ -22,7 +21,6 @@ import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.main.VM_Home;
 import com.example.wms.views.custom.textview.VerticalTextView;
 import com.example.wms.views.fragments.FragmentPrimary;
-import com.example.wms.views.fragments.user.login.Login;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,7 +29,7 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
 
     private NavController navController;
     private VM_Home vm_home;
-    public static boolean requestPackage = false;
+    public static boolean TwoBackToHome = false;
 
 
     @BindView(R.id.FooterPrimary)
@@ -98,7 +96,7 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
 
 
     private void init() {//_________________________________________________________________________ init
-        StaticFunctions.hideKeyboard(getActivity());
+        hideKeyboard();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -135,15 +133,15 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
             @Override
             public void onClick(View v) {
 
-                if (vm_home.IsPackageState()) {
-                    requestPackage = false;
+                if (vm_home.GetPackageState() > 0) {
+                    TwoBackToHome = false;
                     navController.navigate(R.id.action_home_to_packageRequestPrimary);
                 } else {
                     if (vm_home.IsAddressCompleted()) {
-                        requestPackage = false;
+                        TwoBackToHome = false;
                         navController.navigate(R.id.action_home_to_packageRequestPrimary);
                     } else {
-                        requestPackage = true;
+                        TwoBackToHome = true;
                         navController.navigate(R.id.action_home_to_packageRequestAddress);
                     }
 

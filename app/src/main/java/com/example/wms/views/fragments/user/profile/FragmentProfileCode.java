@@ -166,7 +166,7 @@ public class FragmentProfileCode extends Fragment {
             @Override
             public void onClick(View v) {
                 if (CheckEmpty()) {
-                    StaticFunctions.hideKeyboard(getActivity());
+                    //StaticFunctions.hideKeyboard(getActivity());
                     ShowProgressDialog(null);
                     vm_fragmentProfileCode.setBuildingRenovationCode(editBuildingRenovationCode.getText().toString());
                     vm_fragmentProfileCode.SendCode();

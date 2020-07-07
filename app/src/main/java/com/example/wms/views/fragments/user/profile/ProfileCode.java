@@ -112,7 +112,7 @@ public class ProfileCode extends FragmentPrimary implements FragmentPrimary.GetM
 
                 if (CheckEmpty()) {
                     setAccessClick(false);
-                    StaticFunctions.hideKeyboard(getActivity());
+                    hideKeyboard();
                     ShowProgressDialog(null);
                     vm_profileCode.setBuildingRenovationCode(editBuildingRenovationCode.getText().toString());
                     vm_profileCode.SendCode();

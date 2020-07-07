@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
@@ -72,6 +73,7 @@ public class FragmentPrimary extends Fragment {
     public Activity getContext() {//________________________________________________________________ getContext
         return context;
     }//_____________________________________________________________________________________________ getContext
+
 
 
     @Override
@@ -166,6 +168,19 @@ public class FragmentPrimary extends Fragment {
         dialogMessage.show(getFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
 
     }//_____________________________________________________________________________________________ ShowMessage
+
+
+    public void hideKeyboard() {//__________________________________________________________________ hideKeyboard
+        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = getContext().getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(getContext());
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }//_____________________________________________________________________________________________ hideKeyboard
+
 
 
     public boolean isAccessClick() {//______________________________________________________________ isAccessClick

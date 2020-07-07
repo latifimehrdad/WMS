@@ -199,7 +199,7 @@ public class FragmentLogin extends Fragment {
 
                 if (CheckEmpty()) {
                     ShowLoading();
-                    StaticFunctions.hideKeyboard(getActivity());
+                    //StaticFunctions.hideKeyboard(getActivity());
                     vm_fragmentLogin.GetLoginToken(
                             EditPhoneNumber.getText().toString(),
                             EditPassword.getText().toString()

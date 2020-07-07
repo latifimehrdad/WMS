@@ -19,6 +19,7 @@ import com.example.wms.models.ModelPackage;
 import com.example.wms.models.ModelResponsePrimary;
 import com.example.wms.models.ModelSettingInfo;
 import com.example.wms.models.ModelToken;
+import com.example.wms.views.activitys.MainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -55,19 +56,6 @@ public class StaticFunctions {
             return !TextUtils.isEmpty(locationProviders);
         }
     }//_____________________________________________________________________________________________ End isLocationEnabled
-
-
-    public static void hideKeyboard(Activity activity) {//__________________________________________ Start hideKeyboard
-        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        //Find the currently focused view, so we can grab the correct window token from it.
-        View view = activity.getCurrentFocus();
-        //If no view currently has focus, create a new one, just so we can grab a window token from it
-        if (view == null) {
-            view = new View(activity);
-        }
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }//_____________________________________________________________________________________________ End hideKeyboard
-
 
 
     public static boolean SaveProfile(
@@ -119,6 +107,24 @@ public class StaticFunctions {
         return true;
 
     }//_____________________________________________________________________________________________ SaveToken
+
+
+
+    public static boolean LogOut(Context context) {//_______________________________________________ LogOut
+        SharedPreferences.Editor token =
+                context.getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0).edit();
+
+        token.putBoolean(context.getString(R.string.ML_CompleteProfile), false);
+        token.putString(context.getString(R.string.ML_AccessToken), null);
+        token.putString(context.getString(R.string.ML_TokenType), null);
+        token.putInt(context.getString(R.string.ML_ExpireSin), 0);
+        token.putString(context.getString(R.string.ML_PhoneNumber), null);
+        token.putString(context.getString(R.string.ML_ClientId), null);
+        token.putString(context.getString(R.string.ML_Issued), null);
+        token.putString(context.getString(R.string.ML_Expires), null);
+        token.apply();
+        return true;
+    }//_____________________________________________________________________________________________ LogOut
 
 
     public static ModelPackage PackageRequestDate(Context context) {//______________________________ Start GetAuthorization

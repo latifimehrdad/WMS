@@ -237,7 +237,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
                 if (isAccessClick()) {
                     if (CheckEmpty()) {
                         setAccessClick(false);
-                        StaticFunctions.hideKeyboard(getActivity());
+                        hideKeyboard();
                         ShowProgressDialog();
                         vm_profilePerson.setFirstName(editFirsName.getText().toString());
                         vm_profilePerson.setLastName(edtiLastName.getText().toString());

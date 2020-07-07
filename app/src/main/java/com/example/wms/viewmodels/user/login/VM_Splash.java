@@ -1,7 +1,6 @@
 package com.example.wms.viewmodels.user.login;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.wms.R;
@@ -18,14 +17,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.wms.utility.StaticFunctions.CheckResponse;
-import static com.example.wms.utility.StaticFunctions.GetAuthorization;
-
 public class VM_Splash extends VM_Primary {
 
     private ModelToken modelToken;
     private ModelSettingInfo.ModelProfileSetting profile;
-
 
     public VM_Splash(Activity context) {//__________________________________________________________ VM_Splash
         setContext(context);
@@ -108,8 +103,14 @@ public class VM_Splash extends VM_Primary {
                 setResponseMessage(CheckResponse(response, true));
                 if (getResponseMessage() == null) {
                     profile = response.body().getResult();
-                    if (StaticFunctions.SaveProfile(getContext(), profile))
-                        getPublishSubject().onNext(StaticValues.ML_GoToHome);
+                    if (profile != null) {
+                        if (StaticFunctions.SaveProfile(getContext(), profile))
+                            getPublishSubject().onNext(StaticValues.ML_GoToHome);
+                    } else {
+                        if (StaticFunctions.LogOut(getContext()))
+                            GetTokenFromServer();
+
+                    }
                 } else
                     getPublishSubject().onNext(StaticValues.ML_ResponseError);
             }

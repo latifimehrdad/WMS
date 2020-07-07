@@ -176,7 +176,7 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
 
                 if (CheckEmpty()) {
                     setAccessClick(false);
-                    StaticFunctions.hideKeyboard(getActivity());
+                    hideKeyboard();
                     ShowProgressDialog(null);
                     vm_profileBank.setAccountNumber(editAccountNumber.getText().toString());
                     vm_profileBank.setBankId(BankId);
