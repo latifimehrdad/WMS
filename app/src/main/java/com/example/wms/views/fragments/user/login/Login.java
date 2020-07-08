@@ -81,7 +81,6 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
             vm_login = new VM_Login(getContext());
             binding.setLogin(vm_login);
             setView(binding.getRoot());
-            ButterKnife.bind(this, getView());
             init();
         }
         return getView();

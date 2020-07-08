@@ -22,7 +22,6 @@ import com.example.wms.views.fragments.FragmentPrimary;
 import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
 
@@ -51,7 +50,6 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
             vm_splash = new VM_Splash(getContext());
             binding.setVmSplash(vm_splash);
             setView(binding.getRoot());
-            ButterKnife.bind(this, getView());
             SetOnclick();
         }
         return getView();

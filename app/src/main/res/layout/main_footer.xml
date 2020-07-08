@@ -53,7 +53,6 @@
         />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/footerLogo"
         android:layout_width="@dimen/_55sdp"
         android:layout_height="@dimen/_55sdp"
         android:layout_centerVertical="true"

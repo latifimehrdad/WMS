@@ -10,9 +10,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentLotteryBinding;
-import com.example.wms.databinding.FragmentLotteryGiveScoreBinding;
 import com.example.wms.viewmodels.lottery.VM_Lottery;
-import com.example.wms.viewmodels.lottery.VM_LotteryGiveScore;
 import com.example.wms.views.fragments.FragmentPrimary;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;

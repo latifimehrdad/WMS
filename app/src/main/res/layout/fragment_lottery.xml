@@ -2,9 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <variable
-            name="lattery"
-            type="com.example.wms.viewmodels.lottery.VM_FragmentLottery" />
 
         <variable
             name="VM_Lottery"

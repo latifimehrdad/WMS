@@ -9,9 +9,7 @@ import androidx.databinding.DataBindingUtil;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentLotteryPrimeryBinding;
-import com.example.wms.databinding.FragmentLotteryResultBinding;
 import com.example.wms.viewmodels.lottery.VM_LotteryPrimary;
-import com.example.wms.viewmodels.lottery.VM_LotteryResult;
 import com.example.wms.views.fragments.FragmentPrimary;
 
 import butterknife.ButterKnife;

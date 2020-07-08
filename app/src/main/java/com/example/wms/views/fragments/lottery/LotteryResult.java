@@ -8,9 +8,7 @@ import android.view.ViewGroup;
 import androidx.databinding.DataBindingUtil;
 
 import com.example.wms.R;
-import com.example.wms.databinding.FragmentLotteryGiveScoreBinding;
 import com.example.wms.databinding.FragmentLotteryResultBinding;
-import com.example.wms.viewmodels.lottery.VM_LotteryGiveScore;
 import com.example.wms.viewmodels.lottery.VM_LotteryResult;
 import com.example.wms.views.fragments.FragmentPrimary;
 

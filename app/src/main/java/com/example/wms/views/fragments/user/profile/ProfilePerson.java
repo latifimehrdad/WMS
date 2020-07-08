@@ -10,19 +10,14 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentProfilePersonBinding;
 import com.example.wms.models.ModelProfileInfo;
 import com.example.wms.models.ModelSpinnerItem;
-import com.example.wms.utility.StaticFunctions;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.user.profile.VM_ProfilePerson;
 import com.example.wms.views.activitys.MainActivity;
@@ -32,10 +27,11 @@ import com.example.wms.views.dialogs.searchspinner.MLSpinnerDialog;
 import com.example.wms.views.dialogs.searchspinner.OnSpinnerItemClick;
 import com.example.wms.views.fragments.FragmentPrimary;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import static com.example.wms.utility.StaticFunctions.TextChangeForChangeBack;
 
@@ -113,7 +109,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
     @Nullable
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (getView() == null) {
@@ -122,7 +118,6 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
             vm_profilePerson = new VM_ProfilePerson(getContext());
             binding.setVmPerson(vm_profilePerson);
             setView(binding.getRoot());
-            ButterKnife.bind(this, getView());
             init();
         }
         return getView();
@@ -158,101 +153,80 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
 
     private void SetClick() {//_____________________________________________________________________ SetClick
 
-        LayoutProvinces.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ClickProvince = true;
-                if ((ProvincesList == null) || (ProvincesList.size() == 0))
-                    GetProvinces();
+        LayoutProvinces.setOnClickListener(v -> {
+            ClickProvince = true;
+            if ((ProvincesList == null) || (ProvincesList.size() == 0))
+                GetProvinces();
+            else
+                spinnerProvinces.showSpinerDialog();
+        });
+
+        LayoutCity.setOnClickListener(v -> {
+
+            if (ProvinceId.equalsIgnoreCase("-1")) {
+                ShowMessage(getResources().getString(R.string.PleaseChooseProvince)
+                        , getResources().getColor(R.color.mlWhite),
+                        getResources().getDrawable(R.drawable.ic_error),
+                        getResources().getColor(R.color.mlBlack));
+            } else {
+                ClickCity = true;
+                if ((CitiesList == null) || (CitiesList.size() == 0))
+                    GetCitys();
                 else
-                    spinnerProvinces.showSpinerDialog();
+                    spinnerCity.showSpinerDialog();
+            }
+
+        });
+
+
+        LayoutRegion.setOnClickListener(v -> {
+            if (CityId.equalsIgnoreCase("-1")) {
+                ShowMessage(getResources().getString(R.string.PleaseChooseCity)
+                        , getResources().getColor(R.color.mlWhite),
+                        getResources().getDrawable(R.drawable.ic_error),
+                        getResources().getColor(R.color.mlBlack));
+            } else {
+                ClickPlace = true;
+                if ((RegionsList == null) || (RegionsList.size() == 0))
+                    GetPlaces();
+                else
+                    spinnerRegion.showSpinerDialog();
             }
         });
 
-        LayoutCity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                if (ProvinceId.equalsIgnoreCase("-1")) {
-                    ShowMessage(getResources().getString(R.string.PleaseChooseProvince)
-                            , getResources().getColor(R.color.mlWhite),
-                            getResources().getDrawable(R.drawable.ic_error),
-                            getResources().getColor(R.color.mlBlack));
-                } else {
-                    ClickCity = true;
-                    if ((CitiesList == null) || (CitiesList.size() == 0))
-                        GetCitys();
-                    else
-                        spinnerCity.showSpinerDialog();
+        radioMan.setOnClickListener(v -> {
+            if (radioMan.isChecked()) {
+                layoutGender.setBackgroundColor(getResources().getColor(R.color.mlWhite));
+                GenderCode = 1;
+            }
+        });
+
+
+        radioWoman.setOnClickListener(v -> {
+            if (radioMan.isChecked()) {
+                layoutGender.setBackgroundColor(getResources().getColor(R.color.mlWhite));
+                GenderCode = 0;
+            }
+        });
+
+
+        btnEditProfile.setOnClickListener(v -> {
+
+                if (CheckEmpty()) {
+                    hideKeyboard();
+                    ShowProgressDialog();
+                    vm_profilePerson.setFirstName(editFirsName.getText().toString());
+                    vm_profilePerson.setLastName(edtiLastName.getText().toString());
+                    vm_profilePerson.setGender(GenderCode);
+                    vm_profilePerson.setCitizenType(Integer.valueOf(UserTypeId));
+                    vm_profilePerson.setCityId(CityId);
+                    vm_profilePerson.setRegionId(RegionId);
+                    vm_profilePerson.setReferenceCode(
+                            editReferenceCode.getText().toString()
+                    );
+                    vm_profilePerson.EditProfile();
                 }
-
-            }
-        });
-
-
-        LayoutRegion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (CityId.equalsIgnoreCase("-1")) {
-                    ShowMessage(getResources().getString(R.string.PleaseChooseCity)
-                            , getResources().getColor(R.color.mlWhite),
-                            getResources().getDrawable(R.drawable.ic_error),
-                            getResources().getColor(R.color.mlBlack));
-                } else {
-                    ClickPlace = true;
-                    if ((RegionsList == null) || (RegionsList.size() == 0))
-                        GetPlaces();
-                    else
-                        spinnerRegion.showSpinerDialog();
-                }
-            }
-        });
-
-
-        radioMan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (radioMan.isChecked()) {
-                    layoutGender.setBackgroundColor(getResources().getColor(R.color.mlWhite));
-                    GenderCode = 1;
-                }
-            }
-        });
-
-
-        radioWoman.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (radioMan.isChecked()) {
-                    layoutGender.setBackgroundColor(getResources().getColor(R.color.mlWhite));
-                    GenderCode = 0;
-                }
-            }
-        });
-
-
-        btnEditProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isAccessClick()) {
-                    if (CheckEmpty()) {
-                        setAccessClick(false);
-                        hideKeyboard();
-                        ShowProgressDialog();
-                        vm_profilePerson.setFirstName(editFirsName.getText().toString());
-                        vm_profilePerson.setLastName(edtiLastName.getText().toString());
-                        vm_profilePerson.setGender(GenderCode);
-                        vm_profilePerson.setCitizenType(Integer.valueOf(UserTypeId));
-                        vm_profilePerson.setCityId(CityId);
-                        vm_profilePerson.setRegionId(RegionId);
-                        vm_profilePerson.setReferenceCode(
-                                editReferenceCode.getText().toString()
-                        );
-                        vm_profilePerson.EditProfile();
-                    }
-                } else
-                    vm_profilePerson.CancelRequest();
-            }
         });
 
     }//_____________________________________________________________________________________________ SetClick
@@ -261,37 +235,35 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
     @Override
     public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
-        setAccessClick(true);
         if (progress != null)
             progress.dismiss();
 
-        if (action == StaticValues.ML_GetProfileInfo) {
+        if (action.equals(StaticValues.ML_GetProfileInfo)) {
             SetProfileInfo();
             return;
         }
 
-        if (action == StaticValues.ML_EditProfile) {
+        if (action.equals(StaticValues.ML_EditProfile)) {
             MainActivity.complateprofile = true;
             //getActivity().onBackPressed();
             return;
         }
 
-        if (action == StaticValues.ML_GetRegion) {
+        if (action.equals(StaticValues.ML_GetRegion)) {
             RegionsList = vm_profilePerson.getRegions();
             SetItemRegion();
             return;
         }
 
-        if (action == StaticValues.ML_GetCities) {
+        if (action.equals(StaticValues.ML_GetCities)) {
             CitiesList = vm_profilePerson.getCities();
             SetItemCity();
             return;
         }
 
-        if (action == StaticValues.ML_GetProvince) {
+        if (action.equals(StaticValues.ML_GetProvince)) {
             ProvincesList = vm_profilePerson.getProvinces();
             SetItemProvinces();
-            return;
         }
 
 
@@ -363,22 +335,19 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
 
         spinnerProvinces.setCancellable(true); // for cancellable
         spinnerProvinces.setShowKeyboard(false);// for open keyboard by default
-        spinnerProvinces.bindOnSpinerListener(new OnSpinnerItemClick() {
-            @Override
-            public void onClick(String item, int position) {
-                TextProvinces.setText(item);
-                ProvinceId = ProvincesList.get(position).getId();
-                CitiesList = null;
-                ClickCity = false;
-                RegionsList = null;
-                ClickPlace = false;
-                CityId = "-1";
-                RegionId = "-1";
-                TextCity.setText(getResources().getString(R.string.City_Prompt));
-                TextRegion.setText(getResources().getString(R.string.ChooseRegion));
-                LayoutProvinces.setBackgroundColor(getResources().getColor(R.color.mlEdit));
-                GetCitys();
-            }
+        spinnerProvinces.bindOnSpinerListener((item, position) -> {
+            TextProvinces.setText(item);
+            ProvinceId = ProvincesList.get(position).getId();
+            CitiesList = null;
+            ClickCity = false;
+            RegionsList = null;
+            ClickPlace = false;
+            CityId = "-1";
+            RegionId = "-1";
+            TextCity.setText(getResources().getString(R.string.City_Prompt));
+            TextRegion.setText(getResources().getString(R.string.ChooseRegion));
+            LayoutProvinces.setBackgroundColor(getResources().getColor(R.color.mlEdit));
+            GetCitys();
         });
 
         if (ClickProvince)
@@ -405,18 +374,15 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
 
         spinnerCity.setCancellable(true); // for cancellable
         spinnerCity.setShowKeyboard(false);// for open keyboard by default
-        spinnerCity.bindOnSpinerListener(new OnSpinnerItemClick() {
-            @Override
-            public void onClick(String item, int position) {
-                TextCity.setText(item);
-                CityId = CitiesList.get(position).getId();
-                RegionsList = null;
-                ClickPlace = false;
-                RegionId = "-1";
-                TextRegion.setText(getResources().getString(R.string.ChooseRegion));
-                LayoutCity.setBackgroundColor(getResources().getColor(R.color.mlEdit));
-                GetPlaces();
-            }
+        spinnerCity.bindOnSpinerListener((item, position) -> {
+            TextCity.setText(item);
+            CityId = CitiesList.get(position).getId();
+            RegionsList = null;
+            ClickPlace = false;
+            RegionId = "-1";
+            TextRegion.setText(getResources().getString(R.string.ChooseRegion));
+            LayoutCity.setBackgroundColor(getResources().getColor(R.color.mlEdit));
+            GetPlaces();
         });
 
         if (ClickCity)
@@ -439,13 +405,10 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
                 getResources().getString(R.string.Ignor));// With 	Animation
         spinnerRegion.setCancellable(true); // for cancellable
         spinnerRegion.setShowKeyboard(false);// for open keyboard by default
-        spinnerRegion.bindOnSpinerListener(new OnSpinnerItemClick() {
-            @Override
-            public void onClick(String item, int position) {
-                TextRegion.setText(item);
-                RegionId = RegionsList.get(position).getId();
-                LayoutRegion.setBackgroundColor(getResources().getColor(R.color.mlEdit));
-            }
+        spinnerRegion.bindOnSpinerListener((item, position) -> {
+            TextRegion.setText(item);
+            RegionId = RegionsList.get(position).getId();
+            LayoutRegion.setBackgroundColor(getResources().getColor(R.color.mlEdit));
         });
 
         if (ClickPlace)
@@ -456,13 +419,13 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
 
     private Boolean CheckEmpty() {//________________________________________________________________ CheckEmpty
 
-        boolean firstname = false;
-        boolean lastname = false;
-        boolean gender = false;
-        boolean privence = false;
-        boolean city = false;
-        boolean region = false;
-        boolean user = false;
+        boolean firstname ;
+        boolean lastname;
+        boolean gender;
+        boolean privence;
+        boolean city;
+        boolean region;
+        boolean user;
 
         if (edtiLastName.getText().length() < 1) {
             edtiLastName.setBackgroundResource(R.drawable.edit_empty_background);
@@ -518,10 +481,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
             user = true;
 
 
-        if (firstname && lastname && gender && privence && city && region && user)
-            return true;
-        else
-            return false;
+        return firstname && lastname && gender && privence && city && region && user;
 
     }//_____________________________________________________________________________________________ CheckEmpty
 
@@ -545,21 +505,13 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
                 getResources().getString(R.string.Ignor));// With 	Animation
         spinnerUser.setCancellable(true); // for cancellable
         spinnerUser.setShowKeyboard(false);// for open keyboard by default
-        spinnerUser.bindOnSpinerListener(new OnSpinnerItemClick() {
-            @Override
-            public void onClick(String item, int position) {
-                TextUser.setText(item);
-                UserTypeId = UserType.get(position).getId();
-                LayoutUser.setBackgroundColor(getResources().getColor(R.color.mlEdit));
-            }
+        spinnerUser.bindOnSpinerListener((item, position) -> {
+            TextUser.setText(item);
+            UserTypeId = UserType.get(position).getId();
+            LayoutUser.setBackgroundColor(getResources().getColor(R.color.mlEdit));
         });
 
-        LayoutUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                spinnerUser.showSpinerDialog();
-            }
-        });
+        LayoutUser.setOnClickListener(v -> spinnerUser.showSpinerDialog());
 
     }//_____________________________________________________________________________________________ SetItemUser
 
@@ -592,12 +544,14 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
 
     private void ShowProgressDialog() {//___________________________________________________________ ShowProgressDialog
 
-        progress = ApplicationWMS
-                .getApplicationWMS(getContext())
-                .getUtilityComponent()
-                .getApplicationUtility()
-                .ShowProgress(getContext(), null);
-        progress.show(getChildFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+       if (getContext() != null) {
+           progress = ApplicationWMS
+                   .getApplicationWMS(getContext())
+                   .getUtilityComponent()
+                   .getApplicationUtility()
+                   .ShowProgress(getContext(), null);
+           progress.show(getChildFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+       }
     }//_____________________________________________________________________________________________ ShowProgressDialog
 
 

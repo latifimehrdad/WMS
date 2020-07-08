@@ -7,24 +7,22 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
+
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentProfileCodeBinding;
-import com.example.wms.utility.StaticFunctions;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.user.profile.VM_ProfileCode;
 import com.example.wms.views.application.ApplicationWMS;
 import com.example.wms.views.dialogs.DialogProgress;
 import com.example.wms.views.fragments.FragmentPrimary;
 
+import org.jetbrains.annotations.NotNull;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import static com.example.wms.utility.StaticFunctions.TextChangeForChangeBack;
 
@@ -43,7 +41,7 @@ public class ProfileCode extends FragmentPrimary implements FragmentPrimary.GetM
     @Nullable
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (getView() == null) {
@@ -52,7 +50,6 @@ public class ProfileCode extends FragmentPrimary implements FragmentPrimary.GetM
             vm_profileCode = new VM_ProfileCode(getContext());
             binding.setVmCode(vm_profileCode);
             setView(binding.getRoot());
-            ButterKnife.bind(this, getView());
             init();
         }
         return getView();
@@ -78,24 +75,22 @@ public class ProfileCode extends FragmentPrimary implements FragmentPrimary.GetM
     @Override
     public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
-        setAccessClick(true);
         if (progress != null)
             progress.dismiss();
 
-        if (action == StaticValues.ML_EditProfile) {
+        if (action.equals(StaticValues.ML_EditProfile)) {
             return;
         }
 
-        if (action == StaticValues.ML_GetRenovationCode) {
+        if (action.equals(StaticValues.ML_GetRenovationCode)) {
             editBuildingRenovationCode.setText(
                     vm_profileCode.getResponseMessage()
             );
             return;
         }
 
-        if (action == StaticValues.ML_GetAccountNumberNull) {
+        if (action.equals(StaticValues.ML_GetAccountNumberNull)) {
             editBuildingRenovationCode.requestFocus();
-            return;
         }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
@@ -104,33 +99,29 @@ public class ProfileCode extends FragmentPrimary implements FragmentPrimary.GetM
     private void SetClick() {//_____________________________________________________________________ SetClick
 
 
-        btnSendCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!isAccessClick())
-                    return;
+        btnSendCode.setOnClickListener(v -> {
 
-                if (CheckEmpty()) {
-                    setAccessClick(false);
-                    hideKeyboard();
-                    ShowProgressDialog(null);
-                    vm_profileCode.setBuildingRenovationCode(editBuildingRenovationCode.getText().toString());
-                    vm_profileCode.SendCode();
-                }
+            if (CheckEmpty()) {
+                hideKeyboard();
+                ShowProgressDialog();
+                vm_profileCode.setBuildingRenovationCode(editBuildingRenovationCode.getText().toString());
+                vm_profileCode.SendCode();
             }
         });
 
     }//_____________________________________________________________________________________________ SetClick
 
 
-    private void ShowProgressDialog(String title) {//_______________________________________________ ShowProgressDialog
+    private void ShowProgressDialog() {//_______________________________________________ ShowProgressDialog
 
-        progress = ApplicationWMS
-                .getApplicationWMS(getContext())
-                .getUtilityComponent()
-                .getApplicationUtility()
-                .ShowProgress(getContext(), title);
-        progress.show(getChildFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+        if (getContext() != null) {
+            progress = ApplicationWMS
+                    .getApplicationWMS(getContext())
+                    .getUtilityComponent()
+                    .getApplicationUtility()
+                    .ShowProgress(getContext(), "");
+            progress.show(getChildFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+        }
     }//_____________________________________________________________________________________________ ShowProgressDialog
 
 

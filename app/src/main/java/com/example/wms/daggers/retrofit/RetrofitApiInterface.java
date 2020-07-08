@@ -1,5 +1,6 @@
 package com.example.wms.daggers.retrofit;
 
+import com.example.wms.models.MD_RequestItemsWast;
 import com.example.wms.models.ModelBuildingRenovationCode;
 import com.example.wms.models.ModelGetAddress;
 import com.example.wms.models.ModelHousingBuildings;
@@ -190,7 +191,7 @@ public interface RetrofitApiInterface {
 
 
     @FormUrlEncoded
-    @POST(Version + "/package/packagerequest")
+    @POST(Version + "/packagerequest/packagerequest")
     Call<ModelResponsePrimary> SendPackageRequest
             (
                     @Field("TimeId") Integer TimeId,
@@ -213,5 +214,14 @@ public interface RetrofitApiInterface {
                     @Header("Authorization") String Authorization
 
             );
+
+
+    @GET(Version + "/Waste/WasteList")
+    Call<MD_RequestItemsWast> getWasteList
+            (
+                    @Header("Authorization") String Authorization
+
+            );
+
 
 }

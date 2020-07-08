@@ -16,7 +16,6 @@ import androidx.navigation.Navigation;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentHomeBinding;
-import com.example.wms.utility.StaticFunctions;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.main.VM_Home;
 import com.example.wms.views.custom.textview.VerticalTextView;
@@ -76,7 +75,6 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
             vm_home = new VM_Home(getContext());
             binding.setVmHome(vm_home);
             setView(binding.getRoot());
-            ButterKnife.bind(this, getView());
             init();
         }
         return getView();

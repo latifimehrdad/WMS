@@ -12,23 +12,20 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentProfileBankBinding;
-import com.example.wms.utility.StaticFunctions;
+
 import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.user.profile.VM_ProfileBank;
 import com.example.wms.views.application.ApplicationWMS;
 import com.example.wms.views.dialogs.DialogProgress;
 import com.example.wms.views.dialogs.searchspinner.MLSpinnerDialog;
-import com.example.wms.views.dialogs.searchspinner.OnSpinnerItemClick;
 import com.example.wms.views.fragments.FragmentPrimary;
-import com.example.wms.views.fragments.user.register.VerifyCode;
+
+
+import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import static com.example.wms.utility.StaticFunctions.TextChangeForChangeBack;
 
@@ -55,7 +52,7 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
     @Nullable
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (getView() == null) {
@@ -64,7 +61,6 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
             vm_profileBank = new VM_ProfileBank(getContext());
             binding.setVmBank(vm_profileBank);
             setView(binding.getRoot());
-            ButterKnife.bind(this, getView());
             init();
         }
         return getView();
@@ -90,16 +86,14 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
     @Override
     public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
-        setAccessClick(true);
-
         if (progress != null)
             progress.dismiss();
 
-        if (action == StaticValues.ML_EditProfile) {
+        if (action.equals(StaticValues.ML_EditProfile)) {
             return;
         }
 
-        if (action == StaticValues.ML_GetAccountNumbers) {
+        if (action.equals(StaticValues.ML_GetAccountNumbers)) {
             editAccountNumber.setText(vm_profileBank
                     .getAccountNumbers()
                     .getAccountNumber());
@@ -117,14 +111,13 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
             return;
         }
 
-        if (action == StaticValues.ML_GetAccountNumberNull) {
+        if (action.equals(StaticValues.ML_GetAccountNumberNull)) {
             editAccountNumber.requestFocus();
             return;
         }
 
-        if (action == StaticValues.ML_GetBanks) {
+        if (action.equals(StaticValues.ML_GetBanks)) {
             SetItemBanks();
-            return;
         }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
@@ -134,21 +127,13 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
         TextBank.setText(getResources().getString(R.string.ChooseBank));
         BankId = "-1";
         //spinnerDialog = new SpinnerDialog(getActivity(),items,"Select or Search City","Close Button Text");// With No Animation
-        spinnerBanks = new MLSpinnerDialog(
-                getActivity(),
-                vm_profileBank.getBanks(),
-                getResources().getString(R.string.Bank_Search),
-                R.style.DialogAnimations_SmileWindow,
-                getResources().getString(R.string.Ignor));// With 	Animation
+        spinnerBanks = new MLSpinnerDialog(getActivity(), vm_profileBank.getBanks(), getResources().getString(R.string.Bank_Search), R.style.DialogAnimations_SmileWindow, getResources().getString(R.string.Ignor));// With 	Animation
         spinnerBanks.setCancellable(true); // for cancellable
         spinnerBanks.setShowKeyboard(false);// for open keyboard by default
-        spinnerBanks.bindOnSpinerListener(new OnSpinnerItemClick() {
-            @Override
-            public void onClick(String item, int position) {
-                TextBank.setText(item);
-                BankId = vm_profileBank.getBanks().get(position).getId();
-                LayoutBank.setBackgroundColor(getResources().getColor(R.color.mlEdit));
-            }
+        spinnerBanks.bindOnSpinerListener((item, position) -> {
+            TextBank.setText(item);
+            BankId = vm_profileBank.getBanks().get(position).getId();
+            LayoutBank.setBackgroundColor(getResources().getColor(R.color.mlEdit));
         });
 
         spinnerBanks.showSpinerDialog();
@@ -157,31 +142,21 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
 
     private void SetClick() {//_____________________________________________________________________ SetClick
 
-        LayoutBank.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ((vm_profileBank.getBanks() == null) || (vm_profileBank.getBanks().size() == 0))
-                    GetBanks();
-                else
-                    spinnerBanks.showSpinerDialog();
-            }
+        LayoutBank.setOnClickListener(v -> {
+            if ((vm_profileBank.getBanks() == null) || (vm_profileBank.getBanks().size() == 0))
+                GetBanks();
+            else
+                spinnerBanks.showSpinerDialog();
         });
 
-        btnSendAccountNumber.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnSendAccountNumber.setOnClickListener(v -> {
 
-                if (!isAccessClick())
-                    return;
-
-                if (CheckEmpty()) {
-                    setAccessClick(false);
-                    hideKeyboard();
-                    ShowProgressDialog(null);
-                    vm_profileBank.setAccountNumber(editAccountNumber.getText().toString());
-                    vm_profileBank.setBankId(BankId);
-                    vm_profileBank.SendAccountNumber();
-                }
+            if (CheckEmpty()) {
+                hideKeyboard();
+                ShowProgressDialog(null);
+                vm_profileBank.setAccountNumber(editAccountNumber.getText().toString());
+                vm_profileBank.setBankId(BankId);
+                vm_profileBank.SendAccountNumber();
             }
         });
 
@@ -194,10 +169,10 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
     }//_____________________________________________________________________________________________ GetBanks
 
 
-    private void GeuUserAccountNumber() {//_________________________________________________________ GeuUserAccountNumber
-        ShowProgressDialog(getResources().getString(R.string.GetUserAccountNumber));
-        vm_profileBank.GetUserAccountNumber();
-    }//_____________________________________________________________________________________________ GeuUserAccountNumber
+//    private void GeuUserAccountNumber() {//_________________________________________________________ GeuUserAccountNumber
+//        ShowProgressDialog(getResources().getString(R.string.GetUserAccountNumber));
+//        vm_profileBank.GetUserAccountNumber();
+//    }//_____________________________________________________________________________________________ GeuUserAccountNumber
 
 
     private void SetTextWatcher() {//_______________________________________________________________ SetTextWatcher
@@ -209,8 +184,8 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
 
     private Boolean CheckEmpty() {//________________________________________________________________ CheckEmpty
 
-        boolean accountnumbert = false;
-        boolean bank = false;
+        boolean accountnumbert;
+        boolean bank;
 
         if (editAccountNumber.getText().length() < 1) {
             editAccountNumber.setBackgroundResource(R.drawable.edit_empty_background);
@@ -226,22 +201,21 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
         } else
             bank = true;
 
-        if (accountnumbert && bank)
-            return true;
-        else
-            return false;
+        return accountnumbert && bank;
 
     }//_____________________________________________________________________________________________ CheckEmpty
 
 
     private void ShowProgressDialog(String title) {//_______________________________________________ ShowProgressDialog
 
-        progress = ApplicationWMS
-                .getApplicationWMS(getContext())
-                .getUtilityComponent()
-                .getApplicationUtility()
-                .ShowProgress(getContext(), title);
-        progress.show(getChildFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+        if (getContext() != null) {
+            progress = ApplicationWMS
+                    .getApplicationWMS(getContext())
+                    .getUtilityComponent()
+                    .getApplicationUtility()
+                    .ShowProgress(getContext(), title);
+            progress.show(getChildFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+        }
     }//_____________________________________________________________________________________________ ShowProgressDialog
 
 

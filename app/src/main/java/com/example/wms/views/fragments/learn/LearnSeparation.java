@@ -9,9 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 
 import com.example.wms.R;
-import com.example.wms.databinding.FragmentLearnItemsBinding;
 import com.example.wms.databinding.FragmentLearnSeparationBinding;
-import com.example.wms.viewmodels.learn.VM_LearnItem;
 import com.example.wms.viewmodels.learn.VM_LearnSeparation;
 import com.example.wms.views.fragments.FragmentPrimary;
 

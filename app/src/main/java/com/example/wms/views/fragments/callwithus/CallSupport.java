@@ -9,9 +9,7 @@ import android.widget.EditText;
 import androidx.databinding.DataBindingUtil;
 
 import com.example.wms.R;
-import com.example.wms.databinding.FragmentCallBinding;
 import com.example.wms.databinding.FragmentSupportBinding;
-import com.example.wms.viewmodels.callwithus.VM_CallWithUs;
 import com.example.wms.viewmodels.callwithus.VM_Support;
 import com.example.wms.views.fragments.FragmentPrimary;
 import com.jaredrummler.materialspinner.MaterialSpinner;

@@ -3,9 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable
-            name="person"
-            type="com.example.wms.viewmodels.user.profile.VM_FragmentProfilePerson" />
 
         <variable
             name="vm_person"

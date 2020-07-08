@@ -8,12 +8,14 @@ import android.view.inputmethod.InputMethodManager;
 
 import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 
 import com.example.wms.R;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.VM_Primary;
 import com.example.wms.views.dialogs.DialogMessage;
 
+import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -25,8 +27,8 @@ public class FragmentPrimary extends Fragment {
     private Activity context;
     private View view;
     private GetMessageFromObservable getMessageFromObservable;
-    private boolean AccessClick;
     private VM_Primary vm_primary;
+    private NavController navController;
 
 
     public interface GetMessageFromObservable {//___________________________________________________ GetMessageFromObservable
@@ -43,7 +45,6 @@ public class FragmentPrimary extends Fragment {
     public void onCreate(Bundle savedInstanceState) {//_____________________________________________ onCreate
         super.onCreate(savedInstanceState);
         context = getActivity();
-        AccessClick = true;
 
     }//_____________________________________________________________________________________________ onCreate
 
@@ -80,6 +81,7 @@ public class FragmentPrimary extends Fragment {
 
     public void setView(View view) {//______________________________________________________________ setView
         this.view = view;
+        ButterKnife.bind(this, view);
     }//_____________________________________________________________________________________________ setView
 
 
@@ -176,12 +178,4 @@ public class FragmentPrimary extends Fragment {
     }//_____________________________________________________________________________________________ hideKeyboard
 
 
-    public boolean isAccessClick() {//______________________________________________________________ isAccessClick
-        return AccessClick;
-    }//_____________________________________________________________________________________________ isAccessClick
-
-
-    public void setAccessClick(boolean accessClick) {//_____________________________________________ setAccessClick
-        AccessClick = accessClick;
-    }//_____________________________________________________________________________________________ setAccessClick
 }

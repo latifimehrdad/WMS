@@ -3,6 +3,7 @@ package com.example.wms.views.fragments.packrequest;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -24,7 +25,6 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
@@ -42,7 +42,6 @@ import com.example.wms.viewmodels.packrequest.VM_PackageRequestAddress;
 import com.example.wms.views.application.ApplicationWMS;
 import com.example.wms.views.dialogs.DialogProgress;
 import com.example.wms.views.fragments.FragmentPrimary;
-import com.example.wms.views.fragments.user.login.Login;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -50,11 +49,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import static com.example.wms.utility.StaticFunctions.TextChangeForChangeBack;
 
@@ -71,13 +71,11 @@ public class PackageRequestAddress extends FragmentPrimary implements
     public PackageRequestAddress.MyLocationListener listener;
     private Location GPSLocation = null;
     private Location NetworkLocation = null;
-    private boolean getLocation = false;
     private LatLng LocationAddress;
     private Long BuildingTypeId;
     private Long BuildingUseId;
     private DialogProgress progress;
     private Dialog dialogQuestion;
-    private final int TWO_MINUTES = 1000 * 60 * 2;
     private Location previousBestLocation = null;
 
     @BindView(R.id.MaterialSpinnerType)
@@ -131,7 +129,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
     @Nullable
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (getView() == null) {
@@ -140,7 +138,6 @@ public class PackageRequestAddress extends FragmentPrimary implements
                     inflater, R.layout.fragment_pack_request_address, container, false);
             binding.setVmRequestAddress(vm_packageRequestAddress);
             setView(binding.getRoot());
-            ButterKnife.bind(this, getView());
             init();
         }
         return getView();
@@ -150,14 +147,17 @@ public class PackageRequestAddress extends FragmentPrimary implements
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        navController = Navigation.findNavController(getView());
+        if (getView() != null)
+            navController = Navigation.findNavController(getView());
         setGetMessageFromObservable(
                 PackageRequestAddress.this,
                 vm_packageRequestAddress.getPublishSubject(),
                 vm_packageRequestAddress);
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
                 .findFragmentById(R.id.fpraMap);
-        mapFragment.getMapAsync(this);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
         TextViewWaitMap.setVisibility(View.VISIBLE);
         FullScreen = false;
         textChoose.setVisibility(View.VISIBLE);
@@ -173,14 +173,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
         SetTextWatcher();
         SetOnClick();
         DismissLoading();
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                vm_packageRequestAddress.GetTypeBuilding();
-            }
-        }, 100);
-
+        vm_packageRequestAddress.GetTypeBuilding();
 
     }//_____________________________________________________________________________________________ init
 
@@ -188,125 +181,97 @@ public class PackageRequestAddress extends FragmentPrimary implements
     @Override
     public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
-        setAccessClick(true);
-
         DismissLoading();
-        if (action == StaticValues.ML_GetAddress) {
+        if (action.equals(StaticValues.ML_GetAddress)) {
             vm_packageRequestAddress.SetAddress();
             return;
         }
 
-        if (action == StaticValues.ML_SetAddress) {
+        if (action.equals(StaticValues.ML_SetAddress)) {
             EditTextAddress.setText(vm_packageRequestAddress.getAddressString());
             return;
         }
 
-        if (action == StaticValues.ML_EditUserAddress) {
+        if (action.equals(StaticValues.ML_EditUserAddress)) {
             navController.navigate(R.id.action_packageRequestAddress_to_packageRequestPrimary);
             return;
         }
 
-        if (action == StaticValues.ML_GetHousingBuildings) {
+        if (action.equals(StaticValues.ML_GetHousingBuildings)) {
             SetMaterialSpinnerType();
-            return;
         }
 
-        if (action == StaticValues.ML_SetAddress) {
-            EditTextAddress.setText(vm_packageRequestAddress.getAddressString());
-            return;
-        }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 
 
     private void SetOnClick() {//___________________________________________________________________ SetOnClick
 
-        LayoutChoose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                textChoose.setVisibility(View.GONE);
-                MarkerGif.setVisibility(View.VISIBLE);
-                LocationAddress = mMap.getCameraPosition().target;
-                vm_packageRequestAddress.GetAddress(LocationAddress.latitude, LocationAddress.longitude);
+        LayoutChoose.setOnClickListener(v -> {
+            textChoose.setVisibility(View.GONE);
+            MarkerGif.setVisibility(View.VISIBLE);
+            LocationAddress = mMap.getCameraPosition().target;
+            vm_packageRequestAddress.GetAddress(LocationAddress.latitude, LocationAddress.longitude);
+        });
+
+
+        imgFullScreen.setOnClickListener(v -> {
+            LinearLayout.LayoutParams childParam1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
+            if (FullScreen) {
+                childParam1.weight = 1;
+                scrollView.setLayoutParams(childParam1);
+                FullScreen = false;
+            } else {
+                childParam1.weight = 0.025f;
+                scrollView.setLayoutParams(childParam1);
+                FullScreen = true;
             }
         });
 
 
-        imgFullScreen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (FullScreen) {
-                    LinearLayout.LayoutParams childParam1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
-                    childParam1.weight = 1;
-                    scrollView.setLayoutParams(childParam1);
-                    FullScreen = false;
-                } else {
-                    LinearLayout.LayoutParams childParam1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
-                    childParam1.weight = 0.025f;
-                    scrollView.setLayoutParams(childParam1);
-                    FullScreen = true;
-                }
+        RelativeLayoutSave.setOnClickListener(v -> {
+
+            if (CheckEmpty()) {
+                ShowLoading();
+                vm_packageRequestAddress.SaveAddress(
+                        EditTextAddress.getText().toString(),
+                        LocationAddress.latitude,
+                        LocationAddress.longitude,
+                        BuildingTypeId,
+                        Integer.valueOf(EditTextUnitCount.getText().toString()),
+                        BuildingUseId,
+                        Integer.valueOf(EditTextPersonCount.getText().toString())
+                );
             }
         });
 
 
-        RelativeLayoutSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (isAccessClick()) {
-                    if (CheckEmpty()) {
-                        ShowLoading();
-                        vm_packageRequestAddress.SaveAddress(
-                                EditTextAddress.getText().toString(),
-                                LocationAddress.latitude,
-                                LocationAddress.longitude,
-                                BuildingTypeId,
-                                Integer.valueOf(EditTextUnitCount.getText().toString()),
-                                BuildingUseId,
-                                Integer.valueOf(EditTextPersonCount.getText().toString())
-                        );
-                    }
-                } else
-                    vm_packageRequestAddress.CancelRequest();
-            }
+        MaterialSpinnerUses.setOnClickListener(v -> {
+            if (vm_packageRequestAddress.getBuildingTypes() == null) {
+                ShowProgressDialog();
+                vm_packageRequestAddress.GetTypeBuilding();
+            } else
+                SetMaterialSpinnerUses();
         });
 
-
-        MaterialSpinnerUses.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (vm_packageRequestAddress.getBuildingTypes() == null) {
-                    ShowProgressDialog();
-                    vm_packageRequestAddress.GetTypeBuilding();
-                } else
-                    SetMaterialSpinnerUses();
-            }
-        });
-
-        MaterialSpinnerUses.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
-                BuildingUseId = Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingUses().get(position - 1).getId());
+        MaterialSpinnerUses.setOnItemSelectedListener((view, position, id, item) -> {
+            BuildingUseId = Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingUses().get(position - 1).getId());
+            if (getContext() != null) {
                 MaterialSpinnerUses.setBackgroundColor(getContext().getResources().getColor(R.color.mlEdit));
             }
         });
 
-        MaterialSpinnerType.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (vm_packageRequestAddress.getBuildingTypes() == null) {
-                    ShowProgressDialog();
-                    vm_packageRequestAddress.GetTypeBuilding();
-                } else
-                    SetMaterialSpinnerType();
-            }
+        MaterialSpinnerType.setOnClickListener(v -> {
+            if (vm_packageRequestAddress.getBuildingTypes() == null) {
+                ShowProgressDialog();
+                vm_packageRequestAddress.GetTypeBuilding();
+            } else
+                SetMaterialSpinnerType();
         });
 
-        MaterialSpinnerType.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
-                BuildingTypeId = Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingTypes().get(position - 1).getId());
+        MaterialSpinnerType.setOnItemSelectedListener((view, position, id, item) -> {
+            BuildingTypeId = Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingTypes().get(position - 1).getId());
+            if (getContext() != null) {
                 MaterialSpinnerType.setBackgroundColor(getContext().getResources().getColor(R.color.mlEdit));
             }
         });
@@ -319,12 +284,11 @@ public class PackageRequestAddress extends FragmentPrimary implements
         textChoose.setVisibility(View.GONE);
         MarkerGif.setVisibility(View.VISIBLE);
 
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED) {
+        if (getContext() == null)
+            return;
 
-        } else {
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+                ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             TryToLocation++;
             if (TryToLocation > 3) {
                 textChoose.setVisibility(View.VISIBLE);
@@ -343,28 +307,24 @@ public class PackageRequestAddress extends FragmentPrimary implements
                 return;
             }
 
-            locationManager = (LocationManager) getContext().getSystemService(getContext().LOCATION_SERVICE);
-            listener = new PackageRequestAddress.MyLocationListener();
+            locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+            listener = new MyLocationListener();
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, (LocationListener) listener);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, listener);
 
             Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    locationManager.removeUpdates(listener);
-                    if (GPSLocation != null) {
-                        GetTrueLocationAndMove(GPSLocation);
-                    } else if (NetworkLocation != null) {
-                        GetTrueLocationAndMove(NetworkLocation);
-                    } else {
-                        GetCurrentLocation();
-                    }
+            handler.postDelayed(() -> {
+                locationManager.removeUpdates(listener);
+                if (GPSLocation != null) {
+                    GetTrueLocationAndMove(GPSLocation);
+                } else if (NetworkLocation != null) {
+                    GetTrueLocationAndMove(NetworkLocation);
+                } else {
+                    GetCurrentLocation();
                 }
             }, 5 * 1000);
         }
     }//_____________________________________________________________________________________________ End GetCurrentLocation
-
 
 
     @SuppressLint("MissingPermission")
@@ -377,48 +337,37 @@ public class PackageRequestAddress extends FragmentPrimary implements
         mMap.getUiSettings().setMapToolbarEnabled(false);
         markerInfo.setVisibility(View.GONE);
 
-        mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
-            @Override
-            public void onMapLoaded() {
-                TextViewWaitMap.setVisibility(View.GONE);
-                if (!StaticFunctions.isLocationEnabled(getContext())) {
-                    ShowRequestTypeDialog();
-                } else {
-                    TryToLocation = 0;
-                    GetCurrentLocation();
-                }
+        mMap.setOnMapLoadedCallback(() -> {
+            TextViewWaitMap.setVisibility(View.GONE);
+            if (!StaticFunctions.isLocationEnabled(getContext())) {
+                ShowRequestTypeDialog();
+            } else {
+                TryToLocation = 0;
+                GetCurrentLocation();
             }
         });
 
-        mMap.setOnCameraMoveStartedListener(new GoogleMap.OnCameraMoveStartedListener() {
-            @Override
-            public void onCameraMoveStarted(int i) {
-                textChoose.setVisibility(View.GONE);
-                MarkerGif.setVisibility(View.VISIBLE);
-                if (markerInfo.getVisibility() == View.VISIBLE) {
-                    SetAnimationTopToBottom();
-                    markerInfo.setVisibility(View.GONE);
-                }
+        mMap.setOnCameraMoveStartedListener(i -> {
+            textChoose.setVisibility(View.GONE);
+            MarkerGif.setVisibility(View.VISIBLE);
+            if (markerInfo.getVisibility() == View.VISIBLE) {
+                SetAnimationTopToBottom();
+                markerInfo.setVisibility(View.GONE);
             }
         });
 
-        mMap.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
-            @Override
-            public void onCameraIdle() {
-                textChoose.setVisibility(View.VISIBLE);
-                MarkerGif.setVisibility(View.GONE);
-            }
+        mMap.setOnCameraIdleListener(() -> {
+            textChoose.setVisibility(View.VISIBLE);
+            MarkerGif.setVisibility(View.GONE);
         });
 
 
     }//_____________________________________________________________________________________________ onMapReady
 
 
-
     private void SetAnimationTopToBottom() {//______________________________________________________ SetAnimationTopToBottom
         markerInfo.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_bottom));
     }//_____________________________________________________________________________________________ SetAnimationTopToBottom
-
 
 
     private void ShowRequestTypeDialog() {//________________________________________________________ ShowRequestTypeDialog
@@ -427,15 +376,21 @@ public class PackageRequestAddress extends FragmentPrimary implements
             if (dialogQuestion.isShowing())
                 dialogQuestion.dismiss();
         dialogQuestion = null;
-        dialogQuestion = new Dialog(getContext());
+        if (getContext() != null) {
+            dialogQuestion = new Dialog(getContext());
+        }
         dialogQuestion.setCancelable(false);
         dialogQuestion.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogQuestion.setContentView(R.layout.dialog_question);
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         Window window = dialogQuestion.getWindow();
-        lp.copyFrom(window.getAttributes());
+        if (window != null) {
+            lp.copyFrom(window.getAttributes());
+        }
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-        window.setAttributes(lp);
+        if (window != null) {
+            window.setAttributes(lp);
+        }
 
         TextView TextViewQuestionTitle = (TextView) dialogQuestion
                 .findViewById(R.id.TextViewQuestionTitle);
@@ -461,34 +416,26 @@ public class PackageRequestAddress extends FragmentPrimary implements
         LinearLayout LinearLayoutNo = (LinearLayout) dialogQuestion
                 .findViewById(R.id.LinearLayoutNo);
 
-        LinearLayoutNo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                textChoose.setVisibility(View.VISIBLE);
-                MarkerGif.setVisibility(View.GONE);
-                LatLng current = new LatLng(35.831350, 50.998434);
-                float zoom = (float) 16;
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(current, zoom));
-                dialogQuestion.dismiss();
-            }
+        LinearLayoutNo.setOnClickListener(v -> {
+            textChoose.setVisibility(View.VISIBLE);
+            MarkerGif.setVisibility(View.GONE);
+            LatLng current = new LatLng(35.831350, 50.998434);
+            float zoom = (float) 16;
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(current, zoom));
+            dialogQuestion.dismiss();
         });
 
-        LinearLayoutYes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivity(intent);
-                dialogQuestion.dismiss();
-            }
+        LinearLayoutYes.setOnClickListener(v -> {
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(intent);
+            dialogQuestion.dismiss();
         });
 
         dialogQuestion.show();
     }//_____________________________________________________________________________________________ ShowRequestTypeDialog
 
 
-
     private void GetTrueLocationAndMove(Location location) {//______________________________________ Start GetTrueLocationAndMove
-        getLocation = true;
         textChoose.setVisibility(View.VISIBLE);
         MarkerGif.setVisibility(View.GONE);
         LatLng current = new LatLng(location.getLatitude(), location.getLongitude());
@@ -516,7 +463,6 @@ public class PackageRequestAddress extends FragmentPrimary implements
     }//_____________________________________________________________________________________________ SetMaterialSpinnerUses
 
 
-
     private void SetMaterialSpinnerType() {//_______________________________________________________ SetMaterialSpinnerType
         if (progress != null)
             progress.dismiss();
@@ -529,25 +475,24 @@ public class PackageRequestAddress extends FragmentPrimary implements
     }//_____________________________________________________________________________________________ SetMaterialSpinnerType
 
 
-
     private Boolean CheckEmpty() {//________________________________________________________________ CheckEmpty
 
-        boolean address = false;
-        boolean personcount = false;
-        boolean unitcount = false;
-        boolean spinneruser = false;
-        boolean spinnertype = false;
+        boolean address;
+        boolean personcount;
+        boolean unitcount;
+        boolean spinneruser;
+        boolean spinnertype;
 
 
         if (MaterialSpinnerType.getSelectedIndex() == 0) {
-            MaterialSpinnerType.setBackgroundColor(getContext().getResources().getColor(R.color.mlEditEmpty));
+            MaterialSpinnerType.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
             MaterialSpinnerType.requestFocus();
             spinnertype = false;
         } else
             spinnertype = true;
 
         if (MaterialSpinnerUses.getSelectedIndex() == 0) {
-            MaterialSpinnerUses.setBackgroundColor(getContext().getResources().getColor(R.color.mlEditEmpty));
+            MaterialSpinnerUses.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
             MaterialSpinnerUses.requestFocus();
             spinneruser = false;
         } else
@@ -579,10 +524,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
             address = true;
 
 
-        if (address && personcount && unitcount && spinneruser && spinnertype)
-            return true;
-        else
-            return false;
+        return address && personcount && unitcount && spinneruser && spinnertype;
 
     }//_____________________________________________________________________________________________ CheckEmpty
 
@@ -611,14 +553,15 @@ public class PackageRequestAddress extends FragmentPrimary implements
 
     private void ShowProgressDialog() {//___________________________________________________________ ShowProgressDialog
 
-        progress = ApplicationWMS
-                .getApplicationWMS(getContext())
-                .getUtilityComponent()
-                .getApplicationUtility()
-                .ShowProgress(getContext(), null);
-        progress.show(getChildFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+        if (getContext() != null) {
+            progress = ApplicationWMS
+                    .getApplicationWMS(getContext())
+                    .getUtilityComponent()
+                    .getApplicationUtility()
+                    .ShowProgress(getContext(), null);
+            progress.show(getChildFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+        }
     }//_____________________________________________________________________________________________ ShowProgressDialog
-
 
 
     public class MyLocationListener implements LocationListener {//_________________________________ MyLocationListener
@@ -649,8 +592,6 @@ public class PackageRequestAddress extends FragmentPrimary implements
     }//_____________________________________________________________________________________________ MyLocationListener
 
 
-
-
     protected boolean isBetterLocation(Location location, Location currentBestLocation) {//_________ isBetterLocation
         if (currentBestLocation == null) {
             // A new location is always better than no location
@@ -659,6 +600,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
 
         // Check whether the new location fix is newer or older
         long timeDelta = location.getTime() - currentBestLocation.getTime();
+        int TWO_MINUTES = 1000 * 60 * 2;
         boolean isSignificantlyNewer = timeDelta > TWO_MINUTES;
         boolean isSignificantlyOlder = timeDelta < -TWO_MINUTES;
         boolean isNewer = timeDelta > 0;
@@ -687,10 +629,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
             return true;
         } else if (isNewer && !isLessAccurate) {
             return true;
-        } else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider) {
-            return true;
-        }
-        return false;
+        } else return isNewer && !isSignificantlyLessAccurate && isFromSameProvider;
     }//_____________________________________________________________________________________________ isBetterLocation
 
 
@@ -700,7 +639,6 @@ public class PackageRequestAddress extends FragmentPrimary implements
         }
         return provider1.equals(provider2);
     }//_____________________________________________________________________________________________ isSameProvider
-
 
 
 }

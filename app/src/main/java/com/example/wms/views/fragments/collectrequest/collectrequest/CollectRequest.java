@@ -6,16 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentCollectRequstBinding;
 import com.example.wms.viewmodels.collectrequest.collectrequest.VM_CollectRequest;
-import com.example.wms.viewmodels.collectrequest.collectrequest.VM_FragmentCollectRequest;
 import com.example.wms.views.fragments.FragmentPrimary;
-import com.example.wms.views.fragments.learn.Learn;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;

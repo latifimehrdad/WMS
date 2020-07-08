@@ -3,9 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:custom="http://schemas.android.com/apk/res-auto">
     <data>
-        <variable
-            name="requestprimery"
-            type="com.example.wms.viewmodels.packrequest.VM_FragmentPackRequestPrimary" />
 
         <variable
             name="vm_requestprimary"

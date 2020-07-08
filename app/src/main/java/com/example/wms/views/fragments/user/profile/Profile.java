@@ -16,12 +16,11 @@ import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
+import org.jetbrains.annotations.NotNull;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class Profile extends FragmentPrimary {
-
-    private VM_Profile vm_profile;
 
     @BindView(R.id.FragmentRegistryTab)
     SmartTabLayout FragmentRegistryTab;
@@ -38,16 +37,15 @@ public class Profile extends FragmentPrimary {
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (getView() == null) {
             FragmentProfileBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_profile, container, false);
-            vm_profile = new VM_Profile(getContext());
+            VM_Profile vm_profile = new VM_Profile(getContext());
             binding.setVmProfile(vm_profile);
             setView(binding.getRoot());
-            ButterKnife.bind(this, getView());
             SetTabs();
         }
         return getView();

@@ -75,7 +75,6 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
             vm_signUp = new VM_SignUp(getContext());
             binding.setSignup(vm_signUp);
             setView(binding.getRoot());
-            ButterKnife.bind(this, getView());
             init();
         }
         return getView();
@@ -140,16 +139,13 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
     private void SetOnclick() {//___________________________________________________________________ SetOnclick
 
         btnGetVerifyCode.setOnClickListener(v -> {
-            if (isAccessClick()) {
                 if (CheckEmpty()) {
                     ShowLoading();
-                    setAccessClick(false);
                     vm_signUp.setPhoneNumber(EditPhoneNumber.getText().toString());
                     vm_signUp.setPassword(EditPassword.getText().toString());
                     vm_signUp.SendNumber();
                 }
-            } else
-                vm_signUp.CancelRequest();
+
         });
 
 

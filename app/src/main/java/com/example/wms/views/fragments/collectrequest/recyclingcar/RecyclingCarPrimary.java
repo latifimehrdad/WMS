@@ -10,10 +10,8 @@ import androidx.databinding.DataBindingUtil;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentRecyclingCarPrimeryBinding;
-import com.example.wms.viewmodels.collectrequest.recyclingcar.VM_FragmentRecyclingCarPrimary;
 import com.example.wms.viewmodels.collectrequest.recyclingcar.VM_RecyclingCarPrimary;
 import com.example.wms.views.fragments.FragmentPrimary;
-import com.example.wms.views.fragments.learn.Learn;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import butterknife.BindView;

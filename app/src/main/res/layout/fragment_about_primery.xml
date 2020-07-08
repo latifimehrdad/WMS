@@ -4,10 +4,6 @@
     <data>
 
         <variable
-            name="aboutprimery"
-            type="com.example.wms.viewmodels.aboutus.VM_FragmentAboutPrimary" />
-
-        <variable
             name="VM_About"
             type="com.example.wms.viewmodels.aboutus.VM_About" />
     </data>

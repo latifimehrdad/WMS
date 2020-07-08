@@ -3,9 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable
-            name="recyclingcar"
-            type="com.example.wms.viewmodels.collectrequest.recyclingcar.VM_FragmentRecyclingCar" />
 
         <variable
             name="VM_RecyclingCar"

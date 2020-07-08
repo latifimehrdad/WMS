@@ -8,13 +8,10 @@ import android.view.ViewGroup;
 import androidx.databinding.DataBindingUtil;
 
 import com.example.wms.R;
-import com.example.wms.databinding.FragmentBoothReceivePrimeryBinding;
 import com.example.wms.databinding.FragmentLotteryGiveScoreBinding;
-import com.example.wms.viewmodels.collectrequest.boothreceive.VM_BoothReceivePrimary;
 import com.example.wms.viewmodels.lottery.VM_LotteryGiveScore;
 import com.example.wms.views.fragments.FragmentPrimary;
-import com.example.wms.views.fragments.collectrequest.boothreceive.BoothReceivePrimary;
-import com.google.android.gms.maps.SupportMapFragment;
+
 
 import butterknife.ButterKnife;
 

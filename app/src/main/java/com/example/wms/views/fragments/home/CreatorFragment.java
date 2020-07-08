@@ -26,7 +26,6 @@ import com.example.wms.viewmodels.main.VM_CreatorFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.graphics.text.LineBreaker.JUSTIFICATION_MODE_INTER_WORD;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -6,19 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.wms.R;
-import com.example.wms.databinding.FragmentBoothReceiveBinding;
 import com.example.wms.databinding.FragmentRecyclingCarBinding;
-import com.example.wms.viewmodels.collectrequest.boothreceive.VM_BoothReceive;
 import com.example.wms.viewmodels.collectrequest.recyclingcar.VM_RecyclingCar;
 import com.example.wms.views.fragments.FragmentPrimary;
 import com.example.wms.views.fragments.collectrequest.collectrequest.CollectRequestOrder;
-import com.example.wms.views.fragments.collectrequest.collectrequest.FragmentCollectRequestOrders;
-import com.example.wms.views.fragments.learn.Learn;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;

@@ -2,6 +2,7 @@ package com.example.wms.viewmodels;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.os.Handler;
 
 import com.example.wms.R;
 import com.example.wms.models.ModelMessage;
@@ -93,7 +94,7 @@ public class VM_Primary {
             }
             return message.toString();
         } catch (Exception ex) {
-            return "Failure";
+            return getContext().getResources().getString(R.string.NetworkError);
         }
     }//_____________________________________________________________________________________________ GetMessage
 
@@ -148,5 +149,17 @@ public class VM_Primary {
     public void setContext(Activity context) {//____________________________________________________ setContext
         this.context = context;
     }//_____________________________________________________________________________________________ setContext
+
+
+    public void SendMessageToObservable(Byte action) {//____________________________________________ SendMessageToObservable
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                publishSubject.onNext(action);
+            }
+        },200);
+
+    }//_____________________________________________________________________________________________ SendMessageToObservable
 
 }

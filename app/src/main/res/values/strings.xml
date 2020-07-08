@@ -14,13 +14,6 @@
     <string name="Bank_Search">جستجوی بانک</string>
 
 
-    <string-array name="City">
-        <item>انتخاب شهر</item>
-        <item>تهران</item>
-        <item>کرج</item>
-    </string-array>
-
-
     <string name="app_name">مدیریت پسماند سبززیور</string>
 
     <string name="WMSFromFist">سیستم مدیریت تفکیک از مبدأ</string>
@@ -37,8 +30,6 @@
     <string name="MobileNumber">شماره موبایل</string>
     <string name="Password">رمز ورود</string>
     <string name="ReTryPassword">تکرار رمز ورود</string>
-    <string name="NewPassword">رمز جدید</string>
-    <string name="NewPasswordConfirm">تکرار رمز جدید</string>
     <string name="ReagentCode">کد معرف</string>
     <string name="AccountNumber">شماره حساب</string>
     <string name="Save">ثبت</string>
@@ -47,7 +38,6 @@
 
     <string name="HomeMaxScore">بیشترین امتیاز</string>
     <string name="HomeAveScore">میانگین امتیازات</string>
-    <string name="HomeFuture">آینده را دور نریزیم</string>
     <string name="HomeYouScore">امتیاز قرعه کشی</string>
 
     <string name="Retry">تلاش مجدد</string>
@@ -163,7 +153,6 @@
     <string name="ForgetPassword">آیا رمز ورود خود را فراموش کرده اید؟</string>
     <string name="Editrofile">ویرایش اطلاعات</string>
     <string name="NetworkError">خطا در اتصال به سرور</string>
-    <string name="RequestCancel">لغو ارتباط</string>
     <string name="UnitCount">تعداد واحد</string>
     <string name="PersonCount">تعداد نفرات</string>
     <string name="SendMessage">ارسال پیام</string>
@@ -171,14 +160,11 @@
     <string name="PleaseChooseCity">لطفا ابتدا شهر را انتخاب کنید</string>
     <string name="EmptyFirstName">لطفا نام را وارد کنید</string>
     <string name="EmptyLastName">لطفا نام خانوادگی را وارد کنید</string>
-    <string name="EmptyReferenceCode">لطفا کد معرف را وارد کنید</string>
     <string name="GetUserAccountNumber">دریافت اطلاعات حساب</string>
     <string name="GetBanks">دریافت لیست بانکها</string>
     <string name="EmptyAccountNumber">لطفا شماره حساب را وارد کنید</string>
-    <string name="GetBuildingRenovationCode">دریافت کد نوسازی</string>
     <string name="ExitAccount">خروج از حساب</string>
     <string name="WazeNavigation">"مسیریابی"</string>
-    <string name="RegisterOK">ثبت نام با موفقیت انجام شد</string>
     <string name="NotFoundLocation">موقعیت شما یافت نشد</string>
     <string name="Game">بازی</string>
     <string name="StartGame">شروع بازی</string>
@@ -187,7 +173,6 @@
     <string name="EmptyAddress">لطفا آدرس را انتخاب نمایید</string>
     <string name="EmptyPersonCount">لطفا تعداد نفرات را وارد نمایید</string>
     <string name="EmptyUnitCount">لطفا تعداد واحدها را وارد نمایید</string>
-    <string name="GetPackage">شما قبلا پکیج را دریافت کرده اید</string>
     <string name="TurnOnGps">موقعیت مکانی دستگاه شما خاموش است. تمایل به روشن کردن آن دارید؟</string>
     <string name="CopyRight">تولید شده توسط گروه نگرا</string>
     <string name="About">درباره تولید کننده</string>
@@ -195,10 +180,8 @@
     <string name="Tel">تلفن تماس : 02691009001</string>
     <string name="ML_TurnOnLocation">روشن شود</string>
     <string name="ML_TurnOffLocation">خاموش بماند</string>
-    <string name="WaitLoadMap">در حال بارگزاری نقشه، منتظر بمانید ...</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="ML_SharePreferences">SharePreferences</string>
     <string name="ML_AccessToken">AccessToken</string>
@@ -216,7 +199,6 @@
     <string name="ML_Type">Type</string>
     <string name="ML_SingUp">SingUp</string>
     <string name="ML_AddressCompleted">AddressCompleted</string>
-    <string name="ML_IsPackageState">IsPackageState</string>
     <string name="ML_PackageRequestStatus">PackageRequestStatus</string>
     <string name="ML_PackageRequestDate">PackageRequestDate</string>
     <string name="ML_PackageRequestFrom">PackageRequestFrom</string>

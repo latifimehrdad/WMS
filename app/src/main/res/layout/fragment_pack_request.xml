@@ -3,9 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable
-            name="packrequst"
-            type="com.example.wms.viewmodels.packrequest.VM_FragmentPackRequest" />
 
         <variable
             name="vm_package"

@@ -3,10 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="boothreceive"
-            type="com.example.wms.viewmodels.collectrequest.boothreceive.VM_FragmentBoothReceive" />
-
-        <variable
             name="vm_BoothReceive"
             type="com.example.wms.viewmodels.collectrequest.boothreceive.VM_BoothReceive" />
     </data>

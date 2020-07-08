@@ -9,12 +9,9 @@ import android.view.ViewGroup;
 import androidx.databinding.DataBindingUtil;
 
 import com.example.wms.R;
-import com.example.wms.databinding.FragmentBoothReceiveBinding;
 import com.example.wms.databinding.FragmentBoothReceivePrimeryBinding;
-import com.example.wms.viewmodels.collectrequest.boothreceive.VM_BoothReceive;
 import com.example.wms.viewmodels.collectrequest.boothreceive.VM_BoothReceivePrimary;
 import com.example.wms.views.fragments.FragmentPrimary;
-import com.example.wms.views.fragments.learn.Learn;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;

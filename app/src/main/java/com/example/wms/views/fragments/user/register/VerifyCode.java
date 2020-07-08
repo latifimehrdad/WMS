@@ -82,7 +82,6 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
             vm_verifyCode = new VM_VerifyCode(getContext());
             binding.setVerify(vm_verifyCode);
             setView(binding.getRoot());
-            ButterKnife.bind(this, getView());
             init();
         }
         return getView();
@@ -113,7 +112,6 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
     @Override
     public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
-        setAccessClick(true);
         if (action.equals(StaticValues.ML_GotoLogin)) {
             DismissProgress();
             if (getContext() != null) {
@@ -146,6 +144,7 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
         message.setOnClickListener(v -> {
             if (ReTryGetSMSClick) {
                 vm_verifyCode.setPassword(Password);
+                vm_verifyCode.setPhoneNumber(PhoneNumber);
                 vm_verifyCode.SendNumber();
             }
         });
@@ -262,9 +261,6 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
         Boolean c4 = SetBackVerifyCodeView(VerifyCode4);
         Boolean c5 = SetBackVerifyCodeView(VerifyCode5);
         Boolean c6 = SetBackVerifyCodeView(VerifyCode6);
-
-        if (!isAccessClick())
-            return;
 
         if (c1 && c2 && c3 && c4 && c5 && c6) {
             String code = VerifyCode1.getText().toString() +

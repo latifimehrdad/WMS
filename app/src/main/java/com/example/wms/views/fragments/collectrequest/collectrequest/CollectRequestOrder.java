@@ -10,9 +10,7 @@ import androidx.databinding.DataBindingUtil;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentCollectRequestOrdersBinding;
 import com.example.wms.viewmodels.collectrequest.collectrequest.VM_CollectRequestOrder;
-import com.example.wms.viewmodels.collectrequest.collectrequest.VM_FragmentCollectRequestOrders;
 import com.example.wms.views.fragments.FragmentPrimary;
-import com.example.wms.views.fragments.learn.Learn;
 
 import butterknife.ButterKnife;
 

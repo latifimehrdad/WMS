@@ -118,11 +118,7 @@ dependencies {
     implementation "androidx.navigation:navigation-ui:$nav_version"
 
     implementation 'com.codesgood:justifiedtextview:1.1.0'
-//    implementation 'com.google.android.gms:play-services-maps:15.+'
-//    implementation 'com.google.android.gms:play-services-places:16.0.0'
-//    implementation 'com.google.android.gms:play-services-gcm:15.+'
-//    implementation 'com.google.android.gms:play-services-location:15.+'
-//    implementation 'com.google.maps.android:android-maps-utils:0.4+'
 
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 
 }

@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.wms.R;
-import com.example.wms.databinding.FragmentCallBinding;
 import com.example.wms.databinding.FragmentCallWithUsBinding;
 import com.example.wms.viewmodels.callwithus.VM_CallWithUs;
 import com.example.wms.views.fragments.FragmentPrimary;
@@ -65,8 +64,8 @@ public class CallWithUs extends FragmentPrimary {
 
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getChildFragmentManager(), FragmentPagerItems.with(getContext())
-                .add(R.string.CallWithUs, FragmentCall.class)
-                .add(R.string.SupportApp, FragmentSupport.class)
+                .add(R.string.CallWithUs, Calls.class)
+                .add(R.string.SupportApp, CallSupport.class)
                 .create());
 
         FragmentCallWithUsView.setAdapter(adapter);

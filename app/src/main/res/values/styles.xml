@@ -20,12 +20,6 @@
         <item name="colorAccent">@color/mlHeader</item>
     </style>
 
-    <style name="mySpinnerItemStyle"
-        parent="@android:style/Widget.Holo.DropDownItem.Spinner">
-        <item name="android:background">@color/mlFooter</item>
-        <item name="android:textColor">@color/mlHeader</item>
-    </style>
-
 
     <style name="DialogAnimations"/>
     <style name="DialogAnimations.SmileWindow">

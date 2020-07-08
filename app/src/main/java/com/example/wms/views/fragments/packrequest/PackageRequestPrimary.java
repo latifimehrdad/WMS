@@ -14,8 +14,6 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import com.cunoraz.gifview.library.GifView;
 import com.example.wms.R;
@@ -32,23 +30,21 @@ import com.example.wms.views.fragments.FragmentPrimary;
 import com.example.wms.views.fragments.home.Home;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import params.com.stepview.StatusViewScroller;
 
 public class PackageRequestPrimary extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
 
-
-    private NavController navController;
     private VM_PackageRequestPrimary vm_packageRequestPrimary;
     private Integer timeId;
     private Integer TimePosition;
-    private DialogProgress progress;
 
     @BindView(R.id.FPRPSpinnerHours)
     MaterialSpinner FPRPSpinnerHours;
@@ -84,7 +80,7 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
     @Nullable
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (getView() == null) {
@@ -93,7 +89,6 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
                     inflater, R.layout.fragment_pack_request_primary, container, false);
             binding.setVmRequestprimary(vm_packageRequestPrimary);
             setView(binding.getRoot());
-            ButterKnife.bind(this, getView());
             SetOnClick();
         }
         return getView();
@@ -103,7 +98,6 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        navController = Navigation.findNavController(getView());
         setGetMessageFromObservable(
                 PackageRequestPrimary.this,
                 vm_packageRequestPrimary.getPublishSubject(),
@@ -111,28 +105,19 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
 
         SetStatusPackageRequest();
 
-
-
     }//_____________________________________________________________________________________________ onStart
 
 
-
-    private void  SetStatusPackageRequest() {//_____________________________________________________ SetStatusPackageRequest
+    private void SetStatusPackageRequest() {//_____________________________________________________ SetStatusPackageRequest
 
 
         Byte statues = vm_packageRequestPrimary.GetPackageStatus();
 
-        if (statues == StaticValues.PR_NotRequested) {
+        if (statues.equals(StaticValues.PR_NotRequested)) {
             RelativeLayoutSave.setVisibility(View.VISIBLE);
             LinearLayoutPackageState.setVisibility(View.GONE);
             FPRPSpinnerDay.setVisibility(View.VISIBLE);
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    vm_packageRequestPrimary.GetTypeTimes();
-                }
-            }, 50);
+            vm_packageRequestPrimary.GetTypeTimes();
         } else {
             FPRPStatusViewScroller.getStatusView().setCurrentCount(statues + 1);
             RelativeLayoutSave.setVisibility(View.GONE);
@@ -145,15 +130,12 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
     }//_____________________________________________________________________________________________ SetStatusPackageRequest
 
 
-
     @Override
     public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
-        setAccessClick(true);
-
         DismissLoading();
 
-        if (action == StaticValues.ML_SendPackageRequest) {
+        if (action.equals(StaticValues.ML_SendPackageRequest)) {
             RelativeLayoutSave.setVisibility(View.GONE);
             LinearLayoutPackageState.setVisibility(View.VISIBLE);
             FPRPSpinnerDay.setVisibility(View.GONE);
@@ -166,7 +148,7 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
 
         }
 
-        if (action == StaticValues.ML_GetTimeSheetTimes) {
+        if (action.equals(StaticValues.ML_GetTimeSheetTimes)) {
             SetMaterialSpinnersTimes();
         }
 
@@ -176,69 +158,66 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
 
     private void SetPackageDate(ModelPackage modelPackage) {//______________________________________ SetPackageDate
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.US);
-        ApplicationUtility utility = ApplicationWMS
-                .getApplicationWMS(getContext())
-                .getUtilityComponent()
-                .getApplicationUtility();
-        textDate.setText(utility.MiladiToJalali(
-                modelPackage.getFromDeliver(), "FullJalaliString"));
-        StringBuilder builder = new StringBuilder();
-        builder.append(simpleDateFormat.format(modelPackage.getFromDeliver()));
-        builder.append(" تا ");
-        builder.append(simpleDateFormat.format(modelPackage.getToDeliver()));
-        textTime.setText(builder.toString());
+        ApplicationUtility utility = null;
+        if (getContext() != null) {
+            utility = ApplicationWMS
+                    .getApplicationWMS(getContext())
+                    .getUtilityComponent()
+                    .getApplicationUtility();
+        }
+        if (utility != null) {
+            textDate.setText(utility.MiladiToJalali(
+                    modelPackage.getFromDeliver(), "FullJalaliString"));
+        }
+        String builder = simpleDateFormat.format(modelPackage.getFromDeliver()) +
+                " تا " +
+                simpleDateFormat.format(modelPackage.getToDeliver());
+        textTime.setText(builder);
     }//_____________________________________________________________________________________________ SetPackageDate
 
 
     private void SetOnClick() {//___________________________________________________________________ SetOnClick
 
-        getView().setFocusableInTouchMode(true);
-        getView().requestFocus();
-        getView().setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
+        if (getView() != null) {
+            getView().setFocusableInTouchMode(true);
+            getView().requestFocus();
+            getView().setOnKeyListener((v, keyCode, event) -> {
                 if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
                     if (Home.TwoBackToHome) {
-                        getActivity().onBackPressed();
-                        getActivity().onBackPressed();
+                        if (getContext() != null) {
+                            getContext().onBackPressed();
+                            getContext().onBackPressed();
+                        }
+
                         return true;
                     } else
                         return false;
                 } else
                     return false;
-            }
+            });
+        }
+
+        FPRPSpinnerDay.setOnClickListener(v -> {
+            if (vm_packageRequestPrimary.getModelTimes() == null) {
+                ShowProgressDialog();
+                vm_packageRequestPrimary.GetTypeTimes();
+            } else
+                SetMaterialSpinnersTimes();
         });
 
-        FPRPSpinnerDay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (vm_packageRequestPrimary.getModelTimes() == null) {
-                    ShowProgressDialog();
-                    vm_packageRequestPrimary.GetTypeTimes();
-                } else
-                    SetMaterialSpinnersTimes();
-            }
+        FPRPSpinnerDay.setOnItemSelectedListener((view, position, id, item) -> {
+            if (position == 0)
+                return;
+            TimePosition = position - 1;
+            timeId = vm_packageRequestPrimary.getModelTimes().getTimes().get(TimePosition).getId();
+            FPRPSpinnerDay.setBackgroundColor(getResources().getColor(R.color.mlEdit));
         });
 
-        FPRPSpinnerDay.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
-                if (position == 0)
-                    return;
-                TimePosition = position - 1;
-                timeId = vm_packageRequestPrimary.getModelTimes().getTimes().get(TimePosition).getId();
-                FPRPSpinnerDay.setBackgroundColor(getContext().getResources().getColor(R.color.mlEdit));
-            }
-        });
-
-        RelativeLayoutSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (StaticFunctions.isCancel) {
-                    if (CheckEmpty()) {
-                        ShowLoading();
-                        vm_packageRequestPrimary.SendPackageRequest(timeId);
-                    }
+        RelativeLayoutSave.setOnClickListener(v -> {
+            if (StaticFunctions.isCancel) {
+                if (CheckEmpty()) {
+                    ShowLoading();
+                    vm_packageRequestPrimary.SendPackageRequest(timeId);
                 }
             }
         });
@@ -250,7 +229,7 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
     private Boolean CheckEmpty() {//________________________________________________________________ CheckEmpty
 
         if (FPRPSpinnerDay.getSelectedIndex() == 0) {
-            FPRPSpinnerDay.setBackgroundColor(getContext().getResources().getColor(R.color.mlEditEmpty));
+            FPRPSpinnerDay.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
             FPRPSpinnerDay.requestFocus();
             return false;
         } else
@@ -260,23 +239,28 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
 
     private void SetMaterialSpinnersTimes() {//_____________________________________________________ SetMaterialSpinnersTimes
 
-        ApplicationUtility utility = ApplicationWMS
-                .getApplicationWMS(getContext())
-                .getUtilityComponent()
-                .getApplicationUtility();
+        ApplicationUtility utility = null;
+        if (getContext() != null) {
+            utility = ApplicationWMS
+                    .getApplicationWMS(getContext())
+                    .getUtilityComponent()
+                    .getApplicationUtility();
+        }
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.US);
 
         List<String> buildingTypes = new ArrayList<>();
         buildingTypes.add("انتخاب تاریخ دریافت");
         for (ModelTime item : vm_packageRequestPrimary.getModelTimes().getTimes()) {
-            StringBuilder builder = new StringBuilder();
-            builder.append(utility.MiladiToJalali(item.getDate(), "FullJalaliString"));
-            builder.append(" از ساعت ");
-            builder.append(simpleDateFormat.format(item.getFrom()));
-            builder.append(" تا ");
-            builder.append(simpleDateFormat.format(item.getTo()));
-            buildingTypes.add(builder.toString());
+            String builder = null;
+            if (utility != null) {
+                builder = utility.MiladiToJalali(item.getDate(), "FullJalaliString") +
+                        " از ساعت " +
+                        simpleDateFormat.format(item.getFrom()) +
+                        " تا " +
+                        simpleDateFormat.format(item.getTo());
+            }
+            buildingTypes.add(builder);
         }
 
         FPRPSpinnerDay.setItems(buildingTypes);
@@ -305,12 +289,14 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
 
     private void ShowProgressDialog() {//___________________________________________________________ ShowProgressDialog
 
-        progress = ApplicationWMS
-                .getApplicationWMS(getContext())
-                .getUtilityComponent()
-                .getApplicationUtility()
-                .ShowProgress(getContext(), null);
-        progress.show(getChildFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+        if (getContext() != null) {
+            DialogProgress progress = ApplicationWMS
+                    .getApplicationWMS(getContext())
+                    .getUtilityComponent()
+                    .getApplicationUtility()
+                    .ShowProgress(getContext(), null);
+            progress.show(getChildFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+        }
     }//_____________________________________________________________________________________________ ShowProgressDialog
 
 

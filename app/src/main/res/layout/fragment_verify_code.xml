@@ -5,10 +5,6 @@
     <data>
 
         <variable
-            name="verifycode"
-            type="com.example.wms.viewmodels.user.register.VM_FragmentVerifyCode" />
-
-        <variable
             name="verify"
             type="com.example.wms.viewmodels.user.register.VM_VerifyCode" />
     </data>

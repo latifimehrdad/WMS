@@ -131,7 +131,6 @@
                 />
 
             <LinearLayout
-                android:id="@+id/wazeLayout"
                 android:layout_width="@dimen/_40sdp"
                 android:layout_height="match_parent"
                 android:orientation="vertical"

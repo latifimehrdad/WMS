@@ -6,10 +6,6 @@
     <data>
 
         <variable
-            name="home"
-            type="com.example.wms.viewmodels.main.VM_FragmentHome" />
-
-        <variable
             name="vm_home"
             type="com.example.wms.viewmodels.main.VM_Home" />
     </data>

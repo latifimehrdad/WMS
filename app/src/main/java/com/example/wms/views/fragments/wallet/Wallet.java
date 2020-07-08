@@ -1,18 +1,14 @@
 package com.example.wms.views.fragments.wallet;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentWalletBinding;
-import com.example.wms.viewmodels.wallet.VM_FragmentWallet;
 import com.example.wms.viewmodels.wallet.VM_Wallet;
 import com.example.wms.views.fragments.FragmentPrimary;
 import com.github.mikephil.charting.charts.BarChart;
