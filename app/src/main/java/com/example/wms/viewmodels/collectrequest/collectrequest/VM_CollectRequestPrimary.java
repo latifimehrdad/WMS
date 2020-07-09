@@ -3,9 +3,8 @@ package com.example.wms.viewmodels.collectrequest.collectrequest;
 import android.app.Activity;
 
 import com.example.wms.daggers.retrofit.RetrofitComponent;
-import com.example.wms.models.MD_ItemWast;
+import com.example.wms.models.MD_ItemWaste;
 import com.example.wms.models.MD_RequestItemsWast;
-import com.example.wms.models.ModelResponsePrimary;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.VM_Primary;
 import com.example.wms.views.application.ApplicationWMS;
@@ -21,7 +20,7 @@ import retrofit2.Response;
 public class VM_CollectRequestPrimary extends VM_Primary {
 
 
-    private List<MD_ItemWast> md_itemWasts;
+    private List<MD_ItemWaste> md_itemWastes;
 
 
     public VM_CollectRequestPrimary(Activity context) {//___________________________________________ VM_CollectRequestPrimary
@@ -49,7 +48,7 @@ public class VM_CollectRequestPrimary extends VM_Primary {
             public void onResponse(Call<MD_RequestItemsWast> call, Response<MD_RequestItemsWast> response) {
                 setResponseMessage(CheckResponse(response, false));
                 if (getResponseMessage() == null) {
-                    md_itemWasts = response.body().getItemsWast();
+                    md_itemWastes = response.body().getItemsWast();
                     getPublishSubject().onNext(StaticValues.ML_Success);
                 }
                 else {
@@ -63,16 +62,16 @@ public class VM_CollectRequestPrimary extends VM_Primary {
             }
         });
 
-        SendMessageToObservable(StaticValues.ML_GetItemsOfWastIsSuccess);
+        SendMessageToObservable(StaticValues.ML_GetItemsOfWasteIsSuccess);
 
     }//_____________________________________________________________________________________________ GetItemsOfWast
 
 
 
-    public List<MD_ItemWast> getMd_itemWasts() {//__________________________________________________ getMd_itemWasts
-        if (md_itemWasts == null)
-            md_itemWasts = new ArrayList<>();
+    public List<MD_ItemWaste> getMd_itemWastes() {//__________________________________________________ getMd_itemWasts
+        if (md_itemWastes == null)
+            md_itemWastes = new ArrayList<>();
 
-        return md_itemWasts;
+        return md_itemWastes;
     }//_____________________________________________________________________________________________ getMd_itemWasts
 }

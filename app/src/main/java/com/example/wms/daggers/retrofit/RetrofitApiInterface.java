@@ -1,5 +1,6 @@
 package com.example.wms.daggers.retrofit;
 
+import com.example.wms.models.MD_RequestBoothList;
 import com.example.wms.models.MD_RequestItemsWast;
 import com.example.wms.models.ModelBuildingRenovationCode;
 import com.example.wms.models.ModelGetAddress;
@@ -223,5 +224,12 @@ public interface RetrofitApiInterface {
 
             );
 
+
+    @GET(Version + "/contact/getboothlist")
+    Call<MD_RequestBoothList> getBoothList
+            (
+                    @Header("Authorization") String Authorization
+
+            );
 
 }

@@ -75,6 +75,12 @@
     <string name="Edit">ویرایش</string>
     <string name="Cancel">لغو</string>
     <string name="CallBooth">تماس با غرفه</string>
+    <string name="BoothAuthor">مسئول غرفه</string>
+    <string name="ShowOnMap">نمایش مکان</string>
+    
+    <string name="ChooseDateDelivery">انتخاب تاریخ تحویل</string>
+    <string name="EmptyList">لیست خالی است</string>
+    <string name="ChooseForDelivery">انتخاب برای تحویل</string>
 
     <string name="Plastics">پلاستیک ها</string>
     <string name="PlasticsNote">انواع ظروف پلاستيكي، روكش ها و كيسه هاي پلاستيكي ،قوطی آب معدنی،

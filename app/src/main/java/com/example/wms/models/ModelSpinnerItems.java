@@ -9,6 +9,10 @@ public class ModelSpinnerItems extends ModelResponsePrimary {
     @SerializedName("result")
     ArrayList<ModelSpinnerItem> result;
 
+    public ModelSpinnerItems(ArrayList<ModelMessage> messages) {
+        super(messages);
+    }
+
 
     public ArrayList<ModelSpinnerItem> getResult() {
         return result;

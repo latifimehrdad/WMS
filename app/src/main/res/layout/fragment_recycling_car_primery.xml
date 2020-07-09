@@ -55,6 +55,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/TextViewCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/mlBlack"
@@ -95,22 +96,11 @@
                 >
 
                 <com.jaredrummler.materialspinner.MaterialSpinner
-                    android:id="@+id/FRCPSpinnerHours"
+                    android:id="@+id/MaterialSpinnerSpinnerDay"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="right"
-                    android:prompt="@string/City_Prompt"
-                    app:ms_background_color="@color/mlEdit"
-                    app:ms_text_color="@color/mlBlack"
-                    android:layout_marginRight="@dimen/_10sdp"
-                    />
-
-                <com.jaredrummler.materialspinner.MaterialSpinner
-                    android:id="@+id/FRCPSpinnerDay"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:gravity="right"
                     android:prompt="@string/City_Prompt"
                     app:ms_background_color="@color/mlEdit"

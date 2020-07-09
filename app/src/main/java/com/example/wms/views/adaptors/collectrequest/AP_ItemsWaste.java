@@ -9,17 +9,17 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wms.R;
-import com.example.wms.databinding.AdapterItemWastBinding;
-import com.example.wms.models.MD_ItemWast;
+import com.example.wms.databinding.AdapterItemWasteBinding;
+import com.example.wms.models.MD_ItemWaste;
 
 import java.util.List;
 
 import butterknife.ButterKnife;
 
-public class AP_ItemsWast extends RecyclerView.Adapter<AP_ItemsWast.CustomHolder> {
+public class AP_ItemsWaste extends RecyclerView.Adapter<AP_ItemsWaste.CustomHolder> {
 
     private LayoutInflater layoutInflater;
-    private List<MD_ItemWast> md_itemWasts;
+    private List<MD_ItemWaste> md_itemWastes;
     private ItemWastClick itemWastClick;
 
 
@@ -28,9 +28,9 @@ public class AP_ItemsWast extends RecyclerView.Adapter<AP_ItemsWast.CustomHolder
     }//_____________________________________________________________________________________________ ItemWastClick
 
 
-    public AP_ItemsWast(List<MD_ItemWast> md_itemWasts,
-                        ItemWastClick itemWastClick) {
-        this.md_itemWasts = md_itemWasts;
+    public AP_ItemsWaste(List<MD_ItemWaste> md_itemWastes,
+                         ItemWastClick itemWastClick) {
+        this.md_itemWastes = md_itemWastes;
         this.itemWastClick = itemWastClick;
     }
 
@@ -39,31 +39,31 @@ public class AP_ItemsWast extends RecyclerView.Adapter<AP_ItemsWast.CustomHolder
     public CustomHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (layoutInflater == null)
             layoutInflater = LayoutInflater.from(parent.getContext());
-        return new CustomHolder(DataBindingUtil.inflate(layoutInflater, R.layout.adapter_item_wast, parent, false));
+        return new CustomHolder(DataBindingUtil.inflate(layoutInflater, R.layout.adapter_item_waste, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull CustomHolder holder, int position) {
-        holder.bind(md_itemWasts.get(position), position);
+        holder.bind(md_itemWastes.get(position), position);
     }
 
     @Override
     public int getItemCount() {
-        return md_itemWasts.size();
+        return md_itemWastes.size();
     }
 
 
     public class CustomHolder extends RecyclerView.ViewHolder {
-        AdapterItemWastBinding binding;
+        AdapterItemWasteBinding binding;
 
-        public CustomHolder(AdapterItemWastBinding binding) {
+        public CustomHolder(AdapterItemWasteBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
             View view = binding.getRoot();
             ButterKnife.bind(this, view);
         }
 
-        public void bind(MD_ItemWast item, final int position) {
+        public void bind(MD_ItemWaste item, final int position) {
             binding.setItems(item);
             binding.getRoot().setOnClickListener(v -> {
                 itemWastClick.itemWastClick(position);

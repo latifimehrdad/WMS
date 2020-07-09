@@ -19,7 +19,9 @@ public class StaticValues {
 
 
     //***** Events Of Collect Request *****
-    public static Byte ML_GetItemsOfWastIsSuccess = 1;
+    public static Byte ML_GetItemsOfWasteIsSuccess = 1;
+    public static Byte ML_ItemsOFWasteReduce = 0;
+    public static Byte ML_ItemsOFWasteAddition = 1;
     //***** Events Of Collect Request *****
 
     //***** Observable Control *****
@@ -42,6 +44,7 @@ public class StaticValues {
     public static Byte ML_GetTimeSheetTimes = 18;// در observable دریافت زمان
     public static Byte ML_SendPackageRequest = 19;// در observable  پکیج ارسال شده
     public static Byte ML_EditUserAddress = 20;// در observable آدرس ویرایش شده
+    public static Byte ML_GetBoothList = 21;// در observable دریافت لیست غرفه ها
     //***** Observable Control *****
 
 

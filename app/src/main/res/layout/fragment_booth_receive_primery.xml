@@ -20,22 +20,20 @@
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.6"
+            android:layout_weight="0.8"
             tools:context=".Activity.MapsActivity" />
 
         // Center
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="@dimen/_10sdp"
             >
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 >
 
@@ -47,7 +45,7 @@
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1.3"
                     android:orientation="horizontal"
                     android:gravity="center"
@@ -62,11 +60,11 @@
                         />
 
                     <TextView
+                        android:id="@+id/TextViewCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/mlBlack"
                         android:textSize="@dimen/_10sdp"
-                        android:text="10"
                         android:background="@drawable/layout_border_black"
                         android:paddingRight="@dimen/_15sdp"
                         android:paddingLeft="@dimen/_15sdp"
@@ -75,8 +73,8 @@
                         />
 
                     <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="@dimen/_35sdp"
+                        android:layout_height="@dimen/_35sdp"
                         android:src="@drawable/logobag"
                         />
 
@@ -86,9 +84,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"/>
-
-
-
 
 
 
@@ -102,7 +97,7 @@
                 >
 
                 <com.jaredrummler.materialspinner.MaterialSpinner
-                    android:id="@+id/FBRPSpinnerHours"
+                    android:id="@+id/MaterialSpinnerSpinnerDay"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -111,22 +106,12 @@
                     android:prompt="@string/City_Prompt"
                     app:ms_background_color="@color/mlEdit"
                     app:ms_text_color="@color/mlBlack"
-                    android:layout_marginRight="@dimen/_10sdp"
                     />
 
-                <com.jaredrummler.materialspinner.MaterialSpinner
-                    android:id="@+id/FBRPSpinnerDay"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:gravity="right"
-                    android:prompt="@string/City_Prompt"
-                    app:ms_background_color="@color/mlEdit"
-                    app:ms_text_color="@color/mlBlack"
-                    />
 
             </LinearLayout>
+
+
 
 
 
@@ -135,108 +120,12 @@
 
 
         // List
-        <LinearLayout
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RecyclerViewBooths"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:padding="@dimen/_5sdp"
-            >
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_80sdp"
-                android:background="@drawable/layout_border_orange"
-                android:orientation="vertical"
-                android:padding="@dimen/_5sdp"
-                >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    >
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="right|top"
-                        android:maxLines="3"
-                        android:textColor="@color/mlCollectBooth"
-                        android:textSize="@dimen/_10sdp"
-                        android:text="مسئول غرفه : خانم حیدری"
-                        />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        >
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="@dimen/_3sdp"
-                            android:textColor="@color/mlCollectBooth"
-                            android:textSize="@dimen/_9sdp"
-                            android:text="غرفه شماره 1"
-                            android:gravity="right|top"
-                            android:layout_marginRight="@dimen/_3sdp"
-                            />
-
-                        <ImageView
-                            android:layout_width="@dimen/_35sdp"
-                            android:layout_height="@dimen/_35sdp"
-                            android:src="@drawable/logobooth"
-                            android:tint="@color/mlCollectBooth"
-                            />
-
-
-
-
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_25sdp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    >
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/save_info_button"
-                        android:text="@string/Choose"
-                        android:textColor="@color/mlWhite"
-                        android:textSize="@dimen/_12sdp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/_5sdp"
-                        android:textColor="@color/mlCollectBooth"
-                        android:textSize="@dimen/_9sdp"
-                        android:text="آدرس : کرج - سه راه گوهردشت - برج آرمان"
-                        android:gravity="center_vertical"
-                        />
-
-                </LinearLayout>
-
-
-
-
-            </LinearLayout>
-
-
-        </LinearLayout>
+            android:layout_weight="1"/>
         // List
 
 

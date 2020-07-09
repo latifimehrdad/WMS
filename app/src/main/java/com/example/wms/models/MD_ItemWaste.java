@@ -2,7 +2,7 @@ package com.example.wms.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class MD_ItemWast {
+public class MD_ItemWaste {
 
     @SerializedName("id")
     Integer Id;
@@ -14,7 +14,7 @@ public class MD_ItemWast {
     String Cover;
 
 
-    public MD_ItemWast(Integer id, String title, String cover) {
+    public MD_ItemWaste(Integer id, String title, String cover) {
         Id = id;
         Title = title;
         Cover = cover;

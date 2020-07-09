@@ -13,24 +13,36 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wms.R;
+import com.example.wms.database.DB_ItemsWasteList;
 import com.example.wms.databinding.FragmentCollectRequestPrimeryBinding;
+import com.example.wms.models.MD_ItemWaste;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.collectrequest.collectrequest.VM_CollectRequestPrimary;
-import com.example.wms.views.adaptors.collectrequest.AP_ItemsWast;
+import com.example.wms.views.adaptors.collectrequest.AP_ItemsWaste;
+import com.example.wms.views.adaptors.collectrequest.AP_ItemsWasteList;
+import com.example.wms.views.application.ApplicationWMS;
 import com.example.wms.views.fragments.FragmentPrimary;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 
 public class CollectRequestPrimary extends FragmentPrimary implements
         FragmentPrimary.GetMessageFromObservable,
-        AP_ItemsWast.ItemWastClick {
+        AP_ItemsWaste.ItemWastClick,
+        AP_ItemsWasteList.ItemWasteListClick {
 
 
     private VM_CollectRequestPrimary vm_collectRequestPrimary;
     private NavController navController;
+    private RealmResults<DB_ItemsWasteList> wasteLists;
+    private AP_ItemsWasteList ap_itemsWasteList;
 
 
     @BindView(R.id.fcrpRecyclingCar)
@@ -41,6 +53,10 @@ public class CollectRequestPrimary extends FragmentPrimary implements
 
     @BindView(R.id.RecyclerViewItemsWaste)
     RecyclerView RecyclerViewItemsWaste;
+
+    @BindView(R.id.RecyclerViewWasteList)
+    RecyclerView RecyclerViewWasteList;
+
 
     public CollectRequestPrimary() {//______________________________________________________________ CollectRequestPrimary
     }//_____________________________________________________________________________________________ CollectRequestPrimary
@@ -72,14 +88,28 @@ public class CollectRequestPrimary extends FragmentPrimary implements
                 vm_collectRequestPrimary.getPublishSubject(),
                 vm_collectRequestPrimary);
         navController = Navigation.findNavController(getView());
+        if (ap_itemsWasteList == null) {
+            Realm realm = ApplicationWMS.getApplicationWMS(getContext()).getRealmComponent().getRealm();
+            wasteLists = realm.where(DB_ItemsWasteList.class).findAll();
+            try {
+                realm.beginTransaction();
+                wasteLists.deleteAllFromRealm();
+                realm.commitTransaction();
+            } finally {
+                SetItemsWasteListAdapter();
+            }
+        } else {
+            SetItemsWasteListAdapter();
+        }
+
     }//_____________________________________________________________________________________________ onStart
 
 
     @Override
     public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
-        if (action.equals(StaticValues.ML_GetItemsOfWastIsSuccess)) {
-            SetItemsWastAdapter();
+        if (action.equals(StaticValues.ML_GetItemsOfWasteIsSuccess)) {
+            SetItemsWasteAdapter();
         }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
@@ -95,32 +125,96 @@ public class CollectRequestPrimary extends FragmentPrimary implements
         fcrpRecyclingCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(R.id.action_collectRequest_to_recyclingCar);
+                if (wasteLists != null && wasteLists.size() > 0)
+                    navController.navigate(R.id.action_collectRequest_to_recyclingCar);
+                else
+                    ShowMessage(getResources().getString(R.string.EmptyList),
+                            getResources().getColor(R.color.mlWhite),
+                            getResources().getDrawable(R.drawable.ic_error),
+                            getResources().getColor(R.color.mlCollectRight1));
             }
         });
 
         fcrpBoothReceive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(R.id.action_collectRequest_to_boothReceive);
+                if (wasteLists != null && wasteLists.size() > 0)
+                    navController.navigate(R.id.action_collectRequest_to_boothReceive);
+                else
+                    ShowMessage(getResources().getString(R.string.EmptyList),
+                            getResources().getColor(R.color.mlWhite),
+                            getResources().getDrawable(R.drawable.ic_error),
+                            getResources().getColor(R.color.mlCollectRight1));
             }
         });
 
     }//_____________________________________________________________________________________________ SetClicks
 
 
-    private void SetItemsWastAdapter() {//__________________________________________________________ getMd_itemWasts
-        AP_ItemsWast ap_itemsWast = new AP_ItemsWast(vm_collectRequestPrimary.getMd_itemWasts(), CollectRequestPrimary.this);
+    private void SetItemsWasteAdapter() {//_________________________________________________________ SetItemsWasteAdapter
+        AP_ItemsWaste ap_itemsWaste = new AP_ItemsWaste(vm_collectRequestPrimary.getMd_itemWastes(), CollectRequestPrimary.this);
         RecyclerViewItemsWaste.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
-        RecyclerViewItemsWaste.setAdapter(ap_itemsWast);
-    }//_____________________________________________________________________________________________ getMd_itemWasts
+        RecyclerViewItemsWaste.setAdapter(ap_itemsWaste);
+    }//_____________________________________________________________________________________________ SetItemsWasteAdapter
 
+
+    private void SetItemsWasteListAdapter() {//_____________________________________________________ SetItemsWasteListAdapter
+        ap_itemsWasteList = new AP_ItemsWasteList(wasteLists, CollectRequestPrimary.this);
+        RecyclerViewWasteList.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+        RecyclerViewWasteList.setAdapter(ap_itemsWasteList);
+    }//_____________________________________________________________________________________________ SetItemsWasteListAdapter
 
 
     @Override
     public void itemWastClick(Integer position) {//_________________________________________________ itemWastClick
 
+        MD_ItemWaste waste = vm_collectRequestPrimary.getMd_itemWastes().get(position);
+        Realm realm = ApplicationWMS.getApplicationWMS(getContext()).getRealmComponent().getRealm();
+        DB_ItemsWasteList duplicate = realm.where(DB_ItemsWasteList.class).equalTo("Id", waste.getId()).findFirst();
+        if (duplicate != null)
+            return;
+        try {
+            realm.beginTransaction();
+            realm.createObject(DB_ItemsWasteList.class).insert(waste.getId(), waste.getTitle(), 1);
+            realm.commitTransaction();
+        } finally {
+            ap_itemsWasteList.notifyDataSetChanged();
+        }
+
     }//_____________________________________________________________________________________________ itemWastClick
 
+
+    @Override
+    public void itemWasteClickAction(Integer position, Byte action) {//_____________________________ itemWasteClickAction
+        Integer count = wasteLists.get(position).getCount();
+        if (action.equals(StaticValues.ML_ItemsOFWasteReduce)) {
+            if (count > 0)
+                count--;
+        } else
+            count++;
+        Realm realm = ApplicationWMS.getApplicationWMS(getContext()).getRealmComponent().getRealm();
+        try {
+            realm.beginTransaction();
+            wasteLists.get(position).setCount(count);
+            realm.commitTransaction();
+        } finally {
+            ap_itemsWasteList.notifyDataSetChanged();
+        }
+
+    }//_____________________________________________________________________________________________ itemWasteClickAction
+
+
+    @Override
+    public void itemWasteDeleteClick(Integer position) {//__________________________________________ itemWasteDeleteClick
+        Realm realm = ApplicationWMS.getApplicationWMS(getContext()).getRealmComponent().getRealm();
+        try {
+            realm.beginTransaction();
+            wasteLists.get(position).deleteFromRealm();
+            realm.commitTransaction();
+        } finally {
+            ap_itemsWasteList.notifyDataSetChanged();
+        }
+
+    }//_____________________________________________________________________________________________ itemWasteDeleteClick
 
 }

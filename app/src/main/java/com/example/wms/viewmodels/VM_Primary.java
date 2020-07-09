@@ -158,7 +158,7 @@ public class VM_Primary {
             public void run() {
                 publishSubject.onNext(action);
             }
-        },200);
+        },500);
 
     }//_____________________________________________________________________________________________ SendMessageToObservable
 

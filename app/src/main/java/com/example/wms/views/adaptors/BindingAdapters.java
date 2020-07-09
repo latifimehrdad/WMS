@@ -3,6 +3,7 @@ package com.example.wms.views.adaptors;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
 
@@ -48,4 +49,29 @@ public class BindingAdapters {
         });
 
     }//_____________________________________________________________________________________________ SetImageItemOfWast
+
+
+
+
+
+    @BindingAdapter(value = {"SetCountItemsWasteList"})
+    public static void SetCountItemsWasteList(TextView textView, Integer count) {//_________________ SetCountItemsWasteList
+        StringBuilder builder = new StringBuilder();
+        builder.append(count);
+        builder.append(" ");
+        builder.append(textView.getContext().getResources().getString(R.string.KGr));
+        textView.setText(builder.toString());
+    }//_____________________________________________________________________________________________ SetCountItemsWasteLis
+
+
+    @BindingAdapter(value = {"SetBoothAuthor"})
+    public static void SetBoothAuthor(TextView textView, String author) {//_________________ SetCountItemsWasteList
+        StringBuilder builder = new StringBuilder();
+        builder.append(textView.getContext().getString(R.string.BoothAuthor));
+        builder.append(" : ");
+        builder.append(author);
+        textView.setText(builder.toString());
+    }//_____________________________________________________________________________________________ SetCountItemsWasteLis
+
+
 }

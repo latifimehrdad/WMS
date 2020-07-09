@@ -9,6 +9,10 @@ public class ModelResponsePrimary {
     @SerializedName("messages")
     ArrayList<ModelMessage> messages;
 
+    public ModelResponsePrimary(ArrayList<ModelMessage> messages) {
+        this.messages = messages;
+    }
+
     public ArrayList<ModelMessage> getMessages() {
         return messages;
     }

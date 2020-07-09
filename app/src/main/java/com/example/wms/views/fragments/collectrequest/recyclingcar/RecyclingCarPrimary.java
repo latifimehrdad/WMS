@@ -9,23 +9,34 @@ import android.widget.TextView;
 import androidx.databinding.DataBindingUtil;
 
 import com.example.wms.R;
+import com.example.wms.database.DB_ItemsWasteList;
 import com.example.wms.databinding.FragmentRecyclingCarPrimeryBinding;
+import com.example.wms.models.ModelTime;
+import com.example.wms.utility.ApplicationUtility;
+import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.collectrequest.recyclingcar.VM_RecyclingCarPrimary;
+import com.example.wms.views.application.ApplicationWMS;
 import com.example.wms.views.fragments.FragmentPrimary;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.Realm;
 
 public class RecyclingCarPrimary extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
 
     private VM_RecyclingCarPrimary vm_recyclingCarPrimary;
 
-    @BindView(R.id.FRCPSpinnerHours)
-    MaterialSpinner FRCPSpinnerHours;
+    @BindView(R.id.MaterialSpinnerSpinnerDay)
+    MaterialSpinner MaterialSpinnerSpinnerDay;
 
-    @BindView(R.id.FRCPSpinnerDay)
-    MaterialSpinner FRCPSpinnerDay;
+    @BindView(R.id.TextViewCount)
+    TextView TextViewCount;
 
     @BindView(R.id.textDate)
     TextView textDate;
@@ -50,7 +61,6 @@ public class RecyclingCarPrimary extends FragmentPrimary implements FragmentPrim
             binding.setVMRecyclingPrimary(vm_recyclingCarPrimary);
             setView(binding.getRoot());
             ButterKnife.bind(this, getView());
-            SetMaterialSpinnersItems();
         }
         return getView();
     }//_____________________________________________________________________________________________ End onCreateView
@@ -59,6 +69,8 @@ public class RecyclingCarPrimary extends FragmentPrimary implements FragmentPrim
     @Override
     public void onStart() {//_______________________________________________________________________ Start onStart
         super.onStart();
+        SetVolumeWaste();
+        vm_recyclingCarPrimary.GetTypeTimes();
         setGetMessageFromObservable(
                 RecyclingCarPrimary.this,
                 vm_recyclingCarPrimary.getPublishSubject(),
@@ -68,37 +80,50 @@ public class RecyclingCarPrimary extends FragmentPrimary implements FragmentPrim
 
     @Override
     public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
-
+        if (action.equals(StaticValues.ML_GetTimeSheetTimes)) {
+            SetMaterialSpinnersTimes();
+        }
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 
 
-    private void SetMaterialSpinnersItems() {//_____________________________________________________ Start SetMaterialSpinnersItems
-        FRCPSpinnerHours.setItems("ساعت تحویل", "8 - 10", "11 - 13");
-        FRCPSpinnerDay.setItems("روز تحویل","شنبه","سه شنبه");
 
-        FRCPSpinnerDay.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
-                if(position != 0)
-                    textDate.setText("1398/01/01");
-                else
-                    textDate.setText("");
+    private void SetMaterialSpinnersTimes() {//_____________________________________________________ SetMaterialSpinnersTimes
+
+        ApplicationUtility utility = null;
+        if (getContext() != null) {
+            utility = ApplicationWMS
+                    .getApplicationWMS(getContext())
+                    .getUtilityComponent()
+                    .getApplicationUtility();
+        }
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.US);
+
+        List<String> buildingTypes = new ArrayList<>();
+        buildingTypes.add(getResources().getString(R.string.ChooseDateDelivery));
+        for (ModelTime item : vm_recyclingCarPrimary.getModelTimes().getTimes()) {
+            String builder = null;
+            if (utility != null) {
+                builder = utility.MiladiToJalali(item.getDate(), "FullJalaliString") +
+                        " از ساعت " +
+                        simpleDateFormat.format(item.getFrom()) +
+                        " تا " +
+                        simpleDateFormat.format(item.getTo());
             }
-        });
+            buildingTypes.add(builder);
+        }
+
+        MaterialSpinnerSpinnerDay.setItems(buildingTypes);
+
+    }//_____________________________________________________________________________________________ SetMaterialSpinnersTimes
 
 
-        FRCPSpinnerHours.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
-                if(position == 1)
-                    textTime.setText("8 - 10");
-                else if (position == 2)
-                    textTime.setText("11 - 13");
-                else
-                    textTime.setText("");
-            }
-        });
-    }//_____________________________________________________________________________________________ End SetMaterialSpinnersItems
+
+    private void SetVolumeWaste() {//_______________________________________________________________ SetVolumeWaste
+        Realm realm = ApplicationWMS.getApplicationWMS(getContext()).getRealmComponent().getRealm();
+        Integer count = realm.where(DB_ItemsWasteList.class).sum("Count").intValue();
+        TextViewCount.setText(count.toString());
+    }//_____________________________________________________________________________________________ SetVolumeWaste
 
 
 }

@@ -2,10 +2,16 @@ package com.example.wms.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class ModelSettingInfo extends ModelResponsePrimary {
 
     @SerializedName("result")
     ModelProfileSetting result;
+
+    public ModelSettingInfo(ArrayList<ModelMessage> messages) {
+        super(messages);
+    }
 
     public ModelProfileSetting getResult() {
         return result;
