@@ -9,11 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.cunoraz.gifview.library.GifView;
 import com.example.wms.R;
 import com.example.wms.databinding.AdapterItemBoothBinding;
-import com.example.wms.databinding.AdapterItemWasteBinding;
 import com.example.wms.models.MD_Booth;
-import com.example.wms.models.MD_ItemWaste;
 
 import java.util.List;
 
@@ -30,6 +29,7 @@ public class AP_BoothList extends RecyclerView.Adapter<AP_BoothList.CustomHolder
 
     public interface ItemBoothClick {//_____________________________________________________________ ItemBoothClick
         void itemBoothMap(Integer position);
+        void itemChoose(Integer position);
     }//_____________________________________________________________________________________________ ItemBoothClick
 
 
@@ -65,6 +65,11 @@ public class AP_BoothList extends RecyclerView.Adapter<AP_BoothList.CustomHolder
         @BindView(R.id.ButtonShowMap)
         Button ButtonShowMap;
 
+        @BindView(R.id.ButtonChoose)
+        Button ButtonChoose;
+
+        @BindView(R.id.GifViewLoading)
+        GifView GifViewLoading;
 
         public CustomHolder(AdapterItemBoothBinding binding) {
             super(binding.getRoot());
@@ -76,7 +81,12 @@ public class AP_BoothList extends RecyclerView.Adapter<AP_BoothList.CustomHolder
         public void bind(MD_Booth item, final int position) {
             binding.setBooth(item);
 
+            GifViewLoading.setVisibility(View.INVISIBLE);
+
             ButtonShowMap.setOnClickListener(v -> {itemBoothClick.itemBoothMap(position);});
+
+            ButtonChoose.setOnClickListener(v -> {itemBoothClick.itemChoose(position);
+                GifViewLoading.setVisibility(View.VISIBLE);});
 
             binding.executePendingBindings();
         }

@@ -1,5 +1,6 @@
 package com.example.wms.models;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class MD_ItemWaste {
@@ -11,6 +12,7 @@ public class MD_ItemWaste {
     String Title;
 
     @SerializedName("cover")
+    @Expose
     String Cover;
 
 

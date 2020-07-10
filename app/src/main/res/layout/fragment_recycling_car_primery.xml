@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
     <data>
 
         <variable
@@ -115,6 +116,8 @@
         // Header
 
 
+
+
         // Footer
         <LinearLayout
             android:layout_width="match_parent"
@@ -123,482 +126,49 @@
             android:paddingLeft="@dimen/_10sdp"
             android:paddingRight="@dimen/_10sdp"
             android:paddingBottom="@dimen/_5sdp"
-            android:paddingTop="@dimen/_5sdp"
-            >
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/layout_border_black"
-                >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    >
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="horizontal"
-                        android:gravity="left|center_vertical"
-                        >
-
-                        <ImageView
-                            android:layout_width="@dimen/_20sdp"
-                            android:layout_height="@dimen/_20sdp"
-                            android:src="@drawable/ic_date_range_black_24dp"
-                            />
-
-                        <TextView
-                            android:id="@+id/textDate"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/mlHeader"
-                            android:text=""
-                            android:textSize="@dimen/_9sdp"
-                            android:layout_marginLeft="@dimen/_2sdp"
-                            />
-
-                        <ImageView
-                            android:layout_width="@dimen/_20sdp"
-                            android:layout_height="@dimen/_20sdp"
-                            android:layout_marginLeft="@dimen/_15sdp"
-                            android:src="@drawable/ic_access_time_black_24dp"
-                            />
-
-                        <TextView
-                            android:id="@+id/textTime"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/mlHeader"
-                            android:text=""
-                            android:textSize="@dimen/_9sdp"
-                            android:layout_marginLeft="@dimen/_2sdp"
-                            />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="right|center_vertical"
-                        >
-
-                        <ImageView
-                            android:layout_width="@dimen/_50sdp"
-                            android:layout_height="@dimen/_25sdp"
-                            android:padding="@dimen/_2sdp"
-                            android:src="@drawable/logocar"
-                            android:tint="@color/colorPrimary"
-                            />
-
-                    </LinearLayout>
+            android:gravity="center_horizontal"
+            android:paddingTop="@dimen/_5sdp">
 
 
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutSend"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                android:background="@drawable/save_info_button">
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/mlFooter"
-                    android:layout_marginTop="@dimen/_3sdp"
-                    android:layout_marginBottom="@dimen/_10sdp"
+                <TextView
+                    android:id="@+id/txtLoading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/FragmentPackRequestPrimarySet"
+                    android:textColor="@color/mlWhite"
+                    android:textSize="@dimen/_13sdp"
+                    android:gravity="right|center_vertical"
+                    android:paddingRight="@dimen/_5sdp"
+                    android:paddingLeft="@dimen/_10sdp"
                     />
 
-                // Items
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    >
-
-                    // Items Dry
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_18sdp"
-                        android:orientation="horizontal"
-                        >
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.5"/>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1.5"
-                            android:orientation="vertical"
-                            >
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1"
-                                android:layout_marginRight="@dimen/_20sdp"
-                                android:orientation="horizontal"
-                                >
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:textColor="@color/mlCollectBooth"
-                                    android:gravity="right|center_vertical"
-                                    android:text="2 کیلو"
-                                    android:textSize="@dimen/_8sdp"
-                                    />
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1.3"
-                                    android:textColor="@color/mlCollectBooth"
-                                    android:gravity="right|center_vertical"
-                                    android:text="@string/Dry"
-                                    android:textSize="@dimen/_8sdp"
-                                    />
-
-
-
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_marginRight="@dimen/_20sdp"
-                                android:background="@color/mlFooter"
-                                />
-
-                        </LinearLayout>
-
-
-
-
-                    </LinearLayout>
-                    // Items Dry
-
-
-                    // Items AlBottel
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_18sdp"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="@dimen/_2sdp"
-                        >
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.5"/>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1.5"
-                            android:orientation="vertical"
-                            >
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1"
-                                android:layout_marginRight="@dimen/_20sdp"
-                                android:orientation="horizontal"
-                                >
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:textColor="@color/mlCollectBooth"
-                                    android:gravity="right|center_vertical"
-                                    android:text="5 کیلو"
-                                    android:textSize="@dimen/_8sdp"
-                                    />
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1.3"
-                                    android:textColor="@color/mlCollectBooth"
-                                    android:gravity="right|center_vertical"
-                                    android:text="@string/AlBottel"
-                                    android:textSize="@dimen/_8sdp"
-                                    />
-
-
-
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_marginRight="@dimen/_20sdp"
-                                android:background="@color/mlFooter"
-                                />
-
-                        </LinearLayout>
-
-
-
-
-                    </LinearLayout>
-                    // Items AlBottel
-
-
-                    // Items PetBottel
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_18sdp"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="@dimen/_2sdp"
-                        >
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.5"/>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1.5"
-                            android:orientation="vertical"
-                            >
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1"
-                                android:layout_marginRight="@dimen/_20sdp"
-                                android:orientation="horizontal"
-                                >
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:textColor="@color/mlCollectBooth"
-                                    android:gravity="right|center_vertical"
-                                    android:text="8 کیلو"
-                                    android:textSize="@dimen/_8sdp"
-                                    />
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1.3"
-                                    android:textColor="@color/mlCollectBooth"
-                                    android:gravity="right|center_vertical"
-                                    android:text="@string/PetBottel"
-                                    android:textSize="@dimen/_8sdp"
-                                    />
-
-
-
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_marginRight="@dimen/_20sdp"
-                                android:background="@color/mlFooter"
-                                />
-
-                        </LinearLayout>
-
-
-
-
-                    </LinearLayout>
-                    // Items PetBottel
-
-
-                    // Items Paper
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_18sdp"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="@dimen/_2sdp"
-                        >
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.5"/>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1.5"
-                            android:orientation="vertical"
-                            >
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1"
-                                android:layout_marginRight="@dimen/_20sdp"
-                                android:orientation="horizontal"
-                                >
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:textColor="@color/mlCollectBooth"
-                                    android:gravity="right|center_vertical"
-                                    android:text="2 کیلو"
-                                    android:textSize="@dimen/_8sdp"
-                                    />
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1.3"
-                                    android:textColor="@color/mlCollectBooth"
-                                    android:gravity="right|center_vertical"
-                                    android:text="@string/Paper"
-                                    android:textSize="@dimen/_8sdp"
-                                    />
-
-
-
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_marginRight="@dimen/_20sdp"
-                                android:background="@color/mlFooter"
-                                />
-
-                        </LinearLayout>
-
-
-
-
-                    </LinearLayout>
-                    // Items Paper
-
-
-                </LinearLayout>
-                // Items
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    >
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        >
-
-                        <params.com.stepview.StatusViewScroller
-                            android:id="@+id/FPRPStatuseViewScroller"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:padding="@dimen/_2sdp"
-                            app:stepCount="3"
-                            app:currentCount="2"
-                            app:circleColorType="fill"
-                            app:circleRadius="@dimen/_10sdp"
-                            app:lineWidth="5dp"
-                            app:lineLength="@dimen/_60sdp"
-                            app:lineColor="@color/colorPrimary"
-                            app:lineColorIncomplete="@color/mlFooter"
-                            app:lineColorCurrent="@color/colorPrimary"
-                            app:circleColor="@color/colorPrimary"
-                            app:circleColorCurrent="@color/colorPrimary"
-                            app:circleColorIncomplete="@color/mlHeader"
-                            app:textColorLabels="@color/mlWhite"
-                            app:textColorLabelsCurrent="@color/mlWhite"
-                            app:textColorLabelsIncomplete="@android:color/black"
-                            app:circleStrokeWidth="5dp"
-                            app:circleStrokeColorIncomplete="@color/mlFooter"
-                            app:circleStrokeColorCurrent="@color/colorPrimary"
-                            app:circleStrokeColor="@color/colorPrimary"
-                            app:completeDrawable="@drawable/ic_check_black_24dp"
-                            app:currentDrawable="@drawable/ic_hourglass_empty_black_24dp"
-                            app:incompleteDrawable="@drawable/ic_done_all_black_24dp"
-                            />
-
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/FPRPStatuseViewScroller"
-                            android:layout_alignStart="@id/FPRPStatuseViewScroller"
-                            android:layout_alignEnd="@id/FPRPStatuseViewScroller"
-                            android:layout_alignLeft="@id/FPRPStatuseViewScroller"
-                            android:layout_alignRight="@id/FPRPStatuseViewScroller"
-                            >
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/mlBlack"
-                                android:textSize="@dimen/_8sdp"
-                                android:text="@string/FragmentPackRequestPrimarySet"
-                                android:layout_alignParentLeft="true"
-                                />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/mlBlack"
-                                android:textSize="@dimen/_8sdp"
-                                android:text="@string/FragmentPackRequestPrimaryReceive"
-                                android:layout_alignParentRight="true"
-                                android:layout_marginRight="@dimen/_5sdp"
-                                />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/mlBlack"
-                                android:textSize="@dimen/_8sdp"
-                                android:text="@string/FragmentPackRequestPrimarySend"
-                                android:layout_centerHorizontal="true"
-                                android:background="@drawable/layout_border_black"
-                                />
-
-                        </RelativeLayout>
-
-                    </RelativeLayout>
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/_25sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:background="@drawable/save_info_button"
-                        android:text="@string/Save"
-                        android:textColor="@color/mlWhite"
-                        android:textSize="@dimen/_12sdp"
-                        android:layout_marginBottom="@dimen/_5sdp"
-                        />
-
-                </LinearLayout>
-
-
-
-            </LinearLayout>
+                <ImageView
+                    android:id="@+id/imgLoading"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:src="@drawable/ic_done_all_black_24dp"
+                    android:layout_toRightOf="@id/txtLoading"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_centerVertical="true"
+                    />
+
+                <com.cunoraz.gifview.library.GifView
+                    android:id="@+id/gifLoading"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/txtLoading"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:visibility="invisible"
+                    custom:gif="@drawable/loading" />
+
+            </RelativeLayout>
 
         </LinearLayout>
         // Footer

@@ -15,7 +15,10 @@ import com.example.wms.R;
 import com.example.wms.database.DB_ItemsWasteList;
 import com.example.wms.databinding.FragmentBoothReceivePrimeryBinding;
 import com.example.wms.models.MD_Booth;
+import com.example.wms.models.MD_ItemWaste;
 import com.example.wms.models.MD_Location;
+import com.example.wms.models.MD_RequestCollect;
+import com.example.wms.models.MD_WasteAmountRequests;
 import com.example.wms.models.ModelTime;
 import com.example.wms.utility.ApplicationUtility;
 import com.example.wms.utility.MehrdadLatifiMap;
@@ -41,6 +44,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class BoothReceivePrimary extends FragmentPrimary implements
         FragmentPrimary.GetMessageFromObservable, OnMapReadyCallback,
@@ -49,6 +53,8 @@ public class BoothReceivePrimary extends FragmentPrimary implements
     private GoogleMap mMap;
     private VM_BoothReceivePrimary vm_boothReceivePrimary;
     private List<LatLng> latLngsBooth;
+    private Integer timePosition = -1;
+    private AP_BoothList ap_boothList;
 
 
     @BindView(R.id.MaterialSpinnerSpinnerDay)
@@ -128,6 +134,21 @@ public class BoothReceivePrimary extends FragmentPrimary implements
 
         if (action.equals(StaticValues.ML_GetBoothList)) {
             SetAdapterBooth();
+            return;
+        }
+
+        if (action.equals(StaticValues.ML_CollectRequestDone)) {
+            ap_boothList = null;
+            RecyclerViewBooths.setAdapter(null);
+            Realm realm = Realm.getDefaultInstance();
+            RealmResults<DB_ItemsWasteList> delete = realm.where(DB_ItemsWasteList.class).findAll();
+            try {
+                realm.beginTransaction();
+                delete.deleteAllFromRealm();
+                realm.commitTransaction();
+            } finally {
+                realm.close();
+            }
         }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
@@ -161,19 +182,28 @@ public class BoothReceivePrimary extends FragmentPrimary implements
 
         MaterialSpinnerSpinnerDay.setItems(buildingTypes);
 
+
+        MaterialSpinnerSpinnerDay.setOnItemSelectedListener((view, position, id, item) -> {
+            if (position == 0)
+                return;
+            timePosition = position -1;
+            //timeId = vm_boothReceivePrimary.getModelTimes().getTimes().get(position - 1).getId();
+            MaterialSpinnerSpinnerDay.setBackgroundColor(getResources().getColor(R.color.mlEdit));
+        });
+
     }//_____________________________________________________________________________________________ SetMaterialSpinnersTimes
 
 
     private void SetVolumeWaste() {//_______________________________________________________________ SetVolumeWaste
         Realm realm = ApplicationWMS.getApplicationWMS(getContext()).getRealmComponent().getRealm();
-        Integer count = realm.where(DB_ItemsWasteList.class).sum("Count").intValue();
+        Integer count = realm.where(DB_ItemsWasteList.class).sum("Amount").intValue();
         TextViewCount.setText(count.toString());
     }//_____________________________________________________________________________________________ SetVolumeWaste
 
 
 
     private void SetAdapterBooth() {//______________________________________________________________ SetAdapterBooth
-        AP_BoothList ap_boothList = new AP_BoothList(BoothReceivePrimary.this, vm_boothReceivePrimary.getBoothList());
+        ap_boothList = new AP_BoothList(BoothReceivePrimary.this, vm_boothReceivePrimary.getBoothList());
         RecyclerViewBooths.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false));
         RecyclerViewBooths.setAdapter(ap_boothList);
         ShowBoothsOnMap();
@@ -183,17 +213,17 @@ public class BoothReceivePrimary extends FragmentPrimary implements
 
     private void ShowBoothsOnMap() {//______________________________________________________________ ShowBoothsOnMap
         latLngsBooth = new ArrayList<>();
-        MehrdadLatifiMap latifiMap = new MehrdadLatifiMap();
-        latifiMap.setGoogleMap(mMap);
-        for (MD_Booth md_booth : vm_boothReceivePrimary.getBoothList()) {
-            LatLng latLng = new LatLng(md_booth.getLocation().getLatitude(), md_booth.getLocation().getLongitude());
-            latLngsBooth.add(latLng);
-            latifiMap.AddMarker(latLng, md_booth.getName(), "",R.drawable.marker_point);
+        if (vm_boothReceivePrimary.getBoothList()!= null && vm_boothReceivePrimary.getBoothList().size() > 0) {
+            MehrdadLatifiMap latifiMap = new MehrdadLatifiMap();
+            latifiMap.setGoogleMap(mMap);
+            for (MD_Booth md_booth : vm_boothReceivePrimary.getBoothList()) {
+                LatLng latLng = new LatLng(md_booth.getLocation().getLatitude(), md_booth.getLocation().getLongitude());
+                latLngsBooth.add(latLng);
+                latifiMap.AddMarker(latLng, md_booth.getName(), "", R.drawable.marker_point);
+            }
+            latifiMap.setML_LatLongs(latLngsBooth);
+            latifiMap.AutoZoom();
         }
-
-
-        latifiMap.setML_LatLongs(latLngsBooth);
-        latifiMap.AutoZoom();
     }//_____________________________________________________________________________________________ ShowBoothsOnMap
 
 
@@ -212,4 +242,34 @@ public class BoothReceivePrimary extends FragmentPrimary implements
                 .build();                   // Creates a CameraPosition from the builder
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }//_____________________________________________________________________________________________ itemBoothClick
+
+
+    @Override
+    public void itemChoose(Integer position) {//____________________________________________________ itemChoose
+
+        if (MaterialSpinnerSpinnerDay.getSelectedIndex() == 0) {
+            MaterialSpinnerSpinnerDay.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
+            MaterialSpinnerSpinnerDay.requestFocus();
+            ap_boothList.notifyDataSetChanged();
+            return;
+        }
+
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<DB_ItemsWasteList> wasteLists = realm.where(DB_ItemsWasteList.class).findAll();
+        List<MD_RequestCollect> collects = new ArrayList<>();
+        for (DB_ItemsWasteList item : wasteLists) {
+            MD_ItemWaste waste = new MD_ItemWaste(item.getId(),"","");
+            MD_RequestCollect collect = new MD_RequestCollect(waste,item.getAmount());
+            collects.add(collect);
+        }
+        realm.close();
+
+        MD_WasteAmountRequests md_wasteAmountRequests = new MD_WasteAmountRequests(
+                0,
+                vm_boothReceivePrimary.getBoothList().get(position),
+                vm_boothReceivePrimary.getModelTimes().getTimes().get(timePosition),
+                collects);
+        vm_boothReceivePrimary.SendCollectRequest(md_wasteAmountRequests);
+
+    }//_____________________________________________________________________________________________ itemChoose
 }

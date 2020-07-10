@@ -24,6 +24,21 @@ public class StaticValues {
     public static Byte ML_ItemsOFWasteAddition = 1;
     //***** Events Of Collect Request *****
 
+
+    //***** Event Waste Collection State *****
+    public static Byte WasteCollectionStateRequested = 1;
+    public static Byte WasteCollectionStateOnProgress = 2;
+    public static Byte WasteCollectionStateNoDelivery = 3;
+    public static Byte WasteCollectionStateDelivered = 4;
+    //***** Event Waste Collection State *****
+
+
+    //**** Event Recycling Delivery Type *****
+    public static Byte RecyclingDeliveryTypeBooth = 0;
+    public static Byte RecyclingDeliveryTypeVehicle = 1;
+    //**** Event Recycling Delivery Type *****
+
+
     //***** Observable Control *****
     public static Byte ML_GoToHome = 2;// رفتن به صفحه خانه
     public static Byte ML_GotoLogin = 3;// رفتن به صفحه ورد
@@ -45,6 +60,8 @@ public class StaticValues {
     public static Byte ML_SendPackageRequest = 19;// در observable  پکیج ارسال شده
     public static Byte ML_EditUserAddress = 20;// در observable آدرس ویرایش شده
     public static Byte ML_GetBoothList = 21;// در observable دریافت لیست غرفه ها
+    public static Byte ML_CollectRequestDone = 22;// در observable دریافت لیست غرفه ها
+    public static Byte ML_CollectOrderDone = 22;// در observable دریافت لیست سفارش ها
     //***** Observable Control *****
 
 

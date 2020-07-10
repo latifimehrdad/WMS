@@ -6,17 +6,29 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentCollectRequestOrdersBinding;
+import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.collectrequest.collectrequest.VM_CollectRequestOrder;
+import com.example.wms.views.adaptors.collectrequest.AP_BoothList;
+import com.example.wms.views.adaptors.collectrequest.AP_Order;
 import com.example.wms.views.fragments.FragmentPrimary;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CollectRequestOrder extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class CollectRequestOrder extends FragmentPrimary implements
+        FragmentPrimary.GetMessageFromObservable,
+        AP_Order.ItemOrderClick {
 
     private VM_CollectRequestOrder vm_collectRequestOrder;
+
+    @BindView(R.id.RecyclerViewOrder)
+    RecyclerView RecyclerViewOrder;
+
 
 
     public CollectRequestOrder() {//________________________________________________________________ CollectRequestOrder
@@ -48,6 +60,7 @@ public class CollectRequestOrder extends FragmentPrimary implements FragmentPrim
                 CollectRequestOrder.this,
                 vm_collectRequestOrder.getPublishSubject(),
                 vm_collectRequestOrder);
+        vm_collectRequestOrder.GetItemsOfOrder();
     }//_____________________________________________________________________________________________ onStart
 
 
@@ -55,6 +68,27 @@ public class CollectRequestOrder extends FragmentPrimary implements FragmentPrim
     @Override
     public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
+        if (action.equals(StaticValues.ML_CollectOrderDone))
+            SetAdapter();
+
     }//_____________________________________________________________________________________________ GetMessageFromObservable
+
+
+
+
+    private void SetAdapter() {//___________________________________________________________________ SetAdapter
+
+        AP_Order ap_order = new AP_Order(vm_collectRequestOrder.getMd_itemWasteRequests(),CollectRequestOrder.this);
+        RecyclerViewOrder.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+        RecyclerViewOrder.setAdapter(ap_order);
+
+    }//_____________________________________________________________________________________________ SetAdapter
+
+
+    @Override
+    public void itemOrderCall(Integer position) {//___________________________________________ itemOrderCall
+
+    }//_____________________________________________________________________________________________ itemOrderCall
+
 
 }

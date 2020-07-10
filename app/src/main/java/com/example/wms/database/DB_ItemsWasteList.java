@@ -8,12 +8,12 @@ public class DB_ItemsWasteList extends RealmObject {
 
     String Name;
 
-    Integer Count;
+    Integer Amount;
 
-    public void insert(Integer id, String name, Integer count) {
+    public void insert(Integer id, String name, Integer amount) {
         Id = id;
         Name = name;
-        Count = count;
+        Amount = amount;
     }
 
     public Integer getId() {
@@ -32,11 +32,11 @@ public class DB_ItemsWasteList extends RealmObject {
         Name = name;
     }
 
-    public Integer getCount() {
-        return Count;
+    public Integer getAmount() {
+        return Amount;
     }
 
-    public void setCount(Integer count) {
-        Count = count;
+    public void setAmount(Integer amount) {
+        Amount = amount;
     }
 }

@@ -2,6 +2,8 @@ package com.example.wms.daggers.retrofit;
 
 import com.example.wms.models.MD_RequestBoothList;
 import com.example.wms.models.MD_RequestItemsWast;
+import com.example.wms.models.MD_RequestWasteRequest;
+import com.example.wms.models.MD_WasteAmountRequests;
 import com.example.wms.models.ModelBuildingRenovationCode;
 import com.example.wms.models.ModelGetAddress;
 import com.example.wms.models.ModelHousingBuildings;
@@ -14,6 +16,7 @@ import com.example.wms.models.ModelToken;
 import com.example.wms.models.ModelUserAccounts;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -230,6 +233,21 @@ public interface RetrofitApiInterface {
             (
                     @Header("Authorization") String Authorization
 
+            );
+
+
+    @POST(Version + "/RequestWasteCollection/RequestCollection")
+    Call<ModelResponsePrimary> RequestCollection
+            (
+                    @Body MD_WasteAmountRequests WasteAmountRequests,
+                    @Header("Authorization") String Authorization
+
+            );
+
+    @GET(Version + "/RequestWasteCollection/WasteRequests")
+    Call<MD_RequestWasteRequest> getWasteRequests
+            (
+                    @Header("Authorization") String Authorization
             );
 
 }

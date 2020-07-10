@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="booth"
@@ -103,18 +104,44 @@
 
         </LinearLayout>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_30sdp"
-            android:background="@drawable/button_dark_blue"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
-            android:text="@string/ChooseForDelivery"
-            android:textColor="@color/mlWhite"
-            android:drawableRight="@drawable/ic_done_all_black_24dp"
-            android:drawablePadding="@dimen/_5sdp"
-            android:textSize="@dimen/_12sdp"
-            android:layout_gravity="right"
-            android:padding="@dimen/_2sdp"/>
+            android:orientation="horizontal"
+            android:gravity="right|center_vertical"
+            >
+
+            <com.cunoraz.gifview.library.GifView
+                android:id="@+id/GifViewLoading"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:padding="@dimen/_5sdp"
+                android:background="@drawable/button_dark_blue"
+                android:visibility="invisible"
+                custom:gif="@drawable/loading" />
+
+            <Button
+                android:id="@+id/ButtonChoose"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                android:background="@drawable/button_dark_blue"
+                android:text="@string/ChooseForDelivery"
+                android:textColor="@color/mlWhite"
+                android:drawableRight="@drawable/ic_done_all_black_24dp"
+                android:drawablePadding="@dimen/_5sdp"
+                android:textSize="@dimen/_12sdp"
+                android:padding="@dimen/_2sdp"/>
+
+
+
+
+        </LinearLayout>
+
+
 
     </LinearLayout>
 

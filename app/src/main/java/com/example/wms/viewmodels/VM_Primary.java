@@ -10,6 +10,7 @@ import com.example.wms.models.ModelResponsePrimary;
 import com.example.wms.utility.StaticValues;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -47,17 +48,22 @@ public class VM_Primary {
             return null;
         else {
             if (Authorization) {
+                JSONObject jObjError = null;
                 try {
-                    JSONObject jObjError = new JSONObject(response.errorBody().string());
+                    jObjError = new JSONObject(response.errorBody().string());
                     return jObjError.getString("error_description");
                 } catch (Exception ex) {
-                    return "Failure";
+                    try {
+                        return jObjError.getString("message");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        return getContext().getResources().getString(R.string.NetworkError);
+                    }
                 }
             } else {
                 return GetErrorMessage(response);
             }
         }
-
     }//_____________________________________________________________________________________________ CheckResponse
 
 

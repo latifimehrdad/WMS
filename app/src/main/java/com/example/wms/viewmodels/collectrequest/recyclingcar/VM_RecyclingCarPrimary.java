@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.example.wms.daggers.retrofit.RetrofitComponent;
+import com.example.wms.models.MD_WasteAmountRequests;
+import com.example.wms.models.ModelResponsePrimary;
 import com.example.wms.models.ModelTimeSheetTimes;
 import com.example.wms.models.ModelTimes;
 import com.example.wms.utility.StaticValues;
@@ -55,6 +57,45 @@ public class VM_RecyclingCarPrimary extends VM_Primary {
         });
 
     }//_____________________________________________________________________________________________ GetTypeTimes
+
+
+
+    public void SendCollectRequest(MD_WasteAmountRequests md_wasteAmountRequests) {//_______________ SendCollectRequest
+
+        RetrofitComponent retrofitComponent = ApplicationWMS
+                .getApplicationWMS(getContext())
+                .getRetrofitComponent();
+
+        String Authorization = GetAuthorization();
+
+        setPrimaryCall(retrofitComponent
+                .getRetrofitApiInterface()
+                .RequestCollection(
+                        md_wasteAmountRequests,
+                        Authorization));
+
+        getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
+            @Override
+            public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
+                setResponseMessage(CheckResponse(response, false));
+                if (getResponseMessage() == null) {
+                    setResponseMessage(GetMessage(response));
+                    SendMessageToObservable(StaticValues.ML_CollectRequestDone);
+                } else {
+                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
+                OnFailureRequest();
+            }
+        });
+
+    }//_____________________________________________________________________________________________ SendCollectRequest
+
+
 
     public ModelTimes getModelTimes() {//___________________________________________________________ getModelTimes
         return modelTimes;

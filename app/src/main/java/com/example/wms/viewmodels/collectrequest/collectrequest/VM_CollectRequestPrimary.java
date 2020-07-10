@@ -49,10 +49,10 @@ public class VM_CollectRequestPrimary extends VM_Primary {
                 setResponseMessage(CheckResponse(response, false));
                 if (getResponseMessage() == null) {
                     md_itemWastes = response.body().getItemsWast();
-                    getPublishSubject().onNext(StaticValues.ML_Success);
+                    SendMessageToObservable(StaticValues.ML_GetItemsOfWasteIsSuccess);
                 }
                 else {
-                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                    SendMessageToObservable(StaticValues.ML_ResponseError);
                 }
             }
 
@@ -62,7 +62,7 @@ public class VM_CollectRequestPrimary extends VM_Primary {
             }
         });
 
-        SendMessageToObservable(StaticValues.ML_GetItemsOfWasteIsSuccess);
+
 
     }//_____________________________________________________________________________________________ GetItemsOfWast
 

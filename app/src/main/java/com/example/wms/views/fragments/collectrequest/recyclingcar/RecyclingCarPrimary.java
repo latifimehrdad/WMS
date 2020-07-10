@@ -4,13 +4,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 
+import com.cunoraz.gifview.library.GifView;
 import com.example.wms.R;
 import com.example.wms.database.DB_ItemsWasteList;
 import com.example.wms.databinding.FragmentRecyclingCarPrimeryBinding;
+import com.example.wms.models.MD_ItemWaste;
+import com.example.wms.models.MD_RequestCollect;
+import com.example.wms.models.MD_WasteAmountRequests;
 import com.example.wms.models.ModelTime;
 import com.example.wms.utility.ApplicationUtility;
 import com.example.wms.utility.StaticValues;
@@ -27,10 +33,13 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
+import io.realm.RealmResults;
 
-public class RecyclingCarPrimary extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class RecyclingCarPrimary extends FragmentPrimary implements
+        FragmentPrimary.GetMessageFromObservable {
 
     private VM_RecyclingCarPrimary vm_recyclingCarPrimary;
+    private Integer timePosition = -1;
 
     @BindView(R.id.MaterialSpinnerSpinnerDay)
     MaterialSpinner MaterialSpinnerSpinnerDay;
@@ -38,11 +47,17 @@ public class RecyclingCarPrimary extends FragmentPrimary implements FragmentPrim
     @BindView(R.id.TextViewCount)
     TextView TextViewCount;
 
-    @BindView(R.id.textDate)
-    TextView textDate;
+    @BindView(R.id.txtLoading)
+    TextView txtLoading;
 
-    @BindView(R.id.textTime)
-    TextView textTime;
+    @BindView(R.id.gifLoading)
+    GifView gifLoading;
+
+    @BindView(R.id.imgLoading)
+    ImageView imgLoading;
+
+    @BindView(R.id.RelativeLayoutSend)
+    RelativeLayout RelativeLayoutSend;
 
     public RecyclingCarPrimary() {//________________________________________________________________ RecyclingCarPrimary
     }//_____________________________________________________________________________________________ RecyclingCarPrimary
@@ -60,7 +75,7 @@ public class RecyclingCarPrimary extends FragmentPrimary implements FragmentPrim
             );
             binding.setVMRecyclingPrimary(vm_recyclingCarPrimary);
             setView(binding.getRoot());
-            ButterKnife.bind(this, getView());
+            SetOnClick();
         }
         return getView();
     }//_____________________________________________________________________________________________ End onCreateView
@@ -80,10 +95,46 @@ public class RecyclingCarPrimary extends FragmentPrimary implements FragmentPrim
 
     @Override
     public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+
+        DismissLoading();
+
         if (action.equals(StaticValues.ML_GetTimeSheetTimes)) {
             SetMaterialSpinnersTimes();
         }
+
     }//_____________________________________________________________________________________________ GetMessageFromObservable
+
+
+    private void SetOnClick() {//___________________________________________________________________ SetOnClick
+
+        RelativeLayoutSend.setOnClickListener(v ->{
+            if (MaterialSpinnerSpinnerDay.getSelectedIndex() == 0) {
+                MaterialSpinnerSpinnerDay.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
+                MaterialSpinnerSpinnerDay.requestFocus();
+                return;
+            }
+
+            ShowLoading();
+
+            Realm realm = Realm.getDefaultInstance();
+            RealmResults<DB_ItemsWasteList> wasteLists = realm.where(DB_ItemsWasteList.class).findAll();
+            List<MD_RequestCollect> collects = new ArrayList<>();
+            for (DB_ItemsWasteList item : wasteLists) {
+                MD_ItemWaste waste = new MD_ItemWaste(item.getId(),"","");
+                MD_RequestCollect collect = new MD_RequestCollect(waste,item.getAmount());
+                collects.add(collect);
+            }
+            realm.close();
+
+            MD_WasteAmountRequests md_wasteAmountRequests = new MD_WasteAmountRequests(
+                    1,
+                    null,
+                    vm_recyclingCarPrimary.getModelTimes().getTimes().get(timePosition),
+                    collects);
+            vm_recyclingCarPrimary.SendCollectRequest(md_wasteAmountRequests);
+
+        });
+    }//_____________________________________________________________________________________________ SetOnClick
 
 
 
@@ -115,15 +166,39 @@ public class RecyclingCarPrimary extends FragmentPrimary implements FragmentPrim
 
         MaterialSpinnerSpinnerDay.setItems(buildingTypes);
 
+        MaterialSpinnerSpinnerDay.setOnItemSelectedListener((view, position, id, item) -> {
+            if (position == 0)
+                return;
+            timePosition = position -1;
+            //timeId = vm_boothReceivePrimary.getModelTimes().getTimes().get(position - 1).getId();
+            MaterialSpinnerSpinnerDay.setBackgroundColor(getResources().getColor(R.color.mlEdit));
+        });
+
     }//_____________________________________________________________________________________________ SetMaterialSpinnersTimes
 
 
 
     private void SetVolumeWaste() {//_______________________________________________________________ SetVolumeWaste
         Realm realm = ApplicationWMS.getApplicationWMS(getContext()).getRealmComponent().getRealm();
-        Integer count = realm.where(DB_ItemsWasteList.class).sum("Count").intValue();
+        Integer count = realm.where(DB_ItemsWasteList.class).sum("Amount").intValue();
         TextViewCount.setText(count.toString());
     }//_____________________________________________________________________________________________ SetVolumeWaste
+
+
+    private void DismissLoading() {//_______________________________________________________________ DismissLoading
+        txtLoading.setText(getResources().getString(R.string.FragmentPackRequestPrimarySet));
+        RelativeLayoutSend.setBackground(getResources().getDrawable(R.drawable.save_info_button));
+        gifLoading.setVisibility(View.GONE);
+        imgLoading.setVisibility(View.VISIBLE);
+    }//_____________________________________________________________________________________________ DismissLoading
+
+
+    private void ShowLoading() {//__________________________________________________________________ ShowLoading
+        txtLoading.setText(getResources().getString(R.string.Cancel));
+        RelativeLayoutSend.setBackground(getResources().getDrawable(R.drawable.button_red));
+        gifLoading.setVisibility(View.VISIBLE);
+        imgLoading.setVisibility(View.INVISIBLE);
+    }//_____________________________________________________________________________________________ ShowLoading
 
 
 }

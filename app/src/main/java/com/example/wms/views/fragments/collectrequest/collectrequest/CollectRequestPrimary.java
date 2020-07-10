@@ -25,9 +25,6 @@ import com.example.wms.views.fragments.FragmentPrimary;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -186,7 +183,7 @@ public class CollectRequestPrimary extends FragmentPrimary implements
 
     @Override
     public void itemWasteClickAction(Integer position, Byte action) {//_____________________________ itemWasteClickAction
-        Integer count = wasteLists.get(position).getCount();
+        Integer count = wasteLists.get(position).getAmount();
         if (action.equals(StaticValues.ML_ItemsOFWasteReduce)) {
             if (count > 0)
                 count--;
@@ -195,7 +192,7 @@ public class CollectRequestPrimary extends FragmentPrimary implements
         Realm realm = ApplicationWMS.getApplicationWMS(getContext()).getRealmComponent().getRealm();
         try {
             realm.beginTransaction();
-            wasteLists.get(position).setCount(count);
+            wasteLists.get(position).setAmount(count);
             realm.commitTransaction();
         } finally {
             ap_itemsWasteList.notifyDataSetChanged();

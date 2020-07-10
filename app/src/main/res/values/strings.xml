@@ -150,7 +150,7 @@
     <string name="ReTryGetSMS">دریافت مجدد\n پیامک</string>
     <string name="LogIn">ورود به سامانه</string>
     <string name="SignUp">ثبت نام در سامانه</string>
-
+    <string name="OrderNumber">شماره سفارش : </string>
     <string name="EmptyPhoneNumber">شماره موبایل را بصورت صحیح وارد نمایید</string>
     <string name="EmptyPassword">رمز ورود باید حداقل 6 حرف باشد</string>
     <string name="EmptyPasswordConfirm">تکرار رمز ورود اشتباه است</string>

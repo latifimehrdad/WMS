@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class MD_Booth {
 
     @SerializedName("id")
-    Integer id;
+    Integer Id;
 
     @SerializedName("name")
     String name;
@@ -20,11 +20,11 @@ public class MD_Booth {
     MD_Location location;
 
     public Integer getId() {
-        return id;
+        return Id;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        this.Id = id;
     }
 
     public String getName() {
