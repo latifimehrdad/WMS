@@ -16,12 +16,11 @@ import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
+import org.jetbrains.annotations.NotNull;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class CollectRequest extends FragmentPrimary {
-
-    private VM_CollectRequest vm_collectRequest;
 
     @BindView(R.id.FragmentCollectTab)
     SmartTabLayout FragmentCollectTab;
@@ -35,16 +34,15 @@ public class CollectRequest extends FragmentPrimary {
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
         if (getView() == null) {
-            vm_collectRequest = new VM_CollectRequest(getContext());
+            VM_CollectRequest vm_collectRequest = new VM_CollectRequest(getContext());
             FragmentCollectRequstBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_collect_requst,container,false);
             binding.setVMCollectRequest(vm_collectRequest);
             setView(binding.getRoot());
-            ButterKnife.bind(this, getView());
         }
         return getView();
     }//_____________________________________________________________________________________________ End onCreateView

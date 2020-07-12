@@ -1,11 +1,8 @@
 package com.example.wms.viewmodels.collectrequest.collectrequest;
 
 import android.app.Activity;
-import android.content.Context;
-
 import com.example.wms.daggers.retrofit.RetrofitComponent;
 import com.example.wms.models.MD_ItemWasteRequest;
-import com.example.wms.models.MD_RequestItemsWast;
 import com.example.wms.models.MD_RequestWasteRequest;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.VM_Primary;

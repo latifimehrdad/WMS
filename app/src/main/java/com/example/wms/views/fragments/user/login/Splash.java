@@ -99,13 +99,7 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
         ImgLogo.setVisibility(View.VISIBLE);
         ButtonRefresh.setVisibility(View.GONE);
         StartAnimationSplash();
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                vm_splash.CheckToken();
-            }
-        }, 1000);
+        vm_splash.CheckToken();
 
     }//_____________________________________________________________________________________________ CheckToken
 

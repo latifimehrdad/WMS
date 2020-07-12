@@ -1,8 +1,6 @@
 package com.example.wms.viewmodels.user.profile;
 
 import android.app.Activity;
-import android.content.Context;
-
 import com.example.wms.daggers.retrofit.RetrofitComponent;
 import com.example.wms.models.ModelBuildingRenovationCode;
 import com.example.wms.models.ModelResponsePrimary;
@@ -50,9 +48,9 @@ public class VM_ProfileCode extends VM_Primary {
                 if (getResponseMessage() == null) {
                     setResponseMessage(GetMessage(response));
                     MainActivity.complateprofile = true;
-                    getPublishSubject().onNext(StaticValues.ML_EditProfile);
+                    SendMessageToObservable(StaticValues.ML_EditProfile);
                 } else
-                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                    SendMessageToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
@@ -85,13 +83,13 @@ public class VM_ProfileCode extends VM_Primary {
                 setResponseMessage(CheckResponse(response, false));
                 if (getResponseMessage() == null) {
                     if (response.body().getResult() == null)
-                        getPublishSubject().onNext(StaticValues.ML_GetAccountNumberNull);
+                        SendMessageToObservable(StaticValues.ML_GetAccountNumberNull);
                     else {
                         setResponseMessage(response.body().getResult());
-                        getPublishSubject().onNext(StaticValues.ML_GetRenovationCode);
+                        SendMessageToObservable(StaticValues.ML_GetRenovationCode);
                     }
                 } else
-                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                    SendMessageToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
@@ -102,10 +100,6 @@ public class VM_ProfileCode extends VM_Primary {
 
     }//_____________________________________________________________________________________________ GetCode
 
-
-    public String getBuildingRenovationCode() {//___________________________________________________ getBuildingRenovationCode
-        return BuildingRenovationCode;
-    }//_____________________________________________________________________________________________ getBuildingRenovationCode
 
     public void setBuildingRenovationCode(String buildingRenovationCode) {//________________________ setBuildingRenovationCode
         BuildingRenovationCode = buildingRenovationCode;

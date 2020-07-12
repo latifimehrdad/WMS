@@ -16,8 +16,9 @@ import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
+import org.jetbrains.annotations.NotNull;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class Lottery extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
 
@@ -36,7 +37,7 @@ public class Lottery extends FragmentPrimary implements FragmentPrimary.GetMessa
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
 
@@ -47,7 +48,6 @@ public class Lottery extends FragmentPrimary implements FragmentPrimary.GetMessa
             );
             binding.setVMLottery(vm_lottery);
             setView(binding.getRoot());
-            ButterKnife.bind(this, getView());
             SetTabs();
         }
         return getView();

@@ -1,7 +1,6 @@
 package com.example.wms.viewmodels.user.profile;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.wms.R;
@@ -62,9 +61,9 @@ public class VM_ProfilePerson extends VM_Primary {
                 setResponseMessage(CheckResponse(response, false));
                 if (getResponseMessage() == null) {
                     profile = response.body().getResult();
-                    getPublishSubject().onNext(StaticValues.ML_GetProfileInfo);
+                    SendMessageToObservable(StaticValues.ML_GetProfileInfo);
                 } else
-                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                    SendMessageToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
@@ -104,7 +103,7 @@ public class VM_ProfilePerson extends VM_Primary {
                     setResponseMessage(GetMessage(response));
                     SaveProfile();
                 } else
-                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                    SendMessageToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
@@ -137,9 +136,9 @@ public class VM_ProfilePerson extends VM_Primary {
                         setResponseMessage(CheckResponse(response, false));
                         if (getResponseMessage() == null) {
                             Regions = response.body().getResult();
-                            getPublishSubject().onNext(StaticValues.ML_GetRegion);
+                            SendMessageToObservable(StaticValues.ML_GetRegion);
                         } else
-                            getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                            SendMessageToObservable(StaticValues.ML_ResponseError);
                     }
 
                     @Override
@@ -172,9 +171,9 @@ public class VM_ProfilePerson extends VM_Primary {
                         setResponseMessage(CheckResponse(response, false));
                         if (getResponseMessage() == null) {
                             Cities = response.body().getResult();
-                            getPublishSubject().onNext(StaticValues.ML_GetCities);
+                            SendMessageToObservable(StaticValues.ML_GetCities);
                         } else
-                            getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                            SendMessageToObservable(StaticValues.ML_ResponseError);
                     }
 
                     @Override
@@ -207,9 +206,9 @@ public class VM_ProfilePerson extends VM_Primary {
                 setResponseMessage(CheckResponse(response, false));
                 if (getResponseMessage() == null) {
                     provinces = response.body().getResult();
-                    getPublishSubject().onNext(StaticValues.ML_GetProvince);
+                    SendMessageToObservable(StaticValues.ML_GetProvince);
                 } else
-                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                    SendMessageToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
@@ -231,7 +230,7 @@ public class VM_ProfilePerson extends VM_Primary {
         token.putBoolean(getContext().getString(R.string.ML_CompleteProfile), true);
         token.apply();
         MainActivity.complateprofile = true;
-        getPublishSubject().onNext(StaticValues.ML_EditProfile);
+        SendMessageToObservable(StaticValues.ML_EditProfile);
     }//_____________________________________________________________________________________________ SaveProfile
 
 
@@ -241,8 +240,7 @@ public class VM_ProfilePerson extends VM_Primary {
         if (prefs == null) {
             return "";
         } else {
-            String PhoneNumber = prefs.getString(getContext().getString(R.string.ML_PhoneNumber), "");
-            return PhoneNumber;
+            return prefs.getString(getContext().getString(R.string.ML_PhoneNumber), "");
         }
 
     }//_____________________________________________________________________________________________ GetPhoneNumber

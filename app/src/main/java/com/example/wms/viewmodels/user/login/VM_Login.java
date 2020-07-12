@@ -55,7 +55,7 @@ public class VM_Login extends VM_Primary {
                     if (StaticFunctions.SaveToken(getContext(), modelToken))
                         GetLoginInformation();
                 } else
-                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                    SendMessageToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
@@ -87,9 +87,9 @@ public class VM_Login extends VM_Primary {
                 setResponseMessage(CheckResponse(response, true));
                 if (getResponseMessage() == null) {
                     if (StaticFunctions.SaveProfile(getContext(), response.body().getResult()))
-                        getPublishSubject().onNext(StaticValues.ML_GoToHome);
+                        SendMessageToObservable(StaticValues.ML_GoToHome);
                 } else
-                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                    SendMessageToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override

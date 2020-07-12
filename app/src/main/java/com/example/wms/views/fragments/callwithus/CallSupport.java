@@ -14,8 +14,9 @@ import com.example.wms.viewmodels.callwithus.VM_Support;
 import com.example.wms.views.fragments.FragmentPrimary;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
+import org.jetbrains.annotations.NotNull;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class CallSupport extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
 
@@ -38,7 +39,7 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.GetM
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
 
@@ -49,7 +50,6 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.GetM
             );
             binding.setVMSupport(vm_support);
             setView(binding.getRoot());
-            ButterKnife.bind(this, getView());
             MaterialSpinner1.setItems("نوع درخواست", "درخواست 1", "درخواست 2");
         }
         return getView();

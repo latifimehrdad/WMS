@@ -1,12 +1,12 @@
 package com.example.wms.viewmodels.main;
 
-import android.content.Context;
+import android.app.Activity;
 
-public class VM_CreatorFragment {
+import com.example.wms.viewmodels.VM_Primary;
 
-    private Context context;
+public class VM_CreatorFragment extends VM_Primary {
 
-    public VM_CreatorFragment(Context context) {//__________________________________________________ Start VM_CreatorFragment
-        this.context = context;
+    public VM_CreatorFragment(Activity context) {//__________________________________________________ Start VM_CreatorFragment
+        setContext(context);
     }//_____________________________________________________________________________________________ End VM_CreatorFragment
 }

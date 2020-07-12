@@ -5,14 +5,15 @@
     <color name="colorAccent">@color/colorPrimary</color>
     <color name="colorPrymeryVeryDark">#01585A</color>
 
+    <color name="mlHarmony">#175fef</color>
     <color name="mlHeader">#808080</color>
     <color name="mlWhite">#ffffff</color>
     <color name="mlFooter">#CCCCCC</color>
     <color name="mlBlack">#000</color>
-    <color name="mlEdit">#F3EEEE</color>
-    <color name="mlTextRegisterCode">#FF0000</color>
+    <color name="mlEdit">#FAFAFA</color>
+    <color name="mlTextRegisterCode">#F41C1C</color>
     <color name="mlTextRegisterCodeMessage">#8CC484</color>
-    <color name="mlHomeMaxScore">#02639B</color>
+    <color name="mlHomeMaxScore">#0068A5</color>
     <color name="mlHomeAveScore">#E7414F</color>
     <color name="mlCollectLeft1">#7DE314</color>
     <color name="mlCollectLeft2">#4A8F03</color>
@@ -22,10 +23,11 @@
     <color name="mlCollectBooth">#5B5B5B</color>
     <color name="mlMenuBackTrans">#D9252525</color>
     <color name="mlVerifyCodeEmpty">#66313131</color>
-    <color name="mlEditEmpty">#FAA2AA</color>
+    <color name="mlEditEmpty">#FFF4CC</color>
     <color name="mlMenu">#292A2B</color>
     <color name="mlMenu2">#1D1E1E</color>
     <color name="Links">#0088FF</color>
+    <color name="test">#00ffff</color>
 
 
 

@@ -12,7 +12,7 @@ import com.example.wms.databinding.FragmentLotteryPrimeryBinding;
 import com.example.wms.viewmodels.lottery.VM_LotteryPrimary;
 import com.example.wms.views.fragments.FragmentPrimary;
 
-import butterknife.ButterKnife;
+import org.jetbrains.annotations.NotNull;
 
 public class LotteryPrimary extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
 
@@ -26,7 +26,7 @@ public class LotteryPrimary extends FragmentPrimary implements FragmentPrimary.G
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
 
@@ -37,7 +37,6 @@ public class LotteryPrimary extends FragmentPrimary implements FragmentPrimary.G
             );
             binding.setVMLotteryPrimary(vm_lotteryPrimary);
             setView(binding.getRoot());
-            ButterKnife.bind(this, getView());
         }
         return getView();
     }//_____________________________________________________________________________________________ End onCreateView

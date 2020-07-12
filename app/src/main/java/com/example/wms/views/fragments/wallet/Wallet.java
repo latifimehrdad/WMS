@@ -21,16 +21,16 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 public class Wallet extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
 
-    private VM_Wallet vm_wallet;
     String[] months = {"فرردین","اردیبهشت","خرداد","تیر","مرداد","شهریور","مهر","آبان","آذر","دی","بهمن","اسفند"};
 
     @BindView(R.id.chart)
@@ -38,17 +38,16 @@ public class Wallet extends FragmentPrimary implements FragmentPrimary.GetMessag
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
         if (getView() == null) {
-            vm_wallet = new VM_Wallet(getContext());
+            VM_Wallet vm_wallet = new VM_Wallet(getContext());
             FragmentWalletBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_wallet, container, false
             );
             binding.setVMWallet(vm_wallet);
             setView(binding.getRoot());
-            ButterKnife.bind(this, getView());
         }
         return getView();
     }//_____________________________________________________________________________________________ End onCreateView
@@ -169,9 +168,10 @@ public class Wallet extends FragmentPrimary implements FragmentPrimary.GetMessag
             set1.setDrawIcons(false);
 
             List<Integer> colors = new ArrayList<>();
-            colors.add(getContext().getResources().getColor(R.color.mlHomeMaxScore));
-            colors.add(getContext().getResources().getColor(R.color.mlHomeAveScore));
-
+            if (getContext()!= null) {
+                colors.add(getContext().getResources().getColor(R.color.mlHomeMaxScore));
+                colors.add(getContext().getResources().getColor(R.color.mlHomeAveScore));
+            }
             set1.setColors(colors);
 
 //            int startColor1 = ContextCompat.getColor(context, android.R.color.holo_orange_light);

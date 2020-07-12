@@ -16,6 +16,8 @@ import com.example.wms.views.fragments.FragmentPrimary;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
+import org.jetbrains.annotations.NotNull;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -88,7 +90,7 @@ public class LearnItems extends FragmentPrimary implements FragmentPrimary.GetMe
     @Nullable
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (getView() == null) {
@@ -97,7 +99,6 @@ public class LearnItems extends FragmentPrimary implements FragmentPrimary.GetMe
                     inflater, R.layout.fragment_learn_items, container, false);
             binding.setVmLearmItem(vm_learnItem);
             setView(binding.getRoot());
-            ButterKnife.bind(this, getView());
             SetClickForExpandExpandableLayout();
         }
         return getView();
@@ -125,94 +126,76 @@ public class LearnItems extends FragmentPrimary implements FragmentPrimary.GetMe
 
     private void SetClickForExpandExpandableLayout() {//____________________________________________ Start SetClickForExpandExpandableLayout
 
-        FLIPlasticExpandClick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (FLIPlasticExpand.isExpanded()) {
-                    FLIPlasticExpand.collapse();
-                    fliPlacticImage.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
-                }
-                else {
-                    CollapseExpandableLayouts();
-                    FLIPlasticExpand.expand();
-                    fliPlacticImage.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
-                }
+        FLIPlasticExpandClick.setOnClickListener(v -> {
+            if (FLIPlasticExpand.isExpanded()) {
+                FLIPlasticExpand.collapse();
+                fliPlacticImage.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+            }
+            else {
+                CollapseExpandableLayouts();
+                FLIPlasticExpand.expand();
+                fliPlacticImage.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
             }
         });
 
-        FLIMetalExpandClick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (FLIMetalExpand.isExpanded()) {
-                    FLIMetalExpand.collapse();
-                    fliMetalImage.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
-                }
-                else {
-                    CollapseExpandableLayouts();
-                    FLIMetalExpand.expand();
-                    fliMetalImage.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
-                }
+        FLIMetalExpandClick.setOnClickListener(v -> {
+            if (FLIMetalExpand.isExpanded()) {
+                FLIMetalExpand.collapse();
+                fliMetalImage.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+            }
+            else {
+                CollapseExpandableLayouts();
+                FLIMetalExpand.expand();
+                fliMetalImage.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
+            }
 
+        });
+
+        FLIGlassExpandClick.setOnClickListener(v -> {
+            if (FLIGlassExpand.isExpanded()) {
+                FLIGlassExpand.collapse();
+                fliGlassImage.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+            }
+            else {
+                CollapseExpandableLayouts();
+                FLIGlassExpand.expand();
+                fliGlassImage.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
             }
         });
 
-        FLIGlassExpandClick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (FLIGlassExpand.isExpanded()) {
-                    FLIGlassExpand.collapse();
-                    fliGlassImage.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
-                }
-                else {
-                    CollapseExpandableLayouts();
-                    FLIGlassExpand.expand();
-                    fliGlassImage.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
-                }
+        FLIPaperExpandClick.setOnClickListener(v -> {
+            if (FLIPaperExpand.isExpanded()) {
+                FLIPaperExpand.collapse();
+                fliPaperImage.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+            }
+            else {
+                CollapseExpandableLayouts();
+                FLIPaperExpand.expand();
+                fliPaperImage.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
             }
         });
 
-        FLIPaperExpandClick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (FLIPaperExpand.isExpanded()) {
-                    FLIPaperExpand.collapse();
-                    fliPaperImage.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
-                }
-                else {
-                    CollapseExpandableLayouts();
-                    FLIPaperExpand.expand();
-                    fliPaperImage.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
-                }
+        FLIElectronicsExpandClick.setOnClickListener(v -> {
+            if (FLIElectronicsExpand.isExpanded()) {
+                FLIElectronicsExpand.collapse();
+                fliElectronicImage.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+            }
+            else {
+                CollapseExpandableLayouts();
+                FLIElectronicsExpand.expand();
+                fliElectronicImage.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
             }
         });
 
-        FLIElectronicsExpandClick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (FLIElectronicsExpand.isExpanded()) {
-                    FLIElectronicsExpand.collapse();
-                    fliElectronicImage.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
-                }
-                else {
-                    CollapseExpandableLayouts();
-                    FLIElectronicsExpand.expand();
-                    fliElectronicImage.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
-                }
+        FLINonRecyclableExpandClick.setOnClickListener(v -> {
+            if (FLINonRecyclableExpand.isExpanded()) {
+                FLINonRecyclableExpand.collapse();
+                fliRecyclableImage.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
             }
-        });
-
-        FLINonRecyclableExpandClick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (FLINonRecyclableExpand.isExpanded()) {
-                    FLINonRecyclableExpand.collapse();
-                    fliRecyclableImage.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
-                }
-                else {
-                    CollapseExpandableLayouts();
-                    FLINonRecyclableExpand.expand();
-                    fliRecyclableImage.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
-                }
+            else {
+                CollapseExpandableLayouts();
+                FLINonRecyclableExpand.expand();
+                fliRecyclableImage.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
             }
         });
 

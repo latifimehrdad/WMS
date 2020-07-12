@@ -18,7 +18,6 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class RecyclingCar extends FragmentPrimary {
 
@@ -47,7 +46,6 @@ public class RecyclingCar extends FragmentPrimary {
             );
             binding.setVMRecyclingCar(vm_recyclingCar);
             setView(binding.getRoot());
-            ButterKnife.bind(this, getView());
             SetTabs();
         }
         return getView();

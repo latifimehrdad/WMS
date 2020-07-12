@@ -1,7 +1,6 @@
 package com.example.wms.views.fragments.home;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,18 +21,17 @@ import com.codesgood.views.JustifiedTextView;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentCreatorBinding;
 import com.example.wms.viewmodels.main.VM_CreatorFragment;
+import com.example.wms.views.fragments.FragmentPrimary;
+
+import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CreatorFragment extends Fragment {
-
-    private Context context;
-    private VM_CreatorFragment vm_creatorFragment;
+public class CreatorFragment extends FragmentPrimary {
 
     @BindView(R.id.NgraSite)
     TextView NgraSite;
@@ -54,18 +52,17 @@ public class CreatorFragment extends Fragment {
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
-        context = getContext();
-        vm_creatorFragment = new VM_CreatorFragment(context);
-        FragmentCreatorBinding binding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_creator, container, false
-        );
-        binding.setCreator(vm_creatorFragment);
-        View view = binding.getRoot();
-        ButterKnife.bind(this, view);
-        return view;
+        if (getView() != null) {
+            VM_CreatorFragment vm_creatorFragment = new VM_CreatorFragment(getActivity());
+            FragmentCreatorBinding binding = DataBindingUtil.inflate(
+                    inflater, R.layout.fragment_creator, container, false);
+            binding.setCreator(vm_creatorFragment);
+            setView(getView());
+        }
+        return getView();
     }//_____________________________________________________________________________________________ End onCreateView
 
 
@@ -77,51 +74,41 @@ public class CreatorFragment extends Fragment {
         NgraSite.setVisibility(View.INVISIBLE);
         tv_justified_paragraph.setVisibility(View.INVISIBLE);
         Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                SetAnimation();
-            }
-        }, 500);
+        handler.postDelayed(this::SetAnimation, 500);
 
     }//_____________________________________________________________________________________________ End onStart
 
 
     private void SetAnimation() {//_________________________________________________________________ Start SetAnimation
 
-        Animation slide_in_left1 = AnimationUtils.loadAnimation(context, R.anim.slide_in_left);
+        Animation slide_in_left1 = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_left);
         imgNgraLogo.setAnimation(slide_in_left1);
         imgNgraLogo.setVisibility(View.VISIBLE);
 
-        Animation slide_in_left2 = AnimationUtils.loadAnimation(context, R.anim.slide_in_left);
+        Animation slide_in_left2 = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_left);
         NgraSite.setAnimation(slide_in_left2);
         NgraSite.setVisibility(View.VISIBLE);
 
-        Animation slide_in_right = AnimationUtils.loadAnimation(context, R.anim.slide_in_right);
+        Animation slide_in_right = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_right);
         tv_justified_paragraph.setAnimation(slide_in_right);
         tv_justified_paragraph.setVisibility(View.VISIBLE);
     }//_____________________________________________________________________________________________ End SetAnimation
 
 
     private void SetClicks() {//____________________________________________________________________ Start SetClicks
-        NgraSite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse("http://www.ngra.ir"));
-                startActivity(intent);
-            }
+        NgraSite.setOnClickListener(v -> {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.addCategory(Intent.CATEGORY_BROWSABLE);
+            intent.setData(Uri.parse("http://www.ngra.ir"));
+            startActivity(intent);
         });
 
-        NgraTel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                callIntent.setData(Uri.parse("tel:" + "02691009001"));
-                context.startActivity(callIntent);
-            }
+        NgraTel.setOnClickListener(v -> {
+            Intent callIntent = new Intent(Intent.ACTION_DIAL);
+            callIntent.setData(Uri.parse("tel:" + "02691009001"));
+            if (getContext() != null)
+                getContext().startActivity(callIntent);
         });
 
     }//_____________________________________________________________________________________________ End SetClicks

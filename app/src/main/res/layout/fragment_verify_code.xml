@@ -43,11 +43,19 @@
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/_15sdp" />
 
+
+                    <ImageView
+                        android:layout_width="@dimen/_35sdp"
+                        android:layout_height="@dimen/_35sdp"
+                        android:src="@drawable/svg_verify"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:tint="@color/colorPrimaryDark"/>
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_15sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
                         android:layout_marginRight="@dimen/_15sdp"
                         android:gravity="center"
                         android:maxLines="2"

@@ -5,7 +5,6 @@ Create By Mehrdad Latifi in
 package com.example.wms.views.activitys;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -21,10 +20,11 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -47,6 +47,8 @@ import com.example.wms.viewmodels.main.MainActivityViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
+import org.jetbrains.annotations.NotNull;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
@@ -54,7 +56,6 @@ import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 public class MainActivity extends AppCompatActivity {
 
 
-    private MainActivityViewModel mainActivityViewModel;
     public static boolean complateprofile = false;
     private NavController navController;
     //    private AppBarConfiguration appBarConfiguration;
@@ -104,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void SetBindingView() {//_______________________________________________________________ Start SetBindingView
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        mainActivityViewModel = new MainActivityViewModel(this);
+        MainActivityViewModel mainActivityViewModel = new MainActivityViewModel(this);
         binding.setMain(mainActivityViewModel);
         ButterKnife.bind(this);
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -120,15 +121,10 @@ public class MainActivity extends AppCompatActivity {
     }//_____________________________________________________________________________________________ End SetBindingView
 
 
+    @SuppressLint("RtlHardcoded")
     private void SetClicks() {//____________________________________________________________________ Start
 
-        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
-            @Override
-            public void onDestinationChanged(@NonNull NavController controller,
-                                             @NonNull NavDestination destination, @Nullable Bundle arguments) {
-                mDrawer.closeDrawer(Gravity.RIGHT);
-            }
-        });
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> mDrawer.closeDrawer(Gravity.RIGHT));
 
         mDrawer.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
@@ -154,76 +150,56 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        ExitProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (StaticFunctions.LogOut(MainActivity.this)) {
-                    mDrawer.closeDrawer(Gravity.RIGHT);
-                    MainActivity.complateprofile = false;
+        ExitProfile.setOnClickListener(v -> {
+            if (StaticFunctions.LogOut(MainActivity.this)) {
+                mDrawer.closeDrawer(Gravity.RIGHT);
+                MainActivity.complateprofile = false;
 
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent mStartActivity = new Intent(MainActivity.this, MainActivity.class);
-                            mStartActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            mStartActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            int mPendingIntentId = 7126;
-                            PendingIntent mPendingIntent = PendingIntent.getActivity(MainActivity.this, mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
-                            AlarmManager mgr = (AlarmManager) MainActivity.this.getSystemService(Context.ALARM_SERVICE);
-                            mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
-                            System.exit(0);
-                        }
-                    }, 1000);
-                }
-
-                //ShowSpalshActivity();
+                Handler handler = new Handler();
+                handler.postDelayed(() -> {
+                    Intent mStartActivity = new Intent(MainActivity.this, MainActivity.class);
+                    mStartActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    mStartActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    int mPendingIntentId = 7126;
+                    PendingIntent mPendingIntent = PendingIntent.getActivity(MainActivity.this, mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+                    AlarmManager mgr = (AlarmManager) MainActivity.this.getSystemService(Context.ALARM_SERVICE);
+                    if (mgr != null)
+                        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
+                    System.exit(0);
+                }, 1000);
             }
+
+            //ShowSpalshActivity();
         });
 
 
-        MainMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mDrawer.openDrawer(Gravity.RIGHT, true);
-            }
+        MainMenu.setOnClickListener(v -> mDrawer.openDrawer(Gravity.RIGHT, true));
+
+
+        TextViewNewCopyRight.setOnClickListener(v -> {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.addCategory(Intent.CATEGORY_BROWSABLE);
+            intent.setData(Uri.parse("http://www.ngra.ir/"));
+            startActivity(intent);
         });
 
 
-        TextViewNewCopyRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse("http://www.ngra.ir/"));
-                startActivity(intent);
-            }
-        });
-
-
-        LinearLayoutAbout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navController.navigate(R.id.action_goto_creator);
-            }
-        });
+        LinearLayoutAbout.setOnClickListener(v -> navController.navigate(R.id.action_goto_creator));
 
     }//_____________________________________________________________________________________________ End
 
 
+    @SuppressLint("RtlHardcoded")
     private void SetListener() {//__________________________________________________________________ Start onCreate
 
-        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
-            @Override
-            public void onDestinationChanged(
-                    @NonNull NavController controller,
-                    @NonNull NavDestination destination,
-                    @Nullable Bundle arguments) {
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
 
-                mDrawer.closeDrawer(Gravity.RIGHT);
+            mDrawer.closeDrawer(Gravity.RIGHT);
 
-                String fragment = destination.getLabel().toString();
+            String fragment = "";
+            if (destination.getLabel() != null)
+                fragment = destination.getLabel().toString();
 
 //                if (
 //                        (fragment.equalsIgnoreCase("FragmentSplash")) ||
@@ -231,45 +207,44 @@ public class MainActivity extends AppCompatActivity {
 //                                (fragment.equalsIgnoreCase("FragmentSendNumber")) ||
 //                                (fragment.equalsIgnoreCase("FragmentVerifyCode"))
 //                ) {
-                if (
-                        (fragment.equalsIgnoreCase("Splash")) ||
-                                (fragment.equalsIgnoreCase("Login")) ||
-                                (fragment.equalsIgnoreCase("SignUp")) ||
-                                (fragment.equalsIgnoreCase("VerifyCode"))
-                ) {
-                    if (!preLogin) {
-                        NavInflater navInflater = navController.getNavInflater();
+            if (
+                    (fragment.equalsIgnoreCase("Splash")) ||
+                            (fragment.equalsIgnoreCase("Login")) ||
+                            (fragment.equalsIgnoreCase("SignUp")) ||
+                            (fragment.equalsIgnoreCase("VerifyCode"))
+            ) {
+                if (!preLogin) {
+                    NavInflater navInflater = navController.getNavInflater();
 //                        NavGraph graph = navInflater.inflate(R.navigation.nav_home);
 //                        graph.setStartDestination(R.id.fragmentSplash);
-                        NavGraph graph = navInflater.inflate(R.navigation.nav_host);
-                        graph.setStartDestination(R.id.splash);
-                        navController.setGraph(graph);
-                        RelativeLayoutLoginHeader.setVisibility(View.VISIBLE);
-                        RelativeLayoutMainFooter.setVisibility(View.GONE);
-                        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                        params.addRule(RelativeLayout.BELOW, R.id.RelativeLayoutLoginHeader);
-                        LinearLayoutFragment.setLayoutParams(params);
-                        preLogin = true;
-                    }
-
-                } else {
-                    if (preLogin) {
-                        preLogin = false;
-                        NavInflater navInflater = navController.getNavInflater();
-//                        NavGraph graph = navInflater.inflate(R.navigation.nav_home);
-//                        graph.setStartDestination(R.id.fragmentHome);
-                        NavGraph graph = navInflater.inflate(R.navigation.nav_host);
-                        graph.setStartDestination(R.id.home);
-                        navController.setGraph(graph);
-                        RelativeLayoutLoginHeader.setVisibility(View.GONE);
-                        RelativeLayoutMainFooter.setVisibility(View.VISIBLE);
-                        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                        params.addRule(RelativeLayout.BELOW, R.id.MainHeader);
-                        LinearLayoutFragment.setLayoutParams(params);
-                    }
+                    NavGraph graph = navInflater.inflate(R.navigation.nav_host);
+                    graph.setStartDestination(R.id.splash);
+                    navController.setGraph(graph);
+                    RelativeLayoutLoginHeader.setVisibility(View.VISIBLE);
+                    RelativeLayoutMainFooter.setVisibility(View.GONE);
+                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                    params.addRule(RelativeLayout.BELOW, R.id.RelativeLayoutLoginHeader);
+                    LinearLayoutFragment.setLayoutParams(params);
+                    preLogin = true;
                 }
 
+            } else {
+                if (preLogin) {
+                    preLogin = false;
+                    NavInflater navInflater = navController.getNavInflater();
+//                        NavGraph graph = navInflater.inflate(R.navigation.nav_home);
+//                        graph.setStartDestination(R.id.fragmentHome);
+                    NavGraph graph = navInflater.inflate(R.navigation.nav_host);
+                    graph.setStartDestination(R.id.home);
+                    navController.setGraph(graph);
+                    RelativeLayoutLoginHeader.setVisibility(View.GONE);
+                    RelativeLayoutMainFooter.setVisibility(View.VISIBLE);
+                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                    params.addRule(RelativeLayout.BELOW, R.id.MainHeader);
+                    LinearLayoutFragment.setLayoutParams(params);
+                }
             }
+
         });
     }//_____________________________________________________________________________________________ End onCreate
 
@@ -290,230 +265,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }//_____________________________________________________________________________________________ End GetUserNameProfile
-
-
-    private void FragmentShowObserver() {//_________________________________________________________ Start FragmentShowObserver
-
-//        FragmentMessage
-//                .observeOn(Schedulers.io())
-//                .subscribeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new DisposableObserver<String>() {
-//                    @Override
-//                    public void onNext(String s) {
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                switch (s) {
-//                                    case "CheckProfile":
-//                                        MainActivity.this.CheckProfile();
-//                                        break;
-//                                    case "Main":
-//                                        MainActivity.this.ShowFragmentHome();
-//                                        break;
-//                                    case "PckRequest":
-//                                        MainActivity.this.ShowFragmentPAckRequest();
-//                                        break;
-//                                    case "Lottery":
-//                                        MainActivity.this.ShowFragmentLottery();
-//                                        break;
-//                                    case "CollectRequest":
-//                                        MainActivity.this.ShowFragmentCollectRequest();
-//                                        break;
-//                                    case "Learn":
-//                                        MainActivity.this.ShowFragmentLearn();
-//                                        break;
-//                                    case "BoothReceive":
-//                                        MainActivity.this.ShowFragmentBoothReceive();
-//                                        break;
-//                                    case "RecyclingCar":
-//                                        MainActivity.this.ShowFragmentRecyclingCar();
-//                                        break;
-//                                }
-//                            }
-//                        });
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//
-//                    }
-//                });
-
-    }//_____________________________________________________________________________________________ End FragmentShowObserver
-
-
-//    private void ShowFragmentRegister() {//___________________________________________________________ Start ShowFragmentRegister
-//        fm = null;
-//        ft = null;
-//        fm = getSupportFragmentManager();
-//        ft = fm.beginTransaction();
-//        FragmentProfile fragmentProfile = new FragmentProfile(this);
-//        ft.replace(R.id.MainFrameLayout, fragmentProfile);
-//        ft.commit();
-//    }//_____________________________________________________________________________________________ End ShowFragmentRegister
-//
-//
-//    public void ShowFragmentHome() {//______________________________________________________________ Start ShowFragmentHome
-//        fm = null;
-//        ft = null;
-//        fm = getSupportFragmentManager();
-//        ft = fm.beginTransaction();
-//        FragmentHome fragmentHome = new FragmentHome(this);
-//        ft.replace(R.id.MainFrameLayout, fragmentHome);
-//        ft.commit();
-//    }//_____________________________________________________________________________________________ End ShowFragmentHome
-//
-//
-//    public void ShowFragmentPAckRequest() {//_______________________________________________________ Start ShowFragmentPAckRequest
-//        fm = null;
-//        ft = null;
-//        fm = getSupportFragmentManager();
-//        ft = fm.beginTransaction();
-//        FragmentPackRequest requestPrimery = new FragmentPackRequest(this);
-//        ft.replace(R.id.MainFrameLayout, requestPrimery);
-//        ft.commit();
-//    }//_____________________________________________________________________________________________ End ShowFragmentPAckRequest
-//
-//
-//    private void ShowFragmentCollectRequest() {//____________________________________________________ Start ShowFragmentCollectRequest
-//        fm = null;
-//        ft = null;
-//        fm = getSupportFragmentManager();
-//        ft = fm.beginTransaction();
-//        FragmentCollectRequest collectRequest = new FragmentCollectRequest(this);
-//        ft.replace(R.id.MainFrameLayout, collectRequest);
-//        ft.commit();
-//    }//_____________________________________________________________________________________________ End ShowFragmentCollectRequest
-//
-//
-//    private void ShowFragmentBoothReceive() {//______________________________________________________ Start ShowFragmentBoothReceive
-//        fm = null;
-//        ft = null;
-//        fm = getSupportFragmentManager();
-//        ft = fm.beginTransaction();
-//        FragmentBoothReceive boothReceive = new FragmentBoothReceive(this);
-//        ft.replace(R.id.MainFrameLayout, boothReceive);
-//        ft.commit();
-//    }//_____________________________________________________________________________________________ End ShowFragmentBoothReceive
-//
-//
-//    private void ShowFragmentRecyclingCar() {//______________________________________________________ Start ShowFragmentRecyclingCar
-//        fm = null;
-//        ft = null;
-//        fm = getSupportFragmentManager();
-//        ft = fm.beginTransaction();
-//        FragmentRecyclingCar recyclingCar = new FragmentRecyclingCar(this);
-//        ft.replace(R.id.MainFrameLayout, recyclingCar);
-//        ft.commit();
-//    }//_____________________________________________________________________________________________ End ShowFragmentRecyclingCar
-//
-//
-//    private void ShowFragmentLearn() {//_____________________________________________________________ Start ShowFragmentLearn
-//        fm = null;
-//        ft = null;
-//        fm = getSupportFragmentManager();
-//        ft = fm.beginTransaction();
-//        FragmentLearn fragmentLearn = new FragmentLearn(this);
-//        ft.replace(R.id.MainFrameLayout, fragmentLearn);
-//        ft.commit();
-//    }//_____________________________________________________________________________________________ End ShowFragmentLearn
-//
-//
-//    private void ShowFragmentLottery() {//___________________________________________________________ Start ShowFragmentLottery
-//        fm = null;
-//        ft = null;
-//        fm = getSupportFragmentManager();
-//        ft = fm.beginTransaction();
-//        FragmentLottery fragmentLottery = new FragmentLottery(this);
-//        ft.replace(R.id.MainFrameLayout, fragmentLottery);
-//        ft.commit();
-//    }//_____________________________________________________________________________________________ End ShowFragmentLottery
-//
-//
-//    private void ShowFragmentWallet() {//____________________________________________________________ Start ShowFragmentWallet
-//        fm = null;
-//        ft = null;
-//        fm = getSupportFragmentManager();
-//        ft = fm.beginTransaction();
-//        FragmentWallet fragmentWallet = new FragmentWallet(this);
-//        ft.replace(R.id.MainFrameLayout, fragmentWallet);
-//        ft.commit();
-//    }//_____________________________________________________________________________________________ End ShowFragmentWallet
-//
-//
-//    private void ShowFragmentAbout() {//_____________________________________________________________ Start ShowFragmentAbout
-//        fm = null;
-//        ft = null;
-//        fm = getSupportFragmentManager();
-//        ft = fm.beginTransaction();
-//        FragmentAbout fragmentAbout = new FragmentAbout(this);
-//        ft.replace(R.id.MainFrameLayout, fragmentAbout);
-//        ft.commit();
-//    }//_____________________________________________________________________________________________ End ShowFragmentAbout
-//
-//
-//    private void ShowFragmentCall() {//______________________________________________________________ Start ShowFragmentCall
-//        fm = null;
-//        ft = null;
-//        fm = getSupportFragmentManager();
-//        ft = fm.beginTransaction();
-//        FragmentCallWithUs callWithUs = new FragmentCallWithUs(this);
-//        ft.replace(R.id.MainFrameLayout, callWithUs);
-//        ft.commit();
-//    }//_____________________________________________________________________________________________ End ShowFragmentCall
-//
-//
-//    private void ShowFragmentOrder() {//____________________________________________________________ Start ShowFragmentOrder
-//        fm = null;
-//        ft = null;
-//        fm = getSupportFragmentManager();
-//        ft = fm.beginTransaction();
-//        FragmentCollectRequestOrders collectRequestOrders = new FragmentCollectRequestOrders(this);
-//        ft.replace(R.id.MainFrameLayout, collectRequestOrders);
-//        ft.commit();
-//    }//_____________________________________________________________________________________________ End ShowFragmentOrder
-
-
-//    private void setupDrawerContent(NavigationView navigationView) {//______________________________ Start setupDrawerContent
-//        navigationView.setNavigationItemSelectedListener(
-//                new NavigationView.OnNavigationItemSelectedListener() {
-//                    @Override
-//                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-//                        selectDrawerItem(menuItem);
-//                        return true;
-//                    }
-//                });
-//    }//_____________________________________________________________________________________________ End setupDrawerContent
-
-
-//    public void selectDrawerItem(MenuItem menuItem) {//_____________________________________________ Start selectDrawerItem
-//        // Create a new fragment and specify the fragment to show based on nav item clicked
-//        if (complateprofile)
-////            switch (menuItem.getItemId()) {
-////                case R.id.goto_game:
-////                    navController.navigate(R.id.action_goto_game);
-////                    break;
-////
-////            }
-//
-//        try {
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        // Highlight the selected item has been done by NavigationView
-//        menuItem.setChecked(false);
-//        // Set action bar title
-//        setTitle(menuItem.getTitle());
-//        // Close the navigation drawer
-//        mDrawer.closeDrawers();
-//    }//_____________________________________________________________________________________________ End selectDrawerItem
 
 
     public void attachBaseContext(Context newBase) {//______________________________________________ Start attachBaseContext
@@ -539,14 +290,11 @@ public class MainActivity extends AppCompatActivity {
                 new AlertDialog.Builder(this)
                         .setTitle("دسترسی به موقعیت")
                         .setMessage("برای نمایش مکان شما به موقعیت دسترسی بدهید")
-                        .setPositiveButton("تایید", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                //Prompt the user once explanation has been shown
-                                ActivityCompat.requestPermissions(MainActivity.this,
-                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                                        MY_PERMISSIONS_REQUEST_LOCATION);
-                            }
+                        .setPositiveButton("تایید", (dialogInterface, i) -> {
+                            //Prompt the user once explanation has been shown
+                            ActivityCompat.requestPermissions(MainActivity.this,
+                                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                    MY_PERMISSIONS_REQUEST_LOCATION);
                         })
                         .create()
                         .show();
@@ -564,35 +312,20 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {//_____________________________________________________________________________________________ Start onRequestPermissionsResult
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                                           @NotNull String[] permissions,
+                                           @NotNull int[] grantResults) {//_________________________ Start onRequestPermissionsResult
+        if (requestCode == MY_PERMISSIONS_REQUEST_LOCATION) {// If request is cancelled, the result arrays are empty.
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.ACCESS_FINE_LOCATION);
 
-                    // permission was granted, yay! Do the
-                    // location-related task you need to do.
-                    if (ContextCompat.checkSelfPermission(this,
-                            Manifest.permission.ACCESS_FINE_LOCATION)
-                            == PackageManager.PERMISSION_GRANTED) {
-
-                        //Request location updates:
-                    }
-
-                } else {
-
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-
-                }
-                return;
             }
-
         }
     }//_____________________________________________________________________________________________ End onRequestPermissionsResult
 
 
+    @SuppressLint("RtlHardcoded")
     @Override
     public void onBackPressed() {//_________________________________________________________________ Start onBackPressed
 
@@ -602,12 +335,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         NavDestination navDestination = navController.getCurrentDestination();
-        String fragment = navDestination.getLabel().toString();
-        if ((!fragment.equalsIgnoreCase("Login")) &&
-                (!fragment.equalsIgnoreCase("Home"))) {
-            super.onBackPressed();
-            return;
-        }
+        if (navDestination != null)
+            if (navDestination.getLabel() != null) {
+                String fragment = navDestination.getLabel().toString();
+                if ((!fragment.equalsIgnoreCase("Login")) &&
+                        (!fragment.equalsIgnoreCase("Home"))) {
+                    super.onBackPressed();
+                    return;
+                }
+            }
 
 
         if (doubleBackToExitPressedOnce) {
@@ -618,13 +354,7 @@ public class MainActivity extends AppCompatActivity {
         this.doubleBackToExitPressedOnce = true;
         Toast.makeText(this, "برای خروج 2 بار کلیک کنید", Toast.LENGTH_SHORT).show();
 
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce = false;
-            }
-        }, 2000);
+        new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
 
     }//_____________________________________________________________________________________________ End onBackPressed
 

@@ -33,8 +33,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.jaredrummler.materialspinner.MaterialSpinner;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,7 +43,6 @@ import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -52,7 +52,6 @@ public class BoothReceivePrimary extends FragmentPrimary implements
 
     private GoogleMap mMap;
     private VM_BoothReceivePrimary vm_boothReceivePrimary;
-    private List<LatLng> latLngsBooth;
     private Integer timePosition = -1;
     private AP_BoothList ap_boothList;
 
@@ -67,20 +66,19 @@ public class BoothReceivePrimary extends FragmentPrimary implements
     RecyclerView RecyclerViewBooths;
 
 
-
     public BoothReceivePrimary() {//________________________________________________________________ BoothReceivePrimary
     }//_____________________________________________________________________________________________ BoothReceivePrimary
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
 
         if (getView() == null) {
             vm_boothReceivePrimary = new VM_BoothReceivePrimary(getContext());
             FragmentBoothReceivePrimeryBinding binding = DataBindingUtil.inflate(
-                    inflater, R.layout.fragment_booth_receive_primery,container,false
+                    inflater, R.layout.fragment_booth_receive_primery, container, false
             );
             binding.setVMBoothReceivePrimary(vm_boothReceivePrimary);
             setView(binding.getRoot());
@@ -96,7 +94,8 @@ public class BoothReceivePrimary extends FragmentPrimary implements
         super.onStart();
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
                 .findFragmentById(R.id.fpraMap);
-        mapFragment.getMapAsync(this);
+        if (mapFragment != null)
+            mapFragment.getMapAsync(this);
         setGetMessageFromObservable(
                 BoothReceivePrimary.this,
                 vm_boothReceivePrimary.getPublishSubject(),
@@ -105,12 +104,9 @@ public class BoothReceivePrimary extends FragmentPrimary implements
     }//_____________________________________________________________________________________________ End onStart
 
 
-
-
     @SuppressLint("MissingPermission")
     @Override
-    public void onMapReady(GoogleMap googleMap)
-    {//_____________________________________________________________________________________________ Start Void onMapReady
+    public void onMapReady(GoogleMap googleMap) {//_____________________________________________________________________________________________ Start Void onMapReady
         mMap = googleMap;
         LatLng sydney = new LatLng(35.832483, 50.961751);
         float zoom = (float) 10;
@@ -121,7 +117,6 @@ public class BoothReceivePrimary extends FragmentPrimary implements
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.getUiSettings().setMapToolbarEnabled(true);
     }//_____________________________________________________________________________________________ End Void onMapReady
-
 
 
     @Override
@@ -186,7 +181,7 @@ public class BoothReceivePrimary extends FragmentPrimary implements
         MaterialSpinnerSpinnerDay.setOnItemSelectedListener((view, position, id, item) -> {
             if (position == 0)
                 return;
-            timePosition = position -1;
+            timePosition = position - 1;
             //timeId = vm_boothReceivePrimary.getModelTimes().getTimes().get(position - 1).getId();
             MaterialSpinnerSpinnerDay.setBackgroundColor(getResources().getColor(R.color.mlEdit));
         });
@@ -195,25 +190,25 @@ public class BoothReceivePrimary extends FragmentPrimary implements
 
 
     private void SetVolumeWaste() {//_______________________________________________________________ SetVolumeWaste
-        Realm realm = ApplicationWMS.getApplicationWMS(getContext()).getRealmComponent().getRealm();
-        Integer count = realm.where(DB_ItemsWasteList.class).sum("Amount").intValue();
-        TextViewCount.setText(count.toString());
+        if (getContext() != null) {
+            Realm realm = ApplicationWMS.getApplicationWMS(getContext()).getRealmComponent().getRealm();
+            int count = realm.where(DB_ItemsWasteList.class).sum("Amount").intValue();
+            TextViewCount.setText(count);
+        }
     }//_____________________________________________________________________________________________ SetVolumeWaste
-
 
 
     private void SetAdapterBooth() {//______________________________________________________________ SetAdapterBooth
         ap_boothList = new AP_BoothList(BoothReceivePrimary.this, vm_boothReceivePrimary.getBoothList());
-        RecyclerViewBooths.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false));
+        RecyclerViewBooths.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         RecyclerViewBooths.setAdapter(ap_boothList);
         ShowBoothsOnMap();
     }//_____________________________________________________________________________________________ SetAdapterBooth
 
 
-
     private void ShowBoothsOnMap() {//______________________________________________________________ ShowBoothsOnMap
-        latLngsBooth = new ArrayList<>();
-        if (vm_boothReceivePrimary.getBoothList()!= null && vm_boothReceivePrimary.getBoothList().size() > 0) {
+        List<LatLng> latLngsBooth = new ArrayList<>();
+        if (vm_boothReceivePrimary.getBoothList() != null && vm_boothReceivePrimary.getBoothList().size() > 0) {
             MehrdadLatifiMap latifiMap = new MehrdadLatifiMap();
             latifiMap.setGoogleMap(mMap);
             for (MD_Booth md_booth : vm_boothReceivePrimary.getBoothList()) {
@@ -227,7 +222,6 @@ public class BoothReceivePrimary extends FragmentPrimary implements
     }//_____________________________________________________________________________________________ ShowBoothsOnMap
 
 
-
     @Override
     public void itemBoothMap(Integer position) {//__________________________________________________ itemBoothClick
         mMap.clear();
@@ -235,7 +229,7 @@ public class BoothReceivePrimary extends FragmentPrimary implements
         LatLng latLng = new LatLng(md_location.getLatitude(), md_location.getLongitude());
         MehrdadLatifiMap latifiMap = new MehrdadLatifiMap();
         latifiMap.setGoogleMap(mMap);
-        latifiMap.AddMarker(latLng, vm_boothReceivePrimary.getBoothList().get(position).getName(), "",R.drawable.marker_point);
+        latifiMap.AddMarker(latLng, vm_boothReceivePrimary.getBoothList().get(position).getName(), "", R.drawable.marker_point);
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(latLng)      // Sets the center of the map to Mountain View
                 .zoom(16)                   // Sets the zoom
@@ -258,8 +252,8 @@ public class BoothReceivePrimary extends FragmentPrimary implements
         RealmResults<DB_ItemsWasteList> wasteLists = realm.where(DB_ItemsWasteList.class).findAll();
         List<MD_RequestCollect> collects = new ArrayList<>();
         for (DB_ItemsWasteList item : wasteLists) {
-            MD_ItemWaste waste = new MD_ItemWaste(item.getId(),"","");
-            MD_RequestCollect collect = new MD_RequestCollect(waste,item.getAmount());
+            MD_ItemWaste waste = new MD_ItemWaste(item.getId(), "", "");
+            MD_RequestCollect collect = new MD_RequestCollect(waste, item.getAmount());
             collects.add(collect);
         }
         realm.close();

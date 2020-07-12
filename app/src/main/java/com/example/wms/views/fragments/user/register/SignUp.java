@@ -24,7 +24,6 @@ import com.example.wms.views.fragments.FragmentPrimary;
 import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import static com.example.wms.utility.StaticFunctions.TextChangeForChangeBack;
 
@@ -125,13 +124,13 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
 
 
     private void SetTextWatcher() {//_______________________________________________________________ Start SetTextWatcher
-        EditPhoneNumber.setBackgroundResource(R.drawable.edit_normal_background);
+        EditPhoneNumber.setBackgroundResource(R.drawable.dw_edit_back);
         EditPhoneNumber.addTextChangedListener(TextChangeForChangeBack(EditPhoneNumber));
 
-        EditPassword.setBackgroundResource(R.drawable.edit_normal_background);
+        EditPassword.setBackgroundResource(R.drawable.dw_edit_back);
         EditPassword.addTextChangedListener(TextChangeForChangeBack(EditPassword));
 
-        EditPasswordConfirm.setBackgroundResource(R.drawable.edit_normal_background);
+        EditPasswordConfirm.setBackgroundResource(R.drawable.dw_edit_back);
         EditPasswordConfirm.addTextChangedListener(TextChangeForChangeBack(EditPasswordConfirm));
     }//_____________________________________________________________________________________________ End SetTextWatcher
 
@@ -153,13 +152,13 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
             if (!passVisible) {
                 EditPassword.setInputType(InputType.TYPE_CLASS_TEXT |
                         InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                ImgPassVisible.setImageResource(R.drawable.ic_visibility_off);
+                ImgPassVisible.setImageResource(R.drawable.svg_hide_password);
                 passVisible = true;
 
             } else {
                 EditPassword.setInputType(InputType.TYPE_CLASS_TEXT |
                         InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                ImgPassVisible.setImageResource(R.drawable.ic_visibility);
+                ImgPassVisible.setImageResource(R.drawable.svg_password_visible);
                 passVisible = false;
             }
             EditPassword.setSelection(EditPassword.getText().length());
@@ -170,13 +169,13 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
             if (!passConfirmVisible) {
                 EditPasswordConfirm.setInputType(InputType.TYPE_CLASS_TEXT |
                         InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                ImgPassConfVisible.setImageResource(R.drawable.ic_visibility_off);
+                ImgPassConfVisible.setImageResource(R.drawable.svg_hide_password);
                 passConfirmVisible = true;
 
             } else {
                 EditPasswordConfirm.setInputType(InputType.TYPE_CLASS_TEXT |
                         InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                ImgPassConfVisible.setImageResource(R.drawable.ic_visibility);
+                ImgPassConfVisible.setImageResource(R.drawable.svg_password_visible);
                 passConfirmVisible = false;
             }
             EditPasswordConfirm.setSelection(EditPasswordConfirm.getText().length());
@@ -210,10 +209,10 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
         if (!EditPasswordConfirm.getText().toString().equalsIgnoreCase(EditPassword.getText().toString())) {
             EditPassword.setText("");
             EditPasswordConfirm.setText("");
-            EditPasswordConfirm.setBackgroundResource(R.drawable.edit_empty_background);
+            EditPasswordConfirm.setBackgroundResource(R.drawable.dw_edit_back_empty);
             EditPasswordConfirm.setError(getResources().getString(R.string.EmptyPasswordConfirm));
             EditPasswordConfirm.requestFocus();
-            EditPassword.setBackgroundResource(R.drawable.edit_empty_background);
+            EditPassword.setBackgroundResource(R.drawable.dw_edit_back_empty);
             EditPassword.setError(getResources().getString(R.string.EmptyPasswordConfirm));
             EditPassword.requestFocus();
 
@@ -223,7 +222,7 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
 
 
         if (EditPassword.getText().length() < 6) {
-            EditPassword.setBackgroundResource(R.drawable.edit_empty_background);
+            EditPassword.setBackgroundResource(R.drawable.dw_edit_back_empty);
             EditPassword.setError(getResources().getString(R.string.EmptyPassword));
             EditPassword.requestFocus();
             pass = false;
@@ -232,7 +231,7 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
 
 
         if (EditPhoneNumber.getText().length() != 11) {
-            EditPhoneNumber.setBackgroundResource(R.drawable.edit_empty_background);
+            EditPhoneNumber.setBackgroundResource(R.drawable.dw_edit_back_empty);
             EditPhoneNumber.setError(getResources().getString(R.string.EmptyPhoneNumber));
             EditPhoneNumber.requestFocus();
             phone = false;
@@ -241,7 +240,7 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
             if (ZeroNine.equalsIgnoreCase("09"))
                 phone = true;
             else {
-                EditPhoneNumber.setBackgroundResource(R.drawable.edit_empty_background);
+                EditPhoneNumber.setBackgroundResource(R.drawable.dw_edit_back_empty);
                 EditPhoneNumber.setError(getResources().getString(R.string.EmptyPhoneNumber));
                 EditPhoneNumber.requestFocus();
                 phone = false;

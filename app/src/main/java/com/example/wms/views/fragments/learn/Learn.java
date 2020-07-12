@@ -17,8 +17,9 @@ import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
+import org.jetbrains.annotations.NotNull;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class Learn extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
 
@@ -40,7 +41,7 @@ public class Learn extends FragmentPrimary implements FragmentPrimary.GetMessage
     @Nullable
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (getView() == null) {
@@ -49,7 +50,6 @@ public class Learn extends FragmentPrimary implements FragmentPrimary.GetMessage
                     inflater, R.layout.fragment_learn, container, false);
             binding.setVmLearn(vm_learn);
             setView(binding.getRoot());
-            ButterKnife.bind(this, getView());
             SetTabs();
         }
         return getView();

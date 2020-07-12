@@ -189,7 +189,7 @@ public class StaticFunctions {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                editText.setBackgroundResource(R.drawable.edit_normal_background);
+                editText.setBackgroundResource(R.drawable.dw_edit_back);
             }
 
             @Override

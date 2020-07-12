@@ -1,7 +1,6 @@
 package com.example.wms.viewmodels.collectrequest.recyclingcar;
 
 import android.app.Activity;
-import android.content.Context;
 
 import com.example.wms.daggers.retrofit.RetrofitComponent;
 import com.example.wms.models.MD_WasteAmountRequests;
@@ -42,10 +41,10 @@ public class VM_RecyclingCarPrimary extends VM_Primary {
                 setResponseMessage(CheckResponse(response, false));
                 if (getResponseMessage() == null) {
                     modelTimes = response.body().getResult();
-                    getPublishSubject().onNext(StaticValues.ML_GetTimeSheetTimes);
+                    SendMessageToObservable(StaticValues.ML_GetTimeSheetTimes);
                 } else {
                     setResponseMessage(CheckResponse(response, false));
-                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                    SendMessageToObservable(StaticValues.ML_ResponseError);
                 }
 
             }

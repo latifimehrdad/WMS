@@ -27,7 +27,6 @@ import com.example.wms.views.fragments.FragmentPrimary;
 import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
 
@@ -112,8 +111,9 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
     @Override
     public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
+        DismissProgress();
+
         if (action.equals(StaticValues.ML_GotoLogin)) {
-            DismissProgress();
             if (getContext() != null) {
                 getContext().onBackPressed();
                 getContext().onBackPressed();

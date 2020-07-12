@@ -7,7 +7,7 @@ import dagger.Component;
 import io.realm.Realm;
 
 @DaggerScope
-@Component(modules = {RealmModul.class})
+@Component(modules = {RealmModule.class})
 public interface RealmComponent {
     Realm getRealm();
 }

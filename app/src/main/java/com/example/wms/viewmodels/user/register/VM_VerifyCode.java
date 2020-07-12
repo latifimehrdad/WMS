@@ -45,10 +45,10 @@ public class VM_VerifyCode extends VM_Primary {
                         setResponseMessage(CheckResponse(response, false));
                         if (getResponseMessage() == null) {
                             setResponseMessage(GetMessage(response));
-                            getPublishSubject().onNext(StaticValues.ML_GotoLogin);
+                            SendMessageToObservable(StaticValues.ML_GotoLogin);
                         }
                         else
-                            getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                            SendMessageToObservable(StaticValues.ML_ResponseError);
 
                     }
 
@@ -85,10 +85,10 @@ public class VM_VerifyCode extends VM_Primary {
                 setResponseMessage(CheckResponse(response, false));
                 if (getResponseMessage() == null) {
                     setResponseMessage(GetMessage(response));
-                    getPublishSubject().onNext(StaticValues.ML_Success);
+                    SendMessageToObservable(StaticValues.ML_Success);
                 }
                 else {
-                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                    SendMessageToObservable(StaticValues.ML_ResponseError);
                 }
             }
 

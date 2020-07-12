@@ -7,7 +7,7 @@ import dagger.Provides;
 import io.realm.Realm;
 
 @Module
-public class RealmModul {
+public class RealmModule {
 
     @Provides
     @DaggerScope

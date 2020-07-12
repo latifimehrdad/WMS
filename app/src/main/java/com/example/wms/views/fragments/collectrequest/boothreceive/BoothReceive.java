@@ -17,12 +17,11 @@ import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
+import org.jetbrains.annotations.NotNull;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class BoothReceive extends FragmentPrimary {
-
-    private VM_BoothReceive vm_boothReceive;
 
     @BindView(R.id.FragmentBoothTab)
     SmartTabLayout FragmentBoothTab;
@@ -36,17 +35,16 @@ public class BoothReceive extends FragmentPrimary {
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
 
         if (getView() == null) {
-            vm_boothReceive = new VM_BoothReceive(getContext());
+            VM_BoothReceive vm_boothReceive = new VM_BoothReceive(getContext());
             FragmentBoothReceiveBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_booth_receive,container, false);
             binding.setVmBoothReceive(vm_boothReceive);
             setView(binding.getRoot());
-            ButterKnife.bind(this, getView());
             SetTabs();
         }
         return getView();

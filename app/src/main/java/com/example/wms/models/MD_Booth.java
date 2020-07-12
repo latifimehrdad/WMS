@@ -55,7 +55,4 @@ public class MD_Booth {
         return location;
     }
 
-    public void setLocation(MD_Location location) {
-        this.location = location;
-    }
 }

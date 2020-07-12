@@ -33,15 +33,10 @@ public class BackgroundServiceLocation extends Service {
 
         JobType = intent.getStringExtra("jobtype");
         Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                switch (JobType) {
-                    case "TextAddress":
-                        negra = (LatLng) intent.getExtras().get("latlong");
-                        GetAddressFromLatLong();
-                        break;
-                }
+        handler.postDelayed(() -> {
+            if ("TextAddress".equals(JobType)) {
+                negra = (LatLng) intent.getExtras().get("latlong");
+                GetAddressFromLatLong();
             }
         }, 2000);
 

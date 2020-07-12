@@ -1,8 +1,6 @@
 package com.example.wms.viewmodels.packrequest;
 
 import android.app.Activity;
-import android.content.Context;
-
 import com.example.wms.R;
 import com.example.wms.daggers.retrofit.RetrofitComponent;
 import com.example.wms.models.ModelBuildingTypes;
@@ -67,10 +65,8 @@ public class VM_PackageRequestAddress extends VM_Primary {
                 if (getResponseMessage() == null) {
                     setResponseMessage(GetMessage(response));
                     GetLoginInformation();
-
                 } else
-                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
-
+                    SendMessageToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
@@ -103,10 +99,10 @@ public class VM_PackageRequestAddress extends VM_Primary {
                 String m = CheckResponse(response, true);
                 if (m == null) {
                     if (StaticFunctions.SaveProfile(getContext(), response.body().getResult()))
-                        getPublishSubject().onNext(StaticValues.ML_EditUserAddress);
+                        SendMessageToObservable(StaticValues.ML_EditUserAddress);
                 } else {
                     setResponseMessage(CheckResponse(response, true));
-                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                    SendMessageToObservable(StaticValues.ML_ResponseError);
                 }
             }
 
@@ -140,10 +136,9 @@ public class VM_PackageRequestAddress extends VM_Primary {
                 setResponseMessage(CheckResponse(response, false));
                 if (getResponseMessage() == null) {
                     buildingTypes = response.body().getResult();
-                    getPublishSubject().onNext(StaticValues.ML_GetHousingBuildings);
+                    SendMessageToObservable(StaticValues.ML_GetHousingBuildings);
                 } else
-                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
-
+                    SendMessageToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
@@ -181,7 +176,7 @@ public class VM_PackageRequestAddress extends VM_Primary {
                         address.setLon(String.valueOf(lon));
                     }
                 }
-                getPublishSubject().onNext(StaticValues.ML_GetAddress);
+                SendMessageToObservable(StaticValues.ML_GetAddress);
             }
 
             @Override
@@ -214,13 +209,13 @@ public class VM_PackageRequestAddress extends VM_Primary {
 
                 if(!country.equalsIgnoreCase("ایران")) {
                     setResponseMessage(getContext().getResources().getString(R.string.OutOfIran));
-                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                    SendMessageToObservable(StaticValues.ML_ResponseError);
                     return;
                 }
 
             } else {
                 setResponseMessage(getContext().getResources().getString(R.string.OutOfIran));
-                getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                SendMessageToObservable(StaticValues.ML_ResponseError);
                 return;
             }
 
@@ -277,7 +272,7 @@ public class VM_PackageRequestAddress extends VM_Primary {
             AddressString = "";
         }
 
-        getPublishSubject().onNext(StaticValues.ML_SetAddress);
+        SendMessageToObservable(StaticValues.ML_SetAddress);
 
     }//_____________________________________________________________________________________________ End SetAddress
 

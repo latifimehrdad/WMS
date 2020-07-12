@@ -26,7 +26,7 @@ import com.example.wms.views.fragments.FragmentPrimary;
 import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+
 
 import static com.example.wms.utility.StaticFunctions.TextChangeForChangeBack;
 
@@ -150,12 +150,12 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
             if (!passVisible) {
                 EditPassword.setInputType(InputType.TYPE_CLASS_TEXT |
                         InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                ImgPassVisible.setImageResource(R.drawable.ic_visibility_off);
+                ImgPassVisible.setImageResource(R.drawable.svg_hide_password);
                 passVisible = true;
             } else {
                 EditPassword.setInputType(InputType.TYPE_CLASS_TEXT |
                         InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                ImgPassVisible.setImageResource(R.drawable.ic_visibility);
+                ImgPassVisible.setImageResource(R.drawable.svg_password_visible);
                 passVisible = false;
             }
             EditPassword.setSelection(EditPassword.getText().length());
@@ -182,9 +182,9 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
 
 
     private void SetTextWatcher() {//_______________________________________________________________ SetTextWatcher
-        EditPhoneNumber.setBackgroundResource(R.drawable.edit_normal_background);
+        EditPhoneNumber.setBackgroundResource(R.drawable.dw_edit_back);
         EditPhoneNumber.addTextChangedListener(TextChangeForChangeBack(EditPhoneNumber));
-        EditPassword.setBackgroundResource(R.drawable.edit_normal_background);
+        EditPassword.setBackgroundResource(R.drawable.dw_edit_back);
         EditPassword.addTextChangedListener(TextChangeForChangeBack(EditPassword));
     }//_____________________________________________________________________________________________ SetTextWatcher
 
@@ -195,7 +195,7 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
         boolean pass;
 
         if (EditPassword.getText().length() < 6) {
-            EditPassword.setBackgroundResource(R.drawable.edit_empty_background);
+            EditPassword.setBackgroundResource(R.drawable.dw_edit_back_empty);
             EditPassword.setError(getResources().getString(R.string.EmptyPassword));
             EditPassword.requestFocus();
             pass = false;
@@ -204,7 +204,7 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
 
 
         if (EditPhoneNumber.getText().length() != 11) {
-            EditPhoneNumber.setBackgroundResource(R.drawable.edit_empty_background);
+            EditPhoneNumber.setBackgroundResource(R.drawable.dw_edit_back_empty);
             EditPhoneNumber.setError(getResources().getString(R.string.EmptyPhoneNumber));
             EditPhoneNumber.requestFocus();
             phone = false;
@@ -213,7 +213,7 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
             if (ZeroNine.equalsIgnoreCase("09"))
                 phone = true;
             else {
-                EditPhoneNumber.setBackgroundResource(R.drawable.edit_empty_background);
+                EditPhoneNumber.setBackgroundResource(R.drawable.dw_edit_back_empty);
                 EditPhoneNumber.setError(getResources().getString(R.string.EmptyPhoneNumber));
                 EditPhoneNumber.requestFocus();
                 phone = false;

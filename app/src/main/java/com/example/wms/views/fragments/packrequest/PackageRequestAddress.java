@@ -392,28 +392,30 @@ public class PackageRequestAddress extends FragmentPrimary implements
             window.setAttributes(lp);
         }
 
-        TextView TextViewQuestionTitle = (TextView) dialogQuestion
+        TextView TextViewQuestionTitle = dialogQuestion
                 .findViewById(R.id.TextViewQuestionTitle);
-        TextViewQuestionTitle.setText(getContext().getResources().getString(R.string.TurnOnGps));
 
-        TextView TextViewYes = (TextView) dialogQuestion
+        TextView TextViewYes = dialogQuestion
                 .findViewById(R.id.TextViewYes);
-        TextViewYes.setText(getContext().getResources().getString(R.string.ML_TurnOnLocation));
 
-        TextView TextViewNo = (TextView) dialogQuestion
+        TextView TextViewNo = dialogQuestion
                 .findViewById(R.id.TextViewNo);
-        TextViewNo.setText(getContext().getResources().getString(R.string.ML_TurnOffLocation));
 
-        ImageView ImageViewYes = (ImageView) dialogQuestion
+        ImageView ImageViewYes = dialogQuestion
                 .findViewById(R.id.ImageViewYes);
 
-        ImageViewYes.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_baseline_my_location));
+        if (getContext() != null) {
+            TextViewQuestionTitle.setText(getContext().getResources().getString(R.string.TurnOnGps));
+            TextViewYes.setText(getContext().getResources().getString(R.string.ML_TurnOnLocation));
+            TextViewNo.setText(getContext().getResources().getString(R.string.ML_TurnOffLocation));
+            ImageViewYes.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_baseline_my_location));
+        }
 
 
-        LinearLayout LinearLayoutYes = (LinearLayout) dialogQuestion
+        LinearLayout LinearLayoutYes = dialogQuestion
                 .findViewById(R.id.LinearLayoutYes);
 
-        LinearLayout LinearLayoutNo = (LinearLayout) dialogQuestion
+        LinearLayout LinearLayoutNo = dialogQuestion
                 .findViewById(R.id.LinearLayoutNo);
 
         LinearLayoutNo.setOnClickListener(v -> {

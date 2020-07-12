@@ -11,7 +11,7 @@ import com.example.wms.daggers.imageloader.ImageLoaderComponent;
 import com.example.wms.daggers.imageloader.ImageLoaderModule;
 import com.example.wms.daggers.realm.DaggerRealmComponent;
 import com.example.wms.daggers.realm.RealmComponent;
-import com.example.wms.daggers.realm.RealmModul;
+import com.example.wms.daggers.realm.RealmModule;
 import com.example.wms.daggers.retrofit.DaggerRetrofitComponent;
 import com.example.wms.daggers.retrofit.RetrofitComponent;
 import com.example.wms.daggers.retrofit.RetrofitModule;
@@ -125,7 +125,7 @@ public class ApplicationWMS extends MultiDexApplication {
                 .schemaVersion(1).build());
         realmComponent = DaggerRealmComponent
                 .builder()
-                .realmModul(new RealmModul())
+                .realmModule(new RealmModule())
                 .build();
     }//_____________________________________________________________________________________________ ConfigurationRealmComponent
 

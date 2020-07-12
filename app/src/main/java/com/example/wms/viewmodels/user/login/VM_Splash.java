@@ -69,9 +69,9 @@ public class VM_Splash extends VM_Primary {
                 if (getResponseMessage() == null) {
                     modelToken = response.body();
                     if (StaticFunctions.SaveToken(getContext(), modelToken))
-                        getPublishSubject().onNext(StaticValues.ML_GotoLogin);
+                        SendMessageToObservable(StaticValues.ML_GotoLogin);
                 } else
-                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                    SendMessageToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
@@ -105,14 +105,13 @@ public class VM_Splash extends VM_Primary {
                     profile = response.body().getResult();
                     if (profile != null) {
                         if (StaticFunctions.SaveProfile(getContext(), profile))
-                            getPublishSubject().onNext(StaticValues.ML_GoToHome);
+                            SendMessageToObservable(StaticValues.ML_GoToHome);
                     } else {
                         if (StaticFunctions.LogOut(getContext()))
                             GetTokenFromServer();
-
                     }
                 } else
-                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                    SendMessageToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override

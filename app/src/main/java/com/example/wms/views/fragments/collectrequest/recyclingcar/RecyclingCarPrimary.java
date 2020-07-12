@@ -25,13 +25,14 @@ import com.example.wms.views.application.ApplicationWMS;
 import com.example.wms.views.fragments.FragmentPrimary;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -65,7 +66,7 @@ public class RecyclingCarPrimary extends FragmentPrimary implements
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
         if (getView() == null) {
@@ -179,9 +180,11 @@ public class RecyclingCarPrimary extends FragmentPrimary implements
 
 
     private void SetVolumeWaste() {//_______________________________________________________________ SetVolumeWaste
-        Realm realm = ApplicationWMS.getApplicationWMS(getContext()).getRealmComponent().getRealm();
-        Integer count = realm.where(DB_ItemsWasteList.class).sum("Amount").intValue();
-        TextViewCount.setText(count.toString());
+        if (getContext() != null) {
+            Realm realm = ApplicationWMS.getApplicationWMS(getContext()).getRealmComponent().getRealm();
+            int count = realm.where(DB_ItemsWasteList.class).sum("Amount").intValue();
+            TextViewCount.setText(count);
+        }
     }//_____________________________________________________________________________________________ SetVolumeWaste
 
 

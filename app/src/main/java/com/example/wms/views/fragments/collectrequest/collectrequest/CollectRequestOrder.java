@@ -13,12 +13,12 @@ import com.example.wms.R;
 import com.example.wms.databinding.FragmentCollectRequestOrdersBinding;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.collectrequest.collectrequest.VM_CollectRequestOrder;
-import com.example.wms.views.adaptors.collectrequest.AP_BoothList;
 import com.example.wms.views.adaptors.collectrequest.AP_Order;
 import com.example.wms.views.fragments.FragmentPrimary;
 
+import org.jetbrains.annotations.NotNull;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class CollectRequestOrder extends FragmentPrimary implements
         FragmentPrimary.GetMessageFromObservable,
@@ -37,7 +37,7 @@ public class CollectRequestOrder extends FragmentPrimary implements
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
 //        if (getView() == null) {
@@ -46,7 +46,6 @@ public class CollectRequestOrder extends FragmentPrimary implements
                     inflater, R.layout.fragment_collect_request_orders,container,false);
             binding.setVMCollectOrder(vm_collectRequestOrder);
             setView(binding.getRoot());
-            ButterKnife.bind(this, getView());
 //        }
 
         return getView();

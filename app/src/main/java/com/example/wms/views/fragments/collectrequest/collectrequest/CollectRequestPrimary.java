@@ -84,8 +84,9 @@ public class CollectRequestPrimary extends FragmentPrimary implements
                 CollectRequestPrimary.this,
                 vm_collectRequestPrimary.getPublishSubject(),
                 vm_collectRequestPrimary);
-        navController = Navigation.findNavController(getView());
-        if (ap_itemsWasteList == null) {
+        if (getView() != null)
+            navController = Navigation.findNavController(getView());
+        if (ap_itemsWasteList == null && getContext() != null) {
             Realm realm = ApplicationWMS.getApplicationWMS(getContext()).getRealmComponent().getRealm();
             wasteLists = realm.where(DB_ItemsWasteList.class).findAll();
             try {
@@ -119,30 +120,24 @@ public class CollectRequestPrimary extends FragmentPrimary implements
 
     private void SetClicks() {//____________________________________________________________________ SetClicks
 
-        fcrpRecyclingCar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (wasteLists != null && wasteLists.size() > 0)
-                    navController.navigate(R.id.action_collectRequest_to_recyclingCar);
-                else
-                    ShowMessage(getResources().getString(R.string.EmptyList),
-                            getResources().getColor(R.color.mlWhite),
-                            getResources().getDrawable(R.drawable.ic_error),
-                            getResources().getColor(R.color.mlCollectRight1));
-            }
+        fcrpRecyclingCar.setOnClickListener(v -> {
+            if (wasteLists != null && wasteLists.size() > 0)
+                navController.navigate(R.id.action_collectRequest_to_recyclingCar);
+            else
+                ShowMessage(getResources().getString(R.string.EmptyList),
+                        getResources().getColor(R.color.mlWhite),
+                        getResources().getDrawable(R.drawable.ic_error),
+                        getResources().getColor(R.color.mlCollectRight1));
         });
 
-        fcrpBoothReceive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (wasteLists != null && wasteLists.size() > 0)
-                    navController.navigate(R.id.action_collectRequest_to_boothReceive);
-                else
-                    ShowMessage(getResources().getString(R.string.EmptyList),
-                            getResources().getColor(R.color.mlWhite),
-                            getResources().getDrawable(R.drawable.ic_error),
-                            getResources().getColor(R.color.mlCollectRight1));
-            }
+        fcrpBoothReceive.setOnClickListener(v -> {
+            if (wasteLists != null && wasteLists.size() > 0)
+                navController.navigate(R.id.action_collectRequest_to_boothReceive);
+            else
+                ShowMessage(getResources().getString(R.string.EmptyList),
+                        getResources().getColor(R.color.mlWhite),
+                        getResources().getDrawable(R.drawable.ic_error),
+                        getResources().getColor(R.color.mlCollectRight1));
         });
 
     }//_____________________________________________________________________________________________ SetClicks
@@ -165,17 +160,19 @@ public class CollectRequestPrimary extends FragmentPrimary implements
     @Override
     public void itemWastClick(Integer position) {//_________________________________________________ itemWastClick
 
-        MD_ItemWaste waste = vm_collectRequestPrimary.getMd_itemWastes().get(position);
-        Realm realm = ApplicationWMS.getApplicationWMS(getContext()).getRealmComponent().getRealm();
-        DB_ItemsWasteList duplicate = realm.where(DB_ItemsWasteList.class).equalTo("Id", waste.getId()).findFirst();
-        if (duplicate != null)
-            return;
-        try {
-            realm.beginTransaction();
-            realm.createObject(DB_ItemsWasteList.class).insert(waste.getId(), waste.getTitle(), 1);
-            realm.commitTransaction();
-        } finally {
-            ap_itemsWasteList.notifyDataSetChanged();
+        if (getContext() != null) {
+            MD_ItemWaste waste = vm_collectRequestPrimary.getMd_itemWastes().get(position);
+            Realm realm = ApplicationWMS.getApplicationWMS(getContext()).getRealmComponent().getRealm();
+            DB_ItemsWasteList duplicate = realm.where(DB_ItemsWasteList.class).equalTo("Id", waste.getId()).findFirst();
+            if (duplicate != null)
+                return;
+            try {
+                realm.beginTransaction();
+                realm.createObject(DB_ItemsWasteList.class).insert(waste.getId(), waste.getTitle(), 1);
+                realm.commitTransaction();
+            } finally {
+                ap_itemsWasteList.notifyDataSetChanged();
+            }
         }
 
     }//_____________________________________________________________________________________________ itemWastClick
@@ -183,19 +180,21 @@ public class CollectRequestPrimary extends FragmentPrimary implements
 
     @Override
     public void itemWasteClickAction(Integer position, Byte action) {//_____________________________ itemWasteClickAction
-        Integer count = wasteLists.get(position).getAmount();
-        if (action.equals(StaticValues.ML_ItemsOFWasteReduce)) {
-            if (count > 0)
-                count--;
-        } else
-            count++;
-        Realm realm = ApplicationWMS.getApplicationWMS(getContext()).getRealmComponent().getRealm();
-        try {
-            realm.beginTransaction();
-            wasteLists.get(position).setAmount(count);
-            realm.commitTransaction();
-        } finally {
-            ap_itemsWasteList.notifyDataSetChanged();
+        if (getContext() != null) {
+            Integer count = wasteLists.get(position).getAmount();
+            if (action.equals(StaticValues.ML_ItemsOFWasteReduce)) {
+                if (count > 0)
+                    count--;
+            } else
+                count++;
+            Realm realm = ApplicationWMS.getApplicationWMS(getContext()).getRealmComponent().getRealm();
+            try {
+                realm.beginTransaction();
+                wasteLists.get(position).setAmount(count);
+                realm.commitTransaction();
+            } finally {
+                ap_itemsWasteList.notifyDataSetChanged();
+            }
         }
 
     }//_____________________________________________________________________________________________ itemWasteClickAction
@@ -203,13 +202,15 @@ public class CollectRequestPrimary extends FragmentPrimary implements
 
     @Override
     public void itemWasteDeleteClick(Integer position) {//__________________________________________ itemWasteDeleteClick
-        Realm realm = ApplicationWMS.getApplicationWMS(getContext()).getRealmComponent().getRealm();
-        try {
-            realm.beginTransaction();
-            wasteLists.get(position).deleteFromRealm();
-            realm.commitTransaction();
-        } finally {
-            ap_itemsWasteList.notifyDataSetChanged();
+        if (getContext() != null) {
+            Realm realm = ApplicationWMS.getApplicationWMS(getContext()).getRealmComponent().getRealm();
+            try {
+                realm.beginTransaction();
+                wasteLists.get(position).deleteFromRealm();
+                realm.commitTransaction();
+            } finally {
+                ap_itemsWasteList.notifyDataSetChanged();
+            }
         }
 
     }//_____________________________________________________________________________________________ itemWasteDeleteClick

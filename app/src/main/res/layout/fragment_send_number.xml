@@ -66,14 +66,14 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
+                            android:layout_weight="0.8" />
 
                         <EditText
                             android:id="@+id/EditPhoneNumber"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_30sdp"
                             android:layout_weight="2"
-                            android:background="@drawable/edit_normal_background"
+                            android:background="@drawable/dw_edit_back"
                             android:gravity="center"
                             android:hint="@string/MobileNumber"
                             android:inputType="number"
@@ -83,11 +83,20 @@
                             android:textColor="@color/mlBlack"
                             android:textSize="@dimen/_12sdp" />
 
+                        <ImageView
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:background="@drawable/dw_edit_back_image"
+                            android:padding="@dimen/_4sdp"
+                            android:src="@drawable/svg_phone"
+                            android:tint="@color/mlWhite"
+                            />
+
 
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
+                            android:layout_weight="0.8" />
 
                     </LinearLayout>
 
@@ -101,16 +110,16 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
+                            android:layout_weight="0.8"
                             android:gravity="center_vertical|right"
                             android:padding="@dimen/_5sdp">
 
                             <ImageView
                                 android:id="@+id/ImgPassVisible"
-                                android:layout_width="wrap_content"
+                                android:layout_width="@dimen/_20sdp"
                                 android:layout_height="match_parent"
                                 android:tint="@color/colorPrimary"
-                                android:src="@drawable/ic_visibility" />
+                                android:src="@drawable/svg_password_visible" />
 
                         </LinearLayout>
 
@@ -119,7 +128,7 @@
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_30sdp"
                             android:layout_weight="2"
-                            android:background="@drawable/edit_normal_background"
+                            android:background="@drawable/dw_edit_back"
                             android:gravity="center"
                             android:hint="@string/Password"
                             android:maxLines="1"
@@ -128,11 +137,19 @@
                             android:textColor="@color/mlBlack"
                             android:textSize="@dimen/_12sdp" />
 
+                        <ImageView
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:background="@drawable/dw_edit_back_image"
+                            android:padding="@dimen/_4sdp"
+                            android:src="@drawable/svg_password"
+                            android:tint="@color/mlWhite"
+                            />
 
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
+                            android:layout_weight="0.8" />
 
                     </LinearLayout>
 
@@ -146,16 +163,16 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
+                            android:layout_weight="0.8"
                             android:gravity="center_vertical|right"
                             android:padding="@dimen/_5sdp">
 
                             <ImageView
                                 android:id="@+id/ImgPassConfVisible"
-                                android:layout_width="wrap_content"
+                                android:layout_width="@dimen/_20sdp"
                                 android:layout_height="match_parent"
                                 android:tint="@color/colorPrimary"
-                                android:src="@drawable/ic_visibility" />
+                                android:src="@drawable/svg_password_visible" />
 
                         </LinearLayout>
 
@@ -164,7 +181,7 @@
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_30sdp"
                             android:layout_weight="2"
-                            android:background="@drawable/edit_normal_background"
+                            android:background="@drawable/dw_edit_back"
                             android:gravity="center"
                             android:hint="@string/ReTryPassword"
                             android:maxLines="1"
@@ -173,11 +190,19 @@
                             android:textColor="@color/mlBlack"
                             android:textSize="@dimen/_12sdp" />
 
+                        <ImageView
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:background="@drawable/dw_edit_back_image"
+                            android:padding="@dimen/_4sdp"
+                            android:src="@drawable/svg_re_password"
+                            android:tint="@color/mlWhite"
+                            />
 
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
+                            android:layout_weight="0.8" />
 
                     </LinearLayout>
 
@@ -208,29 +233,31 @@
                                 android:text="@string/GetCode"
                                 android:textColor="@color/mlWhite"
                                 android:textSize="@dimen/_13sdp"
-                                android:gravity="right|center_vertical"
+                                android:gravity="center"
+                                android:layout_toLeftOf="@id/imgLoading"
                                 android:paddingRight="@dimen/_5sdp"
                                 />
 
                             <ImageView
                                 android:id="@+id/imgLoading"
-                                android:layout_width="@dimen/_25sdp"
-                                android:layout_height="@dimen/_25sdp"
-                                android:src="@drawable/ic_play_for_work"
-                                android:layout_alignParentLeft="true"
-                                android:layout_marginLeft="@dimen/_5sdp"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:src="@drawable/svg_verify"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="@dimen/_5sdp"
                                 android:layout_centerVertical="true"
+                                android:tint="@color/mlWhite"
                                 />
 
                             <com.cunoraz.gifview.library.GifView
                                 android:id="@+id/gifLoading"
-                                android:layout_width="@dimen/_20sdp"
-                                android:layout_height="@dimen/_20sdp"
+                                android:layout_width="@dimen/_22sdp"
+                                android:layout_height="@dimen/_22sdp"
                                 android:layout_centerVertical="true"
-                                android:layout_alignParentLeft="true"
-                                android:layout_marginLeft="@dimen/_5sdp"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="@dimen/_5sdp"
                                 android:visibility="invisible"
-                                custom:gif="@drawable/loading" />
+                                custom:gif="@drawable/loading2" />
 
                         </RelativeLayout>
 

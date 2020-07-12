@@ -12,8 +12,7 @@ import com.example.wms.databinding.FragmentAboutPrimeryBinding;
 import com.example.wms.viewmodels.aboutus.VM_About;
 import com.example.wms.views.fragments.FragmentPrimary;
 
-
-import butterknife.ButterKnife;
+import org.jetbrains.annotations.NotNull;
 
 public class About extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
 
@@ -27,7 +26,7 @@ public class About extends FragmentPrimary implements FragmentPrimary.GetMessage
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
 
@@ -38,7 +37,6 @@ public class About extends FragmentPrimary implements FragmentPrimary.GetMessage
             );
             binding.setVMAbout(vm_about);
             setView(binding.getRoot());
-            ButterKnife.bind(this, getView());
         }
         return getView();
     }//_____________________________________________________________________________________________ End onCreateView

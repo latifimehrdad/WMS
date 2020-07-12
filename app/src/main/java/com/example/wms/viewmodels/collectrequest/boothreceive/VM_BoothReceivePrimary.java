@@ -1,7 +1,6 @@
 package com.example.wms.viewmodels.collectrequest.boothreceive;
 
 import android.app.Activity;
-import android.content.Context;
 
 import com.example.wms.daggers.retrofit.RetrofitComponent;
 import com.example.wms.models.MD_Booth;

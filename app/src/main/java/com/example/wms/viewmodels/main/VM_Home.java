@@ -29,12 +29,7 @@ public class VM_Home extends VM_Primary {
 
         if (!complateprofile) {
             Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    getPublishSubject().onNext(StaticValues.ML_GotoProfile);
-                }
-            }, 10);
+            handler.postDelayed(() -> SendMessageToObservable(StaticValues.ML_GotoProfile), 10);
         }
 
     }//_____________________________________________________________________________________________ CheckProfile

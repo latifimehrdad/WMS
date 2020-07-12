@@ -13,7 +13,8 @@ import com.example.wms.databinding.FragmentLearnSeparationBinding;
 import com.example.wms.viewmodels.learn.VM_LearnSeparation;
 import com.example.wms.views.fragments.FragmentPrimary;
 
-import butterknife.ButterKnife;
+import org.jetbrains.annotations.NotNull;
+
 
 public class LearnSeparation extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
 
@@ -28,7 +29,7 @@ public class LearnSeparation extends FragmentPrimary implements FragmentPrimary.
     @Nullable
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (getView() == null) {
@@ -37,7 +38,6 @@ public class LearnSeparation extends FragmentPrimary implements FragmentPrimary.
                     inflater, R.layout.fragment_learn_separation, container, false);
             binding.setVMLearnSeparation(vm_learnSeparation);
             setView(binding.getRoot());
-            ButterKnife.bind(this, getView());
         }
         return getView();
     }//_____________________________________________________________________________________________ onCreateView

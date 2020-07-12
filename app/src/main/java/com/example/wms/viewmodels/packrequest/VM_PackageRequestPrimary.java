@@ -51,8 +51,7 @@ public class VM_PackageRequestPrimary extends VM_Primary {
                     setResponseMessage(GetMessage(response));
                     GetLoginInformation();
                 } else
-                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
-
+                    SendMessageToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
@@ -84,9 +83,9 @@ public class VM_PackageRequestPrimary extends VM_Primary {
                 String m = CheckResponse(response, true);
                 if (m == null) {
                     if (StaticFunctions.SaveProfile(getContext(), response.body().getResult()))
-                        getPublishSubject().onNext(StaticValues.ML_SendPackageRequest);
+                        SendMessageToObservable(StaticValues.ML_SendPackageRequest);
                 } else
-                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                    SendMessageToObservable(StaticValues.ML_ResponseError);;
             }
 
             @Override
@@ -116,10 +115,10 @@ public class VM_PackageRequestPrimary extends VM_Primary {
                 setResponseMessage(CheckResponse(response, false));
                 if (getResponseMessage() == null) {
                     modelTimes = response.body().getResult();
-                    getPublishSubject().onNext(StaticValues.ML_GetTimeSheetTimes);
+                    SendMessageToObservable(StaticValues.ML_GetTimeSheetTimes);
                 } else {
                     setResponseMessage(CheckResponse(response, false));
-                    getPublishSubject().onNext(StaticValues.ML_ResponseError);
+                    SendMessageToObservable(StaticValues.ML_ResponseError);
                 }
 
             }
@@ -135,13 +134,15 @@ public class VM_PackageRequestPrimary extends VM_Primary {
 
     public Byte GetPackageStatus() {//_______________________________________________________________ GetPackageStatus
 
-        SharedPreferences prefs = getContext().getSharedPreferences(getContext().getString(R.string.ML_SharePreferences), 0);
-        if (prefs == null) {
-            return 0;
-        } else {
-            int status = prefs.getInt(getContext().getString(R.string.ML_PackageRequestStatus), 0);
-            return (byte) prefs.getInt(getContext().getString(R.string.ML_PackageRequestStatus), 0);
+        if (getContext() != null) {
+            SharedPreferences prefs = getContext().getSharedPreferences(getContext().getString(R.string.ML_SharePreferences), 0);
+            if (prefs == null) {
+                return 0;
+            } else {
+                return (byte) prefs.getInt(getContext().getString(R.string.ML_PackageRequestStatus), 0);
+            }
         }
+        return 0;
     }//_____________________________________________________________________________________________ GetPackageStatus
 
 
