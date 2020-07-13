@@ -193,7 +193,7 @@ public class BoothReceivePrimary extends FragmentPrimary implements
         if (getContext() != null) {
             Realm realm = ApplicationWMS.getApplicationWMS(getContext()).getRealmComponent().getRealm();
             int count = realm.where(DB_ItemsWasteList.class).sum("Amount").intValue();
-            TextViewCount.setText(count);
+            TextViewCount.setText(String.valueOf(count));
         }
     }//_____________________________________________________________________________________________ SetVolumeWaste
 

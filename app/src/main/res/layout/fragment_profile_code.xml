@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -18,8 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/_50sdp"
-        android:paddingRight="@dimen/_50sdp"
+        android:paddingLeft="@dimen/_40sdp"
+        android:paddingRight="@dimen/_40sdp"
         android:paddingTop="@dimen/_10sdp"
         android:paddingBottom="@dimen/_10sdp"
         android:gravity="center"
@@ -35,18 +35,37 @@
             />
 
 
-        <EditText
-            android:id="@+id/editBuildingRenovationCode"
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:background="@drawable/edit_normal_background"
-            android:hint="@string/RegisterPersonCodeNew"
-            android:inputType="textPersonName"
-            android:padding="@dimen/_2sdp"
-            android:textColor="@color/mlBlack"
-            android:textSize="@dimen/_12sdp"
-            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_10sdp">
+
+            <EditText
+                android:id="@+id/editBuildingRenovationCode"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_30sdp"
+                android:background="@drawable/dw_edit_back"
+                android:hint="@string/RegisterPersonCodeNew"
+                android:inputType="textPersonName"
+                android:padding="@dimen/_2sdp"
+                android:textColor="@color/mlBlack"
+                android:textSize="@dimen/_12sdp"
+                />
+
+            <ImageView
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:background="@drawable/dw_edit_back_image"
+                android:padding="@dimen/_4sdp"
+                android:src="@drawable/svg_wall"
+                android:tint="@color/mlWhite"
+                />
+
+        </LinearLayout>
+
+
 
         <TextView
             android:layout_width="match_parent"
@@ -60,18 +79,51 @@
             />
 
 
-        <Button
-            android:id="@+id/btnSendCode"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+        <RelativeLayout
+            android:id="@+id/RelativeLayoutSend"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
             android:layout_marginLeft="@dimen/_25sdp"
-            android:layout_marginTop="@dimen/_50sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:layout_marginRight="@dimen/_25sdp"
             android:layout_marginBottom="@dimen/_20sdp"
-            android:background="@drawable/save_info_button"
-            android:text="@string/Save"
-            android:textColor="@color/mlWhite"
-            android:textSize="@dimen/_13sdp" />
+            android:background="@drawable/save_info_button">
+
+            <TextView
+                android:id="@+id/txtLoading"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/SaveInfo"
+                android:textColor="@color/mlWhite"
+                android:textSize="@dimen/_13sdp"
+                android:gravity="center"
+                android:layout_toLeftOf="@id/imgLoading"
+                android:paddingRight="@dimen/_5sdp"
+                />
+
+            <ImageView
+                android:id="@+id/imgLoading"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/svg_verify"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_centerVertical="true"
+                android:tint="@color/mlWhite"
+                />
+
+            <com.cunoraz.gifview.library.GifView
+                android:id="@+id/gifLoading"
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:visibility="invisible"
+                custom:gif="@drawable/loading2" />
+
+        </RelativeLayout>
+
 
 
 

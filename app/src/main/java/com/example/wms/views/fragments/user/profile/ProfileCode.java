@@ -6,12 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
 
 
+import com.cunoraz.gifview.library.GifView;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentProfileCodeBinding;
 import com.example.wms.utility.StaticValues;
@@ -29,13 +33,21 @@ import static com.example.wms.utility.StaticFunctions.TextChangeForChangeBack;
 public class ProfileCode extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
 
     private VM_ProfileCode vm_profileCode;
-    private DialogProgress progress;
 
     @BindView(R.id.editBuildingRenovationCode)
     EditText editBuildingRenovationCode;
 
-    @BindView(R.id.btnSendCode)
-    Button btnSendCode;
+    @BindView(R.id.RelativeLayoutSend)
+    RelativeLayout RelativeLayoutSend;
+
+    @BindView(R.id.txtLoading)
+    TextView txtLoading;
+
+    @BindView(R.id.gifLoading)
+    GifView gifLoading;
+
+    @BindView(R.id.imgLoading)
+    ImageView imgLoading;;
 
 
     @Nullable
@@ -75,8 +87,7 @@ public class ProfileCode extends FragmentPrimary implements FragmentPrimary.GetM
     @Override
     public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
-        if (progress != null)
-            progress.dismiss();
+        DismissLoading();
 
         if (action.equals(StaticValues.ML_EditProfile)) {
             return;
@@ -99,11 +110,11 @@ public class ProfileCode extends FragmentPrimary implements FragmentPrimary.GetM
     private void SetClick() {//_____________________________________________________________________ SetClick
 
 
-        btnSendCode.setOnClickListener(v -> {
+        RelativeLayoutSend.setOnClickListener(v -> {
 
             if (CheckEmpty()) {
                 hideKeyboard();
-                ShowProgressDialog();
+                ShowLoading();
                 vm_profileCode.setBuildingRenovationCode(editBuildingRenovationCode.getText().toString());
                 vm_profileCode.SendCode();
             }
@@ -112,23 +123,11 @@ public class ProfileCode extends FragmentPrimary implements FragmentPrimary.GetM
     }//_____________________________________________________________________________________________ SetClick
 
 
-    private void ShowProgressDialog() {//_______________________________________________ ShowProgressDialog
-
-        if (getContext() != null) {
-            progress = ApplicationWMS
-                    .getApplicationWMS(getContext())
-                    .getUtilityComponent()
-                    .getApplicationUtility()
-                    .ShowProgress(getContext(), "");
-            progress.show(getChildFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
-        }
-    }//_____________________________________________________________________________________________ ShowProgressDialog
-
 
     private Boolean CheckEmpty() {//________________________________________________________________ CheckEmpty
 
         if (editBuildingRenovationCode.getText().length() < 1) {
-            editBuildingRenovationCode.setBackgroundResource(R.drawable.edit_empty_background);
+            editBuildingRenovationCode.setBackgroundResource(R.drawable.dw_edit_back_empty);
             editBuildingRenovationCode.setError(getResources().getString(R.string.EmptyAccountNumber));
             editBuildingRenovationCode.requestFocus();
             return false;
@@ -139,9 +138,27 @@ public class ProfileCode extends FragmentPrimary implements FragmentPrimary.GetM
 
 
     private void SetTextWatcher() {//_______________________________________________________________ SetTextWatcher
-        editBuildingRenovationCode.setBackgroundResource(R.drawable.edit_normal_background);
+        editBuildingRenovationCode.setBackgroundResource(R.drawable.dw_edit_back);
         editBuildingRenovationCode.addTextChangedListener(TextChangeForChangeBack(editBuildingRenovationCode));
     }//_____________________________________________________________________________________________ SetTextWatcher
+
+
+
+    private void DismissLoading() {//_______________________________________________________________ Start DismissLoading
+        txtLoading.setText(getResources().getString(R.string.SaveInfo));
+        RelativeLayoutSend.setBackground(getResources().getDrawable(R.drawable.save_info_button));
+        gifLoading.setVisibility(View.GONE);
+        imgLoading.setVisibility(View.VISIBLE);
+    }//_____________________________________________________________________________________________ End DismissLoading
+
+
+    private void ShowLoading() {//__________________________________________________________________ Start ShowLoading
+        txtLoading.setText(getResources().getString(R.string.Cancel));
+        RelativeLayoutSend.setBackground(getResources().getDrawable(R.drawable.button_red));
+        gifLoading.setVisibility(View.VISIBLE);
+        imgLoading.setVisibility(View.INVISIBLE);
+    }//_____________________________________________________________________________________________ End ShowLoading
+
 
 
 }

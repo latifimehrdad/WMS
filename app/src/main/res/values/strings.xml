@@ -15,7 +15,6 @@
 
 
     <string name="app_name">مدیریت پسماند سبززیور</string>
-
     <string name="WMSFromFist">سیستم مدیریت تفکیک از مبدأ</string>
     <string name="Orders">سفارشات</string>
     <string name="ChargingBag">شارژ کیف پول</string>
@@ -35,7 +34,7 @@
     <string name="Save">ثبت</string>
     <string name="RegisterCode">با ثبت کد نوسازی مربوط به بنای خود می توانید از 10٪ تخفیف عوارض شهرداری بهره مند گردید</string>
     <string name="RegisterKM">برای استفاده از تخفیف، میبایست بار تحویلی در هر سال بیشتر از 20 کیلوگرم باشد</string>
-
+    <string name="SaveInfo">ذخیره اطلاعات</string>
     <string name="HomeMaxScore">بیشترین امتیاز</string>
     <string name="HomeAveScore">میانگین امتیازات</string>
     <string name="HomeYouScore">امتیاز قرعه کشی</string>

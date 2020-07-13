@@ -6,14 +6,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
 
+import com.cunoraz.gifview.library.GifView;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentProfilePersonBinding;
 import com.example.wms.models.ModelProfileInfo;
@@ -81,8 +84,8 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
     @BindView(R.id.TextProvinces)
     TextView TextProvinces;
 
-    @BindView(R.id.btnEditProfile)
-    Button btnEditProfile;
+    @BindView(R.id.RelativeLayoutSend)
+    RelativeLayout RelativeLayoutSend;
 
     @BindView(R.id.editFirsName)
     EditText editFirsName;
@@ -104,6 +107,15 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
 
     @BindView(R.id.EditPhoneNumber)
     EditText EditPhoneNumber;
+
+    @BindView(R.id.txtLoading)
+    TextView txtLoading;
+
+    @BindView(R.id.gifLoading)
+    GifView gifLoading;
+
+    @BindView(R.id.imgLoading)
+    ImageView imgLoading;
 
 
     @Nullable
@@ -211,11 +223,11 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
         });
 
 
-        btnEditProfile.setOnClickListener(v -> {
+        RelativeLayoutSend.setOnClickListener(v -> {
 
                 if (CheckEmpty()) {
                     hideKeyboard();
-                    ShowProgressDialog();
+                    ShowLoading();
                     vm_profilePerson.setFirstName(editFirsName.getText().toString());
                     vm_profilePerson.setLastName(edtiLastName.getText().toString());
                     vm_profilePerson.setGender(GenderCode);
@@ -237,6 +249,8 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
 
         if (progress != null)
             progress.dismiss();
+
+        DismissLoading();
 
         if (action.equals(StaticValues.ML_GetProfileInfo)) {
             SetProfileInfo();
@@ -346,7 +360,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
             RegionId = "-1";
             TextCity.setText(getResources().getString(R.string.City_Prompt));
             TextRegion.setText(getResources().getString(R.string.ChooseRegion));
-            LayoutProvinces.setBackgroundColor(getResources().getColor(R.color.mlEdit));
+            LayoutProvinces.setBackground(getResources().getDrawable(R.drawable.dw_edit_back));
             GetCitys();
         });
 
@@ -381,7 +395,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
             ClickPlace = false;
             RegionId = "-1";
             TextRegion.setText(getResources().getString(R.string.ChooseRegion));
-            LayoutCity.setBackgroundColor(getResources().getColor(R.color.mlEdit));
+            LayoutCity.setBackground(getResources().getDrawable(R.drawable.dw_edit_back));
             GetPlaces();
         });
 
@@ -408,7 +422,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
         spinnerRegion.bindOnSpinerListener((item, position) -> {
             TextRegion.setText(item);
             RegionId = RegionsList.get(position).getId();
-            LayoutRegion.setBackgroundColor(getResources().getColor(R.color.mlEdit));
+            LayoutRegion.setBackground(getResources().getDrawable(R.drawable.dw_edit_back));
         });
 
         if (ClickPlace)
@@ -428,7 +442,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
         boolean user;
 
         if (edtiLastName.getText().length() < 1) {
-            edtiLastName.setBackgroundResource(R.drawable.edit_empty_background);
+            edtiLastName.setBackgroundResource(R.drawable.dw_edit_back_empty);
             edtiLastName.setError(getResources().getString(R.string.EmptyLastName));
             edtiLastName.requestFocus();
             lastname = false;
@@ -437,7 +451,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
 
 
         if (editFirsName.getText().length() < 1) {
-            editFirsName.setBackgroundResource(R.drawable.edit_empty_background);
+            editFirsName.setBackgroundResource(R.drawable.dw_edit_back_empty);
             editFirsName.setError(getResources().getString(R.string.EmptyFirstName));
             editFirsName.requestFocus();
             firstname = false;
@@ -446,7 +460,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
 
 
         if ((!radioMan.isChecked()) && (!radioWoman.isChecked())) {
-            layoutGender.setBackground(getResources().getDrawable(R.drawable.edit_empty_background));
+            layoutGender.setBackground(getResources().getDrawable(R.drawable.dw_edit_back_empty));
             gender = false;
         } else
             gender = true;
@@ -457,25 +471,25 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
             GenderCode = 0;
 
         if (ProvinceId.equalsIgnoreCase("-1")) {
-            LayoutProvinces.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
+            LayoutProvinces.setBackground(getResources().getDrawable(R.drawable.dw_edit_back_empty));
             privence = false;
         } else
             privence = true;
 
         if (CityId.equalsIgnoreCase("-1")) {
-            LayoutCity.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
+            LayoutCity.setBackground(getResources().getDrawable(R.drawable.dw_edit_back_empty));
             city = false;
         } else
             city = true;
 
         if (RegionId.equalsIgnoreCase("-1")) {
-            LayoutRegion.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
+            LayoutRegion.setBackground(getResources().getDrawable(R.drawable.dw_edit_back_empty));
             region = false;
         } else
             region = true;
 
         if (UserTypeId.equalsIgnoreCase("-1")) {
-            LayoutUser.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
+            LayoutUser.setBackground(getResources().getDrawable(R.drawable.dw_edit_back_empty));
             user = false;
         } else
             user = true;
@@ -508,12 +522,29 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
         spinnerUser.bindOnSpinerListener((item, position) -> {
             TextUser.setText(item);
             UserTypeId = UserType.get(position).getId();
-            LayoutUser.setBackgroundColor(getResources().getColor(R.color.mlEdit));
+            LayoutUser.setBackground(getResources().getDrawable(R.drawable.dw_edit_back));
         });
 
         LayoutUser.setOnClickListener(v -> spinnerUser.showSpinerDialog());
 
     }//_____________________________________________________________________________________________ SetItemUser
+
+
+    private void DismissLoading() {//_______________________________________________________________ Start DismissLoading
+        txtLoading.setText(getResources().getString(R.string.SaveInfo));
+        RelativeLayoutSend.setBackground(getResources().getDrawable(R.drawable.save_info_button));
+        gifLoading.setVisibility(View.GONE);
+        imgLoading.setVisibility(View.VISIBLE);
+    }//_____________________________________________________________________________________________ End DismissLoading
+
+
+    private void ShowLoading() {//__________________________________________________________________ Start ShowLoading
+        txtLoading.setText(getResources().getString(R.string.Cancel));
+        RelativeLayoutSend.setBackground(getResources().getDrawable(R.drawable.button_red));
+        gifLoading.setVisibility(View.VISIBLE);
+        imgLoading.setVisibility(View.INVISIBLE);
+    }//_____________________________________________________________________________________________ End ShowLoading
+
 
 
     private void GetCitys() {//_____________________________________________________________________ GetCitys
@@ -556,23 +587,23 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
 
 
     private void SetTextWatcher() {//_______________________________________________________________ SetTextWatcher
-        editFirsName.setBackgroundResource(R.drawable.edit_normal_background);
+        editFirsName.setBackgroundResource(R.drawable.dw_edit_back);
         editFirsName.addTextChangedListener(TextChangeForChangeBack(editFirsName));
 
-        edtiLastName.setBackgroundResource(R.drawable.edit_normal_background);
+        edtiLastName.setBackgroundResource(R.drawable.dw_edit_back);
         edtiLastName.addTextChangedListener(TextChangeForChangeBack(edtiLastName));
 
         layoutGender.setBackgroundColor(getResources().getColor(R.color.mlWhite));
 
-        LayoutProvinces.setBackgroundColor(getResources().getColor(R.color.mlEdit));
+        LayoutProvinces.setBackground(getResources().getDrawable(R.drawable.dw_edit_back));
 
-        LayoutCity.setBackgroundColor(getResources().getColor(R.color.mlEdit));
+        LayoutCity.setBackground(getResources().getDrawable(R.drawable.dw_edit_back));
 
-        LayoutRegion.setBackgroundColor(getResources().getColor(R.color.mlEdit));
+        LayoutRegion.setBackground(getResources().getDrawable(R.drawable.dw_edit_back));
 
-        LayoutUser.setBackgroundColor(getResources().getColor(R.color.mlEdit));
+        LayoutUser.setBackground(getResources().getDrawable(R.drawable.dw_edit_back));
 
-        editReferenceCode.setBackgroundResource(R.drawable.edit_normal_background);
+        editReferenceCode.setBackgroundResource(R.drawable.dw_edit_back);
         editReferenceCode.addTextChangedListener(TextChangeForChangeBack(editReferenceCode));
 
     }//_____________________________________________________________________________________________ SetTextWatcher

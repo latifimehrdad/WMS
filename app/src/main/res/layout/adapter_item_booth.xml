@@ -122,7 +122,7 @@
                 android:padding="@dimen/_5sdp"
                 android:background="@drawable/button_dark_blue"
                 android:visibility="invisible"
-                custom:gif="@drawable/loading" />
+                custom:gif="@drawable/loading2" />
 
             <Button
                 android:id="@+id/ButtonChoose"

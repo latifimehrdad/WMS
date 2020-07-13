@@ -17,7 +17,7 @@
 
 
     <style name="mlCheck">
-        <item name="colorAccent">@color/mlHeader</item>
+        <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
 

@@ -6,12 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
+
+import com.cunoraz.gifview.library.GifView;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentProfileBankBinding;
 
@@ -46,8 +50,17 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
     @BindView(R.id.editAccountNumber)
     EditText editAccountNumber;
 
-    @BindView(R.id.btnSendAccountNumber)
-    Button btnSendAccountNumber;
+    @BindView(R.id.RelativeLayoutSend)
+    RelativeLayout RelativeLayoutSend;
+
+    @BindView(R.id.txtLoading)
+    TextView txtLoading;
+
+    @BindView(R.id.gifLoading)
+    GifView gifLoading;
+
+    @BindView(R.id.imgLoading)
+    ImageView imgLoading;
 
     @Nullable
     @Override
@@ -88,6 +101,8 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
 
         if (progress != null)
             progress.dismiss();
+
+        DismissLoading();
 
         if (action.equals(StaticValues.ML_EditProfile)) {
             return;
@@ -149,11 +164,11 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
                 spinnerBanks.showSpinerDialog();
         });
 
-        btnSendAccountNumber.setOnClickListener(v -> {
+        RelativeLayoutSend.setOnClickListener(v -> {
 
             if (CheckEmpty()) {
                 hideKeyboard();
-                ShowProgressDialog(null);
+                ShowLoading();
                 vm_profileBank.setAccountNumber(editAccountNumber.getText().toString());
                 vm_profileBank.setBankId(BankId);
                 vm_profileBank.SendAccountNumber();
@@ -176,9 +191,9 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
 
 
     private void SetTextWatcher() {//_______________________________________________________________ SetTextWatcher
-        editAccountNumber.setBackgroundResource(R.drawable.edit_normal_background);
+        editAccountNumber.setBackgroundResource(R.drawable.dw_edit_back);
         editAccountNumber.addTextChangedListener(TextChangeForChangeBack(editAccountNumber));
-        LayoutBank.setBackgroundColor(getResources().getColor(R.color.mlEdit));
+        LayoutBank.setBackgroundResource(R.drawable.dw_edit_back);
     }//_____________________________________________________________________________________________ SetTextWatcher
 
 
@@ -188,7 +203,7 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
         boolean bank;
 
         if (editAccountNumber.getText().length() < 1) {
-            editAccountNumber.setBackgroundResource(R.drawable.edit_empty_background);
+            editAccountNumber.setBackgroundResource(R.drawable.dw_edit_back_empty);
             editAccountNumber.setError(getResources().getString(R.string.EmptyAccountNumber));
             editAccountNumber.requestFocus();
             accountnumbert = false;
@@ -196,7 +211,7 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
             accountnumbert = true;
 
         if (BankId.equalsIgnoreCase("-1")) {
-            LayoutBank.setBackground(getResources().getDrawable(R.drawable.edit_empty_background));
+            LayoutBank.setBackground(getResources().getDrawable(R.drawable.dw_edit_back_empty));
             bank = false;
         } else
             bank = true;
@@ -217,6 +232,22 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
             progress.show(getChildFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
         }
     }//_____________________________________________________________________________________________ ShowProgressDialog
+
+
+    private void DismissLoading() {//_______________________________________________________________ Start DismissLoading
+        txtLoading.setText(getResources().getString(R.string.SaveInfo));
+        RelativeLayoutSend.setBackground(getResources().getDrawable(R.drawable.save_info_button));
+        gifLoading.setVisibility(View.GONE);
+        imgLoading.setVisibility(View.VISIBLE);
+    }//_____________________________________________________________________________________________ End DismissLoading
+
+
+    private void ShowLoading() {//__________________________________________________________________ Start ShowLoading
+        txtLoading.setText(getResources().getString(R.string.Cancel));
+        RelativeLayoutSend.setBackground(getResources().getDrawable(R.drawable.button_red));
+        gifLoading.setVisibility(View.VISIBLE);
+        imgLoading.setVisibility(View.INVISIBLE);
+    }//_____________________________________________________________________________________________ End ShowLoading
 
 
 }

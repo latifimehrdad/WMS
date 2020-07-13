@@ -68,7 +68,6 @@
 
             </RelativeLayout>
 
-
             <LinearLayout
                 android:id="@+id/scoreLayout"
                 android:layout_width="match_parent"
@@ -79,7 +78,6 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="@dimen/_10sdp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -102,14 +100,22 @@
                         android:gravity="center_vertical|bottom"
                         android:text="@string/HomeAveScore"
                         android:textColor="@color/mlHomeAveScore"
-                        android:textSize="@dimen/_10sdp" />
+                        android:textSize="@dimen/_9sdp" />
 
                     <ImageView
                         android:layout_width="@dimen/_25sdp"
                         android:layout_height="@dimen/_25sdp"
-                        android:src="@drawable/logoavgscore" />
+                        android:src="@drawable/svg_ranking" />
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:background="@color/mlFooter"/>
+
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -135,12 +141,12 @@
                         android:gravity="center_vertical|bottom"
                         android:text="@string/HomeMaxScore"
                         android:textColor="@color/mlHomeMaxScore"
-                        android:textSize="@dimen/_10sdp" />
+                        android:textSize="@dimen/_9sdp" />
 
                     <ImageView
                         android:layout_width="@dimen/_25sdp"
                         android:layout_height="@dimen/_25sdp"
-                        android:src="@drawable/logomaxscore" />
+                        android:src="@drawable/svg_trophy" />
 
                 </LinearLayout>
 
@@ -150,9 +156,10 @@
             <LinearLayout
                 android:id="@+id/scoreLayoutChart"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="-8dp"
-                android:orientation="horizontal">
+                android:layout_height="1px"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:orientation="horizontal"
+                android:background="@color/mlFooter">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -160,7 +167,8 @@
                     android:layout_marginRight="@dimen/_10sdp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <ImageView
                         android:layout_width="@dimen/_15sdp"
@@ -174,12 +182,14 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <ImageView
                         android:layout_width="@dimen/_15sdp"
                         android:layout_height="@dimen/_15sdp"
-                        android:src="@drawable/logomaxscorechart" />
+                        android:src="@drawable/logomaxscorechart"
+                        />
 
                 </LinearLayout>
 

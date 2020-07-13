@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:custom="http://schemas.android.com/apk/res-auto">
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
 
         <variable
@@ -37,78 +37,83 @@
 
 
             <LinearLayout
+                android:id="@+id/LinearLayoutTimeSheet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
-                <com.jaredrummler.materialspinner.MaterialSpinner
-                    android:id="@+id/FPRPSpinnerHours"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:gravity="right"
-                    android:prompt="@string/City_Prompt"
-                    app:ms_background_color="@color/mlEdit"
-                    app:ms_text_color="@color/mlBlack"
-                    android:layout_marginRight="@dimen/_10sdp"
-                    android:visibility="gone"
+                    android:background="@drawable/dw_edit_back">
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/FPRPSpinnerDay"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        app:ms_background_color="@color/mlWhite"
+                        app:ms_text_color="@color/mlBlack"
+                        android:textSize="@dimen/_10sdp"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/dw_edit_back_image"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/svg_calendar"
+                    android:tint="@color/mlWhite"
                     />
 
-                <com.jaredrummler.materialspinner.MaterialSpinner
-                    android:id="@+id/FPRPSpinnerDay"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:gravity="right"
-                    android:prompt="@string/City_Prompt"
-                    app:ms_background_color="@color/mlEdit"
-                    app:ms_text_color="@color/mlBlack"
-                    />
 
             </LinearLayout>
 
             <RelativeLayout
                 android:id="@+id/RelativeLayoutSave"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/_40sdp"
-                android:padding="@dimen/_3sdp"
+                android:layout_width="@dimen/_200sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginLeft="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_25sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
                 android:background="@drawable/save_info_button">
-
-
-                <ImageView
-                    android:id="@+id/imgLoading"
-                    android:layout_width="@dimen/_25sdp"
-                    android:layout_height="@dimen/_25sdp"
-                    android:src="@drawable/ic_check_black_24dp"
-                    android:layout_centerVertical="true"
-                    />
 
                 <TextView
                     android:id="@+id/txtLoading"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/FragmentPackRequestPrimary"
                     android:textColor="@color/mlWhite"
                     android:textSize="@dimen/_13sdp"
-                    android:gravity="right|center_vertical"
-                    android:layout_toRightOf="@id/imgLoading"
-                    android:paddingRight="@dimen/_20sdp"
-                    android:paddingLeft="@dimen/_10sdp"
-                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:layout_toLeftOf="@id/imgLoading"
+                    android:paddingRight="@dimen/_5sdp"
                     />
 
+                <ImageView
+                    android:id="@+id/imgLoading"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/svg_verify"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_centerVertical="true"
+                    android:tint="@color/mlWhite"
+                    />
 
                 <com.cunoraz.gifview.library.GifView
                     android:id="@+id/gifLoading"
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
+                    android:layout_width="@dimen/_22sdp"
+                    android:layout_height="@dimen/_22sdp"
                     android:layout_centerVertical="true"
-                    android:visibility="gone"
-                    custom:gif="@drawable/loading" />
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:visibility="invisible"
+                    custom:gif="@drawable/loading2" />
 
             </RelativeLayout>
 
@@ -215,30 +220,36 @@
                         >
 
                         <TextView
+                            android:id="@+id/TextViewRequest"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/mlBlack"
                             android:textSize="@dimen/_9sdp"
+                            android:tag="1"
                             android:text="@string/FragmentPackRequestPrimarySet"
                             android:layout_alignParentLeft="true"
-                            />
+                            android:layout_alignParentStart="true" />
 
                         <TextView
+                            android:id="@+id/TextViewDeliver"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/mlBlack"
                             android:textSize="@dimen/_9sdp"
                             android:text="@string/FragmentPackRequestPrimaryReceive"
+                            android:tag="4"
                             android:layout_alignParentRight="true"
                             android:layout_marginRight="@dimen/_5sdp"
                             />
 
                         <TextView
+                            android:id="@+id/TextViewSend"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/mlBlack"
                             android:textSize="@dimen/_9sdp"
                             android:text="@string/FragmentPackRequestPrimarySend"
+                            android:tag="2"
                             android:layout_centerHorizontal="true"
                             android:background="@drawable/layout_border_black"
                             />

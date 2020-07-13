@@ -45,9 +45,6 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
     private Integer timeId;
     private Integer TimePosition;
 
-    @BindView(R.id.FPRPSpinnerHours)
-    MaterialSpinner FPRPSpinnerHours;
-
     @BindView(R.id.FPRPSpinnerDay)
     MaterialSpinner FPRPSpinnerDay;
 
@@ -74,6 +71,18 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
 
     @BindView(R.id.gifLoading)
     GifView gifLoading;
+
+    @BindView(R.id.LinearLayoutTimeSheet)
+    LinearLayout LinearLayoutTimeSheet;
+
+    @BindView(R.id.TextViewRequest)
+    TextView TextViewRequest;
+
+    @BindView(R.id.TextViewSend)
+    TextView TextViewSend;
+
+    @BindView(R.id.TextViewDeliver)
+    TextView TextViewDeliver;
 
 
     @Nullable
@@ -122,7 +131,29 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
             RelativeLayoutSave.setVisibility(View.GONE);
             LinearLayoutPackageState.setVisibility(View.VISIBLE);
             FPRPSpinnerDay.setVisibility(View.GONE);
+            LinearLayoutTimeSheet.setVisibility(View.GONE);
             SetPackageDate(StaticFunctions.PackageRequestDate(getContext()));
+
+            String tag = (String) TextViewRequest.getTag();
+            if (statues.equals(Byte.valueOf(tag)))
+                TextViewRequest.setBackground(getContext().getResources().getDrawable(R.drawable.layout_border_black));
+            else
+                TextViewRequest.setBackground(null);
+
+
+            tag = (String) TextViewSend.getTag();
+            if (statues.equals(Byte.valueOf(tag)))
+                TextViewSend.setBackground(getContext().getResources().getDrawable(R.drawable.layout_border_black));
+            else
+                TextViewSend.setBackground(null);
+
+
+            tag = (String) TextViewDeliver.getTag();
+            if (statues.equals(Byte.valueOf(tag)))
+                TextViewDeliver.setBackground(getContext().getResources().getDrawable(R.drawable.layout_border_black));
+            else
+                TextViewDeliver.setBackground(null);
+
         }
 
 

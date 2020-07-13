@@ -257,7 +257,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
         MaterialSpinnerUses.setOnItemSelectedListener((view, position, id, item) -> {
             BuildingUseId = Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingUses().get(position - 1).getId());
             if (getContext() != null) {
-                MaterialSpinnerUses.setBackgroundColor(getContext().getResources().getColor(R.color.mlEdit));
+                MaterialSpinnerUses.setBackgroundColor(getContext().getResources().getColor(R.color.mlWhite));
             }
         });
 
@@ -272,7 +272,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
         MaterialSpinnerType.setOnItemSelectedListener((view, position, id, item) -> {
             BuildingTypeId = Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingTypes().get(position - 1).getId());
             if (getContext() != null) {
-                MaterialSpinnerType.setBackgroundColor(getContext().getResources().getColor(R.color.mlEdit));
+                MaterialSpinnerType.setBackgroundColor(getContext().getResources().getColor(R.color.mlWhite));
             }
         });
 
@@ -449,9 +449,9 @@ public class PackageRequestAddress extends FragmentPrimary implements
     private void SetTextWatcher() {//_______________________________________________________________ SetTextWatcher
         EditTextAddress.setBackgroundResource(R.color.mlEdit);
         EditTextAddress.addTextChangedListener(TextChangeForChangeBack(EditTextAddress));
-        EditTextPersonCount.setBackgroundResource(R.color.mlEdit);
+        EditTextPersonCount.setBackground(getResources().getDrawable(R.drawable.dw_edit_back));
         EditTextPersonCount.addTextChangedListener(TextChangeForChangeBack(EditTextPersonCount));
-        EditTextUnitCount.setBackgroundResource(R.color.mlEdit);
+        EditTextUnitCount.setBackground(getResources().getDrawable(R.drawable.dw_edit_back));
         EditTextUnitCount.addTextChangedListener(TextChangeForChangeBack(EditTextUnitCount));
     }//_____________________________________________________________________________________________ SetTextWatcher
 
@@ -501,7 +501,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
             spinneruser = true;
 
         if (EditTextUnitCount.getText().length() < 1) {
-            EditTextUnitCount.setBackgroundResource(R.drawable.edit_empty_background);
+            EditTextUnitCount.setBackgroundResource(R.drawable.dw_edit_back_empty);
             EditTextUnitCount.setError(getResources().getString(R.string.EmptyUnitCount));
             EditTextUnitCount.requestFocus();
             unitcount = false;
@@ -509,7 +509,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
             unitcount = true;
 
         if (EditTextPersonCount.getText().length() < 1) {
-            EditTextPersonCount.setBackgroundResource(R.drawable.edit_empty_background);
+            EditTextPersonCount.setBackgroundResource(R.drawable.dw_edit_back_empty);
             EditTextPersonCount.setError(getResources().getString(R.string.EmptyPersonCount));
             EditTextPersonCount.requestFocus();
             personcount = false;
@@ -533,7 +533,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
 
     private void DismissLoading() {//_______________________________________________________________ DismissLoading
         StaticFunctions.isCancel = true;
-        txtLoading.setText(getResources().getString(R.string.Save));
+        txtLoading.setText(getResources().getString(R.string.FragmentPackRequestAddress));
         RelativeLayoutSave.setBackground(getResources().getDrawable(R.drawable.save_info_button));
         gifLoading.setVisibility(View.GONE);
         imgLoading.setVisibility(View.VISIBLE);
