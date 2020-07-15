@@ -252,6 +252,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
 
         DismissLoading();
 
+
         if (action.equals(StaticValues.ML_GetProfileInfo)) {
             SetProfileInfo();
             return;

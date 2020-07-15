@@ -123,7 +123,7 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
 
         footerup.setOnClickListener(v -> {
 
-            if (vm_home.GetPackageState() > 0) {
+            if (vm_home.GetPackageState() != StaticValues.PR_NotRequested) {
                 TwoBackToHome = false;
                 navController.navigate(R.id.action_home_to_packageRequestPrimary);
             } else {
@@ -138,7 +138,16 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
             }
         });
 
-        footerdown.setOnClickListener(v -> navController.navigate(R.id.action_home_to_collectRequest));
+        footerdown.setOnClickListener(v -> {
+            if (vm_home.GetPackageState() == StaticValues.PR_Delivered)
+                navController.navigate(R.id.action_home_to_collectRequest);
+            else {
+                ShowMessage(getContext().getResources().getString(R.string.PackageNotDelivered),
+                        getResources().getColor(R.color.mlWhite),
+                        getResources().getDrawable(R.drawable.ic_error),
+                        getResources().getColor(R.color.mlCollectRight1));
+            }
+        });
 
         footerleft.setOnClickListener(v -> navController.navigate(R.id.action_home_to_lottery));
 

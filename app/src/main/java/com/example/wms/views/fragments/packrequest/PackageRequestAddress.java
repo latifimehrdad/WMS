@@ -12,6 +12,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -170,6 +171,8 @@ public class PackageRequestAddress extends FragmentPrimary implements
 
     private void init() {//_________________________________________________________________________ init
 
+        BuildingTypeId = Long.valueOf(-1);
+        BuildingUseId = Long.valueOf(-1);
         SetTextWatcher();
         SetOnClick();
         DismissLoading();
@@ -198,7 +201,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
         }
 
         if (action.equals(StaticValues.ML_GetHousingBuildings)) {
-            SetMaterialSpinnerType();
+            SetMaterialSpinnerType(true);
         }
 
 
@@ -246,31 +249,26 @@ public class PackageRequestAddress extends FragmentPrimary implements
         });
 
 
-        MaterialSpinnerUses.setOnClickListener(v -> {
-            if (vm_packageRequestAddress.getBuildingTypes() == null) {
-                ShowProgressDialog();
-                vm_packageRequestAddress.GetTypeBuilding();
-            } else
-                SetMaterialSpinnerUses();
-        });
 
         MaterialSpinnerUses.setOnItemSelectedListener((view, position, id, item) -> {
-            BuildingUseId = Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingUses().get(position - 1).getId());
+            if (BuildingUseId == -1) {
+                BuildingUseId = Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingUses().get(position - 1).getId());
+                MaterialSpinnerUses.getItems().remove(0);
+            } else
+                BuildingUseId = Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingUses().get(position).getId());
+
             if (getContext() != null) {
                 MaterialSpinnerUses.setBackgroundColor(getContext().getResources().getColor(R.color.mlWhite));
             }
         });
 
-        MaterialSpinnerType.setOnClickListener(v -> {
-            if (vm_packageRequestAddress.getBuildingTypes() == null) {
-                ShowProgressDialog();
-                vm_packageRequestAddress.GetTypeBuilding();
-            } else
-                SetMaterialSpinnerType();
-        });
-
         MaterialSpinnerType.setOnItemSelectedListener((view, position, id, item) -> {
-            BuildingTypeId = Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingTypes().get(position - 1).getId());
+            if (BuildingTypeId == -1) {
+                BuildingTypeId = Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingTypes().get(position - 1).getId());
+                MaterialSpinnerType.getItems().remove(0);
+            } else
+                BuildingTypeId = Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingTypes().get(position).getId());
+
             if (getContext() != null) {
                 MaterialSpinnerType.setBackgroundColor(getContext().getResources().getColor(R.color.mlWhite));
             }
@@ -456,24 +454,26 @@ public class PackageRequestAddress extends FragmentPrimary implements
     }//_____________________________________________________________________________________________ SetTextWatcher
 
 
-    private void SetMaterialSpinnerUses() {//_______________________________________________________ SetMaterialSpinnerUses
+    private void SetMaterialSpinnerUses(boolean first) {//_______________________________________________________ SetMaterialSpinnerUses
         List<String> buildingUses = new ArrayList<>();
-        buildingUses.add("کاربری ساختمان");
+        if (first)
+            buildingUses.add("کاربری ساختمان");
         for (ModelSpinnerItem item : vm_packageRequestAddress.getBuildingTypes().getBuildingUses())
             buildingUses.add(item.getTitle());
         MaterialSpinnerUses.setItems(buildingUses);
     }//_____________________________________________________________________________________________ SetMaterialSpinnerUses
 
 
-    private void SetMaterialSpinnerType() {//_______________________________________________________ SetMaterialSpinnerType
+    private void SetMaterialSpinnerType(boolean first) {//__________________________________________ SetMaterialSpinnerType
         if (progress != null)
             progress.dismiss();
         List<String> buildingTypes = new ArrayList<>();
-        buildingTypes.add("نوع واحد");
+        if (first)
+            buildingTypes.add("نوع واحد");
         for (ModelSpinnerItem item : vm_packageRequestAddress.getBuildingTypes().getBuildingTypes())
             buildingTypes.add(item.getTitle());
         MaterialSpinnerType.setItems(buildingTypes);
-        SetMaterialSpinnerUses();
+        SetMaterialSpinnerUses(first);
     }//_____________________________________________________________________________________________ SetMaterialSpinnerType
 
 

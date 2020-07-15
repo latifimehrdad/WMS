@@ -164,14 +164,19 @@ public class CollectRequestPrimary extends FragmentPrimary implements
             MD_ItemWaste waste = vm_collectRequestPrimary.getMd_itemWastes().get(position);
             Realm realm = ApplicationWMS.getApplicationWMS(getContext()).getRealmComponent().getRealm();
             DB_ItemsWasteList duplicate = realm.where(DB_ItemsWasteList.class).equalTo("Id", waste.getId()).findFirst();
-            if (duplicate != null)
-                return;
-            try {
+            if (duplicate != null) {
                 realm.beginTransaction();
-                realm.createObject(DB_ItemsWasteList.class).insert(waste.getId(), waste.getTitle(), 1);
+                duplicate.setAmount(duplicate.getAmount() + 1);
                 realm.commitTransaction();
-            } finally {
                 ap_itemsWasteList.notifyDataSetChanged();
+            } else {
+                try {
+                    realm.beginTransaction();
+                    realm.createObject(DB_ItemsWasteList.class).insert(waste.getId(), waste.getTitle(), 1);
+                    realm.commitTransaction();
+                } finally {
+                    ap_itemsWasteList.notifyDataSetChanged();
+                }
             }
         }
 
@@ -183,7 +188,7 @@ public class CollectRequestPrimary extends FragmentPrimary implements
         if (getContext() != null) {
             Integer count = wasteLists.get(position).getAmount();
             if (action.equals(StaticValues.ML_ItemsOFWasteReduce)) {
-                if (count > 0)
+                if (count > 1)
                     count--;
             } else
                 count++;

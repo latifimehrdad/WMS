@@ -49,7 +49,6 @@ public class VM_BoothReceivePrimary extends VM_Primary {
                     modelTimes = response.body().getResult();
                     SendMessageToObservable(StaticValues.ML_GetTimeSheetTimes);
                 } else {
-                    setResponseMessage(CheckResponse(response, false));
                     SendMessageToObservable(StaticValues.ML_ResponseError);
                 }
 
@@ -124,7 +123,6 @@ public class VM_BoothReceivePrimary extends VM_Primary {
                     setResponseMessage(GetMessage(response));
                     SendMessageToObservable(StaticValues.ML_CollectRequestDone);
                 } else {
-                    setResponseMessage(CheckResponse(response, false));
                     SendMessageToObservable(StaticValues.ML_ResponseError);
                 }
 

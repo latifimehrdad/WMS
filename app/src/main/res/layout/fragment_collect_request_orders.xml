@@ -17,7 +17,7 @@
         android:paddingLeft="@dimen/_10sdp"
         android:paddingTop="@dimen/_5sdp"
         android:paddingRight="@dimen/_10sdp"
-        android:paddingBottom="@dimen/_5sdp">
+        android:paddingBottom="@dimen/_10sdp">
 
 
         <androidx.recyclerview.widget.RecyclerView

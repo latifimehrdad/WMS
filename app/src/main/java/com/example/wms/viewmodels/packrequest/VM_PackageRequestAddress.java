@@ -101,7 +101,6 @@ public class VM_PackageRequestAddress extends VM_Primary {
                     if (StaticFunctions.SaveProfile(getContext(), response.body().getResult()))
                         SendMessageToObservable(StaticValues.ML_EditUserAddress);
                 } else {
-                    setResponseMessage(CheckResponse(response, true));
                     SendMessageToObservable(StaticValues.ML_ResponseError);
                 }
             }

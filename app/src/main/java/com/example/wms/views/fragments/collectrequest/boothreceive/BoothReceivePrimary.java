@@ -121,6 +121,11 @@ public class BoothReceivePrimary extends FragmentPrimary implements
 
     @Override
     public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+
+
+        if (ap_boothList != null)
+            ap_boothList.notifyDataSetChanged();
+
         if (action.equals(StaticValues.ML_GetTimeSheetTimes)) {
             SetMaterialSpinnersTimes();
             vm_boothReceivePrimary.GetBoothList();
@@ -181,7 +186,11 @@ public class BoothReceivePrimary extends FragmentPrimary implements
         MaterialSpinnerSpinnerDay.setOnItemSelectedListener((view, position, id, item) -> {
             if (position == 0)
                 return;
-            timePosition = position - 1;
+            if (timePosition == -1) {
+                timePosition = position - 1;
+                MaterialSpinnerSpinnerDay.getItems().remove(0);
+            } else
+                timePosition = position;
             //timeId = vm_boothReceivePrimary.getModelTimes().getTimes().get(position - 1).getId();
             MaterialSpinnerSpinnerDay.setBackgroundColor(getResources().getColor(R.color.mlEdit));
         });

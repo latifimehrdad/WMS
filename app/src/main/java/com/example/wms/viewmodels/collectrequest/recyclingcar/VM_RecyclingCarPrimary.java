@@ -43,7 +43,6 @@ public class VM_RecyclingCarPrimary extends VM_Primary {
                     modelTimes = response.body().getResult();
                     SendMessageToObservable(StaticValues.ML_GetTimeSheetTimes);
                 } else {
-                    setResponseMessage(CheckResponse(response, false));
                     SendMessageToObservable(StaticValues.ML_ResponseError);
                 }
 

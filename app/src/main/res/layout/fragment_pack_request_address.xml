@@ -137,6 +137,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="right"
+                                android:prompt="@string/City_Prompt"
                                 app:ms_background_color="@color/mlWhite"
                                 app:ms_text_color="@color/mlBlack"
                                 android:textSize="@dimen/_10sdp"/>

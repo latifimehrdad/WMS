@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:id="@+id/RelativeLayoutMainFooter"
-    android:layout_height="@dimen/_60sdp"
+    android:layout_height="@dimen/_55sdp"
     android:layout_alignParentBottom="true">
 
 

@@ -14,7 +14,8 @@
     <string name="Bank_Search">جستجوی بانک</string>
 
 
-    <string name="app_name">مدیریت پسماند سبززیور</string>
+    <string name="PackageNotDelivered">قبل از درخواست جمع آوری، لطفا ابتدا به بخش درخواست پکیج بروید و تا تحویل پکیج در محل ساختمان منتظر بمانید</string>
+    <string name="app_name">پسماند خشک سبززیور-شهروند</string>
     <string name="WMSFromFist">سیستم مدیریت تفکیک از مبدأ</string>
     <string name="Orders">سفارشات</string>
     <string name="ChargingBag">شارژ کیف پول</string>

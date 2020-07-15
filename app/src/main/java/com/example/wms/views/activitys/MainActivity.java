@@ -201,22 +201,14 @@ public class MainActivity extends AppCompatActivity {
             if (destination.getLabel() != null)
                 fragment = destination.getLabel().toString();
 
-//                if (
-//                        (fragment.equalsIgnoreCase("FragmentSplash")) ||
-//                                (fragment.equalsIgnoreCase("FragmentLogin")) ||
-//                                (fragment.equalsIgnoreCase("FragmentSendNumber")) ||
-//                                (fragment.equalsIgnoreCase("FragmentVerifyCode"))
-//                ) {
-            if (
-                    (fragment.equalsIgnoreCase("Splash")) ||
+
+            if ((fragment.equalsIgnoreCase("Splash")) ||
                             (fragment.equalsIgnoreCase("Login")) ||
                             (fragment.equalsIgnoreCase("SignUp")) ||
-                            (fragment.equalsIgnoreCase("VerifyCode"))
-            ) {
+                            (fragment.equalsIgnoreCase("VerifyCode"))) {
                 if (!preLogin) {
+                    preLogin = true;
                     NavInflater navInflater = navController.getNavInflater();
-//                        NavGraph graph = navInflater.inflate(R.navigation.nav_home);
-//                        graph.setStartDestination(R.id.fragmentSplash);
                     NavGraph graph = navInflater.inflate(R.navigation.nav_host);
                     graph.setStartDestination(R.id.splash);
                     navController.setGraph(graph);
@@ -225,15 +217,12 @@ public class MainActivity extends AppCompatActivity {
                     RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                     params.addRule(RelativeLayout.BELOW, R.id.RelativeLayoutLoginHeader);
                     LinearLayoutFragment.setLayoutParams(params);
-                    preLogin = true;
                 }
 
             } else {
                 if (preLogin) {
                     preLogin = false;
                     NavInflater navInflater = navController.getNavInflater();
-//                        NavGraph graph = navInflater.inflate(R.navigation.nav_home);
-//                        graph.setStartDestination(R.id.fragmentHome);
                     NavGraph graph = navInflater.inflate(R.navigation.nav_host);
                     graph.setStartDestination(R.id.home);
                     navController.setGraph(graph);

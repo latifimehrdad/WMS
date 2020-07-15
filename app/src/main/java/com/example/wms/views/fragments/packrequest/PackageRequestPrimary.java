@@ -98,6 +98,7 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
             binding.setVmRequestprimary(vm_packageRequestPrimary);
             setView(binding.getRoot());
             SetOnClick();
+            TimePosition = -1;
         }
         return getView();
     }//_____________________________________________________________________________________________ onCreateView
@@ -179,7 +180,7 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
         }
 
         if (action.equals(StaticValues.ML_GetTimeSheetTimes)) {
-            SetMaterialSpinnersTimes();
+            SetMaterialSpinnersTimes(true);
         }
 
 
@@ -227,18 +228,14 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
             });
         }
 
-        FPRPSpinnerDay.setOnClickListener(v -> {
-            if (vm_packageRequestPrimary.getModelTimes() == null) {
-                ShowProgressDialog();
-                vm_packageRequestPrimary.GetTypeTimes();
-            } else
-                SetMaterialSpinnersTimes();
-        });
 
         FPRPSpinnerDay.setOnItemSelectedListener((view, position, id, item) -> {
-            if (position == 0)
-                return;
-            TimePosition = position - 1;
+            if (TimePosition == -1) {
+                TimePosition = position - 1;
+                FPRPSpinnerDay.getItems().remove(0);
+            } else
+                TimePosition = position;
+
             timeId = vm_packageRequestPrimary.getModelTimes().getTimes().get(TimePosition).getId();
             FPRPSpinnerDay.setBackgroundColor(getResources().getColor(R.color.mlEdit));
         });
@@ -267,7 +264,7 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
     }//_____________________________________________________________________________________________ CheckEmpty
 
 
-    private void SetMaterialSpinnersTimes() {//_____________________________________________________ SetMaterialSpinnersTimes
+    private void SetMaterialSpinnersTimes(boolean first) {//________________________________________ SetMaterialSpinnersTimes
 
         ApplicationUtility utility = null;
         if (getContext() != null) {
@@ -280,7 +277,8 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.US);
 
         List<String> buildingTypes = new ArrayList<>();
-        buildingTypes.add("انتخاب تاریخ دریافت");
+        if (first)
+            buildingTypes.add("انتخاب تاریخ دریافت");
         for (ModelTime item : vm_packageRequestPrimary.getModelTimes().getTimes()) {
             String builder = null;
             if (utility != null) {

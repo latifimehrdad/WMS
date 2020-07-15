@@ -39,7 +39,7 @@ public interface RetrofitApiInterface {
             );
 
     @FormUrlEncoded
-    @POST(Version + "/account/registercitizen")
+    @POST(Version + "/CitizenContact/Register")
     Call<ModelResponsePrimary> SendPhoneNumber
             (
                     @Field("Mobile") String PhoneNumber,

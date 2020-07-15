@@ -170,8 +170,12 @@ public class RecyclingCarPrimary extends FragmentPrimary implements
         MaterialSpinnerSpinnerDay.setOnItemSelectedListener((view, position, id, item) -> {
             if (position == 0)
                 return;
-            timePosition = position -1;
-            //timeId = vm_boothReceivePrimary.getModelTimes().getTimes().get(position - 1).getId();
+            if (timePosition == -1) {
+                timePosition = position - 1;
+                MaterialSpinnerSpinnerDay.getItems().remove(0);
+            } else
+                timePosition = position;
+
             MaterialSpinnerSpinnerDay.setBackgroundColor(getResources().getColor(R.color.mlEdit));
         });
 
