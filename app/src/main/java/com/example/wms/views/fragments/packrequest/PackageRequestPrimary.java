@@ -123,6 +123,7 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
         Byte statues = vm_packageRequestPrimary.GetPackageStatus();
 
         if (statues.equals(StaticValues.PR_NotRequested)) {
+            LinearLayoutTimeSheet.setVisibility(View.VISIBLE);
             RelativeLayoutSave.setVisibility(View.VISIBLE);
             LinearLayoutPackageState.setVisibility(View.GONE);
             FPRPSpinnerDay.setVisibility(View.VISIBLE);
@@ -170,6 +171,7 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
             RelativeLayoutSave.setVisibility(View.GONE);
             LinearLayoutPackageState.setVisibility(View.VISIBLE);
             FPRPSpinnerDay.setVisibility(View.GONE);
+            LinearLayoutTimeSheet.setVisibility(View.GONE);
             FPRPStatusViewScroller.getStatusView().setCurrentCount(2);
             ModelPackage modelPackage = new ModelPackage();
             modelPackage.setRequestDate(vm_packageRequestPrimary.getModelTimes().getTimes().get(TimePosition).getDate());
@@ -233,6 +235,8 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
             if (TimePosition == -1) {
                 TimePosition = position - 1;
                 FPRPSpinnerDay.getItems().remove(0);
+                FPRPSpinnerDay.setSelectedIndex(FPRPSpinnerDay.getItems().size()-1);
+                FPRPSpinnerDay.setSelectedIndex(position - 1);
             } else
                 TimePosition = position;
 

@@ -7,7 +7,8 @@ public class StaticValues {
     public static Byte PR_NotRequested = 0;
     public static Byte PR_Requested = 1;
     public static Byte PR_OnProgress = 2;
-    public static Byte PR_Delivered = 3;
+    public static Byte PR_NoDelivered = 3;
+    public static Byte PR_Delivered = 4;
     //***** Package Request *****
 
 
@@ -62,6 +63,13 @@ public class StaticValues {
     public static Byte ML_GetBoothList = 21;// در observable دریافت لیست غرفه ها
     public static Byte ML_CollectRequestDone = 22;// در observable دریافت لیست غرفه ها
     public static Byte ML_CollectOrderDone = 22;// در observable دریافت لیست سفارش ها
+    public static Byte ML_GetItemLearn = 23; // گرفتن لیست اقلام بازیافتی
+    public static Byte ML_GetGiveScore = 24; // گرفتن لیست نحوه امتیاز دهی
+    public static Byte ML_GetUserScore = 25; // گرفتن لیست امتیاز کاربر
+    public static Byte ML_GetAllDepartments = 26;// گرفتن لیست واحدها برای پشتیبانی
+    public static Byte ML_FileDownloaded = 27;
+    public static Byte ML_FileDownloading = 28;
+    public static Byte ML_GoToUpdate = 29;// نسخه جدید برنامه
     //***** Observable Control *****
 
 

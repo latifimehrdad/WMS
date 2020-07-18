@@ -67,6 +67,10 @@ public class VM_SignUp extends VM_Primary {
     }//_____________________________________________________________________________________________ getPhoneNumber
 
     public void setPhoneNumber(String phoneNumber) {//______________________________________________ setPhoneNumber
+        phoneNumber = ApplicationWMS.getApplicationWMS(getContext())
+                .getUtilityComponent()
+                .getApplicationUtility()
+                .PersianToEnglish(phoneNumber);
         PhoneNumber = phoneNumber;
     }//_____________________________________________________________________________________________ setPhoneNumber
 

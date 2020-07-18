@@ -123,6 +123,10 @@ public class VM_VerifyCode extends VM_Primary {
     }//_____________________________________________________________________________________________ getPassword
 
     public void setPassword(String password) {//____________________________________________________ setPassword
+        password = ApplicationWMS.getApplicationWMS(getContext())
+                .getUtilityComponent()
+                .getApplicationUtility()
+                .PersianToEnglish(password);
         Password = password;
     }//_____________________________________________________________________________________________ setPassword
 }

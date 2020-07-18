@@ -49,6 +49,9 @@ import com.google.android.material.navigation.NavigationView;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
@@ -116,9 +119,49 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(nvView, navController);
         SetClicks();
         //setupDrawerContent(nvView);
-        checkLocationPermission();
+        //checkLocationPermission();
+        SetPermission();
         SetListener();
     }//_____________________________________________________________________________________________ End SetBindingView
+
+
+    public void SetPermission() {//_________________________________________________________________ Start SetPermission
+
+        int permissionLocation = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        int permissionRead = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+//        int permissionPhone = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
+        int permissionWrite = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+//        int permissionContact = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS);
+//        int permissionCamera = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+
+        List<String> listPermissionsNeeded = new ArrayList<>();
+
+        if (permissionLocation != PackageManager.PERMISSION_GRANTED)
+            listPermissionsNeeded.add(Manifest.permission.ACCESS_FINE_LOCATION);
+
+        if (permissionRead != PackageManager.PERMISSION_GRANTED)
+            listPermissionsNeeded.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+
+//
+//        if (permissionPhone != PackageManager.PERMISSION_GRANTED)
+//            listPermissionsNeeded.add(Manifest.permission.READ_PHONE_STATE);
+
+        if (permissionWrite != PackageManager.PERMISSION_GRANTED)
+            listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+//
+//        if (permissionContact != PackageManager.PERMISSION_GRANTED)
+//            listPermissionsNeeded.add(Manifest.permission.READ_CONTACTS);
+//
+//        if (permissionCamera != PackageManager.PERMISSION_GRANTED)
+//            listPermissionsNeeded.add(Manifest.permission.CAMERA);
+
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(this,
+                    listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),
+                    0);
+        }
+
+    }//_____________________________________________________________________________________________ End SetPermission
 
 
     @SuppressLint("RtlHardcoded")
@@ -203,9 +246,10 @@ public class MainActivity extends AppCompatActivity {
 
 
             if ((fragment.equalsIgnoreCase("Splash")) ||
-                            (fragment.equalsIgnoreCase("Login")) ||
-                            (fragment.equalsIgnoreCase("SignUp")) ||
-                            (fragment.equalsIgnoreCase("VerifyCode"))) {
+                    (fragment.equalsIgnoreCase("Login")) ||
+                    (fragment.equalsIgnoreCase("SignUp")) ||
+                    (fragment.equalsIgnoreCase("VerifyCode")) ||
+                    (fragment.equalsIgnoreCase("AppUpdate"))) {
                 if (!preLogin) {
                     preLogin = true;
                     NavInflater navInflater = navController.getNavInflater();

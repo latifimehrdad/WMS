@@ -7,8 +7,8 @@ import com.example.wms.R;
 import com.example.wms.daggers.retrofit.RetrofitComponent;
 import com.example.wms.models.ModelProfileInfo;
 import com.example.wms.models.ModelResponsePrimary;
-import com.example.wms.models.ModelSpinnerItem;
-import com.example.wms.models.ModelSpinnerItems;
+import com.example.wms.models.MD_SpinnerItem;
+import com.example.wms.models.MD_RequestSpinnerItems;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.VM_Primary;
 import com.example.wms.views.activitys.MainActivity;
@@ -24,9 +24,9 @@ import retrofit2.Response;
 public class VM_ProfilePerson extends VM_Primary {
 
     private ModelProfileInfo.ModelProfile profile;
-    private ArrayList<ModelSpinnerItem> Regions;
-    private ArrayList<ModelSpinnerItem> Cities;
-    private ArrayList<ModelSpinnerItem> provinces;
+    private ArrayList<MD_SpinnerItem> Regions;
+    private ArrayList<MD_SpinnerItem> Cities;
+    private ArrayList<MD_SpinnerItem> provinces;
     private String FirstName;
     private String LastName;
     private int Gender;
@@ -130,9 +130,9 @@ public class VM_ProfilePerson extends VM_Primary {
                 .getRegions(
                         getCityId(),
                         Authorization)
-                .enqueue(new Callback<ModelSpinnerItems>() {
+                .enqueue(new Callback<MD_RequestSpinnerItems>() {
                     @Override
-                    public void onResponse(Call<ModelSpinnerItems> call, Response<ModelSpinnerItems> response) {
+                    public void onResponse(Call<MD_RequestSpinnerItems> call, Response<MD_RequestSpinnerItems> response) {
                         setResponseMessage(CheckResponse(response, false));
                         if (getResponseMessage() == null) {
                             Regions = response.body().getResult();
@@ -142,7 +142,7 @@ public class VM_ProfilePerson extends VM_Primary {
                     }
 
                     @Override
-                    public void onFailure(Call<ModelSpinnerItems> call, Throwable t) {
+                    public void onFailure(Call<MD_RequestSpinnerItems> call, Throwable t) {
                         OnFailureRequest();
                     }
                 });
@@ -165,9 +165,9 @@ public class VM_ProfilePerson extends VM_Primary {
                 .getCitys(
                         getProvinceId(),
                         Authorization)
-                .enqueue(new Callback<ModelSpinnerItems>() {
+                .enqueue(new Callback<MD_RequestSpinnerItems>() {
                     @Override
-                    public void onResponse(Call<ModelSpinnerItems> call, Response<ModelSpinnerItems> response) {
+                    public void onResponse(Call<MD_RequestSpinnerItems> call, Response<MD_RequestSpinnerItems> response) {
                         setResponseMessage(CheckResponse(response, false));
                         if (getResponseMessage() == null) {
                             Cities = response.body().getResult();
@@ -177,7 +177,7 @@ public class VM_ProfilePerson extends VM_Primary {
                     }
 
                     @Override
-                    public void onFailure(Call<ModelSpinnerItems> call, Throwable t) {
+                    public void onFailure(Call<MD_RequestSpinnerItems> call, Throwable t) {
                         OnFailureRequest();
                     }
                 });
@@ -195,14 +195,14 @@ public class VM_ProfilePerson extends VM_Primary {
         String Authorization = GetAuthorization();
 
 
-        Call<ModelSpinnerItems> call = retrofitComponent
+        Call<MD_RequestSpinnerItems> call = retrofitComponent
                 .getRetrofitApiInterface()
                 .getProvinces(
                         Authorization);
 
-        call.enqueue(new Callback<ModelSpinnerItems>() {
+        call.enqueue(new Callback<MD_RequestSpinnerItems>() {
             @Override
-            public void onResponse(Call<ModelSpinnerItems> call, Response<ModelSpinnerItems> response) {
+            public void onResponse(Call<MD_RequestSpinnerItems> call, Response<MD_RequestSpinnerItems> response) {
                 setResponseMessage(CheckResponse(response, false));
                 if (getResponseMessage() == null) {
                     provinces = response.body().getResult();
@@ -212,7 +212,7 @@ public class VM_ProfilePerson extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<ModelSpinnerItems> call, Throwable t) {
+            public void onFailure(Call<MD_RequestSpinnerItems> call, Throwable t) {
                 OnFailureRequest();
             }
         });
@@ -306,7 +306,7 @@ public class VM_ProfilePerson extends VM_Primary {
         RegionId = regionId;
     }//_____________________________________________________________________________________________ setRegionId
 
-    public ArrayList<ModelSpinnerItem> getRegions() {//_____________________________________________ getRegions
+    public ArrayList<MD_SpinnerItem> getRegions() {//_____________________________________________ getRegions
         return Regions;
     }//_____________________________________________________________________________________________ getRegions
 
@@ -321,12 +321,12 @@ public class VM_ProfilePerson extends VM_Primary {
     }//_____________________________________________________________________________________________ setProvinceId
 
 
-    public ArrayList<ModelSpinnerItem> getCities() {//_______________________________________________ getCities
+    public ArrayList<MD_SpinnerItem> getCities() {//_______________________________________________ getCities
         return Cities;
     }//_____________________________________________________________________________________________ getCities
 
 
-    public ArrayList<ModelSpinnerItem> getProvinces() {//___________________________________________ getProvinces
+    public ArrayList<MD_SpinnerItem> getProvinces() {//___________________________________________ getProvinces
         return provinces;
     }//_____________________________________________________________________________________________ getProvinces
 

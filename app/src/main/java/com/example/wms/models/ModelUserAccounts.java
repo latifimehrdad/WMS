@@ -28,7 +28,7 @@ public class ModelUserAccounts extends ModelResponsePrimary {
         String accountNumber;
 
         @SerializedName("bank")
-        ModelSpinnerItem bank;
+        MD_SpinnerItem bank;
 
         public String getAccountNumber() {
             return accountNumber;
@@ -38,11 +38,11 @@ public class ModelUserAccounts extends ModelResponsePrimary {
             this.accountNumber = accountNumber;
         }
 
-        public ModelSpinnerItem getBank() {
+        public MD_SpinnerItem getBank() {
             return bank;
         }
 
-        public void setBank(ModelSpinnerItem bank) {
+        public void setBank(MD_SpinnerItem bank) {
             this.bank = bank;
         }
     }

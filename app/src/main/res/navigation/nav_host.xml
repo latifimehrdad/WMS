@@ -10,6 +10,12 @@
         android:label="Splash"
         tools:layout="@layout/fragment_splash"
         >
+
+        <argument android:name="@string/ML_UpdateUrl"/>
+
+        <argument android:name="@string/ML_UpdateFile"/>
+
+
         <action
             android:id="@+id/action_splash_to_login"
             app:destination="@id/login"
@@ -26,7 +32,15 @@
             app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
+
             />
+        <action
+            android:id="@+id/action_splash_to_appUpdate"
+            app:destination="@id/appUpdate"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
 
     </fragment>
 
@@ -312,5 +326,11 @@
         android:name="com.example.wms.views.fragments.game.Game"
         android:label="Game"
         tools:layout="@layout/fragment_game"/>
+
+    <fragment
+        android:id="@+id/appUpdate"
+        android:name="com.example.wms.views.fragments.home.AppUpdate"
+        android:label="AppUpdate"
+        tools:layout="@layout/fragment_update"/>
 
 </navigation>

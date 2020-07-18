@@ -5,16 +5,16 @@
         <shape
             android:shape="oval"
             >
-            <solid android:color="@color/colorPrimaryDark" />
-            <stroke android:width="@dimen/_3sdp" android:color="@color/colorPrimary" />
+            <solid android:color="@color/mlCollectRight2" />
+            <stroke android:width="@dimen/_3sdp" android:color="@color/mlHarmony" />
         </shape>
     </item>
     <item>
         <shape
             android:shape="oval"
             >
-            <solid android:color="@color/colorPrimary" />
-            <stroke android:width="@dimen/_3sdp" android:color="@color/mlWhite" />
+            <solid android:color="@color/mlCollectRight1" />
+            <stroke android:width="@dimen/_3sdp" android:color="@color/mlHarmony" />
         </shape>
     </item>
 

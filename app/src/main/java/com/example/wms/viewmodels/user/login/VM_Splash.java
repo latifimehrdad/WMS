@@ -2,10 +2,14 @@ package com.example.wms.viewmodels.user.login;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 
 import com.example.wms.R;
 import com.example.wms.daggers.retrofit.RetrofitApis;
 import com.example.wms.daggers.retrofit.RetrofitComponent;
+import com.example.wms.models.MD_Hi;
+import com.example.wms.models.MD_RequestHi;
 import com.example.wms.models.ModelSettingInfo;
 import com.example.wms.models.ModelToken;
 import com.example.wms.utility.StaticFunctions;
@@ -21,6 +25,7 @@ public class VM_Splash extends VM_Primary {
 
     private ModelToken modelToken;
     private ModelSettingInfo.ModelProfileSetting profile;
+    private MD_Hi md_hi;
 
     public VM_Splash(Activity context) {//__________________________________________________________ VM_Splash
         setContext(context);
@@ -105,7 +110,7 @@ public class VM_Splash extends VM_Primary {
                     profile = response.body().getResult();
                     if (profile != null) {
                         if (StaticFunctions.SaveProfile(getContext(), profile))
-                            SendMessageToObservable(StaticValues.ML_GoToHome);
+                            GetHi();
                     } else {
                         if (StaticFunctions.LogOut(getContext()))
                             GetTokenFromServer();
@@ -122,6 +127,67 @@ public class VM_Splash extends VM_Primary {
 
     }//_____________________________________________________________________________________________ GetLoginInformation
 
+
+    public void GetHi() {//_________________________________________________________________________ GetHi
+
+        RetrofitComponent retrofitComponent =
+                ApplicationWMS
+                        .getApplicationWMS(getContext())
+                        .getRetrofitComponent();
+
+        String Authorization = GetAuthorization();
+
+        setPrimaryCall(retrofitComponent
+                .getRetrofitApiInterface()
+                .getHi("1",
+                        Authorization));
+
+        getPrimaryCall().enqueue(new Callback<MD_RequestHi>() {
+            @Override
+            public void onResponse(Call<MD_RequestHi> call, Response<MD_RequestHi> response) {
+                setResponseMessage(CheckResponse(response, true));
+                if (getResponseMessage() == null) {
+                    md_hi = response.body().getResult();
+                    setResponseMessage("");
+                    CheckUpdate();
+                } else
+                    SendMessageToObservable(StaticValues.ML_ResponseError);
+            }
+
+            @Override
+            public void onFailure(Call<MD_RequestHi> call, Throwable t) {
+                OnFailureRequest();
+            }
+        });
+
+    }//_____________________________________________________________________________________________ GetHi
+
+
+    private void CheckUpdate() {//__________________________________________________________________ CheckUpdate
+        PackageInfo pInfo = null;
+        Integer Version = 0;
+        try {
+            pInfo = getContext().getPackageManager().getPackageInfo(getContext().getPackageName(), 0);
+            Version = pInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            Version = 0;
+        }
+
+        String v = md_hi.getVersion();
+        v = v.replaceAll("v", "");
+
+
+        if (Version < Integer.parseInt(v))
+            SendMessageToObservable(StaticValues.ML_GoToUpdate);
+        else
+            SendMessageToObservable(StaticValues.ML_GoToHome);
+
+    }//_____________________________________________________________________________________________ CheckUpdate
+
+
+    public MD_Hi getMd_hi() {//_____________________________________________________________________ getMd_hi
+        return md_hi;
+    }//_____________________________________________________________________________________________ getMd_hi
 
 }
 

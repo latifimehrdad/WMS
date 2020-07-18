@@ -189,9 +189,10 @@ public class BoothReceivePrimary extends FragmentPrimary implements
             if (timePosition == -1) {
                 timePosition = position - 1;
                 MaterialSpinnerSpinnerDay.getItems().remove(0);
+                MaterialSpinnerSpinnerDay.setSelectedIndex(MaterialSpinnerSpinnerDay.getItems().size()-1);
+                MaterialSpinnerSpinnerDay.setSelectedIndex(position - 1);
             } else
                 timePosition = position;
-            //timeId = vm_boothReceivePrimary.getModelTimes().getTimes().get(position - 1).getId();
             MaterialSpinnerSpinnerDay.setBackgroundColor(getResources().getColor(R.color.mlEdit));
         });
 

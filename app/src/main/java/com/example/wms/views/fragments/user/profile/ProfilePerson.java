@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,14 +19,13 @@ import com.cunoraz.gifview.library.GifView;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentProfilePersonBinding;
 import com.example.wms.models.ModelProfileInfo;
-import com.example.wms.models.ModelSpinnerItem;
+import com.example.wms.models.MD_SpinnerItem;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.user.profile.VM_ProfilePerson;
 import com.example.wms.views.activitys.MainActivity;
 import com.example.wms.views.application.ApplicationWMS;
 import com.example.wms.views.dialogs.DialogProgress;
 import com.example.wms.views.dialogs.searchspinner.MLSpinnerDialog;
-import com.example.wms.views.dialogs.searchspinner.OnSpinnerItemClick;
 import com.example.wms.views.fragments.FragmentPrimary;
 
 import org.jetbrains.annotations.NotNull;
@@ -43,20 +41,20 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
 
     private VM_ProfilePerson vm_profilePerson;
     private MLSpinnerDialog spinnerProvinces;
-    private ArrayList<ModelSpinnerItem> ProvincesList;
+    private ArrayList<MD_SpinnerItem> ProvincesList;
     private String ProvinceId = "-1";
     private Boolean ClickProvince = false;
     private MLSpinnerDialog spinnerCity;
-    private ArrayList<ModelSpinnerItem> CitiesList;
+    private ArrayList<MD_SpinnerItem> CitiesList;
     private String CityId = "-1";
     private Boolean ClickCity = false;
     private MLSpinnerDialog spinnerRegion;
-    private ArrayList<ModelSpinnerItem> RegionsList;
+    private ArrayList<MD_SpinnerItem> RegionsList;
     private String RegionId = "-1";
     private Boolean ClickPlace = false;
     private DialogProgress progress;
     private int GenderCode = -1;
-    private ArrayList<ModelSpinnerItem> UserType;
+    private ArrayList<MD_SpinnerItem> UserType;
     private String UserTypeId = "-1";
 
 
@@ -506,11 +504,11 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
         TextUser.setText(getResources().getString(R.string.ChooseUser));
         MLSpinnerDialog spinnerUser;
         UserType = new ArrayList<>();
-        UserType.add(new ModelSpinnerItem("0", "خانوار"));
-        UserType.add(new ModelSpinnerItem("1", "مدیر ساختمان"));
-        UserType.add(new ModelSpinnerItem("2", "سرایدار"));
-        UserType.add(new ModelSpinnerItem("3", "، دانش آموز"));
-        UserType.add(new ModelSpinnerItem("4", "سایر"));
+        UserType.add(new MD_SpinnerItem("0", "خانوار"));
+        UserType.add(new MD_SpinnerItem("1", "مدیر ساختمان"));
+        UserType.add(new MD_SpinnerItem("2", "سرایدار"));
+        UserType.add(new MD_SpinnerItem("3", "، دانش آموز"));
+        UserType.add(new MD_SpinnerItem("4", "سایر"));
         //spinnerDialog = new SpinnerDialog(getActivity(),items,"Select or Search City","Close Button Text");// With No Animation
         spinnerUser = new MLSpinnerDialog(
                 getActivity(),

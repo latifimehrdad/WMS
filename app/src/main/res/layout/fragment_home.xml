@@ -59,7 +59,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="28"
+                        android:text="0"
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/_10sdp" />
 
@@ -87,7 +87,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="bottom"
-                        android:text="80"
+                        android:text="0"
                         android:textColor="@color/mlHomeAveScore"
                         android:textSize="@dimen/_10sdp" />
 
@@ -128,7 +128,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="bottom"
-                        android:text="226"
+                        android:text="0"
                         android:textColor="@color/mlHomeMaxScore"
                         android:textSize="@dimen/_10sdp" />
 

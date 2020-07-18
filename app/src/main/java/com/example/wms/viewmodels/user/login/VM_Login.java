@@ -30,6 +30,13 @@ public class VM_Login extends VM_Primary {
 
     public void GetLoginToken(String PhoneNumber, String Password) {//______________________________ GetLoginToken
 
+        PhoneNumber = ApplicationWMS.getApplicationWMS(getContext())
+                .getUtilityComponent()
+                .getApplicationUtility()
+                .PersianToEnglish(PhoneNumber);
+
+        
+
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
                         .getApplicationWMS(getContext())

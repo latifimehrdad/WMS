@@ -7,16 +7,16 @@ import java.util.List;
 public class ModelBuildingTypes {
 
     @SerializedName("buildingTypes")
-    List<ModelSpinnerItem> buildingTypes;
+    List<MD_SpinnerItem> buildingTypes;
 
     @SerializedName("buildingUses")
-    List<ModelSpinnerItem> buildingUses;
+    List<MD_SpinnerItem> buildingUses;
 
-    public List<ModelSpinnerItem> getBuildingTypes() {
+    public List<MD_SpinnerItem> getBuildingTypes() {
         return buildingTypes;
     }
 
-    public List<ModelSpinnerItem> getBuildingUses() {
+    public List<MD_SpinnerItem> getBuildingUses() {
         return buildingUses;
     }
 }

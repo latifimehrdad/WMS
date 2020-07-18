@@ -4,8 +4,8 @@ import android.app.Activity;
 
 import com.example.wms.daggers.retrofit.RetrofitComponent;
 import com.example.wms.models.ModelResponsePrimary;
-import com.example.wms.models.ModelSpinnerItem;
-import com.example.wms.models.ModelSpinnerItems;
+import com.example.wms.models.MD_SpinnerItem;
+import com.example.wms.models.MD_RequestSpinnerItems;
 import com.example.wms.models.ModelUserAccounts;
 import com.example.wms.utility.StaticFunctions;
 import com.example.wms.utility.StaticValues;
@@ -23,7 +23,7 @@ import retrofit2.Response;
 public class VM_ProfileBank extends VM_Primary {
 
     private ModelUserAccounts.ModelUserAccountNumber accountNumbers;
-    private ArrayList<ModelSpinnerItem> banks;
+    private ArrayList<MD_SpinnerItem> banks;
     private String AccountNumber;
     private String BankId;
 
@@ -126,9 +126,9 @@ public class VM_ProfileBank extends VM_Primary {
                 .getBanks(
                         Authorization));
 
-        getPrimaryCall().enqueue(new Callback<ModelSpinnerItems>() {
+        getPrimaryCall().enqueue(new Callback<MD_RequestSpinnerItems>() {
             @Override
-            public void onResponse(Call<ModelSpinnerItems> call, Response<ModelSpinnerItems> response) {
+            public void onResponse(Call<MD_RequestSpinnerItems> call, Response<MD_RequestSpinnerItems> response) {
                 if (StaticFunctions.isCancel)
                     return;
                 setResponseMessage(CheckResponse(response, false));
@@ -140,7 +140,7 @@ public class VM_ProfileBank extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<ModelSpinnerItems> call, Throwable t) {
+            public void onFailure(Call<MD_RequestSpinnerItems> call, Throwable t) {
                 OnFailureRequest();
             }
         });
@@ -153,7 +153,7 @@ public class VM_ProfileBank extends VM_Primary {
     }//_____________________________________________________________________________________________ getAccountNumbers
 
 
-    public ArrayList<ModelSpinnerItem> getBanks() {//_______________________________________________ getBanks
+    public ArrayList<MD_SpinnerItem> getBanks() {//_______________________________________________ getBanks
         return banks;
     }//_____________________________________________________________________________________________ getBanks
 

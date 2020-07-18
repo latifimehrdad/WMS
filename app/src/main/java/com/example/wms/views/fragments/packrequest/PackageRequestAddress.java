@@ -12,7 +12,6 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +35,7 @@ import androidx.navigation.Navigation;
 import com.cunoraz.gifview.library.GifView;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentPackRequestAddressBinding;
-import com.example.wms.models.ModelSpinnerItem;
+import com.example.wms.models.MD_SpinnerItem;
 import com.example.wms.utility.StaticFunctions;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.packrequest.VM_PackageRequestAddress;
@@ -201,7 +200,8 @@ public class PackageRequestAddress extends FragmentPrimary implements
         }
 
         if (action.equals(StaticValues.ML_GetHousingBuildings)) {
-            SetMaterialSpinnerType(true);
+            SetMaterialSpinnerType();
+            SetMaterialSpinnerUses();
         }
 
 
@@ -249,11 +249,12 @@ public class PackageRequestAddress extends FragmentPrimary implements
         });
 
 
-
         MaterialSpinnerUses.setOnItemSelectedListener((view, position, id, item) -> {
             if (BuildingUseId == -1) {
                 BuildingUseId = Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingUses().get(position - 1).getId());
                 MaterialSpinnerUses.getItems().remove(0);
+                MaterialSpinnerUses.setSelectedIndex(MaterialSpinnerUses.getItems().size()-1);
+                MaterialSpinnerUses.setSelectedIndex(position - 1);
             } else
                 BuildingUseId = Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingUses().get(position).getId());
 
@@ -266,6 +267,8 @@ public class PackageRequestAddress extends FragmentPrimary implements
             if (BuildingTypeId == -1) {
                 BuildingTypeId = Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingTypes().get(position - 1).getId());
                 MaterialSpinnerType.getItems().remove(0);
+                MaterialSpinnerType.setSelectedIndex(MaterialSpinnerType.getItems().size()-1);
+                MaterialSpinnerType.setSelectedIndex(position - 1);
             } else
                 BuildingTypeId = Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingTypes().get(position).getId());
 
@@ -454,26 +457,23 @@ public class PackageRequestAddress extends FragmentPrimary implements
     }//_____________________________________________________________________________________________ SetTextWatcher
 
 
-    private void SetMaterialSpinnerUses(boolean first) {//_______________________________________________________ SetMaterialSpinnerUses
+    private void SetMaterialSpinnerUses() {//_______________________________________________________ SetMaterialSpinnerUses
         List<String> buildingUses = new ArrayList<>();
-        if (first)
-            buildingUses.add("کاربری ساختمان");
-        for (ModelSpinnerItem item : vm_packageRequestAddress.getBuildingTypes().getBuildingUses())
+        buildingUses.add("کاربری ساختمان");
+        for (MD_SpinnerItem item : vm_packageRequestAddress.getBuildingTypes().getBuildingUses())
             buildingUses.add(item.getTitle());
         MaterialSpinnerUses.setItems(buildingUses);
     }//_____________________________________________________________________________________________ SetMaterialSpinnerUses
 
 
-    private void SetMaterialSpinnerType(boolean first) {//__________________________________________ SetMaterialSpinnerType
+    private void SetMaterialSpinnerType() {//_______________________________________________________ SetMaterialSpinnerType
         if (progress != null)
             progress.dismiss();
         List<String> buildingTypes = new ArrayList<>();
-        if (first)
-            buildingTypes.add("نوع واحد");
-        for (ModelSpinnerItem item : vm_packageRequestAddress.getBuildingTypes().getBuildingTypes())
+        buildingTypes.add("نوع واحد");
+        for (MD_SpinnerItem item : vm_packageRequestAddress.getBuildingTypes().getBuildingTypes())
             buildingTypes.add(item.getTitle());
         MaterialSpinnerType.setItems(buildingTypes);
-        SetMaterialSpinnerUses(first);
     }//_____________________________________________________________________________________________ SetMaterialSpinnerType
 
 
@@ -486,14 +486,14 @@ public class PackageRequestAddress extends FragmentPrimary implements
         boolean spinnertype;
 
 
-        if (MaterialSpinnerType.getSelectedIndex() == 0) {
+        if (BuildingTypeId == -1) {
             MaterialSpinnerType.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
             MaterialSpinnerType.requestFocus();
             spinnertype = false;
         } else
             spinnertype = true;
 
-        if (MaterialSpinnerUses.getSelectedIndex() == 0) {
+        if (BuildingUseId == -1) {
             MaterialSpinnerUses.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
             MaterialSpinnerUses.requestFocus();
             spinneruser = false;

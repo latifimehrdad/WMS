@@ -65,7 +65,8 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
                 vm_splash);
         if (getView() != null)
             navController = Navigation.findNavController(getView());
-        CheckToken();
+        navController.navigate(R.id.action_splash_to_appUpdate);
+        //CheckToken();
     }//_____________________________________________________________________________________________ onStart
 
 
@@ -74,6 +75,14 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
 
         if (action.equals(StaticValues.ML_GoToHome)) {
             navController.navigate(R.id.action_splash_to_home);
+            return;
+        }
+
+        if (action.equals(StaticValues.ML_GoToUpdate)) {
+            Bundle bundle = new Bundle();
+            bundle.putString(getContext().getResources().getString(R.string.ML_UpdateUrl), vm_splash.getMd_hi().getApplicationUrl());
+            bundle.putString(getContext().getResources().getString(R.string.ML_UpdateFile), vm_splash.getMd_hi().getFileName());
+            navController.navigate(R.id.action_splash_to_appUpdate, bundle);
             return;
         }
 

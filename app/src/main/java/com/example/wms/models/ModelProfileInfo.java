@@ -31,13 +31,13 @@ public class ModelProfileInfo extends ModelResponsePrimary {
         Integer referenceCode;
 
         @SerializedName("province")
-        ModelSpinnerItem province;
+        MD_SpinnerItem province;
 
         @SerializedName("city")
-        ModelSpinnerItem city;
+        MD_SpinnerItem city;
 
         @SerializedName("neighbourhood")
-        ModelSpinnerItem neighbourhood;
+        MD_SpinnerItem neighbourhood;
 
 
         public String getFirstName() {
@@ -80,27 +80,27 @@ public class ModelProfileInfo extends ModelResponsePrimary {
             this.referenceCode = referenceCode;
         }
 
-        public ModelSpinnerItem getProvince() {
+        public MD_SpinnerItem getProvince() {
             return province;
         }
 
-        public void setProvince(ModelSpinnerItem province) {
+        public void setProvince(MD_SpinnerItem province) {
             this.province = province;
         }
 
-        public ModelSpinnerItem getCity() {
+        public MD_SpinnerItem getCity() {
             return city;
         }
 
-        public void setCity(ModelSpinnerItem city) {
+        public void setCity(MD_SpinnerItem city) {
             this.city = city;
         }
 
-        public ModelSpinnerItem getNeighbourhood() {
+        public MD_SpinnerItem getNeighbourhood() {
             return neighbourhood;
         }
 
-        public void setNeighbourhood(ModelSpinnerItem neighbourhood) {
+        public void setNeighbourhood(MD_SpinnerItem neighbourhood) {
             this.neighbourhood = neighbourhood;
         }
     }

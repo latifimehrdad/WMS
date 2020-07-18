@@ -35,8 +35,8 @@
 
 
     <LinearLayout
-        android:layout_width="@dimen/_40sdp"
-        android:layout_height="@dimen/_60sdp"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_70sdp"
         android:layout_above="@id/centerLayout"
         android:layout_centerHorizontal="true"
         android:gravity="center"
@@ -45,8 +45,8 @@
 
         <RelativeLayout
             android:id="@+id/LayoutChoose"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
             android:background="@drawable/choose_current_map">
 
             <com.cunoraz.gifview.library.GifView
@@ -64,8 +64,8 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="@string/Choose"
-                android:textColor="@color/mlWhite"
-                android:textSize="@dimen/_8sdp"
+                android:textColor="@color/mlHarmony"
+                android:textSize="@dimen/_10sdp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:visibility="gone"
@@ -155,9 +155,6 @@
                     />
 
             </LinearLayout>
-
-
-
 
 
         </LinearLayout>

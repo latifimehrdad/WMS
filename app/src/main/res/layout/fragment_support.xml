@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
     <data>
 
         <variable
@@ -25,55 +25,165 @@
             android:paddingBottom="@dimen/_10sdp"
             >
 
-            <EditText
-                android:id="@+id/fsEditSubject"
-                android:layout_width="fill_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/EditTextSubject"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/_30sdp"
+                    android:background="@drawable/dw_edit_back"
+                    android:hint="@string/Subject"
+                    android:inputType="textPersonName"
+                    android:padding="@dimen/_2sdp"
+                    android:textColor="@color/mlBlack"
+                    android:textSize="@dimen/_12sdp"
+                    />
+
+                <ImageView
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:background="@drawable/dw_edit_back_image"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/svg_to_do_list"
+                    android:tint="@color/mlWhite"
+                    />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/LayoutDepartments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/_10sdp">
+
+
+                <LinearLayout
+                    android:id="@+id/LayoutDepartmentsBack"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/_30sdp"
+                    android:background="@drawable/dw_edit_back"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    >
+
+                    <ImageView
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:layout_marginLeft="@dimen/_2sdp"
+                        android:src="@drawable/svg_scroll"
+                        android:tint="@color/colorAccent"
+                        />
+
+                    <TextView
+                        android:id="@+id/TextViewDepartments"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/mlBlack"
+                        android:gravity="right|center_vertical"
+                        android:textSize="@dimen/_11sdp"
+                        />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:background="@drawable/dw_edit_back_image"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/svg_contact_us"
+                    android:tint="@color/mlWhite"
+                    />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/EditTextDescription"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/_85sdp"
+                    android:background="@drawable/dw_edit_back"
+                    android:hint="@string/Description"
+                    android:gravity="right"
+                    android:padding="@dimen/_2sdp"
+                    android:maxLines="10"
+                    android:textColor="@color/mlBlack"
+                    android:textSize="@dimen/_12sdp"
+                    />
+
+                <ImageView
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/dw_edit_back_image"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/svg_write"
+                    android:tint="@color/mlWhite"
+                    />
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutSend"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_30sdp"
-                android:background="@drawable/edit_normal_background"
-                android:hint="@string/Subject"
-                android:inputType="textPersonName"
-                android:padding="@dimen/_2sdp"
-                android:textColor="@color/mlBlack"
-                android:textSize="@dimen/_12sdp"
-                />
-
-            <com.jaredrummler.materialspinner.MaterialSpinner
-                android:id="@+id/MaterialSpinner1"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:gravity="right"
-                android:prompt="@string/City_Prompt"
-                app:ms_background_color="@color/mlEdit"
-                app:ms_text_color="@color/mlBlack"
-                />
-
-            <EditText
-                android:id="@+id/fsEditDescription"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="@dimen/_85sdp"
-                android:background="@drawable/edit_normal_background"
-                android:hint="@string/Description"
-                android:gravity="right"
-                android:padding="@dimen/_2sdp"
-                android:maxLines="10"
-                android:textColor="@color/mlBlack"
-                android:textSize="@dimen/_12sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                />
-
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginRight="@dimen/_25sdp"
                 android:layout_marginBottom="@dimen/_20sdp"
-                android:background="@drawable/save_info_button"
-                android:text="@string/SendMessage"
-                android:textColor="@color/mlWhite"
-                android:textSize="@dimen/_13sdp" />
+                android:background="@drawable/save_info_button">
+
+                <TextView
+                    android:id="@+id/txtLoading"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/SendMessage"
+                    android:textColor="@color/mlWhite"
+                    android:textSize="@dimen/_13sdp"
+                    android:gravity="center"
+                    android:layout_toLeftOf="@id/imgLoading"
+                    android:paddingRight="@dimen/_5sdp"
+                    />
+
+                <ImageView
+                    android:id="@+id/imgLoading"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/svg_share"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_centerVertical="true"
+                    android:tint="@color/mlWhite"
+                    />
+
+                <com.cunoraz.gifview.library.GifView
+                    android:id="@+id/gifLoading"
+                    android:layout_width="@dimen/_22sdp"
+                    android:layout_height="@dimen/_22sdp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:visibility="invisible"
+                    custom:gif="@drawable/loading2" />
+
+            </RelativeLayout>
+
 
 
         </LinearLayout>

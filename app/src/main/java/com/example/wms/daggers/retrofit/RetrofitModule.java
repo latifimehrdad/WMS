@@ -56,6 +56,7 @@ public class RetrofitModule {
     @Provides
     @DaggerScope
     public OkHttpClient getOkHttpClient(Cache cache, HttpLoggingInterceptor interceptor) {
+
         return new OkHttpClient.Builder()
                 .cache(cache)
                 .addNetworkInterceptor(interceptor)

@@ -12,9 +12,10 @@
     <string name="User_Search">جستجوی کاربر</string>
     <string name="ChooseBank">انتخاب بانک</string>
     <string name="Bank_Search">جستجوی بانک</string>
+    <string name="ChooseRequestType">انتخاب نوع درخواست</string>
 
 
-    <string name="PackageNotDelivered">قبل از درخواست جمع آوری، لطفا ابتدا به بخش درخواست پکیج بروید و تا تحویل پکیج در محل ساختمان منتظر بمانید</string>
+    <string name="PackageNotDelivered">قبل از درخواست جمع آوری، لطفا ابتدا به بخش درخواست سطل بازیافت بروید و تا تحویل سطل بازیافت در محل ساختمان منتظر بمانید</string>
     <string name="app_name">پسماند خشک سبززیور-شهروند</string>
     <string name="WMSFromFist">سیستم مدیریت تفکیک از مبدأ</string>
     <string name="Orders">سفارشات</string>
@@ -42,7 +43,7 @@
 
     <string name="Retry">تلاش مجدد</string>
 
-    <string name="FragmentPackRequestPrimary">درخواست پکیج</string>
+    <string name="FragmentPackRequestPrimary">درخواست سطل بازیافت</string>
     <string name="FragmentPackRequestPrimarySet">ثبت درخواست</string>
     <string name="FragmentPackRequestPrimarySend">ارسال</string>
     <string name="FragmentPackRequestPrimaryReceive">تحویل</string>
@@ -186,6 +187,9 @@
     <string name="Tel">تلفن تماس : 02691009001</string>
     <string name="ML_TurnOnLocation">روشن شود</string>
     <string name="ML_TurnOffLocation">خاموش بماند</string>
+    <string name="DownloadingFile">بارگیری فایل ...</string>
+    <string name="FileDownloaded">پایان بارگیری فایل</string>
+    <string name="InstallApp">نصب بروزرسانی برنامه</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 
@@ -209,6 +213,8 @@
     <string name="ML_PackageRequestDate">PackageRequestDate</string>
     <string name="ML_PackageRequestFrom">PackageRequestFrom</string>
     <string name="ML_PackageRequestTo">PackageRequestTo</string>
+    <string name="ML_UpdateUrl">UpdateUrl</string>
+    <string name="ML_UpdateFile">UpdateFile</string>
 
 
 </resources>

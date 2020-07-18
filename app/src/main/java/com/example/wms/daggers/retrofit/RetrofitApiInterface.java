@@ -1,6 +1,9 @@
 package com.example.wms.daggers.retrofit;
 
 import com.example.wms.models.MD_RequestBoothList;
+import com.example.wms.models.MD_RequestGiveScore;
+import com.example.wms.models.MD_RequestHi;
+import com.example.wms.models.MD_RequestItemLearn;
 import com.example.wms.models.MD_RequestItemsWast;
 import com.example.wms.models.MD_RequestWasteRequest;
 import com.example.wms.models.MD_WasteAmountRequests;
@@ -10,11 +13,12 @@ import com.example.wms.models.ModelHousingBuildings;
 import com.example.wms.models.ModelProfileInfo;
 import com.example.wms.models.ModelResponsePrimary;
 import com.example.wms.models.ModelSettingInfo;
-import com.example.wms.models.ModelSpinnerItems;
+import com.example.wms.models.MD_RequestSpinnerItems;
 import com.example.wms.models.ModelTimeSheetTimes;
 import com.example.wms.models.ModelToken;
 import com.example.wms.models.ModelUserAccounts;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -23,6 +27,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.Streaming;
 import retrofit2.http.Url;
 
 public interface RetrofitApiInterface {
@@ -74,7 +79,7 @@ public interface RetrofitApiInterface {
 
 
     @GET(Version + "/region/provinces")
-    Call<ModelSpinnerItems> getProvinces
+    Call<MD_RequestSpinnerItems> getProvinces
             (
                     @Header("Authorization") String Authorization
 
@@ -82,7 +87,7 @@ public interface RetrofitApiInterface {
 
 
     @GET(Version + "/region/citiesbyprovince")
-    Call<ModelSpinnerItems> getCitys
+    Call<MD_RequestSpinnerItems> getCitys
             (
                     @Query("Id") String Id,
                     @Header("Authorization") String Authorization
@@ -91,7 +96,7 @@ public interface RetrofitApiInterface {
 
 
     @GET(Version + "/region/neighbourhoods")
-    Call<ModelSpinnerItems> getRegions
+    Call<MD_RequestSpinnerItems> getRegions
             (
                     @Query("Id") String Id,
                     @Header("Authorization") String Authorization
@@ -133,7 +138,7 @@ public interface RetrofitApiInterface {
 
 
     @GET(Version + "/bank/banks")
-    Call<ModelSpinnerItems> getBanks
+    Call<MD_RequestSpinnerItems> getBanks
             (
                     @Header("Authorization") String Authorization
 
@@ -247,6 +252,58 @@ public interface RetrofitApiInterface {
     @GET(Version + "/RequestWasteCollection/WasteRequests")
     Call<MD_RequestWasteRequest> getWasteRequests
             (
+                    @Header("Authorization") String Authorization
+            );
+
+
+    @GET(Version + "/WasteNotice/GetSummaryWasteNotice")
+    Call<MD_RequestItemLearn> getSummaryWasteNotice
+            (
+                    @Header("Authorization") String Authorization
+            );
+
+
+    @GET(Version + "/Score/GetScoreList")
+    Call<MD_RequestGiveScore> getScoreList
+            (
+                    @Header("Authorization") String Authorization
+            );
+
+
+    @GET(Version + "/UserScoreInfo/GetUserScoreInfoList")
+    Call<MD_RequestGiveScore> GetUserScore
+            (
+                    @Header("Authorization") String Authorization
+            );
+
+    @GET(Version + "/Ticketing/GetAllDepartments")
+    Call<MD_RequestSpinnerItems> getAllDepartments
+            (
+                    @Header("Authorization") String Authorization
+
+            );
+
+
+    @FormUrlEncoded
+    @POST(Version + "/Ticketing/SubmitTicket")
+    Call<ModelResponsePrimary> SubmitTicket
+            (
+                    @Field("DepartmentId") String DepartmentId,
+                    @Field("Subject") String Subject,
+                    @Field("Description") String Description,
+                    @Header("Authorization") String Authorization
+            );
+
+    @Streaming
+    @GET
+    Call<ResponseBody> downloadFile(@Url String urlString);
+
+
+    @FormUrlEncoded
+    @POST(Version + "/application/hi")
+    Call<MD_RequestHi> getHi
+            (
+                    @Field("name") String name,
                     @Header("Authorization") String Authorization
             );
 
