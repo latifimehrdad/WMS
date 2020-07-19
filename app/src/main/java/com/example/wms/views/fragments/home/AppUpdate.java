@@ -2,13 +2,10 @@ package com.example.wms.views.fragments.home;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -16,19 +13,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
-import androidx.navigation.Navigation;
 
-import com.example.wms.BuildConfig;
 import com.example.wms.R;
 import com.example.wms.databinding.FragmentUpdateBinding;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.main.VM_Update;
 import com.example.wms.views.fragments.FragmentPrimary;
-import com.example.wms.views.fragments.user.login.Splash;
 
-import java.io.File;
 
 import butterknife.BindView;
 
@@ -37,6 +29,7 @@ public class AppUpdate extends FragmentPrimary implements FragmentPrimary.GetMes
 
 
     private VM_Update vm_update;
+    private String fileName;
 
     @BindView(R.id.TextViewProgress)
     TextView TextViewProgress;
@@ -86,20 +79,19 @@ public class AppUpdate extends FragmentPrimary implements FragmentPrimary.GetMes
 
 
     private void init() {//_________________________________________________________________________ init
-//        String url = getArguments().getString(getContext().getResources().getString(R.string.ML_UpdateUrl), "");
-//        String fileName = getArguments().getString(getContext().getResources().getString(R.string.ML_UpdateFile), "");
+        String url = getArguments().getString(getContext().getResources().getString(R.string.ML_UpdateUrl), "");
+        fileName = getArguments().getString(getContext().getResources().getString(R.string.ML_UpdateFile), "");
 
-//        if (!url.equalsIgnoreCase(""))
-//            if (!fileName.equalsIgnoreCase(""))
-                vm_update.DownloadFile("https://upinja.com/up/Agaring.apk", "Agaring.apk");
+        if (!url.equalsIgnoreCase(""))
+            if (!fileName.equalsIgnoreCase(""))
+                vm_update.DownloadFile(url, fileName);
 
     }//_____________________________________________________________________________________________ init
 
     private void SetOnClick() {//___________________________________________________________________ SetOnClick
         ButtonInstall.setOnClickListener(v -> {
 
-            Uri uri = vm_update.getTempUri("Agaring.apk");
-
+            Uri uri = vm_update.getTempUri(fileName);
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             intent.putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true);
             intent.setDataAndType(uri, "application/vnd.android.package-archive");
@@ -115,7 +107,6 @@ public class AppUpdate extends FragmentPrimary implements FragmentPrimary.GetMes
 
         if (action.equals(StaticValues.ML_Success)) {
             TextViewProgress.setText(getContext().getResources().getString(R.string.DownloadingFile));
-            //ImageViewDownload.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.bounce));
             return;
         }
 

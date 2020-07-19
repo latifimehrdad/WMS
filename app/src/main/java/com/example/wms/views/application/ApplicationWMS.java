@@ -18,7 +18,6 @@ import com.example.wms.daggers.retrofit.RetrofitModule;
 import com.example.wms.daggers.utility.DaggerUtilityComponent;
 import com.example.wms.daggers.utility.UtilityComponent;
 import com.example.wms.daggers.utility.UtilityModule;
-import com.example.wms.utility.SSLCertificateHandler;
 import com.nostra13.universalimageloader.cache.memory.BaseMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -33,6 +32,7 @@ import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
 import io.github.inflationx.viewpump.ViewPump;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+
 
 public class ApplicationWMS extends MultiDexApplication {
 

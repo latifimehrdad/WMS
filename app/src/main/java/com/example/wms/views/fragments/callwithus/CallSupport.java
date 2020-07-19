@@ -19,10 +19,8 @@ import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.callwithus.VM_Support;
 import com.example.wms.views.dialogs.searchspinner.MLSpinnerDialog;
 import com.example.wms.views.fragments.FragmentPrimary;
-import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import org.jetbrains.annotations.NotNull;
-import org.w3c.dom.Text;
 
 import butterknife.BindView;
 
@@ -30,7 +28,8 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.GetM
 
 
     private VM_Support vm_support;
-    private String RequestType;
+    private String DepartmentId;
+    private String CategoryId;
     private MLSpinnerDialog spinnerRequestType;
     private boolean ClickType;
 
@@ -105,7 +104,7 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.GetM
         DismissLoading();
 
         if (action.equals(StaticValues.ML_GetAllDepartments)) {
-            SetItemRegion();
+            SetItemCategory();
             return;
         }
 
@@ -122,7 +121,7 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.GetM
             if (vm_support.getMd_spinnerItems() == null)
                 vm_support.GetAllDepartments();
             else
-                SetItemRegion();
+                SetItemCategory();
         });
 
 
@@ -131,9 +130,11 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.GetM
             if (CheckEmpty()) {
                 hideKeyboard();
                 ShowLoading();
-                vm_support.SubmitTicket(RequestType,
+                vm_support.SubmitTicket(
+                        DepartmentId,
                         EditTextSubject.getText().toString(),
-                        EditTextDescription.getText().toString());
+                        EditTextDescription.getText().toString(),
+                        CategoryId);
             }
         });
 
@@ -166,7 +167,7 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.GetM
             subject = true;
 
 
-        if (RequestType.equalsIgnoreCase("-1")) {
+        if (CategoryId.equalsIgnoreCase("-1")) {
             LayoutDepartmentsBack.setBackground(getResources().getDrawable(R.drawable.dw_edit_back_empty));
             type = false;
         } else
@@ -180,10 +181,10 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.GetM
 
 
 
-    private void SetItemRegion() {//________________________________________________________________ SetItemRegion
+    private void SetItemCategory() {//______________________________________________________________ SetItemCategory
 
         TextViewDepartments.setText(getResources().getString(R.string.ChooseRequestType));
-        RequestType = "-1";
+        CategoryId = "-1";
         //spinnerDialog = new SpinnerDialog(getActivity(),items,"Select or Search City","Close Button Text");// With No Animation
         spinnerRequestType = new MLSpinnerDialog(
                 getActivity(),
@@ -195,14 +196,15 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.GetM
         spinnerRequestType.setShowKeyboard(false);// for open keyboard by default
         spinnerRequestType.bindOnSpinerListener((item, position) -> {
             TextViewDepartments.setText(item);
-            RequestType = vm_support.getMd_spinnerItems().get(position).getId();
+            CategoryId = vm_support.getMd_spinnerItems().get(position).getId();
+            DepartmentId = vm_support.getMd_spinnerItems().get(position).getData();
             LayoutDepartmentsBack.setBackground(getResources().getDrawable(R.drawable.dw_edit_back));
         });
 
         if (ClickType)
             spinnerRequestType.showSpinerDialog();
 
-    }//_____________________________________________________________________________________________ SetItemRegion
+    }//_____________________________________________________________________________________________ SetItemCategory
 
 
 

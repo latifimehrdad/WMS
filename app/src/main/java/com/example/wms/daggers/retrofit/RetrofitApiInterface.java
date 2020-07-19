@@ -276,8 +276,8 @@ public interface RetrofitApiInterface {
                     @Header("Authorization") String Authorization
             );
 
-    @GET(Version + "/Ticketing/GetAllDepartments")
-    Call<MD_RequestSpinnerItems> getAllDepartments
+    @GET(Version + "/Ticketing/GetAllCategories")
+    Call<MD_RequestSpinnerItems> getAllCategories
             (
                     @Header("Authorization") String Authorization
 
@@ -291,6 +291,7 @@ public interface RetrofitApiInterface {
                     @Field("DepartmentId") String DepartmentId,
                     @Field("Subject") String Subject,
                     @Field("Description") String Description,
+                    @Field("CategoryId") String CategoryId,
                     @Header("Authorization") String Authorization
             );
 

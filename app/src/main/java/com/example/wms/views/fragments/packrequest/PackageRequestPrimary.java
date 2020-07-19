@@ -259,7 +259,7 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
 
     private Boolean CheckEmpty() {//________________________________________________________________ CheckEmpty
 
-        if (FPRPSpinnerDay.getSelectedIndex() == 0) {
+        if (TimePosition == -1) {
             FPRPSpinnerDay.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
             FPRPSpinnerDay.requestFocus();
             return false;

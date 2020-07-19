@@ -307,7 +307,17 @@
         android:id="@+id/callWithUs"
         android:name="com.example.wms.views.fragments.callwithus.CallWithUs"
         android:label="CallWithUs"
-        tools:layout="@layout/fragment_call_with_us"/>
+        tools:layout="@layout/fragment_call_with_us">
+
+        <action
+            android:id="@+id/action_callWithUs_to_callSupport"
+            app:destination="@id/callSupport"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+    </fragment>
 
     <fragment
         android:id="@+id/collectRequestOrder"
@@ -332,5 +342,19 @@
         android:name="com.example.wms.views.fragments.home.AppUpdate"
         android:label="AppUpdate"
         tools:layout="@layout/fragment_update"/>
+
+    <fragment
+        android:id="@+id/callSupport"
+        android:name="com.example.wms.views.fragments.callwithus.CallSupport"
+        android:label="CallSupport"
+        tools:layout="@layout/fragment_support"/>
+
+    <action
+        android:id="@+id/action_goto_support"
+        app:destination="@id/callSupport"
+        app:popEnterAnim="@anim/slide_in_right"
+        app:popExitAnim="@anim/slide_out_left"
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/slide_out_right"/>
 
 </navigation>

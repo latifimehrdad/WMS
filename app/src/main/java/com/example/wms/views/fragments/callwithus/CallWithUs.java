@@ -63,6 +63,7 @@ public class CallWithUs extends FragmentPrimary {
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getChildFragmentManager(), FragmentPagerItems.with(getContext())
                 .add(R.string.CallWithUs, Calls.class)
+//                .add(R.string.SupportApp, UserMessage.class)
                 .add(R.string.SupportApp, CallSupport.class)
                 .create());
 

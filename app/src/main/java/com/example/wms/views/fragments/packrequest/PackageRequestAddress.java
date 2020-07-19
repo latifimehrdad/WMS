@@ -108,9 +108,6 @@ public class PackageRequestAddress extends FragmentPrimary implements
     @BindView(R.id.MarkerGif)
     GifView MarkerGif;
 
-    @BindView(R.id.markerInfo)
-    LinearLayout markerInfo;
-
     @BindView(R.id.RelativeLayoutSave)
     RelativeLayout RelativeLayoutSave;
 
@@ -125,6 +122,9 @@ public class PackageRequestAddress extends FragmentPrimary implements
 
     @BindView(R.id.TextViewWaitMap)
     TextView TextViewWaitMap;
+
+    @BindView(R.id.markerInfo)
+    LinearLayout markerInfo;
 
     @Nullable
     @Override

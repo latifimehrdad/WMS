@@ -65,8 +65,7 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
                 vm_splash);
         if (getView() != null)
             navController = Navigation.findNavController(getView());
-        navController.navigate(R.id.action_splash_to_appUpdate);
-        //CheckToken();
+        CheckToken();
     }//_____________________________________________________________________________________________ onStart
 
 

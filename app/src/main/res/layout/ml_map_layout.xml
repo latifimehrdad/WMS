@@ -179,6 +179,7 @@
         android:textColor="@color/mlBlack"
         android:text=""
         fontPath="font/iransans_web_medium.ttf"
+        android:visibility="gone"
         />
 
 </RelativeLayout>

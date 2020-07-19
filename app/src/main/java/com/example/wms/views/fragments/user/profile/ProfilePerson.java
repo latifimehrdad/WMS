@@ -504,11 +504,11 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
         TextUser.setText(getResources().getString(R.string.ChooseUser));
         MLSpinnerDialog spinnerUser;
         UserType = new ArrayList<>();
-        UserType.add(new MD_SpinnerItem("0", "خانوار"));
-        UserType.add(new MD_SpinnerItem("1", "مدیر ساختمان"));
-        UserType.add(new MD_SpinnerItem("2", "سرایدار"));
-        UserType.add(new MD_SpinnerItem("3", "، دانش آموز"));
-        UserType.add(new MD_SpinnerItem("4", "سایر"));
+        UserType.add(new MD_SpinnerItem("0", "خانوار", "0"));
+        UserType.add(new MD_SpinnerItem("1", "مدیر ساختمان", "0"));
+        UserType.add(new MD_SpinnerItem("2", "سرایدار", "0"));
+        UserType.add(new MD_SpinnerItem("3", "، دانش آموز", "0"));
+        UserType.add(new MD_SpinnerItem("4", "سایر", "0"));
         //spinnerDialog = new SpinnerDialog(getActivity(),items,"Select or Search City","Close Button Text");// With No Animation
         spinnerUser = new MLSpinnerDialog(
                 getActivity(),

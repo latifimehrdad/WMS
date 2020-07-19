@@ -11,7 +11,6 @@ import com.example.wms.viewmodels.VM_Primary;
 import com.example.wms.views.application.ApplicationWMS;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,7 +37,7 @@ public class VM_Support extends VM_Primary {
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getAllDepartments(
+                .getAllCategories(
                         Authorization));
 
         getPrimaryCall().enqueue(new Callback<MD_RequestSpinnerItems>() {
@@ -66,7 +65,8 @@ public class VM_Support extends VM_Primary {
     public void SubmitTicket(
             String DepartmentId,
             String Subject,
-            String Description) {//_________________________________________________________________ SubmitTicket
+            String Description,
+            String CategoryId) {//__________________________________________________________________ SubmitTicket
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
@@ -81,6 +81,7 @@ public class VM_Support extends VM_Primary {
                         DepartmentId,
                         Subject,
                         Description,
+                        CategoryId,
                         Authorization));
 
         getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {

@@ -78,7 +78,7 @@
     <string name="CallBooth">تماس با غرفه</string>
     <string name="BoothAuthor">مسئول غرفه</string>
     <string name="ShowOnMap">نمایش مکان</string>
-    
+
     <string name="ChooseDateDelivery">انتخاب تاریخ تحویل</string>
     <string name="EmptyList">لیست خالی است</string>
     <string name="ChooseForDelivery">انتخاب برای تحویل</string>
@@ -190,6 +190,7 @@
     <string name="DownloadingFile">بارگیری فایل ...</string>
     <string name="FileDownloaded">پایان بارگیری فایل</string>
     <string name="InstallApp">نصب بروزرسانی برنامه</string>
+    <string name="NewContactUs">ارسال درخواست جدید</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 

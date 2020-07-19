@@ -44,6 +44,7 @@ import com.example.wms.R;
 import com.example.wms.databinding.ActivityMainBinding;
 import com.example.wms.utility.StaticFunctions;
 import com.example.wms.viewmodels.main.MainActivityViewModel;
+import com.example.wms.views.fragments.packrequest.PackageRequest;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
@@ -129,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
         int permissionLocation = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
         int permissionRead = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        int permissionInstall = ContextCompat.checkSelfPermission(this, Manifest.permission.REQUEST_INSTALL_PACKAGES);
 //        int permissionPhone = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
         int permissionWrite = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
 //        int permissionContact = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS);
@@ -141,6 +143,9 @@ public class MainActivity extends AppCompatActivity {
 
         if (permissionRead != PackageManager.PERMISSION_GRANTED)
             listPermissionsNeeded.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+
+        if (permissionInstall != PackageManager.PERMISSION_GRANTED)
+            listPermissionsNeeded.add(Manifest.permission.REQUEST_INSTALL_PACKAGES);
 
 //
 //        if (permissionPhone != PackageManager.PERMISSION_GRANTED)
