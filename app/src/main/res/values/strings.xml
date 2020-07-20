@@ -32,7 +32,7 @@
     <string name="Password">رمز ورود</string>
     <string name="ReTryPassword">تکرار رمز ورود</string>
     <string name="ReagentCode">کد معرف</string>
-    <string name="AccountNumber">شماره حساب</string>
+    <string name="AccountNumber">شماره شبا</string>
     <string name="Save">ثبت</string>
     <string name="RegisterCode">با ثبت کد نوسازی مربوط به بنای خود می توانید از 10٪ تخفیف عوارض شهرداری بهره مند گردید</string>
     <string name="RegisterKM">برای استفاده از تخفیف، میبایست بار تحویلی در هر سال بیشتر از 20 کیلوگرم باشد</string>
@@ -169,7 +169,7 @@
     <string name="EmptyLastName">لطفا نام خانوادگی را وارد کنید</string>
     <string name="GetUserAccountNumber">دریافت اطلاعات حساب</string>
     <string name="GetBanks">دریافت لیست بانکها</string>
-    <string name="EmptyAccountNumber">لطفا شماره حساب را وارد کنید</string>
+    <string name="EmptyAccountNumber">لطفا شماره شبا را وارد کنید</string>
     <string name="ExitAccount">خروج از حساب</string>
     <string name="WazeNavigation">"مسیریابی"</string>
     <string name="NotFoundLocation">موقعیت شما یافت نشد</string>
@@ -191,6 +191,7 @@
     <string name="FileDownloaded">پایان بارگیری فایل</string>
     <string name="InstallApp">نصب بروزرسانی برنامه</string>
     <string name="NewContactUs">ارسال درخواست جدید</string>
+    <string name="ShebaNumber">مثال : IR012345678901234567890123 (تعداد 26 کاراکتر)</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 

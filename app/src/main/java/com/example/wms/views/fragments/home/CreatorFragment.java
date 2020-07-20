@@ -26,6 +26,7 @@ import com.example.wms.views.fragments.FragmentPrimary;
 import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 /**
@@ -33,8 +34,8 @@ import butterknife.BindView;
  */
 public class CreatorFragment extends FragmentPrimary {
 
-    @BindView(R.id.NgraSite)
-    TextView NgraSite;
+    @BindView(R.id.TextViewNgraSite)
+    TextView TextViewNgraSite;
 
     @BindView(R.id.imgNgraLogo)
     ImageView imgNgraLogo;
@@ -42,8 +43,8 @@ public class CreatorFragment extends FragmentPrimary {
     @BindView(R.id.tv_justified_paragraph)
     JustifiedTextView tv_justified_paragraph;
 
-    @BindView(R.id.NgraTel)
-    TextView NgraTel;
+    @BindView(R.id.TextViewNgraTel)
+    TextView TextViewNgraTel;
 
     public CreatorFragment() {//____________________________________________________________________ Start CreatorFragment
         // Required empty public constructor
@@ -55,12 +56,12 @@ public class CreatorFragment extends FragmentPrimary {
             @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
-        if (getView() != null) {
+        if (getView() == null) {
             VM_CreatorFragment vm_creatorFragment = new VM_CreatorFragment(getActivity());
             FragmentCreatorBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_creator, container, false);
             binding.setCreator(vm_creatorFragment);
-            setView(getView());
+            setView(binding.getRoot());
         }
         return getView();
     }//_____________________________________________________________________________________________ End onCreateView
@@ -71,7 +72,7 @@ public class CreatorFragment extends FragmentPrimary {
         super.onStart();
         SetClicks();
         imgNgraLogo.setVisibility(View.INVISIBLE);
-        NgraSite.setVisibility(View.INVISIBLE);
+        TextViewNgraSite.setVisibility(View.INVISIBLE);
         tv_justified_paragraph.setVisibility(View.INVISIBLE);
         Handler handler = new Handler();
         handler.postDelayed(this::SetAnimation, 500);
@@ -86,8 +87,8 @@ public class CreatorFragment extends FragmentPrimary {
         imgNgraLogo.setVisibility(View.VISIBLE);
 
         Animation slide_in_left2 = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_left);
-        NgraSite.setAnimation(slide_in_left2);
-        NgraSite.setVisibility(View.VISIBLE);
+        TextViewNgraSite.setAnimation(slide_in_left2);
+        TextViewNgraSite.setVisibility(View.VISIBLE);
 
         Animation slide_in_right = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_right);
         tv_justified_paragraph.setAnimation(slide_in_right);
@@ -96,7 +97,7 @@ public class CreatorFragment extends FragmentPrimary {
 
 
     private void SetClicks() {//____________________________________________________________________ Start SetClicks
-        NgraSite.setOnClickListener(v -> {
+        TextViewNgraSite.setOnClickListener(v -> {
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_VIEW);
             intent.addCategory(Intent.CATEGORY_BROWSABLE);
@@ -104,7 +105,7 @@ public class CreatorFragment extends FragmentPrimary {
             startActivity(intent);
         });
 
-        NgraTel.setOnClickListener(v -> {
+        TextViewNgraTel.setOnClickListener(v -> {
             Intent callIntent = new Intent(Intent.ACTION_DIAL);
             callIntent.setData(Uri.parse("tel:" + "02691009001"));
             if (getContext() != null)

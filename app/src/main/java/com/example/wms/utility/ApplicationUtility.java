@@ -349,20 +349,6 @@ public class ApplicationUtility {
     }//_____________________________________________________________________________________________ calcSolarCalendar
 
 
-    public void ShowMessage(
-            Context context,
-            String message,
-            int color,
-            Drawable icon,
-            FragmentManager fm,
-            int tintColor) {//______________________________________________________________________ ShowMessage
-
-        DialogMessage dialogMessage = new DialogMessage(context, message, color, icon,tintColor);
-        dialogMessage.setCancelable(false);
-        dialogMessage.show(fm, NotificationCompat.CATEGORY_PROGRESS);
-
-    }//_____________________________________________________________________________________________ ShowMessage
-
 
     public DialogProgress ShowProgress(Context c, String title) {//_________________________________ Start ShowMessage
 

@@ -12,6 +12,7 @@ public class StaticValues {
     //***** Package Request *****
 
 
+
     //***** Bad Events For Request *****
     public static Byte ML_ResponseError = -125;//درخواست ارسالی ایراد داشته
     public static Byte ML_ResponseFailure = -126;// درخواست انجام نشده به هر دلیلی مثل در دسترس نبودن شبکه
@@ -70,6 +71,7 @@ public class StaticValues {
     public static Byte ML_FileDownloaded = 27;
     public static Byte ML_FileDownloading = 28;
     public static Byte ML_GoToUpdate = 29;// نسخه جدید برنامه
+    public static Byte ML_DialogClose = 30;
     //***** Observable Control *****
 
 

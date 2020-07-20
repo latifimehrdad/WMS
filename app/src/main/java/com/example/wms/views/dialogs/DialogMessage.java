@@ -22,9 +22,11 @@ import androidx.fragment.app.DialogFragment;
 import com.example.wms.R;
 import com.example.wms.databinding.DialogMessageBinding;
 import com.example.wms.databinding.DialogProgressBinding;
+import com.example.wms.utility.StaticValues;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.subjects.PublishSubject;
 
 public class DialogMessage extends DialogFragment {
 
@@ -33,6 +35,7 @@ public class DialogMessage extends DialogFragment {
     private int color;
     private Drawable icon;
     private int tintColor;
+    private PublishSubject<Byte> subject;
 
     @BindView(R.id.DialogIgnor)
     Button DialogIgnor;
@@ -52,12 +55,14 @@ public class DialogMessage extends DialogFragment {
             String title,
             int color,
             Drawable icon,
-            int tintColor) {//______________________________________________________________________ Start DialogMessage
+            int tintColor,
+            PublishSubject<Byte> subject) {//______________________________________________________________________ Start DialogMessage
         this.context = context;
         Title = title;
         this.color = color;
         this.icon = icon;
         this.tintColor = tintColor;
+        this.subject = subject;
 
     }//_____________________________________________________________________________________________ End DialogMessage
 
@@ -79,7 +84,9 @@ public class DialogMessage extends DialogFragment {
         DialogImg.setColorFilter(tintColor);
         DialogIgnor.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                subject.onNext(StaticValues.ML_DialogClose);
                 DialogMessage.this.dismiss();
+                subject = null;
             }
         });
         Dialog dialog = new AlertDialog.Builder(context).setView(view).create();

@@ -112,6 +112,9 @@
         tools:layout="@layout/fragment_home"
         >
 
+        <argument android:name="@string/ML_CompleteProfile"
+            android:defaultValue="false" />
+
         <action
             android:id="@+id/action_home_to_profile"
             app:destination="@id/profile"

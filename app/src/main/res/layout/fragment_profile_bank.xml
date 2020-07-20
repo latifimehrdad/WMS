@@ -18,10 +18,11 @@
             android:background="@color/mlWhite"
             android:gravity="center"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/_40sdp"
+            android:paddingLeft="@dimen/_30sdp"
             android:paddingTop="@dimen/_10sdp"
-            android:paddingRight="@dimen/_40sdp"
+            android:paddingRight="@dimen/_30sdp"
             android:paddingBottom="@dimen/_10sdp">
+
 
 
             <LinearLayout
@@ -36,7 +37,6 @@
                     android:layout_height="@dimen/_30sdp"
                     android:background="@drawable/dw_edit_back"
                     android:hint="@string/AccountNumber"
-                    android:inputType="number"
                     android:padding="@dimen/_2sdp"
                     android:textColor="@color/mlBlack"
                     android:textSize="@dimen/_12sdp" />
@@ -51,6 +51,15 @@
                     />
 
             </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:text="@string/ShebaNumber"
+                android:textColor="@color/mlMenu"
+                android:textSize="@dimen/_8sdp"
+                android:gravity="left"/>
 
 
             <LinearLayout

@@ -202,13 +202,26 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
         boolean accountnumbert;
         boolean bank;
 
-        if (editAccountNumber.getText().length() < 1) {
+        if (editAccountNumber.getText().length() != 26) {
             editAccountNumber.setBackgroundResource(R.drawable.dw_edit_back_empty);
             editAccountNumber.setError(getResources().getString(R.string.EmptyAccountNumber));
             editAccountNumber.requestFocus();
             accountnumbert = false;
         } else
             accountnumbert = true;
+
+
+        String IR = editAccountNumber.getText().toString();
+        IR = IR.substring(0,2);
+
+        if (!IR.equalsIgnoreCase("IR") || !IR.equalsIgnoreCase("ir")) {
+            editAccountNumber.setBackgroundResource(R.drawable.dw_edit_back_empty);
+            editAccountNumber.setError(getResources().getString(R.string.EmptyAccountNumber));
+            editAccountNumber.requestFocus();
+            accountnumbert = false;
+        } else
+            accountnumbert = true;
+
 
         if (BankId.equalsIgnoreCase("-1")) {
             LayoutBank.setBackground(getResources().getDrawable(R.drawable.dw_edit_back_empty));

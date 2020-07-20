@@ -11,6 +11,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
@@ -56,6 +57,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
     private int GenderCode = -1;
     private ArrayList<MD_SpinnerItem> UserType;
     private String UserTypeId = "-1";
+    private boolean completeProfile;
 
 
     @BindView(R.id.LayoutCity)
@@ -129,6 +131,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
             binding.setVmPerson(vm_profilePerson);
             setView(binding.getRoot());
             init();
+            completeProfile = MainActivity.complateprofile;
         }
         return getView();
     }//_____________________________________________________________________________________________ onCreateView
@@ -141,6 +144,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
                 ProfilePerson.this,
                 vm_profilePerson.getPublishSubject(),
                 vm_profilePerson);
+        Bundle bundle = getArguments();
     }//_____________________________________________________________________________________________ onStart
 
 
@@ -223,20 +227,20 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
 
         RelativeLayoutSend.setOnClickListener(v -> {
 
-                if (CheckEmpty()) {
-                    hideKeyboard();
-                    ShowLoading();
-                    vm_profilePerson.setFirstName(editFirsName.getText().toString());
-                    vm_profilePerson.setLastName(edtiLastName.getText().toString());
-                    vm_profilePerson.setGender(GenderCode);
-                    vm_profilePerson.setCitizenType(Integer.valueOf(UserTypeId));
-                    vm_profilePerson.setCityId(CityId);
-                    vm_profilePerson.setRegionId(RegionId);
-                    vm_profilePerson.setReferenceCode(
-                            editReferenceCode.getText().toString()
-                    );
-                    vm_profilePerson.EditProfile();
-                }
+            if (CheckEmpty()) {
+                hideKeyboard();
+                ShowLoading();
+                vm_profilePerson.setFirstName(editFirsName.getText().toString());
+                vm_profilePerson.setLastName(edtiLastName.getText().toString());
+                vm_profilePerson.setGender(GenderCode);
+                vm_profilePerson.setCitizenType(Integer.valueOf(UserTypeId));
+                vm_profilePerson.setCityId(CityId);
+                vm_profilePerson.setRegionId(RegionId);
+                vm_profilePerson.setReferenceCode(
+                        editReferenceCode.getText().toString()
+                );
+                vm_profilePerson.EditProfile();
+            }
         });
 
     }//_____________________________________________________________________________________________ SetClick
@@ -277,7 +281,14 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
         if (action.equals(StaticValues.ML_GetProvince)) {
             ProvincesList = vm_profilePerson.getProvinces();
             SetItemProvinces();
+            return;
         }
+
+        if (action.equals(StaticValues.ML_DialogClose))
+            if (!completeProfile) {
+                MainActivity.complateprofile = true;
+                getContext().onBackPressed();
+            }
 
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
@@ -432,7 +443,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
 
     private Boolean CheckEmpty() {//________________________________________________________________ CheckEmpty
 
-        boolean firstname ;
+        boolean firstname;
         boolean lastname;
         boolean gender;
         boolean privence;
@@ -545,7 +556,6 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
     }//_____________________________________________________________________________________________ End ShowLoading
 
 
-
     private void GetCitys() {//_____________________________________________________________________ GetCitys
         ShowProgressDialog();
         vm_profilePerson.setProvinceId(ProvinceId);
@@ -574,14 +584,14 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
 
     private void ShowProgressDialog() {//___________________________________________________________ ShowProgressDialog
 
-       if (getContext() != null) {
-           progress = ApplicationWMS
-                   .getApplicationWMS(getContext())
-                   .getUtilityComponent()
-                   .getApplicationUtility()
-                   .ShowProgress(getContext(), null);
-           progress.show(getChildFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
-       }
+        if (getContext() != null) {
+            progress = ApplicationWMS
+                    .getApplicationWMS(getContext())
+                    .getUtilityComponent()
+                    .getApplicationUtility()
+                    .ShowProgress(getContext(), null);
+            progress.show(getChildFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
+        }
     }//_____________________________________________________________________________________________ ShowProgressDialog
 
 

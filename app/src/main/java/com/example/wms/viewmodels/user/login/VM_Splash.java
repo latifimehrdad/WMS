@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Environment;
 
 import com.example.wms.R;
 import com.example.wms.daggers.retrofit.RetrofitApis;
@@ -16,6 +17,8 @@ import com.example.wms.utility.StaticFunctions;
 import com.example.wms.utility.StaticValues;
 import com.example.wms.viewmodels.VM_Primary;
 import com.example.wms.views.application.ApplicationWMS;
+
+import java.io.File;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -175,6 +178,7 @@ public class VM_Splash extends VM_Primary {
 
         String v = md_hi.getVersion();
         v = v.replaceAll("v", "");
+
 
 
         if (Version < Integer.parseInt(v))

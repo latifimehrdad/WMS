@@ -130,6 +130,9 @@ public class FragmentPrimary extends Fragment {
             getContext().runOnUiThread(() -> {
                 getMessageFromObservable.getMessageFromObservable(action);
 
+                if (action.equals(StaticValues.ML_DialogClose))
+                    return;
+
                 if (vm_primary.getResponseMessage() == null)
                     return;
 
@@ -157,7 +160,7 @@ public class FragmentPrimary extends Fragment {
     public void ShowMessage(String message, int color, Drawable icon, int tintColor) {//____________ ShowMessage
 
         if (getFragmentManager() != null) {
-            DialogMessage dialogMessage = new DialogMessage(getContext(), message, color, icon, tintColor);
+            DialogMessage dialogMessage = new DialogMessage(getContext(), message, color, icon, tintColor, vm_primary.getPublishSubject());
             dialogMessage.setCancelable(false);
             dialogMessage.show(getFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
         }
