@@ -178,10 +178,10 @@ public class VM_Splash extends VM_Primary {
 
 
 
-//        if (Version < Integer.parseInt(v))
+        if (Version < Integer.parseInt(v))
             SendMessageToObservable(StaticValues.ML_GoToUpdate);
-//        else
-//            SendMessageToObservable(StaticValues.ML_GoToHome);
+        else
+            SendMessageToObservable(StaticValues.ML_GoToHome);
 
     }//_____________________________________________________________________________________________ CheckUpdate
 
