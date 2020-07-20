@@ -6,7 +6,7 @@
 
         <variable
             name="VM_RecyclingPrimary"
-            type="com.example.wms.viewmodels.collectrequest.recyclingcar.VM_RecyclingCarPrimary" />
+            type="com.ngra.wms.viewmodels.collectrequest.recyclingcar.VM_RecyclingCarPrimary" />
     </data>
 
     <LinearLayout

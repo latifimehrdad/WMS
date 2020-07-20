@@ -4,7 +4,7 @@
 
         <variable
             name="VM_CollectPrimary"
-            type="com.example.wms.viewmodels.collectrequest.collectrequest.VM_CollectRequestPrimary" />
+            type="com.ngra.wms.viewmodels.collectrequest.collectrequest.VM_CollectRequestPrimary" />
     </data>
 
     <LinearLayout

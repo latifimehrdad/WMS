@@ -6,7 +6,7 @@
 
         <variable
             name="vm_requestprimary"
-            type="com.example.wms.viewmodels.packrequest.VM_PackageRequestPrimary" />
+            type="com.ngra.wms.viewmodels.packrequest.VM_PackageRequestPrimary" />
 
     </data>
 

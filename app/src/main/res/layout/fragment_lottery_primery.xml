@@ -4,7 +4,7 @@
 
         <variable
             name="VM_LotteryPrimary"
-            type="com.example.wms.viewmodels.lottery.VM_LotteryPrimary" />
+            type="com.ngra.wms.viewmodels.lottery.VM_LotteryPrimary" />
     </data>
 
     <LinearLayout

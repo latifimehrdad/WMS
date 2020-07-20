@@ -6,7 +6,7 @@
 
         <variable
             name="vm_package"
-            type="com.example.wms.viewmodels.packrequest.VM_PackageRequest" />
+            type="com.ngra.wms.viewmodels.packrequest.VM_PackageRequest" />
 
     </data>
 

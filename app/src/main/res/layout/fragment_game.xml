@@ -5,7 +5,7 @@
     <data>
         <variable
             name="game"
-            type="com.example.wms.viewmodels.game.VM_GamePrimary" />
+            type="com.ngra.wms.viewmodels.game.VM_GamePrimary" />
     </data>
 
     <RelativeLayout

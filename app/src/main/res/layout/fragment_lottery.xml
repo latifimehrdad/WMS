@@ -5,7 +5,7 @@
 
         <variable
             name="VM_Lottery"
-            type="com.example.wms.viewmodels.lottery.VM_Lottery" />
+            type="com.ngra.wms.viewmodels.lottery.VM_Lottery" />
 
     </data>
 

@@ -6,7 +6,7 @@
 
         <variable
             name="VM_RecyclingCar"
-            type="com.example.wms.viewmodels.collectrequest.recyclingcar.VM_RecyclingCar" />
+            type="com.ngra.wms.viewmodels.collectrequest.recyclingcar.VM_RecyclingCar" />
 
     </data>
 

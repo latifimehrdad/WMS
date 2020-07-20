@@ -3,7 +3,7 @@
     <data>
         <variable
             name="VM_Wallet"
-            type="com.example.wms.viewmodels.wallet.VM_Wallet" />
+            type="com.ngra.wms.viewmodels.wallet.VM_Wallet" />
     </data>
 
     <LinearLayout

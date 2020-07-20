@@ -6,7 +6,7 @@
 
         <variable
             name="verify"
-            type="com.example.wms.viewmodels.user.register.VM_VerifyCode" />
+            type="com.ngra.wms.viewmodels.user.register.VM_VerifyCode" />
     </data>
 
     <FrameLayout

@@ -5,7 +5,7 @@
 
         <variable
             name="vm_LearmItem"
-            type="com.example.wms.viewmodels.learn.VM_LearnItem" />
+            type="com.ngra.wms.viewmodels.learn.VM_LearnItem" />
 
     </data>
 

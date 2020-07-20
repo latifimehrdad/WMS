@@ -3,7 +3,7 @@
     <data>
         <variable
             name="creator"
-            type="com.example.wms.viewmodels.main.VM_CreatorFragment" />
+            type="com.ngra.wms.viewmodels.main.VM_CreatorFragment" />
     </data>
 
     <LinearLayout

@@ -3,7 +3,7 @@
     <data>
         <variable
             name="userMessage"
-            type="com.example.wms.viewmodels.callwithus.VM_UserMessage" />
+            type="com.ngra.wms.viewmodels.callwithus.VM_UserMessage" />
     </data>
 
     <LinearLayout

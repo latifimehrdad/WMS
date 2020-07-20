@@ -5,7 +5,7 @@
     <data>
         <variable
             name="learn"
-            type="com.example.wms.models.MD_ItemLearn" />
+            type="com.ngra.wms.models.MD_ItemLearn" />
     </data>
 
     <LinearLayout

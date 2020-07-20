@@ -7,7 +7,7 @@
 
         <variable
             name="vm_home"
-            type="com.example.wms.viewmodels.main.VM_Home" />
+            type="com.ngra.wms.viewmodels.main.VM_Home" />
     </data>
 
     <FrameLayout
@@ -241,7 +241,7 @@
                         android:textSize="@dimen/_11sdp" />
 
 
-                    <com.example.wms.views.custom.textview.VerticalTextView
+                    <com.ngra.wms.views.custom.textview.VerticalTextView
                         android:id="@+id/footerleft"
                         android:layout_width="@dimen/_10sdp"
                         android:layout_height="@dimen/_10sdp"
@@ -253,7 +253,7 @@
                         android:textSize="@dimen/_11sdp"
                         app:direction="downtoup" />
 
-                    <com.example.wms.views.custom.textview.VerticalTextView
+                    <com.ngra.wms.views.custom.textview.VerticalTextView
                         android:id="@+id/footerright"
                         android:layout_width="@dimen/_10sdp"
                         android:layout_height="@dimen/_10sdp"

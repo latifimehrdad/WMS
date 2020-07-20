@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.example.wms",
+  "applicationId": "com.ngra.wms",
   "variantName": "release",
   "elements": [
     {

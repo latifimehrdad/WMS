@@ -5,7 +5,7 @@
 
         <variable
             name="vm_Learn"
-            type="com.example.wms.viewmodels.learn.VM_Learn" />
+            type="com.ngra.wms.viewmodels.learn.VM_Learn" />
     </data>
 
     <RelativeLayout

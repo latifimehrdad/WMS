@@ -6,7 +6,7 @@
 
         <variable
             name="signup"
-            type="com.example.wms.viewmodels.user.register.VM_SignUp" />
+            type="com.ngra.wms.viewmodels.user.register.VM_SignUp" />
 
     </data>
 

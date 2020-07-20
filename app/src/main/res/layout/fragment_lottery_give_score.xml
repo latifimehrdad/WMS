@@ -4,7 +4,7 @@
 
         <variable
             name="VM_LotteryGiveScore"
-            type="com.example.wms.viewmodels.lottery.VM_LotteryGiveScore" />
+            type="com.ngra.wms.viewmodels.lottery.VM_LotteryGiveScore" />
     </data>
 
     <LinearLayout

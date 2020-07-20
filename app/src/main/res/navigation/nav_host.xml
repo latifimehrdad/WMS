@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/splash"
-        android:name="com.example.wms.views.fragments.user.login.Splash"
+        android:name="com.ngra.wms.views.fragments.user.login.Splash"
         android:label="Splash"
         tools:layout="@layout/fragment_splash"
         >
@@ -46,7 +46,7 @@
 
     <fragment
         android:id="@+id/login"
-        android:name="com.example.wms.views.fragments.user.login.Login"
+        android:name="com.ngra.wms.views.fragments.user.login.Login"
         android:label="Login"
         tools:layout="@layout/fragment_fragment_login">
 
@@ -79,7 +79,7 @@
 
     <fragment
         android:id="@+id/signUp"
-        android:name="com.example.wms.views.fragments.user.register.SignUp"
+        android:name="com.ngra.wms.views.fragments.user.register.SignUp"
         android:label="SignUp"
         tools:layout="@layout/fragment_send_number">
 
@@ -101,13 +101,13 @@
 
     <fragment
         android:id="@+id/verifyCode"
-        android:name="com.example.wms.views.fragments.user.register.VerifyCode"
+        android:name="com.ngra.wms.views.fragments.user.register.VerifyCode"
         android:label="VerifyCode"
         tools:layout="@layout/fragment_verify_code"/>
 
     <fragment
         android:id="@+id/home"
-        android:name="com.example.wms.views.fragments.home.Home"
+        android:name="com.ngra.wms.views.fragments.home.Home"
         android:label="Home"
         tools:layout="@layout/fragment_home"
         >
@@ -207,13 +207,13 @@
 
     <fragment
         android:id="@+id/profile"
-        android:name="com.example.wms.views.fragments.user.profile.Profile"
+        android:name="com.ngra.wms.views.fragments.user.profile.Profile"
         android:label="Profile"
         tools:layout="@layout/fragment_profile"/>
 
     <fragment
         android:id="@+id/packageRequestAddress"
-        android:name="com.example.wms.views.fragments.packrequest.PackageRequestAddress"
+        android:name="com.ngra.wms.views.fragments.packrequest.PackageRequestAddress"
         android:label="PackageRequestAddress"
         tools:layout="@layout/fragment_pack_request_address"
         >
@@ -230,14 +230,14 @@
 
     <fragment
         android:id="@+id/packageRequestPrimary"
-        android:name="com.example.wms.views.fragments.packrequest.PackageRequestPrimary"
+        android:name="com.ngra.wms.views.fragments.packrequest.PackageRequestPrimary"
         android:label="PackageRequestPrimary"
         tools:layout="@layout/fragment_pack_request_primary"
         />
 
     <fragment
         android:id="@+id/creatorFragment"
-        android:name="com.example.wms.views.fragments.home.CreatorFragment"
+        android:name="com.ngra.wms.views.fragments.home.CreatorFragment"
         android:label="CreatorFragment"
         tools:layout="@layout/fragment_creator"
         />
@@ -254,13 +254,13 @@
 
     <fragment
         android:id="@+id/learn"
-        android:name="com.example.wms.views.fragments.learn.Learn"
+        android:name="com.ngra.wms.views.fragments.learn.Learn"
         android:label="Learn"
         tools:layout="@layout/fragment_learn"/>
 
     <fragment
         android:id="@+id/collectRequest"
-        android:name="com.example.wms.views.fragments.collectrequest.collectrequest.CollectRequest"
+        android:name="com.ngra.wms.views.fragments.collectrequest.collectrequest.CollectRequest"
         android:label="CollectRequest"
         tools:layout="@layout/fragment_learn">
 
@@ -284,31 +284,31 @@
 
     <fragment
         android:id="@+id/boothReceive"
-        android:name="com.example.wms.views.fragments.collectrequest.boothreceive.BoothReceive"
+        android:name="com.ngra.wms.views.fragments.collectrequest.boothreceive.BoothReceive"
         android:label="BoothReceive"
         tools:layout="@layout/fragment_booth_receive"/>
 
     <fragment
         android:id="@+id/recyclingCar"
-        android:name="com.example.wms.views.fragments.collectrequest.recyclingcar.RecyclingCar"
+        android:name="com.ngra.wms.views.fragments.collectrequest.recyclingcar.RecyclingCar"
         android:label="RecyclingCar"
         tools:layout="@layout/fragment_recycling_car"/>
 
     <fragment
         android:id="@+id/lottery"
-        android:name="com.example.wms.views.fragments.lottery.Lottery"
+        android:name="com.ngra.wms.views.fragments.lottery.Lottery"
         android:label="Lottery"
         tools:layout="@layout/fragment_lottery"/>
 
     <fragment
         android:id="@+id/about"
-        android:name="com.example.wms.views.fragments.aboutus.About"
+        android:name="com.ngra.wms.views.fragments.aboutus.About"
         android:label="About"
         tools:layout="@layout/fragment_about_primery"/>
 
     <fragment
         android:id="@+id/callWithUs"
-        android:name="com.example.wms.views.fragments.callwithus.CallWithUs"
+        android:name="com.ngra.wms.views.fragments.callwithus.CallWithUs"
         android:label="CallWithUs"
         tools:layout="@layout/fragment_call_with_us">
 
@@ -324,31 +324,31 @@
 
     <fragment
         android:id="@+id/collectRequestOrder"
-        android:name="com.example.wms.views.fragments.collectrequest.collectrequest.CollectRequestOrder"
+        android:name="com.ngra.wms.views.fragments.collectrequest.collectrequest.CollectRequestOrder"
         android:label="CollectRequestOrder"
         tools:layout="@layout/fragment_collect_request_orders"/>
 
     <fragment
         android:id="@+id/wallet"
-        android:name="com.example.wms.views.fragments.wallet.Wallet"
+        android:name="com.ngra.wms.views.fragments.wallet.Wallet"
         android:label="Wallet"
         tools:layout="@layout/fragment_wallet"/>
 
     <fragment
         android:id="@+id/game"
-        android:name="com.example.wms.views.fragments.game.Game"
+        android:name="com.ngra.wms.views.fragments.game.Game"
         android:label="Game"
         tools:layout="@layout/fragment_game"/>
 
     <fragment
         android:id="@+id/appUpdate"
-        android:name="com.example.wms.views.fragments.home.AppUpdate"
+        android:name="com.ngra.wms.views.fragments.home.AppUpdate"
         android:label="AppUpdate"
         tools:layout="@layout/fragment_update"/>
 
     <fragment
         android:id="@+id/callSupport"
-        android:name="com.example.wms.views.fragments.callwithus.CallSupport"
+        android:name="com.ngra.wms.views.fragments.callwithus.CallSupport"
         android:label="CallSupport"
         tools:layout="@layout/fragment_support"/>
 

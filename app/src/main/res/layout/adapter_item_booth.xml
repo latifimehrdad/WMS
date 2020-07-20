@@ -5,7 +5,7 @@
     <data>
         <variable
             name="booth"
-            type="com.example.wms.models.MD_Booth" />
+            type="com.ngra.wms.models.MD_Booth" />
     </data>
 
     <LinearLayout

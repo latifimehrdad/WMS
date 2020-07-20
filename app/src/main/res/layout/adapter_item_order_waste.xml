@@ -4,7 +4,7 @@
     <data>
         <variable
             name="waste"
-            type="com.example.wms.models.MD_RequestCollect" />
+            type="com.ngra.wms.models.MD_RequestCollect" />
     </data>
 
     <LinearLayout
