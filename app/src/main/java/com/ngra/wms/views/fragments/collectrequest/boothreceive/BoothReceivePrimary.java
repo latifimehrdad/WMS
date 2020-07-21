@@ -21,6 +21,7 @@ import com.ngra.wms.models.ModelTime;
 import com.ngra.wms.utility.ApplicationUtility;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.collectrequest.boothreceive.VM_BoothReceivePrimary;
+import com.ngra.wms.views.activitys.MainActivity;
 import com.ngra.wms.views.adaptors.collectrequest.AP_BoothList;
 import com.ngra.wms.views.application.ApplicationWMS;
 import com.ngra.wms.views.fragments.FragmentPrimary;
@@ -147,6 +148,10 @@ public class BoothReceivePrimary extends FragmentPrimary implements
             }
         }
 
+        if (action.equals(StaticValues.ML_DialogClose)) {
+            getContext().onBackPressed();
+        }
+
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 
 
@@ -185,7 +190,7 @@ public class BoothReceivePrimary extends FragmentPrimary implements
             if (timePosition == -1) {
                 timePosition = position - 1;
                 MaterialSpinnerSpinnerDay.getItems().remove(0);
-                MaterialSpinnerSpinnerDay.setSelectedIndex(MaterialSpinnerSpinnerDay.getItems().size()-1);
+                MaterialSpinnerSpinnerDay.setSelectedIndex(MaterialSpinnerSpinnerDay.getItems().size() - 1);
                 MaterialSpinnerSpinnerDay.setSelectedIndex(position - 1);
             } else
                 timePosition = position;
@@ -247,7 +252,7 @@ public class BoothReceivePrimary extends FragmentPrimary implements
     @Override
     public void itemChoose(Integer position) {//____________________________________________________ itemChoose
 
-        if (MaterialSpinnerSpinnerDay.getSelectedIndex() == 0) {
+        if (timePosition == -1) {
             MaterialSpinnerSpinnerDay.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
             MaterialSpinnerSpinnerDay.requestFocus();
             ap_boothList.notifyDataSetChanged();

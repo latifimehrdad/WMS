@@ -260,12 +260,12 @@ public class MainActivity extends AppCompatActivity {
                     NavGraph graph = navInflater.inflate(R.navigation.nav_host);
                     graph.setStartDestination(R.id.splash);
                     navController.setGraph(graph);
-                    RelativeLayoutLoginHeader.setVisibility(View.VISIBLE);
-                    RelativeLayoutMainFooter.setVisibility(View.GONE);
-                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                    params.addRule(RelativeLayout.BELOW, R.id.RelativeLayoutLoginHeader);
-                    LinearLayoutFragment.setLayoutParams(params);
                 }
+                RelativeLayoutLoginHeader.setVisibility(View.VISIBLE);
+                RelativeLayoutMainFooter.setVisibility(View.GONE);
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                params.addRule(RelativeLayout.BELOW, R.id.RelativeLayoutLoginHeader);
+                LinearLayoutFragment.setLayoutParams(params);
 
             } else {
                 if (preLogin) {
@@ -274,12 +274,12 @@ public class MainActivity extends AppCompatActivity {
                     NavGraph graph = navInflater.inflate(R.navigation.nav_host);
                     graph.setStartDestination(R.id.home);
                     navController.setGraph(graph);
-                    RelativeLayoutLoginHeader.setVisibility(View.GONE);
-                    RelativeLayoutMainFooter.setVisibility(View.VISIBLE);
-                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                    params.addRule(RelativeLayout.BELOW, R.id.MainHeader);
-                    LinearLayoutFragment.setLayoutParams(params);
                 }
+                RelativeLayoutLoginHeader.setVisibility(View.GONE);
+                RelativeLayoutMainFooter.setVisibility(View.VISIBLE);
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                params.addRule(RelativeLayout.BELOW, R.id.MainHeader);
+                LinearLayoutFragment.setLayoutParams(params);
             }
 
         });

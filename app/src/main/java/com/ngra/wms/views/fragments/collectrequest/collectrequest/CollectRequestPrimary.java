@@ -12,6 +12,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.cunoraz.gifview.library.GifView;
 import com.ngra.wms.R;
 import com.ngra.wms.database.DB_ItemsWasteList;
 import com.ngra.wms.databinding.FragmentCollectRequestPrimeryBinding;
@@ -53,6 +54,9 @@ public class CollectRequestPrimary extends FragmentPrimary implements
 
     @BindView(R.id.RecyclerViewWasteList)
     RecyclerView RecyclerViewWasteList;
+
+    @BindView(R.id.gifLoading)
+    GifView gifLoading;
 
 
     public CollectRequestPrimary() {//______________________________________________________________ CollectRequestPrimary
@@ -106,6 +110,7 @@ public class CollectRequestPrimary extends FragmentPrimary implements
     @Override
     public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
+        gifLoading.setVisibility(View.GONE);
         if (action.equals(StaticValues.ML_GetItemsOfWasteIsSuccess)) {
             SetItemsWasteAdapter();
         }
@@ -114,6 +119,9 @@ public class CollectRequestPrimary extends FragmentPrimary implements
 
 
     private void GetItemsOfWast() {//_______________________________________________________________ GetItemsOfWast
+        gifLoading.setVisibility(View.VISIBLE);
+        RecyclerViewItemsWaste.setVisibility(View.GONE);
+        RecyclerViewWasteList.setVisibility(View.GONE);
         vm_collectRequestPrimary.GetItemsOfWast();
     }//_____________________________________________________________________________________________ GetItemsOfWast
 
@@ -144,6 +152,9 @@ public class CollectRequestPrimary extends FragmentPrimary implements
 
 
     private void SetItemsWasteAdapter() {//_________________________________________________________ SetItemsWasteAdapter
+
+        RecyclerViewItemsWaste.setVisibility(View.VISIBLE);
+        RecyclerViewWasteList.setVisibility(View.VISIBLE);
         AP_ItemsWaste ap_itemsWaste = new AP_ItemsWaste(vm_collectRequestPrimary.getMd_itemWastes(), CollectRequestPrimary.this);
         RecyclerViewItemsWaste.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         RecyclerViewItemsWaste.setAdapter(ap_itemsWaste);
