@@ -3,7 +3,7 @@ package com.ngra.wms.viewmodels.collectrequest.collectrequest;
 import android.app.Activity;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MD_ItemWasteRequest;
-import com.ngra.wms.models.MD_RequestWasteRequest;
+import com.ngra.wms.models.MR_WasteRequest;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Primary;
 import com.ngra.wms.views.application.ApplicationWMS;
@@ -40,9 +40,9 @@ public class VM_CollectRequestOrder extends VM_Primary {
                 .getWasteRequests(
                         Authorization));
 
-        getPrimaryCall().enqueue(new Callback<MD_RequestWasteRequest>() {
+        getPrimaryCall().enqueue(new Callback<MR_WasteRequest>() {
             @Override
-            public void onResponse(Call<MD_RequestWasteRequest> call, Response<MD_RequestWasteRequest> response) {
+            public void onResponse(Call<MR_WasteRequest> call, Response<MR_WasteRequest> response) {
                 setResponseMessage(CheckResponse(response, false));
                 if (getResponseMessage() == null) {
                     md_itemWasteRequests = response.body().getResult();
@@ -54,7 +54,7 @@ public class VM_CollectRequestOrder extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MD_RequestWasteRequest> call, Throwable t) {
+            public void onFailure(Call<MR_WasteRequest> call, Throwable t) {
                 OnFailureRequest();
             }
         });

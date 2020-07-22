@@ -81,7 +81,7 @@
         android:id="@+id/signUp"
         android:name="com.ngra.wms.views.fragments.user.register.SignUp"
         android:label="SignUp"
-        tools:layout="@layout/fragment_send_number">
+        tools:layout="@layout/fragment_signup">
 
         <argument android:name="PhoneNumber"
             android:defaultValue="null"/>
@@ -198,6 +198,22 @@
         <action
             android:id="@+id/action_home_to_game"
             app:destination="@id/game"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+        <action
+            android:id="@+id/action_home_to_ticket"
+            app:destination="@id/ticket"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+        <action
+            android:id="@+id/action_home_to_calls"
+            app:destination="@id/calls"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
@@ -359,5 +375,17 @@
         app:popExitAnim="@anim/slide_out_left"
         app:enterAnim="@anim/slide_in_left"
         app:exitAnim="@anim/slide_out_right"/>
+
+    <fragment
+        android:id="@+id/ticket"
+        android:name="com.ngra.wms.views.fragments.callwithus.Ticket"
+        android:label="Ticket"
+        tools:layout="@layout/fragment_ticket"/>
+
+    <fragment
+        android:id="@+id/calls"
+        android:name="com.ngra.wms.views.fragments.callwithus.Calls"
+        android:label="Calls"
+        tools:layout="@layout/fragment_call"/>
 
 </navigation>

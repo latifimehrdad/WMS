@@ -5,13 +5,13 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MD_RequestItemLearn extends ModelResponsePrimary {
+public class MR_ItemLearn extends ModelResponsePrimary {
 
     @SerializedName("result")
     List<MD_ItemLearn> itemLearns;
 
 
-    public MD_RequestItemLearn(ArrayList<ModelMessage> messages) {
+    public MR_ItemLearn(ArrayList<ModelMessage> messages) {
         super(messages);
     }
 

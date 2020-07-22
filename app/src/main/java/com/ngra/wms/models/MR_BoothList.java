@@ -5,12 +5,12 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MD_RequestBoothList extends ModelResponsePrimary {
+public class MR_BoothList extends ModelResponsePrimary {
 
     @SerializedName("result")
     List<MD_Booth> result;
 
-    public MD_RequestBoothList(ArrayList<ModelMessage> messages) {
+    public MR_BoothList(ArrayList<ModelMessage> messages) {
         super(messages);
     }
 

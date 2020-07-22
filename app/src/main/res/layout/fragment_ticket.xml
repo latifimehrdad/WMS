@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="ticket"
+            type="com.ngra.wms.viewmodels.callwithus.VM_Ticket" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:padding="@dimen/_5sdp">
+
+        <com.cunoraz.gifview.library.GifView
+            android:id="@+id/gifLoading"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/choose_current_map"
+            custom:gif="@drawable/loading2" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RecyclerViewTicket"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+        <ImageView
+            android:id="@+id/ImageViewNew"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:background="@drawable/dw_button_game"
+            android:gravity="center"
+            android:padding="@dimen/_8sdp"
+            android:src="@drawable/svg_new_email"
+            android:tint="@color/mlWhite"
+            />
+
+
+    </RelativeLayout>
+
+</layout>

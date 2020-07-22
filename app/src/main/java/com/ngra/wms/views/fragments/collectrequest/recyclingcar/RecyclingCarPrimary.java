@@ -15,7 +15,7 @@ import com.ngra.wms.R;
 import com.ngra.wms.database.DB_ItemsWasteList;
 import com.ngra.wms.databinding.FragmentRecyclingCarPrimeryBinding;
 import com.ngra.wms.models.MD_ItemWaste;
-import com.ngra.wms.models.MD_RequestCollect;
+import com.ngra.wms.models.MR_Collect;
 import com.ngra.wms.models.MD_WasteAmountRequests;
 import com.ngra.wms.models.ModelTime;
 import com.ngra.wms.utility.ApplicationUtility;
@@ -119,10 +119,10 @@ public class RecyclingCarPrimary extends FragmentPrimary implements
 
             Realm realm = Realm.getDefaultInstance();
             RealmResults<DB_ItemsWasteList> wasteLists = realm.where(DB_ItemsWasteList.class).findAll();
-            List<MD_RequestCollect> collects = new ArrayList<>();
+            List<MR_Collect> collects = new ArrayList<>();
             for (DB_ItemsWasteList item : wasteLists) {
                 MD_ItemWaste waste = new MD_ItemWaste(item.getId(),"","");
-                MD_RequestCollect collect = new MD_RequestCollect(waste,item.getAmount());
+                MR_Collect collect = new MR_Collect(waste,item.getAmount());
                 collects.add(collect);
             }
             realm.close();

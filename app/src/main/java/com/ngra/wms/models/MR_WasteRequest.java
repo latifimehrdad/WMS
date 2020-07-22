@@ -5,12 +5,12 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MD_RequestWasteRequest extends ModelResponsePrimary {
+public class MR_WasteRequest extends ModelResponsePrimary {
 
     @SerializedName("result")
     List<MD_ItemWasteRequest> result;
 
-    public MD_RequestWasteRequest(ArrayList<ModelMessage> messages) {
+    public MR_WasteRequest(ArrayList<ModelMessage> messages) {
         super(messages);
     }
 

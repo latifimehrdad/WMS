@@ -4,7 +4,7 @@ import android.app.Activity;
 
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MD_ItemLearn;
-import com.ngra.wms.models.MD_RequestItemLearn;
+import com.ngra.wms.models.MR_ItemLearn;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Primary;
 import com.ngra.wms.views.application.ApplicationWMS;
@@ -38,9 +38,9 @@ public class VM_LearnItem extends VM_Primary {
                 .getSummaryWasteNotice(
                         Authorization));
 
-        getPrimaryCall().enqueue(new Callback<MD_RequestItemLearn>() {
+        getPrimaryCall().enqueue(new Callback<MR_ItemLearn>() {
             @Override
-            public void onResponse(Call<MD_RequestItemLearn> call, Response<MD_RequestItemLearn> response) {
+            public void onResponse(Call<MR_ItemLearn> call, Response<MR_ItemLearn> response) {
                 setResponseMessage(CheckResponse(response, false));
                 if (getResponseMessage() == null) {
                     itemLearns = response.body().getItemLearns();
@@ -52,7 +52,7 @@ public class VM_LearnItem extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MD_RequestItemLearn> call, Throwable t) {
+            public void onFailure(Call<MR_ItemLearn> call, Throwable t) {
                 OnFailureRequest();
             }
         });

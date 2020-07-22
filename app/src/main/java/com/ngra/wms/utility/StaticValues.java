@@ -12,7 +12,6 @@ public class StaticValues {
     //***** Package Request *****
 
 
-
     //***** Bad Events For Request *****
     public static Byte ML_ResponseError = -125;//درخواست ارسالی ایراد داشته
     public static Byte ML_ResponseFailure = -126;// درخواست انجام نشده به هر دلیلی مثل در دسترس نبودن شبکه
@@ -39,6 +38,24 @@ public class StaticValues {
     public static Byte RecyclingDeliveryTypeBooth = 0;
     public static Byte RecyclingDeliveryTypeVehicle = 1;
     //**** Event Recycling Delivery Type *****
+
+
+    //***** User Massage Type In Call With Us *****
+    public static Byte TicketReplyTypeOperator = 1;
+    public static Byte TicketReplyTypeRequester = 2;
+    //***** User Massage Type In Call With Us *****
+
+
+    //***** Ticket Status *****
+    public static Byte TicketStatusNew = 0;
+    public static Byte TicketStatusPending = 1;
+    public static Byte TicketStatusWaiting = 2;
+    public static Byte TicketStatusAnswered = 3;
+    public static Byte TicketStatusReferred = 4;
+    public static Byte TicketStatusSolved = 5;
+    public static Byte TicketStatusClosed = 9;
+    public static Byte TicketStatusArchived = 10;
+    //***** Ticket Status *****
 
 
     //***** Observable Control *****
@@ -72,6 +89,7 @@ public class StaticValues {
     public static Byte ML_FileDownloading = 28;
     public static Byte ML_GoToUpdate = 29;// نسخه جدید برنامه
     public static Byte ML_DialogClose = 30;
+    public static Byte ML_GetAllTicket = 31;
     //***** Observable Control *****
 
 

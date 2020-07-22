@@ -1,11 +1,12 @@
 package com.ngra.wms.daggers.retrofit;
 
-import com.ngra.wms.models.MD_RequestBoothList;
-import com.ngra.wms.models.MD_RequestGiveScore;
-import com.ngra.wms.models.MD_RequestHi;
-import com.ngra.wms.models.MD_RequestItemLearn;
-import com.ngra.wms.models.MD_RequestItemsWast;
-import com.ngra.wms.models.MD_RequestWasteRequest;
+import com.ngra.wms.models.MR_BoothList;
+import com.ngra.wms.models.MR_GiveScore;
+import com.ngra.wms.models.MR_Hi;
+import com.ngra.wms.models.MR_ItemLearn;
+import com.ngra.wms.models.MR_ItemsWast;
+import com.ngra.wms.models.MR_TicketList;
+import com.ngra.wms.models.MR_WasteRequest;
 import com.ngra.wms.models.MD_WasteAmountRequests;
 import com.ngra.wms.models.ModelBuildingRenovationCode;
 import com.ngra.wms.models.ModelGetAddress;
@@ -13,7 +14,7 @@ import com.ngra.wms.models.ModelHousingBuildings;
 import com.ngra.wms.models.ModelProfileInfo;
 import com.ngra.wms.models.ModelResponsePrimary;
 import com.ngra.wms.models.ModelSettingInfo;
-import com.ngra.wms.models.MD_RequestSpinnerItems;
+import com.ngra.wms.models.MR_SpinnerItems;
 import com.ngra.wms.models.ModelTimeSheetTimes;
 import com.ngra.wms.models.ModelToken;
 import com.ngra.wms.models.ModelUserAccounts;
@@ -79,7 +80,7 @@ public interface RetrofitApiInterface {
 
 
     @GET(Version + "/region/provinces")
-    Call<MD_RequestSpinnerItems> getProvinces
+    Call<MR_SpinnerItems> getProvinces
             (
                     @Header("Authorization") String Authorization
 
@@ -87,7 +88,7 @@ public interface RetrofitApiInterface {
 
 
     @GET(Version + "/region/citiesbyprovince")
-    Call<MD_RequestSpinnerItems> getCitys
+    Call<MR_SpinnerItems> getCitys
             (
                     @Query("Id") String Id,
                     @Header("Authorization") String Authorization
@@ -96,7 +97,7 @@ public interface RetrofitApiInterface {
 
 
     @GET(Version + "/region/neighbourhoods")
-    Call<MD_RequestSpinnerItems> getRegions
+    Call<MR_SpinnerItems> getRegions
             (
                     @Query("Id") String Id,
                     @Header("Authorization") String Authorization
@@ -138,7 +139,7 @@ public interface RetrofitApiInterface {
 
 
     @GET(Version + "/bank/banks")
-    Call<MD_RequestSpinnerItems> getBanks
+    Call<MR_SpinnerItems> getBanks
             (
                     @Header("Authorization") String Authorization
 
@@ -226,7 +227,7 @@ public interface RetrofitApiInterface {
 
 
     @GET(Version + "/Waste/WasteList")
-    Call<MD_RequestItemsWast> getWasteList
+    Call<MR_ItemsWast> getWasteList
             (
                     @Header("Authorization") String Authorization
 
@@ -234,7 +235,7 @@ public interface RetrofitApiInterface {
 
 
     @GET(Version + "/contact/getboothlist")
-    Call<MD_RequestBoothList> getBoothList
+    Call<MR_BoothList> getBoothList
             (
                     @Header("Authorization") String Authorization
 
@@ -250,34 +251,34 @@ public interface RetrofitApiInterface {
             );
 
     @GET(Version + "/RequestWasteCollection/WasteRequests")
-    Call<MD_RequestWasteRequest> getWasteRequests
+    Call<MR_WasteRequest> getWasteRequests
             (
                     @Header("Authorization") String Authorization
             );
 
 
     @GET(Version + "/WasteNotice/GetSummaryWasteNotice")
-    Call<MD_RequestItemLearn> getSummaryWasteNotice
+    Call<MR_ItemLearn> getSummaryWasteNotice
             (
                     @Header("Authorization") String Authorization
             );
 
 
     @GET(Version + "/Score/GetScoreList")
-    Call<MD_RequestGiveScore> getScoreList
+    Call<MR_GiveScore> getScoreList
             (
                     @Header("Authorization") String Authorization
             );
 
 
     @GET(Version + "/UserScoreInfo/GetUserScoreInfoList")
-    Call<MD_RequestGiveScore> GetUserScore
+    Call<MR_GiveScore> GetUserScore
             (
                     @Header("Authorization") String Authorization
             );
 
     @GET(Version + "/Ticketing/GetAllCategories")
-    Call<MD_RequestSpinnerItems> getAllCategories
+    Call<MR_SpinnerItems> getAllCategories
             (
                     @Header("Authorization") String Authorization
 
@@ -302,9 +303,17 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/application/hi")
-    Call<MD_RequestHi> getHi
+    Call<MR_Hi> getHi
             (
                     @Field("name") String name,
+                    @Header("Authorization") String Authorization
+            );
+
+
+
+    @GET(Version + "/Ticketing/GetTicketList")
+    Call<MR_TicketList> getTicketList
+            (
                     @Header("Authorization") String Authorization
             );
 

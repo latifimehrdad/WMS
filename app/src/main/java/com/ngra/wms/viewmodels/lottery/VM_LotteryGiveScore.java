@@ -4,7 +4,7 @@ import android.app.Activity;
 
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MD_GiveScoreItem;
-import com.ngra.wms.models.MD_RequestGiveScore;
+import com.ngra.wms.models.MR_GiveScore;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Primary;
 import com.ngra.wms.views.application.ApplicationWMS;
@@ -41,9 +41,9 @@ public class VM_LotteryGiveScore extends VM_Primary {
                 .getRetrofitApiInterface()
                 .GetUserScore(Authorization));
 
-        getPrimaryCall().enqueue(new Callback<MD_RequestGiveScore>() {
+        getPrimaryCall().enqueue(new Callback<MR_GiveScore>() {
             @Override
-            public void onResponse(Call<MD_RequestGiveScore> call, Response<MD_RequestGiveScore> response) {
+            public void onResponse(Call<MR_GiveScore> call, Response<MR_GiveScore> response) {
                 setResponseMessage(CheckResponse(response, false));
                 if (getResponseMessage() == null) {
                     md_userScoreItemList = response.body().getResult();
@@ -55,7 +55,7 @@ public class VM_LotteryGiveScore extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MD_RequestGiveScore> call, Throwable t) {
+            public void onFailure(Call<MR_GiveScore> call, Throwable t) {
                 OnFailureRequest();
             }
         });
@@ -79,9 +79,9 @@ public class VM_LotteryGiveScore extends VM_Primary {
                 .getRetrofitApiInterface()
                 .getScoreList(Authorization));
 
-        getPrimaryCall().enqueue(new Callback<MD_RequestGiveScore>() {
+        getPrimaryCall().enqueue(new Callback<MR_GiveScore>() {
             @Override
-            public void onResponse(Call<MD_RequestGiveScore> call, Response<MD_RequestGiveScore> response) {
+            public void onResponse(Call<MR_GiveScore> call, Response<MR_GiveScore> response) {
                 setResponseMessage(CheckResponse(response, false));
                 if (getResponseMessage() == null) {
                     md_giveScoreItemList = response.body().getResult();
@@ -93,7 +93,7 @@ public class VM_LotteryGiveScore extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MD_RequestGiveScore> call, Throwable t) {
+            public void onFailure(Call<MR_GiveScore> call, Throwable t) {
                 OnFailureRequest();
             }
         });

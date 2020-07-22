@@ -195,6 +195,18 @@
     <string name="InstallApp">نصب بروزرسانی برنامه</string>
     <string name="NewContactUs">ارسال درخواست جدید</string>
     <string name="ShebaNumber">مثال : IR012345678901234567890123 (تعداد 26 کاراکتر)</string>
+    <string name="TicketDetail">مکالمات</string>
+
+
+    <string name="TicketStatusPending">در حال بررسی</string>
+    <string name="TicketStatusNew">جدید</string>
+    <string name="TicketStatusWaiting">در انتظار پاسخ</string>
+    <string name="TicketStatusAnswered">پاسخ داده شده</string>
+    <string name="TicketStatusReferred">ارجاعی</string>
+    <string name="TicketStatusSolved">حل شده</string>
+    <string name="TicketStatusClosed">بسته شده</string>
+    <string name="TicketStatusArchived">بایگانی</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
 

@@ -16,7 +16,7 @@
         <ImageView
             android:id="@+id/imgNgraLogo"
             android:layout_width="@dimen/_130sdp"
-            android:layout_height="@dimen/_70sdp"
+            android:layout_height="98dp"
             android:src="@drawable/ngralogo" />
 
 

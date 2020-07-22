@@ -16,7 +16,7 @@ import androidx.navigation.Navigation;
 
 import com.cunoraz.gifview.library.GifView;
 import com.ngra.wms.R;
-import com.ngra.wms.databinding.FragmentSendNumberBinding;
+import com.ngra.wms.databinding.FragmentSignupBinding;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.user.register.VM_SignUp;
 import com.ngra.wms.views.fragments.FragmentPrimary;
@@ -69,8 +69,8 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
         if (getView() == null) {
-            FragmentSendNumberBinding binding = DataBindingUtil.inflate(
-                    inflater, R.layout.fragment_send_number, container, false);
+            FragmentSignupBinding binding = DataBindingUtil.inflate(
+                    inflater, R.layout.fragment_signup, container, false);
             vm_signUp = new VM_SignUp(getContext());
             binding.setSignup(vm_signUp);
             setView(binding.getRoot());

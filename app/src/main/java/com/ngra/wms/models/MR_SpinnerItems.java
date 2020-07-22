@@ -4,12 +4,12 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-public class MD_RequestSpinnerItems extends ModelResponsePrimary {
+public class MR_SpinnerItems extends ModelResponsePrimary {
 
     @SerializedName("result")
     ArrayList<MD_SpinnerItem> result;
 
-    public MD_RequestSpinnerItems(ArrayList<ModelMessage> messages) {
+    public MR_SpinnerItems(ArrayList<ModelMessage> messages) {
         super(messages);
     }
 

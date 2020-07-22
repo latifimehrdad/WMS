@@ -9,7 +9,7 @@ import com.ngra.wms.R;
 import com.ngra.wms.daggers.retrofit.RetrofitApis;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MD_Hi;
-import com.ngra.wms.models.MD_RequestHi;
+import com.ngra.wms.models.MR_Hi;
 import com.ngra.wms.models.ModelSettingInfo;
 import com.ngra.wms.models.ModelToken;
 import com.ngra.wms.utility.StaticFunctions;
@@ -142,9 +142,9 @@ public class VM_Splash extends VM_Primary {
                 .getHi("1",
                         Authorization));
 
-        getPrimaryCall().enqueue(new Callback<MD_RequestHi>() {
+        getPrimaryCall().enqueue(new Callback<MR_Hi>() {
             @Override
-            public void onResponse(Call<MD_RequestHi> call, Response<MD_RequestHi> response) {
+            public void onResponse(Call<MR_Hi> call, Response<MR_Hi> response) {
                 setResponseMessage(CheckResponse(response, true));
                 if (getResponseMessage() == null) {
                     md_hi = response.body().getResult();
@@ -155,7 +155,7 @@ public class VM_Splash extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MD_RequestHi> call, Throwable t) {
+            public void onFailure(Call<MR_Hi> call, Throwable t) {
                 OnFailureRequest();
             }
         });

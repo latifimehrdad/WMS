@@ -30,12 +30,12 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_30sdp">
+                    android:layout_height="@dimen/_25sdp">
 
                     <ImageView
                         android:id="@+id/logoProfile"
-                        android:layout_width="@dimen/_30sdp"
-                        android:layout_height="@dimen/_30sdp"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
                         android:src="@drawable/ic_account_circle"
                         android:tint="@color/mlWhite"
                         android:layout_centerVertical="true"

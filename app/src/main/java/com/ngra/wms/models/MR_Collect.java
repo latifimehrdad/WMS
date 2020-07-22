@@ -1,13 +1,13 @@
 package com.ngra.wms.models;
 
-public class MD_RequestCollect {
+public class MR_Collect {
 
     MD_ItemWaste waste;
 
     float amount;
 
 
-    public MD_RequestCollect(MD_ItemWaste Waste, Integer Amount) {
+    public MR_Collect(MD_ItemWaste Waste, Integer Amount) {
         waste = Waste;
         amount = Amount;
     }

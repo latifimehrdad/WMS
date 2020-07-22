@@ -4,7 +4,7 @@ import android.app.Activity;
 
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MD_Booth;
-import com.ngra.wms.models.MD_RequestBoothList;
+import com.ngra.wms.models.MR_BoothList;
 import com.ngra.wms.models.MD_WasteAmountRequests;
 import com.ngra.wms.models.ModelResponsePrimary;
 import com.ngra.wms.models.ModelTimeSheetTimes;
@@ -77,9 +77,9 @@ public class VM_BoothReceivePrimary extends VM_Primary {
                 .getRetrofitApiInterface()
                 .getBoothList(Authorization));
 
-        getPrimaryCall().enqueue(new Callback<MD_RequestBoothList>() {
+        getPrimaryCall().enqueue(new Callback<MR_BoothList>() {
             @Override
-            public void onResponse(Call<MD_RequestBoothList> call, Response<MD_RequestBoothList> response) {
+            public void onResponse(Call<MR_BoothList> call, Response<MR_BoothList> response) {
                 setResponseMessage(CheckResponse(response, false));
                 if (getResponseMessage() == null) {
                     boothList = response.body().getResult();
@@ -91,7 +91,7 @@ public class VM_BoothReceivePrimary extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MD_RequestBoothList> call, Throwable t) {
+            public void onFailure(Call<MR_BoothList> call, Throwable t) {
                 OnFailureRequest();
             }
         });

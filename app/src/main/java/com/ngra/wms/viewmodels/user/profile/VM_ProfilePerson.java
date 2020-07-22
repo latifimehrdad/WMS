@@ -8,7 +8,7 @@ import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.ModelProfileInfo;
 import com.ngra.wms.models.ModelResponsePrimary;
 import com.ngra.wms.models.MD_SpinnerItem;
-import com.ngra.wms.models.MD_RequestSpinnerItems;
+import com.ngra.wms.models.MR_SpinnerItems;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Primary;
 import com.ngra.wms.views.activitys.MainActivity;
@@ -130,9 +130,9 @@ public class VM_ProfilePerson extends VM_Primary {
                 .getRegions(
                         getCityId(),
                         Authorization)
-                .enqueue(new Callback<MD_RequestSpinnerItems>() {
+                .enqueue(new Callback<MR_SpinnerItems>() {
                     @Override
-                    public void onResponse(Call<MD_RequestSpinnerItems> call, Response<MD_RequestSpinnerItems> response) {
+                    public void onResponse(Call<MR_SpinnerItems> call, Response<MR_SpinnerItems> response) {
                         setResponseMessage(CheckResponse(response, false));
                         if (getResponseMessage() == null) {
                             Regions = response.body().getResult();
@@ -142,7 +142,7 @@ public class VM_ProfilePerson extends VM_Primary {
                     }
 
                     @Override
-                    public void onFailure(Call<MD_RequestSpinnerItems> call, Throwable t) {
+                    public void onFailure(Call<MR_SpinnerItems> call, Throwable t) {
                         OnFailureRequest();
                     }
                 });
@@ -165,9 +165,9 @@ public class VM_ProfilePerson extends VM_Primary {
                 .getCitys(
                         getProvinceId(),
                         Authorization)
-                .enqueue(new Callback<MD_RequestSpinnerItems>() {
+                .enqueue(new Callback<MR_SpinnerItems>() {
                     @Override
-                    public void onResponse(Call<MD_RequestSpinnerItems> call, Response<MD_RequestSpinnerItems> response) {
+                    public void onResponse(Call<MR_SpinnerItems> call, Response<MR_SpinnerItems> response) {
                         setResponseMessage(CheckResponse(response, false));
                         if (getResponseMessage() == null) {
                             Cities = response.body().getResult();
@@ -177,7 +177,7 @@ public class VM_ProfilePerson extends VM_Primary {
                     }
 
                     @Override
-                    public void onFailure(Call<MD_RequestSpinnerItems> call, Throwable t) {
+                    public void onFailure(Call<MR_SpinnerItems> call, Throwable t) {
                         OnFailureRequest();
                     }
                 });
@@ -195,14 +195,14 @@ public class VM_ProfilePerson extends VM_Primary {
         String Authorization = GetAuthorization();
 
 
-        Call<MD_RequestSpinnerItems> call = retrofitComponent
+        Call<MR_SpinnerItems> call = retrofitComponent
                 .getRetrofitApiInterface()
                 .getProvinces(
                         Authorization);
 
-        call.enqueue(new Callback<MD_RequestSpinnerItems>() {
+        call.enqueue(new Callback<MR_SpinnerItems>() {
             @Override
-            public void onResponse(Call<MD_RequestSpinnerItems> call, Response<MD_RequestSpinnerItems> response) {
+            public void onResponse(Call<MR_SpinnerItems> call, Response<MR_SpinnerItems> response) {
                 setResponseMessage(CheckResponse(response, false));
                 if (getResponseMessage() == null) {
                     provinces = response.body().getResult();
@@ -212,7 +212,7 @@ public class VM_ProfilePerson extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MD_RequestSpinnerItems> call, Throwable t) {
+            public void onFailure(Call<MR_SpinnerItems> call, Throwable t) {
                 OnFailureRequest();
             }
         });

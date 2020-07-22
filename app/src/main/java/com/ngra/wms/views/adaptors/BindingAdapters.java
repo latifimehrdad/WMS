@@ -1,5 +1,7 @@
 package com.ngra.wms.views.adaptors;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,6 +25,64 @@ import java.util.Locale;
 import params.com.stepview.StatusViewScroller;
 
 public class BindingAdapters {
+
+
+    @BindingAdapter(value = {"SetTicketStatus"})
+    public static void SetTicketStatus(TextView textView, Byte deliveryType) {//____________________ SetTicketStatus
+
+        Resources resources = textView.getContext().getResources();
+
+        if (deliveryType.equals(StaticValues.TicketStatusNew)) {
+            textView.setText(resources.getString(R.string.TicketStatusNew));
+            textView.setTextColor(resources.getColor(R.color.Links));
+            return;
+        }
+
+        if (deliveryType.equals(StaticValues.TicketStatusPending)) {
+            textView.setText(resources.getString(R.string.TicketStatusPending));
+            textView.setTextColor(resources.getColor(R.color.colorPrimaryDark));
+            return;
+        }
+
+        if (deliveryType.equals(StaticValues.TicketStatusWaiting)) {
+            textView.setText(resources.getString(R.string.TicketStatusWaiting));
+            textView.setTextColor(resources.getColor(R.color.colorPrymeryVeryDark));
+            return;
+        }
+
+        if (deliveryType.equals(StaticValues.TicketStatusAnswered)) {
+            textView.setText(resources.getString(R.string.TicketStatusAnswered));
+            textView.setTextColor(resources.getColor(R.color.mlCollectRight1));
+            return;
+        }
+
+        if (deliveryType.equals(StaticValues.TicketStatusReferred)) {
+            textView.setText(resources.getString(R.string.TicketStatusReferred));
+            textView.setTextColor(resources.getColor(R.color.TicketStatusReferred));
+            return;
+        }
+
+        if (deliveryType.equals(StaticValues.TicketStatusSolved)) {
+            textView.setText(resources.getString(R.string.TicketStatusSolved));
+            textView.setTextColor(resources.getColor(R.color.mlCollectLeft1));
+            return;
+        }
+
+        if (deliveryType.equals(StaticValues.TicketStatusClosed)) {
+            textView.setText(resources.getString(R.string.TicketStatusClosed));
+            textView.setTextColor(resources.getColor(R.color.mlHeader));
+            return;
+        }
+
+        if (deliveryType.equals(StaticValues.TicketStatusArchived)) {
+            textView.setText(resources.getString(R.string.TicketStatusArchived));
+            textView.setTextColor(resources.getColor(R.color.mlEdit));
+        }
+
+
+    }//_____________________________________________________________________________________________ SetTicketStatus
+
+
 
 
     @BindingAdapter(value = {"SetImageItemOfWast"})

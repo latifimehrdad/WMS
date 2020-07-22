@@ -4,13 +4,13 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-public class MD_RequestHi extends ModelResponsePrimary {
+public class MR_Hi extends ModelResponsePrimary {
 
     @SerializedName("result")
     MD_Hi result;
 
 
-    public MD_RequestHi(ArrayList<ModelMessage> messages) {
+    public MR_Hi(ArrayList<ModelMessage> messages) {
         super(messages);
     }
 

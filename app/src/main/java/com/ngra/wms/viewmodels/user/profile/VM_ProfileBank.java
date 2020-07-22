@@ -5,7 +5,7 @@ import android.app.Activity;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.ModelResponsePrimary;
 import com.ngra.wms.models.MD_SpinnerItem;
-import com.ngra.wms.models.MD_RequestSpinnerItems;
+import com.ngra.wms.models.MR_SpinnerItems;
 import com.ngra.wms.models.ModelUserAccounts;
 import com.ngra.wms.utility.StaticFunctions;
 import com.ngra.wms.utility.StaticValues;
@@ -126,9 +126,9 @@ public class VM_ProfileBank extends VM_Primary {
                 .getBanks(
                         Authorization));
 
-        getPrimaryCall().enqueue(new Callback<MD_RequestSpinnerItems>() {
+        getPrimaryCall().enqueue(new Callback<MR_SpinnerItems>() {
             @Override
-            public void onResponse(Call<MD_RequestSpinnerItems> call, Response<MD_RequestSpinnerItems> response) {
+            public void onResponse(Call<MR_SpinnerItems> call, Response<MR_SpinnerItems> response) {
                 if (StaticFunctions.isCancel)
                     return;
                 setResponseMessage(CheckResponse(response, false));
@@ -140,7 +140,7 @@ public class VM_ProfileBank extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MD_RequestSpinnerItems> call, Throwable t) {
+            public void onFailure(Call<MR_SpinnerItems> call, Throwable t) {
                 OnFailureRequest();
             }
         });

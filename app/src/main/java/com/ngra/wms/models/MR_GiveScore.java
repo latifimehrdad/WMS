@@ -5,13 +5,13 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MD_RequestGiveScore extends ModelResponsePrimary {
+public class MR_GiveScore extends ModelResponsePrimary {
 
     @SerializedName("result")
     List<MD_GiveScoreItem> result;
 
 
-    public MD_RequestGiveScore(ArrayList<ModelMessage> messages, List<MD_GiveScoreItem> result) {
+    public MR_GiveScore(ArrayList<ModelMessage> messages, List<MD_GiveScoreItem> result) {
         super(messages);
         this.result = result;
     }
