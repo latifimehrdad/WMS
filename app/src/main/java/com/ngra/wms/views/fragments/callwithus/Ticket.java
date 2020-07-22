@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -31,8 +33,8 @@ public class Ticket extends FragmentPrimary implements
         AP_Tickets.ItemTicketClick {
 
     private VM_Ticket vm_ticket;
-
     private NavController navController;
+    private boolean gotoNew;
 
     @BindView(R.id.ImageViewNew)
     ImageView ImageViewNew;
@@ -42,6 +44,8 @@ public class Ticket extends FragmentPrimary implements
 
     @BindView(R.id.RecyclerViewTicket)
     RecyclerView RecyclerViewTicket;
+
+
 
 
     public Ticket() {//________________________________________________________________________ UserMessage
@@ -55,6 +59,7 @@ public class Ticket extends FragmentPrimary implements
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
 
         if (getView() == null) {
+            gotoNew = false;
             vm_ticket = new VM_Ticket(getContext());
             FragmentTicketBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_ticket, container, false
@@ -78,14 +83,45 @@ public class Ticket extends FragmentPrimary implements
                 vm_ticket);
         if (getView() != null)
             navController = Navigation.findNavController(getView());
+        if (gotoNew == true) {
+            gotoNew = false;
+            RecyclerViewTicket.setAdapter(null);
+            gifLoading.setVisibility(View.VISIBLE);
+            vm_ticket.GetAllTicket();
+        }
     }//_____________________________________________________________________________________________ onStart
 
 
     private void SetOnClick() {//___________________________________________________________________ SetOnClick
 
         ImageViewNew.setOnClickListener(v -> {
+            gotoNew = true;
             navController.navigate(R.id.action_goto_support);
         });
+
+
+        RecyclerViewTicket.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0) {
+                    if (ImageViewNew.getVisibility() == View.VISIBLE) {
+                        ImageViewNew.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_bottom));
+                        ImageViewNew.setVisibility(View.GONE);
+                    }
+                    // Scrolling up
+                } else {
+                    if (ImageViewNew.getVisibility() == View.GONE) {
+                        ImageViewNew.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_bottom));
+                        ImageViewNew.setVisibility(View.VISIBLE);
+                    }
+                    // Scrolling down
+                }
+            }
+
+        });
+
 
     }//_____________________________________________________________________________________________ SetOnClick
 
