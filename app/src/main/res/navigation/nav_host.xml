@@ -380,12 +380,33 @@
         android:id="@+id/ticket"
         android:name="com.ngra.wms.views.fragments.callwithus.Ticket"
         android:label="Ticket"
-        tools:layout="@layout/fragment_ticket"/>
+        tools:layout="@layout/fragment_ticket">
+
+
+        <argument android:name="@string/ML_Id"
+            android:defaultValue="0"/>
+
+        <action
+            android:id="@+id/action_ticket_to_conversation"
+            app:destination="@id/conversation"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+    </fragment>
 
     <fragment
         android:id="@+id/calls"
         android:name="com.ngra.wms.views.fragments.callwithus.Calls"
         android:label="Calls"
         tools:layout="@layout/fragment_call"/>
+
+
+    <fragment
+        android:id="@+id/conversation"
+        android:name="com.ngra.wms.views.fragments.callwithus.Conversation"
+        android:label="Conversation"
+        tools:layout="@layout/fragment_conversation"/>
 
 </navigation>

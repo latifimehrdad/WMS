@@ -119,6 +119,7 @@ public class StaticFunctions {
         token.putString(context.getString(R.string.ML_ClientId), null);
         token.putString(context.getString(R.string.ML_Issued), null);
         token.putString(context.getString(R.string.ML_Expires), null);
+        token.putInt(context.getString(R.string.ML_PackageRequestStatus), 0);
         token.apply();
         return true;
     }//_____________________________________________________________________________________________ LogOut

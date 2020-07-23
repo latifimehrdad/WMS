@@ -90,6 +90,8 @@ public class StaticValues {
     public static Byte ML_GoToUpdate = 29;// نسخه جدید برنامه
     public static Byte ML_DialogClose = 30;
     public static Byte ML_GetAllTicket = 31;
+    public static Byte ML_GetAllTicketReply = 32;
+    public static Byte ML_CloseTicket = 33;
     //***** Observable Control *****
 
 

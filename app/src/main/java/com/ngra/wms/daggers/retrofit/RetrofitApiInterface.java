@@ -6,6 +6,7 @@ import com.ngra.wms.models.MR_Hi;
 import com.ngra.wms.models.MR_ItemLearn;
 import com.ngra.wms.models.MR_ItemsWast;
 import com.ngra.wms.models.MR_TicketList;
+import com.ngra.wms.models.MR_TicketReplyList;
 import com.ngra.wms.models.MR_WasteRequest;
 import com.ngra.wms.models.MD_WasteAmountRequests;
 import com.ngra.wms.models.ModelBuildingRenovationCode;
@@ -314,6 +315,34 @@ public interface RetrofitApiInterface {
     @GET(Version + "/Ticketing/GetTicketList")
     Call<MR_TicketList> getTicketList
             (
+                    @Header("Authorization") String Authorization
+            );
+
+
+    @GET(Version + "/Ticketing/GetReplyList")
+    Call<MR_TicketReplyList> getReplyList
+            (
+                    @Query("Id") Integer Id,
+                    @Header("Authorization") String Authorization
+            );
+
+
+
+    @FormUrlEncoded
+    @POST(Version + "/Ticketing/SubmitClientReply")
+    Call<ModelResponsePrimary> SubmitClientReply
+            (
+                    @Field("Id") Integer Id,
+                    @Field("ReplyText") String ReplyText,
+                    @Header("Authorization") String Authorization
+            );
+
+
+    @FormUrlEncoded
+    @POST(Version + "/Ticketing/CloseTicket")
+    Call<ModelResponsePrimary> CloseTicket
+            (
+                    @Field("Id") Integer Id,
                     @Header("Authorization") String Authorization
             );
 

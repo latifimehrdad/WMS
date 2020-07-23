@@ -17,8 +17,8 @@
 
     <string name="PackageNotDelivered">قبل از درخواست جمع آوری، لطفا ابتدا به بخش درخواست سطل بازیافت بروید و تا تحویل سطل بازیافت در محل ساختمان منتظر بمانید</string>
 
-    <!--<string name="app_name">پسماند خشک سبززیور-شهروند</string>-->
-    <string name="app_name">پسماند خشک نگرا-شهروند</string>
+    <string name="app_name">پسماند خشک سبززیور-شهروند</string>
+<!--    <string name="app_name">پسماند خشک نگرا-شهروند</string>-->
 
     <string name="WMSFromFist">سیستم مدیریت تفکیک از مبدأ</string>
     <string name="Orders">سفارشات</string>
@@ -196,6 +196,8 @@
     <string name="NewContactUs">ارسال درخواست جدید</string>
     <string name="ShebaNumber">مثال : IR012345678901234567890123 (تعداد 26 کاراکتر)</string>
     <string name="TicketDetail">مکالمات</string>
+    <string name="MessageText">متن</string>
+    <string name="CloseTicket">اتمام مکالمه</string>
 
 
     <string name="TicketStatusPending">در حال بررسی</string>
@@ -232,6 +234,7 @@
     <string name="ML_PackageRequestTo">PackageRequestTo</string>
     <string name="ML_UpdateUrl">UpdateUrl</string>
     <string name="ML_UpdateFile">UpdateFile</string>
+    <string name="ML_Id">Id</string>
 
 
 </resources>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="reply"
+            type="com.ngra.wms.models.MD_TicketReplyDto" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:orientation="vertical"
+        android:padding="@dimen/_5sdp">
+
+
+        <LinearLayout
+            android:id="@+id/LinearLayoutOperator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:minHeight="@dimen/_50sdp"
+                android:orientation="vertical"
+                android:background="@drawable/dw_back_item_ticket_reply_operator"
+                android:padding="@dimen/_10sdp"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/mlEdit"
+                    android:textSize="@dimen/_9sdp"
+                    android:gravity="right"
+                    app:SetTicketDate="@{reply.createDate}"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/mlEdit"
+                    android:textSize="@dimen/_10sdp"
+                    android:gravity="right"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:text="@{reply.fullName}"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/mlWhite"
+                    android:textSize="@dimen/_11sdp"
+                    android:gravity="right"
+                    fontPath="font/iransans_web_medium.ttf"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:text="@{reply.body}"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="0.2"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayoutSender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="0.2"/>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:minHeight="@dimen/_50sdp"
+                android:orientation="vertical"
+                android:background="@drawable/dw_back_item_ticket_reply_sender"
+                android:padding="@dimen/_10sdp"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/mlEdit"
+                    android:textSize="@dimen/_9sdp"
+                    android:gravity="right"
+                    app:SetTicketDate="@{reply.createDate}"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/mlEdit"
+                    android:textSize="@dimen/_10sdp"
+                    android:gravity="right"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:text="@{reply.fullName}"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/mlWhite"
+                    android:textSize="@dimen/_11sdp"
+                    android:gravity="right"
+                    fontPath="font/iransans_web_medium.ttf"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:text="@{reply.body}"/>
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</layout>

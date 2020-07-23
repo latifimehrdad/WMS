@@ -8,7 +8,7 @@ import java.util.List;
 public class MD_UsersTicketList {
 
     @SerializedName("id")
-    Long id;
+    Integer id;
 
     @SerializedName("ticketCategoryRef")
     Long ticketCategoryRef;
@@ -28,11 +28,9 @@ public class MD_UsersTicketList {
     @SerializedName("status")
     Byte status;
 
-    @SerializedName("replies")
-    List<MD_TicketReplyDto> replies;
 
 
-    public MD_UsersTicketList(ArrayList<ModelMessage> messages, Long id, Long ticketCategoryRef, Long ticketDepartmentRef, String requesterUserRef, String body, String subject, Byte status, List<MD_TicketReplyDto> replies) {
+    public MD_UsersTicketList(ArrayList<ModelMessage> messages, Integer id, Long ticketCategoryRef, Long ticketDepartmentRef, String requesterUserRef, String body, String subject, Byte status) {
         this.id = id;
         this.ticketCategoryRef = ticketCategoryRef;
         this.ticketDepartmentRef = ticketDepartmentRef;
@@ -40,14 +38,13 @@ public class MD_UsersTicketList {
         this.body = body;
         this.subject = subject;
         this.status = status;
-        this.replies = replies;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -99,11 +96,4 @@ public class MD_UsersTicketList {
         this.status = status;
     }
 
-    public List<MD_TicketReplyDto> getReplies() {
-        return replies;
-    }
-
-    public void setReplies(List<MD_TicketReplyDto> replies) {
-        this.replies = replies;
-    }
 }

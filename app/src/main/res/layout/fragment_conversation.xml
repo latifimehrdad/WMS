@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="conversation"
+            type="com.ngra.wms.viewmodels.callwithus.VM_Conversation" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <com.cunoraz.gifview.library.GifView
+                android:id="@+id/gifLoading"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/choose_current_map"
+                custom:gif="@drawable/loading2" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/RecyclerViewReply"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/LinearLayoutActions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_margin="@dimen/_5sdp">
+
+            <LinearLayout
+                android:id="@+id/LinearLayoutClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/button_red"
+                android:gravity="center"
+                android:padding="@dimen/_3sdp">
+
+                <ImageView
+                    android:id="@+id/ImageViewDelete"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:src="@drawable/svg_close_message"
+                    android:tint="@color/mlWhite"/>
+
+                <com.cunoraz.gifview.library.GifView
+                    android:id="@+id/gifLoadingDelete"
+                    android:layout_width="@dimen/_22sdp"
+                    android:layout_height="@dimen/_22sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:visibility="gone"
+                    custom:gif="@drawable/loading2"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_8sdp"
+                    android:textColor="@color/mlWhite"
+                    android:text="@string/CloseTicket"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/dw_back_layout_new_conversatoin"
+                android:padding="@dimen/_4sdp">
+
+
+                <ImageView
+                    android:id="@+id/ImageViewSend"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:src="@drawable/svg_share"
+                    android:tint="@color/colorPrymeryVeryDark"
+                    android:layout_marginLeft="@dimen/_5sdp"/>
+
+                <com.cunoraz.gifview.library.GifView
+                    android:id="@+id/gifLoadingSend"
+                    android:layout_width="@dimen/_22sdp"
+                    android:layout_height="@dimen/_22sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:visibility="gone"
+                    custom:gif="@drawable/loading2" />
+
+
+                <EditText
+                    android:id="@+id/EditTextMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="5"
+                    android:gravity="right"
+                    android:padding="@dimen/_3sdp"
+                    android:minHeight="@dimen/_25sdp"
+                    android:background="@color/mlEdit"
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="@color/mlBlack"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:hint="@string/MessageText"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+</layout>

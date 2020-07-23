@@ -11,14 +11,17 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.maps.model.CameraPosition;
 import com.ngra.wms.R;
 import com.ngra.wms.database.DB_ItemsWasteList;
 import com.ngra.wms.databinding.FragmentBoothReceivePrimeryBinding;
 import com.ngra.wms.models.MD_ItemWaste;
+import com.ngra.wms.models.MD_Location;
 import com.ngra.wms.models.MR_Collect;
 import com.ngra.wms.models.MD_WasteAmountRequests;
 import com.ngra.wms.models.ModelTime;
 import com.ngra.wms.utility.ApplicationUtility;
+import com.ngra.wms.utility.MehrdadLatifiMap;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.collectrequest.boothreceive.VM_BoothReceivePrimary;
 import com.ngra.wms.views.adaptors.collectrequest.AP_BoothList;
@@ -234,17 +237,17 @@ public class BoothReceivePrimary extends FragmentPrimary implements
 
     @Override
     public void itemBoothMap(Integer position) {//__________________________________________________ itemBoothClick
-//        mMap.clear();
-//        MD_Location md_location = vm_boothReceivePrimary.getBoothList().get(position).getLocation();
-//        LatLng latLng = new LatLng(md_location.getLatitude(), md_location.getLongitude());
-//        MehrdadLatifiMap latifiMap = new MehrdadLatifiMap();
-//        latifiMap.setGoogleMap(mMap);
-//        latifiMap.AddMarker(latLng, vm_boothReceivePrimary.getBoothList().get(position).getName(), "", R.drawable.marker_point);
-//        CameraPosition cameraPosition = new CameraPosition.Builder()
-//                .target(latLng)      // Sets the center of the map to Mountain View
-//                .zoom(16)                   // Sets the zoom
-//                .build();                   // Creates a CameraPosition from the builder
-//        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        mMap.clear();
+        MD_Location md_location = vm_boothReceivePrimary.getBoothList().get(position).getLocation();
+        LatLng latLng = new LatLng(md_location.getLatitude(), md_location.getLongitude());
+        MehrdadLatifiMap latifiMap = new MehrdadLatifiMap();
+        latifiMap.setGoogleMap(mMap);
+        latifiMap.AddMarker(latLng, vm_boothReceivePrimary.getBoothList().get(position).getName(), "", R.drawable.marker_point);
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(latLng)      // Sets the center of the map to Mountain View
+                .zoom(16)                   // Sets the zoom
+                .build();                   // Creates a CameraPosition from the builder
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }//_____________________________________________________________________________________________ itemBoothClick
 
 

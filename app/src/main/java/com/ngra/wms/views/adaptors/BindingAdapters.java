@@ -27,6 +27,29 @@ import params.com.stepview.StatusViewScroller;
 public class BindingAdapters {
 
 
+    @BindingAdapter(value = {"SetTicketDate"})
+    public static void SetTicketDate(TextView textView, Date date) {//_______________________________ SetOrderDate
+
+        ApplicationUtility component = ApplicationWMS
+                .getApplicationWMS(textView.getContext())
+                .getUtilityComponent()
+                .getApplicationUtility();
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.US);
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(component.MiladiToJalali(date, "FullJalaliNumber"));
+        stringBuilder.append(" - ");
+        stringBuilder.append(simpleDateFormat.format(date));
+
+
+        textView.setText(stringBuilder.toString());
+
+    }//_____________________________________________________________________________________________ SetOrderDate
+
+
+
+
     @BindingAdapter(value = {"SetTicketStatus"})
     public static void SetTicketStatus(TextView textView, Byte deliveryType) {//____________________ SetTicketStatus
 
