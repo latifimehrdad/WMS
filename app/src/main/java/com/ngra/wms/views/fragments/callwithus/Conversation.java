@@ -61,7 +61,6 @@ public class Conversation extends FragmentPrimary implements FragmentPrimary.Get
     }//_____________________________________________________________________________________________ Reply
 
 
-
     @Override
     public View onCreateView(
             @NotNull LayoutInflater inflater,
@@ -99,7 +98,6 @@ public class Conversation extends FragmentPrimary implements FragmentPrimary.Get
     }//_____________________________________________________________________________________________ onStart
 
 
-
     @Override
     public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
@@ -122,14 +120,14 @@ public class Conversation extends FragmentPrimary implements FragmentPrimary.Get
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 
 
-
     private void SetOnClick() {//___________________________________________________________________ SetOnClick
 
         ImageViewSend.setOnClickListener(v -> {
             if (EditTextMessage.getText().toString().length() > 0) {
-            gifLoadingSend.setVisibility(View.VISIBLE);
-            ImageViewSend.setVisibility(View.GONE);
-            vm_conversation.SendReply(TicketRef, EditTextMessage.getText().toString());}
+                gifLoadingSend.setVisibility(View.VISIBLE);
+                ImageViewSend.setVisibility(View.GONE);
+                vm_conversation.SendReply(TicketRef, EditTextMessage.getText().toString());
+            }
         });
 
         ImageViewDelete.setOnClickListener(v -> {
@@ -141,12 +139,12 @@ public class Conversation extends FragmentPrimary implements FragmentPrimary.Get
     }//_____________________________________________________________________________________________ SetOnClick
 
 
-
-
     private void SetAdapter() {//___________________________________________________________________ SetAdapter
         AP_TicketReply ap_ticketReply = new AP_TicketReply(vm_conversation.getMd_ticketReplyDtos());
         RecyclerViewReply.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         RecyclerViewReply.setAdapter(ap_ticketReply);
+        if (vm_conversation.getMd_ticketReplyDtos().size() > 0)
+            RecyclerViewReply.smoothScrollToPosition(vm_conversation.getMd_ticketReplyDtos().size() - 1);
     }//_____________________________________________________________________________________________ SetAdapter
 
 

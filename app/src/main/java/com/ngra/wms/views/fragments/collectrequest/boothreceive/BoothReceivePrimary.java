@@ -167,7 +167,7 @@ public class BoothReceivePrimary extends FragmentPrimary implements
                     .getApplicationUtility();
         }
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.US);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
 
         List<String> buildingTypes = new ArrayList<>();
         buildingTypes.add(getResources().getString(R.string.ChooseDateDelivery));

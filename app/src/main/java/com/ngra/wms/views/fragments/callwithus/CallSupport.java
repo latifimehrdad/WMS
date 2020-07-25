@@ -151,7 +151,7 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.GetM
 
         if (EditTextDescription.getText().length() < 1) {
             EditTextDescription.setBackgroundResource(R.drawable.dw_edit_back_empty);
-            EditTextDescription.setError(getResources().getString(R.string.EmptyLastName));
+            EditTextDescription.setError(getResources().getString(R.string.EmptyDescription));
             EditTextDescription.requestFocus();
             Description = false;
         } else
@@ -160,7 +160,7 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.GetM
 
         if (EditTextSubject.getText().length() < 1) {
             EditTextSubject.setBackgroundResource(R.drawable.dw_edit_back_empty);
-            EditTextSubject.setError(getResources().getString(R.string.EmptyFirstName));
+            EditTextSubject.setError(getResources().getString(R.string.EmptySubject));
             EditTextSubject.requestFocus();
             subject = false;
         } else

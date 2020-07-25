@@ -5,8 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
-import android.widget.AbsListView;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.databinding.DataBindingUtil;
@@ -83,7 +81,7 @@ public class Ticket extends FragmentPrimary implements
                 vm_ticket);
         if (getView() != null)
             navController = Navigation.findNavController(getView());
-        if (gotoNew == true) {
+        if (gotoNew) {
             gotoNew = false;
             RecyclerViewTicket.setAdapter(null);
             gifLoading.setVisibility(View.VISIBLE);
@@ -96,14 +94,14 @@ public class Ticket extends FragmentPrimary implements
 
         ImageViewNew.setOnClickListener(v -> {
             gotoNew = true;
-            navController.navigate(R.id.action_goto_support);
+            navController.navigate(R.id.action_ticket_to_callSupport);
         });
 
 
         RecyclerViewTicket.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            public void onScrolled(@NotNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if (dy > 0) {
                     if (ImageViewNew.getVisibility() == View.VISIBLE) {

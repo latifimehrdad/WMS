@@ -198,6 +198,8 @@
     <string name="TicketDetail">مکالمات</string>
     <string name="MessageText">متن</string>
     <string name="CloseTicket">اتمام مکالمه</string>
+    <string name="EmptySubject">لطفا موضوع را انتخاب کنید</string>
+    <string name="EmptyDescription">لطفا توضیحات را وارد نمایید</string>
 
 
     <string name="TicketStatusPending">در حال بررسی</string>

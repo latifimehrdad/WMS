@@ -326,17 +326,7 @@
         android:id="@+id/callWithUs"
         android:name="com.ngra.wms.views.fragments.callwithus.CallWithUs"
         android:label="CallWithUs"
-        tools:layout="@layout/fragment_call_with_us">
-
-        <action
-            android:id="@+id/action_callWithUs_to_callSupport"
-            app:destination="@id/callSupport"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
-
-    </fragment>
+        tools:layout="@layout/fragment_call_with_us"/>
 
     <fragment
         android:id="@+id/collectRequestOrder"
@@ -368,14 +358,6 @@
         android:label="CallSupport"
         tools:layout="@layout/fragment_support"/>
 
-    <action
-        android:id="@+id/action_goto_support"
-        app:destination="@id/callSupport"
-        app:popEnterAnim="@anim/slide_in_right"
-        app:popExitAnim="@anim/slide_out_left"
-        app:enterAnim="@anim/slide_in_left"
-        app:exitAnim="@anim/slide_out_right"/>
-
     <fragment
         android:id="@+id/ticket"
         android:name="com.ngra.wms.views.fragments.callwithus.Ticket"
@@ -389,6 +371,14 @@
         <action
             android:id="@+id/action_ticket_to_conversation"
             app:destination="@id/conversation"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+        <action
+            android:id="@+id/action_ticket_to_callSupport"
+            app:destination="@id/callSupport"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
