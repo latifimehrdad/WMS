@@ -58,6 +58,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
     private ArrayList<MD_SpinnerItem> UserType;
     private String UserTypeId = "-1";
     private boolean completeProfile;
+    private boolean clickSave;
 
 
     @BindView(R.id.LayoutCity)
@@ -132,6 +133,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
             setView(binding.getRoot());
             init();
             completeProfile = MainActivity.complateprofile;
+            clickSave = false;
         }
         return getView();
     }//_____________________________________________________________________________________________ onCreateView
@@ -230,6 +232,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
             if (CheckEmpty()) {
                 hideKeyboard();
                 ShowLoading();
+                clickSave = true;
                 vm_profilePerson.setFirstName(editFirsName.getText().toString());
                 vm_profilePerson.setLastName(edtiLastName.getText().toString());
                 vm_profilePerson.setGender(GenderCode);
@@ -284,6 +287,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
             return;
         }
 
+        if (clickSave)
         if (action.equals(StaticValues.ML_DialogClose))
             if (!completeProfile) {
                 MainActivity.complateprofile = true;
