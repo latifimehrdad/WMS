@@ -25,6 +25,7 @@
     <string name="ChargingBag">شارژ کیف پول</string>
     <string name="RegisterPerson">ثبت نام</string>
     <string name="RegisterPersonBank">اطلاعات بانکی</string>
+    <string name="PostalAddress">آدرس پستی</string>
     <string name="RegisterPersonCodeNew">کد نوسازی</string>
     <string name="Name">نام</string>
     <string name="Family">نام خانوادگی</string>
@@ -152,6 +153,7 @@
     <string name="NetworkError">خطا در اتصال به سرور</string>
     <string name="UnitCount">تعداد واحد</string>
     <string name="PersonCount">تعداد نفرات</string>
+    <string name="UnitNumber">شماره واحد</string>
     <string name="SendMessage">ارسال پیام</string>
     <string name="PleaseChooseProvince">لطفا ابتدا استان را انتخاب کنید</string>
     <string name="PleaseChooseCity">لطفا ابتدا شهر را انتخاب کنید</string>
@@ -168,6 +170,8 @@
     <string name="OutOfIran">آدرس انتخابی خارج از ایران است</string>
     <string name="EmptyAddress">لطفا آدرس را انتخاب نمایید</string>
     <string name="EmptyPersonCount">لطفا تعداد نفرات را وارد نمایید</string>
+    <string name="EmptyPlateNumber">لطفا پلاک ساختمان را وارد نمایید</string>
+    <string name="EmptyUnitNumber">لطفا شماره واحد را وارد نمایید</string>
     <string name="EmptyUnitCount">لطفا تعداد واحدها را وارد نمایید</string>
     <string name="TurnOnGps">موقعیت مکانی دستگاه شما خاموش است. تمایل به روشن کردن آن دارید؟</string>
     <string name="CopyRight">تولید شده توسط گروه نگرا</string>
@@ -185,6 +189,7 @@
     <string name="CloseTicket">اتمام مکالمه</string>
     <string name="EmptySubject">لطفا موضوع را انتخاب کنید</string>
     <string name="EmptyDescription">لطفا توضیحات را وارد نمایید</string>
+    <string name="PlateNumber">پلاک ساختمان</string>
 
 
     <string name="TicketStatusPending">در حال بررسی</string>
@@ -222,6 +227,7 @@
     <string name="ML_UpdateUrl">UpdateUrl</string>
     <string name="ML_UpdateFile">UpdateFile</string>
     <string name="ML_Id">Id</string>
+    <string name="ML_Save">save</string>
 
 
 </resources>

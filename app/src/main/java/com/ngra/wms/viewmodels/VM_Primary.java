@@ -121,19 +121,11 @@ public class VM_Primary {
 
     public void ReactionToIncorrectResponse(Byte action) {//________________________________________ ReactionToIncorrectResponse
 
-
-
         switch (getResponseCode()) {
-            case 400:
-                publishSubject.onNext(action);
-                break;
             case 401:
                 RefreshToken();
                 break;
-            case 403:
-                publishSubject.onNext(action);
-                break;
-            case 404:
+            default:
                 publishSubject.onNext(action);
                 break;
         }

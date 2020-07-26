@@ -12,6 +12,7 @@ import com.ngra.wms.R;
 import com.ngra.wms.databinding.FragmentProfileBinding;
 import com.ngra.wms.viewmodels.user.profile.VM_Profile;
 import com.ngra.wms.views.fragments.FragmentPrimary;
+import com.ngra.wms.views.fragments.packrequest.PackageRequestAddress;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
@@ -67,12 +68,13 @@ public class Profile extends FragmentPrimary {
                 getChildFragmentManager(), FragmentPagerItems.with(getContext())
                 .add(R.string.RegisterPersonCodeNew, ProfileCode.class)
                 .add(R.string.RegisterPersonBank, ProfileBank.class)
+                .add(R.string.PostalAddress, PackageRequestAddress.class)
                 .add(R.string.RegisterPerson, ProfilePerson.class)
                 .create());
 
         FragmentRegistryView.setAdapter(adapter);
         FragmentRegistryTab.setViewPager(FragmentRegistryView);
-        FragmentRegistryView.setCurrentItem(2);
+        FragmentRegistryView.setCurrentItem(3);
 
     }//_____________________________________________________________________________________________ SetTabs
 

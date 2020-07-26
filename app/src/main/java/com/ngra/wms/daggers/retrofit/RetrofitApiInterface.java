@@ -222,6 +222,8 @@ public interface RetrofitApiInterface {
                     @Field("BuildingTypeCount") Integer BuildingTypeCount,
                     @Field("BuildingUseId") Long BuildingUseId,
                     @Field("BuildingUseCount") Integer BuildingUseCount,
+                    @Field("PlateNumber") String plateNumber,
+                    @Field("UnitNumber") String UnitNumber,
                     @Header("Authorization") String Authorization
 
             );

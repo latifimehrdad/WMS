@@ -115,6 +115,9 @@
         <argument android:name="@string/ML_CompleteProfile"
             android:defaultValue="false" />
 
+        <argument android:name="@string/ML_Type"
+            android:defaultValue="save"/>
+
         <action
             android:id="@+id/action_home_to_profile"
             app:destination="@id/profile"

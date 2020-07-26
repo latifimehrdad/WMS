@@ -36,7 +36,9 @@ public class VM_PackageRequestAddress extends VM_Primary {
             Long BuildingTypeId,
             Integer BuildingTypeCount,
             Long BuildingUseId,
-            Integer BuildingUseCount) {//___________________________________________________________ SaveAddress
+            Integer BuildingUseCount,
+            String plateNumber,
+            String UnitNumber) {//__________________________________________________________________ SaveAddress
 
         RetrofitComponent retrofitComponent = ApplicationWMS
                 .getApplicationWMS(getContext())
@@ -54,6 +56,8 @@ public class VM_PackageRequestAddress extends VM_Primary {
                         BuildingTypeCount,
                         BuildingUseId,
                         BuildingUseCount,
+                        plateNumber,
+                        UnitNumber,
                         Authorization));
 
         getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {

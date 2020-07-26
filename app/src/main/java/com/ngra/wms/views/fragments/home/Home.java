@@ -132,7 +132,9 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
                     navController.navigate(R.id.action_home_to_packageRequestPrimary);
                 } else {
                     TwoBackToHome = true;
-                    navController.navigate(R.id.action_home_to_packageRequestAddress);
+                    Bundle bundle = new Bundle();
+                    bundle.putString(getContext().getResources().getString(R.string.ML_Type), getContext().getResources().getString(R.string.ML_Save));
+                    navController.navigate(R.id.action_home_to_packageRequestAddress, bundle);
                 }
 
             }

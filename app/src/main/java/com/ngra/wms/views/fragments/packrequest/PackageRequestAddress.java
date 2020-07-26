@@ -77,6 +77,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
     private DialogProgress progress;
     private Dialog dialogQuestion;
     private Location previousBestLocation = null;
+    private String addressType;
 
     @BindView(R.id.MaterialSpinnerType)
     MaterialSpinner MaterialSpinnerType;
@@ -125,6 +126,12 @@ public class PackageRequestAddress extends FragmentPrimary implements
 
     @BindView(R.id.markerInfo)
     LinearLayout markerInfo;
+
+    @BindView(R.id.EditTextPlateNumber)
+    EditText EditTextPlateNumber;
+
+    @BindView(R.id.EditTextUnitNumber)
+    EditText EditTextUnitNumber;
 
     @Nullable
     @Override
@@ -176,6 +183,10 @@ public class PackageRequestAddress extends FragmentPrimary implements
         SetOnClick();
         DismissLoading();
         vm_packageRequestAddress.GetTypeBuilding();
+        if (getArguments() != null)
+            addressType = getArguments().getString(getContext().getResources().getString(R.string.ML_Type), "");
+        else
+            addressType = "";
 
     }//_____________________________________________________________________________________________ init
 
@@ -195,7 +206,8 @@ public class PackageRequestAddress extends FragmentPrimary implements
         }
 
         if (action.equals(StaticValues.ML_EditUserAddress)) {
-            navController.navigate(R.id.action_packageRequestAddress_to_packageRequestPrimary);
+            if (!addressType.equals(""))
+                navController.navigate(R.id.action_packageRequestAddress_to_packageRequestPrimary);
             return;
         }
 
@@ -203,7 +215,6 @@ public class PackageRequestAddress extends FragmentPrimary implements
             SetMaterialSpinnerType();
             SetMaterialSpinnerUses();
         }
-
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 
@@ -243,7 +254,9 @@ public class PackageRequestAddress extends FragmentPrimary implements
                         BuildingTypeId,
                         Integer.valueOf(EditTextUnitCount.getText().toString()),
                         BuildingUseId,
-                        Integer.valueOf(EditTextPersonCount.getText().toString())
+                        Integer.valueOf(EditTextPersonCount.getText().toString()),
+                        EditTextPlateNumber.getText().toString(),
+                        EditTextUnitNumber.getText().toString()
                 );
             }
         });
@@ -253,7 +266,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
             if (BuildingUseId == -1) {
                 BuildingUseId = Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingUses().get(position - 1).getId());
                 MaterialSpinnerUses.getItems().remove(0);
-                MaterialSpinnerUses.setSelectedIndex(MaterialSpinnerUses.getItems().size()-1);
+                MaterialSpinnerUses.setSelectedIndex(MaterialSpinnerUses.getItems().size() - 1);
                 MaterialSpinnerUses.setSelectedIndex(position - 1);
             } else
                 BuildingUseId = Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingUses().get(position).getId());
@@ -267,7 +280,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
             if (BuildingTypeId == -1) {
                 BuildingTypeId = Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingTypes().get(position - 1).getId());
                 MaterialSpinnerType.getItems().remove(0);
-                MaterialSpinnerType.setSelectedIndex(MaterialSpinnerType.getItems().size()-1);
+                MaterialSpinnerType.setSelectedIndex(MaterialSpinnerType.getItems().size() - 1);
                 MaterialSpinnerType.setSelectedIndex(position - 1);
             } else
                 BuildingTypeId = Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingTypes().get(position).getId());
@@ -484,6 +497,25 @@ public class PackageRequestAddress extends FragmentPrimary implements
         boolean unitcount;
         boolean spinneruser;
         boolean spinnertype;
+        boolean plate;
+        boolean unit;
+
+
+        if (EditTextUnitNumber.getText().length() < 1) {
+            EditTextUnitNumber.setBackgroundResource(R.drawable.dw_edit_back_empty);
+            EditTextUnitNumber.setError(getResources().getString(R.string.EmptyUnitNumber));
+            EditTextUnitNumber.requestFocus();
+            unit = false;
+        } else
+            unit = true;
+
+        if (EditTextPlateNumber.getText().length() < 1) {
+            EditTextPlateNumber.setBackgroundResource(R.drawable.dw_edit_back_empty);
+            EditTextPlateNumber.setError(getResources().getString(R.string.EmptyPlateNumber));
+            EditTextPlateNumber.requestFocus();
+            plate = false;
+        } else
+            plate = true;
 
 
         if (BuildingTypeId == -1) {
@@ -526,7 +558,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
             address = true;
 
 
-        return address && personcount && unitcount && spinneruser && spinnertype;
+        return address && personcount && unitcount && spinneruser && spinnertype && unit && plate;
 
     }//_____________________________________________________________________________________________ CheckEmpty
 
