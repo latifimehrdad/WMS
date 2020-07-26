@@ -141,11 +141,13 @@ public class FragmentPrimary extends Fragment {
 
                 if ((action.equals(StaticValues.ML_RequestCancel))
                         || (action.equals(StaticValues.ML_ResponseError))
-                        || (action.equals(StaticValues.ML_ResponseFailure)))
+                        || (action.equals(StaticValues.ML_ResponseFailure))) {
                     ShowMessage(vm_primary.getResponseMessage(),
                             getResources().getColor(R.color.mlWhite),
                             getResources().getDrawable(R.drawable.ic_error),
                             getResources().getColor(R.color.mlCollectRight1));
+                    return;
+                }
                 else
                     ShowMessage(vm_primary.getResponseMessage()
                             , getResources().getColor(R.color.mlWhite),

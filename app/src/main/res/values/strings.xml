@@ -45,6 +45,7 @@
     <string name="HomeYouScore">امتیاز قرعه کشی</string>
 
     <string name="Retry">تلاش مجدد</string>
+    <string name="PleaseTryAgain">لطفا تلاش دوباره کنید</string>
 
     <string name="FragmentPackRequestPrimary">درخواست سطل بازیافت</string>
     <string name="FragmentPackRequestPrimarySet">ثبت درخواست</string>
@@ -86,17 +87,6 @@
     <string name="EmptyList">لیست خالی است</string>
     <string name="ChooseForDelivery">انتخاب برای تحویل</string>
 
-    <string name="Plastics">پلاستیک ها</string>
-    <string name="PlasticsNote">انواع ظروف پلاستيكي، روكش ها و كيسه هاي پلاستيكي ،قوطی آب معدنی،
-قوطی شیر ، قوطی مواد پاک کننده ، قوطی شامپو ، سی دی ، ظروف لبنیات ،
-ظروف شفاف پلاستیکی، ظروف کریستالی ،طناد هاي پلاستيكي، دسته جارو ،
-سبد میوه ، اسباد بازي هاي پلاستيكي، فيلم هاي عكاسي، انواع ابر و اسفنج</string>
-
-    <string name="Metals">فلزات</string>
-    <string name="Glass">شیشه</string>
-    <string name="Electronics">الکترونیک</string>
-    <string name="NonRecyclable">اقلام غیر بازیافت</string>
-
     <string name="HowGiveScore">نحوه امتیاز دهی</string>
     <string name="LotteryResult">نتایج قرعه کشی</string>
     <string name="Lottery">قرعه کشی</string>
@@ -108,9 +98,6 @@
     <string name="Score">امتیاز</string>
     <string name="Scores">امتیازات</string>
     <string name="Winner">برنده ماه قبل</string>
-    <string name="FriendsDefinitionAndReceiveBag">معرفی به دوستان و تحویل اولین کیسه تفکیک</string>
-    <string name="FragmentLotteryReceiveBooth">تحویل هر کیسه به غرفه بازیافت</string>
-    <string name="FragmentLotteryReceiveCar">تحویل هر کیسه به خودرو بازیافت</string>
     <string name="MonthLottery">قرعه کشی ماهانه</string>
     <string name="HighestScoreAward">جایزه بیشترین امتیاز</string>
     <string name="PeopleNumberOne">نفر اول</string>
@@ -170,7 +157,6 @@
     <string name="PleaseChooseCity">لطفا ابتدا شهر را انتخاب کنید</string>
     <string name="EmptyFirstName">لطفا نام را وارد کنید</string>
     <string name="EmptyLastName">لطفا نام خانوادگی را وارد کنید</string>
-    <string name="GetUserAccountNumber">دریافت اطلاعات حساب</string>
     <string name="GetBanks">دریافت لیست بانکها</string>
     <string name="EmptyAccountNumber">لطفا شماره شبا را وارد کنید</string>
     <string name="ExitAccount">خروج از حساب</string>
@@ -193,7 +179,6 @@
     <string name="DownloadingFile">بارگیری فایل ...</string>
     <string name="FileDownloaded">پایان بارگیری فایل</string>
     <string name="InstallApp">نصب بروزرسانی برنامه</string>
-    <string name="NewContactUs">ارسال درخواست جدید</string>
     <string name="ShebaNumber">مثال : IR012345678901234567890123 (تعداد 26 کاراکتر)</string>
     <string name="TicketDetail">مکالمات</string>
     <string name="MessageText">متن</string>
