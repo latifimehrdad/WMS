@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
@@ -43,7 +44,8 @@ public class Ticket extends FragmentPrimary implements
     @BindView(R.id.RecyclerViewTicket)
     RecyclerView RecyclerViewTicket;
 
-
+    @BindView(R.id.TextViewNoRequest)
+    TextView TextViewNoRequest;
 
 
     public Ticket() {//________________________________________________________________________ UserMessage
@@ -67,6 +69,7 @@ public class Ticket extends FragmentPrimary implements
             SetOnClick();
             gifLoading.setVisibility(View.VISIBLE);
             vm_ticket.GetAllTicket();
+            TextViewNoRequest.setVisibility(View.GONE);
         }
         return getView();
     }//_____________________________________________________________________________________________ onCreateView
@@ -140,6 +143,11 @@ public class Ticket extends FragmentPrimary implements
         AP_Tickets ap_tickets = new AP_Tickets(vm_ticket.getMd_usersTicketLists(), Ticket.this);
         RecyclerViewTicket.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         RecyclerViewTicket.setAdapter(ap_tickets);
+
+        if (vm_ticket.getMd_usersTicketLists().size() > 0)
+            TextViewNoRequest.setVisibility(View.GONE);
+        else
+            TextViewNoRequest.setVisibility(View.VISIBLE);
 
     }//_____________________________________________________________________________________________ SetAdapter
 

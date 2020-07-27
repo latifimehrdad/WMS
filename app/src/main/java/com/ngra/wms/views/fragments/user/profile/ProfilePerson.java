@@ -15,6 +15,8 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.cunoraz.gifview.library.GifView;
 import com.ngra.wms.R;
@@ -59,6 +61,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
     private String UserTypeId = "-1";
     private boolean completeProfile;
     private boolean clickSave;
+    private NavController navController;
 
 
     @BindView(R.id.LayoutCity)
@@ -118,6 +121,9 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
     @BindView(R.id.imgLoading)
     ImageView imgLoading;
 
+    @BindView(R.id.LinearLayoutEditAddress)
+    LinearLayout LinearLayoutEditAddress;
+
 
     @Nullable
     @Override
@@ -125,6 +131,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
             @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
+
         if (getView() == null) {
             FragmentProfilePersonBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_profile_person, container, false);
@@ -134,6 +141,8 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
             init();
             completeProfile = MainActivity.complateprofile;
             clickSave = false;
+            if (!completeProfile)
+                LinearLayoutEditAddress.setVisibility(View.GONE);
         }
         return getView();
     }//_____________________________________________________________________________________________ onCreateView
@@ -146,7 +155,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
                 ProfilePerson.this,
                 vm_profilePerson.getPublishSubject(),
                 vm_profilePerson);
-        Bundle bundle = getArguments();
+        navController = Navigation.findNavController(getView());
     }//_____________________________________________________________________________________________ onStart
 
 
@@ -168,6 +177,18 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
 
 
     private void SetClick() {//_____________________________________________________________________ SetClick
+
+
+        LinearLayoutEditAddress.setOnClickListener(v -> {
+            if (getView() != null) {
+                ViewGroup parent = (ViewGroup) getView().getParent();
+                if (parent != null) {
+                    parent.removeAllViews();
+                }
+            }
+            navController.navigate(R.id.action_goto_address);
+        });
+
 
         LayoutProvinces.setOnClickListener(v -> {
             ClickProvince = true;
@@ -326,8 +347,11 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
                 UserTypeId = String.valueOf(profile.getCitizenType());
             }
 
-            if (profile.getReferenceCode() != null)
+            if (profile.getReferenceCode() != null) {
                 editReferenceCode.setText(String.valueOf(profile.getReferenceCode()));
+                if (editReferenceCode.getText().toString().length() > 0)
+                    editReferenceCode.setEnabled(false);
+            }
 
             if (profile.getGender() == 0)
                 radioWoman.setChecked(true);

@@ -117,7 +117,7 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
     }//_____________________________________________________________________________________________ onStart
 
 
-    private void SetStatusPackageRequest() {//_____________________________________________________ SetStatusPackageRequest
+    private void SetStatusPackageRequest() {//______________________________________________________ SetStatusPackageRequest
 
 
         Byte statues = vm_packageRequestPrimary.GetPackageStatus();

@@ -41,6 +41,7 @@ public class Profile extends FragmentPrimary {
             @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
+
         if (getView() == null) {
             FragmentProfileBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_profile, container, false);
@@ -68,13 +69,13 @@ public class Profile extends FragmentPrimary {
                 getChildFragmentManager(), FragmentPagerItems.with(getContext())
                 .add(R.string.RegisterPersonCodeNew, ProfileCode.class)
                 .add(R.string.RegisterPersonBank, ProfileBank.class)
-                .add(R.string.PostalAddress, PackageRequestAddress.class)
+//                .add(R.string.PostalAddress, PackageRequestAddress.class)
                 .add(R.string.RegisterPerson, ProfilePerson.class)
                 .create());
 
         FragmentRegistryView.setAdapter(adapter);
         FragmentRegistryTab.setViewPager(FragmentRegistryView);
-        FragmentRegistryView.setCurrentItem(3);
+        FragmentRegistryView.setCurrentItem(2);
 
     }//_____________________________________________________________________________________________ SetTabs
 

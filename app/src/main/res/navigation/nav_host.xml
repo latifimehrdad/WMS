@@ -402,4 +402,12 @@
         android:label="Conversation"
         tools:layout="@layout/fragment_conversation"/>
 
+    <action
+        android:id="@+id/action_goto_address"
+        app:destination="@id/packageRequestAddress"
+        app:popEnterAnim="@anim/slide_in_right"
+        app:popExitAnim="@anim/slide_out_left"
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/slide_out_right"/>
+
 </navigation>

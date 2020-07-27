@@ -346,6 +346,38 @@
 
 
                 <LinearLayout
+                    android:id="@+id/LinearLayoutEditAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/dw_back_edit_address">
+
+                    <TextView
+                        fontPath="font/iransans_web_medium.ttf"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/mlWhite"
+                        android:gravity="center"
+                        android:textSize="@dimen/_11sdp"
+                        android:text="@string/PostalAddress"
+                        />
+
+
+                    <ImageView
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:padding="@dimen/_4sdp"
+                        android:src="@drawable/svg_mailbox"
+                        android:tint="@color/mlWhite"
+                        />
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"

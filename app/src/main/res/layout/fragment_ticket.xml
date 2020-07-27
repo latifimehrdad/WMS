@@ -27,6 +27,21 @@
             custom:gif="@drawable/loading2" />
 
 
+        <TextView
+            android:id="@+id/TextViewNoRequest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:textColor="@color/mlBlack"
+            android:textSize="@dimen/_11sdp"
+            android:gravity="center"
+            fontPath="font/iransans_web_medium.ttf"
+            android:text="@string/NoMessage"/>
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RecyclerViewTicket"
             android:layout_width="match_parent"

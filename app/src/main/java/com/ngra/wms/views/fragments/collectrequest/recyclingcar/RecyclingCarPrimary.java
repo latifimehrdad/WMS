@@ -167,6 +167,7 @@ public class RecyclingCarPrimary extends FragmentPrimary implements
 
         MaterialSpinnerSpinnerDay.setItems(buildingTypes);
 
+
         MaterialSpinnerSpinnerDay.setOnItemSelectedListener((view, position, id, item) -> {
             if (position == 0)
                 return;
