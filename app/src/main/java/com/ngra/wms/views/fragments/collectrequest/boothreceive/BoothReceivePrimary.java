@@ -238,16 +238,18 @@ public class BoothReceivePrimary extends FragmentPrimary implements
     @Override
     public void itemBoothMap(Integer position) {//__________________________________________________ itemBoothClick
         mMap.clear();
-        MD_Location md_location = vm_boothReceivePrimary.getBoothList().get(position).getLocation();
-        LatLng latLng = new LatLng(md_location.getLatitude(), md_location.getLongitude());
-        MehrdadLatifiMap latifiMap = new MehrdadLatifiMap();
-        latifiMap.setGoogleMap(mMap);
-        latifiMap.AddMarker(latLng, vm_boothReceivePrimary.getBoothList().get(position).getName(), "", R.drawable.marker_point);
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(latLng)      // Sets the center of the map to Mountain View
-                .zoom(16)                   // Sets the zoom
-                .build();                   // Creates a CameraPosition from the builder
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        if (vm_boothReceivePrimary.getBoothList() != null && vm_boothReceivePrimary.getBoothList().size() > 0) {
+            MD_Location md_location = vm_boothReceivePrimary.getBoothList().get(position).getLocation();
+            LatLng latLng = new LatLng(md_location.getLatitude(), md_location.getLongitude());
+            MehrdadLatifiMap latifiMap = new MehrdadLatifiMap();
+            latifiMap.setGoogleMap(mMap);
+            latifiMap.AddMarker(latLng, vm_boothReceivePrimary.getBoothList().get(position).getName(), "", R.drawable.marker_point);
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(latLng)      // Sets the center of the map to Mountain View
+                    .zoom(16)                   // Sets the zoom
+                    .build();                   // Creates a CameraPosition from the builder
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        }
     }//_____________________________________________________________________________________________ itemBoothClick
 
 

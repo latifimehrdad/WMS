@@ -18,8 +18,8 @@
 
     <string name="PackageNotDelivered">قبل از درخواست جمع آوری، لطفا ابتدا به بخش درخواست سطل بازیافت بروید و تا تحویل سطل بازیافت در محل ساختمان منتظر بمانید</string>
 
-<!--    <string name="app_name">پسماند خشک سبززیور-شهروند</string>-->
-    <string name="app_name">پسماند خشک نگرا-شهروند</string>
+    <string name="app_name">پسماند خشک سبززیور-شهروند</string>
+<!--    <string name="app_name">پسماند خشک نگرا-شهروند</string>-->
 
     <string name="WMSFromFist">سیستم مدیریت تفکیک از مبدأ</string>
     <string name="Orders">سفارشات</string>
