@@ -175,7 +175,9 @@
     <string name="EmptyUnitNumber">لطفا شماره واحد را وارد نمایید</string>
     <string name="EmptyUnitCount">لطفا تعداد واحدها را وارد نمایید</string>
     <string name="TurnOnGps">موقعیت مکانی دستگاه شما خاموش است. تمایل به روشن کردن آن دارید؟</string>
-    <string name="CopyRight">تولید شده توسط گروه نگرا</string>
+    <string name="CopyRight">قدرت گرفته از قلب تپنده نگرا</string>
+    <string name="PowerOff">قدرت گرفته از</string>
+    <string name="BounceNegra">تپنده نگرا</string>
     <string name="About">درباره تولید کننده</string>
     <string name="NgraSite">آدرس سایت : http://www.ngra.ir</string>
     <string name="Tel">تلفن تماس : 02691009001</string>

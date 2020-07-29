@@ -34,6 +34,7 @@ import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -59,6 +60,7 @@ import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 public class MainActivity extends AppCompatActivity {
 
 
+    public static DrawerLayout drawer;
     public static boolean complateprofile = false;
     private NavController navController;
     //    private AppBarConfiguration appBarConfiguration;
@@ -93,11 +95,14 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.LinearLayoutFragment)
     LinearLayout LinearLayoutFragment;
 
-    @BindView(R.id.TextViewNewCopyRight)
-    TextView TextViewNewCopyRight;
+    @BindView(R.id.LinearLayoutCopyRight)
+    LinearLayout LinearLayoutCopyRight;
 
     @BindView(R.id.LinearLayoutAbout)
     LinearLayout LinearLayoutAbout;
+
+    @BindView(R.id.ImageViewCopyRight)
+    ImageView ImageViewCopyRight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {//__________________________________________ Start onCreate
@@ -115,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
                 .setDrawerLayout(mDrawer)
                 .build();
+        drawer = mDrawer;
         NavigationUI.setupWithNavController(BottomNav1, navController);
         NavigationUI.setupWithNavController(nvView, navController);
         SetClicks();
@@ -122,7 +128,15 @@ public class MainActivity extends AppCompatActivity {
         //checkLocationPermission();
         SetPermission();
         SetListener();
+        StartAnimationSplash();
     }//_____________________________________________________________________________________________ End SetBindingView
+
+
+
+    private void StartAnimationSplash() {//_________________________________________________________ StartAnimationSplash
+        ImageViewCopyRight.startAnimation(AnimationUtils.loadAnimation(this, R.anim.bounce));
+    }//_____________________________________________________________________________________________ StartAnimationSplash
+
 
 
     public void SetPermission() {//_________________________________________________________________ Start SetPermission
@@ -223,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
         MainMenu.setOnClickListener(v -> mDrawer.openDrawer(Gravity.RIGHT, true));
 
 
-        TextViewNewCopyRight.setOnClickListener(v -> {
+        LinearLayoutCopyRight.setOnClickListener(v -> {
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_VIEW);
             intent.addCategory(Intent.CATEGORY_BROWSABLE);
@@ -260,6 +274,8 @@ public class MainActivity extends AppCompatActivity {
                     NavGraph graph = navInflater.inflate(R.navigation.nav_host);
                     graph.setStartDestination(R.id.splash);
                     navController.setGraph(graph);
+                    LockDrawer();
+                    MainMenu.setVisibility(View.GONE);
                 }
                 RelativeLayoutLoginHeader.setVisibility(View.VISIBLE);
                 RelativeLayoutMainFooter.setVisibility(View.GONE);
@@ -274,6 +290,8 @@ public class MainActivity extends AppCompatActivity {
                     NavGraph graph = navInflater.inflate(R.navigation.nav_host);
                     graph.setStartDestination(R.id.home);
                     navController.setGraph(graph);
+                    MainMenu.setVisibility(View.VISIBLE);
+                    UnLockDrawer();
                 }
                 RelativeLayoutLoginHeader.setVisibility(View.GONE);
                 RelativeLayoutMainFooter.setVisibility(View.VISIBLE);
@@ -302,6 +320,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }//_____________________________________________________________________________________________ End GetUserNameProfile
+
+
+    public static void LockDrawer() {//______________________________________________________________ Start LockDrawer
+        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+    }//_____________________________________________________________________________________________ End LockDrawer
+
+
+    public static void UnLockDrawer() {//____________________________________________________________ Start UnLockDrawer
+        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+    }//_____________________________________________________________________________________________ End UnLockDrawer
+
 
 
     public void attachBaseContext(Context newBase) {//______________________________________________ Start attachBaseContext
