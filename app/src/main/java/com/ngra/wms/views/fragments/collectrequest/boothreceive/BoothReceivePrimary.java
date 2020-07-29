@@ -238,7 +238,8 @@ public class BoothReceivePrimary extends FragmentPrimary implements
     @Override
     public void itemBoothMap(Integer position) {//__________________________________________________ itemBoothClick
         mMap.clear();
-        if (vm_boothReceivePrimary.getBoothList() != null && vm_boothReceivePrimary.getBoothList().size() > 0) {
+        if (vm_boothReceivePrimary.getBoothList() != null && vm_boothReceivePrimary.getBoothList().size() > 0)
+        if (vm_boothReceivePrimary.getBoothList().get(position).getLocation()!= null){
             MD_Location md_location = vm_boothReceivePrimary.getBoothList().get(position).getLocation();
             LatLng latLng = new LatLng(md_location.getLatitude(), md_location.getLongitude());
             MehrdadLatifiMap latifiMap = new MehrdadLatifiMap();

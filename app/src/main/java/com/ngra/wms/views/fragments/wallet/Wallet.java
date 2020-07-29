@@ -82,7 +82,7 @@ public class Wallet extends FragmentPrimary implements FragmentPrimary.GetMessag
         chart.setMaxVisibleValueCount(60);
 
         // scaling can now only be done on x- and y-axis separately
-        chart.setPinchZoom(false);
+        chart.setPinchZoom(true);
         chart.getLegend().setEnabled(false);
         chart.setDrawGridBackground(false);
         // chart.setDrawYLabels(false);

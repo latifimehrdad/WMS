@@ -285,7 +285,7 @@
                             android:layout_height="@dimen/_35sdp"
                             android:background="@drawable/dw_edit_back_image"
                             android:padding="@dimen/_4sdp"
-                            android:src="@drawable/svg_apartment"
+                            android:src="@drawable/svg_count"
                             android:tint="@color/mlWhite"
                             />
 
@@ -320,7 +320,7 @@
                             android:layout_height="@dimen/_35sdp"
                             android:background="@drawable/dw_edit_back_image"
                             android:padding="@dimen/_4sdp"
-                            android:src="@drawable/svg_apartment"
+                            android:src="@drawable/svg_plate_number"
                             android:tint="@color/mlWhite"
                             />
 
