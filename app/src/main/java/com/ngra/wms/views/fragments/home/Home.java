@@ -142,7 +142,7 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
 
         footerdown.setOnClickListener(v -> {
             if (vm_home.GetPackageState() == StaticValues.PR_Delivered)
-                navController.navigate(R.id.action_home_to_collectRequest);
+                navController.navigate(R.id.action_home_to_collectRequestPrimary);
             else {
                 ShowMessage(getContext().getResources().getString(R.string.PackageNotDelivered),
                         getResources().getColor(R.color.mlWhite),

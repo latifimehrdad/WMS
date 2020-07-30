@@ -81,8 +81,9 @@ public class BoothReceivePrimary extends FragmentPrimary implements
             );
             binding.setVMBoothReceivePrimary(vm_boothReceivePrimary);
             setView(binding.getRoot());
-            SetVolumeWaste();
-            vm_boothReceivePrimary.GetTypeTimes();
+            vm_boothReceivePrimary.GetBoothList();
+            //SetVolumeWaste();
+            //vm_boothReceivePrimary.GetTypeTimes();
         }
         return getView();
     }//_____________________________________________________________________________________________ End onCreateView

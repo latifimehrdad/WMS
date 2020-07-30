@@ -4,7 +4,11 @@ import android.app.Activity;
 
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MD_ItemWaste;
+import com.ngra.wms.models.MD_SpinnerItem;
 import com.ngra.wms.models.MR_ItemsWast;
+import com.ngra.wms.models.MR_SpinnerItems;
+import com.ngra.wms.models.ModelTimeSheetTimes;
+import com.ngra.wms.models.ModelTimes;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Primary;
 import com.ngra.wms.views.application.ApplicationWMS;
@@ -21,6 +25,8 @@ public class VM_CollectRequestPrimary extends VM_Primary {
 
 
     private List<MD_ItemWaste> md_itemWastes;
+    private ModelTimes modelTimes;
+    private ArrayList<MD_SpinnerItem> volumes;
 
 
     public VM_CollectRequestPrimary(Activity context) {//___________________________________________ VM_CollectRequestPrimary
@@ -68,10 +74,95 @@ public class VM_CollectRequestPrimary extends VM_Primary {
 
 
 
-    public List<MD_ItemWaste> getMd_itemWastes() {//__________________________________________________ getMd_itemWasts
+
+    public void GetTypeTimes() {//__________________________________________________________________ GetTypeTimes
+
+        RetrofitComponent retrofitComponent = ApplicationWMS
+                .getApplicationWMS(getContext())
+                .getRetrofitComponent();
+
+        String Authorization = GetAuthorization();
+
+        setPrimaryCall(retrofitComponent
+                .getRetrofitApiInterface()
+                .getTimes(Authorization));
+
+        getPrimaryCall().enqueue(new Callback<ModelTimeSheetTimes>() {
+            @Override
+            public void onResponse(Call<ModelTimeSheetTimes> call, Response<ModelTimeSheetTimes> response) {
+                setResponseMessage(CheckResponse(response, false));
+                if (getResponseMessage() == null) {
+                    modelTimes = response.body().getResult();
+                    SendMessageToObservable(StaticValues.ML_GetTimeSheetTimes);
+                } else {
+                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ModelTimeSheetTimes> call, Throwable t) {
+                OnFailureRequest();
+            }
+        });
+
+    }//_____________________________________________________________________________________________ GetTypeTimes
+
+
+
+
+    public void GetVolumeList() {//_________________________________________________________________ GetVolumeList
+
+        RetrofitComponent retrofitComponent =
+                ApplicationWMS
+                        .getApplicationWMS(getContext())
+                        .getRetrofitComponent();
+
+        String Authorization = GetAuthorization();
+
+
+        Call<MR_SpinnerItems> call = retrofitComponent
+                .getRetrofitApiInterface()
+                .getProvinces(
+                        Authorization);
+
+        call.enqueue(new Callback<MR_SpinnerItems>() {
+            @Override
+            public void onResponse(Call<MR_SpinnerItems> call, Response<MR_SpinnerItems> response) {
+                setResponseMessage(CheckResponse(response, false));
+                if (getResponseMessage() == null) {
+                    volumes = response.body().getResult();
+                    SendMessageToObservable(StaticValues.ML_GetVolume);
+                } else
+                    SendMessageToObservable(StaticValues.ML_ResponseError);
+            }
+
+            @Override
+            public void onFailure(Call<MR_SpinnerItems> call, Throwable t) {
+                OnFailureRequest();
+            }
+        });
+
+    }//_____________________________________________________________________________________________ GetVolumeList
+
+
+
+    public ModelTimes getModelTimes() {//___________________________________________________________ getModelTimes
+        return modelTimes;
+    }//_____________________________________________________________________________________________ getModelTimes
+
+
+
+    public List<MD_ItemWaste> getMd_itemWastes() {//________________________________________________ getMd_itemWasts
         if (md_itemWastes == null)
             md_itemWastes = new ArrayList<>();
 
         return md_itemWastes;
     }//_____________________________________________________________________________________________ getMd_itemWasts
+
+
+    public ArrayList<MD_SpinnerItem> getVolumes() {//_______________________________________________ getVolumes
+        return volumes;
+    }//_____________________________________________________________________________________________ getVolumes
+
 }

@@ -222,6 +222,14 @@
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"/>
 
+        <action
+            android:id="@+id/action_home_to_collectRequestPrimary"
+            app:destination="@id/collectRequestPrimary"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
     </fragment>
 
     <fragment
@@ -409,5 +417,27 @@
         app:popExitAnim="@anim/slide_out_left"
         app:enterAnim="@anim/slide_in_left"
         app:exitAnim="@anim/slide_out_right"/>
+
+    <fragment
+        android:id="@+id/collectRequestPrimary"
+        android:name="com.ngra.wms.views.fragments.collectrequest.collectrequest.CollectRequestPrimary"
+        android:label="CollectRequestPrimary"
+        tools:layout="@layout/fragment_collect_request_primery">
+
+        <action
+            android:id="@+id/action_collectRequestPrimary_to_boothReceivePrimary"
+            app:destination="@id/boothReceivePrimary"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/boothReceivePrimary"
+        android:name="com.ngra.wms.views.fragments.collectrequest.boothreceive.BoothReceivePrimary"
+        android:label="BoothReceivePrimary"
+        tools:layout="@layout/fragment_booth_receive_primery"/>
 
 </navigation>

@@ -348,4 +348,12 @@ public interface RetrofitApiInterface {
                     @Header("Authorization") String Authorization
             );
 
+
+    @GET(Version + "/region/provinces")
+    Call<MR_SpinnerItems> getVolume
+            (
+                    @Header("Authorization") String Authorization
+
+            );
+
 }

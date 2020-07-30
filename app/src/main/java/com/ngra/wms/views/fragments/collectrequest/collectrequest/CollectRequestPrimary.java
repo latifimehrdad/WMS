@@ -13,10 +13,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cunoraz.gifview.library.GifView;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.ngra.wms.R;
 import com.ngra.wms.database.DB_ItemsWasteList;
 import com.ngra.wms.databinding.FragmentCollectRequestPrimeryBinding;
 import com.ngra.wms.models.MD_ItemWaste;
+import com.ngra.wms.models.MD_SpinnerItem;
+import com.ngra.wms.models.ModelTime;
+import com.ngra.wms.utility.ApplicationUtility;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.collectrequest.collectrequest.VM_CollectRequestPrimary;
 import com.ngra.wms.views.adaptors.collectrequest.AP_ItemsWaste;
@@ -25,6 +29,10 @@ import com.ngra.wms.views.application.ApplicationWMS;
 import com.ngra.wms.views.fragments.FragmentPrimary;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import io.realm.Realm;
@@ -41,6 +49,8 @@ public class CollectRequestPrimary extends FragmentPrimary implements
     private NavController navController;
     private RealmResults<DB_ItemsWasteList> wasteLists;
     private AP_ItemsWasteList ap_itemsWasteList;
+    private Integer timePosition = -1;
+    private Integer volumePosition = -1;
 
 
     @BindView(R.id.fcrpRecyclingCar)
@@ -58,6 +68,12 @@ public class CollectRequestPrimary extends FragmentPrimary implements
     @BindView(R.id.gifLoading)
     GifView gifLoading;
 
+    @BindView(R.id.MaterialSpinnerSpinnerDay)
+    MaterialSpinner MaterialSpinnerSpinnerDay;
+
+    @BindView(R.id.MaterialSpinnerSpinnerVolume)
+    MaterialSpinner MaterialSpinnerSpinnerVolume;
+
 
     public CollectRequestPrimary() {//______________________________________________________________ CollectRequestPrimary
     }//_____________________________________________________________________________________________ CollectRequestPrimary
@@ -67,16 +83,18 @@ public class CollectRequestPrimary extends FragmentPrimary implements
             @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ onCreateView
-//        if (getView() == null) {
-        vm_collectRequestPrimary = new VM_CollectRequestPrimary(getContext());
-        FragmentCollectRequestPrimeryBinding binding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_collect_request_primery, container, false
-        );
-        binding.setVMCollectPrimary(vm_collectRequestPrimary);
-        setView(binding.getRoot());
-        SetClicks();
-        GetItemsOfWast();
-//        }
+        if (getView() == null) {
+            vm_collectRequestPrimary = new VM_CollectRequestPrimary(getContext());
+            FragmentCollectRequestPrimeryBinding binding = DataBindingUtil.inflate(
+                    inflater, R.layout.fragment_collect_request_primery, container, false
+            );
+            binding.setVMCollectPrimary(vm_collectRequestPrimary);
+            setView(binding.getRoot());
+            vm_collectRequestPrimary.GetTypeTimes();
+            vm_collectRequestPrimary.GetVolumeList();
+            SetClicks();
+            //GetItemsOfWast();
+        }
         return getView();
     }//_____________________________________________________________________________________________ onCreateView
 
@@ -113,6 +131,17 @@ public class CollectRequestPrimary extends FragmentPrimary implements
         gifLoading.setVisibility(View.GONE);
         if (action.equals(StaticValues.ML_GetItemsOfWasteIsSuccess)) {
             SetItemsWasteAdapter();
+            return;
+        }
+
+        if (action.equals(StaticValues.ML_GetTimeSheetTimes)) {
+            SetMaterialSpinnersTimes();
+            return;
+        }
+
+        if (action.equals(StaticValues.ML_GetVolume)) {
+            SetMaterialSpinnersVolume();
+            return;
         }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
@@ -129,24 +158,38 @@ public class CollectRequestPrimary extends FragmentPrimary implements
     private void SetClicks() {//____________________________________________________________________ SetClicks
 
         fcrpRecyclingCar.setOnClickListener(v -> {
-            if (wasteLists != null && wasteLists.size() > 0)
-                navController.navigate(R.id.action_collectRequest_to_recyclingCar);
-            else
-                ShowMessage(getResources().getString(R.string.EmptyList),
-                        getResources().getColor(R.color.mlWhite),
-                        getResources().getDrawable(R.drawable.ic_error),
-                        getResources().getColor(R.color.mlCollectRight1));
+            if (CheckEmpty()){
+
+            }
         });
 
+
         fcrpBoothReceive.setOnClickListener(v -> {
-            if (wasteLists != null && wasteLists.size() > 0)
-                navController.navigate(R.id.action_collectRequest_to_boothReceive);
-            else
-                ShowMessage(getResources().getString(R.string.EmptyList),
-                        getResources().getColor(R.color.mlWhite),
-                        getResources().getDrawable(R.drawable.ic_error),
-                        getResources().getColor(R.color.mlCollectRight1));
+            if (CheckEmpty()) {
+                navController.navigate(R.id.action_collectRequestPrimary_to_boothReceivePrimary);
+            }
         });
+
+
+//        fcrpRecyclingCar.setOnClickListener(v -> {
+//            if (wasteLists != null && wasteLists.size() > 0)
+//                navController.navigate(R.id.action_collectRequest_to_recyclingCar);
+//            else
+//                ShowMessage(getResources().getString(R.string.EmptyList),
+//                        getResources().getColor(R.color.mlWhite),
+//                        getResources().getDrawable(R.drawable.ic_error),
+//                        getResources().getColor(R.color.mlCollectRight1));
+//        });
+//
+//        fcrpBoothReceive.setOnClickListener(v -> {
+//            if (wasteLists != null && wasteLists.size() > 0)
+//                navController.navigate(R.id.action_collectRequest_to_boothReceive);
+//            else
+//                ShowMessage(getResources().getString(R.string.EmptyList),
+//                        getResources().getColor(R.color.mlWhite),
+//                        getResources().getDrawable(R.drawable.ic_error),
+//                        getResources().getColor(R.color.mlCollectRight1));
+//        });
 
     }//_____________________________________________________________________________________________ SetClicks
 
@@ -230,5 +273,113 @@ public class CollectRequestPrimary extends FragmentPrimary implements
         }
 
     }//_____________________________________________________________________________________________ itemWasteDeleteClick
+
+
+    private void SetMaterialSpinnersTimes() {//_____________________________________________________ SetMaterialSpinnersTimes
+
+        ApplicationUtility utility = null;
+        if (getContext() != null) {
+            utility = ApplicationWMS
+                    .getApplicationWMS(getContext())
+                    .getUtilityComponent()
+                    .getApplicationUtility();
+        }
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+
+        List<String> buildingTypes = new ArrayList<>();
+        buildingTypes.add(getResources().getString(R.string.ChooseDateDelivery));
+        for (ModelTime item : vm_collectRequestPrimary.getModelTimes().getTimes()) {
+            String builder = null;
+            if (utility != null) {
+                builder = utility.MiladiToJalali(item.getDate(), "FullJalaliString") +
+                        " از " +
+                        simpleDateFormat.format(item.getFrom()) +
+                        " تا " +
+                        simpleDateFormat.format(item.getTo());
+            }
+            buildingTypes.add(builder);
+        }
+
+        MaterialSpinnerSpinnerDay.setItems(buildingTypes);
+
+
+        MaterialSpinnerSpinnerDay.setOnItemSelectedListener((view, position, id, item) -> {
+            if (position == 0)
+                return;
+            if (timePosition == -1) {
+                timePosition = position - 1;
+                MaterialSpinnerSpinnerDay.getItems().remove(0);
+                MaterialSpinnerSpinnerDay.setSelectedIndex(MaterialSpinnerSpinnerDay.getItems().size() - 1);
+                MaterialSpinnerSpinnerDay.setSelectedIndex(position - 1);
+            } else
+                timePosition = position;
+            MaterialSpinnerSpinnerDay.setBackgroundColor(getResources().getColor(R.color.mlEdit));
+        });
+
+    }//_____________________________________________________________________________________________ SetMaterialSpinnersTimes
+
+
+
+
+    private void SetMaterialSpinnersVolume() {//____________________________________________________ SetMaterialSpinnersVolume
+
+        ApplicationUtility utility = null;
+        if (getContext() != null) {
+            utility = ApplicationWMS
+                    .getApplicationWMS(getContext())
+                    .getUtilityComponent()
+                    .getApplicationUtility();
+        }
+
+        List<String> buildingTypes = new ArrayList<>();
+        buildingTypes.add(getResources().getString(R.string.ChooseVolumeDelivery));
+        for (MD_SpinnerItem item : vm_collectRequestPrimary.getVolumes()) {
+            buildingTypes.add(item.getTitle());
+        }
+
+        MaterialSpinnerSpinnerVolume.setItems(buildingTypes);
+
+        MaterialSpinnerSpinnerVolume.setOnItemSelectedListener((view, position, id, item) -> {
+            if (position == 0)
+                return;
+            if (volumePosition == -1) {
+                volumePosition = position - 1;
+                MaterialSpinnerSpinnerVolume.getItems().remove(0);
+                MaterialSpinnerSpinnerVolume.setSelectedIndex(MaterialSpinnerSpinnerVolume.getItems().size() - 1);
+                MaterialSpinnerSpinnerVolume.setSelectedIndex(position - 1);
+            } else
+                volumePosition = position;
+            MaterialSpinnerSpinnerVolume.setBackgroundColor(getResources().getColor(R.color.mlEdit));
+        });
+
+    }//_____________________________________________________________________________________________ SetMaterialSpinnersVolume
+
+
+
+
+    private boolean CheckEmpty() {//________________________________________________________________ CheckEmpty
+
+        boolean time = true;
+        boolean volume = true;
+
+        if (timePosition == -1) {
+            MaterialSpinnerSpinnerDay.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
+            MaterialSpinnerSpinnerDay.requestFocus();
+            time = false;
+        }
+
+
+        if (volumePosition == -1) {
+            MaterialSpinnerSpinnerVolume.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
+            MaterialSpinnerSpinnerVolume.requestFocus();
+            volume = false;;
+        }
+
+        return time && volume;
+
+    }//_____________________________________________________________________________________________ CheckEmpty
+
+
 
 }

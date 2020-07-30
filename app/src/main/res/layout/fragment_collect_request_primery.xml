@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto">
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools">
     <data>
 
         <variable
@@ -17,11 +18,123 @@
         android:paddingRight="@dimen/_5sdp"
         >
 
+
+        // Center
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.3"
+            android:orientation="vertical"
+            android:padding="@dimen/_7sdp"
+            android:gravity="center"
+            >
+
+
+
+            <ImageView
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:src="@drawable/svg_select"
+                android:tint="@color/colorPrimaryDark"
+                />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_11sdp"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="@string/SelectTheFollowingToSubmitARequest"
+                android:gravity="center"
+                fontPath="font/iransans_web_medium.ttf"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/_15sdp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/dw_edit_back">
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/MaterialSpinnerSpinnerVolume"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:textSize="@dimen/_10sdp"
+                        app:ms_background_color="@color/mlWhite"
+                        app:ms_text_color="@color/mlBlack" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/dw_edit_back_image"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/svg_weight_of_delivery_package_on_a_scale"
+                    android:tint="@color/mlWhite"
+                    />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/dw_edit_back">
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/MaterialSpinnerSpinnerDay"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        app:ms_background_color="@color/mlWhite"
+                        app:ms_text_color="@color/mlBlack"
+                        android:textSize="@dimen/_10sdp"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/dw_edit_back_image"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/svg_calendar"
+                    android:tint="@color/mlWhite"
+                    />
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+        // Center
+
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1.3"
             android:layout_marginBottom="@dimen/_10sdp"
+            android:visibility="gone"
             >
 
             <LinearLayout
@@ -56,7 +169,6 @@
             </LinearLayout>
 
         </ScrollView>
-
 
 
 
