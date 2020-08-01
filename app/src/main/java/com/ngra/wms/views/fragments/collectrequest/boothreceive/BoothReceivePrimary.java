@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.maps.model.CameraPosition;
 import com.ngra.wms.R;
-import com.ngra.wms.database.DB_ItemsWasteList;
 import com.ngra.wms.databinding.FragmentBoothReceivePrimeryBinding;
 import com.ngra.wms.models.MD_Booth;
 import com.ngra.wms.models.MD_ItemWaste;
@@ -27,7 +26,6 @@ import com.ngra.wms.utility.MehrdadLatifiMap;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.collectrequest.boothreceive.VM_BoothReceivePrimary;
 import com.ngra.wms.views.adaptors.collectrequest.AP_BoothList;
-import com.ngra.wms.views.application.ApplicationWMS;
 import com.ngra.wms.views.fragments.FragmentPrimary;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -35,17 +33,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.jaredrummler.materialspinner.MaterialSpinner;
-
 import org.jetbrains.annotations.NotNull;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
 import butterknife.BindView;
-import io.realm.Realm;
-import io.realm.RealmResults;
+
 
 public class BoothReceivePrimary extends FragmentPrimary implements
         FragmentPrimary.GetMessageFromObservable, OnMapReadyCallback,
@@ -143,7 +133,7 @@ public class BoothReceivePrimary extends FragmentPrimary implements
             return;
         }
 
-        if (action.equals(StaticValues.ML_CollectRequestDone)) {
+/*        if (action.equals(StaticValues.ML_CollectRequestDone)) {
             ap_boothList = null;
             RecyclerViewBooths.setAdapter(null);
             Realm realm = Realm.getDefaultInstance();
@@ -155,7 +145,7 @@ public class BoothReceivePrimary extends FragmentPrimary implements
             } finally {
                 realm.close();
             }
-        }
+        }*/
 
         if (action.equals(StaticValues.ML_DialogClose)) {
             getContext().onBackPressed();
@@ -212,6 +202,7 @@ public class BoothReceivePrimary extends FragmentPrimary implements
 */
 
 
+/*
     private void SetVolumeWaste() {//_______________________________________________________________ SetVolumeWaste
         if (getContext() != null) {
             Realm realm = ApplicationWMS.getApplicationWMS(getContext()).getRealmComponent().getRealm();
@@ -219,6 +210,7 @@ public class BoothReceivePrimary extends FragmentPrimary implements
             TextViewCount.setText(String.valueOf(count));
         }
     }//_____________________________________________________________________________________________ SetVolumeWaste
+*/
 
 
     private void SetAdapterBooth() {//______________________________________________________________ SetAdapterBooth

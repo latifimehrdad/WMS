@@ -12,7 +12,7 @@ import androidx.databinding.DataBindingUtil;
 
 import com.cunoraz.gifview.library.GifView;
 import com.ngra.wms.R;
-import com.ngra.wms.database.DB_ItemsWasteList;
+;
 import com.ngra.wms.databinding.FragmentRecyclingCarPrimeryBinding;
 import com.ngra.wms.models.MD_ItemWaste;
 import com.ngra.wms.models.MD_WasteEstimate;
@@ -34,8 +34,7 @@ import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
-import io.realm.Realm;
-import io.realm.RealmResults;
+
 
 public class RecyclingCarPrimary extends FragmentPrimary implements
         FragmentPrimary.GetMessageFromObservable {
@@ -88,7 +87,7 @@ public class RecyclingCarPrimary extends FragmentPrimary implements
     @Override
     public void onStart() {//_______________________________________________________________________ Start onStart
         super.onStart();
-        SetVolumeWaste();
+/*        SetVolumeWaste();*/
         vm_recyclingCarPrimary.GetTypeTimes();
         setGetMessageFromObservable(
                 RecyclingCarPrimary.this,
@@ -180,6 +179,7 @@ public class RecyclingCarPrimary extends FragmentPrimary implements
 
 
 
+/*
     private void SetVolumeWaste() {//_______________________________________________________________ SetVolumeWaste
         if (getContext() != null) {
             Realm realm = ApplicationWMS.getApplicationWMS(getContext()).getRealmComponent().getRealm();
@@ -187,6 +187,7 @@ public class RecyclingCarPrimary extends FragmentPrimary implements
             TextViewCount.setText(String.valueOf(count));
         }
     }//_____________________________________________________________________________________________ SetVolumeWaste
+*/
 
 
     private void DismissLoading() {//_______________________________________________________________ DismissLoading

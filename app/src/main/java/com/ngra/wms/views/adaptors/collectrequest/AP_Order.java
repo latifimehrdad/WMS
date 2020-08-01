@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.AdapterItemOrderBinding;
-import com.ngra.wms.databinding.AdapterItemWasteListBinding;
 import com.ngra.wms.models.MD_ItemWasteRequest;
 
 import java.util.List;

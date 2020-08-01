@@ -555,7 +555,18 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <com.cunoraz.gifview.library.GifView
+                            android:id="@+id/gifLoadingSend"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_marginRight="@dimen/_5sdp"
+                            android:visibility="invisible"
+                            custom:gif="@drawable/loading2" />
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"

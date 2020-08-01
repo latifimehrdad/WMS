@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cunoraz.gifview.library.GifView;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.ngra.wms.R;
-import com.ngra.wms.database.DB_ItemsWasteList;
+;
 import com.ngra.wms.databinding.FragmentCollectRequestPrimeryBinding;
 import com.ngra.wms.models.MD_ItemWaste;
 import com.ngra.wms.models.MD_SpinnerItem;
@@ -25,8 +25,7 @@ import com.ngra.wms.models.ModelTime;
 import com.ngra.wms.utility.ApplicationUtility;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.collectrequest.collectrequest.VM_CollectRequestPrimary;
-import com.ngra.wms.views.adaptors.collectrequest.AP_ItemsWaste;
-import com.ngra.wms.views.adaptors.collectrequest.AP_ItemsWasteList;
+
 import com.ngra.wms.views.application.ApplicationWMS;
 import com.ngra.wms.views.fragments.FragmentPrimary;
 
@@ -37,20 +36,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import io.realm.Realm;
-import io.realm.RealmResults;
+
 
 
 public class CollectRequestPrimary extends FragmentPrimary implements
-        FragmentPrimary.GetMessageFromObservable,
-        AP_ItemsWaste.ItemWastClick,
-        AP_ItemsWasteList.ItemWasteListClick {
+        FragmentPrimary.GetMessageFromObservable
+/*        AP_ItemsWaste.ItemWastClick,
+        AP_ItemsWasteList.ItemWasteListClick*/ {
 
 
     private VM_CollectRequestPrimary vm_collectRequestPrimary;
     private NavController navController;
-    private RealmResults<DB_ItemsWasteList> wasteLists;
-    private AP_ItemsWasteList ap_itemsWasteList;
+//    private AP_ItemsWasteList ap_itemsWasteList;
     private Integer timePosition = -1;
     private Integer WasteEstimatePosition = -1;
 
@@ -75,6 +72,9 @@ public class CollectRequestPrimary extends FragmentPrimary implements
 
     @BindView(R.id.MaterialSpinnerSpinnerVolume)
     MaterialSpinner MaterialSpinnerSpinnerVolume;
+
+    @BindView(R.id.gifLoadingSend)
+    GifView gifLoadingSend;
 
 
     public CollectRequestPrimary() {//______________________________________________________________ CollectRequestPrimary
@@ -111,6 +111,7 @@ public class CollectRequestPrimary extends FragmentPrimary implements
         if (getView() != null)
             navController = Navigation.findNavController(getView());
 
+        gifLoadingSend.setVisibility(View.GONE);
 
 /*        if (ap_itemsWasteList == null && getContext() != null) {
             Realm realm = ApplicationWMS.getApplicationWMS(getContext()).getRealmComponent().getRealm();
@@ -133,10 +134,10 @@ public class CollectRequestPrimary extends FragmentPrimary implements
     public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         gifLoading.setVisibility(View.GONE);
-        if (action.equals(StaticValues.ML_GetItemsOfWasteIsSuccess)) {
+/*        if (action.equals(StaticValues.ML_GetItemsOfWasteIsSuccess)) {
             SetItemsWasteAdapter();
             return;
-        }
+        }*/
 
         if (action.equals(StaticValues.ML_GetTimeSheetTimes)) {
             SetMaterialSpinnersTimes();
@@ -155,18 +156,21 @@ public class CollectRequestPrimary extends FragmentPrimary implements
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 
 
+/*
     private void GetItemsOfWast() {//_______________________________________________________________ GetItemsOfWast
         gifLoading.setVisibility(View.VISIBLE);
         RecyclerViewItemsWaste.setVisibility(View.GONE);
         RecyclerViewWasteList.setVisibility(View.GONE);
         vm_collectRequestPrimary.GetItemsOfWast();
     }//_____________________________________________________________________________________________ GetItemsOfWast
+*/
 
 
     private void SetClicks() {//____________________________________________________________________ SetClicks
 
         fcrpRecyclingCar.setOnClickListener(v -> {
             if (CheckEmpty()){
+                gifLoadingSend.setVisibility(View.VISIBLE);
                 MD_WasteAmountRequests md_wasteAmountRequests = new MD_WasteAmountRequests(
                         1,
                         null,
@@ -210,6 +214,7 @@ public class CollectRequestPrimary extends FragmentPrimary implements
     }//_____________________________________________________________________________________________ SetClicks
 
 
+/*
     private void SetItemsWasteAdapter() {//_________________________________________________________ SetItemsWasteAdapter
 
         RecyclerViewItemsWaste.setVisibility(View.VISIBLE);
@@ -218,15 +223,19 @@ public class CollectRequestPrimary extends FragmentPrimary implements
         RecyclerViewItemsWaste.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         RecyclerViewItemsWaste.setAdapter(ap_itemsWaste);
     }//_____________________________________________________________________________________________ SetItemsWasteAdapter
+*/
 
 
+/*
     private void SetItemsWasteListAdapter() {//_____________________________________________________ SetItemsWasteListAdapter
         ap_itemsWasteList = new AP_ItemsWasteList(wasteLists, CollectRequestPrimary.this);
         RecyclerViewWasteList.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         RecyclerViewWasteList.setAdapter(ap_itemsWasteList);
     }//_____________________________________________________________________________________________ SetItemsWasteListAdapter
+*/
 
 
+/*
     @Override
     public void itemWastClick(Integer position) {//_________________________________________________ itemWastClick
 
@@ -273,8 +282,10 @@ public class CollectRequestPrimary extends FragmentPrimary implements
         }
 
     }//_____________________________________________________________________________________________ itemWasteClickAction
+*/
 
 
+/*
     @Override
     public void itemWasteDeleteClick(Integer position) {//__________________________________________ itemWasteDeleteClick
         if (getContext() != null) {
@@ -289,6 +300,7 @@ public class CollectRequestPrimary extends FragmentPrimary implements
         }
 
     }//_____________________________________________________________________________________________ itemWasteDeleteClick
+*/
 
 
     private void SetMaterialSpinnersTimes() {//_____________________________________________________ SetMaterialSpinnersTimes

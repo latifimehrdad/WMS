@@ -9,9 +9,7 @@ import com.ngra.wms.R;
 import com.ngra.wms.daggers.imageloader.DaggerImageLoaderComponent;
 import com.ngra.wms.daggers.imageloader.ImageLoaderComponent;
 import com.ngra.wms.daggers.imageloader.ImageLoaderModule;
-import com.ngra.wms.daggers.realm.DaggerRealmComponent;
-import com.ngra.wms.daggers.realm.RealmComponent;
-import com.ngra.wms.daggers.realm.RealmModule;
+
 import com.ngra.wms.daggers.retrofit.DaggerRetrofitComponent;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.daggers.retrofit.RetrofitModule;
@@ -31,8 +29,7 @@ import java.lang.ref.Reference;
 import io.github.inflationx.calligraphy3.CalligraphyConfig;
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
 import io.github.inflationx.viewpump.ViewPump;
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
+
 
 
 public class ApplicationWMS extends MultiDexApplication {
@@ -41,7 +38,6 @@ public class ApplicationWMS extends MultiDexApplication {
     private RetrofitComponent retrofitComponent;
     private UtilityComponent utilityComponent;
     private ImageLoaderComponent imageLoaderComponent;
-    private RealmComponent realmComponent;
 
 
     @Override
@@ -53,7 +49,6 @@ public class ApplicationWMS extends MultiDexApplication {
         ConfigurationRetrofitComponent();
         ConfigurationUtilityComponent();
         ConfigurationImageLoader();
-        ConfigurationRealmComponent();
         initPlaces();
     }//_____________________________________________________________________________________________ onCreate
 
@@ -121,18 +116,6 @@ public class ApplicationWMS extends MultiDexApplication {
     }//_____________________________________________________________________________________________ ConfigurationCalligraphy
 
 
-    private void ConfigurationRealmComponent() {//__________________________________________________ ConfigurationRealmComponent
-        Realm.init(this);
-        Realm.setDefaultConfiguration(new RealmConfiguration.Builder()
-                .name("WMS")
-                .schemaVersion(1).build());
-        realmComponent = DaggerRealmComponent
-                .builder()
-                .realmModule(new RealmModule())
-                .build();
-    }//_____________________________________________________________________________________________ ConfigurationRealmComponent
-
-
 
     public static ApplicationWMS getApplicationWMS(Context context) {//_____________________________ getApplicationWMS
         return (ApplicationWMS) context.getApplicationContext();
@@ -152,10 +135,6 @@ public class ApplicationWMS extends MultiDexApplication {
     public ImageLoaderComponent getImageLoaderComponent() {//_______________________________________ getImageLoaderComponent
         return imageLoaderComponent;
     }//_____________________________________________________________________________________________ getImageLoaderComponent
-
-    public RealmComponent getRealmComponent() {//___________________________________________________ Start getRealmComponent
-        return realmComponent;
-    }//_____________________________________________________________________________________________ End getRealmComponent
 
 
 }
