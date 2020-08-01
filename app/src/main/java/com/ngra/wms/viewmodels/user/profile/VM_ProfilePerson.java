@@ -100,7 +100,7 @@ public class VM_ProfilePerson extends VM_Primary {
             public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
                 setResponseMessage(CheckResponse(response, false));
                 if (getResponseMessage() == null) {
-                    setResponseMessage(GetMessage(response));
+                    setResponseMessage(GetMessage(response.body()));
                     SaveProfile();
                 } else
                     SendMessageToObservable(StaticValues.ML_ResponseError);

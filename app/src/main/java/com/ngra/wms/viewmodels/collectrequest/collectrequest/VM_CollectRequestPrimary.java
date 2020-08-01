@@ -5,8 +5,10 @@ import android.app.Activity;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MD_ItemWaste;
 import com.ngra.wms.models.MD_SpinnerItem;
+import com.ngra.wms.models.MD_WasteAmountRequests;
 import com.ngra.wms.models.MR_ItemsWast;
 import com.ngra.wms.models.MR_SpinnerItems;
+import com.ngra.wms.models.ModelResponsePrimary;
 import com.ngra.wms.models.ModelTimeSheetTimes;
 import com.ngra.wms.models.ModelTimes;
 import com.ngra.wms.utility.StaticValues;
@@ -26,7 +28,7 @@ public class VM_CollectRequestPrimary extends VM_Primary {
 
     private List<MD_ItemWaste> md_itemWastes;
     private ModelTimes modelTimes;
-    private ArrayList<MD_SpinnerItem> volumes;
+    private ArrayList<MD_SpinnerItem> WasteEstimates;
 
 
     public VM_CollectRequestPrimary(Activity context) {//___________________________________________ VM_CollectRequestPrimary
@@ -123,7 +125,7 @@ public class VM_CollectRequestPrimary extends VM_Primary {
 
         Call<MR_SpinnerItems> call = retrofitComponent
                 .getRetrofitApiInterface()
-                .getProvinces(
+                .getWasteEstimateList(
                         Authorization);
 
         call.enqueue(new Callback<MR_SpinnerItems>() {
@@ -131,7 +133,7 @@ public class VM_CollectRequestPrimary extends VM_Primary {
             public void onResponse(Call<MR_SpinnerItems> call, Response<MR_SpinnerItems> response) {
                 setResponseMessage(CheckResponse(response, false));
                 if (getResponseMessage() == null) {
-                    volumes = response.body().getResult();
+                    WasteEstimates = response.body().getResult();
                     SendMessageToObservable(StaticValues.ML_GetVolume);
                 } else
                     SendMessageToObservable(StaticValues.ML_ResponseError);
@@ -147,7 +149,47 @@ public class VM_CollectRequestPrimary extends VM_Primary {
 
 
 
+
+    public void SendCollectRequest(MD_WasteAmountRequests md_wasteAmountRequests) {//_______________ SendCollectRequest
+
+        RetrofitComponent retrofitComponent = ApplicationWMS
+                .getApplicationWMS(getContext())
+                .getRetrofitComponent();
+
+        String Authorization = GetAuthorization();
+
+        setPrimaryCall(retrofitComponent
+                .getRetrofitApiInterface()
+                .RequestCollection(
+                        md_wasteAmountRequests,
+                        Authorization));
+
+        getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
+            @Override
+            public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
+                setResponseMessage(CheckResponse(response, false));
+                if (getResponseMessage() == null) {
+                    setResponseMessage(GetMessage(response.body()));
+                    SendMessageToObservable(StaticValues.ML_CollectRequestDone);
+                } else {
+                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
+                OnFailureRequest();
+            }
+        });
+
+    }//_____________________________________________________________________________________________ SendCollectRequest
+
+
+
+
     public ModelTimes getModelTimes() {//___________________________________________________________ getModelTimes
+
         return modelTimes;
     }//_____________________________________________________________________________________________ getModelTimes
 
@@ -161,8 +203,8 @@ public class VM_CollectRequestPrimary extends VM_Primary {
     }//_____________________________________________________________________________________________ getMd_itemWasts
 
 
-    public ArrayList<MD_SpinnerItem> getVolumes() {//_______________________________________________ getVolumes
-        return volumes;
-    }//_____________________________________________________________________________________________ getVolumes
+    public ArrayList<MD_SpinnerItem> getWasteEstimates() {//________________________________________ getWasteEstimates
+        return WasteEstimates;
+    }//_____________________________________________________________________________________________ getWasteEstimates
 
 }

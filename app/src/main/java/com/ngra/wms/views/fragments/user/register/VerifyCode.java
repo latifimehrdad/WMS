@@ -104,7 +104,7 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
         SetTextChangeListener();
         ReTryGetSMS();
         SetOnclick();
-        StartTimer(180);
+        StartTimer(120);
     }//_____________________________________________________________________________________________ End init
 
 
@@ -132,7 +132,7 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
             VerifyCode6.setText("");
             VerifyCode1.requestFocus();
             SetBackVerifyCode();
-            StartTimer(180);
+            StartTimer(120);
         }
 
 

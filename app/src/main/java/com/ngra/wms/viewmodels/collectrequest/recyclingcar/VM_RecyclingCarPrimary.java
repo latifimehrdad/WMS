@@ -77,7 +77,7 @@ public class VM_RecyclingCarPrimary extends VM_Primary {
             public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
                 setResponseMessage(CheckResponse(response, false));
                 if (getResponseMessage() == null) {
-                    setResponseMessage(GetMessage(response));
+                    setResponseMessage(GetMessage(response.body()));
                     SendMessageToObservable(StaticValues.ML_CollectRequestDone);
                 } else {
                     SendMessageToObservable(StaticValues.ML_ResponseError);

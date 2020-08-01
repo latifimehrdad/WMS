@@ -44,7 +44,7 @@ public class VM_VerifyCode extends VM_Primary {
                     public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
                         setResponseMessage(CheckResponse(response, false));
                         if (getResponseMessage() == null) {
-                            setResponseMessage(GetMessage(response));
+                            setResponseMessage(GetMessage(response.body()));
                             SendMessageToObservable(StaticValues.ML_GotoLogin);
                         }
                         else
@@ -73,10 +73,8 @@ public class VM_VerifyCode extends VM_Primary {
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .SendPhoneNumber(
+                .SendVerificationSms(
                         getPhoneNumber(),
-                        getPassword(),
-                        getPassword(),
                         Authorization));
 
         getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
@@ -84,7 +82,7 @@ public class VM_VerifyCode extends VM_Primary {
             public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
                 setResponseMessage(CheckResponse(response, false));
                 if (getResponseMessage() == null) {
-                    setResponseMessage(GetMessage(response));
+                    setResponseMessage(GetMessage(response.body()));
                     SendMessageToObservable(StaticValues.ML_Success);
                 }
                 else {

@@ -21,6 +21,13 @@ public class ModelTime {
     @SerializedName("to")
     Date to;
 
+    public ModelTime() {
+    }
+
+    public ModelTime(Integer id) {
+        Id = id;
+    }
+
     public Integer getId() {
         return Id;
     }

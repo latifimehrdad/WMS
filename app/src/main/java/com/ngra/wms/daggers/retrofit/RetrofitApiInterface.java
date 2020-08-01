@@ -5,6 +5,7 @@ import com.ngra.wms.models.MR_GiveScore;
 import com.ngra.wms.models.MR_Hi;
 import com.ngra.wms.models.MR_ItemLearn;
 import com.ngra.wms.models.MR_ItemsWast;
+import com.ngra.wms.models.MR_Register;
 import com.ngra.wms.models.MR_TicketList;
 import com.ngra.wms.models.MR_TicketReplyList;
 import com.ngra.wms.models.MR_WasteRequest;
@@ -47,11 +48,21 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST(Version + "/CitizenContact/Register")
-    Call<ModelResponsePrimary> SendPhoneNumber
+    Call<MR_Register> SendPhoneNumber
             (
                     @Field("Mobile") String PhoneNumber,
                     @Field("Password") String Password,
                     @Field("ConfirmPassword") String ConfirmPassword,
+                    @Header("Authorization") String Authorization
+            );
+
+
+
+    @FormUrlEncoded
+    @POST(Version + "/CitizenContact/SendVerificationSms")
+    Call<ModelResponsePrimary> SendVerificationSms
+            (
+                    @Field("Mobile") String PhoneNumber,
                     @Header("Authorization") String Authorization
             );
 
@@ -349,11 +360,12 @@ public interface RetrofitApiInterface {
             );
 
 
-    @GET(Version + "/region/provinces")
-    Call<MR_SpinnerItems> getVolume
+    @GET(Version + "/WasteEstimate/WasteEstimateList")
+    Call<MR_SpinnerItems> getWasteEstimateList
             (
                     @Header("Authorization") String Authorization
 
             );
+
 
 }

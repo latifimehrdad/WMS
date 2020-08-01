@@ -104,9 +104,9 @@ public class VM_Primary {
     }//_____________________________________________________________________________________________ CheckNormalResponse
 
 
-    public String GetMessage(Response<ModelResponsePrimary> response) {//___________________________ GetMessage
+    public String GetMessage(ModelResponsePrimary responsePrimary) {//______________________________ GetMessage
         try {
-            ArrayList<ModelMessage> modelMessages = response.body().getMessages();
+            ArrayList<ModelMessage> modelMessages = responsePrimary.getMessages();
             StringBuilder message = new StringBuilder();
             for (int i = 0; i < modelMessages.size(); i++) {
                 message.append(modelMessages.get(i).getMessage());

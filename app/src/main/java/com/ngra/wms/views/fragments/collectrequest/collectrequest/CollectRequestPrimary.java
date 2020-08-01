@@ -19,6 +19,8 @@ import com.ngra.wms.database.DB_ItemsWasteList;
 import com.ngra.wms.databinding.FragmentCollectRequestPrimeryBinding;
 import com.ngra.wms.models.MD_ItemWaste;
 import com.ngra.wms.models.MD_SpinnerItem;
+import com.ngra.wms.models.MD_WasteAmountRequests;
+import com.ngra.wms.models.MD_WasteEstimate;
 import com.ngra.wms.models.ModelTime;
 import com.ngra.wms.utility.ApplicationUtility;
 import com.ngra.wms.utility.StaticValues;
@@ -50,7 +52,7 @@ public class CollectRequestPrimary extends FragmentPrimary implements
     private RealmResults<DB_ItemsWasteList> wasteLists;
     private AP_ItemsWasteList ap_itemsWasteList;
     private Integer timePosition = -1;
-    private Integer volumePosition = -1;
+    private Integer WasteEstimatePosition = -1;
 
 
     @BindView(R.id.fcrpRecyclingCar)
@@ -108,7 +110,9 @@ public class CollectRequestPrimary extends FragmentPrimary implements
                 vm_collectRequestPrimary);
         if (getView() != null)
             navController = Navigation.findNavController(getView());
-        if (ap_itemsWasteList == null && getContext() != null) {
+
+
+/*        if (ap_itemsWasteList == null && getContext() != null) {
             Realm realm = ApplicationWMS.getApplicationWMS(getContext()).getRealmComponent().getRealm();
             wasteLists = realm.where(DB_ItemsWasteList.class).findAll();
             try {
@@ -120,7 +124,7 @@ public class CollectRequestPrimary extends FragmentPrimary implements
             }
         } else {
             SetItemsWasteListAdapter();
-        }
+        }*/
 
     }//_____________________________________________________________________________________________ onStart
 
@@ -140,8 +144,12 @@ public class CollectRequestPrimary extends FragmentPrimary implements
         }
 
         if (action.equals(StaticValues.ML_GetVolume)) {
-            SetMaterialSpinnersVolume();
+            SetMaterialSpinnersWasteEstimate();
             return;
+        }
+
+        if (action.equals(StaticValues.ML_DialogClose)) {
+            getContext().onBackPressed();
         }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
@@ -159,14 +167,22 @@ public class CollectRequestPrimary extends FragmentPrimary implements
 
         fcrpRecyclingCar.setOnClickListener(v -> {
             if (CheckEmpty()){
-
+                MD_WasteAmountRequests md_wasteAmountRequests = new MD_WasteAmountRequests(
+                        1,
+                        null,
+                        vm_collectRequestPrimary.getModelTimes().getTimes().get(timePosition),
+                        new MD_WasteEstimate(vm_collectRequestPrimary.getWasteEstimates().get(WasteEstimatePosition).getId()));
+                vm_collectRequestPrimary.SendCollectRequest(md_wasteAmountRequests);
             }
         });
 
 
         fcrpBoothReceive.setOnClickListener(v -> {
             if (CheckEmpty()) {
-                navController.navigate(R.id.action_collectRequestPrimary_to_boothReceivePrimary);
+                Bundle bundle = new Bundle();
+                bundle.putString(getContext().getResources().getString(R.string.ML_Id), vm_collectRequestPrimary.getWasteEstimates().get(WasteEstimatePosition).getId());
+                bundle.putInt(getContext().getResources().getString(R.string.ML_TimeId), vm_collectRequestPrimary.getModelTimes().getTimes().get(timePosition).getId());
+                navController.navigate(R.id.action_collectRequestPrimary_to_boothReceivePrimary, bundle);
             }
         });
 
@@ -322,7 +338,7 @@ public class CollectRequestPrimary extends FragmentPrimary implements
 
 
 
-    private void SetMaterialSpinnersVolume() {//____________________________________________________ SetMaterialSpinnersVolume
+    private void SetMaterialSpinnersWasteEstimate() {//_____________________________________________ SetMaterialSpinnersWasteEstimate
 
         ApplicationUtility utility = null;
         if (getContext() != null) {
@@ -334,7 +350,7 @@ public class CollectRequestPrimary extends FragmentPrimary implements
 
         List<String> buildingTypes = new ArrayList<>();
         buildingTypes.add(getResources().getString(R.string.ChooseVolumeDelivery));
-        for (MD_SpinnerItem item : vm_collectRequestPrimary.getVolumes()) {
+        for (MD_SpinnerItem item : vm_collectRequestPrimary.getWasteEstimates()) {
             buildingTypes.add(item.getTitle());
         }
 
@@ -343,17 +359,17 @@ public class CollectRequestPrimary extends FragmentPrimary implements
         MaterialSpinnerSpinnerVolume.setOnItemSelectedListener((view, position, id, item) -> {
             if (position == 0)
                 return;
-            if (volumePosition == -1) {
-                volumePosition = position - 1;
+            if (WasteEstimatePosition == -1) {
+                WasteEstimatePosition = position - 1;
                 MaterialSpinnerSpinnerVolume.getItems().remove(0);
                 MaterialSpinnerSpinnerVolume.setSelectedIndex(MaterialSpinnerSpinnerVolume.getItems().size() - 1);
                 MaterialSpinnerSpinnerVolume.setSelectedIndex(position - 1);
             } else
-                volumePosition = position;
+                WasteEstimatePosition = position;
             MaterialSpinnerSpinnerVolume.setBackgroundColor(getResources().getColor(R.color.mlEdit));
         });
 
-    }//_____________________________________________________________________________________________ SetMaterialSpinnersVolume
+    }//_____________________________________________________________________________________________ SetMaterialSpinnersWasteEstimate
 
 
 
@@ -369,8 +385,7 @@ public class CollectRequestPrimary extends FragmentPrimary implements
             time = false;
         }
 
-
-        if (volumePosition == -1) {
+        if (WasteEstimatePosition == -1) {
             MaterialSpinnerSpinnerVolume.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
             MaterialSpinnerSpinnerVolume.requestFocus();
             volume = false;;

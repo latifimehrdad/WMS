@@ -15,8 +15,10 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.ngra.wms.R;
 import com.ngra.wms.database.DB_ItemsWasteList;
 import com.ngra.wms.databinding.FragmentBoothReceivePrimeryBinding;
+import com.ngra.wms.models.MD_Booth;
 import com.ngra.wms.models.MD_ItemWaste;
 import com.ngra.wms.models.MD_Location;
+import com.ngra.wms.models.MD_WasteEstimate;
 import com.ngra.wms.models.MR_Collect;
 import com.ngra.wms.models.MD_WasteAmountRequests;
 import com.ngra.wms.models.ModelTime;
@@ -51,8 +53,10 @@ public class BoothReceivePrimary extends FragmentPrimary implements
 
     private GoogleMap mMap;
     private VM_BoothReceivePrimary vm_boothReceivePrimary;
-    private Integer timePosition = -1;
+//    private Integer timePosition = -1;
     private AP_BoothList ap_boothList;
+    private String WasteEstimateId;
+    private Integer TimeId;
 
 
     @BindView(R.id.MaterialSpinnerSpinnerDay)
@@ -82,6 +86,8 @@ public class BoothReceivePrimary extends FragmentPrimary implements
             binding.setVMBoothReceivePrimary(vm_boothReceivePrimary);
             setView(binding.getRoot());
             vm_boothReceivePrimary.GetBoothList();
+            WasteEstimateId = getArguments().getString(getContext().getResources().getString(R.string.ML_Id), "-1");
+            TimeId = getArguments().getInt(getContext().getResources().getString(R.string.ML_TimeId), -1);
             //SetVolumeWaste();
             //vm_boothReceivePrimary.GetTypeTimes();
         }
@@ -126,11 +132,11 @@ public class BoothReceivePrimary extends FragmentPrimary implements
         if (ap_boothList != null)
             ap_boothList.notifyDataSetChanged();
 
-        if (action.equals(StaticValues.ML_GetTimeSheetTimes)) {
+/*        if (action.equals(StaticValues.ML_GetTimeSheetTimes)) {
             SetMaterialSpinnersTimes();
             vm_boothReceivePrimary.GetBoothList();
             return;
-        }
+        }*/
 
         if (action.equals(StaticValues.ML_GetBoothList)) {
             SetAdapterBooth();
@@ -153,11 +159,13 @@ public class BoothReceivePrimary extends FragmentPrimary implements
 
         if (action.equals(StaticValues.ML_DialogClose)) {
             getContext().onBackPressed();
+            getContext().onBackPressed();
         }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 
 
+/*
     private void SetMaterialSpinnersTimes() {//_____________________________________________________ SetMaterialSpinnersTimes
 
         ApplicationUtility utility = null;
@@ -201,6 +209,7 @@ public class BoothReceivePrimary extends FragmentPrimary implements
         });
 
     }//_____________________________________________________________________________________________ SetMaterialSpinnersTimes
+*/
 
 
     private void SetVolumeWaste() {//_______________________________________________________________ SetVolumeWaste
@@ -216,24 +225,26 @@ public class BoothReceivePrimary extends FragmentPrimary implements
         ap_boothList = new AP_BoothList(BoothReceivePrimary.this, vm_boothReceivePrimary.getBoothList());
         RecyclerViewBooths.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         RecyclerViewBooths.setAdapter(ap_boothList);
-        ShowBoothsOnMap();
+//        ShowBoothsOnMap();
     }//_____________________________________________________________________________________________ SetAdapterBooth
 
 
+/*
     private void ShowBoothsOnMap() {//______________________________________________________________ ShowBoothsOnMap
-//        List<LatLng> latLngsBooth = new ArrayList<>();
-//        if (vm_boothReceivePrimary.getBoothList() != null && vm_boothReceivePrimary.getBoothList().size() > 0) {
-//            MehrdadLatifiMap latifiMap = new MehrdadLatifiMap();
-//            latifiMap.setGoogleMap(mMap);
-//            for (MD_Booth md_booth : vm_boothReceivePrimary.getBoothList()) {
-//                LatLng latLng = new LatLng(md_booth.getLocation().getLatitude(), md_booth.getLocation().getLongitude());
-//                latLngsBooth.add(latLng);
-//                latifiMap.AddMarker(latLng, md_booth.getName(), "", R.drawable.marker_point);
-//            }
-//            latifiMap.setML_LatLongs(latLngsBooth);
-//            latifiMap.AutoZoom();
-//        }
+        List<LatLng> latLngsBooth = new ArrayList<>();
+        if (vm_boothReceivePrimary.getBoothList() != null && vm_boothReceivePrimary.getBoothList().size() > 0) {
+            MehrdadLatifiMap latifiMap = new MehrdadLatifiMap();
+            latifiMap.setGoogleMap(mMap);
+            for (MD_Booth md_booth : vm_boothReceivePrimary.getBoothList()) {
+                LatLng latLng = new LatLng(md_booth.getLocation().getLatitude(), md_booth.getLocation().getLongitude());
+                latLngsBooth.add(latLng);
+                latifiMap.AddMarker(latLng, md_booth.getName(), "", R.drawable.marker_point);
+            }
+            latifiMap.setML_LatLongs(latLngsBooth);
+            latifiMap.AutoZoom();
+        }
     }//_____________________________________________________________________________________________ ShowBoothsOnMap
+*/
 
 
     @Override
@@ -258,6 +269,7 @@ public class BoothReceivePrimary extends FragmentPrimary implements
     @Override
     public void itemChoose(Integer position) {//____________________________________________________ itemChoose
 
+/*
         if (timePosition == -1) {
             MaterialSpinnerSpinnerDay.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
             MaterialSpinnerSpinnerDay.requestFocus();
@@ -265,21 +277,13 @@ public class BoothReceivePrimary extends FragmentPrimary implements
             return;
         }
 
-        Realm realm = Realm.getDefaultInstance();
-        RealmResults<DB_ItemsWasteList> wasteLists = realm.where(DB_ItemsWasteList.class).findAll();
-        List<MR_Collect> collects = new ArrayList<>();
-        for (DB_ItemsWasteList item : wasteLists) {
-            MD_ItemWaste waste = new MD_ItemWaste(item.getId(), "", "");
-            MR_Collect collect = new MR_Collect(waste, item.getAmount());
-            collects.add(collect);
-        }
-        realm.close();
+*/
 
         MD_WasteAmountRequests md_wasteAmountRequests = new MD_WasteAmountRequests(
                 0,
                 vm_boothReceivePrimary.getBoothList().get(position),
-                vm_boothReceivePrimary.getModelTimes().getTimes().get(timePosition),
-                collects);
+                new ModelTime(TimeId),
+                new MD_WasteEstimate(WasteEstimateId));
         vm_boothReceivePrimary.SendCollectRequest(md_wasteAmountRequests);
 
     }//_____________________________________________________________________________________________ itemChoose

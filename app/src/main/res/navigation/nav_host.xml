@@ -424,6 +424,12 @@
         android:label="CollectRequestPrimary"
         tools:layout="@layout/fragment_collect_request_primery">
 
+        <argument android:name="@string/ML_Id"
+            android:defaultValue="-1"/>
+
+        <argument android:name="@string/ML_TimeId"
+            android:defaultValue="-1"/>
+
         <action
             android:id="@+id/action_collectRequestPrimary_to_boothReceivePrimary"
             app:destination="@id/boothReceivePrimary"

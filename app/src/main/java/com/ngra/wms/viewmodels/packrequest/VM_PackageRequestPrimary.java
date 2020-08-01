@@ -48,7 +48,7 @@ public class VM_PackageRequestPrimary extends VM_Primary {
                     return;
                 setResponseMessage(CheckResponse(response, false));
                 if (getResponseMessage() == null) {
-                    setResponseMessage(GetMessage(response));
+                    setResponseMessage(GetMessage(response.body()));
                     GetLoginInformation();
                 } else
                     SendMessageToObservable(StaticValues.ML_ResponseError);

@@ -15,6 +15,7 @@ import com.ngra.wms.R;
 import com.ngra.wms.database.DB_ItemsWasteList;
 import com.ngra.wms.databinding.FragmentRecyclingCarPrimeryBinding;
 import com.ngra.wms.models.MD_ItemWaste;
+import com.ngra.wms.models.MD_WasteEstimate;
 import com.ngra.wms.models.MR_Collect;
 import com.ngra.wms.models.MD_WasteAmountRequests;
 import com.ngra.wms.models.ModelTime;
@@ -41,6 +42,7 @@ public class RecyclingCarPrimary extends FragmentPrimary implements
 
     private VM_RecyclingCarPrimary vm_recyclingCarPrimary;
     private Integer timePosition = -1;
+    private Integer WasteEstimateId;
 
     @BindView(R.id.MaterialSpinnerSpinnerDay)
     MaterialSpinner MaterialSpinnerSpinnerDay;
@@ -77,6 +79,7 @@ public class RecyclingCarPrimary extends FragmentPrimary implements
             binding.setVMRecyclingPrimary(vm_recyclingCarPrimary);
             setView(binding.getRoot());
             SetOnClick();
+            WasteEstimateId = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), -1);
         }
         return getView();
     }//_____________________________________________________________________________________________ End onCreateView
@@ -117,21 +120,12 @@ public class RecyclingCarPrimary extends FragmentPrimary implements
 
             ShowLoading();
 
-            Realm realm = Realm.getDefaultInstance();
-            RealmResults<DB_ItemsWasteList> wasteLists = realm.where(DB_ItemsWasteList.class).findAll();
-            List<MR_Collect> collects = new ArrayList<>();
-            for (DB_ItemsWasteList item : wasteLists) {
-                MD_ItemWaste waste = new MD_ItemWaste(item.getId(),"","");
-                MR_Collect collect = new MR_Collect(waste,item.getAmount());
-                collects.add(collect);
-            }
-            realm.close();
 
             MD_WasteAmountRequests md_wasteAmountRequests = new MD_WasteAmountRequests(
                     1,
                     null,
                     vm_recyclingCarPrimary.getModelTimes().getTimes().get(timePosition),
-                    collects);
+                    new MD_WasteEstimate(WasteEstimateId.toString()));
             vm_recyclingCarPrimary.SendCollectRequest(md_wasteAmountRequests);
 
         });

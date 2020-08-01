@@ -10,13 +10,14 @@ public class MD_WasteAmountRequests {
 
     ModelTime TimeSheet;
 
-    List<MR_Collect> WasteAmountRequests;
+    MD_WasteEstimate WasteEstimate;
 
-    public MD_WasteAmountRequests(Integer deliveryType, MD_Booth booth, ModelTime timeSheet, List<MR_Collect> wasteAmountRequests) {
+
+    public MD_WasteAmountRequests(Integer deliveryType, MD_Booth booth, ModelTime timeSheet, MD_WasteEstimate wasteEstimate) {
         DeliveryType = deliveryType;
         Booth = booth;
         TimeSheet = timeSheet;
-        WasteAmountRequests = wasteAmountRequests;
+        WasteEstimate = wasteEstimate;
     }
 
     public Integer getDeliveryType() {
@@ -43,11 +44,12 @@ public class MD_WasteAmountRequests {
         TimeSheet = timeSheet;
     }
 
-    public List<MR_Collect> getWasteAmountRequests() {
-        return WasteAmountRequests;
+
+    public MD_WasteEstimate getWasteEstimate() {
+        return WasteEstimate;
     }
 
-    public void setWasteAmountRequests(List<MR_Collect> wasteAmountRequests) {
-        WasteAmountRequests = wasteAmountRequests;
+    public void setWasteEstimate(MD_WasteEstimate wasteEstimate) {
+        WasteEstimate = wasteEstimate;
     }
 }

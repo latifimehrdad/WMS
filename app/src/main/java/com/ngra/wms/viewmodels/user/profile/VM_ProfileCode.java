@@ -46,7 +46,7 @@ public class VM_ProfileCode extends VM_Primary {
                     return;
                 setResponseMessage(CheckResponse(response, false));
                 if (getResponseMessage() == null) {
-                    setResponseMessage(GetMessage(response));
+                    setResponseMessage(GetMessage(response.body()));
                     MainActivity.complateprofile = true;
                     SendMessageToObservable(StaticValues.ML_EditProfile);
                 } else
