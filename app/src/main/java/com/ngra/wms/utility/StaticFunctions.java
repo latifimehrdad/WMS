@@ -100,6 +100,7 @@ public class StaticFunctions {
         token.putString(context.getString(R.string.ML_ClientId), modelToken.getClient_id());
         token.putString(context.getString(R.string.ML_Issued), modelToken.getIssued());
         token.putString(context.getString(R.string.ML_Expires), modelToken.getExpires());
+        token.putString(context.getString(R.string.ML_RefreshToken), modelToken.getRefresh_token());
         token.apply();
         return true;
 

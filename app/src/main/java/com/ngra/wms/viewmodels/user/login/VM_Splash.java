@@ -116,7 +116,7 @@ public class VM_Splash extends VM_Primary {
                             GetTokenFromServer();
                     }
                 } else
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    RefreshTokenFromServer();
             }
 
             @Override
@@ -126,6 +126,47 @@ public class VM_Splash extends VM_Primary {
         });
 
     }//_____________________________________________________________________________________________ GetLoginInformation
+
+
+
+
+    public void RefreshTokenFromServer() {//____________________________________________________________ GetTokenFromServer
+
+        RetrofitComponent retrofitComponent =
+                ApplicationWMS
+                        .getApplicationWMS(getContext())
+                        .getRetrofitComponent();
+
+        String refresh_token = GetRefreshToken();
+
+        setPrimaryCall(retrofitComponent
+                .getRetrofitApiInterface()
+                .getRefreshToken(
+                        RetrofitApis.client_id_value,
+                        RetrofitApis.client_secret_value,
+                        RetrofitApis.grant_type_value_Refresh_Token,
+                        refresh_token));
+
+        getPrimaryCall().enqueue(new Callback<ModelToken>() {
+            @Override
+            public void onResponse(Call<ModelToken> call, Response<ModelToken> response) {
+                setResponseMessage(CheckResponse(response, true));
+                if (getResponseMessage() == null) {
+                    modelToken = response.body();
+                    if (StaticFunctions.SaveToken(getContext(), modelToken))
+                        GetHi();
+                } else
+                    SendMessageToObservable(StaticValues.ML_ResponseError);
+            }
+
+            @Override
+            public void onFailure(Call<ModelToken> call, Throwable t) {
+                OnFailureRequest();
+            }
+        });
+
+    }//_____________________________________________________________________________________________ GetTokenFromServer
+
 
 
     public void GetHi() {//_________________________________________________________________________ GetHi

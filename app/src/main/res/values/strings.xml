@@ -213,6 +213,7 @@
     <string name="ML_SharePreferences">SharePreferences</string>
     <string name="ML_AccessToken">AccessToken</string>
     <string name="ML_Expires">Expires</string>
+    <string name="ML_RefreshToken">RefreshToken</string>
     <string name="ML_PhoneNumber">PhoneNumber</string>
     <string name="ML_Password">Password</string>
     <string name="ML_TokenType">TokentType</string>

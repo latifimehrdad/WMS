@@ -46,6 +46,17 @@ public interface RetrofitApiInterface {
                     @Field("grant_type") String grant_type
             );
 
+    //______________________________________________________________________________________________ getToken
+    @FormUrlEncoded
+    @POST("/token")
+    Call<ModelToken> getRefreshToken
+    (
+            @Field("client_id") String client_id,
+            @Field("client_secret") String client_secret,
+            @Field("grant_type") String grant_type,
+            @Field("refresh_token") String refresh_token
+    );
+
     @FormUrlEncoded
     @POST(Version + "/CitizenContact/Register")
     Call<MR_Register> SendPhoneNumber

@@ -50,6 +50,19 @@ public class VM_Primary {
     }//_____________________________________________________________________________________________ GetAuthorization
 
 
+    public String GetRefreshToken() {//_____________________________________________________________ GetRefreshToken
+        String Authorization = "";
+        SharedPreferences prefs = context.getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0);
+        if (prefs != null) {
+            String access_token = prefs.getString(context.getString(R.string.ML_RefreshToken), null);
+            if (access_token != null)
+                Authorization = Authorization + access_token;
+        }
+        return Authorization;
+    }//_____________________________________________________________________________________________ GetRefreshToken
+
+
+
     public String CheckResponse(Response response, Boolean Authorization) {//_______________________ CheckResponse
         if (response.body() != null)
             return null;

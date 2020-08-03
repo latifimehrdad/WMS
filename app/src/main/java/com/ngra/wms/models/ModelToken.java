@@ -18,6 +18,8 @@ public class ModelToken {
     private String expires;
     @SerializedName("userName")
     private String PhoneNumber;
+    @SerializedName("refresh_token")
+    private String refresh_token;
 
     public String getAccess_token() {
         return access_token;
@@ -73,5 +75,13 @@ public class ModelToken {
 
     public void setPhoneNumber(String phoneNumber) {
         PhoneNumber = phoneNumber;
+    }
+
+    public String getRefresh_token() {
+        return refresh_token;
+    }
+
+    public void setRefresh_token(String refresh_token) {
+        this.refresh_token = refresh_token;
     }
 }
