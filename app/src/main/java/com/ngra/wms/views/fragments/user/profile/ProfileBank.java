@@ -147,7 +147,7 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
         spinnerBanks.bindOnSpinerListener((item, position) -> {
             TextBank.setText(item);
             BankId = vm_profileBank.getBanks().get(position).getId();
-            LayoutBank.setBackgroundColor(getResources().getColor(R.color.mlEdit));
+            LayoutBank.setBackground(getResources().getDrawable(R.drawable.dw_edit_back));
         });
 
         spinnerBanks.showSpinerDialog();
@@ -210,16 +210,18 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
             accountnumbert = true;
 
 
-        String IR = editAccountNumber.getText().toString();
-        IR = IR.substring(0,2);
+        if (editAccountNumber.getText().length() > 3) {
+            String IR = editAccountNumber.getText().toString();
+            IR = IR.substring(0, 2);
 
-        if (!IR.equalsIgnoreCase("IR") || !IR.equalsIgnoreCase("ir")) {
-            editAccountNumber.setBackgroundResource(R.drawable.dw_edit_back_empty);
-            editAccountNumber.setError(getResources().getString(R.string.EmptyAccountNumber));
-            editAccountNumber.requestFocus();
-            accountnumbert = false;
-        } else
-            accountnumbert = true;
+            if (!IR.equalsIgnoreCase("IR") || !IR.equalsIgnoreCase("ir")) {
+                editAccountNumber.setBackgroundResource(R.drawable.dw_edit_back_empty);
+                editAccountNumber.setError(getResources().getString(R.string.EmptyAccountNumber));
+                editAccountNumber.requestFocus();
+                accountnumbert = false;
+            } else
+                accountnumbert = true;
+        }
 
 
         if (BankId.equalsIgnoreCase("-1")) {

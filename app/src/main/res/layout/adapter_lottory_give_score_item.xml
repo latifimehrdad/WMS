@@ -32,7 +32,7 @@
             android:gravity="right"
             android:textColor="@color/mlWhite"
             android:textSize="@dimen/_10sdp"
-            android:text="@{score.description}"
+            android:text="@{score.title}"
             android:layout_marginBottom="@dimen/_4sdp"
             />
 
