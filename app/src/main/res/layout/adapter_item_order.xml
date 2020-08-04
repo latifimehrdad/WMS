@@ -117,6 +117,7 @@
                     android:textSize="@dimen/_9sdp"
                     android:layout_marginLeft="@dimen/_2sdp"
                     android:layout_marginRight="@dimen/_5sdp"
+                    android:visibility="gone"
                     />
 
                 <LinearLayout
@@ -125,6 +126,7 @@
                     android:layout_weight="1"
                     android:layoutDirection="ltr"
                     android:gravity="center_vertical"
+                    android:visibility="gone"
                     >
 
                     <TextView
@@ -206,7 +208,7 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="1dp"
                 android:layout_weight="0.7"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/_10sdp"
@@ -214,6 +216,7 @@
                 android:paddingBottom="@dimen/_10sdp"
                 android:paddingTop="@dimen/_10sdp"
                 android:gravity="center"
+                android:visibility="visible"
                 >
 
                 <Button

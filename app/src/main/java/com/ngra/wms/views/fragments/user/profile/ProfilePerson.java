@@ -309,11 +309,11 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
         }
 
         if (clickSave)
-        if (action.equals(StaticValues.ML_DialogClose))
-            if (!completeProfile) {
-                MainActivity.complateprofile = true;
-                getContext().onBackPressed();
-            }
+            if (action.equals(StaticValues.ML_DialogClose))
+                if (!completeProfile) {
+                    MainActivity.complateprofile = true;
+                    getContext().onBackPressed();
+                }
 
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
@@ -321,45 +321,46 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
 
     private void SetProfileInfo() {//_______________________________________________________________ SetProfileInfo
         ModelProfileInfo.ModelProfile profile = vm_profilePerson.getProfile();
-        if (profile.getFirstName() != null) {
-            editFirsName.setText(profile.getFirstName());
+        if (profile != null)
+            if (profile.getFirstName() != null) {
+                editFirsName.setText(profile.getFirstName());
 
-            if (profile.getLastName() != null)
-                edtiLastName.setText(profile.getLastName());
+                if (profile.getLastName() != null)
+                    edtiLastName.setText(profile.getLastName());
 
-            if (profile.getProvince() != null) {
-                TextProvinces.setText(profile.getProvince().getTitle());
-                ProvinceId = profile.getProvince().getId();
+                if (profile.getProvince() != null) {
+                    TextProvinces.setText(profile.getProvince().getTitle());
+                    ProvinceId = profile.getProvince().getId();
+                }
+
+                if (profile.getCity() != null) {
+                    TextCity.setText(profile.getCity().getTitle());
+                    CityId = profile.getCity().getId();
+                }
+
+                if (profile.getNeighbourhood() != null) {
+                    TextRegion.setText(profile.getNeighbourhood().getTitle());
+                    RegionId = profile.getNeighbourhood().getId();
+                }
+
+                if (profile.getCitizenType() != null) {
+                    TextUser.setText(UserType.get(profile.getCitizenType()).getTitle());
+                    UserTypeId = String.valueOf(profile.getCitizenType());
+                }
+
+                if (profile.getReferenceCode() != null) {
+                    editReferenceCode.setText(String.valueOf(profile.getReferenceCode()));
+                    if (editReferenceCode.getText().toString().length() > 0)
+                        editReferenceCode.setEnabled(false);
+                }
+
+                if (profile.getGender() == 0)
+                    radioWoman.setChecked(true);
+                else
+                    radioMan.setChecked(true);
+
+                GenderCode = profile.getGender();
             }
-
-            if (profile.getCity() != null) {
-                TextCity.setText(profile.getCity().getTitle());
-                CityId = profile.getCity().getId();
-            }
-
-            if (profile.getNeighbourhood() != null) {
-                TextRegion.setText(profile.getNeighbourhood().getTitle());
-                RegionId = profile.getNeighbourhood().getId();
-            }
-
-            if (profile.getCitizenType() != null) {
-                TextUser.setText(UserType.get(profile.getCitizenType()).getTitle());
-                UserTypeId = String.valueOf(profile.getCitizenType());
-            }
-
-            if (profile.getReferenceCode() != null) {
-                editReferenceCode.setText(String.valueOf(profile.getReferenceCode()));
-                if (editReferenceCode.getText().toString().length() > 0)
-                    editReferenceCode.setEnabled(false);
-            }
-
-            if (profile.getGender() == 0)
-                radioWoman.setChecked(true);
-            else
-                radioMan.setChecked(true);
-
-            GenderCode = profile.getGender();
-        }
 
 
     }//_____________________________________________________________________________________________ SetProfileInfo

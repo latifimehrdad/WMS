@@ -4,7 +4,7 @@
     <data>
         <variable
             name="waste"
-            type="com.ngra.wms.models.MR_Collect" />
+            type="com.ngra.wms.models.MD_Amount" />
     </data>
 
     <LinearLayout
@@ -40,6 +40,19 @@
                     android:textColor="@color/mlCollectBooth"
                     android:gravity="right|center_vertical"
                     android:textSize="@dimen/_8sdp"
+                    android:text="@{waste.weightTitle}"
+                    android:visibility="gone"
+                    />
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@color/mlCollectBooth"
+                    android:gravity="right|center_vertical"
+                    android:textSize="@dimen/_8sdp"
+                    android:layout_marginLeft="@dimen/_3sdp"
                     app:SetAmountItemsWasteList="@{waste.amount}"
                     />
 
@@ -47,11 +60,10 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1.3"
-                    android:textColor="@color/mlCollectBooth"
                     android:gravity="right|center_vertical"
                     android:text="@{waste.waste.title}"
-                    android:textSize="@dimen/_8sdp"
-                    />
+                    android:textColor="@color/mlCollectBooth"
+                    android:textSize="@dimen/_8sdp" />
 
 
             </LinearLayout>

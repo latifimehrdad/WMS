@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.AdapterItemOrderWasteBinding;
+import com.ngra.wms.models.MD_Amount;
 import com.ngra.wms.models.MR_Collect;
 
 import java.util.List;
@@ -18,10 +19,10 @@ public class AP_OrderItemsWast extends RecyclerView.Adapter<AP_OrderItemsWast.Cu
 
 
     private LayoutInflater layoutInflater;
-    private List<MR_Collect> MRCollects;
+    private List<MD_Amount> md_amounts;
 
-    public AP_OrderItemsWast(List<MR_Collect> MRCollects) {
-        this.MRCollects = MRCollects;
+    public AP_OrderItemsWast(List<MD_Amount> md_amounts) {
+        this.md_amounts = md_amounts;
     }
 
     @NonNull
@@ -34,12 +35,12 @@ public class AP_OrderItemsWast extends RecyclerView.Adapter<AP_OrderItemsWast.Cu
 
     @Override
     public void onBindViewHolder(@NonNull CustomHolder holder, int position) {
-        holder.bind(MRCollects.get(position),position);
+        holder.bind(md_amounts.get(position),position);
     }
 
     @Override
     public int getItemCount() {
-        return MRCollects.size();
+        return md_amounts.size();
     }
 
 
@@ -54,7 +55,7 @@ public class AP_OrderItemsWast extends RecyclerView.Adapter<AP_OrderItemsWast.Cu
             View view = binding.getRoot();
         }
 
-        public void bind(MR_Collect item, final int position) {
+        public void bind(MD_Amount item, final int position) {
             binding.setWaste(item);
             binding.executePendingBindings();
         }

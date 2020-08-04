@@ -72,9 +72,11 @@ public class AP_Order extends RecyclerView.Adapter<AP_Order.CustomHolder> {
 
         public void bind(MD_ItemWasteRequest item, final int position) {
             binding.setWasteRequest(item);
-            AP_OrderItemsWast ap_orderItemsWast = new AP_OrderItemsWast(item.getWasteAmountRequests());
-            RecyclerViewItemsWaste.setLayoutManager(new LinearLayoutManager(RecyclerViewItemsWaste.getContext(),RecyclerView.VERTICAL,false));
-            RecyclerViewItemsWaste.setAdapter(ap_orderItemsWast);
+            if (item.getAmounts() != null) {
+                AP_OrderItemsWast ap_orderItemsWast = new AP_OrderItemsWast(item.getAmounts());
+                RecyclerViewItemsWaste.setLayoutManager(new LinearLayoutManager(RecyclerViewItemsWaste.getContext(), RecyclerView.VERTICAL, false));
+                RecyclerViewItemsWaste.setAdapter(ap_orderItemsWast);
+            }
             binding.executePendingBindings();
         }
     }

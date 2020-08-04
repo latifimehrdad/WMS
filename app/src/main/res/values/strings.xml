@@ -1,7 +1,7 @@
 <resources>
 
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDbcXlcVOSpaOu9JS8IEsD9HlBlyd-w4v4</string>
-    <string name="Version">V_99_5_6_1</string>
+    <string name="Version">V_99_5_13_1</string>
 
     <string name="ChooseProvinces">انتخاب استان</string>
     <string name="ProvincesSearch">جستجوی استان</string>
@@ -48,6 +48,7 @@
 
     <string name="Retry">تلاش مجدد</string>
     <string name="PleaseTryAgain">لطفا تلاش دوباره کنید</string>
+    <string name="GR">گرم</string>
 
     <string name="FragmentPackRequestPrimary">درخواست سطل بازیافت</string>
     <string name="FragmentPackRequestPrimarySet">ثبت درخواست</string>

@@ -23,23 +23,19 @@ public class MD_ItemWasteRequest extends ModelResponsePrimary{
     @SerializedName("totalAmount")
     float totalAmount;
 
-    @SerializedName("wasteAmountRequests")
-    List<MR_Collect> wasteAmountRequests;
+    @SerializedName("amounts")
+    List<MD_Amount> amounts;
 
-
-    public MD_ItemWasteRequest(ArrayList<ModelMessage> messages) {
-        super(messages);
-    }
-
-    public MD_ItemWasteRequest(ArrayList<ModelMessage> messages, Byte wasteCollectionState, Byte deliveryType, Date requestDate, String requestCode, float totalAmount, List<MR_Collect> wasteAmountRequests) {
+    public MD_ItemWasteRequest(ArrayList<ModelMessage> messages, Byte wasteCollectionState, Byte deliveryType, Date requestDate, String requestCode, float totalAmount, List<MD_Amount> amounts) {
         super(messages);
         this.wasteCollectionState = wasteCollectionState;
         this.deliveryType = deliveryType;
         this.requestDate = requestDate;
         this.requestCode = requestCode;
         this.totalAmount = totalAmount;
-        this.wasteAmountRequests = wasteAmountRequests;
+        this.amounts = amounts;
     }
+
 
     public Byte getWasteCollectionState() {
         return wasteCollectionState;
@@ -81,11 +77,11 @@ public class MD_ItemWasteRequest extends ModelResponsePrimary{
         this.totalAmount = totalAmount;
     }
 
-    public List<MR_Collect> getWasteAmountRequests() {
-        return wasteAmountRequests;
+    public List<MD_Amount> getAmounts() {
+        return amounts;
     }
 
-    public void setWasteAmountRequests(List<MR_Collect> wasteAmountRequests) {
-        this.wasteAmountRequests = wasteAmountRequests;
+    public void setAmounts(List<MD_Amount> amounts) {
+        this.amounts = amounts;
     }
 }

@@ -2,7 +2,7 @@ package com.ngra.wms.daggers.retrofit;
 
 public class RetrofitApis {
 
-    //public static String Host = "http://185.159.87.205:70";
+//    public static String Host = "http://185.159.87.205:70";
     //public static String Host = "https://ngra.bimija.com";
     //public static String Host = "http://192.168.1.110:70";
     public static String Host = "http://2.144.243.200:70";

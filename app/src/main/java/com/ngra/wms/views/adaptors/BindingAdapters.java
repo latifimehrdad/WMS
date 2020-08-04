@@ -248,9 +248,21 @@ public class BindingAdapters {
     @BindingAdapter(value = {"SetAmountItemsWasteList"})
     public static void SetAmountItemsWasteList(TextView textView, float count) {//_________________ SetCountItemsWasteList
         StringBuilder builder = new StringBuilder();
-        builder.append(Math.round(count));
-        builder.append(" ");
-        builder.append(textView.getContext().getResources().getString(R.string.KGr));
+        if (count < 1000) {
+            builder.append(Math.round(count));
+            builder.append(" ");
+            builder.append(textView.getContext().getResources().getString(R.string.GR));
+        } else {
+            long kg = (long) (count / 1000);
+            builder.append(kg);
+            builder.append(" ");
+            builder.append(textView.getContext().getResources().getString(R.string.KGr));
+            builder.append(" و ");
+            long gr = (long) (count % 1000);
+            builder.append(gr);
+            builder.append(" ");
+            builder.append(textView.getContext().getResources().getString(R.string.GR));
+        }
         textView.setText(builder.toString());
     }//_____________________________________________________________________________________________ SetCountItemsWasteLis
 
