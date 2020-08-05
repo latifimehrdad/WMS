@@ -10,13 +10,9 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ngra.wms.R;
-import com.ngra.wms.databinding.AdapterItemTicketBinding;
 import com.ngra.wms.databinding.AdapterItemTicketReplyBinding;
 import com.ngra.wms.models.MD_TicketReplyDto;
-import com.ngra.wms.models.MD_UsersTicketList;
 import com.ngra.wms.utility.StaticValues;
-
-import net.cachapa.expandablelayout.ExpandableLayout;
 
 import java.util.List;
 
@@ -43,7 +39,7 @@ public class AP_TicketReply extends RecyclerView.Adapter<AP_TicketReply.CustomHo
 
     @Override
     public void onBindViewHolder(@NonNull CustomHolder holder, int position) {
-        holder.bind(md_ticketReplyDtos.get(position), position);
+        holder.bind(md_ticketReplyDtos.get(position));
     }
 
     @Override
@@ -52,7 +48,7 @@ public class AP_TicketReply extends RecyclerView.Adapter<AP_TicketReply.CustomHo
     }
 
 
-    public class CustomHolder extends RecyclerView.ViewHolder {
+    public static class CustomHolder extends RecyclerView.ViewHolder {
 
         AdapterItemTicketReplyBinding binding;
 
@@ -70,7 +66,7 @@ public class AP_TicketReply extends RecyclerView.Adapter<AP_TicketReply.CustomHo
             ButterKnife.bind(this, view);
         }
 
-        public void bind(MD_TicketReplyDto item, final int position) {
+        public void bind(MD_TicketReplyDto item) {
             binding.setReply(item);
             if (item.getType().equals(StaticValues.TicketReplyTypeOperator)) {
                 LinearLayoutOperator.setVisibility(View.VISIBLE);

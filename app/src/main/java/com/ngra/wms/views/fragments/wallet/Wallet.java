@@ -131,13 +131,13 @@ public class Wallet extends FragmentPrimary implements FragmentPrimary.GetMessag
 
 
         // chart.setDrawLegend(false);
-        setData(5, 10);
+        setData();
 
     }//_____________________________________________________________________________________________ End SetChart
 
 
 
-    private void setData(int count, float range) {
+    private void setData() {
 
         ArrayList<BarEntry> values = new ArrayList<>();
         values.add(new BarEntry(0,1));

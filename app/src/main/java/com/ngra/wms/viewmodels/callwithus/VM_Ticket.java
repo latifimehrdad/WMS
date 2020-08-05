@@ -4,7 +4,6 @@ import android.app.Activity;
 
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MD_UsersTicketList;
-import com.ngra.wms.models.MR_SpinnerItems;
 import com.ngra.wms.models.MR_TicketList;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Primary;

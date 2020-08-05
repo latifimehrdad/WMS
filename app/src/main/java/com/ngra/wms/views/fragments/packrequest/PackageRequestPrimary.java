@@ -11,7 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
 
 import com.cunoraz.gifview.library.GifView;
@@ -24,7 +23,6 @@ import com.ngra.wms.utility.StaticFunctions;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.packrequest.VM_PackageRequestPrimary;
 import com.ngra.wms.views.application.ApplicationWMS;
-import com.ngra.wms.views.dialogs.DialogProgress;
 import com.ngra.wms.views.fragments.FragmentPrimary;
 import com.ngra.wms.views.fragments.home.Home;
 import com.jaredrummler.materialspinner.MaterialSpinner;
@@ -134,7 +132,8 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
             LinearLayoutPackageState.setVisibility(View.VISIBLE);
             FPRPSpinnerDay.setVisibility(View.GONE);
             LinearLayoutTimeSheet.setVisibility(View.GONE);
-            SetPackageDate(StaticFunctions.PackageRequestDate(getContext()));
+            if (getContext() != null)
+                SetPackageDate(StaticFunctions.PackageRequestDate(getContext()));
 
             String tag = (String) TextViewRequest.getTag();
             if (statues.equals(Byte.valueOf(tag)))
@@ -182,7 +181,7 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
         }
 
         if (action.equals(StaticValues.ML_GetTimeSheetTimes)) {
-            SetMaterialSpinnersTimes(true);
+            SetMaterialSpinnersTimes();
         }
 
 
@@ -235,7 +234,7 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
             if (TimePosition == -1) {
                 TimePosition = position - 1;
                 FPRPSpinnerDay.getItems().remove(0);
-                FPRPSpinnerDay.setSelectedIndex(FPRPSpinnerDay.getItems().size()-1);
+                FPRPSpinnerDay.setSelectedIndex(FPRPSpinnerDay.getItems().size() - 1);
                 FPRPSpinnerDay.setSelectedIndex(position - 1);
             } else
                 TimePosition = position;
@@ -268,7 +267,7 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
     }//_____________________________________________________________________________________________ CheckEmpty
 
 
-    private void SetMaterialSpinnersTimes(boolean first) {//________________________________________ SetMaterialSpinnersTimes
+    private void SetMaterialSpinnersTimes() {//_____________________________________________________ SetMaterialSpinnersTimes
 
         ApplicationUtility utility = null;
         if (getContext() != null) {
@@ -281,8 +280,7 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.US);
 
         List<String> buildingTypes = new ArrayList<>();
-        if (first)
-            buildingTypes.add("انتخاب تاریخ دریافت");
+        buildingTypes.add("انتخاب تاریخ دریافت");
         for (ModelTime item : vm_packageRequestPrimary.getModelTimes().getTimes()) {
             String builder = null;
             if (utility != null) {
@@ -319,6 +317,7 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
     }//_____________________________________________________________________________________________ ShowLoading
 
 
+/*
     private void ShowProgressDialog() {//___________________________________________________________ ShowProgressDialog
 
         if (getContext() != null) {
@@ -330,6 +329,7 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
             progress.show(getChildFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
         }
     }//_____________________________________________________________________________________________ ShowProgressDialog
+*/
 
 
 }

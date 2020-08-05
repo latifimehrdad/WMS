@@ -83,7 +83,7 @@ public class AP_BoothList extends RecyclerView.Adapter<AP_BoothList.CustomHolder
 
             GifViewLoading.setVisibility(View.INVISIBLE);
 
-            ButtonShowMap.setOnClickListener(v -> {itemBoothClick.itemBoothMap(position);});
+            ButtonShowMap.setOnClickListener(v -> itemBoothClick.itemBoothMap(position));
 
             ButtonChoose.setOnClickListener(v -> {itemBoothClick.itemChoose(position);
                 GifViewLoading.setVisibility(View.VISIBLE);});

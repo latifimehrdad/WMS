@@ -61,7 +61,7 @@ public class VerticalTextView extends TextView {
     }
 
     private int measureWidth(int measureSpec) {
-        int result = 0;
+        int result;
         int specMode = MeasureSpec.getMode(measureSpec);
         int specSize = MeasureSpec.getSize(measureSpec);
 
@@ -79,7 +79,7 @@ public class VerticalTextView extends TextView {
     }
 
     private int measureHeight(int measureSpec) {
-        int result = 0;
+        int result;
         int specMode = MeasureSpec.getMode(measureSpec);
         int specSize = MeasureSpec.getSize(measureSpec);
 
@@ -101,10 +101,10 @@ public class VerticalTextView extends TextView {
 
         canvas.save();
 
-        int startX = 0;
-        int startY = 0;
-        int stopX = 0;
-        int stopY = 0;
+        int startX;
+        int startY;
+        int stopX;
+        int stopY;
         Path path = new Path();
         if (direction == ORIENTATION_UP_TO_DOWN) {
             startX = (getWidth() - text_bounds.height() >> 1);

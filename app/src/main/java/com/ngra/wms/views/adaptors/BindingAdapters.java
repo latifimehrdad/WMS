@@ -1,6 +1,5 @@
 package com.ngra.wms.views.adaptors;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.view.View;
@@ -37,13 +36,11 @@ public class BindingAdapters {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.US);
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(component.MiladiToJalali(date, "FullJalaliNumber"));
-        stringBuilder.append(" - ");
-        stringBuilder.append(simpleDateFormat.format(date));
 
-
-        textView.setText(stringBuilder.toString());
+        String stringBuilder = component.MiladiToJalali(date, "FullJalaliNumber") +
+                " - " +
+                simpleDateFormat.format(date);
+        textView.setText(stringBuilder);
 
     }//_____________________________________________________________________________________________ SetOrderDate
 
@@ -148,21 +145,19 @@ public class BindingAdapters {
 
     @BindingAdapter(value = {"SetCountItemsWasteList"})
     public static void SetCountItemsWasteList(TextView textView, Integer count) {//_________________ SetCountItemsWasteList
-        StringBuilder builder = new StringBuilder();
-        builder.append(count);
-        builder.append(" ");
-        builder.append(textView.getContext().getResources().getString(R.string.KGr));
-        textView.setText(builder.toString());
+        String builder = count +
+                " " +
+                textView.getContext().getResources().getString(R.string.KGr);
+        textView.setText(builder);
     }//_____________________________________________________________________________________________ SetCountItemsWasteLis
 
 
     @BindingAdapter(value = {"SetBoothAuthor"})
     public static void SetBoothAuthor(TextView textView, String author) {//_________________________ SetCountItemsWasteList
-        StringBuilder builder = new StringBuilder();
-        builder.append(textView.getContext().getString(R.string.BoothAuthor));
-        builder.append(" : ");
-        builder.append(author);
-        textView.setText(builder.toString());
+        String builder = textView.getContext().getString(R.string.BoothAuthor) +
+                " : " +
+                author;
+        textView.setText(builder);
     }//_____________________________________________________________________________________________ SetCountItemsWasteLis
 
 
@@ -191,8 +186,8 @@ public class BindingAdapters {
     @BindingAdapter(value = {"SetOrderTotalAmount"})
     public static void SetOrderTotalAmount(TextView textView, float Amount) {//________________ SetOrderTotalAmount
 
-        Integer am = Math.round(Amount);
-        textView.setText(am.toString());
+        int am = Math.round(Amount);
+        textView.setText(Integer.toString(am));
 
     }//_____________________________________________________________________________________________ SetOrderTotalAmount
 

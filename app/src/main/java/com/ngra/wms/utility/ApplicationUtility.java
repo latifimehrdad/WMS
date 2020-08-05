@@ -21,48 +21,48 @@ public class ApplicationUtility {
 
 
     public String PersianToEnglish(String persianStr) {//___________________________________________ PersianToEnglish
-        String result = "";
+        StringBuilder result = new StringBuilder();
 
         for (int i = 0; i < persianStr.length(); i++) {
             char c = persianStr.charAt(i);
             switch (c) {
                 case '۰':
-                    result = result + "0";
+                    result.append("0");
                     break;
                 case '۱':
-                    result = result + "1";
+                    result.append("1");
                     break;
                 case '۲':
-                    result = result + "2";
+                    result.append("2");
                     break;
                 case '۳':
-                    result = result + "3";
+                    result.append("3");
                     break;
                 case '۴':
-                    result = result + "4";
+                    result.append("4");
                     break;
                 case '۵':
-                    result = result + "5";
+                    result.append("5");
                     break;
                 case '۶':
-                    result = result + "6";
+                    result.append("6");
                     break;
                 case '۷':
-                    result = result + "7";
+                    result.append("7");
                     break;
                 case '۸':
-                    result = result + "8";
+                    result.append("8");
                     break;
                 case '۹':
-                    result = result + "9";
+                    result.append("9");
                     break;
                 default:
-                    result = result + c;
+                    result.append(c);
                     break;
             }
         }
 
-        return result;
+        return result.toString();
     }//_____________________________________________________________________________________________ PersianToEnglish
 
 
@@ -141,15 +141,12 @@ public class ApplicationUtility {
                 } else {
                     date = date - 186;
 
-                    switch (date % 30) {
-                        case 0:
-                            month = (date / 30) + 6;
-                            date = 30;
-                            break;
-                        default:
-                            month = (date / 30) + 7;
-                            date = (date % 30);
-                            break;
+                    if (date % 30 == 0) {
+                        month = (date / 30) + 6;
+                        date = 30;
+                    } else {
+                        month = (date / 30) + 7;
+                        date = (date % 30);
                     }
                     year = miladiYear - 621;
                 }
@@ -161,15 +158,12 @@ public class ApplicationUtility {
                 }
                 date = date + ld;
 
-                switch (date % 30) {
-                    case 0:
-                        month = (date / 30) + 9;
-                        date = 30;
-                        break;
-                    default:
-                        month = (date / 30) + 10;
-                        date = (date % 30);
-                        break;
+                if (date % 30 == 0) {
+                    month = (date / 30) + 9;
+                    date = 30;
+                } else {
+                    month = (date / 30) + 10;
+                    date = (date % 30);
                 }
                 year = miladiYear - 622;
             }
@@ -185,44 +179,34 @@ public class ApplicationUtility {
                 date = date - ld;
 
                 if (date <= 186) {
-                    switch (date % 31) {
-                        case 0:
-                            month = (date / 31);
-                            date = 31;
-                            break;
-                        default:
-                            month = (date / 31) + 1;
-                            date = (date % 31);
-                            break;
+                    if (date % 31 == 0) {
+                        month = (date / 31);
+                        date = 31;
+                    } else {
+                        month = (date / 31) + 1;
+                        date = (date % 31);
                     }
-                    year = miladiYear - 621;
                 } else {
                     date = date - 186;
 
-                    switch (date % 30) {
-                        case 0:
-                            month = (date / 30) + 6;
-                            date = 30;
-                            break;
-                        default:
-                            month = (date / 30) + 7;
-                            date = (date % 30);
-                            break;
+                    if (date % 30 == 0) {
+                        month = (date / 30) + 6;
+                        date = 30;
+                    } else {
+                        month = (date / 30) + 7;
+                        date = (date % 30);
                     }
-                    year = miladiYear - 621;
                 }
+                year = miladiYear - 621;
             } else {
                 date = date + 10;
 
-                switch (date % 30) {
-                    case 0:
-                        month = (date / 30) + 9;
-                        date = 30;
-                        break;
-                    default:
-                        month = (date / 30) + 10;
-                        date = (date % 30);
-                        break;
+                if (date % 30 == 0) {
+                    month = (date / 30) + 9;
+                    date = 30;
+                } else {
+                    month = (date / 30) + 10;
+                    date = (date % 30);
                 }
                 year = miladiYear - 622;
             }
@@ -305,7 +289,7 @@ public class ApplicationUtility {
         String result = "";
         switch (Type) {
             case "FullJalaliNumber":
-                result = String.valueOf(year) + "/" + String.format(loc, "%02d",
+                result = year + "/" + String.format(loc, "%02d",
                         month) + "/" + String.format(loc, "%02d", date);
                 break;
 
@@ -332,11 +316,6 @@ public class ApplicationUtility {
 
             case "DayJalaliString":
                 result = strWeekDay;
-                break;
-
-            default:
-                result = String.valueOf(year) + "/" + String.format(loc, "%02d",
-                        month) + "/" + String.format(loc, "%02d", date);
                 break;
         }
 
@@ -409,29 +388,31 @@ public class ApplicationUtility {
         if (intDate1 != null) {
             DateStart = intDate1;
             DateEnd = intDate2;
-        } else if (Date1.length() != 10 || Date1.length() != 10) {
+        } else if (Date1.length() != 10) {
             return 0;
         } else {
             DateStart = Integer.valueOf(Date1.replaceAll("/", ""));
             DateEnd = Integer.valueOf(Date2.replaceAll("/", ""));
         }
-        if (DateStart.intValue() == 0 || DateEnd.intValue() == 0) {
+        if (DateStart == 0 || DateEnd == 0) {
             return 0;
         }
-        if (DateStart.intValue() > DateEnd.intValue()) {
-            a1 = Integer.valueOf(String.valueOf(DateStart).substring(0, 4)).intValue();
-            b1 = Integer.valueOf(String.valueOf(DateStart).substring(4, 6)).intValue();
-            c1 = Integer.valueOf(String.valueOf(DateStart).substring(6, 8)).intValue();
-            a2 = Integer.valueOf(String.valueOf(DateEnd).substring(0, 4)).intValue();
-            b2 = Integer.valueOf(String.valueOf(DateEnd).substring(4, 6)).intValue();
-            c2 = Integer.valueOf(String.valueOf(DateEnd).substring(6, 8)).intValue();
+        String DateStartString = String.valueOf(DateStart);
+        String DateEndString = String.valueOf(DateEnd);
+        if (DateStart > DateEnd) {
+            a1 = Integer.parseInt(DateStartString.substring(0, 4));
+            b1 = Integer.parseInt(DateStartString.substring(4, 6));
+            c1 = Integer.parseInt(DateStartString.substring(6, 8));
+            a2 = Integer.parseInt(DateEndString.substring(0, 4));
+            b2 = Integer.parseInt(DateEndString.substring(4, 6));
+            c2 = Integer.parseInt(DateEndString.substring(6, 8));
         } else {
-            a1 = Integer.valueOf(String.valueOf(DateEnd).substring(0, 4)).intValue();
-            b1 = Integer.valueOf(String.valueOf(DateEnd).substring(4, 6)).intValue();
-            c1 = Integer.valueOf(String.valueOf(DateEnd).substring(6, 8)).intValue();
-            a2 = Integer.valueOf(String.valueOf(DateStart).substring(0, 4)).intValue();
-            b2 = Integer.valueOf(String.valueOf(DateStart).substring(4, 6)).intValue();
-            c2 = Integer.valueOf(String.valueOf(DateStart).substring(6, 8)).intValue();
+            a1 = Integer.parseInt(DateEndString.substring(0, 4));
+            b1 = Integer.parseInt(DateEndString.substring(4, 6));
+            c1 = Integer.parseInt(DateEndString.substring(6, 8));
+            a2 = Integer.parseInt(DateStartString.substring(0, 4));
+            b2 = Integer.parseInt(DateStartString.substring(4, 6));
+            c2 = Integer.parseInt(DateStartString.substring(6, 8));
         }
         int B = 0;
         int d = b2;
@@ -447,7 +428,7 @@ public class ApplicationUtility {
             B += Switch(d, a1);
             d++;
         }
-        return Integer.valueOf((B + c1) - c2);
+        return (B + c1) - c2;
     }
 
 
@@ -463,9 +444,9 @@ public class ApplicationUtility {
         if (DateStart == 0) {
             return null;
         }
-        int a1 = Integer.valueOf(String.valueOf(DateStart).substring(0, 4)).intValue();
-        int b1 = Integer.valueOf(String.valueOf(DateStart).substring(4, 6)).intValue();
-        int c1 = Integer.valueOf(String.valueOf(DateStart).substring(6, 8)).intValue();
+        int a1 = Integer.parseInt(String.valueOf(DateStart).substring(0, 4));
+        int b1 = Integer.parseInt(String.valueOf(DateStart).substring(4, 6));
+        int c1 = Integer.parseInt(String.valueOf(DateStart).substring(6, 8));
         int day2 = day + c1;
         while (day2 > 0) {
             int temp = Switch(b1, a1);
@@ -511,9 +492,9 @@ public class ApplicationUtility {
         if (DateStart.intValue() == 0) {
             return null;
         }
-        int a1 = Integer.valueOf(String.valueOf(DateStart).substring(0, 4)).intValue();
-        int b1 = Integer.valueOf(String.valueOf(DateStart).substring(4, 6)).intValue();
-        int day2 = day - Integer.valueOf(String.valueOf(DateStart).substring(6, 8)).intValue();
+        int a1 = Integer.parseInt(String.valueOf(DateStart).substring(0, 4));
+        int b1 = Integer.parseInt(String.valueOf(DateStart).substring(4, 6));
+        int day2 = day - Integer.parseInt(String.valueOf(DateStart).substring(6, 8));
         while (day2 > 0) {
             b1--;
             day2 -= Switch(b1, a1);
@@ -551,7 +532,7 @@ public class ApplicationUtility {
             case 11:
                 return 30;
             case 12:
-                if (Kabise(year).booleanValue()) {
+                if (Kabise(year)) {
                     return 30;
                 }
                 return 29;
@@ -563,9 +544,9 @@ public class ApplicationUtility {
     private Boolean Kabise(int year) {
         int temp = year % 33;
         if (temp == 1 || temp == 5 || temp == 9 || temp == 13 || temp == 17 || temp == 22 || temp == 26 || temp == 30) {
-            return Boolean.valueOf(true);
+            return Boolean.TRUE;
         }
-        return Boolean.valueOf(false);
+        return Boolean.FALSE;
     }
 
 

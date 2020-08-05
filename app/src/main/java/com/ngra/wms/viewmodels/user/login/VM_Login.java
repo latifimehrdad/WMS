@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.ngra.wms.daggers.retrofit.RetrofitApis;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
+import com.ngra.wms.models.ModelResponsePrimary;
 import com.ngra.wms.models.ModelSettingInfo;
 import com.ngra.wms.models.ModelToken;
 import com.ngra.wms.utility.StaticFunctions;
@@ -24,7 +25,53 @@ public class VM_Login extends VM_Primary {
     }//_____________________________________________________________________________________________ VM_Login
 
 
-    public void GetLoginToken(String PhoneNumber, String Password) {//______________________________ GetLoginToken
+    public void GetLoginCode(String PhoneNumber) {//________________________________________________ GetLoginCode
+
+        PhoneNumber = ApplicationWMS.getApplicationWMS(getContext())
+                .getUtilityComponent()
+                .getApplicationUtility()
+                .PersianToEnglish(PhoneNumber);
+
+
+
+        RetrofitComponent retrofitComponent =
+                ApplicationWMS
+                        .getApplicationWMS(getContext())
+                        .getRetrofitComponent();
+
+        String Authorization = GetAuthorization();
+
+        setPrimaryCall(retrofitComponent
+                .getRetrofitApiInterface()
+                .LoginCode(RetrofitApis.client_id_value,
+                        RetrofitApis.client_secret_value,
+                        PhoneNumber,
+                        Authorization));
+
+        getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
+            @Override
+            public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
+                setResponseMessage(CheckResponse(response, false));
+                if (getResponseMessage() == null) {
+                    setResponseMessage(GetMessage(response.body()));
+                    SendMessageToObservable(StaticValues.ML_Success);
+                } else {
+                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
+                OnFailureRequest();
+            }
+        });
+
+    }//_____________________________________________________________________________________________ GetLoginCode
+
+
+
+/*
+    public void GetLoginToken(String PhoneNumber) {//_______________________________________________ GetLoginToken
 
         PhoneNumber = ApplicationWMS.getApplicationWMS(getContext())
                 .getUtilityComponent()
@@ -68,9 +115,10 @@ public class VM_Login extends VM_Primary {
         });
 
     }//_____________________________________________________________________________________________ GetLoginToken
+*/
 
 
-    public void GetLoginInformation() {//___________________________________________________________ GetLoginInformation
+/*    public void GetLoginInformation() {//___________________________________________________________ GetLoginInformation
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
@@ -101,6 +149,6 @@ public class VM_Login extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ GetLoginInformation
+    }//_____________________________________________________________________________________________ GetLoginInformation*/
 
 }

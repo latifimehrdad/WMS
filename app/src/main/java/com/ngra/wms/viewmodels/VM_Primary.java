@@ -5,14 +5,9 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 
 import com.ngra.wms.R;
-import com.ngra.wms.daggers.retrofit.RetrofitApis;
-import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.ModelMessage;
 import com.ngra.wms.models.ModelResponsePrimary;
-import com.ngra.wms.models.ModelToken;
-import com.ngra.wms.utility.StaticFunctions;
 import com.ngra.wms.utility.StaticValues;
-import com.ngra.wms.views.application.ApplicationWMS;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,7 +17,6 @@ import java.util.ArrayList;
 
 import io.reactivex.subjects.PublishSubject;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class VM_Primary {
@@ -84,7 +78,10 @@ public class VM_Primary {
             return jObjError.getString("error_description");
         } catch (Exception ex) {
             try {
-                return jObjError.getString("message");
+                if (jObjError != null) {
+                    return jObjError.getString("message");
+                } else
+                    return getContext().getResources().getString(R.string.NetworkError);
             } catch (JSONException e) {
                 e.printStackTrace();
                 return getContext().getResources().getString(R.string.NetworkError);
@@ -134,13 +131,10 @@ public class VM_Primary {
 
     public void ReactionToIncorrectResponse(Byte action) {//________________________________________ ReactionToIncorrectResponse
 
-        switch (getResponseCode()) {
-            case 401:
-                RefreshToken();
-                break;
-            default:
-                publishSubject.onNext(action);
-                break;
+        if (getResponseCode() == 401) {
+            RefreshToken();
+        } else {
+            publishSubject.onNext(action);
         }
 
     }//_____________________________________________________________________________________________ ReactionToIncorrectResponse

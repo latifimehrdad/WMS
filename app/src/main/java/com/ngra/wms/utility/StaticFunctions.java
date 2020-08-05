@@ -34,7 +34,7 @@ public class StaticFunctions {
     public static Boolean isCancel = false;
 
     public static boolean isLocationEnabled(Context context) {//____________________________________ Start isLocationEnabled
-        int locationMode = 0;
+        int locationMode;
         String locationProviders;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -201,20 +201,14 @@ public class StaticFunctions {
 
 
     public static View.OnKeyListener SetBackClickAndGoHome(Boolean execute) {//_____________________ Start SetBackClickAndGoHome
-        return new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
+        return (v, keyCode, event) -> {
 
-                if (event.getAction() != KeyEvent.ACTION_DOWN)
-                    return true;
-
-                if (keyCode != 4) {
-                    return false;
-                }
-                //if (execute)
-                //MainActivity.FragmentMessage.onNext("Main");
+            if (event.getAction() != KeyEvent.ACTION_DOWN)
                 return true;
-            }
+
+            return keyCode == 4;
+            //if (execute)
+            //MainActivity.FragmentMessage.onNext("Main");
         };
     }//_____________________________________________________________________________________________ End SetBackClickAndGoHome
 
@@ -242,19 +236,19 @@ public class StaticFunctions {
         try {
             JSONObject jObjError = new JSONObject(response.errorBody().string());
             String jobErrorString = jObjError.toString();
-            String message = "";
+            StringBuilder message = new StringBuilder();
             if (jobErrorString.contains("messages")) {
                 JSONArray jsonArray = jObjError.getJSONArray("messages");
 
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject temp = new JSONObject(jsonArray.get(i).toString());
-                    message = message + temp.getString("message");
-                    message = message + "\n";
+                    message.append(temp.getString("message"));
+                    message.append("\n");
                 }
             } else {
-                message = message + jObjError.getString("message");
+                message.append(jObjError.getString("message"));
             }
-            return message;
+            return message.toString();
         } catch (Exception ex) {
             return ex.toString();
         }
@@ -264,12 +258,12 @@ public class StaticFunctions {
     public static String GetMessage(Response<ModelResponsePrimary> response) {//____________________ Start GetMessage
         try {
             ArrayList<ModelMessage> modelMessages = response.body().getMessages();
-            String message = "";
+            StringBuilder message = new StringBuilder();
             for (int i = 0; i < modelMessages.size(); i++) {
-                message = message + modelMessages.get(i).getMessage();
-                message = message + "\n";
+                message.append(modelMessages.get(i).getMessage());
+                message.append("\n");
             }
-            return message;
+            return message.toString();
         } catch (Exception ex) {
             return "Failure";
         }

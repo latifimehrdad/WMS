@@ -356,7 +356,7 @@
                         android:id="@+id/imgLoading"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
-                        android:src="@drawable/svg_verify"
+                        android:src="@drawable/svg_location_save"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="@dimen/_5sdp"
                         android:layout_centerVertical="true"

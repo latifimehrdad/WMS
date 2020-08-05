@@ -4,7 +4,6 @@ import android.app.Activity;
 
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MR_Register;
-import com.ngra.wms.models.ModelResponsePrimary;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Primary;
 import com.ngra.wms.views.application.ApplicationWMS;
@@ -17,7 +16,7 @@ public class VM_SignUp extends VM_Primary {
 
 
     private String PhoneNumber;
-    private String Password;
+/*    private String Password;*/
 
 
     public VM_SignUp(Activity context) {//___________________________________________________________ VM_SignUp
@@ -38,8 +37,6 @@ public class VM_SignUp extends VM_Primary {
                 .getRetrofitApiInterface()
                 .SendPhoneNumber(
                         getPhoneNumber(),
-                        getPassword(),
-                        getPassword(),
                         Authorization));
 
         getPrimaryCall().enqueue(new Callback<MR_Register>() {
@@ -83,11 +80,11 @@ public class VM_SignUp extends VM_Primary {
         PhoneNumber = phoneNumber;
     }//_____________________________________________________________________________________________ setPhoneNumber
 
-    public String getPassword() {//_________________________________________________________________ getPassword
+/*    public String getPassword() {//_________________________________________________________________ getPassword
         return Password;
     }//_____________________________________________________________________________________________ getPassword
 
     public void setPassword(String password) {//____________________________________________________ setPassword
         Password = password;
-    }//_____________________________________________________________________________________________ setPassword
+    }//_____________________________________________________________________________________________ setPassword*/
 }

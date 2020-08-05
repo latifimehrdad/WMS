@@ -9,9 +9,9 @@ import android.content.Context;
 
 public class MainActivityViewModel {
 
-    private Context context;
+
 
     public MainActivityViewModel(Context context) {//_______________________________________________ Start MainActivityViewModel
-        this.context = context;
+
     }//_____________________________________________________________________________________________ End MainActivityViewModel
 }

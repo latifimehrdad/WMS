@@ -77,10 +77,12 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
         }
 
         if (action.equals(StaticValues.ML_GoToUpdate)) {
-            Bundle bundle = new Bundle();
-            bundle.putString(getContext().getResources().getString(R.string.ML_UpdateUrl), vm_splash.getMd_hi().getApplicationUrl());
-            bundle.putString(getContext().getResources().getString(R.string.ML_UpdateFile), vm_splash.getMd_hi().getFileName());
-            navController.navigate(R.id.action_splash_to_appUpdate, bundle);
+            if (getContext() != null) {
+                Bundle bundle = new Bundle();
+                bundle.putString(getContext().getResources().getString(R.string.ML_UpdateUrl), vm_splash.getMd_hi().getApplicationUrl());
+                bundle.putString(getContext().getResources().getString(R.string.ML_UpdateFile), vm_splash.getMd_hi().getFileName());
+                navController.navigate(R.id.action_splash_to_appUpdate, bundle);
+            }
             return;
         }
 

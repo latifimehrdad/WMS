@@ -1,5 +1,6 @@
 package com.ngra.wms.views.fragments.collectrequest.collectrequest;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,15 +10,12 @@ import android.widget.LinearLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cunoraz.gifview.library.GifView;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.ngra.wms.R;
-;
 import com.ngra.wms.databinding.FragmentCollectRequestPrimeryBinding;
-import com.ngra.wms.models.MD_ItemWaste;
 import com.ngra.wms.models.MD_SpinnerItem;
 import com.ngra.wms.models.MD_WasteAmountRequests;
 import com.ngra.wms.models.MD_WasteEstimate;
@@ -38,7 +36,6 @@ import java.util.List;
 import butterknife.BindView;
 
 
-
 public class CollectRequestPrimary extends FragmentPrimary implements
         FragmentPrimary.GetMessageFromObservable
 /*        AP_ItemsWaste.ItemWastClick,
@@ -47,7 +44,7 @@ public class CollectRequestPrimary extends FragmentPrimary implements
 
     private VM_CollectRequestPrimary vm_collectRequestPrimary;
     private NavController navController;
-//    private AP_ItemsWasteList ap_itemsWasteList;
+    //    private AP_ItemsWasteList ap_itemsWasteList;
     private Integer timePosition = -1;
     private Integer WasteEstimatePosition = -1;
 
@@ -150,7 +147,8 @@ public class CollectRequestPrimary extends FragmentPrimary implements
         }
 
         if (action.equals(StaticValues.ML_DialogClose)) {
-            getContext().onBackPressed();
+            if (getContext() != null)
+                getContext().onBackPressed();
         }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
@@ -169,7 +167,7 @@ public class CollectRequestPrimary extends FragmentPrimary implements
     private void SetClicks() {//____________________________________________________________________ SetClicks
 
         fcrpRecyclingCar.setOnClickListener(v -> {
-            if (CheckEmpty()){
+            if (CheckEmpty()) {
                 gifLoadingSend.setVisibility(View.VISIBLE);
                 MD_WasteAmountRequests md_wasteAmountRequests = new MD_WasteAmountRequests(
                         1,
@@ -183,10 +181,12 @@ public class CollectRequestPrimary extends FragmentPrimary implements
 
         fcrpBoothReceive.setOnClickListener(v -> {
             if (CheckEmpty()) {
-                Bundle bundle = new Bundle();
-                bundle.putString(getContext().getResources().getString(R.string.ML_Id), vm_collectRequestPrimary.getWasteEstimates().get(WasteEstimatePosition).getId());
-                bundle.putInt(getContext().getResources().getString(R.string.ML_TimeId), vm_collectRequestPrimary.getModelTimes().getTimes().get(timePosition).getId());
-                navController.navigate(R.id.action_collectRequestPrimary_to_boothReceivePrimary, bundle);
+                if (getContext() != null) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(getContext().getResources().getString(R.string.ML_Id), vm_collectRequestPrimary.getWasteEstimates().get(WasteEstimatePosition).getId());
+                    bundle.putInt(getContext().getResources().getString(R.string.ML_TimeId), vm_collectRequestPrimary.getModelTimes().getTimes().get(timePosition).getId());
+                    navController.navigate(R.id.action_collectRequestPrimary_to_boothReceivePrimary, bundle);
+                }
             }
         });
 
@@ -313,6 +313,7 @@ public class CollectRequestPrimary extends FragmentPrimary implements
                     .getApplicationUtility();
         }
 
+        @SuppressLint("SimpleDateFormat")
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
 
         List<String> buildingTypes = new ArrayList<>();
@@ -348,17 +349,7 @@ public class CollectRequestPrimary extends FragmentPrimary implements
     }//_____________________________________________________________________________________________ SetMaterialSpinnersTimes
 
 
-
-
     private void SetMaterialSpinnersWasteEstimate() {//_____________________________________________ SetMaterialSpinnersWasteEstimate
-
-        ApplicationUtility utility = null;
-        if (getContext() != null) {
-            utility = ApplicationWMS
-                    .getApplicationWMS(getContext())
-                    .getUtilityComponent()
-                    .getApplicationUtility();
-        }
 
         List<String> buildingTypes = new ArrayList<>();
         buildingTypes.add(getResources().getString(R.string.ChooseVolumeDelivery));
@@ -384,8 +375,6 @@ public class CollectRequestPrimary extends FragmentPrimary implements
     }//_____________________________________________________________________________________________ SetMaterialSpinnersWasteEstimate
 
 
-
-
     private boolean CheckEmpty() {//________________________________________________________________ CheckEmpty
 
         boolean time = true;
@@ -400,13 +389,12 @@ public class CollectRequestPrimary extends FragmentPrimary implements
         if (WasteEstimatePosition == -1) {
             MaterialSpinnerSpinnerVolume.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
             MaterialSpinnerSpinnerVolume.requestFocus();
-            volume = false;;
+            volume = false;
         }
 
         return time && volume;
 
     }//_____________________________________________________________________________________________ CheckEmpty
-
 
 
 }

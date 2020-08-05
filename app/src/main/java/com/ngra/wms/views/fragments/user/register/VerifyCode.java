@@ -32,7 +32,8 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
 
     private VM_VerifyCode vm_verifyCode;
     private String PhoneNumber = "";
-    private String Password = "";
+    private String VerifyType = "";
+/*    private String Password = "";*/
     private DialogProgress progress;
     private boolean ReTryGetSMSClick = false;
     private Handler timer;
@@ -111,9 +112,19 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
     @Override
     public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
-        DismissProgress();
+
 
         if (action.equals(StaticValues.ML_GotoLogin)) {
+            DismissProgress();
+            if (getContext() != null) {
+                getContext().onBackPressed();
+                getContext().onBackPressed();
+            }
+            return;
+        }
+
+        if (action.equals(StaticValues.ML_GoToHome)) {
+            DismissProgress();
             if (getContext() != null) {
                 getContext().onBackPressed();
                 getContext().onBackPressed();
@@ -133,6 +144,7 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
             VerifyCode1.requestFocus();
             SetBackVerifyCode();
             StartTimer(120);
+            return;
         }
 
 
@@ -143,9 +155,13 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
 
         message.setOnClickListener(v -> {
             if (ReTryGetSMSClick) {
-                vm_verifyCode.setPassword(Password);
-                vm_verifyCode.setPhoneNumber(PhoneNumber);
-                vm_verifyCode.SendNumber();
+/*                vm_verifyCode.setPassword(Password);*/
+                if (VerifyType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_SingUp))) {
+                    vm_verifyCode.setPhoneNumber(PhoneNumber);
+                    vm_verifyCode.SendNumber();
+                } else {
+                    vm_verifyCode.GetLoginCode(PhoneNumber);
+                }
             }
         });
 
@@ -271,9 +287,13 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
                     VerifyCode6.getText().toString();
 
             ShowProgressDialog();
-            vm_verifyCode.setPhoneNumber(PhoneNumber);
-            vm_verifyCode.setVerifyCode(code);
-            vm_verifyCode.SendVerifyCode();
+            if (VerifyType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_SingUp))) {
+                vm_verifyCode.setPhoneNumber(PhoneNumber);
+                vm_verifyCode.setVerifyCode(code);
+                vm_verifyCode.SendVerifyCode();
+            } else {
+                vm_verifyCode.GetLoginVerify(PhoneNumber, code);
+            }
         }
 
     }//_____________________________________________________________________________________________ SetBackVerifyCode
@@ -314,7 +334,8 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
         Bundle bundle = getArguments();
         if (bundle != null && getContext() != null) {
             PhoneNumber = bundle.getString(getContext().getString(R.string.ML_PhoneNumber));
-            Password = bundle.getString(getContext().getString(R.string.ML_Password));
+            VerifyType = bundle.getString(getContext().getResources().getString(R.string.ML_Type));
+            /*Password = bundle.getString(getContext().getString(R.string.ML_Password));*/
         }
     }//_____________________________________________________________________________________________ SetPhoneNumberPassword
 

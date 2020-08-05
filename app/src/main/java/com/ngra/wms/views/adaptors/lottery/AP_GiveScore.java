@@ -35,7 +35,7 @@ public class AP_GiveScore extends RecyclerView.Adapter<AP_GiveScore.CustomHolder
 
     @Override
     public void onBindViewHolder(@NonNull CustomHolder holder, int position) {
-        holder.bind(md_giveScoreItemList.get(position), position);
+        holder.bind(md_giveScoreItemList.get(position));
     }
 
     @Override
@@ -44,7 +44,7 @@ public class AP_GiveScore extends RecyclerView.Adapter<AP_GiveScore.CustomHolder
     }
 
 
-    public class CustomHolder extends RecyclerView.ViewHolder {
+    public static class CustomHolder extends RecyclerView.ViewHolder {
 
         AdapterLottoryGiveScoreItemBinding binding;
 
@@ -55,7 +55,7 @@ public class AP_GiveScore extends RecyclerView.Adapter<AP_GiveScore.CustomHolder
             ButterKnife.bind(this, view);
         }
 
-        public void bind(MD_GiveScoreItem item, final int position) {
+        public void bind(MD_GiveScoreItem item) {
             binding.setScore(item);
             binding.executePendingBindings();
         }

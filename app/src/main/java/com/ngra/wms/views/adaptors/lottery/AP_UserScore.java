@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ngra.wms.R;
-import com.ngra.wms.databinding.AdapterLottoryGiveScoreItemBinding;
 import com.ngra.wms.databinding.AdapterLottoryUserScoreItemBinding;
 import com.ngra.wms.models.MD_GiveScoreItem;
 
@@ -37,7 +36,7 @@ public class AP_UserScore extends RecyclerView.Adapter<AP_UserScore.CustomHolder
 
     @Override
     public void onBindViewHolder(@NonNull CustomHolder holder, int position) {
-        holder.bind(md_giveScoreItemList.get(position), position);
+        holder.bind(md_giveScoreItemList.get(position));
     }
 
     @Override
@@ -45,7 +44,7 @@ public class AP_UserScore extends RecyclerView.Adapter<AP_UserScore.CustomHolder
         return md_giveScoreItemList.size();
     }
 
-    public class CustomHolder extends RecyclerView.ViewHolder {
+    public static class CustomHolder extends RecyclerView.ViewHolder {
 
         AdapterLottoryUserScoreItemBinding binding;
 
@@ -56,7 +55,7 @@ public class AP_UserScore extends RecyclerView.Adapter<AP_UserScore.CustomHolder
             ButterKnife.bind(this, view);
         }
 
-        public void bind(MD_GiveScoreItem item, final int position) {
+        public void bind(MD_GiveScoreItem item) {
             binding.setScore(item);
             binding.executePendingBindings();
         }

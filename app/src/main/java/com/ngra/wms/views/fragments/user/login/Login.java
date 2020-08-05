@@ -49,8 +49,8 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
     @BindView(R.id.EditPhoneNumber)
     EditText EditPhoneNumber;
 
-    @BindView(R.id.EditPassword)
-    EditText EditPassword;
+/*    @BindView(R.id.EditPassword)
+    EditText EditPassword;*/
 
     @BindView(R.id.ForgetPassword)
     TextView ForgetPassword;
@@ -103,8 +103,20 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
     public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         DismissLoading();
-        if (action.equals(StaticValues.ML_GoToHome)) {
+/*        if (action.equals(StaticValues.ML_GoToHome)) {
             navController.navigate(R.id.action_login_to_home);
+            return;
+        }*/
+
+        if (action.equals(StaticValues.ML_Success)) {
+            if (getContext() != null) {
+                Bundle bundle = new Bundle();
+                bundle.putString(getContext().getString(R.string.ML_PhoneNumber), EditPhoneNumber.getText().toString());
+                bundle.putString(getContext().getString(R.string.ML_Type), getContext().getResources().getString(R.string.ML_Login));
+                /*bundle.putString(getContext().getString(R.string.ML_Password), EditPassword.getText().toString());*/
+                navController
+                        .navigate(R.id.action_login_to_verifyCode, bundle);
+            }
         }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
@@ -129,9 +141,8 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
             if (CheckEmpty()) {
                 ShowLoading();
                 hideKeyboard();
-                vm_login.GetLoginToken(
-                        EditPhoneNumber.getText().toString(),
-                        EditPassword.getText().toString());
+                vm_login.GetLoginCode(
+                        EditPhoneNumber.getText().toString());
             }
         });
 
@@ -148,17 +159,17 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
 
         ImgPassVisible.setOnClickListener(v -> {
             if (!passVisible) {
-                EditPassword.setInputType(InputType.TYPE_CLASS_TEXT |
-                        InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+/*                EditPassword.setInputType(InputType.TYPE_CLASS_TEXT |
+                        InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);*/
                 ImgPassVisible.setImageResource(R.drawable.svg_hide_password);
                 passVisible = true;
             } else {
-                EditPassword.setInputType(InputType.TYPE_CLASS_TEXT |
-                        InputType.TYPE_TEXT_VARIATION_PASSWORD);
+/*                EditPassword.setInputType(InputType.TYPE_CLASS_TEXT |
+                        InputType.TYPE_TEXT_VARIATION_PASSWORD);*/
                 ImgPassVisible.setImageResource(R.drawable.svg_password_visible);
                 passVisible = false;
             }
-            EditPassword.setSelection(EditPassword.getText().length());
+            /*EditPassword.setSelection(EditPassword.getText().length());*/
         });
 
 
@@ -184,23 +195,23 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
     private void SetTextWatcher() {//_______________________________________________________________ SetTextWatcher
         EditPhoneNumber.setBackgroundResource(R.drawable.dw_edit_back);
         EditPhoneNumber.addTextChangedListener(TextChangeForChangeBack(EditPhoneNumber));
-        EditPassword.setBackgroundResource(R.drawable.dw_edit_back);
-        EditPassword.addTextChangedListener(TextChangeForChangeBack(EditPassword));
+/*        EditPassword.setBackgroundResource(R.drawable.dw_edit_back);
+        EditPassword.addTextChangedListener(TextChangeForChangeBack(EditPassword));*/
     }//_____________________________________________________________________________________________ SetTextWatcher
 
 
     private Boolean CheckEmpty() {//________________________________________________________________ CheckEmpty
 
         boolean phone;
-        boolean pass;
+/*        boolean pass;*/
 
-        if (EditPassword.getText().length() < 6) {
+/*        if (EditPassword.getText().length() < 6) {
             EditPassword.setBackgroundResource(R.drawable.dw_edit_back_empty);
             EditPassword.setError(getResources().getString(R.string.EmptyPassword));
             EditPassword.requestFocus();
             pass = false;
         } else
-            pass = true;
+            pass = true;*/
 
 
         if (EditPhoneNumber.getText().length() != 11) {
@@ -220,7 +231,7 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
             }
         }
 
-        return phone && pass;
+        return phone;
 
     }//_____________________________________________________________________________________________ CheckEmpty
 

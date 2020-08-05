@@ -155,7 +155,8 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
                 ProfilePerson.this,
                 vm_profilePerson.getPublishSubject(),
                 vm_profilePerson);
-        navController = Navigation.findNavController(getView());
+        if (getView() != null)
+            navController = Navigation.findNavController(getView());
     }//_____________________________________________________________________________________________ onStart
 
 
@@ -312,7 +313,8 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
             if (action.equals(StaticValues.ML_DialogClose))
                 if (!completeProfile) {
                     MainActivity.complateprofile = true;
-                    getContext().onBackPressed();
+                    if (getContext() != null)
+                        getContext().onBackPressed();
                 }
 
 

@@ -205,13 +205,12 @@ public class VM_Splash extends VM_Primary {
 
 
     private void CheckUpdate() {//__________________________________________________________________ CheckUpdate
-        PackageInfo pInfo = null;
-        Integer Version = 0;
+        PackageInfo pInfo;
+        int Version = 0;
         try {
             pInfo = getContext().getPackageManager().getPackageInfo(getContext().getPackageName(), 0);
             Version = pInfo.versionCode;
-        } catch (PackageManager.NameNotFoundException e) {
-            Version = 0;
+        } catch (PackageManager.NameNotFoundException ignored) {
         }
 
         String v = md_hi.getVersion();

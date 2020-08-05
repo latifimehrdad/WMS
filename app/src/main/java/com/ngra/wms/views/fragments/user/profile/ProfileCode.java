@@ -43,7 +43,7 @@ public class ProfileCode extends FragmentPrimary implements FragmentPrimary.GetM
     GifView gifLoading;
 
     @BindView(R.id.imgLoading)
-    ImageView imgLoading;;
+    ImageView imgLoading;
 
 
     @Nullable

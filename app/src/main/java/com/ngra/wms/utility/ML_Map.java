@@ -35,7 +35,7 @@ import java.util.Locale;
 
 import io.reactivex.subjects.PublishSubject;
 
-public class MehrdadLatifiMap {
+public class ML_Map {
 
     private GoogleMap googleMap;
     private List<LatLng> ML_LatLongs;
@@ -49,33 +49,33 @@ public class MehrdadLatifiMap {
     private LatLng ML_FindAddress;
 
 
-    public void DrawPolylines() {//_________________________________________________________________ Start DrawPolylines
+    public void DrawPolyLines() {//_________________________________________________________________ DrawPolyLines
         Polyline polyline = getGoogleMap().addPolyline(new PolylineOptions()
                 .clickable(true)
                 .addAll(getML_LatLongs()));
         stylePolyline(polyline);
-    }//_____________________________________________________________________________________________ End DrawPolylines
+    }//_____________________________________________________________________________________________ DrawPolyLines
 
 
-    public void DrawPolygon(boolean Pattern) {//_______________________________ Start DrawPolylines
+    public void DrawPolygon(boolean Pattern) {//____________________________________________________ DrawPolygon
         Polygon polygon = getGoogleMap().addPolygon(new PolygonOptions()
                 .clickable(true)
                 .addAll(getML_LatLongs()));
         stylePolygon(polygon, Pattern);
-    }//_____________________________________________________________________________________________ End DrawPolylines
+    }//_____________________________________________________________________________________________ DrawPolygon
 
 
-    private void stylePolyline(Polyline polyline) {//_______________________________________________ Start stylePolyline
+    private void stylePolyline(Polyline polyline) {//_______________________________________________ stylePolyline
         polyline.setStartCap(new RoundCap());
         polyline.setEndCap(new RoundCap());
         polyline.setWidth(getML_Stroke_Width());
         polyline.setColor(getML_Stroke_Color());
         polyline.setJointType(JointType.ROUND);
 
-    }//_____________________________________________________________________________________________ End stylePolyline
+    }//_____________________________________________________________________________________________ stylePolyline
 
 
-    private void stylePolygon(Polygon polygon, boolean Pattern) {//_________________________________ Start stylePolygon
+    private void stylePolygon(Polygon polygon, boolean Pattern) {//_________________________________ stylePolygon
 
         if (Pattern) {
             PatternItem DASH = new Dash(getML_PATTERN_DASH_LENGTH_PX());
@@ -87,7 +87,7 @@ public class MehrdadLatifiMap {
         polygon.setStrokeWidth(getML_Stroke_Width());
         polygon.setStrokeColor(getML_Stroke_Color());
         polygon.setFillColor(getML_Fill_Color());
-    }//_____________________________________________________________________________________________ End stylePolygon
+    }//_____________________________________________________________________________________________ stylePolygon
 
 
 //    public Boolean isInside(LatLng point, List<LatLng> latLngs) {//_________________________________ Start isInside
@@ -128,13 +128,12 @@ public class MehrdadLatifiMap {
 //    }//_____________________________________________________________________________________________ End getDeviceLocation
 
 
-    public Marker AddMarker(LatLng latLng, String title, String tag, int icon) {//__________________ Start AddMarker
+    public void AddMarker(LatLng latLng, String title, String tag, int icon) {//____________________ AddMarker
         Marker marker = getGoogleMap().addMarker(new MarkerOptions()
                 .position(latLng)
                 .title(title)
                 .icon(BitmapDescriptorFactory.fromResource(icon)));
         marker.setTag(tag);
-        return marker;
     }//_____________________________________________________________________________________________ End AddMarker
 
 

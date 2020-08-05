@@ -22,11 +22,9 @@ public class AP_Order extends RecyclerView.Adapter<AP_Order.CustomHolder> {
 
     private LayoutInflater layoutInflater;
     private List<MD_ItemWasteRequest> md_itemWasteRequests;
-    private ItemOrderClick ItemOrderClick;
 
-    public AP_Order(List<MD_ItemWasteRequest> md_itemWasteRequests, AP_Order.ItemOrderClick itemOrderClick) {
+    public AP_Order(List<MD_ItemWasteRequest> md_itemWasteRequests) {
         this.md_itemWasteRequests = md_itemWasteRequests;
-        ItemOrderClick = itemOrderClick;
     }
 
     @NonNull
@@ -40,7 +38,7 @@ public class AP_Order extends RecyclerView.Adapter<AP_Order.CustomHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull CustomHolder holder, int position) {
-        holder.bind(md_itemWasteRequests.get(position), position);
+        holder.bind(md_itemWasteRequests.get(position));
     }
 
     @Override
@@ -49,13 +47,8 @@ public class AP_Order extends RecyclerView.Adapter<AP_Order.CustomHolder> {
     }
 
 
-    public interface ItemOrderClick {//_____________________________________________________________ ItemBoothClick
-        void itemOrderCall(Integer position);
-    }//_____________________________________________________________________________________________ ItemBoothClick
 
-
-
-    public class CustomHolder extends RecyclerView.ViewHolder {
+    public static class CustomHolder extends RecyclerView.ViewHolder {
 
         AdapterItemOrderBinding binding;
 
@@ -70,7 +63,7 @@ public class AP_Order extends RecyclerView.Adapter<AP_Order.CustomHolder> {
             ButterKnife.bind(this, view);
         }
 
-        public void bind(MD_ItemWasteRequest item, final int position) {
+        public void bind(MD_ItemWasteRequest item) {
             binding.setWasteRequest(item);
             if (item.getAmounts() != null) {
                 AP_OrderItemsWast ap_orderItemsWast = new AP_OrderItemsWast(item.getAmounts());

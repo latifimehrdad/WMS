@@ -37,8 +37,9 @@
             >
 
             <ImageView
-                android:layout_width="@dimen/_35sdp"
-                android:layout_height="@dimen/_35sdp"
+                android:id="@+id/ImageViewNo"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_2sdp"
                 android:src="@drawable/ic_cancel_black_24dp"
@@ -47,7 +48,7 @@
 
             <TextView
                 android:id="@+id/TextViewNo"
-                fontPath="fonts/iransans_web_medium.ttf"
+                fontPath="font/iransans_web_medium.ttf"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:layout_height="52dp"
@@ -75,7 +76,7 @@
 
             <TextView
                 android:id="@+id/TextViewYes"
-                fontPath="fonts/iransans_web_medium.ttf"
+                fontPath="font/iransans_web_medium.ttf"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:layout_height="52dp"
@@ -90,8 +91,8 @@
 
             <ImageView
                 android:id="@+id/ImageViewYes"
-                android:layout_width="@dimen/_35sdp"
-                android:layout_height="@dimen/_35sdp"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
                 android:layout_marginLeft="@dimen/_2sdp"
                 android:layout_marginRight="@dimen/_10sdp"
                 android:src="@drawable/ic_baseline_my_location"

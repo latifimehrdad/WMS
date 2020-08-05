@@ -62,8 +62,6 @@ public interface RetrofitApiInterface {
     Call<MR_Register> SendPhoneNumber
             (
                     @Field("Mobile") String PhoneNumber,
-                    @Field("Password") String Password,
-                    @Field("ConfirmPassword") String ConfirmPassword,
                     @Header("Authorization") String Authorization
             );
 
@@ -89,6 +87,18 @@ public interface RetrofitApiInterface {
 
 
     @FormUrlEncoded
+    @POST(Version + "/account/authrequest")
+    Call<ModelResponsePrimary> LoginCode
+            (
+                    @Field("client_id") String client_id,
+                    @Field("client_secret") String client_secret,
+                    @Field("mobile") String PhoneNumber,
+                    @Header("Authorization") String Authorization
+
+            );
+
+
+    @FormUrlEncoded
     @POST("/token")
     Call<ModelToken> Login
             (
@@ -96,7 +106,7 @@ public interface RetrofitApiInterface {
                     @Field("client_secret") String client_secret,
                     @Field("grant_type") String grant_type,
                     @Field("username") String PhoneNumber,
-                    @Field("Password") String Password,
+                    @Field("code") String code,
                     @Header("Authorization") String Authorization
 
             );

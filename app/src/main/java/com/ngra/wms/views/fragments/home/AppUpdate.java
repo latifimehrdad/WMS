@@ -56,12 +56,12 @@ public class AppUpdate extends FragmentPrimary implements FragmentPrimary.GetMes
                     inflater, R.layout.fragment_update, container, false);
             binding.setUpdate(vm_update);
             setView(binding.getRoot());
-            TextViewProgress.setText(getContext().getResources().getString(R.string.PleaseWait));
+            if (getContext() != null)
+                TextViewProgress.setText(getContext().getResources().getString(R.string.PleaseWait));
             progressBar.setProgress(0);
             ButtonInstall.setVisibility(View.GONE);
             SetOnClick();
             init();
-
         }
         return getView();
     }//_____________________________________________________________________________________________ onCreateView
@@ -77,14 +77,15 @@ public class AppUpdate extends FragmentPrimary implements FragmentPrimary.GetMes
     }//_____________________________________________________________________________________________ onStart
 
 
-
     private void init() {//_________________________________________________________________________ init
-        String url = getArguments().getString(getContext().getResources().getString(R.string.ML_UpdateUrl), "");
-        fileName = getArguments().getString(getContext().getResources().getString(R.string.ML_UpdateFile), "");
+        if (getContext() != null && getArguments() != null) {
+            String url = getArguments().getString(getContext().getResources().getString(R.string.ML_UpdateUrl), "");
+            fileName = getArguments().getString(getContext().getResources().getString(R.string.ML_UpdateFile), "");
 
-        if (!url.equalsIgnoreCase(""))
-            if (!fileName.equalsIgnoreCase(""))
-                vm_update.DownloadFile(url, fileName);
+            if (!url.equalsIgnoreCase(""))
+                if (!fileName.equalsIgnoreCase(""))
+                    vm_update.DownloadFile(url, fileName);
+        }
 
     }//_____________________________________________________________________________________________ init
 
@@ -95,9 +96,10 @@ public class AppUpdate extends FragmentPrimary implements FragmentPrimary.GetMes
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             intent.putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true);
             intent.setDataAndType(uri, "application/vnd.android.package-archive");
-            intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //dont forget add this line
-            getContext().startActivity(intent);
+            if (getContext() != null)
+                getContext().startActivity(intent);
         });
     }//_____________________________________________________________________________________________ SetOnClick
 
@@ -106,13 +108,15 @@ public class AppUpdate extends FragmentPrimary implements FragmentPrimary.GetMes
     public void getMessageFromObservable(Byte action) {//___________________________________________ getMessageFromObservable
 
         if (action.equals(StaticValues.ML_Success)) {
-            TextViewProgress.setText(getContext().getResources().getString(R.string.DownloadingFile));
+            if (getContext() != null)
+                TextViewProgress.setText(getContext().getResources().getString(R.string.DownloadingFile));
             return;
         }
 
         if (action.equals(StaticValues.ML_FileDownloading)) {
             progressBar.setProgress(0);
-            TextViewProgress.setText(getContext().getResources().getString(R.string.FileDownloaded));
+            if (getContext() != null)
+                TextViewProgress.setText(getContext().getResources().getString(R.string.FileDownloaded));
             return;
         }
 
@@ -123,11 +127,9 @@ public class AppUpdate extends FragmentPrimary implements FragmentPrimary.GetMes
             ImageViewDownload.setVisibility(View.GONE);
             TextViewProgress.setVisibility(View.GONE);
             progressBar.setVisibility(View.GONE);
-            TextViewProgress.setText(getContext().getResources().getString(R.string.FileDownloaded));
-            return;
+            if (getContext() != null)
+                TextViewProgress.setText(getContext().getResources().getString(R.string.FileDownloaded));
         }
-
-
 
     }//_____________________________________________________________________________________________ getMessageFromObservable
 
@@ -137,8 +139,6 @@ public class AppUpdate extends FragmentPrimary implements FragmentPrimary.GetMes
         progressBar.setProgress(progress);
         TextViewProgress.setText(progress + " %");
     }//_____________________________________________________________________________________________ onProgress
-
-
 
 
 }

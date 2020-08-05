@@ -227,6 +227,7 @@
     <string name="ML_CompleteProfile">CompleteProfile</string>
     <string name="ML_Type">Type</string>
     <string name="ML_SingUp">SingUp</string>
+    <string name="ML_Login">Login</string>
     <string name="ML_AddressCompleted">AddressCompleted</string>
     <string name="ML_PackageRequestStatus">PackageRequestStatus</string>
     <string name="ML_PackageRequestDate">PackageRequestDate</string>

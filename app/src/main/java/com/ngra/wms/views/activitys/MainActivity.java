@@ -404,8 +404,7 @@ public class MainActivity extends AppCompatActivity {
         if (navDestination != null)
             if (navDestination.getLabel() != null) {
                 String fragment = navDestination.getLabel().toString();
-                if ((!fragment.equalsIgnoreCase("Login")) &&
-                        (!fragment.equalsIgnoreCase("Home"))) {
+                if ((!fragment.equalsIgnoreCase("Home"))) {
                     super.onBackPressed();
                     return;
                 }

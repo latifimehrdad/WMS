@@ -132,9 +132,11 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
                     navController.navigate(R.id.action_home_to_packageRequestPrimary);
                 } else {
                     TwoBackToHome = true;
-                    Bundle bundle = new Bundle();
-                    bundle.putString(getContext().getResources().getString(R.string.ML_Type), getContext().getResources().getString(R.string.ML_Save));
-                    navController.navigate(R.id.action_home_to_packageRequestAddress, bundle);
+                    if (getContext() != null) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString(getContext().getResources().getString(R.string.ML_Type), getContext().getResources().getString(R.string.ML_Save));
+                        navController.navigate(R.id.action_home_to_packageRequestAddress, bundle);
+                    }
                 }
 
             }
@@ -144,10 +146,11 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
             if (vm_home.GetPackageState() == StaticValues.PR_Delivered)
                 navController.navigate(R.id.action_home_to_collectRequestPrimary);
             else {
-                ShowMessage(getContext().getResources().getString(R.string.PackageNotDelivered),
-                        getResources().getColor(R.color.mlWhite),
-                        getResources().getDrawable(R.drawable.ic_error),
-                        getResources().getColor(R.color.mlCollectRight1));
+                if (getContext() != null)
+                    ShowMessage(getContext().getResources().getString(R.string.PackageNotDelivered),
+                            getResources().getColor(R.color.mlWhite),
+                            getResources().getDrawable(R.drawable.ic_error),
+                            getResources().getColor(R.color.mlCollectRight1));
             }
         });
 

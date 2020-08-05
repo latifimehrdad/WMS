@@ -17,12 +17,12 @@ import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
+import org.jetbrains.annotations.NotNull;
+
 import butterknife.BindView;
 
 public class RecyclingCar extends FragmentPrimary {
 
-
-    private VM_RecyclingCar vm_recyclingCar;
 
     @BindView(R.id.FragmentRecyclingTab)
     SmartTabLayout FragmentRecyclingTab;
@@ -35,12 +35,12 @@ public class RecyclingCar extends FragmentPrimary {
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
 
         if (getView() == null) {
-            vm_recyclingCar = new VM_RecyclingCar(getContext());
+            VM_RecyclingCar vm_recyclingCar = new VM_RecyclingCar(getContext());
             FragmentRecyclingCarBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_recycling_car, container, false
             );

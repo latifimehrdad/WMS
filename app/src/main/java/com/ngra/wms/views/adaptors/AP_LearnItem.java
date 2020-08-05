@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.AdapterItemLearnBinding;
-import com.ngra.wms.databinding.AdapterItemOrderBinding;
 import com.ngra.wms.models.MD_ItemLearn;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
@@ -37,12 +36,12 @@ public class AP_LearnItem extends RecyclerView.Adapter<AP_LearnItem.CustomHolder
         if (layoutInflater == null)
             layoutInflater = LayoutInflater.from(parent.getContext());
 
-        return new CustomHolder(DataBindingUtil.inflate(layoutInflater, R.layout.adapter_item_learn,parent, false));
+        return new CustomHolder(DataBindingUtil.inflate(layoutInflater, R.layout.adapter_item_learn, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull CustomHolder holder, int position) {
-        holder.bind(itemLearns.get(position), position);
+        holder.bind(itemLearns.get(position));
     }
 
     @Override
@@ -51,7 +50,7 @@ public class AP_LearnItem extends RecyclerView.Adapter<AP_LearnItem.CustomHolder
     }
 
 
-    public class CustomHolder extends RecyclerView.ViewHolder {
+    public static class CustomHolder extends RecyclerView.ViewHolder {
 
         AdapterItemLearnBinding binding;
 
@@ -72,7 +71,7 @@ public class AP_LearnItem extends RecyclerView.Adapter<AP_LearnItem.CustomHolder
             ButterKnife.bind(this, view);
         }
 
-        public void bind(MD_ItemLearn item, final int position) {
+        public void bind(MD_ItemLearn item) {
             binding.setLearn(item);
             ImageViewArrow.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
             LinearLayoutExpandClick.setOnClickListener(v -> {

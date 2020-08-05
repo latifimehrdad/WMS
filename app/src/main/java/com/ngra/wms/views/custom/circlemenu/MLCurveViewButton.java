@@ -15,19 +15,15 @@ import com.ngra.wms.R;
 
 public class MLCurveViewButton extends View {
 
-    private final int CURVE_CIRCLE_RADIUS = 64;
     private Point mFirstCurveControlPoint1 = new Point();
     private Point mFirstCurveControlPoint2 = new Point();
     private Point mFirstCurveEndPoint = new Point();
     private Point mFirstCurveStartPoint = new Point();
-    private int mNavigationBarHeight;
-    private int mNavigationBarWidth;
     private Paint mPaint;
     private Path mPath;
     private Point mSecondCurveControlPoint1 = new Point();
     private Point mSecondCurveControlPoint2 = new Point();
     private Point mSecondCurveEndPoint = new Point();
-    private Point mSecondCurveStartPoint = new Point();
 
     public MLCurveViewButton(Context context) {
         super(context);
@@ -50,11 +46,11 @@ public class MLCurveViewButton extends View {
     /* access modifiers changed from: protected */
     public void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        mNavigationBarWidth = getWidth();
-        mNavigationBarHeight = getHeight();
+        int mNavigationBarWidth = getWidth();
+        int mNavigationBarHeight = getHeight();
         mFirstCurveStartPoint.set((((mNavigationBarWidth / 2) - 128) + 32) - 12, 0);
         mFirstCurveEndPoint.set(mNavigationBarWidth / 2, 55);
-        mSecondCurveStartPoint = mFirstCurveEndPoint;
+        Point mSecondCurveStartPoint = mFirstCurveEndPoint;
         mSecondCurveEndPoint.set((((mNavigationBarWidth / 2) + 128) - 32) + 12, 0);
         mFirstCurveControlPoint1.set(mFirstCurveStartPoint.x + 64 + 16, mFirstCurveStartPoint.y);
         mFirstCurveControlPoint2.set((mFirstCurveEndPoint.x - 128) + 64, mFirstCurveEndPoint.y);
@@ -83,8 +79,6 @@ public class MLCurveViewButton extends View {
         final int action = ev.getAction();
         switch (action & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:
-                final float x = ev.getX();
-                final float y = ev.getY();
                 Toast.makeText(this.getContext(),"Touch",Toast.LENGTH_SHORT).show();
                 break;
 

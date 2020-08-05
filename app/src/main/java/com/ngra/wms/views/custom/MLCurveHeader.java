@@ -21,8 +21,6 @@ public class MLCurveHeader extends View {
     private Paint DrawPaint2;
     private Path mPath;
     private Path pathShadow;
-    private int height;
-    private int width;
     private int PitOpenings;
     private int backColor;
     private int shadowColor;
@@ -64,12 +62,12 @@ public class MLCurveHeader extends View {
     public void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
-        width = getWidth();
-        height = getHeight();
+        int width = getWidth();
+        int height = getHeight();
         int halfWidth = width / 2;
         int halfHeight = height / 2;
 
-        DrawPaint2.setShader(new LinearGradient(0,halfHeight,0,height - 5,shadowColor,Color.argb(10,0,0,0),Shader.TileMode.CLAMP));
+        DrawPaint2.setShader(new LinearGradient(0,halfHeight,0, height - 5,shadowColor,Color.argb(10,0,0,0),Shader.TileMode.CLAMP));
 
         mPath.reset();
         mPath.moveTo(0, 0);
@@ -89,7 +87,7 @@ public class MLCurveHeader extends View {
         Point mSecondCurveControlPoint1 = new Point();
         Point mSecondCurveControlPoint2 = new Point();
 
-        mSecondCurveControlPoint1.set(width - ((halfWidth / 3) + (halfWidth / 5)) + 10,height - shadow);
+        mSecondCurveControlPoint1.set(width - ((halfWidth / 3) + (halfWidth / 5)) + 10, height - shadow);
         mSecondCurveControlPoint2.set(width - halfWidth / 3 + 10 - PitOpenings, halfHeight + (halfHeight / 3) - shadow);
 
         mPath.cubicTo(mSecondCurveControlPoint1.x, mSecondCurveControlPoint1.y,
@@ -121,7 +119,7 @@ public class MLCurveHeader extends View {
         Point mSecondCurveShadowPoint1 = new Point();
         Point mSecondCurveShadowPoint2 = new Point();
 
-        mSecondCurveShadowPoint1.set(width - ((halfWidth / 3) + (halfWidth / 5)) + 10,height);
+        mSecondCurveShadowPoint1.set(width - ((halfWidth / 3) + (halfWidth / 5)) + 10, height);
         mSecondCurveShadowPoint2.set(width - halfWidth / 3 + 10 - PitOpenings, halfHeight + (halfHeight / 3));
 
         pathShadow.cubicTo(mSecondCurveShadowPoint1.x, mSecondCurveShadowPoint1.y,

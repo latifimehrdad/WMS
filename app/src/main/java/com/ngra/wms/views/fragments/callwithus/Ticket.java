@@ -152,14 +152,15 @@ public class Ticket extends FragmentPrimary implements
     }//_____________________________________________________________________________________________ SetAdapter
 
 
-
     @Override
     public void itemChoose(Integer position) {//____________________________________________________ itemChoose
-        gotoNew = true;
-        Bundle bundle = new Bundle();
-        bundle.putInt(getContext().getResources().getString(R.string.ML_Id), vm_ticket.getMd_usersTicketLists().get(position).getId());
-        bundle.putInt(getContext().getResources().getString(R.string.ML_Type), vm_ticket.getMd_usersTicketLists().get(position).getStatus());
-        navController.navigate(R.id.action_ticket_to_conversation, bundle);
+        if (getContext() != null) {
+            gotoNew = true;
+            Bundle bundle = new Bundle();
+            bundle.putInt(getContext().getResources().getString(R.string.ML_Id), vm_ticket.getMd_usersTicketLists().get(position).getId());
+            bundle.putInt(getContext().getResources().getString(R.string.ML_Type), vm_ticket.getMd_usersTicketLists().get(position).getStatus());
+            navController.navigate(R.id.action_ticket_to_conversation, bundle);
+        }
     }//_____________________________________________________________________________________________ itemChoose
 
 

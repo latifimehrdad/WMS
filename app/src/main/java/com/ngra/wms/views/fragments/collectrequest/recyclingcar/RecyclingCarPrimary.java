@@ -12,11 +12,8 @@ import androidx.databinding.DataBindingUtil;
 
 import com.cunoraz.gifview.library.GifView;
 import com.ngra.wms.R;
-;
 import com.ngra.wms.databinding.FragmentRecyclingCarPrimeryBinding;
-import com.ngra.wms.models.MD_ItemWaste;
 import com.ngra.wms.models.MD_WasteEstimate;
-import com.ngra.wms.models.MR_Collect;
 import com.ngra.wms.models.MD_WasteAmountRequests;
 import com.ngra.wms.models.ModelTime;
 import com.ngra.wms.utility.ApplicationUtility;
@@ -78,7 +75,8 @@ public class RecyclingCarPrimary extends FragmentPrimary implements
             binding.setVMRecyclingPrimary(vm_recyclingCarPrimary);
             setView(binding.getRoot());
             SetOnClick();
-            WasteEstimateId = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), -1);
+            if (getContext() != null && getArguments() != null)
+                WasteEstimateId = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), -1);
         }
         return getView();
     }//_____________________________________________________________________________________________ End onCreateView
@@ -87,7 +85,7 @@ public class RecyclingCarPrimary extends FragmentPrimary implements
     @Override
     public void onStart() {//_______________________________________________________________________ Start onStart
         super.onStart();
-/*        SetVolumeWaste();*/
+        /*        SetVolumeWaste();*/
         vm_recyclingCarPrimary.GetTypeTimes();
         setGetMessageFromObservable(
                 RecyclingCarPrimary.this,
@@ -110,7 +108,7 @@ public class RecyclingCarPrimary extends FragmentPrimary implements
 
     private void SetOnClick() {//___________________________________________________________________ SetOnClick
 
-        RelativeLayoutSend.setOnClickListener(v ->{
+        RelativeLayoutSend.setOnClickListener(v -> {
             if (MaterialSpinnerSpinnerDay.getSelectedIndex() == 0) {
                 MaterialSpinnerSpinnerDay.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
                 MaterialSpinnerSpinnerDay.requestFocus();
@@ -129,7 +127,6 @@ public class RecyclingCarPrimary extends FragmentPrimary implements
 
         });
     }//_____________________________________________________________________________________________ SetOnClick
-
 
 
     private void SetMaterialSpinnersTimes() {//_____________________________________________________ SetMaterialSpinnersTimes
@@ -167,7 +164,7 @@ public class RecyclingCarPrimary extends FragmentPrimary implements
             if (timePosition == -1) {
                 timePosition = position - 1;
                 MaterialSpinnerSpinnerDay.getItems().remove(0);
-                MaterialSpinnerSpinnerDay.setSelectedIndex(MaterialSpinnerSpinnerDay.getItems().size()-1);
+                MaterialSpinnerSpinnerDay.setSelectedIndex(MaterialSpinnerSpinnerDay.getItems().size() - 1);
                 MaterialSpinnerSpinnerDay.setSelectedIndex(position - 1);
             } else
                 timePosition = position;

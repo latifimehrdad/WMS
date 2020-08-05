@@ -14,15 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.FragmentBoothReceivePrimeryBinding;
-import com.ngra.wms.models.MD_Booth;
-import com.ngra.wms.models.MD_ItemWaste;
 import com.ngra.wms.models.MD_Location;
 import com.ngra.wms.models.MD_WasteEstimate;
-import com.ngra.wms.models.MR_Collect;
 import com.ngra.wms.models.MD_WasteAmountRequests;
 import com.ngra.wms.models.ModelTime;
-import com.ngra.wms.utility.ApplicationUtility;
-import com.ngra.wms.utility.MehrdadLatifiMap;
+import com.ngra.wms.utility.ML_Map;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.collectrequest.boothreceive.VM_BoothReceivePrimary;
 import com.ngra.wms.views.adaptors.collectrequest.AP_BoothList;
@@ -76,8 +72,10 @@ public class BoothReceivePrimary extends FragmentPrimary implements
             binding.setVMBoothReceivePrimary(vm_boothReceivePrimary);
             setView(binding.getRoot());
             vm_boothReceivePrimary.GetBoothList();
-            WasteEstimateId = getArguments().getString(getContext().getResources().getString(R.string.ML_Id), "-1");
-            TimeId = getArguments().getInt(getContext().getResources().getString(R.string.ML_TimeId), -1);
+            if (getContext() != null && getArguments() != null) {
+                WasteEstimateId = getArguments().getString(getContext().getResources().getString(R.string.ML_Id), "-1");
+                TimeId = getArguments().getInt(getContext().getResources().getString(R.string.ML_TimeId), -1);
+            }
             //SetVolumeWaste();
             //vm_boothReceivePrimary.GetTypeTimes();
         }
@@ -148,8 +146,10 @@ public class BoothReceivePrimary extends FragmentPrimary implements
         }*/
 
         if (action.equals(StaticValues.ML_DialogClose)) {
-            getContext().onBackPressed();
-            getContext().onBackPressed();
+            if (getContext() != null) {
+                getContext().onBackPressed();
+                getContext().onBackPressed();
+            }
         }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
@@ -246,7 +246,7 @@ public class BoothReceivePrimary extends FragmentPrimary implements
         if (vm_boothReceivePrimary.getBoothList().get(position).getLocation()!= null){
             MD_Location md_location = vm_boothReceivePrimary.getBoothList().get(position).getLocation();
             LatLng latLng = new LatLng(md_location.getLatitude(), md_location.getLongitude());
-            MehrdadLatifiMap latifiMap = new MehrdadLatifiMap();
+            ML_Map latifiMap = new ML_Map();
             latifiMap.setGoogleMap(mMap);
             latifiMap.AddMarker(latLng, vm_boothReceivePrimary.getBoothList().get(position).getName(), "", R.drawable.marker_point);
             CameraPosition cameraPosition = new CameraPosition.Builder()

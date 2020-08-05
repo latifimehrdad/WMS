@@ -202,6 +202,10 @@ public class PackageRequestAddress extends FragmentPrimary implements
 
         if (action.equals(StaticValues.ML_SetAddress)) {
             EditTextAddress.setText(vm_packageRequestAddress.getAddressString());
+            LinearLayout.LayoutParams childParam1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
+            childParam1.weight = 1;
+            scrollView.setLayoutParams(childParam1);
+            FullScreen = false;
             return;
         }
 
@@ -244,8 +248,9 @@ public class PackageRequestAddress extends FragmentPrimary implements
 
 
         RelativeLayoutSave.setOnClickListener(v -> {
-
-            if (CheckEmpty()) {
+            hideKeyboard();
+            if (CheckEmpty())
+            {
                 ShowLoading();
                 vm_packageRequestAddress.SaveAddress(
                         EditTextAddress.getText().toString(),
@@ -418,11 +423,15 @@ public class PackageRequestAddress extends FragmentPrimary implements
         ImageView ImageViewYes = dialogQuestion
                 .findViewById(R.id.ImageViewYes);
 
+        ImageView ImageViewNo = dialogQuestion
+                .findViewById(R.id.ImageViewNo);
+
         if (getContext() != null) {
             TextViewQuestionTitle.setText(getContext().getResources().getString(R.string.TurnOnGps));
             TextViewYes.setText(getContext().getResources().getString(R.string.ML_TurnOnLocation));
             TextViewNo.setText(getContext().getResources().getString(R.string.ML_TurnOffLocation));
-            ImageViewYes.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_baseline_my_location));
+            ImageViewYes.setImageDrawable(getContext().getResources().getDrawable(R.drawable.svg_pin));
+            ImageViewNo.setImageDrawable(getContext().getResources().getDrawable(R.drawable.svg_disconnected));
         }
 
 
@@ -467,6 +476,10 @@ public class PackageRequestAddress extends FragmentPrimary implements
         EditTextPersonCount.addTextChangedListener(TextChangeForChangeBack(EditTextPersonCount));
         EditTextUnitCount.setBackground(getResources().getDrawable(R.drawable.dw_edit_back));
         EditTextUnitCount.addTextChangedListener(TextChangeForChangeBack(EditTextUnitCount));
+        EditTextUnitNumber.setBackground(getResources().getDrawable(R.drawable.dw_edit_back));
+        EditTextUnitNumber.addTextChangedListener(TextChangeForChangeBack(EditTextUnitNumber));
+        EditTextPlateNumber.setBackground(getResources().getDrawable(R.drawable.dw_edit_back));
+        EditTextPlateNumber.addTextChangedListener(TextChangeForChangeBack(EditTextPlateNumber));
     }//_____________________________________________________________________________________________ SetTextWatcher
 
 

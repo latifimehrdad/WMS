@@ -67,9 +67,10 @@
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"/>
 
+
         <action
-            android:id="@+id/action_login_to_home"
-            app:destination="@id/home"
+            android:id="@+id/action_login_to_verifyCode"
+            app:destination="@id/verifyCode"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
@@ -87,6 +88,9 @@
             android:defaultValue="null"/>
 
         <argument android:name="Password"
+            android:defaultValue="null"/>
+
+        <argument android:name="@string/ML_Type"
             android:defaultValue="null"/>
 
         <action

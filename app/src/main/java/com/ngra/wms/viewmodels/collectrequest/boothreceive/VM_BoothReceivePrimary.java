@@ -7,8 +7,6 @@ import com.ngra.wms.models.MD_Booth;
 import com.ngra.wms.models.MR_BoothList;
 import com.ngra.wms.models.MD_WasteAmountRequests;
 import com.ngra.wms.models.ModelResponsePrimary;
-import com.ngra.wms.models.ModelTimeSheetTimes;
-import com.ngra.wms.models.ModelTimes;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Primary;
 import com.ngra.wms.views.application.ApplicationWMS;
@@ -21,7 +19,7 @@ import retrofit2.Response;
 
 public class VM_BoothReceivePrimary extends VM_Primary {
 
-    private ModelTimes modelTimes;
+/*    private ModelTimes modelTimes;*/
     private List<MD_Booth> boothList;
 
     public VM_BoothReceivePrimary(Activity context) {//_____________________________________________ VM_BoothReceivePrimary
@@ -29,6 +27,7 @@ public class VM_BoothReceivePrimary extends VM_Primary {
     }//_____________________________________________________________________________________________ VM_BoothReceivePrimary
 
 
+/*
     public void GetTypeTimes() {//__________________________________________________________________ GetTypeTimes
 
         RetrofitComponent retrofitComponent = ApplicationWMS
@@ -61,6 +60,7 @@ public class VM_BoothReceivePrimary extends VM_Primary {
         });
 
     }//_____________________________________________________________________________________________ GetTypeTimes
+*/
 
 
 
@@ -140,9 +140,11 @@ public class VM_BoothReceivePrimary extends VM_Primary {
 
 
 
+/*
     public ModelTimes getModelTimes() {//___________________________________________________________ getModelTimes
         return modelTimes;
     }//_____________________________________________________________________________________________ getModelTimes
+*/
 
 
     public List<MD_Booth> getBoothList() {//________________________________________________________ getBoothList

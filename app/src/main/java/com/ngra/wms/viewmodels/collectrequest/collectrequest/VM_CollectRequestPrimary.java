@@ -3,10 +3,8 @@ package com.ngra.wms.viewmodels.collectrequest.collectrequest;
 import android.app.Activity;
 
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
-import com.ngra.wms.models.MD_ItemWaste;
 import com.ngra.wms.models.MD_SpinnerItem;
 import com.ngra.wms.models.MD_WasteAmountRequests;
-import com.ngra.wms.models.MR_ItemsWast;
 import com.ngra.wms.models.MR_SpinnerItems;
 import com.ngra.wms.models.ModelResponsePrimary;
 import com.ngra.wms.models.ModelTimeSheetTimes;
@@ -16,7 +14,6 @@ import com.ngra.wms.viewmodels.VM_Primary;
 import com.ngra.wms.views.application.ApplicationWMS;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,7 +23,7 @@ import retrofit2.Response;
 public class VM_CollectRequestPrimary extends VM_Primary {
 
 
-    private List<MD_ItemWaste> md_itemWastes;
+/*    private List<MD_ItemWaste> md_itemWastes;*/
     private ModelTimes modelTimes;
     private ArrayList<MD_SpinnerItem> WasteEstimates;
 
@@ -37,6 +34,7 @@ public class VM_CollectRequestPrimary extends VM_Primary {
 
 
 
+/*
     public void GetItemsOfWast() {//________________________________________________________________ GetItemsOfWast
 
         RetrofitComponent retrofitComponent =
@@ -73,6 +71,7 @@ public class VM_CollectRequestPrimary extends VM_Primary {
 
 
     }//_____________________________________________________________________________________________ GetItemsOfWast
+*/
 
 
 
@@ -195,12 +194,14 @@ public class VM_CollectRequestPrimary extends VM_Primary {
 
 
 
+/*
     public List<MD_ItemWaste> getMd_itemWastes() {//________________________________________________ getMd_itemWasts
         if (md_itemWastes == null)
             md_itemWastes = new ArrayList<>();
 
         return md_itemWastes;
     }//_____________________________________________________________________________________________ getMd_itemWasts
+*/
 
 
     public ArrayList<MD_SpinnerItem> getWasteEstimates() {//________________________________________ getWasteEstimates

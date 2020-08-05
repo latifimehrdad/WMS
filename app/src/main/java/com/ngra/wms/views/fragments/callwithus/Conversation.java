@@ -75,8 +75,10 @@ public class Conversation extends FragmentPrimary implements FragmentPrimary.Get
             binding.setConversation(vm_conversation);
             setView(binding.getRoot());
             SetOnClick();
-            TicketRef = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
-            status = getArguments().getInt(getContext().getResources().getString(R.string.ML_Type), 0);
+            if (getContext() != null && getArguments() != null) {
+                TicketRef = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
+                status = getArguments().getInt(getContext().getResources().getString(R.string.ML_Type), 0);
+            }
             gifLoading.setVisibility(View.VISIBLE);
             vm_conversation.GetAllReply(TicketRef);
         }

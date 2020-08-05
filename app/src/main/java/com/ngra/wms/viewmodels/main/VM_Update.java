@@ -120,50 +120,35 @@ public class VM_Update extends VM_Primary {
 
 
     private void saveToDisk(ResponseBody body, String filename) {//_________________________________ saveToDisk
-        try {
 
-            File file = new File(Environment.getExternalStorageDirectory() + "/WMS");
-            if (!file.exists()) {
-                file.mkdir();
+        File file = new File(Environment.getExternalStorageDirectory() + "/WMS");
+        if (!file.exists()) {
+            file.mkdir();
+        }
+
+        File destinationFile = new File(Environment.getExternalStorageDirectory() + "/WMS/" + filename);
+
+        try (InputStream inputStream = body.byteStream(); OutputStream outputStream = new FileOutputStream(destinationFile)) {
+            byte[] data = new byte[4096];
+            int count;
+            int progress = 0;
+            long fileSize = body.contentLength();
+            while ((count = inputStream.read(data)) != -1) {
+                outputStream.write(data, 0, count);
+                progress += count;
+                Pair<Integer, Long> pairs = new Pair<>(progress, fileSize);
+                downloadZipFileTask.doProgress(pairs);
             }
 
-            File destinationFile = new File(Environment.getExternalStorageDirectory() + "/WMS/" + filename);
+            outputStream.flush();
 
-            InputStream inputStream = null;
-            OutputStream outputStream = null;
-
-            try {
-                inputStream = body.byteStream();
-                outputStream = new FileOutputStream(destinationFile);
-                byte data[] = new byte[4096];
-                int count;
-                int progress = 0;
-                long fileSize = body.contentLength();
-                while ((count = inputStream.read(data)) != -1) {
-                    outputStream.write(data, 0, count);
-                    progress += count;
-                    Pair<Integer, Long> pairs = new Pair<>(progress, fileSize);
-                    downloadZipFileTask.doProgress(pairs);
-                }
-
-                outputStream.flush();
-
-                Pair<Integer, Long> pairs = new Pair<>(100, 100L);
-                downloadZipFileTask.doProgress(pairs);
-                return;
-            } catch (IOException e) {
-                e.printStackTrace();
-                Pair<Integer, Long> pairs = new Pair<>(-1, Long.valueOf(-1));
-                downloadZipFileTask.doProgress(pairs);
-
-                return;
-            } finally {
-                if (inputStream != null) inputStream.close();
-                if (outputStream != null) outputStream.close();
-            }
+            Pair<Integer, Long> pairs = new Pair<>(100, 100L);
+            downloadZipFileTask.doProgress(pairs);
         } catch (IOException e) {
             e.printStackTrace();
-            return;
+            Pair<Integer, Long> pairs = new Pair<>(-1, (long) -1);
+            downloadZipFileTask.doProgress(pairs);
+
         }
     }//_____________________________________________________________________________________________ saveToDisk
 
@@ -171,7 +156,7 @@ public class VM_Update extends VM_Primary {
 
     public Uri getTempUri(String filename) {//____________________________________________________________________ Start getTempUri
         // Create an image file name
-        File imageFile = null;
+        File imageFile;
         imageFile = new File(Environment.getExternalStorageDirectory()
                 + "/WMS/", filename);
 
@@ -189,9 +174,11 @@ public class VM_Update extends VM_Primary {
 
 
 
+/*
     public String getFileName() {//_________________________________________________________________ getFileName
         return FileName;
     }//_____________________________________________________________________________________________ getFileName
+*/
 
 
 }

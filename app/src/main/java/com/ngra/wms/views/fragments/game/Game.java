@@ -17,13 +17,14 @@ import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
+import org.jetbrains.annotations.NotNull;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class Game extends Fragment {
 
     private Activity context;
-    private VM_GamePrimary vm_gamePrimary;
     private View view;
 
     @BindView(R.id.FragmentGameTab)
@@ -34,17 +35,19 @@ public class Game extends Fragment {
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
+            @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
-        this.context = getActivity();
-        FragmentGameBinding binding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_game, container, false
-        );
-        vm_gamePrimary = new VM_GamePrimary(context);
-        binding.setGame(vm_gamePrimary);
-        view = binding.getRoot();
-        ButterKnife.bind(this, view);
+        if (view == null) {
+            this.context = getActivity();
+            FragmentGameBinding binding = DataBindingUtil.inflate(
+                    inflater, R.layout.fragment_game, container, false
+            );
+            VM_GamePrimary vm_gamePrimary = new VM_GamePrimary(context);
+            binding.setGame(vm_gamePrimary);
+            view = binding.getRoot();
+            ButterKnife.bind(this, view);
+        }
         return view;
     }//_____________________________________________________________________________________________ End onCreateView
 

@@ -30,7 +30,6 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.GetM
     private VM_Support vm_support;
     private String DepartmentId;
     private String CategoryId;
-    private MLSpinnerDialog spinnerRequestType;
     private boolean ClickType;
 
     @BindView(R.id.txtLoading)
@@ -65,7 +64,6 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.GetM
     }//_____________________________________________________________________________________________ CallSupport
 
 
-
     @Override
     public View onCreateView(
             @NotNull LayoutInflater inflater,
@@ -75,7 +73,7 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.GetM
         if (getView() == null) {
             vm_support = new VM_Support(getContext());
             FragmentSupportBinding binding = DataBindingUtil.inflate(
-                    inflater, R.layout.fragment_support,container, false
+                    inflater, R.layout.fragment_support, container, false
             );
             binding.setVMSupport(vm_support);
             setView(binding.getRoot());
@@ -97,7 +95,6 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.GetM
     }//_____________________________________________________________________________________________ onStart
 
 
-
     @Override
     public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
@@ -109,10 +106,10 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.GetM
         }
 
         if (action.equals(StaticValues.ML_Success))
-            getContext().onBackPressed();
+            if (getContext() != null)
+                getContext().onBackPressed();
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
-
 
 
     private void SetOnClick() {//___________________________________________________________________ SetOnClick
@@ -142,10 +139,9 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.GetM
     }//_____________________________________________________________________________________________ SetOnClick
 
 
-
     private Boolean CheckEmpty() {//________________________________________________________________ CheckEmpty
 
-        boolean subject ;
+        boolean subject;
         boolean Description;
         boolean type;
 
@@ -179,14 +175,12 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.GetM
     }//_____________________________________________________________________________________________ CheckEmpty
 
 
-
-
     private void SetItemCategory() {//______________________________________________________________ SetItemCategory
 
         TextViewDepartments.setText(getResources().getString(R.string.ChooseRequestType));
         CategoryId = "-1";
         //spinnerDialog = new SpinnerDialog(getActivity(),items,"Select or Search City","Close Button Text");// With No Animation
-        spinnerRequestType = new MLSpinnerDialog(
+        MLSpinnerDialog spinnerRequestType = new MLSpinnerDialog(
                 getActivity(),
                 vm_support.getMd_spinnerItems(),
                 getResources().getString(R.string.Region_Search),
@@ -207,7 +201,6 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.GetM
     }//_____________________________________________________________________________________________ SetItemCategory
 
 
-
     private void DismissLoading() {//_______________________________________________________________ Start DismissLoading
         txtLoading.setText(getResources().getString(R.string.SendMessage));
         RelativeLayoutSend.setBackground(getResources().getDrawable(R.drawable.save_info_button));
@@ -222,7 +215,6 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.GetM
         gifLoading.setVisibility(View.VISIBLE);
         imgLoading.setVisibility(View.INVISIBLE);
     }//_____________________________________________________________________________________________ End ShowLoading
-
 
 
 }

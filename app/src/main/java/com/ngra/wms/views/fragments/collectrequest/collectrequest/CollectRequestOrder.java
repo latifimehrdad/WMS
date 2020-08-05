@@ -21,8 +21,7 @@ import org.jetbrains.annotations.NotNull;
 import butterknife.BindView;
 
 public class CollectRequestOrder extends FragmentPrimary implements
-        FragmentPrimary.GetMessageFromObservable,
-        AP_Order.ItemOrderClick {
+        FragmentPrimary.GetMessageFromObservable{
 
     private VM_CollectRequestOrder vm_collectRequestOrder;
 
@@ -77,17 +76,12 @@ public class CollectRequestOrder extends FragmentPrimary implements
 
     private void SetAdapter() {//___________________________________________________________________ SetAdapter
 
-        AP_Order ap_order = new AP_Order(vm_collectRequestOrder.getMd_itemWasteRequests(),CollectRequestOrder.this);
+        AP_Order ap_order = new AP_Order(vm_collectRequestOrder.getMd_itemWasteRequests());
         RecyclerViewOrder.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         RecyclerViewOrder.setAdapter(ap_order);
 
     }//_____________________________________________________________________________________________ SetAdapter
 
-
-    @Override
-    public void itemOrderCall(Integer position) {//___________________________________________ itemOrderCall
-
-    }//_____________________________________________________________________________________________ itemOrderCall
 
 
 }
