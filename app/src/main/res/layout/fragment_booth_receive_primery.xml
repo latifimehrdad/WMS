@@ -16,13 +16,24 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/_20sdp">
 
-        <fragment
-            android:id="@+id/fpraMap"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
+        <LinearLayout
+            android:id="@+id/LinearLayoutMap"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.4"
-            tools:context=".Activity.MapsActivity" />
+            android:layout_weight="0.4">
+
+            <fragment
+                android:id="@+id/fpraMap"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".Activity.MapsActivity"
+                />
+
+        </LinearLayout>
+
+
+
 
         // Center
         <LinearLayout

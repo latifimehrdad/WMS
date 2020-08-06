@@ -10,7 +10,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.FragmentCollectRequstBinding;
-import com.ngra.wms.viewmodels.collectrequest.collectrequest.VM_CollectRequest;
+import com.ngra.wms.viewmodels.collectrequest.collectrequest.VM_CollectRequests;
 import com.ngra.wms.views.fragments.FragmentPrimary;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
@@ -38,10 +38,10 @@ public class CollectRequest extends FragmentPrimary {
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
         if (getView() == null) {
-            VM_CollectRequest vm_collectRequest = new VM_CollectRequest(getContext());
+            VM_CollectRequests vm_collectRequests = new VM_CollectRequests(getContext());
             FragmentCollectRequstBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_collect_requst,container,false);
-            binding.setVMCollectRequest(vm_collectRequest);
+            binding.setVMCollectRequest(vm_collectRequests);
             setView(binding.getRoot());
         }
         return getView();

@@ -14,6 +14,7 @@ import com.ngra.wms.views.dialogs.DialogProgress;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -66,7 +67,6 @@ public class ApplicationUtility {
     }//_____________________________________________________________________________________________ PersianToEnglish
 
 
-
     //Type = "FullJalaliNumber = 1367/05/31"
     //Type = "YearJalaliNumber = 1367"
     //Type = "MonthJalaliNumber = 05"
@@ -76,7 +76,87 @@ public class ApplicationUtility {
     //Type = "DayJalaliString = پنجشنبه"
 
 
-    public String MiladiToJalali(Date MiladiDate, String Type) {//__________________________________ calcSolarCalendar
+
+    public class MD_GregorianToSun {
+
+        private int intYear;
+        private int intMonth;
+        private int intDay;
+        private String stringMonth;
+        private String stringDay;
+        private String dayOfWeek;
+        private String monthOfYear;
+
+
+        public MD_GregorianToSun() {
+
+        }
+
+
+        public String getFullStringSun() {
+            return getDayOfWeek() + " " + getStringDay() + " " + getMonthOfYear() + " " + getIntYear();
+        }
+
+        public int getIntYear() {
+            return intYear;
+        }
+
+        public void setIntYear(int intYear) {
+            this.intYear = intYear;
+        }
+
+        public int getIntMonth() {
+            return intMonth;
+        }
+
+        public void setIntMonth(int intMonth) {
+            this.intMonth = intMonth;
+        }
+
+        public int getIntDay() {
+            return intDay;
+        }
+
+        public void setIntDay(int intDay) {
+            this.intDay = intDay;
+        }
+
+        public String getDayOfWeek() {
+            return dayOfWeek;
+        }
+
+        public void setDayOfWeek(String dayOfWeek) {
+            this.dayOfWeek = dayOfWeek;
+        }
+
+        public String getMonthOfYear() {
+            return monthOfYear;
+        }
+
+        public void setMonthOfYear(String monthOfYear) {
+            this.monthOfYear = monthOfYear;
+        }
+
+        public String getStringMonth() {
+            return stringMonth;
+        }
+
+        public void setStringMonth(String stringMonth) {
+            this.stringMonth = stringMonth;
+        }
+
+        public String getStringDay() {
+            return stringDay;
+        }
+
+        public void setStringDay(String stringDay) {
+            this.stringDay = stringDay;
+        }
+    }
+
+
+
+    public MD_GregorianToSun GregorianToSun(Date GregorianDate) {//_________________________________ GregorianToSun
 
         String strWeekDay = "";
         String strMonth = "";
@@ -84,13 +164,19 @@ public class ApplicationUtility {
         int date;
         int month;
         int year;
-
         int ld;
 
-        int miladiYear = MiladiDate.getYear() + 1900;
-        int miladiMonth = MiladiDate.getMonth() + 1;
-        int miladiDate = MiladiDate.getDate();
-        int WeekDay = MiladiDate.getDay();
+        Calendar c = Calendar.getInstance();
+        c.setTime(GregorianDate);
+        int gregYear = c.get(Calendar.YEAR) + 1900;
+        int gregMonth = c.get(Calendar.MONTH) + 1;
+        int gregDate = c.get(Calendar.DATE);
+        int WeekDay = c.get(Calendar.DAY_OF_WEEK);
+
+/*        int gregYear = GregorianDate.getYear() + 1900;
+        int gregMonth = GregorianDate.getMonth() + 1;
+        int gregDate = GregorianDate.getDate();
+        int WeekDay = GregorianDate.getDay();*/
 
         int[] buf1 = new int[12];
         int[] buf2 = new int[12];
@@ -121,8 +207,8 @@ public class ApplicationUtility {
         buf2[10] = 305;
         buf2[11] = 335;
 
-        if ((miladiYear % 4) != 0) {
-            date = buf1[miladiMonth - 1] + miladiDate;
+        if ((gregYear % 4) != 0) {
+            date = buf1[gregMonth - 1] + gregDate;
 
             if (date > 79) {
                 date = date - 79;
@@ -137,7 +223,7 @@ public class ApplicationUtility {
                             date = (date % 31);
                             break;
                     }
-                    year = miladiYear - 621;
+                    year = gregYear - 621;
                 } else {
                     date = date - 186;
 
@@ -148,10 +234,10 @@ public class ApplicationUtility {
                         month = (date / 30) + 7;
                         date = (date % 30);
                     }
-                    year = miladiYear - 621;
+                    year = gregYear - 621;
                 }
             } else {
-                if ((miladiYear > 1996) && (miladiYear % 4) == 1) {
+                if ((gregYear > 1996) && (gregYear % 4) == 1) {
                     ld = 11;
                 } else {
                     ld = 10;
@@ -165,12 +251,12 @@ public class ApplicationUtility {
                     month = (date / 30) + 10;
                     date = (date % 30);
                 }
-                year = miladiYear - 622;
+                year = gregYear - 622;
             }
         } else {
-            date = buf2[miladiMonth - 1] + miladiDate;
+            date = buf2[gregMonth - 1] + gregDate;
 
-            if (miladiYear >= 1996) {
+            if (gregYear >= 1996) {
                 ld = 79;
             } else {
                 ld = 80;
@@ -197,7 +283,7 @@ public class ApplicationUtility {
                         date = (date % 30);
                     }
                 }
-                year = miladiYear - 621;
+                year = gregYear - 621;
             } else {
                 date = date + 10;
 
@@ -208,7 +294,7 @@ public class ApplicationUtility {
                     month = (date / 30) + 10;
                     date = (date % 30);
                 }
-                year = miladiYear - 622;
+                year = gregYear - 622;
             }
 
         }
@@ -277,50 +363,18 @@ public class ApplicationUtility {
                 break;
         }
 
-        //Type = "FullJalaliNumber = 1367/05/31"
-        //Type = "YearJalaliNumber = 1367"
-        //Type = "MonthJalaliNumber = 05"
-        //Type = "DayJalaliNumber = 31"
-        //Type = "FullJalaliString = پنجشنبه 31 مرداد 1367"
-        //Type = "MonthJalaliString = مرداد"
-        //Type = "DayJalaliString = پنجشنبه"
-
         Locale loc = new Locale("en_US");
-        String result = "";
-        switch (Type) {
-            case "FullJalaliNumber":
-                result = year + "/" + String.format(loc, "%02d",
-                        month) + "/" + String.format(loc, "%02d", date);
-                break;
+        MD_GregorianToSun gregorianToSun = new MD_GregorianToSun();
+        gregorianToSun.setIntYear(year);
+        gregorianToSun.setIntMonth(month);
+        gregorianToSun.setIntDay(date);
+        gregorianToSun.setDayOfWeek(strWeekDay);
+        gregorianToSun.setMonthOfYear(strMonth);
+        gregorianToSun.setStringMonth(String.format(loc, "%02d", month));
+        gregorianToSun.setStringDay(String.format(loc, "%02d", date));
 
-            case "YearJalaliNumber":
-                result = String.valueOf(year);
-                break;
-
-            case "MonthJalaliNumber":
-                result = String.format(loc, "%02d", month);
-                break;
-
-            case "DayJalaliNumber":
-                result = String.format(loc, "%02d", date);
-                break;
-
-            case "FullJalaliString":
-                result = strWeekDay + " " + String.format(loc, "%02d", date)
-                        + " " + strMonth + " " + String.valueOf(year);
-                break;
-
-            case "MonthJalaliString":
-                result = strMonth;
-                break;
-
-            case "DayJalaliString":
-                result = strWeekDay;
-                break;
-        }
-
-        return result;
-    }//_____________________________________________________________________________________________ calcSolarCalendar
+        return gregorianToSun;
+    }//_____________________________________________________________________________________________ GregorianToSun
 
 
 

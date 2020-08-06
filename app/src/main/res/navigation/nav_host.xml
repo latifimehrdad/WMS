@@ -234,6 +234,14 @@
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"/>
 
+        <action
+            android:id="@+id/action_home_to_chooseWaste"
+            app:destination="@id/chooseWaste"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
     </fragment>
 
     <fragment
@@ -448,6 +456,45 @@
         android:id="@+id/boothReceivePrimary"
         android:name="com.ngra.wms.views.fragments.collectrequest.boothreceive.BoothReceivePrimary"
         android:label="BoothReceivePrimary"
+        tools:layout="@layout/fragment_booth_receive_primery"/>
+
+    <fragment
+        android:id="@+id/chooseWaste"
+        android:name="com.ngra.wms.views.fragments.collectrequest.ChooseWaste"
+        android:label="ChooseWaste"
+        tools:layout="@layout/fr_choose_waste">
+
+        <action
+            android:id="@+id/action_chooseWaste_to_collectRequest2"
+            app:destination="@id/collectRequest2"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/collectRequest2"
+        android:name="com.ngra.wms.views.fragments.collectrequest.CollectRequest"
+        android:label="CollectRequest"
+        tools:layout="@layout/fr_collect_request">
+
+        <action
+            android:id="@+id/action_collectRequest2_to_boothReceive2"
+            app:destination="@id/boothReceive2"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/boothReceive2"
+        android:name="com.ngra.wms.views.fragments.collectrequest.BoothReceive"
+        android:label="BoothReceive"
         tools:layout="@layout/fragment_booth_receive_primery"/>
 
 </navigation>

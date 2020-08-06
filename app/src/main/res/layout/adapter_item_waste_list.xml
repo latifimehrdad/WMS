@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="wasteList"
+            type="com.ngra.wms.models.MD_ChooseWaste" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/_5sdp"
+        android:layout_margin="@dimen/_3sdp"
+        android:background="@drawable/dw_back_item_ticket">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/ImageViewDelete"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:tint="@color/mlTextRegisterCode"
+                android:src="@drawable/svg_trash1"/>
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_10sdp"
+                android:gravity="right"
+                android:text="@{wasteList.name}"
+                android:textColor="@color/mlBlack"
+                fontPath="font/iransans_web_medium.ttf"/>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:gravity="center">
+
+
+            <ImageView
+                android:id="@+id/ImageViewAdd"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:tint="@color/mlCollectLeft2"
+                android:src="@drawable/svg_add"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_8sdp"
+                android:gravity="right"
+                android:text="@string/KGr"
+                android:textColor="@color/mlBlack"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_2sdp"
+                fontPath="font/iransans_web_medium.ttf"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_11sdp"
+                android:gravity="right"
+                android:textColor="@color/mlBlack"
+                android:layout_marginLeft="@dimen/_2sdp"
+                android:layout_marginRight="@dimen/_2sdp"
+                app:SetCountItemsWasteList="@{wasteList.amount}" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_8sdp"
+                android:gravity="right"
+                android:text="@string/Somewhat"
+                android:textColor="@color/mlBlack"
+                android:layout_marginLeft="@dimen/_2sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                fontPath="font/iransans_web_medium.ttf"/>
+
+
+            <ImageView
+                android:id="@+id/ImageViewMinus"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:tint="@color/mlCollectRight2"
+                android:src="@drawable/svg_minus"/>
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</layout>

@@ -190,17 +190,12 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
 
     private void SetPackageDate(ModelPackage modelPackage) {//______________________________________ SetPackageDate
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.US);
-        ApplicationUtility utility = null;
-        if (getContext() != null) {
-            utility = ApplicationWMS
-                    .getApplicationWMS(getContext())
-                    .getUtilityComponent()
-                    .getApplicationUtility();
-        }
-        if (utility != null) {
-            textDate.setText(utility.MiladiToJalali(
-                    modelPackage.getFromDeliver(), "FullJalaliString"));
-        }
+        ApplicationUtility component = ApplicationWMS
+                .getApplicationWMS(getContext())
+                .getUtilityComponent()
+                .getApplicationUtility();
+            textDate.setText(component.GregorianToSun(modelPackage.getFromDeliver()).getFullStringSun());
+
         String builder = simpleDateFormat.format(modelPackage.getFromDeliver()) +
                 " تا " +
                 simpleDateFormat.format(modelPackage.getToDeliver());
@@ -269,13 +264,10 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
 
     private void SetMaterialSpinnersTimes() {//_____________________________________________________ SetMaterialSpinnersTimes
 
-        ApplicationUtility utility = null;
-        if (getContext() != null) {
-            utility = ApplicationWMS
-                    .getApplicationWMS(getContext())
-                    .getUtilityComponent()
-                    .getApplicationUtility();
-        }
+        ApplicationUtility component = ApplicationWMS
+                .getApplicationWMS(getContext())
+                .getUtilityComponent()
+                .getApplicationUtility();
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.US);
 
@@ -283,13 +275,13 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
         buildingTypes.add("انتخاب تاریخ دریافت");
         for (ModelTime item : vm_packageRequestPrimary.getModelTimes().getTimes()) {
             String builder = null;
-            if (utility != null) {
-                builder = utility.MiladiToJalali(item.getDate(), "FullJalaliString") +
-                        " از ساعت " +
-                        simpleDateFormat.format(item.getFrom()) +
-                        " تا " +
-                        simpleDateFormat.format(item.getTo());
-            }
+            ApplicationUtility.MD_GregorianToSun toSun = component.GregorianToSun(item.getDate());
+            builder = toSun.getFullStringSun();
+            builder = builder +
+                    " از " +
+                    simpleDateFormat.format(item.getFrom()) +
+                    " تا " +
+                    simpleDateFormat.format(item.getTo());
             buildingTypes.add(builder);
         }
 

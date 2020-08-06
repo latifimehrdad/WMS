@@ -52,7 +52,7 @@ public class CollectRequestPrimary extends FragmentPrimary implements
     @BindView(R.id.fcrpRecyclingCar)
     LinearLayout fcrpRecyclingCar;
 
-    @BindView(R.id.fcrpBoothReceive)
+    @BindView(R.id.LinearLayoutBoothReceive)
     LinearLayout fcrpBoothReceive;
 
     @BindView(R.id.RecyclerViewItemsWaste)
@@ -305,28 +305,27 @@ public class CollectRequestPrimary extends FragmentPrimary implements
 
     private void SetMaterialSpinnersTimes() {//_____________________________________________________ SetMaterialSpinnersTimes
 
-        ApplicationUtility utility = null;
-        if (getContext() != null) {
-            utility = ApplicationWMS
-                    .getApplicationWMS(getContext())
-                    .getUtilityComponent()
-                    .getApplicationUtility();
-        }
 
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+        ApplicationUtility component = ApplicationWMS
+                .getApplicationWMS(getContext())
+                .getUtilityComponent()
+                .getApplicationUtility();
+
 
         List<String> buildingTypes = new ArrayList<>();
         buildingTypes.add(getResources().getString(R.string.ChooseDateDelivery));
         for (ModelTime item : vm_collectRequestPrimary.getModelTimes().getTimes()) {
             String builder = null;
-            if (utility != null) {
-                builder = utility.MiladiToJalali(item.getDate(), "FullJalaliString") +
-                        " از " +
-                        simpleDateFormat.format(item.getFrom()) +
-                        " تا " +
-                        simpleDateFormat.format(item.getTo());
-            }
+            ApplicationUtility.MD_GregorianToSun toSun = component.GregorianToSun(item.getDate());
+            builder = toSun.getFullStringSun();
+            builder = builder +
+                    " از " +
+                    simpleDateFormat.format(item.getFrom()) +
+                    " تا " +
+                    simpleDateFormat.format(item.getTo());
+
             buildingTypes.add(builder);
         }
 

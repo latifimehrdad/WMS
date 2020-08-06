@@ -36,11 +36,11 @@ public class BindingAdapters {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.US);
 
+        ApplicationUtility.MD_GregorianToSun toSun = component.GregorianToSun(date);
 
-        String stringBuilder = component.MiladiToJalali(date, "FullJalaliNumber") +
-                " - " +
-                simpleDateFormat.format(date);
-        textView.setText(stringBuilder);
+        String builder = toSun.getIntYear() + "/" + toSun.getStringMonth()+"/"+toSun.getStringDay();
+        builder = builder + " - " + simpleDateFormat.format(date);
+        textView.setText(builder);
 
     }//_____________________________________________________________________________________________ SetOrderDate
 
@@ -145,9 +145,7 @@ public class BindingAdapters {
 
     @BindingAdapter(value = {"SetCountItemsWasteList"})
     public static void SetCountItemsWasteList(TextView textView, Integer count) {//_________________ SetCountItemsWasteList
-        String builder = count +
-                " " +
-                textView.getContext().getResources().getString(R.string.KGr);
+        String builder = count.toString();
         textView.setText(builder);
     }//_____________________________________________________________________________________________ SetCountItemsWasteLis
 
@@ -200,8 +198,9 @@ public class BindingAdapters {
                 .getUtilityComponent()
                 .getApplicationUtility();
 
-        String d = component.MiladiToJalali(date, "FullJalaliNumber");
-        textView.setText(d);
+        ApplicationUtility.MD_GregorianToSun toSun = component.GregorianToSun(date);
+        String builder = toSun.getIntYear() + "/" + toSun.getStringMonth()+"/"+toSun.getStringDay();
+        textView.setText(builder);
 
     }//_____________________________________________________________________________________________ SetOrderDate
 

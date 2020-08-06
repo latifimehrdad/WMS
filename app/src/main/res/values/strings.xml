@@ -77,8 +77,8 @@
     <string name="FragmentLearnItems">ریز اقلام بازیافتی</string>
 
     <string name="FragmentPackRequestAddress">ثبت آدرس</string>
-
-    <string name="KGr">کیلو</string>
+    <string name="NextStep">مرحله بعدی</string>
+    <string name="KGr">کیلوگرم</string>
     <string name="Choose">انتخاب</string>
     <string name="Edit">ویرایش</string>
     <string name="Cancel">لغو</string>
@@ -197,6 +197,7 @@
     <string name="PlateNumber">پلاک ساختمان</string>
     <string name="NoMessage">درخواستی ثبت نشده است</string>
     <string name="SelectTheFollowingToSubmitARequest">موارد زیر را جهت ارسال درخواست انتخاب کنید</string>
+    <string name="Somewhat">حدود</string>
 
 
     <string name="TicketStatusPending">در حال بررسی</string>

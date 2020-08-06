@@ -19,7 +19,6 @@ import retrofit2.Response;
 
 public class VM_BoothReceivePrimary extends VM_Primary {
 
-/*    private ModelTimes modelTimes;*/
     private List<MD_Booth> boothList;
 
     public VM_BoothReceivePrimary(Activity context) {//_____________________________________________ VM_BoothReceivePrimary

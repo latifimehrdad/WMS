@@ -131,13 +131,10 @@ public class RecyclingCarPrimary extends FragmentPrimary implements
 
     private void SetMaterialSpinnersTimes() {//_____________________________________________________ SetMaterialSpinnersTimes
 
-        ApplicationUtility utility = null;
-        if (getContext() != null) {
-            utility = ApplicationWMS
-                    .getApplicationWMS(getContext())
-                    .getUtilityComponent()
-                    .getApplicationUtility();
-        }
+        ApplicationUtility component = ApplicationWMS
+                .getApplicationWMS(getContext())
+                .getUtilityComponent()
+                .getApplicationUtility();
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.US);
 
@@ -145,13 +142,13 @@ public class RecyclingCarPrimary extends FragmentPrimary implements
         buildingTypes.add(getResources().getString(R.string.ChooseDateDelivery));
         for (ModelTime item : vm_recyclingCarPrimary.getModelTimes().getTimes()) {
             String builder = null;
-            if (utility != null) {
-                builder = utility.MiladiToJalali(item.getDate(), "FullJalaliString") +
-                        " از ساعت " +
-                        simpleDateFormat.format(item.getFrom()) +
-                        " تا " +
-                        simpleDateFormat.format(item.getTo());
-            }
+            ApplicationUtility.MD_GregorianToSun toSun = component.GregorianToSun(item.getDate());
+            builder = toSun.getFullStringSun();
+            builder = builder +
+                    " از " +
+                    simpleDateFormat.format(item.getFrom()) +
+                    " تا " +
+                    simpleDateFormat.format(item.getTo());
             buildingTypes.add(builder);
         }
 
