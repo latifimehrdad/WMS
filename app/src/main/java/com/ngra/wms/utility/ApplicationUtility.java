@@ -86,6 +86,7 @@ public class ApplicationUtility {
         private String stringDay;
         private String dayOfWeek;
         private String monthOfYear;
+        private String stringYear;
 
 
         public MD_GregorianToSun() {
@@ -152,6 +153,14 @@ public class ApplicationUtility {
         public void setStringDay(String stringDay) {
             this.stringDay = stringDay;
         }
+
+        public String getStringYear() {
+            return stringYear;
+        }
+
+        public void setStringYear(String stringYear) {
+            this.stringYear = stringYear;
+        }
     }
 
 
@@ -164,19 +173,23 @@ public class ApplicationUtility {
         int date;
         int month;
         int year;
-        int ld;
 
-        Calendar c = Calendar.getInstance();
-        c.setTime(GregorianDate);
-        int gregYear = c.get(Calendar.YEAR) + 1900;
+/*        int gregYear = c.get(Calendar.YEAR) + 1900;
         int gregMonth = c.get(Calendar.MONTH) + 1;
         int gregDate = c.get(Calendar.DATE);
-        int WeekDay = c.get(Calendar.DAY_OF_WEEK);
+        int WeekDay = c.get(Calendar.DAY_OF_WEEK);*/
 
 /*        int gregYear = GregorianDate.getYear() + 1900;
         int gregMonth = GregorianDate.getMonth() + 1;
         int gregDate = GregorianDate.getDate();
         int WeekDay = GregorianDate.getDay();*/
+
+        int ld;
+
+        int miladiYear = GregorianDate.getYear() + 1900;
+        int miladiMonth = GregorianDate.getMonth() + 1;
+        int miladiDate = GregorianDate.getDate();
+        int WeekDay = GregorianDate.getDay();
 
         int[] buf1 = new int[12];
         int[] buf2 = new int[12];
@@ -207,8 +220,8 @@ public class ApplicationUtility {
         buf2[10] = 305;
         buf2[11] = 335;
 
-        if ((gregYear % 4) != 0) {
-            date = buf1[gregMonth - 1] + gregDate;
+        if ((miladiYear % 4) != 0) {
+            date = buf1[miladiMonth - 1] + miladiDate;
 
             if (date > 79) {
                 date = date - 79;
@@ -223,40 +236,46 @@ public class ApplicationUtility {
                             date = (date % 31);
                             break;
                     }
-                    year = gregYear - 621;
+                    year = miladiYear - 621;
                 } else {
                     date = date - 186;
 
-                    if (date % 30 == 0) {
-                        month = (date / 30) + 6;
-                        date = 30;
-                    } else {
-                        month = (date / 30) + 7;
-                        date = (date % 30);
+                    switch (date % 30) {
+                        case 0:
+                            month = (date / 30) + 6;
+                            date = 30;
+                            break;
+                        default:
+                            month = (date / 30) + 7;
+                            date = (date % 30);
+                            break;
                     }
-                    year = gregYear - 621;
+                    year = miladiYear - 621;
                 }
             } else {
-                if ((gregYear > 1996) && (gregYear % 4) == 1) {
+                if ((miladiYear > 1996) && (miladiYear % 4) == 1) {
                     ld = 11;
                 } else {
                     ld = 10;
                 }
                 date = date + ld;
 
-                if (date % 30 == 0) {
-                    month = (date / 30) + 9;
-                    date = 30;
-                } else {
-                    month = (date / 30) + 10;
-                    date = (date % 30);
+                switch (date % 30) {
+                    case 0:
+                        month = (date / 30) + 9;
+                        date = 30;
+                        break;
+                    default:
+                        month = (date / 30) + 10;
+                        date = (date % 30);
+                        break;
                 }
-                year = gregYear - 622;
+                year = miladiYear - 622;
             }
         } else {
-            date = buf2[gregMonth - 1] + gregDate;
+            date = buf2[miladiMonth - 1] + miladiDate;
 
-            if (gregYear >= 1996) {
+            if (miladiYear >= 1996) {
                 ld = 79;
             } else {
                 ld = 80;
@@ -265,39 +284,50 @@ public class ApplicationUtility {
                 date = date - ld;
 
                 if (date <= 186) {
-                    if (date % 31 == 0) {
-                        month = (date / 31);
-                        date = 31;
-                    } else {
-                        month = (date / 31) + 1;
-                        date = (date % 31);
+                    switch (date % 31) {
+                        case 0:
+                            month = (date / 31);
+                            date = 31;
+                            break;
+                        default:
+                            month = (date / 31) + 1;
+                            date = (date % 31);
+                            break;
                     }
+                    year = miladiYear - 621;
                 } else {
                     date = date - 186;
 
-                    if (date % 30 == 0) {
-                        month = (date / 30) + 6;
-                        date = 30;
-                    } else {
-                        month = (date / 30) + 7;
-                        date = (date % 30);
+                    switch (date % 30) {
+                        case 0:
+                            month = (date / 30) + 6;
+                            date = 30;
+                            break;
+                        default:
+                            month = (date / 30) + 7;
+                            date = (date % 30);
+                            break;
                     }
+                    year = miladiYear - 621;
                 }
-                year = gregYear - 621;
             } else {
                 date = date + 10;
 
-                if (date % 30 == 0) {
-                    month = (date / 30) + 9;
-                    date = 30;
-                } else {
-                    month = (date / 30) + 10;
-                    date = (date % 30);
+                switch (date % 30) {
+                    case 0:
+                        month = (date / 30) + 9;
+                        date = 30;
+                        break;
+                    default:
+                        month = (date / 30) + 10;
+                        date = (date % 30);
+                        break;
                 }
-                year = gregYear - 622;
+                year = miladiYear - 622;
             }
 
         }
+
 
         switch (month) {
             case 1:
@@ -363,8 +393,10 @@ public class ApplicationUtility {
                 break;
         }
 
+
         Locale loc = new Locale("en_US");
         MD_GregorianToSun gregorianToSun = new MD_GregorianToSun();
+        gregorianToSun.setStringYear(String.valueOf(year));
         gregorianToSun.setIntYear(year);
         gregorianToSun.setIntMonth(month);
         gregorianToSun.setIntDay(date);

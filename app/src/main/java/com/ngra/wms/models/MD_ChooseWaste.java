@@ -1,33 +1,25 @@
 package com.ngra.wms.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class MD_ChooseWaste {
 
-    Integer Id;
-
-    String Name;
+    MD_ItemWaste Waste;
 
     Integer Amount;
 
-    public MD_ChooseWaste(Integer id, String name, Integer amount) {
-        Id = id;
-        Name = name;
+
+    public MD_ChooseWaste(MD_ItemWaste waste, Integer amount) {
+        Waste = waste;
         Amount = amount;
     }
 
-    public Integer getId() {
-        return Id;
+    public MD_ItemWaste getWaste() {
+        return Waste;
     }
 
-    public void setId(Integer id) {
-        Id = id;
-    }
-
-    public String getName() {
-        return Name;
-    }
-
-    public void setName(String name) {
-        Name = name;
+    public void setWaste(MD_ItemWaste waste) {
+        Waste = waste;
     }
 
     public Integer getAmount() {

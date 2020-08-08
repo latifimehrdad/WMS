@@ -122,6 +122,9 @@
         <argument android:name="@string/ML_Type"
             android:defaultValue="save"/>
 
+        <argument android:name="@string/ML_Id"
+            android:defaultValue="null"/>
+
         <action
             android:id="@+id/action_home_to_profile"
             app:destination="@id/profile"
@@ -272,7 +275,20 @@
         android:name="com.ngra.wms.views.fragments.packrequest.PackageRequestPrimary"
         android:label="PackageRequestPrimary"
         tools:layout="@layout/fragment_pack_request_primary"
-        />
+        >
+
+        <argument android:name="@string/ML_Type"
+            android:defaultValue="0" />
+
+        <action
+            android:id="@+id/action_packageRequestPrimary_to_timeSheet"
+            app:destination="@id/timeSheet"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+    </fragment>
 
     <fragment
         android:id="@+id/creatorFragment"
@@ -489,12 +505,94 @@
             app:exitAnim="@anim/slide_out_right"
             />
 
+        <action
+            android:id="@+id/action_collectRequest2_to_timeSheet"
+            app:destination="@id/timeSheet"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
     </fragment>
 
     <fragment
         android:id="@+id/boothReceive2"
         android:name="com.ngra.wms.views.fragments.collectrequest.BoothReceive"
         android:label="BoothReceive"
-        tools:layout="@layout/fragment_booth_receive_primery"/>
+        tools:layout="@layout/fragment_booth_receive_primery">
+
+
+        <argument android:name="@string/ML_Type"
+            android:defaultValue="0"/>
+
+
+        <argument android:name="@string/ML_Id"
+            android:defaultValue="0"/>
+
+        <action
+            android:id="@+id/action_boothReceive2_to_timeSheet"
+            app:destination="@id/timeSheet"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/timeSheet"
+        android:name="com.ngra.wms.views.fragments.collectrequest.TimeSheet"
+        android:label="TimeSheet"
+        tools:layout="@layout/fr_time_sheet">
+
+
+        <argument android:name="@string/ML_Type"
+            android:defaultValue="0"/>
+
+
+        <argument android:name="@string/ML_Id"
+            android:defaultValue="0"/>
+
+
+        <action
+            android:id="@+id/action_timeSheet_to_address"
+            app:destination="@id/address"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/address"
+        android:name="com.ngra.wms.views.fragments.user.profile.Address"
+        android:label="Address"
+        tools:layout="@layout/fr_address">
+
+        <argument android:name="@string/ML_Id"
+            android:defaultValue="0"/>
+
+        <action
+            android:id="@+id/action_address_to_packageRequestAddress"
+            app:destination="@id/packageRequestAddress"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
+
+    <argument android:name="@string/ML_TimeId"
+        android:defaultValue="0"/>
+
+    <action
+        android:id="@+id/action_goto_address2"
+        app:destination="@id/address"
+        app:popEnterAnim="@anim/slide_in_right"
+        app:popExitAnim="@anim/slide_out_left"
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/slide_out_right"/>
 
 </navigation>

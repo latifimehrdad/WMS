@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="address"
+            type="com.ngra.wms.viewmodels.user.profile.VM_Address" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingBottom="@dimen/_20sdp">
+
+
+        <com.cunoraz.gifview.library.GifView
+            android:id="@+id/gifLoading"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:visibility="gone"
+            custom:gif="@drawable/loading2"
+            android:background="@drawable/dw_button_game"
+            android:padding="@dimen/_5sdp"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RecyclerViewAddress"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="@dimen/_10sdp"
+            tools:listitem="@layout/adapter_item_time"
+            tools:itemCount="1"/>
+
+
+        <ImageView
+            android:id="@+id/ImageViewNew"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:background="@drawable/dw_button_game"
+            android:gravity="center"
+            android:layout_gravity="right"
+            android:padding="@dimen/_8sdp"
+            android:src="@drawable/svg_add_location"
+            android:tint="@color/mlWhite"
+            />
+
+
+    </LinearLayout>
+
+</layout>

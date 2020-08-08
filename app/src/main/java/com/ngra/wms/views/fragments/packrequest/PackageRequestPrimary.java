@@ -1,6 +1,7 @@
 package com.ngra.wms.views.fragments.packrequest;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +13,14 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.cunoraz.gifview.library.GifView;
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.FragmentPackRequestPrimaryBinding;
 import com.ngra.wms.models.ModelPackage;
-import com.ngra.wms.models.ModelTime;
+import com.ngra.wms.models.MD_Time;
 import com.ngra.wms.utility.ApplicationUtility;
 import com.ngra.wms.utility.StaticFunctions;
 import com.ngra.wms.utility.StaticValues;
@@ -42,6 +45,7 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
     private VM_PackageRequestPrimary vm_packageRequestPrimary;
     private Integer timeId;
     private Integer TimePosition;
+    private NavController navController;
 
     @BindView(R.id.FPRPSpinnerDay)
     MaterialSpinner FPRPSpinnerDay;
@@ -110,6 +114,9 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
                 vm_packageRequestPrimary.getPublishSubject(),
                 vm_packageRequestPrimary);
 
+        if (getView() != null)
+            navController = Navigation.findNavController(getView());
+
         SetStatusPackageRequest();
 
     }//_____________________________________________________________________________________________ onStart
@@ -124,8 +131,13 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
             LinearLayoutTimeSheet.setVisibility(View.VISIBLE);
             RelativeLayoutSave.setVisibility(View.VISIBLE);
             LinearLayoutPackageState.setVisibility(View.GONE);
-            FPRPSpinnerDay.setVisibility(View.VISIBLE);
-            vm_packageRequestPrimary.GetTypeTimes();
+            FPRPSpinnerDay.setVisibility(View.GONE);
+//            Handler handler = new Handler();
+//            handler.postDelayed(() -> {
+//
+//            },200);
+
+            //vm_packageRequestPrimary.GetTypeTimes();
         } else {
             FPRPStatusViewScroller.getStatusView().setCurrentCount(statues + 1);
             RelativeLayoutSave.setVisibility(View.GONE);
@@ -173,14 +185,16 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
             LinearLayoutTimeSheet.setVisibility(View.GONE);
             FPRPStatusViewScroller.getStatusView().setCurrentCount(2);
             ModelPackage modelPackage = new ModelPackage();
-            modelPackage.setRequestDate(vm_packageRequestPrimary.getModelTimes().getTimes().get(TimePosition).getDate());
-            modelPackage.setFromDeliver(vm_packageRequestPrimary.getModelTimes().getTimes().get(TimePosition).getFrom());
-            modelPackage.setToDeliver(vm_packageRequestPrimary.getModelTimes().getTimes().get(TimePosition).getTo());
+/*
+            modelPackage.setRequestDate(vm_packageRequestPrimary.getMRTimes().getTimes().get(TimePosition).getDate());
+            modelPackage.setFromDeliver(vm_packageRequestPrimary.getMRTimes().getTimes().get(TimePosition).getFrom());
+            modelPackage.setToDeliver(vm_packageRequestPrimary.getMRTimes().getTimes().get(TimePosition).getTo());
+*/
             SetPackageDate(modelPackage);
 
         }
 
-        if (action.equals(StaticValues.ML_GetTimeSheetTimes)) {
+        if (action.equals(StaticValues.ML_GetTimeSheet)) {
             SetMaterialSpinnersTimes();
         }
 
@@ -234,17 +248,21 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
             } else
                 TimePosition = position;
 
-            timeId = vm_packageRequestPrimary.getModelTimes().getTimes().get(TimePosition).getId();
+//            timeId = vm_packageRequestPrimary.getMRTimes().getTimes().get(TimePosition).getId();
             FPRPSpinnerDay.setBackgroundColor(getResources().getColor(R.color.mlEdit));
         });
 
         RelativeLayoutSave.setOnClickListener(v -> {
-            if (StaticFunctions.isCancel) {
-                if (CheckEmpty()) {
-                    ShowLoading();
-                    vm_packageRequestPrimary.SendPackageRequest(timeId);
-                }
-            }
+            Bundle bundle = new Bundle();
+            bundle.putInt(getContext().getString(R.string.ML_Type), StaticValues.TimeSheetPackage);
+            navController.navigate(R.id.action_packageRequestPrimary_to_timeSheet, bundle);
+
+//            if (StaticFunctions.isCancel) {
+//                if (CheckEmpty()) {
+//                    ShowLoading();
+//                    vm_packageRequestPrimary.SendPackageRequest(timeId);
+//                }
+//            }
         });
 
 
@@ -273,7 +291,7 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
 
         List<String> buildingTypes = new ArrayList<>();
         buildingTypes.add("انتخاب تاریخ دریافت");
-        for (ModelTime item : vm_packageRequestPrimary.getModelTimes().getTimes()) {
+/*        for (MD_Time item : vm_packageRequestPrimary.getMRTimes().getTimes()) {
             String builder = null;
             ApplicationUtility.MD_GregorianToSun toSun = component.GregorianToSun(item.getDate());
             builder = toSun.getFullStringSun();
@@ -283,7 +301,7 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
                     " تا " +
                     simpleDateFormat.format(item.getTo());
             buildingTypes.add(builder);
-        }
+        }*/
 
         FPRPSpinnerDay.setItems(buildingTypes);
 

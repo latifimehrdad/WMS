@@ -20,6 +20,7 @@ import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.main.VM_Home;
 import com.ngra.wms.views.custom.textview.VerticalTextView;
 import com.ngra.wms.views.fragments.FragmentPrimary;
+import com.ngra.wms.views.fragments.collectrequest.ChooseWaste;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -92,6 +93,13 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
         if (getView() != null)
             navController = Navigation.findNavController(getView());
         CheckProfile();
+
+        if (ChooseWaste.wasteLists != null)
+            if (ChooseWaste.wasteLists.size() > 0) {
+                ChooseWaste.wasteLists.clear();
+                ChooseWaste.wasteLists = null;
+                navController.navigate(R.id.action_home_to_collectRequestOrder);
+            }
     }//_____________________________________________________________________________________________ onStart
 
 
@@ -135,6 +143,7 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
                     if (getContext() != null) {
                         Bundle bundle = new Bundle();
                         bundle.putString(getContext().getResources().getString(R.string.ML_Type), getContext().getResources().getString(R.string.ML_Save));
+                        bundle.putInt(getResources().getString(R.string.ML_Id), 0);
                         navController.navigate(R.id.action_home_to_packageRequestAddress, bundle);
                     }
                 }

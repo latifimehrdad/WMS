@@ -20,10 +20,6 @@
             android:icon="@drawable/ic_baseline_delete_sweep"
             android:title="@string/FragmentSeparation"/>
 
-        <item
-            android:id="@id/collectRequest"
-            android:icon="@drawable/ic_baseline_local_shipping"
-            android:title="@string/FragmentCollectRequest"/>
 
         <item
             android:id="@id/lottery"

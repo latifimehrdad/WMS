@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="time"
+            type="com.ngra.wms.models.MD_Time" />
+
+        <variable
+            name="selected"
+            type="Integer" />
+
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_4sdp"
+        android:layout_marginRight="@dimen/_4sdp"
+        >
+
+        <LinearLayout
+            android:id="@+id/LinearLayoutBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/dw_back_item_ticket"
+            android:padding="@dimen/_5sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/mlBlack"
+                android:textSize="@dimen/_9sdp"
+                fontPath="font/iransans_web_medium.ttf"
+                android:text="@string/FromTime"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_11sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:textColor="@color/mlBlack"
+                app:SetTimeSheetTime="@{time.from}"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="@dimen/_2sdp"
+                android:background="@color/mlFooter"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/mlBlack"
+                android:textSize="@dimen/_9sdp"
+                fontPath="font/iransans_web_medium.ttf"
+                android:text="@string/ToTime"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_11sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:textColor="@color/mlBlack"
+                app:SetTimeSheetTime="@{time.to}" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</layout>

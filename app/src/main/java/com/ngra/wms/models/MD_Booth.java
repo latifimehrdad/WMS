@@ -19,6 +19,18 @@ public class MD_Booth {
     @SerializedName("location")
     MD_Location location;
 
+    public MD_Booth(Integer id, String name, String address, String author, MD_Location location) {
+        Id = id;
+        this.name = name;
+        this.address = address;
+        this.author = author;
+        this.location = location;
+    }
+
+    public MD_Booth(Integer id) {
+        Id = id;
+    }
+
     public Integer getId() {
         return Id;
     }

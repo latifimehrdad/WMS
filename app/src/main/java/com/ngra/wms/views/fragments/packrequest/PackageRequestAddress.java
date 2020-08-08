@@ -78,6 +78,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
     private Dialog dialogQuestion;
     private Location previousBestLocation = null;
     private String addressType;
+    private Integer AddressId;
 
     @BindView(R.id.MaterialSpinnerType)
     MaterialSpinner MaterialSpinnerType;
@@ -183,10 +184,13 @@ public class PackageRequestAddress extends FragmentPrimary implements
         SetOnClick();
         DismissLoading();
         vm_packageRequestAddress.GetTypeBuilding();
-        if (getArguments() != null)
+        if (getArguments() != null) {
             addressType = getArguments().getString(getContext().getResources().getString(R.string.ML_Type), "");
-        else
+            AddressId = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
+        } else {
             addressType = "";
+            AddressId = 0;
+        }
 
     }//_____________________________________________________________________________________________ init
 
@@ -212,6 +216,8 @@ public class PackageRequestAddress extends FragmentPrimary implements
         if (action.equals(StaticValues.ML_EditUserAddress)) {
             if (!addressType.equals(""))
                 navController.navigate(R.id.action_packageRequestAddress_to_packageRequestPrimary);
+            else
+                getContext().onBackPressed();
             return;
         }
 
@@ -261,7 +267,8 @@ public class PackageRequestAddress extends FragmentPrimary implements
                         BuildingUseId,
                         Integer.valueOf(EditTextPersonCount.getText().toString()),
                         EditTextPlateNumber.getText().toString(),
-                        EditTextUnitNumber.getText().toString()
+                        EditTextUnitNumber.getText().toString(),
+                        AddressId
                 );
             }
         });

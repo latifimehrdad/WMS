@@ -29,6 +29,7 @@
     <color name="Links">#0088FF</color>
     <color name="Replay">#3492E4</color>
     <color name="TicketStatusReferred">#9A2DFA</color>
-
+    <color name="mlTimeDisable">#F3F1F1</color>
+    <color name="colorPrimaryLight">#6BECF1</color>
 
 </resources>

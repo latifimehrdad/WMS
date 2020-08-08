@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="address"
+            type="com.ngra.wms.models.MD_SpinnerItem" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/_5sdp"
+        android:layout_margin="@dimen/_5sdp"
+        >
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/_5sdp"
+            android:gravity="center"
+            android:background="@drawable/dw_back_image_choose_address">
+
+            <ImageView
+                android:id="@+id/ImageViewSend"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:src="@drawable/svg_pin"
+                android:tint="@color/mlWhite"
+                />
+
+
+            <com.cunoraz.gifview.library.GifView
+                android:id="@+id/gifLoadingSend"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:visibility="gone"
+                custom:gif="@drawable/loading2" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/mlWhite"
+                android:textSize="@dimen/_11sdp"
+                fontPath="font/iransans_web_medium.ttf"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:text="@string/Choose"
+                android:gravity="center"/>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="@dimen/_10sdp"
+            android:textColor="@color/mlBlack"
+            android:gravity="right|center_vertical"
+            android:padding="@dimen/_2sdp"
+            android:background="@drawable/dw_back_normal"
+            android:text="@{address.title}"/>
+
+        <ImageView
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="match_parent"
+            android:background="@drawable/dw_edit_back_image"
+            android:padding="@dimen/_3sdp"
+            android:src="@drawable/svg_map"
+            android:tint="@color/mlWhite"/>
+
+    </LinearLayout>
+
+
+</layout>

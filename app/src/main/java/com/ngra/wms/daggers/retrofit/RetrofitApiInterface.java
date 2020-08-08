@@ -8,6 +8,7 @@ import com.ngra.wms.models.MR_ItemsWast;
 import com.ngra.wms.models.MR_Register;
 import com.ngra.wms.models.MR_TicketList;
 import com.ngra.wms.models.MR_TicketReplyList;
+import com.ngra.wms.models.MR_TimeSheet;
 import com.ngra.wms.models.MR_WasteRequest;
 import com.ngra.wms.models.MD_WasteAmountRequests;
 import com.ngra.wms.models.ModelBuildingRenovationCode;
@@ -17,7 +18,7 @@ import com.ngra.wms.models.ModelProfileInfo;
 import com.ngra.wms.models.ModelResponsePrimary;
 import com.ngra.wms.models.ModelSettingInfo;
 import com.ngra.wms.models.MR_SpinnerItems;
-import com.ngra.wms.models.ModelTimeSheetTimes;
+import com.ngra.wms.models.MD_TimeSheet;
 import com.ngra.wms.models.ModelToken;
 import com.ngra.wms.models.ModelUserAccounts;
 
@@ -226,8 +227,8 @@ public interface RetrofitApiInterface {
                     @Header("Authorization") String Authorization
             );
 
-    @GET(Version + "/timesheet/times")
-    Call<ModelTimeSheetTimes> getTimes
+    @GET(Version + "/timesheet/boothtimes")
+    Call<MD_TimeSheet> getTimes
             (
                     @Header("Authorization") String Authorization
             );
@@ -256,6 +257,7 @@ public interface RetrofitApiInterface {
                     @Field("BuildingUseCount") Integer BuildingUseCount,
                     @Field("PlateNumber") String plateNumber,
                     @Field("UnitNumber") String UnitNumber,
+                    @Field("Id") Integer Id,
                     @Header("Authorization") String Authorization
 
             );
@@ -383,6 +385,31 @@ public interface RetrofitApiInterface {
 
     @GET(Version + "/WasteEstimate/WasteEstimateList")
     Call<MR_SpinnerItems> getWasteEstimateList
+            (
+                    @Header("Authorization") String Authorization
+
+            );
+
+
+
+    @GET(Version + "/TimeSheet/BoothTimes")
+    Call<MR_TimeSheet> getBoothTimes
+            (
+                    @Header("Authorization") String Authorization
+
+            );
+
+
+    @GET(Version + "/TimeSheet/VehicleTimes")
+    Call<MR_TimeSheet> getVehicleTimes
+            (
+                    @Header("Authorization") String Authorization
+
+            );
+
+
+    @GET(Version + "/citizen/GetContactAddresses")
+    Call<MR_SpinnerItems> getContactAddresses
             (
                     @Header("Authorization") String Authorization
 

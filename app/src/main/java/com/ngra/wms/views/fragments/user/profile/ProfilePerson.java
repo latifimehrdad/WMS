@@ -187,7 +187,9 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
                     parent.removeAllViews();
                 }
             }
-            navController.navigate(R.id.action_goto_address);
+            Bundle bundle = new Bundle();
+            bundle.putInt(getContext().getResources().getString(R.string.ML_TimeId), -1);
+            navController.navigate(R.id.action_goto_address2, bundle);
         });
 
 

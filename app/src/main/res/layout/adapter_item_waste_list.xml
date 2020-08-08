@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/_10sdp"
                 android:gravity="right"
-                android:text="@{wasteList.name}"
+                android:text="@{wasteList.waste.title}"
                 android:textColor="@color/mlBlack"
                 fontPath="font/iransans_web_medium.ttf"/>
 

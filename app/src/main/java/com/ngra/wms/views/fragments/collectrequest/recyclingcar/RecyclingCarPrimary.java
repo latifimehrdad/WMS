@@ -15,7 +15,7 @@ import com.ngra.wms.R;
 import com.ngra.wms.databinding.FragmentRecyclingCarPrimeryBinding;
 import com.ngra.wms.models.MD_WasteEstimate;
 import com.ngra.wms.models.MD_WasteAmountRequests;
-import com.ngra.wms.models.ModelTime;
+import com.ngra.wms.models.MD_Time;
 import com.ngra.wms.utility.ApplicationUtility;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.collectrequest.recyclingcar.VM_RecyclingCarPrimary;
@@ -99,7 +99,7 @@ public class RecyclingCarPrimary extends FragmentPrimary implements
 
         DismissLoading();
 
-        if (action.equals(StaticValues.ML_GetTimeSheetTimes)) {
+        if (action.equals(StaticValues.ML_GetTimeSheet)) {
             SetMaterialSpinnersTimes();
         }
 
@@ -118,12 +118,12 @@ public class RecyclingCarPrimary extends FragmentPrimary implements
             ShowLoading();
 
 
-            MD_WasteAmountRequests md_wasteAmountRequests = new MD_WasteAmountRequests(
+/*            MD_WasteAmountRequests md_wasteAmountRequests = new MD_WasteAmountRequests(
                     1,
                     null,
-                    vm_recyclingCarPrimary.getModelTimes().getTimes().get(timePosition),
+                    vm_recyclingCarPrimary.getMRTimes().getTimes().get(timePosition),
                     new MD_WasteEstimate(WasteEstimateId.toString()));
-            vm_recyclingCarPrimary.SendCollectRequest(md_wasteAmountRequests);
+            vm_recyclingCarPrimary.SendCollectRequest(md_wasteAmountRequests);*/
 
         });
     }//_____________________________________________________________________________________________ SetOnClick
@@ -140,7 +140,7 @@ public class RecyclingCarPrimary extends FragmentPrimary implements
 
         List<String> buildingTypes = new ArrayList<>();
         buildingTypes.add(getResources().getString(R.string.ChooseDateDelivery));
-        for (ModelTime item : vm_recyclingCarPrimary.getModelTimes().getTimes()) {
+/*        for (MD_Time item : vm_recyclingCarPrimary.getMRTimes().getTimes()) {
             String builder = null;
             ApplicationUtility.MD_GregorianToSun toSun = component.GregorianToSun(item.getDate());
             builder = toSun.getFullStringSun();
@@ -150,7 +150,7 @@ public class RecyclingCarPrimary extends FragmentPrimary implements
                     " تا " +
                     simpleDateFormat.format(item.getTo());
             buildingTypes.add(builder);
-        }
+        }*/
 
         MaterialSpinnerSpinnerDay.setItems(buildingTypes);
 

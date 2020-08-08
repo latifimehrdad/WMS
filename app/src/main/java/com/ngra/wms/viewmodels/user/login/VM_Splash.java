@@ -155,8 +155,10 @@ public class VM_Splash extends VM_Primary {
                     modelToken = response.body();
                     if (StaticFunctions.SaveToken(getContext(), modelToken))
                         GetHi();
-                } else
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                } else {
+                    StaticFunctions.LogOut(getContext());
+                    GetTokenFromServer();
+                }
             }
 
             @Override

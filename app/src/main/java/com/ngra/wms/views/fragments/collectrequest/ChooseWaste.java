@@ -145,13 +145,12 @@ public class ChooseWaste extends FragmentPrimary implements
             MD_ItemWaste waste = vm_chooseWaste.getMd_itemWastes().get(position);
             if (wasteLists.size() == 0) {
                 wasteLists.add(new MD_ChooseWaste(
-                        waste.getId(),
-                        waste.getTitle(),
+                        waste,
                         1));
             } else {
                 boolean duplicate = false;
                 for (MD_ChooseWaste item : wasteLists) {
-                    if (item.getId() == waste.getId()) {
+                    if (item.getWaste().getId() == waste.getId()) {
                         duplicate = true;
                         break;
                     }
@@ -159,8 +158,7 @@ public class ChooseWaste extends FragmentPrimary implements
 
                 if (!duplicate) {
                     wasteLists.add(new MD_ChooseWaste(
-                            waste.getId(),
-                            waste.getTitle(),
+                            waste,
                             1));
                 }
             }

@@ -4,16 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
-public class ModelTime {
+public class MD_Time {
 
     @SerializedName("id")
     Integer Id;
-
-    @SerializedName("title")
-    String title;
-
-    @SerializedName("date")
-    Date date;
 
     @SerializedName("from")
     Date from;
@@ -21,23 +15,15 @@ public class ModelTime {
     @SerializedName("to")
     Date to;
 
-    public ModelTime() {
+    public MD_Time() {
     }
 
-    public ModelTime(Integer id) {
+    public MD_Time(Integer id) {
         Id = id;
     }
 
     public Integer getId() {
         return Id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public Date getDate() {
-        return date;
     }
 
     public Date getFrom() {

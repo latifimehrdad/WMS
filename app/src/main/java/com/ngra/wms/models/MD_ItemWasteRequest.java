@@ -23,17 +23,22 @@ public class MD_ItemWasteRequest extends ModelResponsePrimary{
     @SerializedName("totalAmount")
     float totalAmount;
 
-    @SerializedName("amounts")
-    List<MD_Amount> amounts;
+    @SerializedName("wasteAmountEstimates")
+    List<String> wasteAmountEstimates;
 
-    public MD_ItemWasteRequest(ArrayList<ModelMessage> messages, Byte wasteCollectionState, Byte deliveryType, Date requestDate, String requestCode, float totalAmount, List<MD_Amount> amounts) {
+    @SerializedName("wasteAmountRequests")
+    List<MD_WasteAmountRequests2> wasteAmountRequests;
+
+
+    public MD_ItemWasteRequest(ArrayList<ModelMessage> messages, Byte wasteCollectionState, Byte deliveryType, Date requestDate, String requestCode, float totalAmount, List<String> wasteAmountEstimates, List<MD_WasteAmountRequests2> wasteAmountRequests) {
         super(messages);
         this.wasteCollectionState = wasteCollectionState;
         this.deliveryType = deliveryType;
         this.requestDate = requestDate;
         this.requestCode = requestCode;
         this.totalAmount = totalAmount;
-        this.amounts = amounts;
+        this.wasteAmountEstimates = wasteAmountEstimates;
+        this.wasteAmountRequests = wasteAmountRequests;
     }
 
 
@@ -77,11 +82,19 @@ public class MD_ItemWasteRequest extends ModelResponsePrimary{
         this.totalAmount = totalAmount;
     }
 
-    public List<MD_Amount> getAmounts() {
-        return amounts;
+    public List<String> getWasteAmountEstimates() {
+        return wasteAmountEstimates;
     }
 
-    public void setAmounts(List<MD_Amount> amounts) {
-        this.amounts = amounts;
+    public void setWasteAmountEstimates(List<String> wasteAmountEstimates) {
+        this.wasteAmountEstimates = wasteAmountEstimates;
+    }
+
+    public List<MD_WasteAmountRequests2> getWasteAmountRequests() {
+        return wasteAmountRequests;
+    }
+
+    public void setWasteAmountRequests(List<MD_WasteAmountRequests2> wasteAmountRequests) {
+        this.wasteAmountRequests = wasteAmountRequests;
     }
 }

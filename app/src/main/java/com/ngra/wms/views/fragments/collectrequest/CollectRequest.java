@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.FrCollectRequestBinding;
+import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.collectrequest.VM_CollectRequest;
 import com.ngra.wms.views.adaptors.collectrequest.AP_ItemsWasteList;
 import com.ngra.wms.views.fragments.FragmentPrimary;
@@ -38,6 +39,9 @@ public class CollectRequest extends FragmentPrimary implements
 
     @BindView(R.id.LinearLayoutBoothReceive)
     LinearLayout LinearLayoutBoothReceive;
+
+    @BindView(R.id.LinearLayoutRecyclingCar)
+    LinearLayout LinearLayoutRecyclingCar;
 
 
     @Override
@@ -77,6 +81,11 @@ public class CollectRequest extends FragmentPrimary implements
 
         LinearLayoutBoothReceive.setOnClickListener(v -> navController.navigate(R.id.action_collectRequest2_to_boothReceive2));
 
+        LinearLayoutRecyclingCar.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt(getContext().getString(R.string.ML_Type), StaticValues.TimeSheetVehicle);
+            navController.navigate(R.id.action_collectRequest2_to_timeSheet, bundle);
+        });
     }//_____________________________________________________________________________________________ SetClicks
 
 

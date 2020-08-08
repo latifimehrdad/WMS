@@ -18,6 +18,10 @@ public class MD_SpinnerItem {
     public MD_SpinnerItem() {
     }
 
+    public MD_SpinnerItem(String id) {
+        this.id = id;
+    }
+
     public MD_SpinnerItem(String id, String title, String data) {
         this.id = id;
         this.title = title;

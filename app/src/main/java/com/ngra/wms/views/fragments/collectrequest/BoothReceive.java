@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.cunoraz.gifview.library.GifView;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -21,9 +23,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.FragmentBoothReceivePrimeryBinding;
 import com.ngra.wms.models.MD_Location;
-import com.ngra.wms.models.MD_WasteAmountRequests;
-import com.ngra.wms.models.MD_WasteEstimate;
-import com.ngra.wms.models.ModelTime;
 import com.ngra.wms.utility.ML_Map;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.collectrequest.boothreceive.VM_BoothReceivePrimary;
@@ -42,8 +41,8 @@ public class BoothReceive extends FragmentPrimary implements
     private GoogleMap mMap;
     private VM_BoothReceivePrimary vm_boothReceivePrimary;
     private AP_BoothList ap_boothList;
-//    private String WasteEstimateId;
-//    private Integer TimeId;
+    private NavController navController;
+
 
     @BindView(R.id.RecyclerViewBooths)
     RecyclerView RecyclerViewBooths;
@@ -51,6 +50,8 @@ public class BoothReceive extends FragmentPrimary implements
     @BindView(R.id.LinearLayoutMap)
     LinearLayout LinearLayoutMap;
 
+    @BindView(R.id.gifLoading)
+    GifView gifLoading;
 
     public BoothReceive() {//_______________________________________________________________________ BoothReceive
     }//_____________________________________________________________________________________________ BoothReceive
@@ -70,6 +71,8 @@ public class BoothReceive extends FragmentPrimary implements
             );
             binding.setVMBoothReceivePrimary(vm_boothReceivePrimary);
             setView(binding.getRoot());
+            gifLoading.setVisibility(View.VISIBLE);
+
             vm_boothReceivePrimary.GetBoothList();
             LinearLayoutMap.setVisibility(View.GONE);
 //            if (getContext() != null && getArguments() != null) {
@@ -94,6 +97,9 @@ public class BoothReceive extends FragmentPrimary implements
                 vm_boothReceivePrimary.getPublishSubject(),
                 vm_boothReceivePrimary);
 
+        if (getView() != null)
+            navController = Navigation.findNavController(getView());
+
     }//_____________________________________________________________________________________________ End onStart
 
 
@@ -115,6 +121,7 @@ public class BoothReceive extends FragmentPrimary implements
     @Override
     public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
+        gifLoading.setVisibility(View.GONE);
 
         if (ap_boothList != null)
             ap_boothList.notifyDataSetChanged();
@@ -171,12 +178,11 @@ public class BoothReceive extends FragmentPrimary implements
     @Override
     public void itemChoose(Integer position) {//____________________________________________________ itemChoose
 
-/*        MD_WasteAmountRequests md_wasteAmountRequests = new MD_WasteAmountRequests(
-                0,
-                vm_boothReceivePrimary.getBoothList().get(position),
-                new ModelTime(TimeId),
-                new MD_WasteEstimate(WasteEstimateId));
-        vm_boothReceivePrimary.SendCollectRequest(md_wasteAmountRequests);*/
+        Integer BoothId = vm_boothReceivePrimary.getBoothList().get(position).getId();
+        Bundle bundle = new Bundle();
+        bundle.putInt(getContext().getString(R.string.ML_Type), StaticValues.TimeSheetBooth);
+        bundle.putInt(getContext().getString(R.string.ML_Id), BoothId);
+        navController.navigate(R.id.action_boothReceive2_to_timeSheet, bundle);
 
     }//_____________________________________________________________________________________________ itemChoose
 }

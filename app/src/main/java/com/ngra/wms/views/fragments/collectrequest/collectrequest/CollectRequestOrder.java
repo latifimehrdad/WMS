@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.cunoraz.gifview.library.GifView;
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.FragmentCollectRequestOrdersBinding;
 import com.ngra.wms.utility.StaticValues;
@@ -28,6 +29,8 @@ public class CollectRequestOrder extends FragmentPrimary implements
     @BindView(R.id.RecyclerViewOrder)
     RecyclerView RecyclerViewOrder;
 
+    @BindView(R.id.gifLoading)
+    GifView gifLoading;
 
 
     public CollectRequestOrder() {//________________________________________________________________ CollectRequestOrder
@@ -58,6 +61,8 @@ public class CollectRequestOrder extends FragmentPrimary implements
                 CollectRequestOrder.this,
                 vm_collectRequestOrder.getPublishSubject(),
                 vm_collectRequestOrder);
+        gifLoading.setVisibility(View.VISIBLE);
+        RecyclerViewOrder.setVisibility(View.GONE);
         vm_collectRequestOrder.GetItemsOfOrder();
     }//_____________________________________________________________________________________________ onStart
 
@@ -65,6 +70,9 @@ public class CollectRequestOrder extends FragmentPrimary implements
 
     @Override
     public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+
+        gifLoading.setVisibility(View.GONE);
+        RecyclerViewOrder.setVisibility(View.VISIBLE);
 
         if (action.equals(StaticValues.ML_CollectOrderDone))
             SetAdapter();

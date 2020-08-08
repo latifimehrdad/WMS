@@ -17,7 +17,7 @@ import com.ngra.wms.databinding.FragmentBoothReceivePrimeryBinding;
 import com.ngra.wms.models.MD_Location;
 import com.ngra.wms.models.MD_WasteEstimate;
 import com.ngra.wms.models.MD_WasteAmountRequests;
-import com.ngra.wms.models.ModelTime;
+import com.ngra.wms.models.MD_Time;
 import com.ngra.wms.utility.ML_Map;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.collectrequest.boothreceive.VM_BoothReceivePrimary;
@@ -271,12 +271,12 @@ public class BoothReceivePrimary extends FragmentPrimary implements
 
 */
 
-        MD_WasteAmountRequests md_wasteAmountRequests = new MD_WasteAmountRequests(
+/*        MD_WasteAmountRequests md_wasteAmountRequests = new MD_WasteAmountRequests(
                 0,
                 vm_boothReceivePrimary.getBoothList().get(position),
-                new ModelTime(TimeId),
+                new MD_Time(TimeId),
                 new MD_WasteEstimate(WasteEstimateId));
-        vm_boothReceivePrimary.SendCollectRequest(md_wasteAmountRequests);
+        vm_boothReceivePrimary.SendCollectRequest(md_wasteAmountRequests);*/
 
     }//_____________________________________________________________________________________________ itemChoose
 }

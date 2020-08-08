@@ -3,6 +3,14 @@ package com.ngra.wms.utility;
 public class StaticValues {
 
 
+
+    //***** TimeSheet Type *****
+    public static int TimeSheetBooth = 0;
+    public static int TimeSheetVehicle = 1;
+    public static int TimeSheetPackage = 2;
+    // ***** TimeSheet Type *****
+
+
     //***** Package Request *****
     public static Byte PR_NotRequested = 0;
     public static Byte PR_Requested = 1;
@@ -75,7 +83,7 @@ public class StaticValues {
     public static Byte ML_GetAddress = 15;// در observable دریافت آدرس از روی موقعیت
     public static Byte ML_SetAddress = 16;// در observable آدرس دریافتی تبدیل به یک رشته آدرس شود
     public static Byte ML_GetHousingBuildings = 17;// در observable دریافت نوع ساختمان
-    public static Byte ML_GetTimeSheetTimes = 18;// در observable دریافت زمان
+    public static Byte ML_GetTimeSheet = 18;// در observable دریافت زمان
     public static Byte ML_SendPackageRequest = 19;// در observable  پکیج ارسال شده
     public static Byte ML_EditUserAddress = 20;// در observable آدرس ویرایش شده
     public static Byte ML_GetBoothList = 21;// در observable دریافت لیست غرفه ها

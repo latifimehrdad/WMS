@@ -5,8 +5,8 @@ import android.app.Activity;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MD_WasteAmountRequests;
 import com.ngra.wms.models.ModelResponsePrimary;
-import com.ngra.wms.models.ModelTimeSheetTimes;
-import com.ngra.wms.models.ModelTimes;
+import com.ngra.wms.models.MD_TimeSheet;
+import com.ngra.wms.models.MR_TimeSheet;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Primary;
 import com.ngra.wms.views.application.ApplicationWMS;
@@ -17,7 +17,7 @@ import retrofit2.Response;
 
 public class VM_RecyclingCarPrimary extends VM_Primary {
 
-    private ModelTimes modelTimes;
+//    private MR_TimeSheet MRTimes;
 
     public VM_RecyclingCarPrimary(Activity context) {//______________________________________________ VM_RecyclingCarPrimary
         setContext(context);
@@ -35,13 +35,13 @@ public class VM_RecyclingCarPrimary extends VM_Primary {
                 .getRetrofitApiInterface()
                 .getTimes(Authorization));
 
-        getPrimaryCall().enqueue(new Callback<ModelTimeSheetTimes>() {
+        getPrimaryCall().enqueue(new Callback<MD_TimeSheet>() {
             @Override
-            public void onResponse(Call<ModelTimeSheetTimes> call, Response<ModelTimeSheetTimes> response) {
+            public void onResponse(Call<MD_TimeSheet> call, Response<MD_TimeSheet> response) {
                 setResponseMessage(CheckResponse(response, false));
                 if (getResponseMessage() == null) {
-                    modelTimes = response.body().getResult();
-                    SendMessageToObservable(StaticValues.ML_GetTimeSheetTimes);
+//                    MRTimes = response.body().getResult();
+                    SendMessageToObservable(StaticValues.ML_GetTimeSheet);
                 } else {
                     SendMessageToObservable(StaticValues.ML_ResponseError);
                 }
@@ -49,7 +49,7 @@ public class VM_RecyclingCarPrimary extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<ModelTimeSheetTimes> call, Throwable t) {
+            public void onFailure(Call<MD_TimeSheet> call, Throwable t) {
                 OnFailureRequest();
             }
         });
@@ -95,8 +95,10 @@ public class VM_RecyclingCarPrimary extends VM_Primary {
 
 
 
-    public ModelTimes getModelTimes() {//___________________________________________________________ getModelTimes
-        return modelTimes;
+/*
+    public MR_TimeSheet getMRTimes() {//___________________________________________________________ getModelTimes
+        return MRTimes;
     }//_____________________________________________________________________________________________ getModelTimes
+*/
 
 }

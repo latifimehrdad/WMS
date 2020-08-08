@@ -46,6 +46,16 @@ public class BindingAdapters {
 
 
 
+    @BindingAdapter(value = {"SetTimeSheetTime"})
+    public static void SetTimeSheetTime(TextView textView, Date date) {//___________________________ SetTicketTime
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.US);
+        textView.setText(simpleDateFormat.format(date));
+
+    }//_____________________________________________________________________________________________ SetTicketTime
+
+
+
 
     @BindingAdapter(value = {"SetTicketStatus"})
     public static void SetTicketStatus(TextView textView, Byte deliveryType) {//____________________ SetTicketStatus
@@ -241,6 +251,11 @@ public class BindingAdapters {
 
     @BindingAdapter(value = {"SetAmountItemsWasteList"})
     public static void SetAmountItemsWasteList(TextView textView, float count) {//_________________ SetCountItemsWasteList
+        if (count < 0) {
+            textView.setText("");
+            return;
+        }
+
         StringBuilder builder = new StringBuilder();
         if (count < 1000) {
             builder.append(Math.round(count));
@@ -251,11 +266,13 @@ public class BindingAdapters {
             builder.append(kg);
             builder.append(" ");
             builder.append(textView.getContext().getResources().getString(R.string.KGr));
-            builder.append(" و ");
             long gr = (long) (count % 1000);
-            builder.append(gr);
-            builder.append(" ");
-            builder.append(textView.getContext().getResources().getString(R.string.GR));
+            if (gr > 0) {
+                builder.append(" و ");
+                builder.append(gr);
+                builder.append(" ");
+                builder.append(textView.getContext().getResources().getString(R.string.GR));
+            }
         }
         textView.setText(builder.toString());
     }//_____________________________________________________________________________________________ SetCountItemsWasteLis

@@ -26,6 +26,7 @@ public class AP_Tickets extends RecyclerView.Adapter<AP_Tickets.CustomHolder> {
     private List<MD_UsersTicketList> md_usersTicketLists;
     private ItemTicketClick itemTicketClick;
 
+
     public interface ItemTicketClick {//____________________________________________________________ ItemTicketClick
         void itemChoose(Integer position);
     }//_____________________________________________________________________________________________ ItemTicketClick

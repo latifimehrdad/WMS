@@ -17,9 +17,6 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.FragmentCollectRequestPrimeryBinding;
 import com.ngra.wms.models.MD_SpinnerItem;
-import com.ngra.wms.models.MD_WasteAmountRequests;
-import com.ngra.wms.models.MD_WasteEstimate;
-import com.ngra.wms.models.ModelTime;
 import com.ngra.wms.utility.ApplicationUtility;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.collectrequest.collectrequest.VM_CollectRequestPrimary;
@@ -49,7 +46,7 @@ public class CollectRequestPrimary extends FragmentPrimary implements
     private Integer WasteEstimatePosition = -1;
 
 
-    @BindView(R.id.fcrpRecyclingCar)
+    @BindView(R.id.LinearLayoutRecyclingCar)
     LinearLayout fcrpRecyclingCar;
 
     @BindView(R.id.LinearLayoutBoothReceive)
@@ -136,7 +133,7 @@ public class CollectRequestPrimary extends FragmentPrimary implements
             return;
         }*/
 
-        if (action.equals(StaticValues.ML_GetTimeSheetTimes)) {
+        if (action.equals(StaticValues.ML_GetTimeSheet)) {
             SetMaterialSpinnersTimes();
             return;
         }
@@ -167,26 +164,26 @@ public class CollectRequestPrimary extends FragmentPrimary implements
     private void SetClicks() {//____________________________________________________________________ SetClicks
 
         fcrpRecyclingCar.setOnClickListener(v -> {
-            if (CheckEmpty()) {
+/*            if (CheckEmpty()) {
                 gifLoadingSend.setVisibility(View.VISIBLE);
                 MD_WasteAmountRequests md_wasteAmountRequests = new MD_WasteAmountRequests(
                         1,
                         null,
-                        vm_collectRequestPrimary.getModelTimes().getTimes().get(timePosition),
+                        vm_collectRequestPrimary.getMRTimes().getTimes().get(timePosition),
                         new MD_WasteEstimate(vm_collectRequestPrimary.getWasteEstimates().get(WasteEstimatePosition).getId()));
                 vm_collectRequestPrimary.SendCollectRequest(md_wasteAmountRequests);
-            }
+            }*/
         });
 
 
         fcrpBoothReceive.setOnClickListener(v -> {
             if (CheckEmpty()) {
-                if (getContext() != null) {
+/*                if (getContext() != null) {
                     Bundle bundle = new Bundle();
                     bundle.putString(getContext().getResources().getString(R.string.ML_Id), vm_collectRequestPrimary.getWasteEstimates().get(WasteEstimatePosition).getId());
-                    bundle.putInt(getContext().getResources().getString(R.string.ML_TimeId), vm_collectRequestPrimary.getModelTimes().getTimes().get(timePosition).getId());
+                    bundle.putInt(getContext().getResources().getString(R.string.ML_TimeId), vm_collectRequestPrimary.getMRTimes().getTimes().get(timePosition).getId());
                     navController.navigate(R.id.action_collectRequestPrimary_to_boothReceivePrimary, bundle);
-                }
+                }*/
             }
         });
 
@@ -316,7 +313,7 @@ public class CollectRequestPrimary extends FragmentPrimary implements
 
         List<String> buildingTypes = new ArrayList<>();
         buildingTypes.add(getResources().getString(R.string.ChooseDateDelivery));
-        for (ModelTime item : vm_collectRequestPrimary.getModelTimes().getTimes()) {
+/*        for (MD_Time item : vm_collectRequestPrimary.getMRTimes().getTimes()) {
             String builder = null;
             ApplicationUtility.MD_GregorianToSun toSun = component.GregorianToSun(item.getDate());
             builder = toSun.getFullStringSun();
@@ -327,7 +324,7 @@ public class CollectRequestPrimary extends FragmentPrimary implements
                     simpleDateFormat.format(item.getTo());
 
             buildingTypes.add(builder);
-        }
+        }*/
 
         MaterialSpinnerSpinnerDay.setItems(buildingTypes);
 

@@ -4,20 +4,23 @@ import java.util.List;
 
 public class MD_WasteAmountRequests {
 
-    Integer DeliveryType;
+    private Integer DeliveryType;
 
-    MD_Booth Booth;
+    private MD_Booth Booth;
 
-    ModelTime TimeSheet;
+    private MD_Time TimeSheet;
 
-    MD_WasteEstimate WasteEstimate;
+    private List<MD_ChooseWaste> Estimates;
+
+    private MD_SpinnerItem ContactAddress;
 
 
-    public MD_WasteAmountRequests(Integer deliveryType, MD_Booth booth, ModelTime timeSheet, MD_WasteEstimate wasteEstimate) {
+    public MD_WasteAmountRequests(Integer deliveryType, MD_Booth booth, MD_Time timeSheet, List<MD_ChooseWaste> estimates, MD_SpinnerItem contactAddress) {
         DeliveryType = deliveryType;
         Booth = booth;
         TimeSheet = timeSheet;
-        WasteEstimate = wasteEstimate;
+        Estimates = estimates;
+        ContactAddress = contactAddress;
     }
 
     public Integer getDeliveryType() {
@@ -36,20 +39,27 @@ public class MD_WasteAmountRequests {
         Booth = booth;
     }
 
-    public ModelTime getTimeSheet() {
+    public MD_Time getTimeSheet() {
         return TimeSheet;
     }
 
-    public void setTimeSheet(ModelTime timeSheet) {
+    public void setTimeSheet(MD_Time timeSheet) {
         TimeSheet = timeSheet;
     }
 
-
-    public MD_WasteEstimate getWasteEstimate() {
-        return WasteEstimate;
+    public List<MD_ChooseWaste> getEstimates() {
+        return Estimates;
     }
 
-    public void setWasteEstimate(MD_WasteEstimate wasteEstimate) {
-        WasteEstimate = wasteEstimate;
+    public void setEstimates(List<MD_ChooseWaste> estimates) {
+        Estimates = estimates;
+    }
+
+    public MD_SpinnerItem getContactAddress() {
+        return ContactAddress;
+    }
+
+    public void setContactAddress(MD_SpinnerItem contactAddress) {
+        ContactAddress = contactAddress;
     }
 }
