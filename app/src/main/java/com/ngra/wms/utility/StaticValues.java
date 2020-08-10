@@ -101,6 +101,7 @@ public class StaticValues {
     public static Byte ML_GetAllTicketReply = 32;
     public static Byte ML_CloseTicket = 33;
     public static Byte ML_GetVolume = 34;
+    public static Byte ML_GetUserAddress = 35;
     //***** Observable Control *****
 
 

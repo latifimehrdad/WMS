@@ -40,7 +40,7 @@
     <string name="AccountNumber">شماره شبا</string>
     <string name="Save">ثبت</string>
     <string name="RegisterCode">با ثبت کد نوسازی مربوط به بنای خود می توانید از 10٪ تخفیف عوارض شهرداری بهره مند گردید</string>
-    <string name="RegisterKM">برای استفاده از تخفیف، میبایست بار تحویلی در هر سال بیشتر از 20 کیلوگرم باشد</string>
+    <string name="RegisterKM">برای استفاده از تخفیف، میبایست بار تحویلی در هر سال بیشتر از - کیلوگرم باشد</string>
     <string name="SaveInfo">ذخیره اطلاعات</string>
     <string name="HomeMaxScore">بیشترین امتیاز</string>
     <string name="HomeAveScore">میانگین امتیازات</string>
@@ -49,7 +49,7 @@
     <string name="Retry">تلاش مجدد</string>
     <string name="PleaseTryAgain">لطفا تلاش دوباره کنید</string>
     <string name="GR">گرم</string>
-
+    <string name="FailureDeliver">عدم تحویل</string>
     <string name="FragmentPackRequestPrimary">درخواست پکیج</string>
     <string name="FragmentPackRequestPrimarySet">ثبت درخواست</string>
     <string name="FragmentPackRequestPrimarySend">ارسال</string>
@@ -178,8 +178,8 @@
     <string name="EmptyUnitCount">لطفا تعداد واحدها را وارد نمایید</string>
     <string name="TurnOnGps">موقعیت مکانی دستگاه شما خاموش است. تمایل به روشن کردن آن دارید؟</string>
     <string name="CopyRight">قدرت گرفته از قلب تپنده نگرا</string>
-    <string name="PowerOff">قدرت گرفته از</string>
-    <string name="BounceNegra">تپنده نگرا</string>
+    <string name="PowerOff">Powered By</string>
+    <string name="BounceNegra">NGRA</string>
     <string name="About">درباره تولید کننده</string>
     <string name="NgraSite">آدرس سایت : http://www.ngra.ir</string>
     <string name="Tel">تلفن تماس : 02691009001</string>

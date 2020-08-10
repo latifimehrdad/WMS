@@ -1,8 +1,10 @@
 package com.ngra.wms.viewmodels.packrequest;
 
 import android.app.Activity;
+
 import com.ngra.wms.R;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
+import com.ngra.wms.models.MR_SpinnerItems;
 import com.ngra.wms.models.ModelBuildingTypes;
 import com.ngra.wms.models.ModelGetAddress;
 import com.ngra.wms.models.ModelHousingBuildings;
@@ -23,6 +25,7 @@ public class VM_PackageRequestAddress extends VM_Primary {
     private ModelBuildingTypes buildingTypes;
     private ModelGetAddress address;
     private String AddressString;
+    private String AddressId;
 
     public VM_PackageRequestAddress(Activity context) {//___________________________________________ VM_PackageRequestAddress
         setContext(context);
@@ -199,8 +202,6 @@ public class VM_PackageRequestAddress extends VM_Primary {
     }//_____________________________________________________________________________________________ GetAddress
 
 
-
-
     public void SetAddress() {//____________________________________________________________________ Start SetAddress
 
         if (address != null && address.getAddress() != null) {
@@ -215,7 +216,7 @@ public class VM_PackageRequestAddress extends VM_Primary {
                 addressString.append(country);
                 addressString.append("، ");
 
-                if(!country.equalsIgnoreCase("ایران")) {
+                if (!country.equalsIgnoreCase("ایران")) {
                     setResponseMessage(getContext().getResources().getString(R.string.OutOfIran));
                     SendMessageToObservable(StaticValues.ML_ResponseError);
                     return;
@@ -285,6 +286,39 @@ public class VM_PackageRequestAddress extends VM_Primary {
     }//_____________________________________________________________________________________________ End SetAddress
 
 
+    public void GetUserAddress() {//________________________________________________________________ GetUserAddress
+
+        RetrofitComponent retrofitComponent =
+                ApplicationWMS
+                        .getApplicationWMS(getContext())
+                        .getRetrofitComponent();
+
+        String Authorization = GetAuthorization();
+
+
+        retrofitComponent
+                .getRetrofitApiInterface()
+                .getContactAddresses(Authorization)
+                .enqueue(new Callback<MR_SpinnerItems>() {
+                    @Override
+                    public void onResponse(Call<MR_SpinnerItems> call, Response<MR_SpinnerItems> response) {
+                        setResponseMessage(CheckResponse(response, false));
+                        if (getResponseMessage() == null) {
+                            if (response.body().getResult() != null)
+                                AddressId = response.body().getResult().get(0).getId();
+                            SendMessageToObservable(StaticValues.ML_GetUserAddress);
+                        } else
+                            SendMessageToObservable(StaticValues.ML_ResponseError);
+                    }
+
+                    @Override
+                    public void onFailure(Call<MR_SpinnerItems> call, Throwable t) {
+                        OnFailureRequest();
+                    }
+                });
+
+    }//_____________________________________________________________________________________________ GetUserAddress
+
 
     public String getAddressString() {//____________________________________________________________ getAddressString
         return AddressString;
@@ -296,4 +330,10 @@ public class VM_PackageRequestAddress extends VM_Primary {
     }//_____________________________________________________________________________________________ getBuildingTypes
 
 
+    public String getAddressId() {//________________________________________________________________ getAddressId
+        if (AddressId == null)
+            AddressId = "0";
+
+        return AddressId;
+    }//_____________________________________________________________________________________________ getAddressId
 }

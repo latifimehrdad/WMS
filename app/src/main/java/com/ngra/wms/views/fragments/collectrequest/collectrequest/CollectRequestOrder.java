@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,6 +32,9 @@ public class CollectRequestOrder extends FragmentPrimary implements
 
     @BindView(R.id.gifLoading)
     GifView gifLoading;
+
+    @BindView(R.id.TextViewNoRequest)
+    TextView TextViewNoRequest;
 
 
     public CollectRequestOrder() {//________________________________________________________________ CollectRequestOrder
@@ -61,6 +65,7 @@ public class CollectRequestOrder extends FragmentPrimary implements
                 CollectRequestOrder.this,
                 vm_collectRequestOrder.getPublishSubject(),
                 vm_collectRequestOrder);
+        TextViewNoRequest.setVisibility(View.GONE);
         gifLoading.setVisibility(View.VISIBLE);
         RecyclerViewOrder.setVisibility(View.GONE);
         vm_collectRequestOrder.GetItemsOfOrder();
@@ -87,6 +92,9 @@ public class CollectRequestOrder extends FragmentPrimary implements
         AP_Order ap_order = new AP_Order(vm_collectRequestOrder.getMd_itemWasteRequests());
         RecyclerViewOrder.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         RecyclerViewOrder.setAdapter(ap_order);
+
+        if (vm_collectRequestOrder.getMd_itemWasteRequests().size() == 0)
+            TextViewNoRequest.setVisibility(View.VISIBLE);
 
     }//_____________________________________________________________________________________________ SetAdapter
 

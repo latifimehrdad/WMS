@@ -86,6 +86,12 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
     @BindView(R.id.TextViewDeliver)
     TextView TextViewDeliver;
 
+    @BindView(R.id.RelativeLayoutState)
+    RelativeLayout RelativeLayoutState;
+
+    @BindView(R.id.TextViewState)
+    TextView TextViewState;
+
 
     @Nullable
     @Override
@@ -139,6 +145,13 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
 
             //vm_packageRequestPrimary.GetTypeTimes();
         } else {
+            if (statues.equals(StaticValues.PR_NotRequested)) {
+                RelativeLayoutState.setVisibility(View.GONE);
+                TextViewState.setVisibility(View.VISIBLE);
+            } else {
+                RelativeLayoutState.setVisibility(View.VISIBLE);
+                TextViewState.setVisibility(View.GONE);
+            }
             FPRPStatusViewScroller.getStatusView().setCurrentCount(statues + 1);
             RelativeLayoutSave.setVisibility(View.GONE);
             LinearLayoutPackageState.setVisibility(View.VISIBLE);

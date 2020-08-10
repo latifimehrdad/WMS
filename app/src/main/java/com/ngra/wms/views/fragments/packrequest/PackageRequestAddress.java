@@ -187,6 +187,8 @@ public class PackageRequestAddress extends FragmentPrimary implements
         if (getArguments() != null) {
             addressType = getArguments().getString(getContext().getResources().getString(R.string.ML_Type), "");
             AddressId = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
+            if (addressType.equalsIgnoreCase(getContext().getString(R.string.ML_Save)))
+                vm_packageRequestAddress.GetUserAddress();
         } else {
             addressType = "";
             AddressId = 0;
@@ -224,6 +226,11 @@ public class PackageRequestAddress extends FragmentPrimary implements
         if (action.equals(StaticValues.ML_GetHousingBuildings)) {
             SetMaterialSpinnerType();
             SetMaterialSpinnerUses();
+            return;
+        }
+
+        if (action.equals(StaticValues.ML_GetUserAddress)) {
+            AddressId = Integer.valueOf(vm_packageRequestAddress.getAddressId());
         }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable

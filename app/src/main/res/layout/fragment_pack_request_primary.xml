@@ -177,6 +177,7 @@
                 </LinearLayout>
 
                 <RelativeLayout
+                    android:id="@+id/RelativeLayoutState"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20sdp"
@@ -262,6 +263,19 @@
 
                 </RelativeLayout>
 
+                <TextView
+                    android:id="@+id/TextViewState"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_1sdp"
+                    android:gravity="right|center_vertical"
+                    android:text="@string/FailureDeliver"
+                    android:textColor="@color/mlTextRegisterCode"
+                    android:textSize="@dimen/_13sdp"
+                    android:layout_marginLeft="@dimen/_3sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    fontPath="font/iransans_web_medium.ttf"
+                    />
 
             </LinearLayout>
 

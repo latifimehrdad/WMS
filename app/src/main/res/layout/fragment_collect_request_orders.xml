@@ -11,7 +11,7 @@
             type="com.ngra.wms.viewmodels.collectrequest.collectrequest.VM_CollectRequestOrder" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -26,16 +26,31 @@
             android:id="@+id/gifLoading"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
-            android:visibility="gone"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             custom:gif="@drawable/loading2"
             android:background="@drawable/dw_button_game"
             android:padding="@dimen/_5sdp"/>
+
+
+        <TextView
+            android:id="@+id/TextViewNoRequest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/mlHeader"
+            android:textSize="@dimen/_12sdp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/NoMessage"/>
+
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RecyclerViewOrder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/_20sdp"/>
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:visibility="gone"/>
 
 
 
@@ -1065,7 +1080,7 @@
         </LinearLayout>
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </layout>

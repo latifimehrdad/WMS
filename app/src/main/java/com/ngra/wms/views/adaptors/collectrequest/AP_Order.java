@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -16,6 +18,7 @@ import com.ngra.wms.models.MD_Amount;
 import com.ngra.wms.models.MD_ItemWaste;
 import com.ngra.wms.models.MD_ItemWasteRequest;
 import com.ngra.wms.models.MD_WasteAmountRequests2;
+import com.ngra.wms.utility.StaticValues;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +68,12 @@ public class AP_Order extends RecyclerView.Adapter<AP_Order.CustomHolder> {
         @BindView(R.id.RecyclerViewItemsWasteUser)
         RecyclerView RecyclerViewItemsWasteUser;
 
+        @BindView(R.id.RelativeLayoutState)
+        RelativeLayout RelativeLayoutState;
+
+        @BindView(R.id.TextViewState)
+        TextView TextViewState;
+
 
         public CustomHolder(AdapterItemOrderBinding binding) {
             super(binding.getRoot());
@@ -76,6 +85,16 @@ public class AP_Order extends RecyclerView.Adapter<AP_Order.CustomHolder> {
 
         public void bind(MD_ItemWasteRequest item) {
             binding.setWasteRequest(item);
+
+
+            if (item.getWasteCollectionState() == StaticValues.PR_NoDelivered) {
+                RelativeLayoutState.setVisibility(View.GONE);
+                TextViewState.setVisibility(View.VISIBLE);
+            } else {
+                RelativeLayoutState.setVisibility(View.VISIBLE);
+                TextViewState.setVisibility(View.GONE);
+            }
+
 
             if (item.getWasteAmountEstimates() != null) {
                 AP_OrderItemWasteUser wasteUser = new AP_OrderItemWasteUser(item.getWasteAmountEstimates());

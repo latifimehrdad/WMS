@@ -13,5 +13,4 @@ public class RetrofitApis {
     public static String grant_type_password = "password";
     public static String grant_type_value_Refresh_Token = "refresh_token";
     public static String grant_type_value_Login_Code = "login_code";
-
 }

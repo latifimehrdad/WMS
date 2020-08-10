@@ -135,6 +135,8 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
         if (action.equals(StaticValues.ML_Success) ||
                 action.equals(StaticValues.ML_ResponseFailure) ||
                 action.equals(StaticValues.ML_ResponseError)) {
+            if (progress != null)
+                progress.dismiss();
             VerifyCode1.setText("");
             VerifyCode2.setText("");
             VerifyCode3.setText("");
