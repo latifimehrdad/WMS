@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
@@ -43,6 +44,12 @@ public class CollectRequest extends FragmentPrimary implements
     @BindView(R.id.LinearLayoutRecyclingCar)
     LinearLayout LinearLayoutRecyclingCar;
 
+    @BindView(R.id.TextViewScoreBooth)
+    TextView TextViewScoreBooth;
+
+    @BindView(R.id.TextViewScoreCar)
+    TextView TextViewScoreCar;
+
 
     @Override
     public View onCreateView(
@@ -58,6 +65,7 @@ public class CollectRequest extends FragmentPrimary implements
             setView(binding.getRoot());
             SetClicks();
             SetItemsWasteListAdapter();
+            vm_collectRequest.GetScoreList();
         }
         return getView();
     }//_____________________________________________________________________________________________ onCreateView
@@ -86,6 +94,35 @@ public class CollectRequest extends FragmentPrimary implements
             bundle.putInt(getContext().getString(R.string.ML_Type), StaticValues.TimeSheetVehicle);
             navController.navigate(R.id.action_collectRequest2_to_timeSheet, bundle);
         });
+
+
+        TextViewScoreBooth.setOnClickListener(v -> {
+            String score = "";
+            if (vm_collectRequest.getScoreBooth() != null)
+                for (String s: vm_collectRequest.getScoreBooth())
+                    score = score + s + System.getProperty("line.separator");
+
+            ShowMessage(score
+                    , getResources().getColor(R.color.mlWhite),
+                    getResources().getDrawable(R.drawable.ic_check),
+                    getResources().getColor(R.color.colorPrimaryDark));
+
+        });
+
+
+        TextViewScoreCar.setOnClickListener(v -> {
+            String score = "";
+            if (vm_collectRequest.getScoreVehicle() != null)
+                for (String s: vm_collectRequest.getScoreVehicle())
+                    score = score + s + System.getProperty("line.separator");
+
+            ShowMessage(score
+                    , getResources().getColor(R.color.mlWhite),
+                    getResources().getDrawable(R.drawable.ic_check),
+                    getResources().getColor(R.color.colorPrimaryDark));
+
+        });
+
     }//_____________________________________________________________________________________________ SetClicks
 
 

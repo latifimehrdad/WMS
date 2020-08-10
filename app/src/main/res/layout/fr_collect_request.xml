@@ -53,12 +53,15 @@
                     >
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:id="@+id/TextViewScoreCar"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:textColor="@color/mlWhite"
-                        android:textSize="@dimen/_15sdp"
-                        android:text="@string/FragmentCollectRequestFiveScore"
+                        android:textSize="@dimen/_12sdp"
+                        android:background="@drawable/button_dark_blue"
+                        android:padding="@dimen/_3sdp"
+                        android:text="@string/HowGiveScore"
                         />
 
                     <TextView
@@ -142,12 +145,15 @@
                     >
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:id="@+id/TextViewScoreBooth"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:textColor="@color/mlWhite"
-                        android:textSize="@dimen/_15sdp"
-                        android:text="@string/FragmentCollectRequestTenScore"
+                        android:textSize="@dimen/_12sdp"
+                        android:background="@drawable/button_dark_blue"
+                        android:padding="@dimen/_3sdp"
+                        android:text="@string/HowGiveScore"
                         />
 
                     <TextView

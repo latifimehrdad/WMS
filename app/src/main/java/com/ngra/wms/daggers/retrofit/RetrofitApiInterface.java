@@ -8,6 +8,7 @@ import com.ngra.wms.models.MR_ItemLearn;
 import com.ngra.wms.models.MR_ItemsWast;
 import com.ngra.wms.models.MR_Register;
 import com.ngra.wms.models.MR_ScoreList;
+import com.ngra.wms.models.MR_ScoreList2;
 import com.ngra.wms.models.MR_ScoreReport;
 import com.ngra.wms.models.MR_TicketList;
 import com.ngra.wms.models.MR_TicketReplyList;
@@ -447,6 +448,14 @@ public interface RetrofitApiInterface {
 
     @GET(Version + "/UserScoreInfo/ScoreReport")
     Call<MR_ScoreReport> getScoreReport
+            (
+                    @Header("Authorization") String Authorization
+
+            );
+
+
+    @GET(Version + "/Score/GetScoreList2")
+    Call<MR_ScoreList2> getScoreList2
             (
                     @Header("Authorization") String Authorization
 
