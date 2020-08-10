@@ -3,8 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="score"
-            type="com.ngra.wms.models.MD_GiveScoreItem" />
+            name="item"
+            type="com.ngra.wms.models.MD_ScoreListItem" />
+
+        <variable
+            name="title"
+            type="String" />
+
     </data>
 
     <LinearLayout
@@ -21,7 +26,7 @@
             android:gravity="center"
             android:textColor="@color/mlWhite"
             android:textSize="@dimen/_10sdp"
-            app:SetOrderTotalAmount="@{score.value}"
+            app:SetScoreItemValue="@{item.value}"
             />
 
         <TextView
@@ -31,7 +36,8 @@
             android:gravity="right"
             android:textColor="@color/mlWhite"
             android:textSize="@dimen/_10sdp"
-            android:text="@{score.title}"
+            app:SetScoreConfigItem="@{item}"
+            app:SetScoreConfigTitle="@{title}"
             />
 
     </LinearLayout>

@@ -60,6 +60,12 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
     @BindView(R.id.scoreLayoutChart)
     LinearLayout scoreLayoutChart;
 
+    @BindView(R.id.TextViewAverage)
+    TextView TextViewAverage;
+
+    @BindView(R.id.TextViewMax)
+    TextView TextViewMax;
+
 
     public Home() {//_______________________________________________________________________________ Home
 
@@ -93,6 +99,7 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
         if (getView() != null)
             navController = Navigation.findNavController(getView());
         CheckProfile();
+        vm_home.GetScoreReport();
 
         if (ChooseWaste.wasteLists != null)
             if (ChooseWaste.wasteLists.size() > 0) {
@@ -116,6 +123,16 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
 
         if (action.equals(StaticValues.ML_GotoProfile)) {
             navController.navigate(R.id.action_home_to_profile);
+            return;
+        }
+
+        if (action.equals(StaticValues.ML_GetUserScore)) {
+            if (vm_home.getMd_scoreReport() != null) {
+                Integer am = (int)vm_home.getMd_scoreReport().getAveragePoint();
+                TextViewAverage.setText(am.toString());
+                am = (int)vm_home.getMd_scoreReport().getMaxPoint();
+                TextViewMax.setText(am.toString());
+            }
         }
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable

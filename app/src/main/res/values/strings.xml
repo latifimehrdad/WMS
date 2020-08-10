@@ -14,7 +14,7 @@
     <string name="ChooseBank">انتخاب بانک</string>
     <string name="Bank_Search">جستجوی بانک</string>
     <string name="ChooseRequestType">انتخاب نوع درخواست</string>
-
+    <string name="CitizenScore">امتیازات شهروند</string>
 
     <string name="PackageNotDelivered">قبل از درخواست جمع آوری، لطفا ابتدا به بخش درخواست پکیج بروید و تا تحویل پکیج در محل ساختمان منتظر بمانید</string>
 
@@ -23,7 +23,7 @@
 
     <string name="WMSFromFist">سیستم مدیریت تفکیک از مبدأ</string>
     <string name="Orders">درخواست ها</string>
-    <string name="ChargingBag">شارژ کیف پول</string>
+    <string name="WalletBag">کیف پول</string>
     <string name="RegisterPerson">ثبت نام</string>
     <string name="RegisterPersonBank">اطلاعات بانکی</string>
     <string name="PostalAddress">ویرایش آدرس پستی</string>
@@ -36,7 +36,7 @@
     <string name="MobileNumber">شماره موبایل</string>
     <string name="Password">رمز ورود</string>
     <string name="ReTryPassword">تکرار رمز ورود</string>
-    <string name="ReagentCode">کد معرف</string>
+    <string name="ReagentCode">شماره موبایل معرف</string>
     <string name="AccountNumber">شماره شبا</string>
     <string name="Save">ثبت</string>
     <string name="RegisterCode">با ثبت کد نوسازی مربوط به بنای خود می توانید از 10٪ تخفیف عوارض شهرداری بهره مند گردید</string>
@@ -85,12 +85,14 @@
     <string name="CallBooth">تماس با غرفه</string>
     <string name="BoothAuthor">مسئول غرفه</string>
     <string name="ShowOnMap">نمایش مکان</string>
-
+    <string name="TopThree">سه نفر برتر</string>
+    <string name="SumScoreOfMonth">جمع امتیازات ماه</string>
+    <string name="BestScores">امتیازات برتر</string>
     <string name="ChooseDateDelivery">انتخاب تاریخ تحویل</string>
     <string name="EmptyList">لیست خالی است</string>
     <string name="ChooseForDelivery">انتخاب برای تحویل</string>
     <string name="ChooseVolumeDelivery">انتخاب حجم اقلام</string>
-
+    <string name="TotalScore">امتیاز کل</string>
     <string name="HowGiveScore">نحوه امتیاز دهی</string>
     <string name="LotteryResult">نتایج قرعه کشی</string>
     <string name="Lottery">قرعه کشی</string>
@@ -115,7 +117,7 @@
     <string name="EveryWeightScoreFive">هر کیلو 5 امتیاز</string>
     <string name="EveryWeightScoreTwo">هر کیلو 2 امتیاز</string>
     <string name="TotalYorBag">مجموع بار خریداری شده از شما</string>
-    <string name="GetCash">تسویه نقدی</string>
+    <string name="ConvertToCash">تبدیل به مبلغ</string>
     <string name="ConvertToScore">تبدیل به امتیاز</string>
     <string name="AboutUs">درباره ما</string>
     <string name="AboutMe">درباره سیستم مدیریت تفکیک از مبدأ</string>
@@ -135,7 +137,7 @@
     <string name="Description">توضیحات</string>
     <string name="Home">صفحه اصلی</string>
     <string name="Letsnotthrowawaythefuture">آینده را دور نریزیم</string>
-
+    <string name="ScoresDescription">شرح امتیازات</string>
     <string name="HeyWhatsPhoneNumber">سلام، شماره تلفن همراه شما چند است؟</string>
     <string name="EnterPhoneNumber">"جهت دریافت کد امنیتی \n شماره موبایل خود را در زیر وارد نمایید"</string>
     <string name="GetCode">دریافت کد</string>

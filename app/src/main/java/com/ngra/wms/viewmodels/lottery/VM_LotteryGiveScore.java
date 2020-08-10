@@ -4,7 +4,9 @@ import android.app.Activity;
 
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MD_GiveScoreItem;
+import com.ngra.wms.models.MD_ScoreListConfig;
 import com.ngra.wms.models.MR_GiveScore;
+import com.ngra.wms.models.MR_ScoreList;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Primary;
 import com.ngra.wms.views.application.ApplicationWMS;
@@ -18,15 +20,15 @@ import retrofit2.Response;
 
 public class VM_LotteryGiveScore extends VM_Primary {
 
+    private List<MD_GiveScoreItem> scoreItemsNormal;
 
-    private List<MD_GiveScoreItem> md_giveScoreItemList;
+    private List<MD_ScoreListConfig> scoreListConfigs;
 
     private List<MD_GiveScoreItem> md_userScoreItemList;
 
     public VM_LotteryGiveScore(Activity context) {//________________________________________________ VM_LotteryGiveScore
         setContext(context);
     }//_____________________________________________________________________________________________ VM_LotteryGiveScore
-
 
 
     public void GetUserScoreList() {//______________________________________________________________ GetUserScoreList
@@ -61,10 +63,7 @@ public class VM_LotteryGiveScore extends VM_Primary {
         });
 
 
-
     }//_____________________________________________________________________________________________ GetUserScoreList
-
-
 
 
     public void GetGiveScoreList() {//______________________________________________________________ GetGiveScoreList
@@ -79,12 +78,13 @@ public class VM_LotteryGiveScore extends VM_Primary {
                 .getRetrofitApiInterface()
                 .getScoreList(Authorization));
 
-        getPrimaryCall().enqueue(new Callback<MR_GiveScore>() {
+        getPrimaryCall().enqueue(new Callback<MR_ScoreList>() {
             @Override
-            public void onResponse(Call<MR_GiveScore> call, Response<MR_GiveScore> response) {
+            public void onResponse(Call<MR_ScoreList> call, Response<MR_ScoreList> response) {
                 setResponseMessage(CheckResponse(response, false));
                 if (getResponseMessage() == null) {
-                    md_giveScoreItemList = response.body().getResult();
+                    scoreItemsNormal = response.body().getResult().getNormals();
+                    scoreListConfigs = response.body().getResult().getConfigs();
                     SendMessageToObservable(StaticValues.ML_GetGiveScore);
                 } else {
                     SendMessageToObservable(StaticValues.ML_ResponseError);
@@ -93,7 +93,7 @@ public class VM_LotteryGiveScore extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MR_GiveScore> call, Throwable t) {
+            public void onFailure(Call<MR_ScoreList> call, Throwable t) {
                 OnFailureRequest();
             }
         });
@@ -101,13 +101,18 @@ public class VM_LotteryGiveScore extends VM_Primary {
     }//_____________________________________________________________________________________________ GetGiveScoreList
 
 
+    public List<MD_GiveScoreItem> getScoreItemsNormal() {//_____________________________________ getScoreItemsNormal
+        return scoreItemsNormal;
+    }//_____________________________________________________________________________________________ getScoreItemsNormal
 
-    public List<MD_GiveScoreItem> getMd_giveScoreItemList() {//_____________________________________ getMd_giveScoreItemList
-        return md_giveScoreItemList;
-    }//_____________________________________________________________________________________________ getMd_giveScoreItemList
+
+    public List<MD_ScoreListConfig> getScoreListConfigs() {//_____________________________________ getScoreListConfigs
+        return scoreListConfigs;
+    }//_____________________________________________________________________________________________ getScoreListConfigs
 
 
     public List<MD_GiveScoreItem> getMd_userScoreItemList() {//_____________________________________ getMd_userScoreItemList
         return md_userScoreItemList;
     }//_____________________________________________________________________________________________ getMd_userScoreItemList
+
 }

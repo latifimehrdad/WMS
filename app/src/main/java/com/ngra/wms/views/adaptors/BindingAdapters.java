@@ -1,5 +1,6 @@
 package com.ngra.wms.views.adaptors;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.databinding.BindingAdapter;
 
 import com.ngra.wms.R;
+import com.ngra.wms.models.MD_ScoreListItem;
 import com.ngra.wms.utility.ApplicationUtility;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.views.application.ApplicationWMS;
@@ -24,6 +26,44 @@ import java.util.Locale;
 import params.com.stepview.StatusViewScroller;
 
 public class BindingAdapters {
+
+
+    @BindingAdapter(value = {"SetScoreConfigItem","SetScoreConfigTitle"})
+    public static void SetScoreConfigItem(TextView textView, MD_ScoreListItem item, String Title) {// SetScoreConfigItem
+
+        Context context = textView.getContext();
+        StringBuilder builder = new StringBuilder();
+        Integer value = (int)item.getAmount() / 1000;
+
+/*        builder.append(context.getResources().getString(R.string.FragmentPackRequestPrimaryReceive));
+        builder.append(" ");*/
+        builder.append("هر");
+        builder.append(" ");
+        builder.append(value.toString());
+        builder.append(" ");
+        builder.append(context.getResources().getString(R.string.KGr));
+        builder.append(" ");
+        builder.append(item.getWaste().getTitle());
+/*        builder.append(" ");
+        builder.append("به");*/
+        builder.append(" ");
+        builder.append(Title);
+
+        textView.setText(builder.toString());
+
+    }//_____________________________________________________________________________________________ SetScoreConfigItem
+
+
+
+    @BindingAdapter(value = {"SetScoreItemValue"})
+    public static void SetScoreItemValue(TextView textView, double Amount) {//________________ SetOrderTotalAmount
+
+        int am = (int)Amount;
+        textView.setText(Integer.toString(am));
+
+    }//_____________________________________________________________________________________________ SetOrderTotalAmount
+
+
 
 
     @BindingAdapter(value = {"SetTicketDate"})

@@ -5,12 +5,24 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 
 import com.ngra.wms.R;
+import com.ngra.wms.daggers.retrofit.RetrofitComponent;
+import com.ngra.wms.models.MD_ScoreReport;
+import com.ngra.wms.models.MR_ScoreReport;
+import com.ngra.wms.models.MR_UserScoreInfoList;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Primary;
+import com.ngra.wms.views.application.ApplicationWMS;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.ngra.wms.views.activitys.MainActivity.complateprofile;
 
 public class VM_Home extends VM_Primary {
+
+    private MD_ScoreReport md_scoreReport;
+
 
     public VM_Home(Activity context) {//____________________________________________________________ VM_Home
         setContext(context);
@@ -55,5 +67,46 @@ public class VM_Home extends VM_Primary {
             return prefs.getBoolean(getContext().getString(R.string.ML_AddressCompleted), false);
         }
     }//_____________________________________________________________________________________________ IsAddressCompleted
+
+
+
+    public void GetScoreReport() {//________________________________________________________________ GetScoreReport
+
+        RetrofitComponent retrofitComponent = ApplicationWMS
+                .getApplicationWMS(getContext())
+                .getRetrofitComponent();
+
+        String Authorization = GetAuthorization();
+
+        setPrimaryCall(retrofitComponent
+                .getRetrofitApiInterface()
+                .getScoreReport(Authorization));
+
+        getPrimaryCall().enqueue(new Callback<MR_ScoreReport>() {
+            @Override
+            public void onResponse(Call<MR_ScoreReport> call, Response<MR_ScoreReport> response) {
+                setResponseMessage(CheckResponse(response, false));
+                if (getResponseMessage() == null) {
+                    md_scoreReport = response.body().getResult();
+                    SendMessageToObservable(StaticValues.ML_GetUserScore);
+                } else {
+                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MR_ScoreReport> call, Throwable t) {
+                OnFailureRequest();
+            }
+        });
+
+
+    }//_____________________________________________________________________________________________ GetScoreReport
+
+
+    public MD_ScoreReport getMd_scoreReport() {//___________________________________________________ getMd_scoreReport
+        return md_scoreReport;
+    }//_____________________________________________________________________________________________ getMd_scoreReport
+
 
 }

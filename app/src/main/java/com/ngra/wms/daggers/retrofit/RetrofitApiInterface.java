@@ -1,14 +1,18 @@
 package com.ngra.wms.daggers.retrofit;
 
+import com.ngra.wms.models.MR_BestScore;
 import com.ngra.wms.models.MR_BoothList;
 import com.ngra.wms.models.MR_GiveScore;
 import com.ngra.wms.models.MR_Hi;
 import com.ngra.wms.models.MR_ItemLearn;
 import com.ngra.wms.models.MR_ItemsWast;
 import com.ngra.wms.models.MR_Register;
+import com.ngra.wms.models.MR_ScoreList;
+import com.ngra.wms.models.MR_ScoreReport;
 import com.ngra.wms.models.MR_TicketList;
 import com.ngra.wms.models.MR_TicketReplyList;
 import com.ngra.wms.models.MR_TimeSheet;
+import com.ngra.wms.models.MR_UserScoreInfoList;
 import com.ngra.wms.models.MR_WasteRequest;
 import com.ngra.wms.models.MD_WasteAmountRequests;
 import com.ngra.wms.models.ModelBuildingRenovationCode;
@@ -301,11 +305,11 @@ public interface RetrofitApiInterface {
             );
 
 
-    @GET(Version + "/Score/GetScoreList")
-    Call<MR_GiveScore> getScoreList
-            (
-                    @Header("Authorization") String Authorization
-            );
+//    @GET(Version + "/Score/GetScoreList")
+//    Call<MR_GiveScore> getScoreList
+//            (
+//                    @Header("Authorization") String Authorization
+//            );
 
 
     @GET(Version + "/UserScoreInfo/GetUserScoreInfoList")
@@ -342,8 +346,9 @@ public interface RetrofitApiInterface {
     @POST(Version + "/application/hi")
     Call<MR_Hi> getHi
             (
-                    @Field("name") String name,
-                    @Header("Authorization") String Authorization
+                    @Field("client_id") String client_id,
+                    @Field("client_secret") String client_secret,
+                    @Field("name") String name
             );
 
 
@@ -410,6 +415,38 @@ public interface RetrofitApiInterface {
 
     @GET(Version + "/citizen/GetContactAddresses")
     Call<MR_SpinnerItems> getContactAddresses
+            (
+                    @Header("Authorization") String Authorization
+
+            );
+
+
+    @GET(Version + "/Score/GetScoreList")
+    Call<MR_ScoreList> getScoreList
+            (
+                    @Header("Authorization") String Authorization
+
+            );
+
+
+    @GET(Version + "/score/topscorelist")
+    Call<MR_BestScore> gettopscorelist
+            (
+                    @Header("Authorization") String Authorization
+
+            );
+
+
+    @GET(Version + "/UserScoreInfo/GetUserScoreInfoList")
+    Call<MR_UserScoreInfoList> getUserScoreInfoList
+            (
+                    @Header("Authorization") String Authorization
+
+            );
+
+
+    @GET(Version + "/UserScoreInfo/ScoreReport")
+    Call<MR_ScoreReport> getScoreReport
             (
                     @Header("Authorization") String Authorization
 

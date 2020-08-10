@@ -32,6 +32,13 @@ public class VM_Splash extends VM_Primary {
     }//_____________________________________________________________________________________________ VM_Splash
 
 
+    public void HI() {//____________________________________________________________________________ HI
+
+        GetHi();
+
+    }//_____________________________________________________________________________________________ HI
+
+
     public void CheckToken() {//____________________________________________________________________ CheckToken
 
         SharedPreferences prefs = getContext().getSharedPreferences(getContext().getString(R.string.ML_SharePreferences), 0);
@@ -52,6 +59,7 @@ public class VM_Splash extends VM_Primary {
         }
 
     }//_____________________________________________________________________________________________ CheckToken
+
 
 
     public void GetTokenFromServer() {//____________________________________________________________ GetTokenFromServer
@@ -110,7 +118,7 @@ public class VM_Splash extends VM_Primary {
                     profile = response.body().getResult();
                     if (profile != null) {
                         if (StaticFunctions.SaveProfile(getContext(), profile))
-                            GetHi();
+                            SendMessageToObservable(StaticValues.ML_GoToHome);
                     } else {
                         if (StaticFunctions.LogOut(getContext()))
                             GetTokenFromServer();
@@ -154,7 +162,7 @@ public class VM_Splash extends VM_Primary {
                 if (getResponseMessage() == null) {
                     modelToken = response.body();
                     if (StaticFunctions.SaveToken(getContext(), modelToken))
-                        GetHi();
+                        SendMessageToObservable(StaticValues.ML_GoToHome);
                 } else {
                     StaticFunctions.LogOut(getContext());
                     GetTokenFromServer();
@@ -178,12 +186,12 @@ public class VM_Splash extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getHi("1",
-                        Authorization));
+                .getHi(RetrofitApis.client_id_value,
+                        RetrofitApis.client_secret_value,
+                        "2"));
 
         getPrimaryCall().enqueue(new Callback<MR_Hi>() {
             @Override
@@ -223,7 +231,8 @@ public class VM_Splash extends VM_Primary {
         if (Version < Integer.parseInt(v))
             SendMessageToObservable(StaticValues.ML_GoToUpdate);
         else
-            SendMessageToObservable(StaticValues.ML_GoToHome);
+            CheckToken();
+
 
     }//_____________________________________________________________________________________________ CheckUpdate
 

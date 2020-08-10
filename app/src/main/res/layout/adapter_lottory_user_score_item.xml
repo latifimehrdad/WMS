@@ -8,39 +8,58 @@
     </data>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_margin="@dimen/_3sdp"
         android:paddingLeft="@dimen/_4sdp"
         android:paddingRight="@dimen/_4sdp">
 
-        <TextView
-            android:layout_width="wrap_content"
+
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/mlWhite"
+                android:textSize="@dimen/_10sdp"
+                app:SetOrderTotalAmount="@{score.value}"
+                />
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/mlWhite"
+                android:textSize="@dimen/_10sdp"
+                app:SetOrderTotalAmount="@{score.value}"
+                />
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1.3"
+            android:layout_height="wrap_content"
+            android:gravity="right|center_vertical"
             android:textColor="@color/mlWhite"
             android:textSize="@dimen/_10sdp"
             android:text="@{score.title}"
             />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/mlFooter"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:layout_marginBottom="@dimen/_2sdp"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="@color/mlWhite"
-            android:textSize="@dimen/_10sdp"
-            app:SetOrderTotalAmount="@{score.value}"
-            />
 
     </LinearLayout>
+
 </layout>
