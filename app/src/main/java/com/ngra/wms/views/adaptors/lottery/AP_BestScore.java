@@ -42,7 +42,10 @@ public class AP_BestScore extends RecyclerView.Adapter<AP_BestScore.CustomHolder
 
     @Override
     public int getItemCount() {
-        return md_bestScores.size();
+        if (md_bestScores.size() > 3)
+            return 3;
+        else
+            return md_bestScores.size();
     }
 
 

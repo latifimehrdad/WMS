@@ -191,7 +191,7 @@ public class VM_Splash extends VM_Primary {
                 .getRetrofitApiInterface()
                 .getHi(RetrofitApis.client_id_value,
                         RetrofitApis.client_secret_value,
-                        "2"));
+                        getContext().getResources().getString(R.string.UpdateAppName)));
 
         getPrimaryCall().enqueue(new Callback<MR_Hi>() {
             @Override

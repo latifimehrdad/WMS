@@ -1,7 +1,8 @@
 <resources>
 
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDbcXlcVOSpaOu9JS8IEsD9HlBlyd-w4v4</string>
-    <string name="Version">V_99_5_21_1</string>
+    <string name="Version">V_99_5_22_1</string>
+    <string name="UpdateAppName">1</string>
 
     <string name="ChooseProvinces">انتخاب استان</string>
     <string name="ProvincesSearch">جستجوی استان</string>
@@ -18,8 +19,8 @@
 
     <string name="PackageNotDelivered">قبل از درخواست جمع آوری، لطفا ابتدا به بخش درخواست پکیج بروید و تا تحویل پکیج در محل ساختمان منتظر بمانید</string>
 
-    <string name="app_name">پسماند خشک سبززیور-شهروند</string>
-<!--    <string name="app_name">پسماند خشک نگرا-شهروند</string>-->
+<!--    <string name="app_name">پسماند خشک سبززیور-شهروند</string>-->
+    <string name="app_name">پسماند خشک نگرا-شهروند</string>
 
     <string name="WMSFromFist">سیستم مدیریت تفکیک از مبدأ</string>
     <string name="Orders">درخواست ها</string>

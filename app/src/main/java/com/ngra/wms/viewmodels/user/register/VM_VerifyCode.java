@@ -51,7 +51,8 @@ public class VM_VerifyCode extends VM_Primary {
                         setResponseMessage(CheckResponse(response, false));
                         if (getResponseMessage() == null) {
                             setResponseMessage(GetMessage(response.body()));
-                            SendMessageToObservable(StaticValues.ML_GotoLogin);
+                            GetLoginVerify(getPhoneNumber(), getVerifyCode());
+                            /*SendMessageToObservable(StaticValues.ML_GotoLogin);*/
                         } else
                             SendMessageToObservable(StaticValues.ML_ResponseError);
 

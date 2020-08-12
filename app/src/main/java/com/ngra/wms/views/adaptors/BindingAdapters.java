@@ -28,6 +28,28 @@ import params.com.stepview.StatusViewScroller;
 public class BindingAdapters {
 
 
+
+
+    @BindingAdapter(value = {"SetScoreAmountValue"})
+    public static void SetScoreAmountValue(TextView textView, double Amount) {//____________________ SetScoreAmountValue
+
+        Amount = Amount / 1000;
+        String v = String.format("%.2f", Amount);
+        textView.setText(v);
+
+    }//_____________________________________________________________________________________________ SetScoreAmountValue
+
+
+    @BindingAdapter(value = {"SetScoreValue"})
+    public static void SetScoreValue(TextView textView, double Value) {//____________________ SetScoreAmountValue
+
+        String v = String.format("%.2f", Value);
+        textView.setText(v);
+
+    }//_____________________________________________________________________________________________ SetScoreAmountValue
+
+
+
     @BindingAdapter(value = {"SetScoreConfigItem","SetScoreConfigTitle"})
     public static void SetScoreConfigItem(TextView textView, MD_ScoreListItem item, String Title) {// SetScoreConfigItem
 

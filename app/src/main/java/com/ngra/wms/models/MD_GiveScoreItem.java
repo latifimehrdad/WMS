@@ -18,12 +18,20 @@ public class MD_GiveScoreItem {
     @Expose
     String description;
 
-    public MD_GiveScoreItem(Integer id, String title, float value, String description) {
+
+    @SerializedName("amount")
+    @Expose
+    double amount;
+
+
+    public MD_GiveScoreItem(Integer id, String title, float value, String description, double amount) {
         this.id = id;
         this.title = title;
         this.value = value;
         this.description = description;
+        this.amount = amount;
     }
+
 
     public Integer getId() {
         return id;
@@ -55,5 +63,13 @@ public class MD_GiveScoreItem {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 }

@@ -126,8 +126,14 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
         if (action.equals(StaticValues.ML_GoToHome)) {
             DismissProgress();
             if (getContext() != null) {
-                getContext().onBackPressed();
-                getContext().onBackPressed();
+                if (VerifyType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_SingUp))) {
+                    getContext().onBackPressed();
+                    getContext().onBackPressed();
+                    getContext().onBackPressed();
+                } else {
+                    getContext().onBackPressed();
+                    getContext().onBackPressed();
+                }
             }
             return;
         }

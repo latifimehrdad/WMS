@@ -57,9 +57,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:textColor="@color/mlWhite"
+                        android:textColor="@color/mlHarmony"
                         android:textSize="@dimen/_12sdp"
-                        android:background="@drawable/button_dark_blue"
+                        android:background="@drawable/dw_back_item_ticket"
                         android:padding="@dimen/_3sdp"
                         android:text="@string/HowGiveScore"
                         />
@@ -149,9 +149,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:textColor="@color/mlWhite"
+                        android:textColor="@color/mlHarmony"
                         android:textSize="@dimen/_12sdp"
-                        android:background="@drawable/button_dark_blue"
+                        android:background="@drawable/dw_back_item_ticket"
                         android:padding="@dimen/_3sdp"
                         android:text="@string/HowGiveScore"
                         />

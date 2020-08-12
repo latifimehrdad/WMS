@@ -31,7 +31,7 @@
                 android:gravity="center"
                 android:textColor="@color/mlWhite"
                 android:textSize="@dimen/_10sdp"
-                app:SetOrderTotalAmount="@{score.value}"
+                app:SetScoreValue="@{score.value}"
                 />
 
 
@@ -42,7 +42,7 @@
                 android:gravity="center"
                 android:textColor="@color/mlWhite"
                 android:textSize="@dimen/_10sdp"
-                app:SetOrderTotalAmount="@{score.value}"
+                app:SetScoreAmountValue="@{score.amount}"
                 />
 
 
