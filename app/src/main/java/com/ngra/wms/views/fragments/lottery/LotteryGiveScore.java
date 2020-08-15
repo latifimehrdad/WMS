@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import butterknife.BindView;
 
 
-public class LotteryGiveScore extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class LotteryGiveScore extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
 
     private VM_LotteryGiveScore vm_lotteryGiveScore;
@@ -67,7 +67,7 @@ public class LotteryGiveScore extends FragmentPrimary implements FragmentPrimary
     @Override
     public void onStart() {//_______________________________________________________________________ Start onStart
         super.onStart();
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 LotteryGiveScore.this,
                 vm_lotteryGiveScore.getPublishSubject(),
                 vm_lotteryGiveScore);
@@ -81,7 +81,7 @@ public class LotteryGiveScore extends FragmentPrimary implements FragmentPrimary
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 /*
 
         if (action.equals(StaticValues.ML_GetUserScore)) {

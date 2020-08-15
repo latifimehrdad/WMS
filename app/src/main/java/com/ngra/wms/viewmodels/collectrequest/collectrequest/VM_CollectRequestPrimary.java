@@ -8,7 +8,6 @@ import com.ngra.wms.models.MD_WasteAmountRequests;
 import com.ngra.wms.models.MR_SpinnerItems;
 import com.ngra.wms.models.ModelResponsePrimary;
 import com.ngra.wms.models.MD_TimeSheet;
-import com.ngra.wms.models.MR_TimeSheet;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Primary;
 import com.ngra.wms.views.application.ApplicationWMS;
@@ -82,7 +81,7 @@ public class VM_CollectRequestPrimary extends VM_Primary {
                 .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -91,19 +90,19 @@ public class VM_CollectRequestPrimary extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MD_TimeSheet>() {
             @Override
             public void onResponse(Call<MD_TimeSheet> call, Response<MD_TimeSheet> response) {
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
 //                    MRTimes = response.body().getResult();
-                    SendMessageToObservable(StaticValues.ML_GetTimeSheet);
+                    sendActionToObservable(StaticValues.ML_GetTimeSheet);
                 } else {
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
                 }
 
             }
 
             @Override
             public void onFailure(Call<MD_TimeSheet> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 
@@ -119,7 +118,7 @@ public class VM_CollectRequestPrimary extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
 
         Call<MR_SpinnerItems> call = retrofitComponent
@@ -130,17 +129,17 @@ public class VM_CollectRequestPrimary extends VM_Primary {
         call.enqueue(new Callback<MR_SpinnerItems>() {
             @Override
             public void onResponse(Call<MR_SpinnerItems> call, Response<MR_SpinnerItems> response) {
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     WasteEstimates = response.body().getResult();
-                    SendMessageToObservable(StaticValues.ML_GetVolume);
+                    sendActionToObservable(StaticValues.ML_GetVolume);
                 } else
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
             public void onFailure(Call<MR_SpinnerItems> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 
@@ -155,7 +154,7 @@ public class VM_CollectRequestPrimary extends VM_Primary {
                 .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -166,19 +165,19 @@ public class VM_CollectRequestPrimary extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
             @Override
             public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
-                    setResponseMessage(GetMessage(response.body()));
-                    SendMessageToObservable(StaticValues.ML_CollectRequestDone);
+                    setResponseMessage(getResponseMessage(response.body()));
+                    sendActionToObservable(StaticValues.ML_CollectRequestDone);
                 } else {
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
                 }
 
             }
 
             @Override
             public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 

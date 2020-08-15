@@ -25,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
 
-public class Conversation extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class Conversation extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
 
     private VM_Conversation vm_conversation;
@@ -89,7 +89,7 @@ public class Conversation extends FragmentPrimary implements FragmentPrimary.Get
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 Conversation.this,
                 vm_conversation.getPublishSubject(),
                 vm_conversation);
@@ -101,7 +101,7 @@ public class Conversation extends FragmentPrimary implements FragmentPrimary.Get
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         gifLoading.setVisibility(View.GONE);
 

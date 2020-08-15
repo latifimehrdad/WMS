@@ -37,7 +37,7 @@ public class VM_LotteryGiveScore extends VM_Primary {
                 .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -46,19 +46,19 @@ public class VM_LotteryGiveScore extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_GiveScore>() {
             @Override
             public void onResponse(Call<MR_GiveScore> call, Response<MR_GiveScore> response) {
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     md_userScoreItemList = response.body().getResult();
                     Collections.reverse(md_userScoreItemList);
-                    SendMessageToObservable(StaticValues.ML_GetUserScore);
+                    sendActionToObservable(StaticValues.ML_GetUserScore);
                 } else {
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
                 }
             }
 
             @Override
             public void onFailure(Call<MR_GiveScore> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 
@@ -72,7 +72,7 @@ public class VM_LotteryGiveScore extends VM_Primary {
                 .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -81,20 +81,20 @@ public class VM_LotteryGiveScore extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_ScoreList>() {
             @Override
             public void onResponse(Call<MR_ScoreList> call, Response<MR_ScoreList> response) {
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     scoreItemsNormal = response.body().getResult().getNormals();
                     scoreListConfigs = response.body().getResult().getConfigs();
-                    SendMessageToObservable(StaticValues.ML_GetGiveScore);
+                    sendActionToObservable(StaticValues.ML_GetGiveScore);
                 } else {
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
                 }
 
             }
 
             @Override
             public void onFailure(Call<MR_ScoreList> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 

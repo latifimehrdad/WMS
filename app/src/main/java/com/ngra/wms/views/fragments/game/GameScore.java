@@ -9,13 +9,12 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 
 import com.ngra.wms.R;
-import com.ngra.wms.databinding.FragmentGameNewBinding;
 import com.ngra.wms.databinding.FragmentGameScoreBinding;
 import com.ngra.wms.views.fragments.FragmentPrimary;
 
 import butterknife.ButterKnife;
 
-public class GameScore extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class GameScore extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
 
     public GameScore() {//____________________________________________________________________ Start FragmentGameNew
@@ -48,7 +47,7 @@ public class GameScore extends FragmentPrimary implements FragmentPrimary.GetMes
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {
+    public void getActionFromObservable(Byte action) {
 
     }
 }

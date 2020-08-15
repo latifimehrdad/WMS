@@ -32,7 +32,7 @@ public class VM_Ticket extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
 
         setPrimaryCall(retrofitComponent
@@ -43,17 +43,17 @@ public class VM_Ticket extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_TicketList>() {
             @Override
             public void onResponse(Call<MR_TicketList> call, Response<MR_TicketList> response) {
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     md_usersTicketLists = response.body().getResult();
-                    SendMessageToObservable(StaticValues.ML_GetAllTicket);
+                    sendActionToObservable(StaticValues.ML_GetAllTicket);
                 } else
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
             public void onFailure(Call<MR_TicketList> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 

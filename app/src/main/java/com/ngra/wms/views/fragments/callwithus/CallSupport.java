@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
 
-public class CallSupport extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class CallSupport extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
 
     private VM_Support vm_support;
@@ -88,7 +88,7 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.GetM
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 CallSupport.this,
                 vm_support.getPublishSubject(),
                 vm_support);
@@ -96,7 +96,7 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.GetM
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         DismissLoading();
 

@@ -11,7 +11,7 @@ import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MD_Hi;
 import com.ngra.wms.models.MR_Hi;
 import com.ngra.wms.models.ModelSettingInfo;
-import com.ngra.wms.models.ModelToken;
+import com.ngra.wms.models.MD_Token;
 import com.ngra.wms.utility.StaticFunctions;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Primary;
@@ -23,46 +23,49 @@ import retrofit2.Response;
 
 public class VM_Splash extends VM_Primary {
 
-    private ModelToken modelToken;
+    private MD_Token md_Token;
     private ModelSettingInfo.ModelProfileSetting profile;
     private MD_Hi md_hi;
 
-    public VM_Splash(Activity context) {//__________________________________________________________ VM_Splash
+    //______________________________________________________________________________________________ VM_Splash
+    public VM_Splash(Activity context) {
         setContext(context);
-    }//_____________________________________________________________________________________________ VM_Splash
+    }
+    //______________________________________________________________________________________________ VM_Splash
 
 
-    public void HI() {//____________________________________________________________________________ HI
+    //______________________________________________________________________________________________ callHI
+    public void callHI() {
+        callHiService();
+    }
+    //______________________________________________________________________________________________ callHI
 
-        GetHi();
 
-    }//_____________________________________________________________________________________________ HI
-
-
-    public void CheckToken() {//____________________________________________________________________ CheckToken
+    //______________________________________________________________________________________________ checkToken
+    public void checkToken() {
 
         SharedPreferences prefs = getContext().getSharedPreferences(getContext().getString(R.string.ML_SharePreferences), 0);
         if (prefs == null) {
-            GetTokenFromServer();
+            getTokenFromServer();
         } else {
-            String access_token = prefs.getString(getContext().getString(R.string.ML_AccessToken), null);
+            String accessToken = prefs.getString(getContext().getString(R.string.ML_AccessToken), null);
             String expires = prefs.getString(getContext().getString(R.string.ML_Expires), null);
-            String PhoneNumber = prefs.getString(getContext().getString(R.string.ML_PhoneNumber), null);
-            if ((access_token == null) || (expires == null))
-                GetTokenFromServer();
+            String phoneNumber = prefs.getString(getContext().getString(R.string.ML_PhoneNumber), null);
+            if ((accessToken == null) || (expires == null))
+                getTokenFromServer();
             else {
-                if (PhoneNumber != null) {
-                    GetLoginInformation();
+                if (phoneNumber != null) {
+                    getLoginInformation();
                 } else
-                    GetTokenFromServer();
+                    getTokenFromServer();
             }
         }
+    }
+    //______________________________________________________________________________________________ checkToken
 
-    }//_____________________________________________________________________________________________ CheckToken
 
-
-
-    public void GetTokenFromServer() {//____________________________________________________________ GetTokenFromServer
+    //______________________________________________________________________________________________ getTokenFromServer
+    public void getTokenFromServer() {
 
         RetrofitComponent retrofitComponent = ApplicationWMS
                 .getApplicationWMS(getContext())
@@ -75,77 +78,77 @@ public class VM_Splash extends VM_Primary {
                         RetrofitApis.client_secret_value,
                         RetrofitApis.grant_type_value));
 
-        getPrimaryCall().enqueue(new Callback<ModelToken>() {
+        getPrimaryCall().enqueue(new Callback<MD_Token>() {
             @Override
-            public void onResponse(Call<ModelToken> call, Response<ModelToken> response) {
-                setResponseMessage(CheckResponse(response, true));
+            public void onResponse(Call<MD_Token> call, Response<MD_Token> response) {
+                setResponseMessage(checkResponse(response, true));
                 if (getResponseMessage() == null) {
-                    modelToken = response.body();
-                    if (StaticFunctions.SaveToken(getContext(), modelToken))
-                        SendMessageToObservable(StaticValues.ML_GotoLogin);
+                    md_Token = response.body();
+                    if (StaticFunctions.SaveToken(getContext(), md_Token))
+                        sendActionToObservable(StaticValues.ML_GotoLogin);
                 } else
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
-            public void onFailure(Call<ModelToken> call, Throwable t) {
-                OnFailureRequest();
+            public void onFailure(Call<MD_Token> call, Throwable t) {
+                onFailureRequest();
             }
         });
+    }
+    //______________________________________________________________________________________________ getTokenFromServer
 
-    }//_____________________________________________________________________________________________ GetTokenFromServer
 
-
-    public void GetLoginInformation() {//___________________________________________________________ GetLoginInformation
+    //______________________________________________________________________________________________ getLoginInformation
+    public void getLoginInformation() {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .getSettingInfo(
-                        Authorization));
+                        authorization));
 
         getPrimaryCall().enqueue(new Callback<ModelSettingInfo>() {
             @Override
             public void onResponse(Call<ModelSettingInfo> call, Response<ModelSettingInfo> response) {
-                setResponseMessage(CheckResponse(response, true));
+                setResponseMessage(checkResponse(response, true));
                 if (getResponseMessage() == null) {
                     profile = response.body().getResult();
                     if (profile != null) {
                         if (StaticFunctions.SaveProfile(getContext(), profile))
-                            SendMessageToObservable(StaticValues.ML_GoToHome);
+                            sendActionToObservable(StaticValues.ML_GoToHome);
                     } else {
                         if (StaticFunctions.LogOut(getContext()))
-                            GetTokenFromServer();
+                            getTokenFromServer();
                     }
                 } else
-                    RefreshTokenFromServer();
+                    refreshToken();
             }
 
             @Override
             public void onFailure(Call<ModelSettingInfo> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
-
-    }//_____________________________________________________________________________________________ GetLoginInformation
-
-
+    }
+    //______________________________________________________________________________________________ getLoginInformation
 
 
-    public void RefreshTokenFromServer() {//____________________________________________________________ GetTokenFromServer
+    //______________________________________________________________________________________________ refreshToken
+    public void refreshToken() {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String refresh_token = GetRefreshToken();
+        String refresh_token = getRefreshTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -155,31 +158,31 @@ public class VM_Splash extends VM_Primary {
                         RetrofitApis.grant_type_value_Refresh_Token,
                         refresh_token));
 
-        getPrimaryCall().enqueue(new Callback<ModelToken>() {
+        getPrimaryCall().enqueue(new Callback<MD_Token>() {
             @Override
-            public void onResponse(Call<ModelToken> call, Response<ModelToken> response) {
-                setResponseMessage(CheckResponse(response, true));
+            public void onResponse(Call<MD_Token> call, Response<MD_Token> response) {
+                setResponseMessage(checkResponse(response, true));
                 if (getResponseMessage() == null) {
-                    modelToken = response.body();
-                    if (StaticFunctions.SaveToken(getContext(), modelToken))
-                        SendMessageToObservable(StaticValues.ML_GoToHome);
+                    md_Token = response.body();
+                    if (StaticFunctions.SaveToken(getContext(), md_Token))
+                        sendActionToObservable(StaticValues.ML_GoToHome);
                 } else {
                     StaticFunctions.LogOut(getContext());
-                    GetTokenFromServer();
+                    getTokenFromServer();
                 }
             }
 
             @Override
-            public void onFailure(Call<ModelToken> call, Throwable t) {
-                OnFailureRequest();
+            public void onFailure(Call<MD_Token> call, Throwable t) {
+                onFailureRequest();
             }
         });
+    }
+    //______________________________________________________________________________________________ refreshToken
 
-    }//_____________________________________________________________________________________________ GetTokenFromServer
 
-
-
-    public void GetHi() {//_________________________________________________________________________ GetHi
+    //______________________________________________________________________________________________ callHiService
+    public void callHiService() {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
@@ -196,30 +199,31 @@ public class VM_Splash extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_Hi>() {
             @Override
             public void onResponse(Call<MR_Hi> call, Response<MR_Hi> response) {
-                setResponseMessage(CheckResponse(response, true));
+                setResponseMessage(checkResponse(response, true));
                 if (getResponseMessage() == null) {
                     md_hi = response.body().getResult();
                     setResponseMessage("");
-                    CheckUpdate();
+                    checkUpdate();
                 } else
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
             public void onFailure(Call<MR_Hi> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
+    }
+    //______________________________________________________________________________________________ callHiService
 
-    }//_____________________________________________________________________________________________ GetHi
 
-
-    private void CheckUpdate() {//__________________________________________________________________ CheckUpdate
+    //______________________________________________________________________________________________ checkUpdate
+    private void checkUpdate() {
         PackageInfo pInfo;
-        int Version = 0;
+        int version = 0;
         try {
             pInfo = getContext().getPackageManager().getPackageInfo(getContext().getPackageName(), 0);
-            Version = pInfo.versionCode;
+            version = pInfo.versionCode;
         } catch (PackageManager.NameNotFoundException ignored) {
         }
 
@@ -227,19 +231,19 @@ public class VM_Splash extends VM_Primary {
         v = v.replaceAll("v", "");
 
 
-
-        if (Version < Integer.parseInt(v))
-            SendMessageToObservable(StaticValues.ML_GoToUpdate);
+        if (version < Integer.parseInt(v))
+            sendActionToObservable(StaticValues.ML_GoToUpdate);
         else
-            CheckToken();
+            checkToken();
+    }
+    //______________________________________________________________________________________________ checkUpdate
 
 
-    }//_____________________________________________________________________________________________ CheckUpdate
-
-
-    public MD_Hi getMd_hi() {//_____________________________________________________________________ getMd_hi
+    //______________________________________________________________________________________________ getMd_hi
+    public MD_Hi getMd_hi() {
         return md_hi;
-    }//_____________________________________________________________________________________________ getMd_hi
+    }
+    //______________________________________________________________________________________________ getMd_hi
 
 }
 

@@ -5,9 +5,7 @@ import android.app.Activity;
 import com.ngra.wms.daggers.retrofit.RetrofitApis;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.ModelResponsePrimary;
-import com.ngra.wms.models.ModelSettingInfo;
-import com.ngra.wms.models.ModelToken;
-import com.ngra.wms.utility.StaticFunctions;
+import com.ngra.wms.models.MD_Token;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Primary;
 import com.ngra.wms.views.application.ApplicationWMS;
@@ -18,7 +16,7 @@ import retrofit2.Response;
 
 public class VM_Login extends VM_Primary {
 
-    private ModelToken modelToken;
+    private MD_Token MDToken;
 
     public VM_Login(Activity context) {//___________________________________________________________ VM_Login
         setContext(context);
@@ -39,7 +37,7 @@ public class VM_Login extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -51,18 +49,18 @@ public class VM_Login extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
             @Override
             public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
-                    setResponseMessage(GetMessage(response.body()));
-                    SendMessageToObservable(StaticValues.ML_Success);
+                    setResponseMessage(getResponseMessage(response.body()));
+                    sendActionToObservable(StaticValues.ML_Success);
                 } else {
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
                 }
             }
 
             @Override
             public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 

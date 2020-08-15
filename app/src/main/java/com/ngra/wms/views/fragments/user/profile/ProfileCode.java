@@ -26,7 +26,7 @@ import butterknife.BindView;
 
 import static com.ngra.wms.utility.StaticFunctions.TextChangeForChangeBack;
 
-public class ProfileCode extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class ProfileCode extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
     private VM_ProfileCode vm_profileCode;
 
@@ -67,7 +67,7 @@ public class ProfileCode extends FragmentPrimary implements FragmentPrimary.GetM
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 ProfileCode.this,
                 vm_profileCode.getPublishSubject(),
                 vm_profileCode);
@@ -81,7 +81,7 @@ public class ProfileCode extends FragmentPrimary implements FragmentPrimary.GetM
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         DismissLoading();
 

@@ -4,7 +4,6 @@ import android.app.Activity;
 
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MR_ScoreList2;
-import com.ngra.wms.models.MR_UserScoreInfoList;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Primary;
 import com.ngra.wms.views.application.ApplicationWMS;
@@ -34,7 +33,7 @@ public class VM_CollectRequest extends VM_Primary {
                 .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -43,19 +42,19 @@ public class VM_CollectRequest extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_ScoreList2>() {
             @Override
             public void onResponse(Call<MR_ScoreList2> call, Response<MR_ScoreList2> response) {
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     ScoreBooth = response.body().getResult().getBooth();
                     ScoreVehicle = response.body().getResult().getVehicle();
-                    SendMessageToObservable(StaticValues.ML_GetUserScore);
+                    sendActionToObservable(StaticValues.ML_GetUserScore);
                 } else {
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
                 }
             }
 
             @Override
             public void onFailure(Call<MR_ScoreList2> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 

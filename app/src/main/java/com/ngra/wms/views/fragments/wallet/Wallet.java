@@ -29,7 +29,7 @@ import java.util.List;
 import butterknife.BindView;
 
 
-public class Wallet extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class Wallet extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
     String[] months = {"فرردین","اردیبهشت","خرداد","تیر","مرداد","شهریور","مهر","آبان","آذر","دی","بهمن","اسفند"};
 
@@ -65,7 +65,7 @@ public class Wallet extends FragmentPrimary implements FragmentPrimary.GetMessag
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 

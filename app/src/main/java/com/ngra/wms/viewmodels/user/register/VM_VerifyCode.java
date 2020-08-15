@@ -6,7 +6,7 @@ import com.ngra.wms.daggers.retrofit.RetrofitApis;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.ModelResponsePrimary;
 import com.ngra.wms.models.ModelSettingInfo;
-import com.ngra.wms.models.ModelToken;
+import com.ngra.wms.models.MD_Token;
 import com.ngra.wms.utility.StaticFunctions;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Primary;
@@ -20,7 +20,7 @@ public class VM_VerifyCode extends VM_Primary {
 
     private String PhoneNumber;
     private String VerifyCode;
-    private ModelToken modelToken;
+    private MD_Token MDToken;
     /*    private String Password;*/
 
 
@@ -36,7 +36,7 @@ public class VM_VerifyCode extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         retrofitComponent
                 .getRetrofitApiInterface()
@@ -48,19 +48,19 @@ public class VM_VerifyCode extends VM_Primary {
                 .enqueue(new Callback<ModelResponsePrimary>() {
                     @Override
                     public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
-                        setResponseMessage(CheckResponse(response, false));
+                        setResponseMessage(checkResponse(response, false));
                         if (getResponseMessage() == null) {
-                            setResponseMessage(GetMessage(response.body()));
+                            setResponseMessage(getResponseMessage(response.body()));
                             GetLoginVerify(getPhoneNumber(), getVerifyCode());
                             /*SendMessageToObservable(StaticValues.ML_GotoLogin);*/
                         } else
-                            SendMessageToObservable(StaticValues.ML_ResponseError);
+                            sendActionToObservable(StaticValues.ML_ResponseError);
 
                     }
 
                     @Override
                     public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
-                        OnFailureRequest();
+                        onFailureRequest();
                     }
                 });
 
@@ -74,7 +74,7 @@ public class VM_VerifyCode extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -85,18 +85,18 @@ public class VM_VerifyCode extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
             @Override
             public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
-                    setResponseMessage(GetMessage(response.body()));
-                    SendMessageToObservable(StaticValues.ML_Success);
+                    setResponseMessage(getResponseMessage(response.body()));
+                    sendActionToObservable(StaticValues.ML_Success);
                 } else {
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
                 }
             }
 
             @Override
             public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 
@@ -116,7 +116,7 @@ public class VM_VerifyCode extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -127,21 +127,21 @@ public class VM_VerifyCode extends VM_Primary {
                         VerifyCode,
                         Authorization));
 
-        getPrimaryCall().enqueue(new Callback<ModelToken>() {
+        getPrimaryCall().enqueue(new Callback<MD_Token>() {
             @Override
-            public void onResponse(Call<ModelToken> call, Response<ModelToken> response) {
-                setResponseMessage(CheckResponse(response, true));
+            public void onResponse(Call<MD_Token> call, Response<MD_Token> response) {
+                setResponseMessage(checkResponse(response, true));
                 if (getResponseMessage() == null) {
-                    modelToken = response.body();
-                    if (StaticFunctions.SaveToken(getContext(), modelToken))
+                    MDToken = response.body();
+                    if (StaticFunctions.SaveToken(getContext(), MDToken))
                         GetLoginInformation();
                 } else
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
-            public void onFailure(Call<ModelToken> call, Throwable t) {
-                OnFailureRequest();
+            public void onFailure(Call<MD_Token> call, Throwable t) {
+                onFailureRequest();
             }
         });
 
@@ -155,7 +155,7 @@ public class VM_VerifyCode extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -165,17 +165,17 @@ public class VM_VerifyCode extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<ModelSettingInfo>() {
             @Override
             public void onResponse(Call<ModelSettingInfo> call, Response<ModelSettingInfo> response) {
-                setResponseMessage(CheckResponse(response, true));
+                setResponseMessage(checkResponse(response, true));
                 if (getResponseMessage() == null) {
                     if (StaticFunctions.SaveProfile(getContext(), response.body().getResult()))
-                        SendMessageToObservable(StaticValues.ML_GoToHome);
+                        sendActionToObservable(StaticValues.ML_GoToHome);
                 } else
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
             public void onFailure(Call<ModelSettingInfo> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 
@@ -195,7 +195,7 @@ public class VM_VerifyCode extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -207,18 +207,18 @@ public class VM_VerifyCode extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
             @Override
             public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
-                    setResponseMessage(GetMessage(response.body()));
-                    SendMessageToObservable(StaticValues.ML_Success);
+                    setResponseMessage(getResponseMessage(response.body()));
+                    sendActionToObservable(StaticValues.ML_Success);
                 } else {
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
                 }
             }
 
             @Override
             public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 

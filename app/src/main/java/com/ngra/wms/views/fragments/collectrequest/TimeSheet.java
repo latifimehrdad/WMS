@@ -28,7 +28,7 @@ import org.jetbrains.annotations.NotNull;
 import butterknife.BindView;
 
 public class TimeSheet extends FragmentPrimary implements
-        FragmentPrimary.GetMessageFromObservable,
+        FragmentPrimary.getActionFromObservable,
         AP_TimeSheet.ItemTimeClick,
         AP_TimeSheetItem.ItemTimeItemClick {
 
@@ -86,7 +86,7 @@ public class TimeSheet extends FragmentPrimary implements
     @Override
     public void onStart() {
         super.onStart();
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 TimeSheet.this,
                 vm_timeSheet.getPublishSubject(),
                 vm_timeSheet);
@@ -117,7 +117,7 @@ public class TimeSheet extends FragmentPrimary implements
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         gifLoading.setVisibility(View.GONE);
         gifLoadingSend.setVisibility(View.GONE);
@@ -149,7 +149,7 @@ public class TimeSheet extends FragmentPrimary implements
 
         LinearLayoutNext.setOnClickListener(v -> {
             if (TimeSheetId < 0) {
-                ShowMessage(getContext().getResources().getString(R.string.EmptyTimeSheet),
+                showMessageDialog(getContext().getResources().getString(R.string.EmptyTimeSheet),
                         getResources().getColor(R.color.mlWhite),
                         getResources().getDrawable(R.drawable.ic_error),
                         getResources().getColor(R.color.mlCollectRight1));

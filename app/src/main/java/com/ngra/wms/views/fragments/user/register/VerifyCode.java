@@ -28,7 +28,7 @@ import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
 
-public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class VerifyCode extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
     private VM_VerifyCode vm_verifyCode;
     private String PhoneNumber = "";
@@ -91,7 +91,7 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 VerifyCode.this,
                 vm_verifyCode.getPublishSubject(),
                 vm_verifyCode);
@@ -110,7 +110,7 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.GetMe
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
 
 

@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
 
-public class Lottery extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class Lottery extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
     private VM_Lottery vm_lottery;
 
@@ -57,7 +57,7 @@ public class Lottery extends FragmentPrimary implements FragmentPrimary.GetMessa
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 Lottery.this,
                 vm_lottery.getPublishSubject(),
                 vm_lottery);
@@ -66,7 +66,7 @@ public class Lottery extends FragmentPrimary implements FragmentPrimary.GetMessa
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 

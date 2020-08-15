@@ -31,7 +31,7 @@ public class VM_LearnItem extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -41,19 +41,19 @@ public class VM_LearnItem extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_ItemLearn>() {
             @Override
             public void onResponse(Call<MR_ItemLearn> call, Response<MR_ItemLearn> response) {
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     itemLearns = response.body().getItemLearns();
-                    SendMessageToObservable(StaticValues.ML_GetItemLearn);
+                    sendActionToObservable(StaticValues.ML_GetItemLearn);
                 }
                 else {
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
                 }
             }
 
             @Override
             public void onFailure(Call<MR_ItemLearn> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 

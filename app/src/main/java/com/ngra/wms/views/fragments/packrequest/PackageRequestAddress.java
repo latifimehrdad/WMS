@@ -59,7 +59,7 @@ import butterknife.BindView;
 import static com.ngra.wms.utility.StaticFunctions.TextChangeForChangeBack;
 
 public class PackageRequestAddress extends FragmentPrimary implements
-        FragmentPrimary.GetMessageFromObservable, OnMapReadyCallback {
+        FragmentPrimary.getActionFromObservable, OnMapReadyCallback {
 
 
     private NavController navController;
@@ -157,7 +157,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
         super.onStart();
         if (getView() != null)
             navController = Navigation.findNavController(getView());
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 PackageRequestAddress.this,
                 vm_packageRequestAddress.getPublishSubject(),
                 vm_packageRequestAddress);
@@ -198,7 +198,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         DismissLoading();
         if (action.equals(StaticValues.ML_GetAddress)) {
@@ -330,7 +330,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
                 float zoom = (float) 16;
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(current, zoom));
 
-                ShowMessage(
+                showMessageDialog(
                         getResources().getString(R.string.NotFoundLocation)
                         , getResources().getColor(R.color.mlWhite),
                         getResources().getDrawable(R.drawable.ic_error),

@@ -32,7 +32,7 @@ public class VM_Conversation extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
 
         setPrimaryCall(retrofitComponent
@@ -44,17 +44,17 @@ public class VM_Conversation extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_TicketReplyList>() {
             @Override
             public void onResponse(Call<MR_TicketReplyList> call, Response<MR_TicketReplyList> response) {
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     md_ticketReplyDtos = response.body().getResult();
-                    SendMessageToObservable(StaticValues.ML_GetAllTicketReply);
+                    sendActionToObservable(StaticValues.ML_GetAllTicketReply);
                 } else
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
             public void onFailure(Call<MR_TicketReplyList> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 
@@ -70,7 +70,7 @@ public class VM_Conversation extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
 
         setPrimaryCall(retrofitComponent
@@ -83,16 +83,16 @@ public class VM_Conversation extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_TicketReplyList>() {
             @Override
             public void onResponse(Call<MR_TicketReplyList> call, Response<MR_TicketReplyList> response) {
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     GetAllReply(ReplyId);
                 } else
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
             public void onFailure(Call<MR_TicketReplyList> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 
@@ -108,7 +108,7 @@ public class VM_Conversation extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
 
         setPrimaryCall(retrofitComponent
@@ -120,16 +120,16 @@ public class VM_Conversation extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_TicketReplyList>() {
             @Override
             public void onResponse(Call<MR_TicketReplyList> call, Response<MR_TicketReplyList> response) {
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
-                    SendMessageToObservable(StaticValues.ML_CloseTicket);
+                    sendActionToObservable(StaticValues.ML_CloseTicket);
                 } else
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
             public void onFailure(Call<MR_TicketReplyList> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 

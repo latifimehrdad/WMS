@@ -1,7 +1,6 @@
 package com.ngra.wms.views.fragments.user.register;
 
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,7 @@ import butterknife.BindView;
 
 import static com.ngra.wms.utility.StaticFunctions.TextChangeForChangeBack;
 
-public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class SignUp extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
     private NavController navController;
     private boolean passVisible;
@@ -83,7 +82,7 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 SignUp.this,
                 vm_signUp.getPublishSubject(),
                 vm_signUp);
@@ -106,7 +105,7 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.GetMessag
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
 
         DismissLoading();

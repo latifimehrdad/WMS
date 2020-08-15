@@ -27,7 +27,7 @@ import butterknife.BindView;
 import static com.ngra.wms.views.fragments.collectrequest.ChooseWaste.wasteLists;
 
 public class CollectRequest extends FragmentPrimary implements
-        FragmentPrimary.GetMessageFromObservable,
+        FragmentPrimary.getActionFromObservable,
         AP_ItemsWasteList.ItemWasteListClicks  {
 
 
@@ -74,7 +74,7 @@ public class CollectRequest extends FragmentPrimary implements
     @Override
     public void onStart() {
         super.onStart();
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 CollectRequest.this,
                 vm_collectRequest.getPublishSubject(),
                 vm_collectRequest);
@@ -102,7 +102,7 @@ public class CollectRequest extends FragmentPrimary implements
                 for (String s: vm_collectRequest.getScoreBooth())
                     score = score + s + System.getProperty("line.separator");
 
-            ShowMessage(score
+            showMessageDialog(score
                     , getResources().getColor(R.color.mlWhite),
                     getResources().getDrawable(R.drawable.ic_check),
                     getResources().getColor(R.color.colorPrimaryDark));
@@ -116,7 +116,7 @@ public class CollectRequest extends FragmentPrimary implements
                 for (String s: vm_collectRequest.getScoreVehicle())
                     score = score + s + System.getProperty("line.separator");
 
-            ShowMessage(score
+            showMessageDialog(score
                     , getResources().getColor(R.color.mlWhite),
                     getResources().getDrawable(R.drawable.ic_check),
                     getResources().getColor(R.color.colorPrimaryDark));
@@ -136,7 +136,7 @@ public class CollectRequest extends FragmentPrimary implements
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable

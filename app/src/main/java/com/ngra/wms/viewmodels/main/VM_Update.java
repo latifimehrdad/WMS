@@ -59,7 +59,7 @@ public class VM_Update extends VM_Primary {
             public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     setResponseMessage("");
-                    SendMessageToObservable(StaticValues.ML_Success);
+                    sendActionToObservable(StaticValues.ML_Success);
                     downloadZipFileTask = new DownloadZipFileTask();
                     downloadZipFileTask.execute(response.body());
 
@@ -83,7 +83,7 @@ public class VM_Update extends VM_Primary {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            SendMessageToObservable(StaticValues.ML_FileDownloading);
+            sendActionToObservable(StaticValues.ML_FileDownloading);
 
         }
 
@@ -97,7 +97,7 @@ public class VM_Update extends VM_Primary {
 
 
             if (progress[0].first == 100)
-                SendMessageToObservable(StaticValues.ML_FileDownloaded);
+                sendActionToObservable(StaticValues.ML_FileDownloaded);
 
 
             if (progress[0].second > 0) {

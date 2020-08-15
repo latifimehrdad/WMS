@@ -3,16 +3,11 @@ package com.ngra.wms.viewmodels.lottery;
 import android.app.Activity;
 
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
-import com.ngra.wms.models.MD_GiveScoreItem;
 import com.ngra.wms.models.MD_UserScoreInfoList;
-import com.ngra.wms.models.MR_GiveScore;
 import com.ngra.wms.models.MR_UserScoreInfoList;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Primary;
 import com.ngra.wms.views.application.ApplicationWMS;
-
-import java.util.Collections;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,7 +32,7 @@ public class VM_UserScore extends VM_Primary {
                 .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -46,18 +41,18 @@ public class VM_UserScore extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_UserScoreInfoList>() {
             @Override
             public void onResponse(Call<MR_UserScoreInfoList> call, Response<MR_UserScoreInfoList> response) {
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     md_userScoreInfoList = response.body().getResult();
-                    SendMessageToObservable(StaticValues.ML_GetUserScore);
+                    sendActionToObservable(StaticValues.ML_GetUserScore);
                 } else {
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
                 }
             }
 
             @Override
             public void onFailure(Call<MR_UserScoreInfoList> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 

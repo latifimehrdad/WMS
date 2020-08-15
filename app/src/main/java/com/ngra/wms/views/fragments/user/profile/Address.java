@@ -32,7 +32,7 @@ import org.jetbrains.annotations.NotNull;
 import butterknife.BindView;
 
 public class Address extends FragmentPrimary implements
-        FragmentPrimary.GetMessageFromObservable,
+        FragmentPrimary.getActionFromObservable,
         AP_Address.ItemAddressClick {
 
 
@@ -77,7 +77,7 @@ public class Address extends FragmentPrimary implements
     @Override
     public void onStart() {
         super.onStart();
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 Address.this,
                 vm_address.getPublishSubject(),
                 vm_address);
@@ -103,7 +103,7 @@ public class Address extends FragmentPrimary implements
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         gifLoading.setVisibility(View.GONE);
         if (action.equals(StaticValues.ML_GetAddress)) {

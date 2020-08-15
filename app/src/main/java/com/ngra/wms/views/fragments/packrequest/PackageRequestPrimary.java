@@ -1,7 +1,6 @@
 package com.ngra.wms.views.fragments.packrequest;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +19,6 @@ import com.cunoraz.gifview.library.GifView;
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.FragmentPackRequestPrimaryBinding;
 import com.ngra.wms.models.ModelPackage;
-import com.ngra.wms.models.MD_Time;
 import com.ngra.wms.utility.ApplicationUtility;
 import com.ngra.wms.utility.StaticFunctions;
 import com.ngra.wms.utility.StaticValues;
@@ -40,7 +38,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import params.com.stepview.StatusViewScroller;
 
-public class PackageRequestPrimary extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class PackageRequestPrimary extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
     private VM_PackageRequestPrimary vm_packageRequestPrimary;
     private Integer timeId;
@@ -115,7 +113,7 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 PackageRequestPrimary.this,
                 vm_packageRequestPrimary.getPublishSubject(),
                 vm_packageRequestPrimary);
@@ -187,7 +185,7 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         DismissLoading();
 

@@ -14,7 +14,7 @@ import com.ngra.wms.views.fragments.FragmentPrimary;
 
 import org.jetbrains.annotations.NotNull;
 
-public class LotteryPrimary extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class LotteryPrimary extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
 
     private VM_LotteryPrimary vm_lotteryPrimary;
@@ -45,7 +45,7 @@ public class LotteryPrimary extends FragmentPrimary implements FragmentPrimary.G
     @Override
     public void onStart() {//_______________________________________________________________________ Start onStart
         super.onStart();
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 LotteryPrimary.this,
                 vm_lotteryPrimary.getPublishSubject(),
                 vm_lotteryPrimary);
@@ -54,7 +54,7 @@ public class LotteryPrimary extends FragmentPrimary implements FragmentPrimary.G
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 

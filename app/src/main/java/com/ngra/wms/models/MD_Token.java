@@ -2,24 +2,33 @@ package com.ngra.wms.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ModelToken {
+public class MD_Token {
 
+    //______________________________________________________________________________________________ Values
     @SerializedName("access_token")
     private String access_token;
+
     @SerializedName("token_type")
     private String token_type;
+
     @SerializedName("expires_in")
     private Integer expires_in;
+
     @SerializedName("as:client_id")
     private String client_id;
+
     @SerializedName(".issued")
     private String issued;
+
     @SerializedName(".expires")
     private String expires;
+
     @SerializedName("userName")
     private String PhoneNumber;
+
     @SerializedName("refresh_token")
     private String refresh_token;
+    //______________________________________________________________________________________________ Value
 
     public String getAccess_token() {
         return access_token;

@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
 
-public class Learn extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class Learn extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
     private VM_Learn vm_learn;
 
@@ -60,7 +60,7 @@ public class Learn extends FragmentPrimary implements FragmentPrimary.GetMessage
     @Override
     public void onStart() {//_______________________________________________________ Start
         super.onStart();
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 Learn.this,
                 vm_learn.getPublishSubject(),
                 vm_learn);
@@ -69,7 +69,7 @@ public class Learn extends FragmentPrimary implements FragmentPrimary.GetMessage
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 

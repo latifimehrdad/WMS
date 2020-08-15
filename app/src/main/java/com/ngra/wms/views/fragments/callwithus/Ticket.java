@@ -28,7 +28,7 @@ import org.jetbrains.annotations.NotNull;
 import butterknife.BindView;
 
 public class Ticket extends FragmentPrimary implements
-        FragmentPrimary.GetMessageFromObservable,
+        FragmentPrimary.getActionFromObservable,
         AP_Tickets.ItemTicketClick {
 
     private VM_Ticket vm_ticket;
@@ -78,7 +78,7 @@ public class Ticket extends FragmentPrimary implements
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 Ticket.this,
                 vm_ticket.getPublishSubject(),
                 vm_ticket);
@@ -128,7 +128,7 @@ public class Ticket extends FragmentPrimary implements
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         gifLoading.setVisibility(View.GONE);
         if (action.equals(StaticValues.ML_GetAllTicket)) {

@@ -14,7 +14,7 @@ import com.ngra.wms.views.fragments.FragmentPrimary;
 
 import org.jetbrains.annotations.NotNull;
 
-public class Calls extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class Calls extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
     private VM_CallWithUs vm_callWithUs;
 
@@ -45,7 +45,7 @@ public class Calls extends FragmentPrimary implements FragmentPrimary.GetMessage
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 Calls.this,
                 vm_callWithUs.getPublishSubject(),
                 vm_callWithUs);
@@ -54,7 +54,7 @@ public class Calls extends FragmentPrimary implements FragmentPrimary.GetMessage
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 

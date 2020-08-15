@@ -6,8 +6,11 @@ import java.util.ArrayList;
 
 public class ModelSettingInfo extends ModelResponsePrimary {
 
+    //______________________________________________________________________________________________ Value
     @SerializedName("result")
     ModelProfileSetting result;
+    //______________________________________________________________________________________________ Value
+
 
     public ModelSettingInfo(ArrayList<ModelMessage> messages) {
         super(messages);
@@ -21,8 +24,10 @@ public class ModelSettingInfo extends ModelResponsePrimary {
         this.result = result;
     }
 
+
     public class ModelProfileSetting {
 
+        //______________________________________________________________________________________________ Value
         @SerializedName("name")
         String name;
 
@@ -40,6 +45,7 @@ public class ModelSettingInfo extends ModelResponsePrimary {
 
         @SerializedName("package")
         ModelPackage modelPackage;
+        //______________________________________________________________________________________________ Value
 
 
         public String getName() {

@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
 
-public class LearnItems extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class LearnItems extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
     private VM_LearnItem vm_learnItem;
 
@@ -57,7 +57,7 @@ public class LearnItems extends FragmentPrimary implements FragmentPrimary.GetMe
     @Override
     public void onStart() {//_______________________________________________________ Start
         super.onStart();
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 LearnItems.this,
                 vm_learnItem.getPublishSubject(),
                 vm_learnItem);
@@ -67,7 +67,7 @@ public class LearnItems extends FragmentPrimary implements FragmentPrimary.GetMe
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
         if (action.equals(StaticValues.ML_GetItemLearn))
             SetAdapterItems();
     }//_____________________________________________________________________________________________ GetMessageFromObservable

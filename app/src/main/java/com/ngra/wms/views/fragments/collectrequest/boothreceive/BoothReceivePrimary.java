@@ -15,9 +15,6 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.FragmentBoothReceivePrimeryBinding;
 import com.ngra.wms.models.MD_Location;
-import com.ngra.wms.models.MD_WasteEstimate;
-import com.ngra.wms.models.MD_WasteAmountRequests;
-import com.ngra.wms.models.MD_Time;
 import com.ngra.wms.utility.ML_Map;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.collectrequest.boothreceive.VM_BoothReceivePrimary;
@@ -34,7 +31,7 @@ import butterknife.BindView;
 
 
 public class BoothReceivePrimary extends FragmentPrimary implements
-        FragmentPrimary.GetMessageFromObservable, OnMapReadyCallback,
+        FragmentPrimary.getActionFromObservable, OnMapReadyCallback,
         AP_BoothList.ItemBoothClick {
 
     private GoogleMap mMap;
@@ -90,7 +87,7 @@ public class BoothReceivePrimary extends FragmentPrimary implements
                 .findFragmentById(R.id.fpraMap);
         if (mapFragment != null)
             mapFragment.getMapAsync(this);
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 BoothReceivePrimary.this,
                 vm_boothReceivePrimary.getPublishSubject(),
                 vm_boothReceivePrimary);
@@ -114,7 +111,7 @@ public class BoothReceivePrimary extends FragmentPrimary implements
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
 
         if (ap_boothList != null)

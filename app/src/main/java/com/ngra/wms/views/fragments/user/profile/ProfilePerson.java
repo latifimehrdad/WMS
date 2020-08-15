@@ -39,7 +39,7 @@ import butterknife.BindView;
 
 import static com.ngra.wms.utility.StaticFunctions.TextChangeForChangeBack;
 
-public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
 
     private VM_ProfilePerson vm_profilePerson;
@@ -151,7 +151,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 ProfilePerson.this,
                 vm_profilePerson.getPublishSubject(),
                 vm_profilePerson);
@@ -204,7 +204,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
         LayoutCity.setOnClickListener(v -> {
 
             if (ProvinceId.equalsIgnoreCase("-1")) {
-                ShowMessage(getResources().getString(R.string.PleaseChooseProvince)
+                showMessageDialog(getResources().getString(R.string.PleaseChooseProvince)
                         , getResources().getColor(R.color.mlWhite),
                         getResources().getDrawable(R.drawable.ic_error),
                         getResources().getColor(R.color.mlBlack));
@@ -221,7 +221,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
 
         LayoutRegion.setOnClickListener(v -> {
             if (CityId.equalsIgnoreCase("-1")) {
-                ShowMessage(getResources().getString(R.string.PleaseChooseCity)
+                showMessageDialog(getResources().getString(R.string.PleaseChooseCity)
                         , getResources().getColor(R.color.mlWhite),
                         getResources().getDrawable(R.drawable.ic_error),
                         getResources().getColor(R.color.mlBlack));
@@ -274,7 +274,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.Ge
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         if (progress != null)
             progress.dismiss();

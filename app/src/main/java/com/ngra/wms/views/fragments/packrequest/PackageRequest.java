@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
 
-public class PackageRequest extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class PackageRequest extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
 
     private VM_PackageRequest vm_packageRequest;
@@ -58,7 +58,7 @@ public class PackageRequest extends FragmentPrimary implements FragmentPrimary.G
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 PackageRequest.this,
                 vm_packageRequest.getPublishSubject(),
                 vm_packageRequest);
@@ -90,7 +90,7 @@ public class PackageRequest extends FragmentPrimary implements FragmentPrimary.G
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 

@@ -35,7 +35,7 @@ import org.jetbrains.annotations.NotNull;
 import butterknife.BindView;
 
 public class BoothReceive extends FragmentPrimary implements
-        FragmentPrimary.GetMessageFromObservable, OnMapReadyCallback,
+        FragmentPrimary.getActionFromObservable, OnMapReadyCallback,
         AP_BoothList.ItemBoothClick {
 
     private GoogleMap mMap;
@@ -92,7 +92,7 @@ public class BoothReceive extends FragmentPrimary implements
                 .findFragmentById(R.id.fpraMap);
         if (mapFragment != null)
             mapFragment.getMapAsync(this);
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 BoothReceive.this,
                 vm_boothReceivePrimary.getPublishSubject(),
                 vm_boothReceivePrimary);
@@ -119,7 +119,7 @@ public class BoothReceive extends FragmentPrimary implements
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         gifLoading.setVisibility(View.GONE);
 

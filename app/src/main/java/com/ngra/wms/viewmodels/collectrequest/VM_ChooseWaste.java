@@ -34,7 +34,7 @@ public class VM_ChooseWaste extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -44,19 +44,19 @@ public class VM_ChooseWaste extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_ItemsWast>() {
             @Override
             public void onResponse(Call<MR_ItemsWast> call, Response<MR_ItemsWast> response) {
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     md_itemWastes = response.body().getItemsWast();
-                    SendMessageToObservable(StaticValues.ML_GetItemsOfWasteIsSuccess);
+                    sendActionToObservable(StaticValues.ML_GetItemsOfWasteIsSuccess);
                 }
                 else {
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
                 }
             }
 
             @Override
             public void onFailure(Call<MR_ItemsWast> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 

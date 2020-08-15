@@ -8,7 +8,6 @@ import com.ngra.wms.R;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MD_ScoreReport;
 import com.ngra.wms.models.MR_ScoreReport;
-import com.ngra.wms.models.MR_UserScoreInfoList;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Primary;
 import com.ngra.wms.views.application.ApplicationWMS;
@@ -41,7 +40,7 @@ public class VM_Home extends VM_Primary {
 
         if (!complateprofile) {
             Handler handler = new Handler();
-            handler.postDelayed(() -> SendMessageToObservable(StaticValues.ML_GotoProfile), 10);
+            handler.postDelayed(() -> sendActionToObservable(StaticValues.ML_GotoProfile), 10);
         }
 
     }//_____________________________________________________________________________________________ CheckProfile
@@ -76,7 +75,7 @@ public class VM_Home extends VM_Primary {
                 .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -85,18 +84,18 @@ public class VM_Home extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_ScoreReport>() {
             @Override
             public void onResponse(Call<MR_ScoreReport> call, Response<MR_ScoreReport> response) {
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     md_scoreReport = response.body().getResult();
-                    SendMessageToObservable(StaticValues.ML_GetUserScore);
+                    sendActionToObservable(StaticValues.ML_GetUserScore);
                 } else {
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
                 }
             }
 
             @Override
             public void onFailure(Call<MR_ScoreReport> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 

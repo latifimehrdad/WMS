@@ -14,7 +14,7 @@ import com.ngra.wms.views.fragments.FragmentPrimary;
 
 import org.jetbrains.annotations.NotNull;
 
-public class About extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class About extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
 
     private VM_About vm_about;
@@ -45,7 +45,7 @@ public class About extends FragmentPrimary implements FragmentPrimary.GetMessage
     @Override
     public void onStart() {//_______________________________________________________________________ Start onStart
         super.onStart();
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 About.this,
                 vm_about.getPublishSubject(),
                 vm_about);
@@ -54,7 +54,7 @@ public class About extends FragmentPrimary implements FragmentPrimary.GetMessage
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 

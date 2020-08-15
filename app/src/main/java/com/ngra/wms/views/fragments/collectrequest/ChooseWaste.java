@@ -33,7 +33,7 @@ import java.util.List;
 import butterknife.BindView;
 
 public class ChooseWaste extends FragmentPrimary implements
-        FragmentPrimary.GetMessageFromObservable,
+        FragmentPrimary.getActionFromObservable,
         AP_ItemsWaste.ItemWastClick,
         AP_ItemsWasteList.ItemWasteListClicks {
 
@@ -78,7 +78,7 @@ public class ChooseWaste extends FragmentPrimary implements
     @Override
     public void onStart() {
         super.onStart();
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 ChooseWaste.this,
                 vm_chooseWaste.getPublishSubject(),
                 vm_chooseWaste);
@@ -98,7 +98,7 @@ public class ChooseWaste extends FragmentPrimary implements
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         if (action.equals(StaticValues.ML_GetItemsOfWasteIsSuccess)) {
             gifLoading.setVisibility(View.GONE);

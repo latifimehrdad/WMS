@@ -70,7 +70,7 @@ public class VM_BoothReceivePrimary extends VM_Primary {
                 .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -79,19 +79,19 @@ public class VM_BoothReceivePrimary extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_BoothList>() {
             @Override
             public void onResponse(Call<MR_BoothList> call, Response<MR_BoothList> response) {
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     boothList = response.body().getResult();
-                    SendMessageToObservable(StaticValues.ML_GetBoothList);
+                    sendActionToObservable(StaticValues.ML_GetBoothList);
                 } else {
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
                 }
 
             }
 
             @Override
             public void onFailure(Call<MR_BoothList> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 
@@ -106,7 +106,7 @@ public class VM_BoothReceivePrimary extends VM_Primary {
                 .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -117,19 +117,19 @@ public class VM_BoothReceivePrimary extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
             @Override
             public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
-                    setResponseMessage(GetMessage(response.body()));
-                    SendMessageToObservable(StaticValues.ML_CollectRequestDone);
+                    setResponseMessage(getResponseMessage(response.body()));
+                    sendActionToObservable(StaticValues.ML_CollectRequestDone);
                 } else {
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
                 }
 
             }
 
             @Override
             public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 

@@ -5,7 +5,6 @@ import android.app.Activity;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MD_BestScore;
 import com.ngra.wms.models.MR_BestScore;
-import com.ngra.wms.models.MR_GiveScore;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Primary;
 import com.ngra.wms.views.application.ApplicationWMS;
@@ -34,7 +33,7 @@ public class VM_BestScore extends VM_Primary {
                 .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -43,18 +42,18 @@ public class VM_BestScore extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_BestScore>() {
             @Override
             public void onResponse(Call<MR_BestScore> call, Response<MR_BestScore> response) {
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     md_bestScores = response.body().getResult();
-                    SendMessageToObservable(StaticValues.ML_GetBestScore);
+                    sendActionToObservable(StaticValues.ML_GetBestScore);
                 } else {
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
                 }
             }
 
             @Override
             public void onFailure(Call<MR_BestScore> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 

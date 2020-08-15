@@ -31,7 +31,7 @@ public class VM_SignUp extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -42,26 +42,26 @@ public class VM_SignUp extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_Register>() {
             @Override
             public void onResponse(Call<MR_Register> call, Response<MR_Register> response) {
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
-                    setResponseMessage(GetMessage(response.body()));
+                    setResponseMessage(getResponseMessage(response.body()));
                     if (response.body().getResult() == null)
-                        SendMessageToObservable(StaticValues.ML_Success);
+                        sendActionToObservable(StaticValues.ML_Success);
                     else {
                         boolean unconfirmedMobile = response.body().getResult().isUnconfirmedMobile();
                         if (unconfirmedMobile)
-                            SendMessageToObservable(StaticValues.ML_Success);
+                            sendActionToObservable(StaticValues.ML_Success);
                         else
-                            SendMessageToObservable(StaticValues.ML_ResponseError);
+                            sendActionToObservable(StaticValues.ML_ResponseError);
                     }
                 } else {
-                        SendMessageToObservable(StaticValues.ML_ResponseError);
+                        sendActionToObservable(StaticValues.ML_ResponseError);
                 }
             }
 
             @Override
             public void onFailure(Call<MR_Register> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 

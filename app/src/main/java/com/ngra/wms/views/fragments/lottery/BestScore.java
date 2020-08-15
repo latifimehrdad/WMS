@@ -12,19 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.FrBestScoreBinding;
-import com.ngra.wms.databinding.FrScoreUserBinding;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.lottery.VM_BestScore;
-import com.ngra.wms.viewmodels.lottery.VM_UserScore;
 import com.ngra.wms.views.adaptors.lottery.AP_BestScore;
-import com.ngra.wms.views.adaptors.lottery.AP_UserScore;
 import com.ngra.wms.views.fragments.FragmentPrimary;
 
 import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
 
-public class BestScore extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class BestScore extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
 
     private VM_BestScore vm_bestScore;
@@ -62,7 +59,7 @@ public class BestScore extends FragmentPrimary implements FragmentPrimary.GetMes
     @Override
     public void onStart() {//_______________________________________________________________________ Start onStart
         super.onStart();
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 BestScore.this,
                 vm_bestScore.getPublishSubject(),
                 vm_bestScore);
@@ -73,7 +70,7 @@ public class BestScore extends FragmentPrimary implements FragmentPrimary.GetMes
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         if (action.equals(StaticValues.ML_GetBestScore)) {
             SetAdapterBestScore();

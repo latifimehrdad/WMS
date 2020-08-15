@@ -24,7 +24,7 @@ import com.ngra.wms.models.ModelResponsePrimary;
 import com.ngra.wms.models.ModelSettingInfo;
 import com.ngra.wms.models.MR_SpinnerItems;
 import com.ngra.wms.models.MD_TimeSheet;
-import com.ngra.wms.models.ModelToken;
+import com.ngra.wms.models.MD_Token;
 import com.ngra.wms.models.ModelUserAccounts;
 
 import okhttp3.ResponseBody;
@@ -45,7 +45,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST("/token")
-    Call<ModelToken> getToken
+    Call<MD_Token> getToken
             (
                     @Field("client_id") String client_id,
                     @Field("client_secret") String client_secret,
@@ -55,7 +55,7 @@ public interface RetrofitApiInterface {
     //______________________________________________________________________________________________ getToken
     @FormUrlEncoded
     @POST("/token")
-    Call<ModelToken> getRefreshToken
+    Call<MD_Token> getRefreshToken
     (
             @Field("client_id") String client_id,
             @Field("client_secret") String client_secret,
@@ -106,7 +106,7 @@ public interface RetrofitApiInterface {
 
     @FormUrlEncoded
     @POST("/token")
-    Call<ModelToken> Login
+    Call<MD_Token> Login
             (
                     @Field("client_id") String client_id,
                     @Field("client_secret") String client_secret,

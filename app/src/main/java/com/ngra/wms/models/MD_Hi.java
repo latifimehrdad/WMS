@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class MD_Hi {
 
+    //______________________________________________________________________________________________ Value
     @SerializedName("applicationUrl")
     String applicationUrl;
 
@@ -15,6 +16,7 @@ public class MD_Hi {
 
     @SerializedName("version")
     String version;
+    //______________________________________________________________________________________________ Value
 
 
     public String getApplicationUrl() {

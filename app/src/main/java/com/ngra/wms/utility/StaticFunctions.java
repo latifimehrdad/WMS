@@ -16,7 +16,7 @@ import com.ngra.wms.models.ModelMessage;
 import com.ngra.wms.models.ModelPackage;
 import com.ngra.wms.models.ModelResponsePrimary;
 import com.ngra.wms.models.ModelSettingInfo;
-import com.ngra.wms.models.ModelToken;
+import com.ngra.wms.models.MD_Token;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -87,20 +87,20 @@ public class StaticFunctions {
     }//_____________________________________________________________________________________________ SaveProfile
 
 
-    public static boolean SaveToken(Context context, ModelToken modelToken) {//_____________________ SaveToken
+    public static boolean SaveToken(Context context, MD_Token MDToken) {//_____________________ SaveToken
 
         SharedPreferences.Editor token = context
                 .getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0)
                 .edit();
 
-        token.putString(context.getString(R.string.ML_AccessToken), modelToken.getAccess_token());
-        token.putString(context.getString(R.string.ML_TokenType), modelToken.getToken_type());
-        token.putInt(context.getString(R.string.ML_ExpireSin), modelToken.getExpires_in());
-        token.putString(context.getString(R.string.ML_PhoneNumber), modelToken.getPhoneNumber());
-        token.putString(context.getString(R.string.ML_ClientId), modelToken.getClient_id());
-        token.putString(context.getString(R.string.ML_Issued), modelToken.getIssued());
-        token.putString(context.getString(R.string.ML_Expires), modelToken.getExpires());
-        token.putString(context.getString(R.string.ML_RefreshToken), modelToken.getRefresh_token());
+        token.putString(context.getString(R.string.ML_AccessToken), MDToken.getAccess_token());
+        token.putString(context.getString(R.string.ML_TokenType), MDToken.getToken_type());
+        token.putInt(context.getString(R.string.ML_ExpireSin), MDToken.getExpires_in());
+        token.putString(context.getString(R.string.ML_PhoneNumber), MDToken.getPhoneNumber());
+        token.putString(context.getString(R.string.ML_ClientId), MDToken.getClient_id());
+        token.putString(context.getString(R.string.ML_Issued), MDToken.getIssued());
+        token.putString(context.getString(R.string.ML_Expires), MDToken.getExpires());
+        token.putString(context.getString(R.string.ML_RefreshToken), MDToken.getRefresh_token());
         token.apply();
         return true;
 

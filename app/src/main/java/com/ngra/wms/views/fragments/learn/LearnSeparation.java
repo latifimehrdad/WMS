@@ -16,7 +16,7 @@ import com.ngra.wms.views.fragments.FragmentPrimary;
 import org.jetbrains.annotations.NotNull;
 
 
-public class LearnSeparation extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class LearnSeparation extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
     private VM_LearnSeparation vm_learnSeparation;
 
@@ -47,7 +47,7 @@ public class LearnSeparation extends FragmentPrimary implements FragmentPrimary.
     @Override
     public void onStart() {//_______________________________________________________ Start
         super.onStart();
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 LearnSeparation.this,
                 vm_learnSeparation.getPublishSubject(),
                 vm_learnSeparation);
@@ -56,7 +56,7 @@ public class LearnSeparation extends FragmentPrimary implements FragmentPrimary.
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 

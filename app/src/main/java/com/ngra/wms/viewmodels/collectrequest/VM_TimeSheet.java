@@ -3,7 +3,6 @@ package com.ngra.wms.viewmodels.collectrequest;
 import android.app.Activity;
 
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
-import com.ngra.wms.models.MD_Time;
 import com.ngra.wms.models.MD_TimeSheet;
 import com.ngra.wms.models.MR_TimeSheet;
 import com.ngra.wms.models.ModelResponsePrimary;
@@ -37,7 +36,7 @@ public class VM_TimeSheet extends VM_Primary {
                 .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -46,19 +45,19 @@ public class VM_TimeSheet extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_TimeSheet>() {
             @Override
             public void onResponse(Call<MR_TimeSheet> call, Response<MR_TimeSheet> response) {
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     md_timeSheets = response.body().getResult();
-                    SendMessageToObservable(StaticValues.ML_GetTimeSheet);
+                    sendActionToObservable(StaticValues.ML_GetTimeSheet);
                 } else {
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
                 }
 
             }
 
             @Override
             public void onFailure(Call<MR_TimeSheet> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 
@@ -75,7 +74,7 @@ public class VM_TimeSheet extends VM_Primary {
                 .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -84,19 +83,19 @@ public class VM_TimeSheet extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_TimeSheet>() {
             @Override
             public void onResponse(Call<MR_TimeSheet> call, Response<MR_TimeSheet> response) {
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     md_timeSheets = response.body().getResult();
-                    SendMessageToObservable(StaticValues.ML_GetTimeSheet);
+                    sendActionToObservable(StaticValues.ML_GetTimeSheet);
                 } else {
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
                 }
 
             }
 
             @Override
             public void onFailure(Call<MR_TimeSheet> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 
@@ -111,7 +110,7 @@ public class VM_TimeSheet extends VM_Primary {
                 .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -121,17 +120,17 @@ public class VM_TimeSheet extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
             @Override
             public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
-                    setResponseMessage(GetMessage(response.body()));
+                    setResponseMessage(getResponseMessage(response.body()));
                     GetLoginInformation();
                 } else
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
             public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 
@@ -147,7 +146,7 @@ public class VM_TimeSheet extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -157,17 +156,17 @@ public class VM_TimeSheet extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<ModelSettingInfo>() {
             @Override
             public void onResponse(Call<ModelSettingInfo> call, Response<ModelSettingInfo> response) {
-                String m = CheckResponse(response, true);
+                String m = checkResponse(response, true);
                 if (m == null) {
                     if (StaticFunctions.SaveProfile(getContext(), response.body().getResult()))
-                        SendMessageToObservable(StaticValues.ML_SendPackageRequest);
+                        sendActionToObservable(StaticValues.ML_SendPackageRequest);
                 } else
-                    SendMessageToObservable(StaticValues.ML_ResponseError);;
+                    sendActionToObservable(StaticValues.ML_ResponseError);;
             }
 
             @Override
             public void onFailure(Call<ModelSettingInfo> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 

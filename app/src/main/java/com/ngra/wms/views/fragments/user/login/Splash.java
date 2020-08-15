@@ -22,54 +22,60 @@ import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
 
-public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class Splash extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
     private VM_Splash vm_splash;
     private NavController navController;
 
-    @BindView(R.id.ImgLogo)
-    ImageView ImgLogo;
+    @BindView(R.id.imageViewLogo)
+    ImageView imageViewLogo;
 
-    @BindView(R.id.ButtonRefresh)
-    Button ButtonRefresh;
-
-    public Splash() {//_____________________________________________________________________________ Splash
-
-    }//_____________________________________________________________________________________________ Splash
+    @BindView(R.id.buttonRefresh)
+    Button buttonRefresh;
 
 
+    //______________________________________________________________________________________________ Splash
+    public Splash() { }
+    //______________________________________________________________________________________________ Splash
+
+
+    //______________________________________________________________________________________________ onCreateView
     @Override
     public View onCreateView(
             @NotNull LayoutInflater inflater,
             ViewGroup container,
-            Bundle savedInstanceState) {//__________________________________________________________ onCreateView
+            Bundle savedInstanceState) {
         if (getView() == null) {
             FragmentSplashBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_splash, container, false);
             vm_splash = new VM_Splash(getContext());
             binding.setVmSplash(vm_splash);
             setView(binding.getRoot());
-            SetOnclick();
+            setOnclick();
         }
         return getView();
-    }//_____________________________________________________________________________________________ onCreateView
+    }
+    //______________________________________________________________________________________________ onCreateView
 
 
+    //______________________________________________________________________________________________ onStart
     @Override
-    public void onStart() {//_______________________________________________________________________ onStart
+    public void onStart() {
         super.onStart();
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 Splash.this,
                 vm_splash.getPublishSubject(),
                 vm_splash);
         if (getView() != null)
             navController = Navigation.findNavController(getView());
-        CheckToken();
-    }//_____________________________________________________________________________________________ onStart
+        checkToken();
+    }
+    //______________________________________________________________________________________________ onStart
 
 
+    //______________________________________________________________________________________________ getMessageFromObservable
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {
 
         if (action.equals(StaticValues.ML_GoToHome)) {
             navController.navigate(R.id.action_splash_to_home);
@@ -94,35 +100,37 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.GetMessag
         if (action.equals(StaticValues.ML_ResponseFailure)
                 || action.equals(StaticValues.ML_ResponseError)
                 || action.equals(StaticValues.ML_RequestCancel)) {
-            ImgLogo.setAnimation(null);
-            ImgLogo.setVisibility(View.INVISIBLE);
-            ButtonRefresh.setVisibility(View.VISIBLE);
+            imageViewLogo.setAnimation(null);
+            imageViewLogo.setVisibility(View.INVISIBLE);
+            buttonRefresh.setVisibility(View.VISIBLE);
         }
 
-
-    }//_____________________________________________________________________________________________ GetMessageFromObservable
-
-
-    private void CheckToken() {//___________________________________________________________________ CheckToken
-
-        ImgLogo.setVisibility(View.VISIBLE);
-        ButtonRefresh.setVisibility(View.GONE);
-        StartAnimationSplash();
-        vm_splash.HI();
-
-    }//_____________________________________________________________________________________________ CheckToken
+    }
+    //______________________________________________________________________________________________ getMessageFromObservable
 
 
-    private void StartAnimationSplash() {//_________________________________________________________ StartAnimationSplash
-        ImgLogo.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.bounce));
-    }//_____________________________________________________________________________________________ StartAnimationSplash
+    //______________________________________________________________________________________________ checkToken
+    private void checkToken() {
+        imageViewLogo.setVisibility(View.VISIBLE);
+        buttonRefresh.setVisibility(View.GONE);
+        startAnimationSplash();
+        vm_splash.callHI();
+    }
+    //______________________________________________________________________________________________ checkToken
 
 
-    private void SetOnclick() {//___________________________________________________________________ SetOnclick
+    //______________________________________________________________________________________________ startAnimationSplash
+    private void startAnimationSplash() {
+        imageViewLogo.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.bounce));
+    }
+    //______________________________________________________________________________________________ startAnimationSplash
 
-        ButtonRefresh.setOnClickListener(v -> CheckToken());
 
-    }//_____________________________________________________________________________________________ SetOnclick
+    //______________________________________________________________________________________________ setOnclick
+    private void setOnclick() {
+        buttonRefresh.setOnClickListener(v -> checkToken());
+    }
+    //______________________________________________________________________________________________ setOnclick
 
 
 }

@@ -26,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
 
-public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class Home extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
     private NavController navController;
     private VM_Home vm_home;
@@ -92,7 +92,7 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 Home.this,
                 vm_home.getPublishSubject(),
                 vm_home);
@@ -119,7 +119,7 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         if (action.equals(StaticValues.ML_GotoProfile)) {
             navController.navigate(R.id.action_home_to_profile);
@@ -174,7 +174,7 @@ public class Home extends FragmentPrimary implements FragmentPrimary.GetMessageF
 //            navController.navigate(R.id.action_home_to_collectRequestPrimary);
             else {
                 if (getContext() != null)
-                    ShowMessage(getContext().getResources().getString(R.string.PackageNotDelivered),
+                    showMessageDialog(getContext().getResources().getString(R.string.PackageNotDelivered),
                             getResources().getColor(R.color.mlWhite),
                             getResources().getDrawable(R.drawable.ic_error),
                             getResources().getColor(R.color.mlCollectRight1));

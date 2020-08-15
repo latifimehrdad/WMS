@@ -48,7 +48,7 @@ public class VM_ProfilePerson extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -58,17 +58,17 @@ public class VM_ProfilePerson extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<ModelProfileInfo>() {
             @Override
             public void onResponse(Call<ModelProfileInfo> call, Response<ModelProfileInfo> response) {
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     profile = response.body().getResult();
-                    SendMessageToObservable(StaticValues.ML_GetProfileInfo);
+                    sendActionToObservable(StaticValues.ML_GetProfileInfo);
                 } else
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
             public void onFailure(Call<ModelProfileInfo> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
     }//_____________________________________________________________________________________________ GetProfileInfo
@@ -81,7 +81,7 @@ public class VM_ProfilePerson extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -98,17 +98,17 @@ public class VM_ProfilePerson extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
             @Override
             public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
-                    setResponseMessage(GetMessage(response.body()));
+                    setResponseMessage(getResponseMessage(response.body()));
                     SaveProfile();
                 } else
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
             public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 
@@ -122,7 +122,7 @@ public class VM_ProfilePerson extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
 
         retrofitComponent
@@ -133,17 +133,17 @@ public class VM_ProfilePerson extends VM_Primary {
                 .enqueue(new Callback<MR_SpinnerItems>() {
                     @Override
                     public void onResponse(Call<MR_SpinnerItems> call, Response<MR_SpinnerItems> response) {
-                        setResponseMessage(CheckResponse(response, false));
+                        setResponseMessage(checkResponse(response, false));
                         if (getResponseMessage() == null) {
                             Regions = response.body().getResult();
-                            SendMessageToObservable(StaticValues.ML_GetRegion);
+                            sendActionToObservable(StaticValues.ML_GetRegion);
                         } else
-                            SendMessageToObservable(StaticValues.ML_ResponseError);
+                            sendActionToObservable(StaticValues.ML_ResponseError);
                     }
 
                     @Override
                     public void onFailure(Call<MR_SpinnerItems> call, Throwable t) {
-                        OnFailureRequest();
+                        onFailureRequest();
                     }
                 });
 
@@ -157,7 +157,7 @@ public class VM_ProfilePerson extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
 
         retrofitComponent
@@ -168,17 +168,17 @@ public class VM_ProfilePerson extends VM_Primary {
                 .enqueue(new Callback<MR_SpinnerItems>() {
                     @Override
                     public void onResponse(Call<MR_SpinnerItems> call, Response<MR_SpinnerItems> response) {
-                        setResponseMessage(CheckResponse(response, false));
+                        setResponseMessage(checkResponse(response, false));
                         if (getResponseMessage() == null) {
                             Cities = response.body().getResult();
-                            SendMessageToObservable(StaticValues.ML_GetCities);
+                            sendActionToObservable(StaticValues.ML_GetCities);
                         } else
-                            SendMessageToObservable(StaticValues.ML_ResponseError);
+                            sendActionToObservable(StaticValues.ML_ResponseError);
                     }
 
                     @Override
                     public void onFailure(Call<MR_SpinnerItems> call, Throwable t) {
-                        OnFailureRequest();
+                        onFailureRequest();
                     }
                 });
 
@@ -192,7 +192,7 @@ public class VM_ProfilePerson extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
 
         Call<MR_SpinnerItems> call = retrofitComponent
@@ -203,17 +203,17 @@ public class VM_ProfilePerson extends VM_Primary {
         call.enqueue(new Callback<MR_SpinnerItems>() {
             @Override
             public void onResponse(Call<MR_SpinnerItems> call, Response<MR_SpinnerItems> response) {
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     provinces = response.body().getResult();
-                    SendMessageToObservable(StaticValues.ML_GetProvince);
+                    sendActionToObservable(StaticValues.ML_GetProvince);
                 } else
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
             public void onFailure(Call<MR_SpinnerItems> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 
@@ -230,7 +230,7 @@ public class VM_ProfilePerson extends VM_Primary {
         token.putBoolean(getContext().getString(R.string.ML_CompleteProfile), true);
         token.apply();
         MainActivity.complateprofile = true;
-        SendMessageToObservable(StaticValues.ML_EditProfile);
+        sendActionToObservable(StaticValues.ML_EditProfile);
     }//_____________________________________________________________________________________________ SaveProfile
 
 

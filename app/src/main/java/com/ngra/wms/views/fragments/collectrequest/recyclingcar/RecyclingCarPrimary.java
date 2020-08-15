@@ -13,9 +13,6 @@ import androidx.databinding.DataBindingUtil;
 import com.cunoraz.gifview.library.GifView;
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.FragmentRecyclingCarPrimeryBinding;
-import com.ngra.wms.models.MD_WasteEstimate;
-import com.ngra.wms.models.MD_WasteAmountRequests;
-import com.ngra.wms.models.MD_Time;
 import com.ngra.wms.utility.ApplicationUtility;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.collectrequest.recyclingcar.VM_RecyclingCarPrimary;
@@ -34,7 +31,7 @@ import butterknife.BindView;
 
 
 public class RecyclingCarPrimary extends FragmentPrimary implements
-        FragmentPrimary.GetMessageFromObservable {
+        FragmentPrimary.getActionFromObservable {
 
     private VM_RecyclingCarPrimary vm_recyclingCarPrimary;
     private Integer timePosition = -1;
@@ -87,7 +84,7 @@ public class RecyclingCarPrimary extends FragmentPrimary implements
         super.onStart();
         /*        SetVolumeWaste();*/
         vm_recyclingCarPrimary.GetTypeTimes();
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 RecyclingCarPrimary.this,
                 vm_recyclingCarPrimary.getPublishSubject(),
                 vm_recyclingCarPrimary);
@@ -95,7 +92,7 @@ public class RecyclingCarPrimary extends FragmentPrimary implements
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         DismissLoading();
 

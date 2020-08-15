@@ -33,7 +33,7 @@ public class VM_CollectRequestOrder extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -43,19 +43,19 @@ public class VM_CollectRequestOrder extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MR_WasteRequest>() {
             @Override
             public void onResponse(Call<MR_WasteRequest> call, Response<MR_WasteRequest> response) {
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     md_itemWasteRequests = response.body().getResult();
-                    SendMessageToObservable(StaticValues.ML_CollectOrderDone);
+                    sendActionToObservable(StaticValues.ML_CollectOrderDone);
                 }
                 else {
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
                 }
             }
 
             @Override
             public void onFailure(Call<MR_WasteRequest> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 

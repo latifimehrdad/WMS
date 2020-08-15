@@ -40,7 +40,7 @@ public class VM_ProfileBank extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -54,18 +54,18 @@ public class VM_ProfileBank extends VM_Primary {
             public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
                 if (StaticFunctions.isCancel)
                     return;
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
-                    setResponseMessage(GetMessage(response.body()));
+                    setResponseMessage(getResponseMessage(response.body()));
                     MainActivity.complateprofile = true;
-                    SendMessageToObservable(StaticValues.ML_EditProfile);
+                    sendActionToObservable(StaticValues.ML_EditProfile);
                 } else
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
             public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
     }//_____________________________________________________________________________________________ SendAccountNumber
@@ -78,7 +78,7 @@ public class VM_ProfileBank extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -90,21 +90,21 @@ public class VM_ProfileBank extends VM_Primary {
             public void onResponse(Call<ModelUserAccounts> call, Response<ModelUserAccounts> response) {
                 if (StaticFunctions.isCancel)
                     return;
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     if (response.body().getResult() == null)
-                        SendMessageToObservable(StaticValues.ML_GetAccountNumberNull);
+                        sendActionToObservable(StaticValues.ML_GetAccountNumberNull);
                     else {
                         accountNumbers = response.body().getResult();
-                        SendMessageToObservable(StaticValues.ML_GetAccountNumbers);
+                        sendActionToObservable(StaticValues.ML_GetAccountNumbers);
                     }
                 } else
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
             public void onFailure(Call<ModelUserAccounts> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 
@@ -118,7 +118,7 @@ public class VM_ProfileBank extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
 
         setPrimaryCall(retrofitComponent
@@ -131,17 +131,17 @@ public class VM_ProfileBank extends VM_Primary {
             public void onResponse(Call<MR_SpinnerItems> call, Response<MR_SpinnerItems> response) {
                 if (StaticFunctions.isCancel)
                     return;
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     banks = response.body().getResult();
-                    SendMessageToObservable(StaticValues.ML_GetBanks);
+                    sendActionToObservable(StaticValues.ML_GetBanks);
                 } else
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
             public void onFailure(Call<MR_SpinnerItems> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 

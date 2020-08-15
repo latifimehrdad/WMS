@@ -24,7 +24,7 @@ import com.ngra.wms.views.fragments.FragmentPrimary;
 
 import butterknife.BindView;
 
-public class AppUpdate extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable,
+public class AppUpdate extends FragmentPrimary implements FragmentPrimary.getActionFromObservable,
         VM_Update.ProgressDownload {
 
 
@@ -70,7 +70,7 @@ public class AppUpdate extends FragmentPrimary implements FragmentPrimary.GetMes
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 AppUpdate.this,
                 vm_update.getPublishSubject(),
                 vm_update);
@@ -105,7 +105,7 @@ public class AppUpdate extends FragmentPrimary implements FragmentPrimary.GetMes
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ getMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ getMessageFromObservable
 
         if (action.equals(StaticValues.ML_Success)) {
             if (getContext() != null)

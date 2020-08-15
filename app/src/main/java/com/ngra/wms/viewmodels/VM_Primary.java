@@ -5,9 +5,14 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 
 import com.ngra.wms.R;
+import com.ngra.wms.daggers.retrofit.RetrofitApis;
+import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.ModelMessage;
 import com.ngra.wms.models.ModelResponsePrimary;
+import com.ngra.wms.models.MD_Token;
+import com.ngra.wms.utility.StaticFunctions;
 import com.ngra.wms.utility.StaticValues;
+import com.ngra.wms.views.application.ApplicationWMS;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,59 +22,68 @@ import java.util.ArrayList;
 
 import io.reactivex.subjects.PublishSubject;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 public class VM_Primary {
 
     private PublishSubject<Byte> publishSubject;
-    private String ResponseMessage;
-    private Call PrimaryCall;
+    private String responseMessage;
+    private Call primaryCall;
     private Activity context;
     private int responseCode;
 
-    public VM_Primary() {//_________________________________________________________________________ VM_Primary
+    //______________________________________________________________________________________________ VM_Primary
+    public VM_Primary() {
         publishSubject = PublishSubject.create();
-    }//_____________________________________________________________________________________________ VM_Primary
+    }
+    //______________________________________________________________________________________________ VM_Primary
 
 
-    public String GetAuthorization() {//____________________________________________________________ GetAuthorization
-        String Authorization = "Bearer ";
+    //______________________________________________________________________________________________ getAuthorizationTokenFromSharedPreferences
+    public String getAuthorizationTokenFromSharedPreferences() {
+        String authorization = "Bearer ";
         SharedPreferences prefs = getContext().getSharedPreferences(getContext().getString(R.string.ML_SharePreferences), 0);
         if (prefs != null) {
             String access_token = prefs.getString(context.getString(R.string.ML_AccessToken), null);
             if (access_token != null)
-                Authorization = Authorization + access_token;
+                authorization = authorization + access_token;
         }
-        return Authorization;
-    }//_____________________________________________________________________________________________ GetAuthorization
+        return authorization;
+    }
+    //______________________________________________________________________________________________ getAuthorizationTokenFromSharedPreferences
 
 
-    public String GetRefreshToken() {//_____________________________________________________________ GetRefreshToken
-        String Authorization = "";
+    //______________________________________________________________________________________________ getRefreshTokenFromSharedPreferences
+    public String getRefreshTokenFromSharedPreferences() {
+        String authorization = "";
         SharedPreferences prefs = context.getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0);
         if (prefs != null) {
             String access_token = prefs.getString(context.getString(R.string.ML_RefreshToken), null);
             if (access_token != null)
-                Authorization = Authorization + access_token;
+                authorization = authorization + access_token;
         }
-        return Authorization;
-    }//_____________________________________________________________________________________________ GetRefreshToken
+        return authorization;
+    }
+    //______________________________________________________________________________________________ getRefreshTokenFromSharedPreferences
 
 
-
-    public String CheckResponse(Response response, Boolean Authorization) {//_______________________ CheckResponse
+    //______________________________________________________________________________________________ checkResponse
+    public String checkResponse(Response response, Boolean authorization) {
         if (response.body() != null)
             return null;
         else {
-            if (Authorization)
-                return CheckAuthorizationResponse(response);
+            if (authorization)
+                return checkResponseIfThatIsAuthorization(response);
             else
-                return CheckNormalResponse(response);
+                return checkResponseIfThatIsGeneral(response);
         }
-    }//_____________________________________________________________________________________________ CheckResponse
+    }
+    //______________________________________________________________________________________________ checkResponse
 
 
-    private String CheckAuthorizationResponse(Response response) {//________________________________ CheckResponseAuthorization
+    //______________________________________________________________________________________________ checkResponseIfThatIsAuthorization
+    private String checkResponseIfThatIsAuthorization(Response response) {
 
         JSONObject jObjError = null;
         try {
@@ -88,10 +102,12 @@ public class VM_Primary {
             }
         }
 
-    }//_____________________________________________________________________________________________ CheckResponseAuthorization
+    }
+    //______________________________________________________________________________________________ checkResponseIfThatIsAuthorization
 
 
-    public String CheckNormalResponse(Response response) {//________________________________________ CheckNormalResponse
+    //______________________________________________________________________________________________ checkResponseIfThatIsGeneral
+    public String checkResponseIfThatIsGeneral(Response response) {
         try {
             setResponseCode(response.code());
             JSONObject jObjError = new JSONObject(response.errorBody().string());
@@ -111,10 +127,12 @@ public class VM_Primary {
         } catch (Exception ex) {
             return ex.toString();
         }
-    }//_____________________________________________________________________________________________ CheckNormalResponse
+    }
+    //______________________________________________________________________________________________ checkResponseIfThatIsGeneral
 
 
-    public String GetMessage(ModelResponsePrimary responsePrimary) {//______________________________ GetMessage
+    //______________________________________________________________________________________________ getResponseMessage
+    public String getResponseMessage(ModelResponsePrimary responsePrimary) {
         try {
             ArrayList<ModelMessage> modelMessages = responsePrimary.getMessages();
             StringBuilder message = new StringBuilder();
@@ -126,62 +144,68 @@ public class VM_Primary {
         } catch (Exception ex) {
             return getContext().getResources().getString(R.string.NetworkError);
         }
-    }//_____________________________________________________________________________________________ GetMessage
+    }
+    //______________________________________________________________________________________________ getResponseMessage
 
 
-    public void ReactionToIncorrectResponse(Byte action) {//________________________________________ ReactionToIncorrectResponse
-
+    //______________________________________________________________________________________________ reactionToIncorrectResponse
+    public void reactionToIncorrectResponse(Byte action) {
         if (getResponseCode() == 401) {
-            RefreshToken();
+            refreshToken();
         } else {
             publishSubject.onNext(action);
         }
-
-    }//_____________________________________________________________________________________________ ReactionToIncorrectResponse
-
-
+    }
+    //______________________________________________________________________________________________ reactionToIncorrectResponse
 
 
-    private void RefreshToken() {//_________________________________________________________________ RefreshToken
+    //______________________________________________________________________________________________ refreshToken
+    private void refreshToken() {
 
 
-        setResponseMessage(getContext().getResources().getString(R.string.PleaseTryAgain));
-        publishSubject.onNext(StaticValues.ML_ResponseError);
+        RetrofitComponent retrofitComponent =
+                ApplicationWMS
+                        .getApplicationWMS(getContext())
+                        .getRetrofitComponent();
 
-/*        RetrofitComponent retrofitComponent = ApplicationWMS
-                .getApplicationWMS(getContext())
-                .getRetrofitComponent();
+        String refresh_token = getRefreshTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getToken(
+                .getRefreshToken(
                         RetrofitApis.client_id_value,
                         RetrofitApis.client_secret_value,
-                        RetrofitApis.grant_type_value));
+                        RetrofitApis.grant_type_value_Refresh_Token,
+                        refresh_token));
 
-        getPrimaryCall().enqueue(new Callback<ModelToken>() {
+        getPrimaryCall().enqueue(new Callback<MD_Token>() {
             @Override
-            public void onResponse(Call<ModelToken> call, Response<ModelToken> response) {
-                setResponseMessage(CheckResponse(response, true));
+            public void onResponse(Call<MD_Token> call, Response<MD_Token> response) {
+                setResponseMessage(checkResponse(response, true));
                 if (getResponseMessage() == null) {
-                    if (StaticFunctions.SaveToken(getContext(), response.body()))
+                    MD_Token md_token = response.body();
+                    if (StaticFunctions.SaveToken(getContext(), md_token)) {
                         setResponseMessage(getContext().getResources().getString(R.string.PleaseTryAgain));
                         publishSubject.onNext(StaticValues.ML_ResponseError);
-                } else
-                    publishSubject.onNext(StaticValues.ML_ResponseFailure);
+                    }
+                } else {
+                    StaticFunctions.LogOut(getContext());
+                    System.exit(0);
+                }
             }
 
             @Override
-            public void onFailure(Call<ModelToken> call, Throwable t) {
-                OnFailureRequest();
+            public void onFailure(Call<MD_Token> call, Throwable t) {
+                onFailureRequest();
             }
-        });*/
+        });
 
-    }//_____________________________________________________________________________________________ RefreshToken
+    }
+    //______________________________________________________________________________________________ refreshToken
 
 
-
-    public void OnFailureRequest() {//______________________________________________________________ OnFailureRequest
+    //______________________________________________________________________________________________ onFailureRequest
+    public void onFailureRequest() {
         if (getPrimaryCall().isCanceled()) {
             setResponseMessage("");
             getPublishSubject().onNext(StaticValues.ML_RequestCancel);
@@ -189,68 +213,94 @@ public class VM_Primary {
             setResponseMessage(getContext().getResources().getString(R.string.NetworkError));
             getPublishSubject().onNext(StaticValues.ML_ResponseFailure);
         }
-    }//_____________________________________________________________________________________________ OnFailureRequest
+    }
+    //______________________________________________________________________________________________ onFailureRequest
 
 
-    public void CancelRequest() {//_________________________________________________________________ CancelRequest
-        if (PrimaryCall != null) {
-            PrimaryCall.cancel();
-            PrimaryCall = null;
+    //______________________________________________________________________________________________ cancelRequest
+    public void cancelRequest() {
+        if (primaryCall != null) {
+            primaryCall.cancel();
+            primaryCall = null;
         }
-    }//_____________________________________________________________________________________________ CancelRequest
+    }
+    //______________________________________________________________________________________________ cancelRequest
 
 
-    public Call getPrimaryCall() {//________________________________________________________________ getPrimaryCall
-        return PrimaryCall;
-    }//_____________________________________________________________________________________________ getPrimaryCall
+    //______________________________________________________________________________________________ getPrimaryCall
+    public Call getPrimaryCall() {
+        return primaryCall;
+    }
+    //______________________________________________________________________________________________ getPrimaryCall
 
-    public void setPrimaryCall(Call primaryCall) {//________________________________________________ setPrimaryCall
-        CancelRequest();
-        PrimaryCall = primaryCall;
-    }//_____________________________________________________________________________________________ setPrimaryCall
 
-    public PublishSubject<Byte> getPublishSubject() {//_____________________________________________ getPublishSubject
+    //______________________________________________________________________________________________ setPrimaryCall
+    public void setPrimaryCall(Call primaryCall) {
+        cancelRequest();
+        this.primaryCall = primaryCall;
+    }
+    //______________________________________________________________________________________________ setPrimaryCall
+
+
+    //______________________________________________________________________________________________ getPublishSubject
+    public PublishSubject<Byte> getPublishSubject() {
         return publishSubject;
-    }//_____________________________________________________________________________________________ getPublishSubject
+    }
+    //______________________________________________________________________________________________ getPublishSubject
 
 
-    public String getResponseMessage() {//__________________________________________________________ getResponseMessage
-        return ResponseMessage;
-    }//_____________________________________________________________________________________________ getResponseMessage
-
-    public void setResponseMessage(String responseMessage) {//______________________________________ setResponseMessage
-        ResponseMessage = responseMessage;
-    }//_____________________________________________________________________________________________ setResponseMessage
+    //______________________________________________________________________________________________ getResponseMessage
+    public String getResponseMessage() {
+        return responseMessage;
+    }
+    //______________________________________________________________________________________________ getResponseMessage
 
 
-    public Activity getContext() {//________________________________________________________________ getContext
+    //______________________________________________________________________________________________ setResponseMessage
+    public void setResponseMessage(String responseMessage) {
+        this.responseMessage = responseMessage;
+    }
+    //______________________________________________________________________________________________ setResponseMessage
+
+
+    //______________________________________________________________________________________________ getContext
+    public Activity getContext() {
         return context;
-    }//_____________________________________________________________________________________________ getContext
+    }
+    //______________________________________________________________________________________________ getContext
 
 
-    public void setContext(Activity context) {//____________________________________________________ setContext
+    //______________________________________________________________________________________________ setContext
+    public void setContext(Activity context) {
         this.context = context;
-    }//_____________________________________________________________________________________________ setContext
+    }
+    //______________________________________________________________________________________________ setContext
 
 
-    public void SendMessageToObservable(Byte action) {//____________________________________________ SendMessageToObservable
+    //______________________________________________________________________________________________ sendActionToObservable
+    public void sendActionToObservable(Byte action) {
         Handler handler = new Handler();
         if (action.equals(StaticValues.ML_ResponseError))
-            handler.postDelayed(() -> ReactionToIncorrectResponse(action), 200);
+            handler.postDelayed(() -> reactionToIncorrectResponse(action), 200);
         else
             handler.postDelayed(() -> publishSubject.onNext(action), 200);
 
-    }//_____________________________________________________________________________________________ SendMessageToObservable
+    }
+    //______________________________________________________________________________________________ sendActionToObservable
 
 
-    public int getResponseCode() {//________________________________________________________________ getResponseCode
+    //______________________________________________________________________________________________ getResponseCode
+    public int getResponseCode() {
         return responseCode;
-    }//_____________________________________________________________________________________________ getResponseCode
+    }
+    //______________________________________________________________________________________________ getResponseCode
 
 
-    public void setResponseCode(int responseCode) {//_______________________________________________ setResponseCode
+    //______________________________________________________________________________________________ setResponseCode
+    public void setResponseCode(int responseCode) {
         this.responseCode = responseCode;
-    }//_____________________________________________________________________________________________ setResponseCode
+    }
+    //_____________________________________________________________________________________________ setResponseCode
 
 
 }

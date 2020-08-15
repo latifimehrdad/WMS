@@ -1,7 +1,6 @@
 package com.ngra.wms.views.fragments.user.login;
 
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,7 @@ import butterknife.BindView;
 
 import static com.ngra.wms.utility.StaticFunctions.TextChangeForChangeBack;
 
-public class Login extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class Login extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
     private NavController navController;
     private VM_Login vm_login;
@@ -90,7 +89,7 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 Login.this,
                 vm_login.getPublishSubject(),
                 vm_login);
@@ -100,7 +99,7 @@ public class Login extends FragmentPrimary implements FragmentPrimary.GetMessage
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         DismissLoading();
 /*        if (action.equals(StaticValues.ML_GoToHome)) {

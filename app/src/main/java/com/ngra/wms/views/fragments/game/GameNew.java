@@ -18,7 +18,7 @@ import com.ngra.wms.views.fragments.FragmentPrimary;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class GameNew extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class GameNew extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
 
     @BindView(R.id.TextViewNew)
@@ -62,7 +62,7 @@ public class GameNew extends FragmentPrimary implements FragmentPrimary.GetMessa
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 }

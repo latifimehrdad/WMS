@@ -34,7 +34,7 @@ public class VM_PackageRequestPrimary extends VM_Primary {
                 .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -46,17 +46,17 @@ public class VM_PackageRequestPrimary extends VM_Primary {
             public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
                 if (StaticFunctions.isCancel)
                     return;
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
-                    setResponseMessage(GetMessage(response.body()));
+                    setResponseMessage(getResponseMessage(response.body()));
                     GetLoginInformation();
                 } else
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
             public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 
@@ -70,7 +70,7 @@ public class VM_PackageRequestPrimary extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -80,17 +80,17 @@ public class VM_PackageRequestPrimary extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<ModelSettingInfo>() {
             @Override
             public void onResponse(Call<ModelSettingInfo> call, Response<ModelSettingInfo> response) {
-                String m = CheckResponse(response, true);
+                String m = checkResponse(response, true);
                 if (m == null) {
                     if (StaticFunctions.SaveProfile(getContext(), response.body().getResult()))
-                        SendMessageToObservable(StaticValues.ML_SendPackageRequest);
+                        sendActionToObservable(StaticValues.ML_SendPackageRequest);
                 } else
-                    SendMessageToObservable(StaticValues.ML_ResponseError);;
+                    sendActionToObservable(StaticValues.ML_ResponseError);;
             }
 
             @Override
             public void onFailure(Call<ModelSettingInfo> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 
@@ -103,7 +103,7 @@ public class VM_PackageRequestPrimary extends VM_Primary {
                 .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -112,19 +112,19 @@ public class VM_PackageRequestPrimary extends VM_Primary {
         getPrimaryCall().enqueue(new Callback<MD_TimeSheet>() {
             @Override
             public void onResponse(Call<MD_TimeSheet> call, Response<MD_TimeSheet> response) {
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
 //                    MRTimes = response.body().;
-                    SendMessageToObservable(StaticValues.ML_GetTimeSheet);
+                    sendActionToObservable(StaticValues.ML_GetTimeSheet);
                 } else {
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
                 }
 
             }
 
             @Override
             public void onFailure(Call<MD_TimeSheet> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 

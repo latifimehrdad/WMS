@@ -48,7 +48,7 @@ public class VM_PackageRequestAddress extends VM_Primary {
                 .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         if (AddressId == 0)
             AddressId = null;
@@ -73,17 +73,17 @@ public class VM_PackageRequestAddress extends VM_Primary {
             public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
                 if (StaticFunctions.isCancel)
                     return;
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
-                    setResponseMessage(GetMessage(response.body()));
+                    setResponseMessage(getResponseMessage(response.body()));
                     GetLoginInformation();
                 } else
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
             public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 
@@ -97,7 +97,7 @@ public class VM_PackageRequestAddress extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -108,18 +108,18 @@ public class VM_PackageRequestAddress extends VM_Primary {
             @Override
             public void onResponse(Call<ModelSettingInfo> call, Response<ModelSettingInfo> response) {
 
-                String m = CheckResponse(response, true);
+                String m = checkResponse(response, true);
                 if (m == null) {
                     if (StaticFunctions.SaveProfile(getContext(), response.body().getResult()))
-                        SendMessageToObservable(StaticValues.ML_EditUserAddress);
+                        sendActionToObservable(StaticValues.ML_EditUserAddress);
                 } else {
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
                 }
             }
 
             @Override
             public void onFailure(Call<ModelSettingInfo> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 
@@ -133,7 +133,7 @@ public class VM_PackageRequestAddress extends VM_Primary {
                 .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -144,17 +144,17 @@ public class VM_PackageRequestAddress extends VM_Primary {
             public void onResponse(Call<ModelHousingBuildings> call, Response<ModelHousingBuildings> response) {
                 if (StaticFunctions.isCancel)
                     return;
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     buildingTypes = response.body().getResult();
-                    SendMessageToObservable(StaticValues.ML_GetHousingBuildings);
+                    sendActionToObservable(StaticValues.ML_GetHousingBuildings);
                 } else
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
             public void onFailure(Call<ModelHousingBuildings> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 
@@ -187,7 +187,7 @@ public class VM_PackageRequestAddress extends VM_Primary {
                         address.setLon(String.valueOf(lon));
                     }
                 }
-                SendMessageToObservable(StaticValues.ML_GetAddress);
+                sendActionToObservable(StaticValues.ML_GetAddress);
             }
 
             @Override
@@ -195,7 +195,7 @@ public class VM_PackageRequestAddress extends VM_Primary {
                 address = new ModelGetAddress();
                 address.setLat(String.valueOf(lat));
                 address.setLon(String.valueOf(lon));
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 
@@ -218,13 +218,13 @@ public class VM_PackageRequestAddress extends VM_Primary {
 
                 if (!country.equalsIgnoreCase("ایران")) {
                     setResponseMessage(getContext().getResources().getString(R.string.OutOfIran));
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
                     return;
                 }
 
             } else {
                 setResponseMessage(getContext().getResources().getString(R.string.OutOfIran));
-                SendMessageToObservable(StaticValues.ML_ResponseError);
+                sendActionToObservable(StaticValues.ML_ResponseError);
                 return;
             }
 
@@ -281,7 +281,7 @@ public class VM_PackageRequestAddress extends VM_Primary {
             AddressString = "";
         }
 
-        SendMessageToObservable(StaticValues.ML_SetAddress);
+        sendActionToObservable(StaticValues.ML_SetAddress);
 
     }//_____________________________________________________________________________________________ End SetAddress
 
@@ -293,7 +293,7 @@ public class VM_PackageRequestAddress extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
 
         retrofitComponent
@@ -302,18 +302,18 @@ public class VM_PackageRequestAddress extends VM_Primary {
                 .enqueue(new Callback<MR_SpinnerItems>() {
                     @Override
                     public void onResponse(Call<MR_SpinnerItems> call, Response<MR_SpinnerItems> response) {
-                        setResponseMessage(CheckResponse(response, false));
+                        setResponseMessage(checkResponse(response, false));
                         if (getResponseMessage() == null) {
                             if (response.body().getResult() != null)
                                 AddressId = response.body().getResult().get(0).getId();
-                            SendMessageToObservable(StaticValues.ML_GetUserAddress);
+                            sendActionToObservable(StaticValues.ML_GetUserAddress);
                         } else
-                            SendMessageToObservable(StaticValues.ML_ResponseError);
+                            sendActionToObservable(StaticValues.ML_ResponseError);
                     }
 
                     @Override
                     public void onFailure(Call<MR_SpinnerItems> call, Throwable t) {
-                        OnFailureRequest();
+                        onFailureRequest();
                     }
                 });
 

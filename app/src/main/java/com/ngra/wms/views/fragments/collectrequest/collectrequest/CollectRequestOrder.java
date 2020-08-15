@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import butterknife.BindView;
 
 public class CollectRequestOrder extends FragmentPrimary implements
-        FragmentPrimary.GetMessageFromObservable{
+        FragmentPrimary.getActionFromObservable {
 
     private VM_CollectRequestOrder vm_collectRequestOrder;
 
@@ -61,7 +61,7 @@ public class CollectRequestOrder extends FragmentPrimary implements
     @Override
     public void onStart() {
         super.onStart();
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 CollectRequestOrder.this,
                 vm_collectRequestOrder.getPublishSubject(),
                 vm_collectRequestOrder);
@@ -74,7 +74,7 @@ public class CollectRequestOrder extends FragmentPrimary implements
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         gifLoading.setVisibility(View.GONE);
         RecyclerViewOrder.setVisibility(View.VISIBLE);

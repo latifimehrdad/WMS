@@ -32,7 +32,7 @@ import butterknife.BindView;
 
 import static com.ngra.wms.utility.StaticFunctions.TextChangeForChangeBack;
 
-public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetMessageFromObservable {
+public class ProfileBank extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
     private VM_ProfileBank vm_profileBank;
     private String BankId = "-1";
@@ -82,7 +82,7 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
     @Override
     public void onStart() {//_______________________________________________________________________ onStart
         super.onStart();
-        setGetMessageFromObservable(
+        setPublishSubjectFromObservable(
                 ProfileBank.this,
                 vm_profileBank.getPublishSubject(),
                 vm_profileBank);
@@ -96,7 +96,7 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.GetM
 
 
     @Override
-    public void getMessageFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
 
         if (progress != null)
             progress.dismiss();

@@ -31,7 +31,7 @@ public class VM_ProfileCode extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -44,18 +44,18 @@ public class VM_ProfileCode extends VM_Primary {
             public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
                 if (StaticFunctions.isCancel)
                     return;
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
-                    setResponseMessage(GetMessage(response.body()));
+                    setResponseMessage(getResponseMessage(response.body()));
                     MainActivity.complateprofile = true;
-                    SendMessageToObservable(StaticValues.ML_EditProfile);
+                    sendActionToObservable(StaticValues.ML_EditProfile);
                 } else
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
             public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
     }//_____________________________________________________________________________________________ SendCode
@@ -68,7 +68,7 @@ public class VM_ProfileCode extends VM_Primary {
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = GetAuthorization();
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -80,21 +80,21 @@ public class VM_ProfileCode extends VM_Primary {
             public void onResponse(Call<ModelBuildingRenovationCode> call, Response<ModelBuildingRenovationCode> response) {
                 if (StaticFunctions.isCancel)
                     return;
-                setResponseMessage(CheckResponse(response, false));
+                setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     if (response.body().getResult() == null)
-                        SendMessageToObservable(StaticValues.ML_GetAccountNumberNull);
+                        sendActionToObservable(StaticValues.ML_GetAccountNumberNull);
                     else {
                         setResponseMessage(response.body().getResult());
-                        SendMessageToObservable(StaticValues.ML_GetRenovationCode);
+                        sendActionToObservable(StaticValues.ML_GetRenovationCode);
                     }
                 } else
-                    SendMessageToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
             }
 
             @Override
             public void onFailure(Call<ModelBuildingRenovationCode> call, Throwable t) {
-                OnFailureRequest();
+                onFailureRequest();
             }
         });
 

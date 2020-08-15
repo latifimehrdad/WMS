@@ -1,7 +1,7 @@
 <resources>
 
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDbcXlcVOSpaOu9JS8IEsD9HlBlyd-w4v4</string>
-    <string name="Version">V_99_5_22_1</string>
+    <string name="Version">V_99_5_22_2</string>
     <string name="UpdateAppName">1</string>
 
     <string name="ChooseProvinces">انتخاب استان</string>
@@ -90,12 +90,10 @@
     <string name="SumScoreOfMonth">جمع امتیازات ماه</string>
     <string name="BestScores">امتیازات برتر</string>
     <string name="ChooseDateDelivery">انتخاب تاریخ تحویل</string>
-    <string name="EmptyList">لیست خالی است</string>
     <string name="ChooseForDelivery">انتخاب برای تحویل</string>
     <string name="ChooseVolumeDelivery">انتخاب حجم اقلام</string>
     <string name="TotalScore">امتیاز کل</string>
     <string name="HowGiveScore">نحوه امتیاز دهی</string>
-    <string name="LotteryResult">نتایج قرعه کشی</string>
     <string name="Lottery">قرعه کشی</string>
     <string name="Total">جمع</string>
     <string name="Car">خودرو</string>
@@ -150,8 +148,6 @@
     <string name="SignUp">ثبت نام در سامانه</string>
     <string name="OrderNumber">شماره سفارش : </string>
     <string name="EmptyPhoneNumber">شماره موبایل را بصورت صحیح وارد نمایید</string>
-    <string name="EmptyPassword">رمز ورود باید حداقل 6 حرف باشد</string>
-    <string name="EmptyPasswordConfirm">تکرار رمز ورود اشتباه است</string>
     <string name="PleaseWait">درحال برقراری ارتباط ...</string>
     <string name="Ignor">بستن</string>
     <string name="ForgetPassword">آیا رمز ورود خود را فراموش کرده اید؟</string>
@@ -180,7 +176,6 @@
     <string name="EmptyUnitNumber">لطفا شماره واحد را وارد نمایید</string>
     <string name="EmptyUnitCount">لطفا تعداد واحدها را وارد نمایید</string>
     <string name="TurnOnGps">موقعیت مکانی دستگاه شما خاموش است. تمایل به روشن کردن آن دارید؟</string>
-    <string name="CopyRight">قدرت گرفته از قلب تپنده نگرا</string>
     <string name="PowerOff">Powered By</string>
     <string name="BounceNegra">NGRA</string>
     <string name="About">درباره تولید کننده</string>
