@@ -6,15 +6,19 @@ import com.ngra.wms.daggers.DaggerScope;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import com.ngra.wms.utility.ProgressResponseBody;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Response;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
@@ -56,6 +60,8 @@ public class RetrofitModule {
     @Provides
     @DaggerScope
     public OkHttpClient getOkHttpClient(Cache cache, HttpLoggingInterceptor interceptor) {
+
+
 
         return new OkHttpClient.Builder()
                 .cache(cache)

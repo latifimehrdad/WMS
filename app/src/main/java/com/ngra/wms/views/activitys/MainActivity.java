@@ -44,7 +44,7 @@ import android.widget.Toast;
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.ActivityMainBinding;
 import com.ngra.wms.utility.StaticFunctions;
-import com.ngra.wms.viewmodels.main.MainActivityViewModel;
+import com.ngra.wms.viewmodels.MainActivityViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 

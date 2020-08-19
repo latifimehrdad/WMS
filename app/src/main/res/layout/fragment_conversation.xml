@@ -4,7 +4,7 @@
     <data>
         <variable
             name="conversation"
-            type="com.ngra.wms.viewmodels.callwithus.VM_Conversation" />
+            type="com.ngra.wms.viewmodels.VM_Conversation" />
     </data>
 
     <LinearLayout

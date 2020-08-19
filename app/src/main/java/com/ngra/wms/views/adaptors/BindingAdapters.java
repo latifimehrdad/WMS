@@ -29,6 +29,60 @@ public class BindingAdapters {
 
 
 
+    @BindingAdapter(value = {"SetWalletScore"})
+    public static void SetWalletScore(TextView textView, MD_ScoreListItem item) {// SetScoreConfigItem
+
+        Context context = textView.getContext();
+        String v = String.format("%.0f", item.getValue());
+
+        StringBuilder builder = new StringBuilder();
+        Integer amount = (int)item.getAmount() / 1000;
+        builder.append("هر");
+        builder.append(" ");
+        builder.append(amount.toString());
+        builder.append(" ");
+        builder.append(context.getResources().getString(R.string.AmountK));
+        builder.append(" ");
+        builder.append(v);
+        builder.append(" ");
+        builder.append(context.getResources().getString(R.string.Score));
+
+        textView.setText(builder.toString());
+
+    }//_____________________________________________________________________________________________ SetScoreConfigItem
+
+
+
+    @BindingAdapter(value = {"SetScoreConfigItem"})
+    public static void SetScoreConfigItem(TextView textView, MD_ScoreListItem item) {// SetScoreConfigItem
+
+        Context context = textView.getContext();
+        StringBuilder builder = new StringBuilder();
+        Integer amount = (int)item.getAmount() / 1000;
+        builder.append("هر");
+        builder.append(" ");
+        builder.append(amount.toString());
+        builder.append(" ");
+        builder.append(context.getResources().getString(R.string.AmountK));
+        builder.append(" ");
+        builder.append(item.getWaste().getTitle());
+
+        textView.setText(builder.toString());
+
+    }//_____________________________________________________________________________________________ SetScoreConfigItem
+
+
+
+    @BindingAdapter(value = {"SetScorePrice"})
+    public static void SetScorePrice(TextView textView, MD_ScoreListItem item) {//____________________ SetScoreAmountValue
+
+        Integer price = (int) item.getMd_wastePrice().getPrice();
+        textView.setText(price.toString());
+
+    }//_____________________________________________________________________________________________ SetScoreAmountValue
+
+
+
 
     @BindingAdapter(value = {"SetScoreAmountValue"})
     public static void SetScoreAmountValue(TextView textView, double Amount) {//____________________ SetScoreAmountValue

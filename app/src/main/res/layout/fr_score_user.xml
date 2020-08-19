@@ -3,7 +3,7 @@
     <data>
         <variable
             name="score"
-            type="com.ngra.wms.viewmodels.lottery.VM_UserScore" />
+            type="com.ngra.wms.viewmodels.VM_UserScore" />
     </data>
 
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="VM_Wallet"
@@ -43,6 +44,7 @@
 
 
             <TextView
+                android:id="@+id/TextViewTotalPrice"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.85"
@@ -50,14 +52,14 @@
                 android:textColor="@color/mlWhite"
                 android:textSize="@dimen/_10sdp"
                 android:text="@string/WalletMoney"
-                android:visibility="gone"
                 />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:gravity="right|center_vertical"
+                android:layout_marginRight="@dimen/_5sdp"
                 android:textColor="@color/mlWhite"
                 android:textSize="@dimen/_12sdp"
                 android:text="@string/WalletBag"
@@ -76,7 +78,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:gravity="center_horizontal"
                 android:paddingBottom="@dimen/_15sdp">
+
+                <com.cunoraz.gifview.library.GifView
+                    android:id="@+id/gifLoading"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/choose_current_map"
+                    custom:gif="@drawable/loading2" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -84,294 +96,25 @@
                     android:orientation="vertical"
                     android:background="@drawable/layout_collect_item"
                     android:padding="@dimen/_2sdp"
-                    android:visibility="gone"
                     >
 
-                    <TextView
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/RecyclerViewItem"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:textSize="@dimen/_9sdp"
-                        android:textColor="@color/mlWhite"
-                        android:text="@string/ChargeWalletConditions"
-                        />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        >
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal"
-                            android:layout_marginRight="@dimen/_5sdp"
-                            >
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/_2sdp"
-                                android:textColor="@color/mlWhite"
-                                android:textSize="@dimen/_9sdp"
-                                android:gravity="left|center_vertical"
-                                android:text="@string/EveryWeightScoreOne"
-                                />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/mlWhite"
-                                android:textSize="@dimen/_10sdp"
-                                android:text="@string/Rial"
-                                android:gravity="center"/>
+                        android:layout_height="wrap_content"/>
 
 
 
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/mlWhite"
-                                android:textSize="@dimen/_10sdp"
-                                android:text="200000"
-                                android:gravity="center"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/_2sdp"
-                                android:textColor="@color/mlWhite"
-                                android:textSize="@dimen/_9sdp"
-                                android:gravity="right|center_vertical"
-                                android:text="@string/DryKgr"
-                                />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        >
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal"
-                            android:layout_marginRight="@dimen/_5sdp"
-                            >
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/_2sdp"
-                                android:textColor="@color/mlWhite"
-                                android:textSize="@dimen/_9sdp"
-                                android:gravity="left|center_vertical"
-                                android:text="@string/EveryWeightScoreOne"
-                                />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/mlWhite"
-                                android:textSize="@dimen/_10sdp"
-                                android:text="@string/Rial"
-                                android:gravity="center"/>
-
-
-
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/mlWhite"
-                                android:textSize="@dimen/_10sdp"
-                                android:text="150000"
-                                android:gravity="center"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/_2sdp"
-                                android:textColor="@color/mlWhite"
-                                android:textSize="@dimen/_9sdp"
-                                android:gravity="right|center_vertical"
-                                android:text="@string/PaperKgr"
-                                />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        >
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal"
-                            android:layout_marginRight="@dimen/_5sdp"
-                            >
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/_2sdp"
-                                android:textColor="@color/mlWhite"
-                                android:textSize="@dimen/_9sdp"
-                                android:gravity="left|center_vertical"
-                                android:text="@string/EveryWeightScoreFive"
-                                />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/mlWhite"
-                                android:textSize="@dimen/_10sdp"
-                                android:text="@string/Rial"
-                                android:gravity="center"/>
-
-
-
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/mlWhite"
-                                android:textSize="@dimen/_10sdp"
-                                android:text="100000"
-                                android:gravity="center"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/_2sdp"
-                                android:textColor="@color/mlWhite"
-                                android:textSize="@dimen/_9sdp"
-                                android:gravity="right|center_vertical"
-                                android:text="@string/AlBottleKgr"
-                                />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        >
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal"
-                            android:layout_marginRight="@dimen/_5sdp"
-                            >
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/_2sdp"
-                                android:textColor="@color/mlWhite"
-                                android:textSize="@dimen/_9sdp"
-                                android:gravity="left|center_vertical"
-                                android:text="@string/EveryWeightScoreTwo"
-                                />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/mlWhite"
-                                android:textSize="@dimen/_10sdp"
-                                android:text="@string/Rial"
-                                android:gravity="center"/>
-
-
-
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/mlWhite"
-                                android:textSize="@dimen/_10sdp"
-                                android:text="40000"
-                                android:gravity="center"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/_2sdp"
-                                android:textColor="@color/mlWhite"
-                                android:textSize="@dimen/_9sdp"
-                                android:gravity="right|center_vertical"
-                                android:text="@string/PetBottleKgr"
-                                />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
 
 
                 </LinearLayout>
+
+
 
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/chart"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_150sdp"
-                    android:visibility="gone"
                     />
 
                 <LinearLayout
@@ -394,6 +137,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/TextViewTotalWeights"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:background="@drawable/layout_border_black"

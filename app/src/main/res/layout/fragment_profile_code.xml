@@ -6,7 +6,7 @@
 
         <variable
             name="vm_code"
-            type="com.ngra.wms.viewmodels.user.profile.VM_ProfileCode" />
+            type="com.ngra.wms.viewmodels.VM_ProfileCode" />
     </data>
 
     <ScrollView

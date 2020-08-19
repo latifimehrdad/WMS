@@ -4,7 +4,7 @@
 
         <variable
             name="VM_LearnSeparation"
-            type="com.ngra.wms.viewmodels.learn.VM_LearnSeparation" />
+            type="com.ngra.wms.viewmodels.VM_LearnSeparation" />
     </data>
 
     <LinearLayout

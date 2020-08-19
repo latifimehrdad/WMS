@@ -5,7 +5,7 @@
     <data>
         <variable
             name="address"
-            type="com.ngra.wms.viewmodels.user.profile.VM_Address" />
+            type="com.ngra.wms.viewmodels.VM_Address" />
     </data>
 
     <LinearLayout

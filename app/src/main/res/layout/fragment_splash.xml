@@ -4,7 +4,7 @@
     <data>
         <variable
             name="vm_splash"
-            type="com.ngra.wms.viewmodels.user.login.VM_Splash" />
+            type="com.ngra.wms.viewmodels.VM_Splash" />
     </data>
 
     <FrameLayout

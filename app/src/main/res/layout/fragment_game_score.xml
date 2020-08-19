@@ -28,6 +28,7 @@
                 android:text="@string/Scores"
                 android:textColor="@color/mlWhite"
                 android:textSize="@dimen/_12sdp"
+                fontPath="font/iransans_web_medium.ttf"
                 />
 
             <LinearLayout

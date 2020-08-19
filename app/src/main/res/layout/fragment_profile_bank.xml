@@ -5,7 +5,7 @@
     <data>
         <variable
             name="vm_bank"
-            type="com.ngra.wms.viewmodels.user.profile.VM_ProfileBank" />
+            type="com.ngra.wms.viewmodels.VM_ProfileBank" />
     </data>
 
     <ScrollView

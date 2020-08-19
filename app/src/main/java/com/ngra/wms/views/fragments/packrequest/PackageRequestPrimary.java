@@ -25,7 +25,7 @@ import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.packrequest.VM_PackageRequestPrimary;
 import com.ngra.wms.views.application.ApplicationWMS;
 import com.ngra.wms.views.fragments.FragmentPrimary;
-import com.ngra.wms.views.fragments.home.Home;
+import com.ngra.wms.views.fragments.Home;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import org.jetbrains.annotations.NotNull;

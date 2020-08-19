@@ -4,12 +4,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.cunoraz.gifview.library.GifView;
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.FragmentWalletBinding;
+import com.ngra.wms.models.MD_ChartReport;
+import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.wallet.VM_Wallet;
+import com.ngra.wms.views.adaptors.lottery.AP_WalletScore;
+import com.ngra.wms.views.adaptors.lottery.AP_WalletScoreItem;
 import com.ngra.wms.views.fragments.FragmentPrimary;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -20,6 +28,7 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.ngra.wms.views.fragments.Login;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -31,10 +40,27 @@ import butterknife.BindView;
 
 public class Wallet extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
-    String[] months = {"فرردین","اردیبهشت","خرداد","تیر","مرداد","شهریور","مهر","آبان","آذر","دی","بهمن","اسفند"};
+    List<String> months;
+    ArrayList<BarEntry> values;
+    private VM_Wallet vm_wallet;
 
     @BindView(R.id.chart)
     BarChart chart;
+
+    @BindView(R.id.gifLoading)
+    GifView gifLoading;
+
+    @BindView(R.id.RecyclerViewItem)
+    RecyclerView RecyclerViewItem;
+
+    @BindView(R.id.TextViewTotalPrice)
+    TextView TextViewTotalPrice;
+
+    @BindView(R.id.TextViewTotalWeights)
+    TextView TextViewTotalWeights;
+
+
+
 
     @Override
     public View onCreateView(
@@ -42,12 +68,13 @@ public class Wallet extends FragmentPrimary implements FragmentPrimary.getAction
             ViewGroup container,
             Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
         if (getView() == null) {
-            VM_Wallet vm_wallet = new VM_Wallet(getContext());
+            vm_wallet = new VM_Wallet(getContext());
             FragmentWalletBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_wallet, container, false
             );
             binding.setVMWallet(vm_wallet);
             setView(binding.getRoot());
+            init();
         }
         return getView();
     }//_____________________________________________________________________________________________ End onCreateView
@@ -60,17 +87,81 @@ public class Wallet extends FragmentPrimary implements FragmentPrimary.getAction
     @Override
     public void onStart() {//_______________________________________________________________________ Start onStart
         super.onStart();
-        SetChart();
+        setPublishSubjectFromObservable(
+                Wallet.this,
+                vm_wallet.getPublishSubject(),
+                vm_wallet);
     }//_____________________________________________________________________________________________ End onStart
 
 
     @Override
-    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {//____________________________________________ GetMessageFromObservable
+
+        gifLoading.setVisibility(View.GONE);
+        if (action.equals(StaticValues.ML_GetGiveScore)) {
+            setAdapterGiveScoreListConfig();
+            return;
+        }
+
+        if (action.equals(StaticValues.ML_GetReport)) {
+            SetChart();
+            return;
+        }
+
+        if (action.equals(StaticValues.ML_GetUserScorePriceReport)) {
+            gifLoading.setVisibility(View.GONE);
+            Integer totalPrice = (int) vm_wallet.getMd_userScorePriceReport().getTotalPrice();
+            String string = getContext().getResources().getString(R.string.WalletMoney) + " " + totalPrice.toString();
+            TextViewTotalPrice.setText(string);
+
+            double weight = vm_wallet.getMd_userScorePriceReport().getTotalWeights();
+            weight = weight / 1000;
+            TextViewTotalWeights.setText(String.valueOf((int) weight));
+
+            return;
+        }
+
 
     }//_____________________________________________________________________________________________ GetMessageFromObservable
 
 
+
+    //______________________________________________________________________________________________ init
+    private void init() {
+
+        chart.setVisibility(View.GONE);
+        gifLoading.setVisibility(View.VISIBLE);
+        vm_wallet.getGiveScoreList();
+
+    }
+    //______________________________________________________________________________________________ init
+
+
+
+    //______________________________________________________________________________________________ setAdapterGiveScoreListConfig
+    private void setAdapterGiveScoreListConfig() {
+
+        AP_WalletScore ap_walletScore = new AP_WalletScore(vm_wallet.getScoreListConfigs());
+        RecyclerViewItem.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+        RecyclerViewItem.setAdapter(ap_walletScore);
+    }
+    //______________________________________________________________________________________________ setAdapterGiveScoreListConfig
+
+
+
+
+
     private void SetChart() {//_____________________________________________________________________ Start SetChart
+
+
+        months = new ArrayList<>();
+        values = new ArrayList<>();
+        for (int i = 0; i < vm_wallet.getMd_chartReports().size(); i++) {
+            MD_ChartReport chartReport = vm_wallet.getMd_chartReports().get(i);
+            months.add(chartReport.getMonthName());
+            float value = (float) (chartReport.getScorePoint());
+            values.add(new BarEntry(i, value));
+        }
 
         chart.setDrawBarShadow(false);
         chart.setDrawValueAboveBar(true);
@@ -98,7 +189,7 @@ public class Wallet extends FragmentPrimary implements FragmentPrimary.getAction
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
-                return months[(int) value % months.length];
+                return months.get((int) value % months.size());
             }
         });
         //xAxis.setValueFormatter(xAxisFormatter);
@@ -139,19 +230,6 @@ public class Wallet extends FragmentPrimary implements FragmentPrimary.getAction
 
     private void setData() {
 
-        ArrayList<BarEntry> values = new ArrayList<>();
-        values.add(new BarEntry(0,1));
-        values.add(new BarEntry(1,2));
-        values.add(new BarEntry(2,3));
-        values.add(new BarEntry(3,4));
-        values.add(new BarEntry(4,5));
-        values.add(new BarEntry(5,6));
-        values.add(new BarEntry(6,7));
-        values.add(new BarEntry(7,8));
-        values.add(new BarEntry(8,9));
-        values.add(new BarEntry(9,10));
-        values.add(new BarEntry(10,11));
-        values.add(new BarEntry(11,12));
 
         BarDataSet set1;
 
@@ -202,7 +280,9 @@ public class Wallet extends FragmentPrimary implements FragmentPrimary.getAction
             data.setValueTextSize(10f);
             data.setBarWidth(0.5f);
 
+            chart.setVisibility(View.GONE);
             chart.setData(data);
+            chart.setVisibility(View.VISIBLE);
         }
     }
 

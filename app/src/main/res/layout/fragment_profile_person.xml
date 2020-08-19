@@ -6,7 +6,7 @@
 
         <variable
             name="vm_person"
-            type="com.ngra.wms.viewmodels.user.profile.VM_ProfilePerson" />
+            type="com.ngra.wms.viewmodels.VM_ProfilePerson" />
     </data>
 
     <LinearLayout

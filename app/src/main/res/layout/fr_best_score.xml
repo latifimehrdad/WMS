@@ -3,7 +3,7 @@
     <data>
         <variable
             name="best"
-            type="com.ngra.wms.viewmodels.lottery.VM_BestScore" />
+            type="com.ngra.wms.viewmodels.VM_BestScore" />
     </data>
 
 

@@ -1,7 +1,7 @@
 <resources>
 
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDbcXlcVOSpaOu9JS8IEsD9HlBlyd-w4v4</string>
-    <string name="Version">V_99_5_22_2</string>
+    <string name="Version">V_99_5_29</string>
     <string name="UpdateAppName">1</string>
 
     <string name="ChooseProvinces">انتخاب استان</string>
@@ -46,6 +46,7 @@
     <string name="HomeMaxScore">بیشترین امتیاز</string>
     <string name="HomeAveScore">میانگین امتیازات</string>
     <string name="HomeYouScore">امتیاز قرعه کشی</string>
+    <string name="AmountK">کیلو</string>
 
     <string name="Retry">تلاش مجدد</string>
     <string name="PleaseTryAgain">لطفا تلاش دوباره کنید</string>
@@ -57,7 +58,6 @@
     <string name="FragmentPackRequestPrimaryReceive">تحویل</string>
     <string name="WasteUserOrder">میزان سفارشات شما</string>
     <string name="FragmentCollectRequest">درخواست جمع آوری</string>
-    <string name="FragmentCollectRequestOrder">سفارشات</string>
     <string name="WasteAcceptByOperator">تایید شده سیستم</string>
     <string name="PetBottel">بطری پت</string>
     <string name="AlBottel">قوطی آلومینیوم</string>
@@ -95,19 +95,10 @@
     <string name="TotalScore">امتیاز کل</string>
     <string name="HowGiveScore">نحوه امتیاز دهی</string>
     <string name="Lottery">قرعه کشی</string>
-    <string name="Total">جمع</string>
-    <string name="Car">خودرو</string>
-    <string name="Booth">غرفه</string>
-    <string name="FriendsDefinition">معرفی به دوستان</string>
     <string name="YouScore">امتیاز شما</string>
     <string name="Score">امتیاز</string>
     <string name="Scores">امتیازات</string>
     <string name="Winner">برنده ماه قبل</string>
-    <string name="MonthLottery">قرعه کشی ماهانه</string>
-    <string name="HighestScoreAward">جایزه بیشترین امتیاز</string>
-    <string name="PeopleNumberOne">نفر اول</string>
-    <string name="PeopleNumberTwo">نفر دوم</string>
-    <string name="PeopleNumberThere">نفر سوم</string>
     <string name="Toman">تومان</string>
     <string name="Rial">ریال</string>
     <string name="WalletMoney">مبلغ کیف پول شما : </string>

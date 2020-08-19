@@ -103,6 +103,8 @@ public class StaticValues {
     public static Byte ML_GetVolume = 34;
     public static Byte ML_GetUserAddress = 35;
     public static Byte ML_GetBestScore = 36;
+    public static Byte ML_GetReport = 37;
+    public static Byte ML_GetUserScorePriceReport = 38;
     //***** Observable Control *****
 
 

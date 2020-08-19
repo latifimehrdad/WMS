@@ -6,7 +6,7 @@
 
         <variable
             name="ticket"
-            type="com.ngra.wms.viewmodels.callwithus.VM_Ticket" />
+            type="com.ngra.wms.viewmodels.VM_Ticket" />
     </data>
 
     <RelativeLayout

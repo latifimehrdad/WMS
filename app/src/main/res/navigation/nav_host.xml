@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/splash"
-        android:name="com.ngra.wms.views.fragments.user.login.Splash"
+        android:name="com.ngra.wms.views.fragments.Splash"
         android:label="Splash"
         tools:layout="@layout/fragment_splash"
         >
@@ -46,7 +46,7 @@
 
     <fragment
         android:id="@+id/login"
-        android:name="com.ngra.wms.views.fragments.user.login.Login"
+        android:name="com.ngra.wms.views.fragments.Login"
         android:label="Login"
         tools:layout="@layout/fragment_fragment_login">
 
@@ -111,7 +111,7 @@
 
     <fragment
         android:id="@+id/home"
-        android:name="com.ngra.wms.views.fragments.home.Home"
+        android:name="com.ngra.wms.views.fragments.Home"
         android:label="Home"
         tools:layout="@layout/fragment_home"
         >
@@ -157,13 +157,7 @@
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"/>
 
-        <action
-            android:id="@+id/action_home_to_collectRequest"
-            app:destination="@id/collectRequest"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+
 
         <action
             android:id="@+id/action_home_to_lottery"
@@ -249,7 +243,7 @@
 
     <fragment
         android:id="@+id/profile"
-        android:name="com.ngra.wms.views.fragments.user.profile.Profile"
+        android:name="com.ngra.wms.views.fragments.Profile"
         android:label="Profile"
         tools:layout="@layout/fragment_profile"/>
 
@@ -292,7 +286,7 @@
 
     <fragment
         android:id="@+id/creatorFragment"
-        android:name="com.ngra.wms.views.fragments.home.CreatorFragment"
+        android:name="com.ngra.wms.views.fragments.CreatorFragment"
         android:label="CreatorFragment"
         tools:layout="@layout/fragment_creator"
         />
@@ -309,61 +303,27 @@
 
     <fragment
         android:id="@+id/learn"
-        android:name="com.ngra.wms.views.fragments.learn.Learn"
+        android:name="com.ngra.wms.views.fragments.Learn"
         android:label="Learn"
         tools:layout="@layout/fragment_learn"/>
 
-    <fragment
-        android:id="@+id/collectRequest"
-        android:name="com.ngra.wms.views.fragments.collectrequest.collectrequest.CollectRequest"
-        android:label="CollectRequest"
-        tools:layout="@layout/fragment_learn">
 
-        <action
-            android:id="@+id/action_collectRequest_to_boothReceive"
-            app:destination="@id/boothReceive"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
-
-        <action
-            android:id="@+id/action_collectRequest_to_recyclingCar"
-            app:destination="@id/recyclingCar"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
-
-    </fragment>
-
-    <fragment
-        android:id="@+id/boothReceive"
-        android:name="com.ngra.wms.views.fragments.collectrequest.boothreceive.BoothReceive"
-        android:label="BoothReceive"
-        tools:layout="@layout/fragment_booth_receive"/>
-
-    <fragment
-        android:id="@+id/recyclingCar"
-        android:name="com.ngra.wms.views.fragments.collectrequest.recyclingcar.RecyclingCar"
-        android:label="RecyclingCar"
-        tools:layout="@layout/fragment_recycling_car"/>
 
     <fragment
         android:id="@+id/lottery"
-        android:name="com.ngra.wms.views.fragments.lottery.Lottery"
+        android:name="com.ngra.wms.views.fragments.Lottery"
         android:label="Lottery"
         tools:layout="@layout/fragment_lottery"/>
 
     <fragment
         android:id="@+id/about"
-        android:name="com.ngra.wms.views.fragments.aboutus.About"
+        android:name="com.ngra.wms.views.fragments.About"
         android:label="About"
         tools:layout="@layout/fragment_about_primery"/>
 
     <fragment
         android:id="@+id/callWithUs"
-        android:name="com.ngra.wms.views.fragments.callwithus.CallWithUs"
+        android:name="com.ngra.wms.views.fragments.CallWithUs"
         android:label="CallWithUs"
         tools:layout="@layout/fragment_call_with_us"/>
 
@@ -381,25 +341,25 @@
 
     <fragment
         android:id="@+id/game"
-        android:name="com.ngra.wms.views.fragments.game.Game"
+        android:name="com.ngra.wms.views.fragments.Game"
         android:label="Game"
         tools:layout="@layout/fragment_game"/>
 
     <fragment
         android:id="@+id/appUpdate"
-        android:name="com.ngra.wms.views.fragments.home.AppUpdate"
+        android:name="com.ngra.wms.views.fragments.AppUpdate"
         android:label="AppUpdate"
         tools:layout="@layout/fragment_update"/>
 
     <fragment
         android:id="@+id/callSupport"
-        android:name="com.ngra.wms.views.fragments.callwithus.CallSupport"
+        android:name="com.ngra.wms.views.fragments.CallSupport"
         android:label="CallSupport"
         tools:layout="@layout/fragment_support"/>
 
     <fragment
         android:id="@+id/ticket"
-        android:name="com.ngra.wms.views.fragments.callwithus.Ticket"
+        android:name="com.ngra.wms.views.fragments.Ticket"
         android:label="Ticket"
         tools:layout="@layout/fragment_ticket">
 
@@ -427,14 +387,14 @@
 
     <fragment
         android:id="@+id/calls"
-        android:name="com.ngra.wms.views.fragments.callwithus.Calls"
+        android:name="com.ngra.wms.views.fragments.Calls"
         android:label="Calls"
         tools:layout="@layout/fragment_call"/>
 
 
     <fragment
         android:id="@+id/conversation"
-        android:name="com.ngra.wms.views.fragments.callwithus.Conversation"
+        android:name="com.ngra.wms.views.fragments.Conversation"
         android:label="Conversation"
         tools:layout="@layout/fragment_conversation"/>
 
@@ -566,7 +526,7 @@
 
     <fragment
         android:id="@+id/address"
-        android:name="com.ngra.wms.views.fragments.user.profile.Address"
+        android:name="com.ngra.wms.views.fragments.Address"
         android:label="Address"
         tools:layout="@layout/fr_address">
 

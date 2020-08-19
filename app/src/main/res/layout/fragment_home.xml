@@ -7,7 +7,7 @@
 
         <variable
             name="vm_home"
-            type="com.ngra.wms.viewmodels.main.VM_Home" />
+            type="com.ngra.wms.viewmodels.VM_Home" />
     </data>
 
     <FrameLayout
@@ -41,7 +41,7 @@
                     android:progressDrawable="@drawable/circle_progressbar" />
 
                 <LinearLayout
-                    android:id="@+id/youScorelayout"
+                    android:id="@+id/LinearLayoutUserScore"
                     android:layout_width="@dimen/_80sdp"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
@@ -76,7 +76,7 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/scoreLayout"
+                android:id="@+id/LinearLayoutScore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -162,7 +162,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/scoreLayoutChart"
+                android:id="@+id/LinearLayoutScoreChart"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_marginTop="@dimen/_2sdp"
@@ -206,7 +206,7 @@
 
 
             <RelativeLayout
-                android:id="@+id/FooterPrimary"
+                android:id="@+id/RelativeLayoutFooterPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/_15sdp"
@@ -214,7 +214,7 @@
                 android:gravity="center">
 
                 <RelativeLayout
-                    android:id="@+id/footer"
+                    android:id="@+id/RelativeLayoutFooter"
                     android:layout_width="@dimen/_50sdp"
                     android:layout_height="@dimen/_50sdp">
 
@@ -226,7 +226,7 @@
                         android:src="@drawable/logomenu" />
 
                     <TextView
-                        android:id="@+id/footerup"
+                        android:id="@+id/TextViewFooterUp"
                         android:layout_width="@dimen/_10sdp"
                         android:layout_height="@dimen/_10sdp"
                         android:layout_alignParentTop="true"
@@ -238,7 +238,7 @@
 
 
                     <TextView
-                        android:id="@+id/footerdown"
+                        android:id="@+id/TextViewFooterDown"
                         android:layout_width="@dimen/_10sdp"
                         android:layout_height="@dimen/_10sdp"
                         android:layout_alignParentBottom="true"
@@ -250,7 +250,7 @@
 
 
                     <com.ngra.wms.views.custom.textview.VerticalTextView
-                        android:id="@+id/footerleft"
+                        android:id="@+id/VerticalTextViewFooterLeft"
                         android:layout_width="@dimen/_10sdp"
                         android:layout_height="@dimen/_10sdp"
                         android:layout_alignParentLeft="true"
@@ -262,7 +262,7 @@
                         app:direction="downtoup" />
 
                     <com.ngra.wms.views.custom.textview.VerticalTextView
-                        android:id="@+id/footerright"
+                        android:id="@+id/VerticalTextViewFooterRight"
                         android:layout_width="@dimen/_10sdp"
                         android:layout_height="@dimen/_10sdp"
                         android:layout_alignParentRight="true"
@@ -279,8 +279,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@id/footerright"
-                        android:layout_toRightOf="@id/footerleft"
+                        android:layout_toLeftOf="@id/VerticalTextViewFooterRight"
+                        android:layout_toRightOf="@id/VerticalTextViewFooterLeft"
                         android:gravity="center"
                         android:text="@string/Letsnotthrowawaythefuture"
                         android:textColor="@color/colorPrimaryDark"

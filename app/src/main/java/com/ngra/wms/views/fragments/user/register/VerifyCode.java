@@ -19,7 +19,7 @@ import androidx.databinding.DataBindingUtil;
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.FragmentVerifyCodeBinding;
 import com.ngra.wms.utility.StaticValues;
-import com.ngra.wms.viewmodels.user.register.VM_VerifyCode;
+import com.ngra.wms.viewmodels.VM_VerifyCode;
 import com.ngra.wms.views.application.ApplicationWMS;
 import com.ngra.wms.views.dialogs.DialogProgress;
 import com.ngra.wms.views.fragments.FragmentPrimary;
@@ -166,9 +166,9 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.getAc
 /*                vm_verifyCode.setPassword(Password);*/
                 if (VerifyType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_SingUp))) {
                     vm_verifyCode.setPhoneNumber(PhoneNumber);
-                    vm_verifyCode.SendNumber();
+                    vm_verifyCode.sendNumber();
                 } else {
-                    vm_verifyCode.GetLoginCode(PhoneNumber);
+                    vm_verifyCode.getLoginCode(PhoneNumber);
                 }
             }
         });
@@ -298,9 +298,9 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.getAc
             if (VerifyType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_SingUp))) {
                 vm_verifyCode.setPhoneNumber(PhoneNumber);
                 vm_verifyCode.setVerifyCode(code);
-                vm_verifyCode.SendVerifyCode();
+                vm_verifyCode.sendVerifyCode();
             } else {
-                vm_verifyCode.GetLoginVerify(PhoneNumber, code);
+                vm_verifyCode.getLoginVerify(PhoneNumber, code);
             }
         }
 

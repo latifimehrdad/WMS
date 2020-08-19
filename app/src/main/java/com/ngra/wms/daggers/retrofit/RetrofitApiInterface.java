@@ -2,6 +2,7 @@ package com.ngra.wms.daggers.retrofit;
 
 import com.ngra.wms.models.MR_BestScore;
 import com.ngra.wms.models.MR_BoothList;
+import com.ngra.wms.models.MR_ChartReport;
 import com.ngra.wms.models.MR_GiveScore;
 import com.ngra.wms.models.MR_Hi;
 import com.ngra.wms.models.MR_ItemLearn;
@@ -14,6 +15,7 @@ import com.ngra.wms.models.MR_TicketList;
 import com.ngra.wms.models.MR_TicketReplyList;
 import com.ngra.wms.models.MR_TimeSheet;
 import com.ngra.wms.models.MR_UserScoreInfoList;
+import com.ngra.wms.models.MR_UserScorePriceReport;
 import com.ngra.wms.models.MR_WasteRequest;
 import com.ngra.wms.models.MD_WasteAmountRequests;
 import com.ngra.wms.models.ModelBuildingRenovationCode;
@@ -456,6 +458,21 @@ public interface RetrofitApiInterface {
 
     @GET(Version + "/Score/GetScoreList2")
     Call<MR_ScoreList2> getScoreList2
+            (
+                    @Header("Authorization") String Authorization
+
+            );
+
+    @GET(Version + "/WarehouseInventoryInfo/GetUserScoreChartReport")
+    Call<MR_ChartReport> getChartReport
+            (
+                    @Header("Authorization") String Authorization
+
+            );
+
+
+    @GET(Version + "/WarehouseInventoryInfo/GetUserScorePriceReport")
+    Call<MR_UserScorePriceReport> getUserScorePriceReport
             (
                     @Header("Authorization") String Authorization
 

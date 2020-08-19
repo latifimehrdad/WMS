@@ -14,12 +14,16 @@ public class MD_ScoreListItem {
     double value;
 
 
-    public MD_ScoreListItem(MD_ItemWaste waste, double amount, double value) {
+    @SerializedName("wastePrice")
+    MD_wastePrice md_wastePrice;
+
+
+    public MD_ScoreListItem(MD_ItemWaste waste, double amount, double value, MD_wastePrice md_wastePrice) {
         this.waste = waste;
         this.amount = amount;
         this.value = value;
+        this.md_wastePrice = md_wastePrice;
     }
-
 
     public MD_ItemWaste getWaste() {
         return waste;
@@ -43,5 +47,9 @@ public class MD_ScoreListItem {
 
     public void setValue(double value) {
         this.value = value;
+    }
+
+    public MD_wastePrice getMd_wastePrice() {
+        return md_wastePrice;
     }
 }

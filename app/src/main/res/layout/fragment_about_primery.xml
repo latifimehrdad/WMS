@@ -5,7 +5,7 @@
 
         <variable
             name="VM_About"
-            type="com.ngra.wms.viewmodels.aboutus.VM_About" />
+            type="com.ngra.wms.viewmodels.VM_About" />
     </data>
 
     <ScrollView
@@ -27,6 +27,7 @@
                 android:textSize="@dimen/_10sdp"
                 android:text="@string/AboutUs"
                 android:gravity="center"
+                fontPath="font/iransans_web_medium.ttf"
                 />
 
             <ImageView
