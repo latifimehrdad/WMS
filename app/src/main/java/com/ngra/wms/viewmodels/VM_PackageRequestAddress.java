@@ -1,4 +1,4 @@
-package com.ngra.wms.viewmodels.packrequest;
+package com.ngra.wms.viewmodels;
 
 import android.app.Activity;
 
@@ -12,7 +12,6 @@ import com.ngra.wms.models.ModelResponsePrimary;
 import com.ngra.wms.models.ModelSettingInfo;
 import com.ngra.wms.utility.StaticFunctions;
 import com.ngra.wms.utility.StaticValues;
-import com.ngra.wms.viewmodels.VM_Primary;
 import com.ngra.wms.views.application.ApplicationWMS;
 
 import retrofit2.Call;
@@ -27,31 +26,35 @@ public class VM_PackageRequestAddress extends VM_Primary {
     private String AddressString;
     private String AddressId;
 
-    public VM_PackageRequestAddress(Activity context) {//___________________________________________ VM_PackageRequestAddress
+
+    //______________________________________________________________________________________________ VM_PackageRequestAddress
+    public VM_PackageRequestAddress(Activity context) {
         setContext(context);
-    }//_____________________________________________________________________________________________ VM_PackageRequestAddress
+    }
+    //______________________________________________________________________________________________ VM_PackageRequestAddress
 
 
-    public void SaveAddress(
+    //______________________________________________________________________________________________ saveAddress
+    public void saveAddress(
             String Address,
             double lat,
             double lng,
-            Long BuildingTypeId,
-            Integer BuildingTypeCount,
-            Long BuildingUseId,
-            Integer BuildingUseCount,
+            Long buildingTypeId,
+            Integer buildingTypeCount,
+            Long buildingUseId,
+            Integer buildingUseCount,
             String plateNumber,
-            String UnitNumber,
-            Integer AddressId) {//___________________________________________________________________ SaveAddress
+            String unitNumber,
+            Integer addressId) {
 
         RetrofitComponent retrofitComponent = ApplicationWMS
                 .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
-        String Authorization = getAuthorizationTokenFromSharedPreferences();
+        String authorization = getAuthorizationTokenFromSharedPreferences();
 
-        if (AddressId == 0)
-            AddressId = null;
+        if (addressId == 0)
+            addressId = null;
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -59,14 +62,14 @@ public class VM_PackageRequestAddress extends VM_Primary {
                         Address,
                         lat,
                         lng,
-                        BuildingTypeId,
-                        BuildingTypeCount,
-                        BuildingUseId,
-                        BuildingUseCount,
+                        buildingTypeId,
+                        buildingTypeCount,
+                        buildingUseId,
+                        buildingUseCount,
                         plateNumber,
-                        UnitNumber,
-                        AddressId,
-                        Authorization));
+                        unitNumber,
+                        addressId,
+                        authorization));
 
         getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
             @Override
@@ -76,7 +79,7 @@ public class VM_PackageRequestAddress extends VM_Primary {
                 setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     setResponseMessage(getResponseMessage(response.body()));
-                    GetLoginInformation();
+                    getLoginInformation();
                 } else
                     sendActionToObservable(StaticValues.ML_ResponseError);
             }
@@ -87,10 +90,12 @@ public class VM_PackageRequestAddress extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ SaveAddress
+    }
+    //______________________________________________________________________________________________ saveAddress
 
 
-    public void GetLoginInformation() {//___________________________________________________________ GetLoginInformation
+    //______________________________________________________________________________________________ getLoginInformation
+    public void getLoginInformation() {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
@@ -123,21 +128,23 @@ public class VM_PackageRequestAddress extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ GetLoginInformation
+    }
+    //______________________________________________________________________________________________ getLoginInformation
 
 
-    public void GetTypeBuilding() {//_______________________________________________________________ GetTypeBuilding
+    //______________________________________________________________________________________________ getTypeBuilding
+    public void getTypeBuilding() {
 
         StaticFunctions.isCancel = false;
         RetrofitComponent retrofitComponent = ApplicationWMS
                 .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
-        String Authorization = getAuthorizationTokenFromSharedPreferences();
+        String authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getHousingBuildings(Authorization));
+                .getHousingBuildings(authorization));
 
         getPrimaryCall().enqueue(new Callback<ModelHousingBuildings>() {
             @Override
@@ -158,10 +165,12 @@ public class VM_PackageRequestAddress extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ GetTypeBuilding
+    }
+    //______________________________________________________________________________________________ getTypeBuilding
 
 
-    public void GetAddress(double lat, double lon) {//______________________________________________ GetAddress
+    //______________________________________________________________________________________________ getAddress
+    public void getAddress(double lat, double lon) {
 
         RetrofitComponent retrofitComponent = ApplicationWMS
                 .getApplicationWMS(getContext())
@@ -199,10 +208,12 @@ public class VM_PackageRequestAddress extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ GetAddress
+    }
+    //______________________________________________________________________________________________ getAddress
 
 
-    public void SetAddress() {//____________________________________________________________________ Start SetAddress
+    //______________________________________________________________________________________________ setAddress
+    public void setAddress() {
 
         if (address != null && address.getAddress() != null) {
             StringBuilder addressString = new StringBuilder();
@@ -283,22 +294,24 @@ public class VM_PackageRequestAddress extends VM_Primary {
 
         sendActionToObservable(StaticValues.ML_SetAddress);
 
-    }//_____________________________________________________________________________________________ End SetAddress
+    }
+    //______________________________________________________________________________________________ setAddress
 
 
-    public void GetUserAddress() {//________________________________________________________________ GetUserAddress
+    //______________________________________________________________________________________________ getUserAddress
+    public void getUserAddress() {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = getAuthorizationTokenFromSharedPreferences();
+        String authorization = getAuthorizationTokenFromSharedPreferences();
 
 
         retrofitComponent
                 .getRetrofitApiInterface()
-                .getContactAddresses(Authorization)
+                .getContactAddresses(authorization)
                 .enqueue(new Callback<MR_SpinnerItems>() {
                     @Override
                     public void onResponse(Call<MR_SpinnerItems> call, Response<MR_SpinnerItems> response) {
@@ -317,23 +330,32 @@ public class VM_PackageRequestAddress extends VM_Primary {
                     }
                 });
 
-    }//_____________________________________________________________________________________________ GetUserAddress
+    }
+    //______________________________________________________________________________________________ getUserAddress
 
 
-    public String getAddressString() {//____________________________________________________________ getAddressString
+    //______________________________________________________________________________________________ getAddressString
+    public String getAddressString() {
         return AddressString;
-    }//_____________________________________________________________________________________________ getAddressString
+    }
+    //______________________________________________________________________________________________ getAddressString
 
 
-    public ModelBuildingTypes getBuildingTypes() {//________________________________________________ getBuildingTypes
+    //______________________________________________________________________________________________ getBuildingTypes
+    public ModelBuildingTypes getBuildingTypes() {
         return buildingTypes;
-    }//_____________________________________________________________________________________________ getBuildingTypes
+    }
+    //______________________________________________________________________________________________ getBuildingTypes
 
 
-    public String getAddressId() {//________________________________________________________________ getAddressId
+    //______________________________________________________________________________________________ getAddressId
+    public String getAddressId() {
         if (AddressId == null)
             AddressId = "0";
 
         return AddressId;
-    }//_____________________________________________________________________________________________ getAddressId
+    }
+    //______________________________________________________________________________________________ getAddressId
+
+
 }

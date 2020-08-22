@@ -1,4 +1,4 @@
-package com.ngra.wms.views.fragments.user.register;
+package com.ngra.wms.views.fragments;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -22,7 +22,6 @@ import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_VerifyCode;
 import com.ngra.wms.views.application.ApplicationWMS;
 import com.ngra.wms.views.dialogs.DialogProgress;
-import com.ngra.wms.views.fragments.FragmentPrimary;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -33,7 +32,7 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.getAc
     private VM_VerifyCode vm_verifyCode;
     private String PhoneNumber = "";
     private String VerifyType = "";
-/*    private String Password = "";*/
+    /*    private String Password = "";*/
     private DialogProgress progress;
     private boolean ReTryGetSMSClick = false;
     private Handler timer;
@@ -67,15 +66,18 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.getAc
     TextView message;
 
 
-    public VerifyCode() {//_________________________________________________________________________ VerifyCode
-    }//_____________________________________________________________________________________________ VerifyCode
+    //______________________________________________________________________________________________ VerifyCode
+    public VerifyCode() {
+    }
+    //______________________________________________________________________________________________ VerifyCode
 
 
+    //______________________________________________________________________________________________ onCreateView
     @Override
     public View onCreateView(
             @NotNull LayoutInflater inflater,
             ViewGroup container,
-            Bundle savedInstanceState) {//__________________________________________________________ onCreateView
+            Bundle savedInstanceState) {
         if (getView() == null) {
             FragmentVerifyCodeBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_verify_code, container, false);
@@ -85,37 +87,42 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.getAc
             init();
         }
         return getView();
-    }//_____________________________________________________________________________________________ onCreateView
+    }
+    //______________________________________________________________________________________________ onCreateView
 
 
+    //______________________________________________________________________________________________ onStart
     @Override
-    public void onStart() {//_______________________________________________________________________ onStart
+    public void onStart() {
         super.onStart();
         setPublishSubjectFromObservable(
                 VerifyCode.this,
                 vm_verifyCode.getPublishSubject(),
                 vm_verifyCode);
-    }//_____________________________________________________________________________________________ onStart
+    }
+    //______________________________________________________________________________________________ onStart
 
 
-    private void init() {//_________________________________________________________________________ Start init
-        SetPhoneNumberPassword();
+    //______________________________________________________________________________________________ init
+    private void init() {
+        setPhoneNumberPassword();
         VerifyCode1.requestFocus();
-        SetBackVerifyCode();
-        SetTextChangeListener();
-        ReTryGetSMS();
-        SetOnclick();
-        StartTimer(120);
-    }//_____________________________________________________________________________________________ End init
+        setBackVerifyCode();
+        setTextChangeListener();
+        reTryGetSMS();
+        setOnclick();
+        startTimer(120);
+    }
+    //______________________________________________________________________________________________ init
 
 
+    //______________________________________________________________________________________________ getActionFromObservable
     @Override
-    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
-
+    public void getActionFromObservable(Byte action) {
 
 
         if (action.equals(StaticValues.ML_GotoLogin)) {
-            DismissProgress();
+            dismissProgress();
             if (getContext() != null) {
                 getContext().onBackPressed();
                 getContext().onBackPressed();
@@ -124,7 +131,7 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.getAc
         }
 
         if (action.equals(StaticValues.ML_GoToHome)) {
-            DismissProgress();
+            dismissProgress();
             if (getContext() != null) {
                 if (VerifyType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_SingUp))) {
                     getContext().onBackPressed();
@@ -150,20 +157,22 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.getAc
             VerifyCode5.setText("");
             VerifyCode6.setText("");
             VerifyCode1.requestFocus();
-            SetBackVerifyCode();
-            StartTimer(120);
+            setBackVerifyCode();
+            startTimer(120);
             return;
         }
 
 
-    }//_____________________________________________________________________________________________ GetMessageFromObservable
+    }
+    //______________________________________________________________________________________________ getActionFromObservable
 
 
-    private void SetOnclick() {//___________________________________________________________________ SetOnclick
+    //______________________________________________________________________________________________ setOnclick
+    private void setOnclick() {
 
         message.setOnClickListener(v -> {
             if (ReTryGetSMSClick) {
-/*                vm_verifyCode.setPassword(Password);*/
+                /*                vm_verifyCode.setPassword(Password);*/
                 if (VerifyType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_SingUp))) {
                     vm_verifyCode.setPhoneNumber(PhoneNumber);
                     vm_verifyCode.sendNumber();
@@ -173,10 +182,12 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.getAc
             }
         });
 
-    }//_____________________________________________________________________________________________ SetOnclick
+    }
+    //______________________________________________________________________________________________ setOnclick
 
 
-    private void StartTimer(int Elapse) {//_________________________________________________________ StartTimer
+    //______________________________________________________________________________________________ startTimer
+    private void startTimer(int Elapse) {
 
         ReTryGetSMSClick = false;
         TimeElapsed.setVisibility(View.VISIBLE);
@@ -201,40 +212,46 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.getAc
                 if (progressBar.getProgress() > 0)
                     timer.postDelayed(this, 100);
                 else
-                    ReTryGetSMS();
+                    reTryGetSMS();
             }
         };
         timer.postDelayed(runnable, 100);
 
-    }//_____________________________________________________________________________________________ StartTimer
+    }
+    //______________________________________________________________________________________________ startTimer
 
 
-    private void ReTryGetSMS() {//__________________________________________________________________ ReTryGetSMS
+    //______________________________________________________________________________________________ reTryGetSMS
+    private void reTryGetSMS() {
         TimeElapsed.setVisibility(View.GONE);
         ReTryGetSMSClick = true;
         message.setText(getResources().getString(R.string.ReTryGetSMS));
-    }//_____________________________________________________________________________________________ ReTryGetSMS
+    }
+    //______________________________________________________________________________________________ reTryGetSMS
 
 
-    private void SetTextChangeListener() {//________________________________________________________ SetTextChangeListener
+    //______________________________________________________________________________________________ setTextChangeListener
+    private void setTextChangeListener() {
 
-        VerifyCode1.addTextChangedListener(TextChange(VerifyCode2));
-        VerifyCode2.addTextChangedListener(TextChange(VerifyCode3));
-        VerifyCode3.addTextChangedListener(TextChange(VerifyCode4));
-        VerifyCode4.addTextChangedListener(TextChange(VerifyCode5));
-        VerifyCode5.addTextChangedListener(TextChange(VerifyCode6));
-        VerifyCode6.addTextChangedListener(TextChange(VerifyCode6));
+        VerifyCode1.addTextChangedListener(textChange(VerifyCode2));
+        VerifyCode2.addTextChangedListener(textChange(VerifyCode3));
+        VerifyCode3.addTextChangedListener(textChange(VerifyCode4));
+        VerifyCode4.addTextChangedListener(textChange(VerifyCode5));
+        VerifyCode5.addTextChangedListener(textChange(VerifyCode6));
+        VerifyCode6.addTextChangedListener(textChange(VerifyCode6));
 
-        VerifyCode1.setOnKeyListener(SetKeyBackSpace(VerifyCode1));
-        VerifyCode2.setOnKeyListener(SetKeyBackSpace(VerifyCode1));
-        VerifyCode3.setOnKeyListener(SetKeyBackSpace(VerifyCode2));
-        VerifyCode4.setOnKeyListener(SetKeyBackSpace(VerifyCode3));
-        VerifyCode5.setOnKeyListener(SetKeyBackSpace(VerifyCode4));
-        VerifyCode6.setOnKeyListener(SetKeyBackSpace(VerifyCode5));
-    }//_____________________________________________________________________________________________ SetTextChangeListener
+        VerifyCode1.setOnKeyListener(setKeyBackSpace(VerifyCode1));
+        VerifyCode2.setOnKeyListener(setKeyBackSpace(VerifyCode1));
+        VerifyCode3.setOnKeyListener(setKeyBackSpace(VerifyCode2));
+        VerifyCode4.setOnKeyListener(setKeyBackSpace(VerifyCode3));
+        VerifyCode5.setOnKeyListener(setKeyBackSpace(VerifyCode4));
+        VerifyCode6.setOnKeyListener(setKeyBackSpace(VerifyCode5));
+    }
+    //______________________________________________________________________________________________ setTextChangeListener
 
 
-    private TextWatcher TextChange(EditText eNext) {//______________________________________________ TextChange
+    //______________________________________________________________________________________________ textChange
+    private TextWatcher textChange(EditText eNext) {
 
         return new TextWatcher() {
             @Override
@@ -251,14 +268,16 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.getAc
             public void afterTextChanged(Editable s) {
                 if (s.length() > 0)
                     eNext.requestFocus();
-                SetBackVerifyCode();
+                setBackVerifyCode();
             }
         };
 
-    }//_____________________________________________________________________________________________ TextChange
+    }
+    //______________________________________________________________________________________________ textChange
 
 
-    private View.OnKeyListener SetKeyBackSpace(EditText view) {//___________________________________ SetKeyBackSpace
+    //______________________________________________________________________________________________ setKeyBackSpace
+    private View.OnKeyListener setKeyBackSpace(EditText view) {
         return (v, keyCode, event) -> {
 
             EditText edit = (EditText) v;
@@ -267,24 +286,26 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.getAc
                     return true;
                 if (edit.getText().length() == 0) {
                     view.requestFocus();
-                    SetBackVerifyCode();
+                    setBackVerifyCode();
                     return true;
                 } else
                     return false;
             }
             return false;
         };
-    }//_____________________________________________________________________________________________ SetKeyBackSpace
+    }
+    //______________________________________________________________________________________________ setKeyBackSpace
 
 
-    private void SetBackVerifyCode() {//____________________________________________________________ SetBackVerifyCode
+    //______________________________________________________________________________________________ setBackVerifyCode
+    private void setBackVerifyCode() {
 
-        Boolean c1 = SetBackVerifyCodeView(VerifyCode1);
-        Boolean c2 = SetBackVerifyCodeView(VerifyCode2);
-        Boolean c3 = SetBackVerifyCodeView(VerifyCode3);
-        Boolean c4 = SetBackVerifyCodeView(VerifyCode4);
-        Boolean c5 = SetBackVerifyCodeView(VerifyCode5);
-        Boolean c6 = SetBackVerifyCodeView(VerifyCode6);
+        Boolean c1 = setBackVerifyCodeView(VerifyCode1);
+        Boolean c2 = setBackVerifyCodeView(VerifyCode2);
+        Boolean c3 = setBackVerifyCodeView(VerifyCode3);
+        Boolean c4 = setBackVerifyCodeView(VerifyCode4);
+        Boolean c5 = setBackVerifyCodeView(VerifyCode5);
+        Boolean c6 = setBackVerifyCodeView(VerifyCode6);
 
         if (c1 && c2 && c3 && c4 && c5 && c6) {
             String code = VerifyCode1.getText().toString() +
@@ -294,7 +315,7 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.getAc
                     VerifyCode5.getText().toString() +
                     VerifyCode6.getText().toString();
 
-            ShowProgressDialog();
+            showProgressDialog();
             if (VerifyType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_SingUp))) {
                 vm_verifyCode.setPhoneNumber(PhoneNumber);
                 vm_verifyCode.setVerifyCode(code);
@@ -304,10 +325,12 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.getAc
             }
         }
 
-    }//_____________________________________________________________________________________________ SetBackVerifyCode
+    }
+    //______________________________________________________________________________________________ setBackVerifyCode
 
 
-    private Boolean SetBackVerifyCodeView(EditText editText) {//____________________________________ SetBackVerifyCodeView
+    //______________________________________________________________________________________________ setBackVerifyCodeView
+    private Boolean setBackVerifyCodeView(EditText editText) {
 
         boolean ret = false;
         if (editText.getText().length() == 0)
@@ -321,10 +344,12 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.getAc
         }
         return ret;
 
-    }//_____________________________________________________________________________________________ SetBackVerifyCodeView
+    }
+    //______________________________________________________________________________________________ setBackVerifyCodeView
 
 
-    private void ShowProgressDialog() {//___________________________________________________________ ShowProgressDialog
+    //______________________________________________________________________________________________ showProgressDialog
+    private void showProgressDialog() {
 
         if (getContext() != null && getFragmentManager() != null) {
             progress = ApplicationWMS
@@ -335,20 +360,23 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.getAc
             progress.show(getFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
         }
 
-    }//_____________________________________________________________________________________________ ShowProgressDialog
+    }
+    //______________________________________________________________________________________________ showProgressDialog
 
 
-    private void SetPhoneNumberPassword() {//_______________________________________________________ SetPhoneNumberPassword
+    //______________________________________________________________________________________________ setPhoneNumberPassword
+    private void setPhoneNumberPassword() {
         Bundle bundle = getArguments();
         if (bundle != null && getContext() != null) {
             PhoneNumber = bundle.getString(getContext().getString(R.string.ML_PhoneNumber));
             VerifyType = bundle.getString(getContext().getResources().getString(R.string.ML_Type));
-            /*Password = bundle.getString(getContext().getString(R.string.ML_Password));*/
         }
-    }//_____________________________________________________________________________________________ SetPhoneNumberPassword
+    }
+    //______________________________________________________________________________________________ setPhoneNumberPassword
 
 
-    private void DismissProgress() {//______________________________________________________________ DismissProgress
+    //______________________________________________________________________________________________ dismissProgress
+    private void dismissProgress() {
         if (progress != null)
             progress.dismiss();
 
@@ -357,7 +385,8 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.getAc
             timer = null;
             runnable = null;
         }
-    }//_____________________________________________________________________________________________ DismissProgress
+    }
+    //______________________________________________________________________________________________ dismissProgress
 
 
 }

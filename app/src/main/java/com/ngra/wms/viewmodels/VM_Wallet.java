@@ -1,4 +1,4 @@
-package com.ngra.wms.viewmodels.wallet;
+package com.ngra.wms.viewmodels;
 
 import android.app.Activity;
 
@@ -10,7 +10,6 @@ import com.ngra.wms.models.MR_ChartReport;
 import com.ngra.wms.models.MR_ScoreList;
 import com.ngra.wms.models.MR_UserScorePriceReport;
 import com.ngra.wms.utility.StaticValues;
-import com.ngra.wms.viewmodels.VM_Primary;
 import com.ngra.wms.views.application.ApplicationWMS;
 
 import java.util.List;
@@ -22,17 +21,16 @@ import retrofit2.Response;
 public class VM_Wallet extends VM_Primary {
 
 
-
     private List<MD_ScoreListConfig> scoreListConfigs;
     private List<MD_ChartReport> md_chartReports;
     private MD_UserScorePriceReport md_userScorePriceReport;
 
 
-
-    public VM_Wallet(Activity context) {//__________________________________________________________ VM_Wallet
+    //______________________________________________________________________________________________ VM_Wallet
+    public VM_Wallet(Activity context) {
         setContext(context);
-    }//_____________________________________________________________________________________________ VM_Wallet
-
+    }
+    //______________________________________________________________________________________________ VM_Wallet
 
 
     //______________________________________________________________________________________________ getGiveScoreList
@@ -73,8 +71,6 @@ public class VM_Wallet extends VM_Primary {
     //______________________________________________________________________________________________ getGiveScoreList
 
 
-
-
     //______________________________________________________________________________________________ getChartReport
     public void getChartReport() {
 
@@ -109,8 +105,6 @@ public class VM_Wallet extends VM_Primary {
 
     }
     //______________________________________________________________________________________________ getChartReport
-
-
 
 
     //______________________________________________________________________________________________ getUserScorePriceReport
@@ -148,13 +142,11 @@ public class VM_Wallet extends VM_Primary {
     //______________________________________________________________________________________________ getUserScorePriceReport
 
 
-
     //______________________________________________________________________________________________ getScoreListConfigs
     public List<MD_ScoreListConfig> getScoreListConfigs() {
         return scoreListConfigs;
     }
     //______________________________________________________________________________________________ getScoreListConfigs
-
 
 
     //______________________________________________________________________________________________ getMd_chartReports
@@ -164,13 +156,11 @@ public class VM_Wallet extends VM_Primary {
     //______________________________________________________________________________________________ getMd_chartReports
 
 
-
     //______________________________________________________________________________________________ getMd_userScorePriceReport
     public MD_UserScorePriceReport getMd_userScorePriceReport() {
         return md_userScorePriceReport;
     }
     //______________________________________________________________________________________________ getMd_userScorePriceReport
-
 
 
 }

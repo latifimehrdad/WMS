@@ -1,4 +1,4 @@
-package com.ngra.wms.views.fragments.user.register;
+package com.ngra.wms.views.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,8 +17,7 @@ import com.cunoraz.gifview.library.GifView;
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.FragmentSignupBinding;
 import com.ngra.wms.utility.StaticValues;
-import com.ngra.wms.viewmodels.user.register.VM_SignUp;
-import com.ngra.wms.views.fragments.FragmentPrimary;
+import com.ngra.wms.viewmodels.VM_SignUp;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -40,11 +39,6 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.getAction
     @BindView(R.id.EditPhoneNumber)
     EditText EditPhoneNumber;
 
-/*    @BindView(R.id.EditPassword)
-    EditText EditPassword;
-
-    @BindView(R.id.EditPasswordConfirm)
-    EditText EditPasswordConfirm;*/
 
     @BindView(R.id.ImgPassVisible)
     ImageView ImgPassVisible;
@@ -62,11 +56,12 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.getAction
     ImageView imgLoading;
 
 
+    //______________________________________________________________________________________________ onCreateView
     @Override
     public View onCreateView(
             @NotNull LayoutInflater inflater,
             ViewGroup container,
-            Bundle savedInstanceState) {//__________________________________________________________ onCreateView
+            Bundle savedInstanceState) {
         if (getView() == null) {
             FragmentSignupBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_signup, container, false);
@@ -76,11 +71,13 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.getAction
             init();
         }
         return getView();
-    }//_____________________________________________________________________________________________ onCreateView
+    }
+    //______________________________________________________________________________________________ onCreateView
 
 
+    //______________________________________________________________________________________________ onStart
     @Override
-    public void onStart() {//_______________________________________________________________________ onStart
+    public void onStart() {
         super.onStart();
         setPublishSubjectFromObservable(
                 SignUp.this,
@@ -88,12 +85,14 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.getAction
                 vm_signUp);
         if (getView() != null)
             navController = Navigation.findNavController(getView());
-    }//_____________________________________________________________________________________________ onStart
+    }
+    //______________________________________________________________________________________________ onStart
 
 
-    private void init() {//_________________________________________________________________________ Start init
-        SetOnclick();
-        SetTextWatcher();
+    //______________________________________________________________________________________________ init
+    private void init() {
+        setOnclick();
+        setTextWatcher();
         passVisible = false;
         passConfirmVisible = false;
         Bundle bundle = getArguments();
@@ -101,14 +100,16 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.getAction
             String phoneNumber = bundle.getString(getContext().getString(R.string.ML_PhoneNumber));
             EditPhoneNumber.setText(phoneNumber);
         }
-    }//_____________________________________________________________________________________________ End init
+    }
+    //______________________________________________________________________________________________ init
 
 
+    //______________________________________________________________________________________________ getMessageFromObservable
     @Override
-    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {
 
 
-        DismissLoading();
+        dismissLoading();
         if (action.equals(StaticValues.ML_Success)) {
             if (getContext() != null) {
                 Bundle bundle = new Bundle();
@@ -120,30 +121,28 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.getAction
             }
         }
 
-    }//_____________________________________________________________________________________________ GetMessageFromObservable
+    }
+    //______________________________________________________________________________________________ getMessageFromObservable
 
 
-    private void SetTextWatcher() {//_______________________________________________________________ Start SetTextWatcher
+    //______________________________________________________________________________________________ setTextWatcher
+    private void setTextWatcher() {
         EditPhoneNumber.setBackgroundResource(R.drawable.dw_edit_back);
         EditPhoneNumber.addTextChangedListener(TextChangeForChangeBack(EditPhoneNumber));
-/*
-        EditPassword.setBackgroundResource(R.drawable.dw_edit_back);
-        EditPassword.addTextChangedListener(TextChangeForChangeBack(EditPassword));
-
-        EditPasswordConfirm.setBackgroundResource(R.drawable.dw_edit_back);
-        EditPasswordConfirm.addTextChangedListener(TextChangeForChangeBack(EditPasswordConfirm));*/
-    }//_____________________________________________________________________________________________ End SetTextWatcher
+    }
+    //______________________________________________________________________________________________ setTextWatcher
 
 
-    private void SetOnclick() {//___________________________________________________________________ SetOnclick
+    //______________________________________________________________________________________________ setOnclick
+    private void setOnclick() {
 
         btnGetVerifyCode.setOnClickListener(v -> {
-                if (CheckEmpty()) {
-                    ShowLoading();
-                    vm_signUp.setPhoneNumber(EditPhoneNumber.getText().toString());
-                    /*vm_signUp.setPassword(EditPassword.getText().toString());*/
-                    vm_signUp.SendNumber();
-                }
+            if (checkEmpty()) {
+                showLoading();
+                vm_signUp.setPhoneNumber(EditPhoneNumber.getText().toString());
+                /*vm_signUp.setPassword(EditPassword.getText().toString());*/
+                vm_signUp.sendNumber();
+            }
 
         });
 
@@ -161,7 +160,7 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.getAction
                 ImgPassVisible.setImageResource(R.drawable.svg_password_visible);
                 passVisible = false;
             }
-/*            EditPassword.setSelection(EditPassword.getText().length());*/
+            /*            EditPassword.setSelection(EditPassword.getText().length());*/
         });
 
 
@@ -174,60 +173,42 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.getAction
 
             } else {
 /*                EditPasswordConfirm.setInputType(InputType.TYPE_CLASS_TEXT |
-                        InputType.TYPE_TEXT_VARIATION_PASSWORD)*/;
+                        InputType.TYPE_TEXT_VARIATION_PASSWORD)*/
+                ;
                 ImgPassConfVisible.setImageResource(R.drawable.svg_password_visible);
                 passConfirmVisible = false;
             }
-/*            EditPasswordConfirm.setSelection(EditPasswordConfirm.getText().length());*/
+            /*            EditPasswordConfirm.setSelection(EditPasswordConfirm.getText().length());*/
         });
 
-    }//_____________________________________________________________________________________________ SetOnclick
+    }
+    //______________________________________________________________________________________________ setOnclick
 
 
-    private void DismissLoading() {//_______________________________________________________________ Start DismissLoading
+    //______________________________________________________________________________________________ dismissLoading
+    private void dismissLoading() {
         txtLoading.setText(getResources().getString(R.string.GetCode));
         btnGetVerifyCode.setBackground(getResources().getDrawable(R.drawable.save_info_button));
         gifLoading.setVisibility(View.GONE);
         imgLoading.setVisibility(View.VISIBLE);
-    }//_____________________________________________________________________________________________ End DismissLoading
+    }
+    //______________________________________________________________________________________________ dismissLoading
 
 
-    private void ShowLoading() {//__________________________________________________________________ Start ShowLoading
+    //______________________________________________________________________________________________ showLoading
+    private void showLoading() {
         txtLoading.setText(getResources().getString(R.string.Cancel));
         btnGetVerifyCode.setBackground(getResources().getDrawable(R.drawable.button_red));
         gifLoading.setVisibility(View.VISIBLE);
         imgLoading.setVisibility(View.INVISIBLE);
-    }//_____________________________________________________________________________________________ End ShowLoading
+    }
+    //______________________________________________________________________________________________ showLoading
 
 
-    private Boolean CheckEmpty() {//________________________________________________________________ Start CheckEmpty
+    //______________________________________________________________________________________________ checkEmpty
+    private Boolean checkEmpty() {
 
         boolean phone;
-/*        boolean pass;
-        boolean passconf;*/
-
-/*        if (!EditPasswordConfirm.getText().toString().equalsIgnoreCase(EditPassword.getText().toString())) {
-            EditPassword.setText("");
-            EditPasswordConfirm.setText("");
-            EditPasswordConfirm.setBackgroundResource(R.drawable.dw_edit_back_empty);
-            EditPasswordConfirm.setError(getResources().getString(R.string.EmptyPasswordConfirm));
-            EditPasswordConfirm.requestFocus();
-            EditPassword.setBackgroundResource(R.drawable.dw_edit_back_empty);
-            EditPassword.setError(getResources().getString(R.string.EmptyPasswordConfirm));
-            EditPassword.requestFocus();
-
-            passconf = false;
-        } else
-            passconf = true;*/
-
-
-/*        if (EditPassword.getText().length() < 6) {
-            EditPassword.setBackgroundResource(R.drawable.dw_edit_back_empty);
-            EditPassword.setError(getResources().getString(R.string.EmptyPassword));
-            EditPassword.requestFocus();
-            pass = false;
-        } else
-            pass = true;*/
 
 
         if (EditPhoneNumber.getText().length() != 11) {
@@ -250,7 +231,8 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.getAction
 
         return phone;
 
-    }//_____________________________________________________________________________________________ End CheckEmpty
+    }
+    //______________________________________________________________________________________________ checkEmpty
 
 
 }

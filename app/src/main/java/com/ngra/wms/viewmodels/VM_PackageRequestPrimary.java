@@ -1,4 +1,4 @@
-package com.ngra.wms.viewmodels.packrequest;
+package com.ngra.wms.viewmodels;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -8,7 +8,6 @@ import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.ModelResponsePrimary;
 import com.ngra.wms.models.ModelSettingInfo;
 import com.ngra.wms.models.MD_TimeSheet;
-import com.ngra.wms.models.MR_TimeSheet;
 import com.ngra.wms.utility.StaticFunctions;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Primary;
@@ -21,14 +20,16 @@ import retrofit2.Response;
 
 public class VM_PackageRequestPrimary extends VM_Primary {
 
-    private MR_TimeSheet MRTimes;
 
-    public VM_PackageRequestPrimary(Activity context) {//___________________________________________ VM_PackageRequestPrimary
+    //______________________________________________________________________________________________ VM_PackageRequestPrimary
+    public VM_PackageRequestPrimary(Activity context) {
         setContext(context);
-    }//_____________________________________________________________________________________________ VM_PackageRequestPrimary
+    }
+    //______________________________________________________________________________________________ VM_PackageRequestPrimary
 
 
-    public void SendPackageRequest(Integer timeId) {//______________________________________________ SendPackageRequest
+    //______________________________________________________________________________________________ sendPackageRequest
+    public void sendPackageRequest(Integer timeId) {
 
         RetrofitComponent retrofitComponent = ApplicationWMS
                 .getApplicationWMS(getContext())
@@ -49,7 +50,7 @@ public class VM_PackageRequestPrimary extends VM_Primary {
                 setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     setResponseMessage(getResponseMessage(response.body()));
-                    GetLoginInformation();
+                    getLoginInformation();
                 } else
                     sendActionToObservable(StaticValues.ML_ResponseError);
             }
@@ -60,22 +61,24 @@ public class VM_PackageRequestPrimary extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ SendPackageRequest
+    }
+    //______________________________________________________________________________________________ sendPackageRequest
 
 
-    public void GetLoginInformation() {//___________________________________________________________ GetLoginInformation
+    //______________________________________________________________________________________________ getLoginInformation
+    public void getLoginInformation() {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = getAuthorizationTokenFromSharedPreferences();
+        String authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .getSettingInfo(
-                        Authorization));
+                        authorization));
 
         getPrimaryCall().enqueue(new Callback<ModelSettingInfo>() {
             @Override
@@ -85,7 +88,8 @@ public class VM_PackageRequestPrimary extends VM_Primary {
                     if (StaticFunctions.SaveProfile(getContext(), response.body().getResult()))
                         sendActionToObservable(StaticValues.ML_SendPackageRequest);
                 } else
-                    sendActionToObservable(StaticValues.ML_ResponseError);;
+                    sendActionToObservable(StaticValues.ML_ResponseError);
+                ;
             }
 
             @Override
@@ -94,10 +98,12 @@ public class VM_PackageRequestPrimary extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ GetLoginInformation
+    }
+    //______________________________________________________________________________________________ getLoginInformation
 
 
-    public void GetTypeTimes() {//__________________________________________________________________ GetTypeTimes
+    //______________________________________________________________________________________________ getTypeTimes
+    public void getTypeTimes() {
 
         RetrofitComponent retrofitComponent = ApplicationWMS
                 .getApplicationWMS(getContext())
@@ -128,10 +134,12 @@ public class VM_PackageRequestPrimary extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ GetTypeTimes
+    }
+    //______________________________________________________________________________________________ getTypeTimes
 
 
-    public Byte GetPackageStatus() {//_______________________________________________________________ GetPackageStatus
+    //______________________________________________________________________________________________ getPackageStatus
+    public Byte getPackageStatus() {
 
         if (getContext() != null) {
             SharedPreferences prefs = getContext().getSharedPreferences(getContext().getString(R.string.ML_SharePreferences), 0);
@@ -142,12 +150,8 @@ public class VM_PackageRequestPrimary extends VM_Primary {
             }
         }
         return 0;
-    }//_____________________________________________________________________________________________ GetPackageStatus
+    }
+    //______________________________________________________________________________________________ getPackageStatus
 
-
-
-//    public MR_TimeSheet getMRTimes() {//___________________________________________________________ getModelTimes
-//        return MRTimes;
-//    }//_____________________________________________________________________________________________ getModelTimes
 
 }

@@ -7,7 +7,7 @@
 
         <variable
             name="vm_requestAddress"
-            type="com.ngra.wms.viewmodels.packrequest.VM_PackageRequestAddress" />
+            type="com.ngra.wms.viewmodels.VM_PackageRequestAddress" />
 
     </data>
 

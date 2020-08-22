@@ -80,7 +80,7 @@
 
     <fragment
         android:id="@+id/signUp"
-        android:name="com.ngra.wms.views.fragments.user.register.SignUp"
+        android:name="com.ngra.wms.views.fragments.SignUp"
         android:label="SignUp"
         tools:layout="@layout/fragment_signup">
 
@@ -105,7 +105,7 @@
 
     <fragment
         android:id="@+id/verifyCode"
-        android:name="com.ngra.wms.views.fragments.user.register.VerifyCode"
+        android:name="com.ngra.wms.views.fragments.VerifyCode"
         android:label="VerifyCode"
         tools:layout="@layout/fragment_verify_code"/>
 
@@ -249,7 +249,7 @@
 
     <fragment
         android:id="@+id/packageRequestAddress"
-        android:name="com.ngra.wms.views.fragments.packrequest.PackageRequestAddress"
+        android:name="com.ngra.wms.views.fragments.PackageRequestAddress"
         android:label="PackageRequestAddress"
         tools:layout="@layout/fragment_pack_request_address"
         >
@@ -266,7 +266,7 @@
 
     <fragment
         android:id="@+id/packageRequestPrimary"
-        android:name="com.ngra.wms.views.fragments.packrequest.PackageRequestPrimary"
+        android:name="com.ngra.wms.views.fragments.PackageRequestPrimary"
         android:label="PackageRequestPrimary"
         tools:layout="@layout/fragment_pack_request_primary"
         >
@@ -335,7 +335,7 @@
 
     <fragment
         android:id="@+id/wallet"
-        android:name="com.ngra.wms.views.fragments.wallet.Wallet"
+        android:name="com.ngra.wms.views.fragments.Wallet"
         android:label="Wallet"
         tools:layout="@layout/fragment_wallet"/>
 

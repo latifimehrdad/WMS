@@ -1,4 +1,4 @@
-package com.ngra.wms.views.fragments.wallet;
+package com.ngra.wms.views.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,10 +15,8 @@ import com.ngra.wms.R;
 import com.ngra.wms.databinding.FragmentWalletBinding;
 import com.ngra.wms.models.MD_ChartReport;
 import com.ngra.wms.utility.StaticValues;
-import com.ngra.wms.viewmodels.wallet.VM_Wallet;
+import com.ngra.wms.viewmodels.VM_Wallet;
 import com.ngra.wms.views.adaptors.lottery.AP_WalletScore;
-import com.ngra.wms.views.adaptors.lottery.AP_WalletScoreItem;
-import com.ngra.wms.views.fragments.FragmentPrimary;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -28,7 +26,6 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-import com.ngra.wms.views.fragments.Login;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -60,13 +57,12 @@ public class Wallet extends FragmentPrimary implements FragmentPrimary.getAction
     TextView TextViewTotalWeights;
 
 
-
-
+    //______________________________________________________________________________________________ onCreateView
     @Override
     public View onCreateView(
             @NotNull LayoutInflater inflater,
             ViewGroup container,
-            Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
+            Bundle savedInstanceState) {
         if (getView() == null) {
             vm_wallet = new VM_Wallet(getContext());
             FragmentWalletBinding binding = DataBindingUtil.inflate(
@@ -77,25 +73,31 @@ public class Wallet extends FragmentPrimary implements FragmentPrimary.getAction
             init();
         }
         return getView();
-    }//_____________________________________________________________________________________________ End onCreateView
+    }
+    //______________________________________________________________________________________________ onCreateView
 
 
-    public Wallet() {//_____________________________________________________________________ Start FragmentWallet
-    }//_____________________________________________________________________________________________ End FragmentWallet
+    //______________________________________________________________________________________________ FragmentWallet
+    public Wallet() {
+    }
+    //______________________________________________________________________________________________ FragmentWallet
 
 
+    //______________________________________________________________________________________________ onStart
     @Override
-    public void onStart() {//_______________________________________________________________________ Start onStart
+    public void onStart() {
         super.onStart();
         setPublishSubjectFromObservable(
                 Wallet.this,
                 vm_wallet.getPublishSubject(),
                 vm_wallet);
-    }//_____________________________________________________________________________________________ End onStart
+    }
+    //______________________________________________________________________________________________ onStart
 
 
+    //______________________________________________________________________________________________ getActionFromObservable
     @Override
-    public void getActionFromObservable(Byte action) {//____________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {
 
         gifLoading.setVisibility(View.GONE);
         if (action.equals(StaticValues.ML_GetGiveScore)) {
@@ -104,7 +106,7 @@ public class Wallet extends FragmentPrimary implements FragmentPrimary.getAction
         }
 
         if (action.equals(StaticValues.ML_GetReport)) {
-            SetChart();
+            setChart();
             return;
         }
 
@@ -122,8 +124,8 @@ public class Wallet extends FragmentPrimary implements FragmentPrimary.getAction
         }
 
 
-    }//_____________________________________________________________________________________________ GetMessageFromObservable
-
+    }
+    //______________________________________________________________________________________________ getActionFromObservable
 
 
     //______________________________________________________________________________________________ init
@@ -137,7 +139,6 @@ public class Wallet extends FragmentPrimary implements FragmentPrimary.getAction
     //______________________________________________________________________________________________ init
 
 
-
     //______________________________________________________________________________________________ setAdapterGiveScoreListConfig
     private void setAdapterGiveScoreListConfig() {
 
@@ -148,10 +149,8 @@ public class Wallet extends FragmentPrimary implements FragmentPrimary.getAction
     //______________________________________________________________________________________________ setAdapterGiveScoreListConfig
 
 
-
-
-
-    private void SetChart() {//_____________________________________________________________________ Start SetChart
+    //______________________________________________________________________________________________ setChart
+    private void setChart() {
 
 
         months = new ArrayList<>();
@@ -224,10 +223,11 @@ public class Wallet extends FragmentPrimary implements FragmentPrimary.getAction
         // chart.setDrawLegend(false);
         setData();
 
-    }//_____________________________________________________________________________________________ End SetChart
+    }
+    //______________________________________________________________________________________________ setChart
 
 
-
+    //______________________________________________________________________________________________ setData
     private void setData() {
 
 
@@ -246,7 +246,7 @@ public class Wallet extends FragmentPrimary implements FragmentPrimary.getAction
             set1.setDrawIcons(false);
 
             List<Integer> colors = new ArrayList<>();
-            if (getContext()!= null) {
+            if (getContext() != null) {
                 colors.add(getContext().getResources().getColor(R.color.mlHomeMaxScore));
                 colors.add(getContext().getResources().getColor(R.color.mlHomeAveScore));
             }
@@ -285,7 +285,7 @@ public class Wallet extends FragmentPrimary implements FragmentPrimary.getAction
             chart.setVisibility(View.VISIBLE);
         }
     }
-
+    //______________________________________________________________________________________________ setData
 
 
 }

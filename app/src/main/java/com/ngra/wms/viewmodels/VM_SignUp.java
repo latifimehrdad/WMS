@@ -1,4 +1,4 @@
-package com.ngra.wms.viewmodels.user.register;
+package com.ngra.wms.viewmodels;
 
 import android.app.Activity;
 
@@ -16,28 +16,30 @@ public class VM_SignUp extends VM_Primary {
 
 
     private String PhoneNumber;
-/*    private String Password;*/
 
 
-    public VM_SignUp(Activity context) {//___________________________________________________________ VM_SignUp
+    //______________________________________________________________________________________________ VM_SignUp
+    public VM_SignUp(Activity context) {
         setContext(context);
-    }//_____________________________________________________________________________________________ VM_SignUp
+    }
+    //______________________________________________________________________________________________ VM_SignUp
 
 
-    public void SendNumber() {//____________________________________________________________________ SendNumber
+    //______________________________________________________________________________________________ sendNumber
+    public void sendNumber() {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = getAuthorizationTokenFromSharedPreferences();
+        String authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .SendPhoneNumber(
                         getPhoneNumber(),
-                        Authorization));
+                        authorization));
 
         getPrimaryCall().enqueue(new Callback<MR_Register>() {
             @Override
@@ -55,7 +57,7 @@ public class VM_SignUp extends VM_Primary {
                             sendActionToObservable(StaticValues.ML_ResponseError);
                     }
                 } else {
-                        sendActionToObservable(StaticValues.ML_ResponseError);
+                    sendActionToObservable(StaticValues.ML_ResponseError);
                 }
             }
 
@@ -65,26 +67,26 @@ public class VM_SignUp extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ SendNumber
+    }
+    //______________________________________________________________________________________________ sendNumber
 
 
-    public String getPhoneNumber() {//______________________________________________________________ getPhoneNumber
+    //______________________________________________________________________________________________ getPhoneNumber
+    public String getPhoneNumber() {
         return PhoneNumber;
-    }//_____________________________________________________________________________________________ getPhoneNumber
+    }
+    //______________________________________________________________________________________________ getPhoneNumber
 
-    public void setPhoneNumber(String phoneNumber) {//______________________________________________ setPhoneNumber
+
+    //______________________________________________________________________________________________ setPhoneNumber
+    public void setPhoneNumber(String phoneNumber) {
         phoneNumber = ApplicationWMS.getApplicationWMS(getContext())
                 .getUtilityComponent()
                 .getApplicationUtility()
                 .PersianToEnglish(phoneNumber);
         PhoneNumber = phoneNumber;
-    }//_____________________________________________________________________________________________ setPhoneNumber
+    }
+    //______________________________________________________________________________________________ setPhoneNumber
 
-/*    public String getPassword() {//_________________________________________________________________ getPassword
-        return Password;
-    }//_____________________________________________________________________________________________ getPassword
 
-    public void setPassword(String password) {//____________________________________________________ setPassword
-        Password = password;
-    }//_____________________________________________________________________________________________ setPassword*/
 }
