@@ -1,4 +1,4 @@
-package com.ngra.wms.views.fragments.collectrequest;
+package com.ngra.wms.views.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,10 +18,9 @@ import com.cunoraz.gifview.library.GifView;
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.FrTimeSheetBinding;
 import com.ngra.wms.utility.StaticValues;
-import com.ngra.wms.viewmodels.collectrequest.VM_TimeSheet;
+import com.ngra.wms.viewmodels.VM_TimeSheet;
 import com.ngra.wms.views.adaptors.collectrequest.AP_TimeSheet;
 import com.ngra.wms.views.adaptors.collectrequest.AP_TimeSheetItem;
-import com.ngra.wms.views.fragments.FragmentPrimary;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -64,11 +63,12 @@ public class TimeSheet extends FragmentPrimary implements
     GifView gifLoadingSend;
 
 
+    //______________________________________________________________________________________________ onCreateView
     @Override
     public View onCreateView(
             @NotNull LayoutInflater inflater,
             ViewGroup container,
-            Bundle savedInstanceState) {//__________________________________________________________ onCreateView
+            Bundle savedInstanceState) {
         if (getView() == null) {
             vm_timeSheet = new VM_TimeSheet(getContext());
             FrTimeSheetBinding binding = DataBindingUtil.inflate(
@@ -76,13 +76,15 @@ public class TimeSheet extends FragmentPrimary implements
             );
             binding.setTimesheer(vm_timeSheet);
             setView(binding.getRoot());
-            SetClicks();
+            setClicks();
             init();
         }
         return getView();
-    }//_____________________________________________________________________________________________ onCreateView
+    }
+    //______________________________________________________________________________________________ onCreateView
 
 
+    //______________________________________________________________________________________________ onStart
     @Override
     public void onStart() {
         super.onStart();
@@ -95,10 +97,12 @@ public class TimeSheet extends FragmentPrimary implements
             navController = Navigation.findNavController(getView());
 
 
-    }//_____________________________________________________________________________________________ onStart
+    }
+    //______________________________________________________________________________________________ onStart
 
 
-    private void init() {//_________________________________________________________________________ init
+    //______________________________________________________________________________________________ init
+    private void init() {
         TimeSheetType = getArguments().getInt(getContext().getString(R.string.ML_Type), StaticValues.TimeSheetBooth);
         gifLoading.setVisibility(View.VISIBLE);
         TimeSheetId = -2;
@@ -111,20 +115,22 @@ public class TimeSheet extends FragmentPrimary implements
             ImageViewSend.setImageDrawable(getContext().getResources().getDrawable(R.drawable.svg_trash));
         }
 
-        GetTimeSheet();
+        getTimeSheet();
 
-    }//_____________________________________________________________________________________________ init
+    }
+    //______________________________________________________________________________________________ init
 
 
+    //______________________________________________________________________________________________ getActionFromObservable
     @Override
-    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {
 
         gifLoading.setVisibility(View.GONE);
         gifLoadingSend.setVisibility(View.GONE);
         ImageViewSend.setVisibility(View.VISIBLE);
 
         if (action.equals(StaticValues.ML_GetTimeSheet)) {
-            SetTimeSheetAdapter();
+            setTimeSheetAdapter();
             return;
         }
 
@@ -132,20 +138,24 @@ public class TimeSheet extends FragmentPrimary implements
             getContext().onBackPressed();
         }
 
-    }//_____________________________________________________________________________________________ GetMessageFromObservable
+    }
+    //______________________________________________________________________________________________ getActionFromObservable
 
 
-    private void GetTimeSheet() {//_________________________________________________________________ GetTimeSheet
+    //______________________________________________________________________________________________ getTimeSheet
+    private void getTimeSheet() {
 
         if (TimeSheetType == StaticValues.TimeSheetBooth) {
             BoothId = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
-            vm_timeSheet.GetBoothTimes();
+            vm_timeSheet.getBoothTimes();
         } else
-            vm_timeSheet.GetVehicleTimes();
-    }//_____________________________________________________________________________________________ GetTimeSheet
+            vm_timeSheet.getVehicleTimes();
+    }
+    //______________________________________________________________________________________________ getTimeSheet
 
 
-    private void SetClicks() {//____________________________________________________________________ SetClicks
+    //______________________________________________________________________________________________ setClicks
+    private void setClicks() {
 
         LinearLayoutNext.setOnClickListener(v -> {
             if (TimeSheetId < 0) {
@@ -165,15 +175,16 @@ public class TimeSheet extends FragmentPrimary implements
             } else {
                 gifLoadingSend.setVisibility(View.VISIBLE);
                 ImageViewSend.setVisibility(View.GONE);
-                vm_timeSheet.SendPackageRequest(TimeSheetId);
+                vm_timeSheet.sendPackageRequest(TimeSheetId);
             }
 
         });
-    }//_____________________________________________________________________________________________ SetClicks
+    }
+    //______________________________________________________________________________________________ setClicks
 
 
-    private void SetTimeSheetAdapter() {//__________________________________________________________ SetTimeSheetAdapter
-
+    //______________________________________________________________________________________________ setTimeSheetAdapter
+    private void setTimeSheetAdapter() {
 
         ap_timeSheet = new AP_TimeSheet(vm_timeSheet.getMd_timesSheet(), TimeSheet.this, -1);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, true);
@@ -182,24 +193,28 @@ public class TimeSheet extends FragmentPrimary implements
         RecyclerViewDates.setAdapter(ap_timeSheet);
         TimeSheetId = -2;
         if (vm_timeSheet.getMd_timesSheet().size() > 0)
-            SetItemsTime(0);
+            setItemsTime(0);
 
-    }//_____________________________________________________________________________________________ SetTimeSheetAdapter
+    }
+    //______________________________________________________________________________________________ setTimeSheetAdapter
 
 
+    //______________________________________________________________________________________________ itemTimeClick
     @Override
-    public void itemTimeClick(Integer position) {//_________________________________________________ itemTimeClick
+    public void itemTimeClick(Integer position) {
 
         ap_timeSheet.setSelected(position);
         ap_timeSheet.notifyDataSetChanged();
         TimeSheetId = -1;
         TimeSheetPosition = position;
-        SetItemsTime(position);
+        setItemsTime(position);
 
-    }//_____________________________________________________________________________________________ itemTimeClick
+    }
+    //______________________________________________________________________________________________ itemTimeClick
 
 
-    private void SetItemsTime(Integer Position) {//_________________________________________________ SetItemsTime
+    //______________________________________________________________________________________________ setItemsTime
+    private void setItemsTime(Integer Position) {
 
         ap_timeSheetItem = new AP_TimeSheetItem(vm_timeSheet.getMd_timesSheet().get(Position).getTimes(), TimeSheet.this);
         ap_timeSheetItem.setSelected(TimeSheetId);
@@ -208,17 +223,28 @@ public class TimeSheet extends FragmentPrimary implements
         RecyclerViewTimes.setLayoutManager(layoutManager);
         RecyclerViewTimes.setAdapter(ap_timeSheetItem);
 
-    }//_____________________________________________________________________________________________ SetItemsTime
+    }
+    //______________________________________________________________________________________________ setItemsTime
 
 
+    //______________________________________________________________________________________________ itemTimeItemClick
     @Override
-    public void itemTimeItemClick(Integer position) {//_____________________________________________ itemTimeItemClick
+    public void itemTimeItemClick(Integer position) {
 
+        if (TimeSheetPosition == null) {
+            showMessageDialog(
+                    getContext().getResources().getString(R.string.ChooseDay),
+                    getResources().getColor(R.color.mlWhite),
+                    getResources().getDrawable(R.drawable.ic_error),
+                    getResources().getColor(R.color.mlCollectRight1));
+            return;
+        }
         TimeSheetId = vm_timeSheet.getMd_timesSheet().get(TimeSheetPosition).getTimes().get(position).getId();
         ap_timeSheetItem.setSelected(position);
         ap_timeSheetItem.notifyDataSetChanged();
 
-    }//_____________________________________________________________________________________________ itemTimeItemClick
+    }
+    //______________________________________________________________________________________________ itemTimeItemClick
 
 
 }

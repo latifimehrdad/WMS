@@ -1,4 +1,4 @@
-package com.ngra.wms.viewmodels.collectrequest;
+package com.ngra.wms.viewmodels;
 
 import android.app.Activity;
 
@@ -21,25 +21,27 @@ public class VM_ChooseWaste extends VM_Primary {
     private List<MD_ItemWaste> md_itemWastes;
 
 
-    public VM_ChooseWaste(Activity context) {//_____________________________________________________ VM_ChooseWaste
+    //______________________________________________________________________________________________ VM_ChooseWaste
+    public VM_ChooseWaste(Activity context) {
         setContext(context);
-    }//_____________________________________________________________________________________________ VM_ChooseWaste
+    }
+    //______________________________________________________________________________________________ VM_ChooseWaste
 
 
-
-    public void GetItemsOfWast() {//________________________________________________________________ GetItemsOfWast
+    //______________________________________________________________________________________________ getItemsOfWast
+    public void getItemsOfWast() {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = getAuthorizationTokenFromSharedPreferences();
+        String authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .getWasteList(
-                        Authorization));
+                        authorization));
 
         getPrimaryCall().enqueue(new Callback<MR_ItemsWast>() {
             @Override
@@ -48,8 +50,7 @@ public class VM_ChooseWaste extends VM_Primary {
                 if (getResponseMessage() == null) {
                     md_itemWastes = response.body().getItemsWast();
                     sendActionToObservable(StaticValues.ML_GetItemsOfWasteIsSuccess);
-                }
-                else {
+                } else {
                     sendActionToObservable(StaticValues.ML_ResponseError);
                 }
             }
@@ -61,14 +62,15 @@ public class VM_ChooseWaste extends VM_Primary {
         });
 
 
+    }
+    //______________________________________________________________________________________________ getItemsOfWast
 
-    }//_____________________________________________________________________________________________ GetItemsOfWast
 
-
-
-    public List<MD_ItemWaste> getMd_itemWastes() {//________________________________________________ getMd_itemWastes
+    //______________________________________________________________________________________________ getMd_itemWastes
+    public List<MD_ItemWaste> getMd_itemWastes() {
         return md_itemWastes;
-    }//_____________________________________________________________________________________________ getMd_itemWastes
+    }
+    //______________________________________________________________________________________________ getMd_itemWastes
 
 
 }

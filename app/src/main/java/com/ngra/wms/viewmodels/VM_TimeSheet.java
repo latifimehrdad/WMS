@@ -1,4 +1,4 @@
-package com.ngra.wms.viewmodels.collectrequest;
+package com.ngra.wms.viewmodels;
 
 import android.app.Activity;
 
@@ -9,7 +9,6 @@ import com.ngra.wms.models.ModelResponsePrimary;
 import com.ngra.wms.models.ModelSettingInfo;
 import com.ngra.wms.utility.StaticFunctions;
 import com.ngra.wms.utility.StaticValues;
-import com.ngra.wms.viewmodels.VM_Primary;
 import com.ngra.wms.views.application.ApplicationWMS;
 
 import java.util.List;
@@ -23,24 +22,25 @@ public class VM_TimeSheet extends VM_Primary {
     private List<MD_TimeSheet> md_timeSheets;
 
 
-    public VM_TimeSheet(Activity context) {//_______________________________________________________ VM_TimeSheet
+    //______________________________________________________________________________________________ VM_TimeSheet
+    public VM_TimeSheet(Activity context) {
         setContext(context);
-    }//_____________________________________________________________________________________________ VM_TimeSheet
+    }
+    //______________________________________________________________________________________________ VM_TimeSheet
 
 
-
-
-    public void GetVehicleTimes() {//_______________________________________________________________ GetVehicleTimes
+    //______________________________________________________________________________________________ getVehicleTimes
+    public void getVehicleTimes() {
 
         RetrofitComponent retrofitComponent = ApplicationWMS
                 .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
-        String Authorization = getAuthorizationTokenFromSharedPreferences();
+        String authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getVehicleTimes(Authorization));
+                .getVehicleTimes(authorization));
 
         getPrimaryCall().enqueue(new Callback<MR_TimeSheet>() {
             @Override
@@ -61,24 +61,22 @@ public class VM_TimeSheet extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ GetVehicleTimes
+    }
+    //______________________________________________________________________________________________ getVehicleTimes
 
 
-
-
-
-
-    public void GetBoothTimes() {//_________________________________________________________________ GetBoothTimes
+    //______________________________________________________________________________________________ getBoothTimes
+    public void getBoothTimes() {
 
         RetrofitComponent retrofitComponent = ApplicationWMS
                 .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
-        String Authorization = getAuthorizationTokenFromSharedPreferences();
+        String authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getBoothTimes(Authorization));
+                .getBoothTimes(authorization));
 
         getPrimaryCall().enqueue(new Callback<MR_TimeSheet>() {
             @Override
@@ -99,31 +97,31 @@ public class VM_TimeSheet extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ GetBoothTimes
+    }
+    //______________________________________________________________________________________________ getBoothTimes
 
 
-
-
-    public void SendPackageRequest(Integer timeId) {//______________________________________________ SendPackageRequest
+    //______________________________________________________________________________________________ sendPackageRequest
+    public void sendPackageRequest(Integer timeId) {
 
         RetrofitComponent retrofitComponent = ApplicationWMS
                 .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
-        String Authorization = getAuthorizationTokenFromSharedPreferences();
+        String authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .SendPackageRequest(
                         timeId,
-                        Authorization));
+                        authorization));
         getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
             @Override
             public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
                 setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     setResponseMessage(getResponseMessage(response.body()));
-                    GetLoginInformation();
+                    getLoginInformation();
                 } else
                     sendActionToObservable(StaticValues.ML_ResponseError);
             }
@@ -134,24 +132,24 @@ public class VM_TimeSheet extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ SendPackageRequest
+    }
+    //______________________________________________________________________________________________ sendPackageRequest
 
 
-
-
-    public void GetLoginInformation() {//___________________________________________________________ GetLoginInformation
+    //______________________________________________________________________________________________ getLoginInformation
+    public void getLoginInformation() {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
 
-        String Authorization = getAuthorizationTokenFromSharedPreferences();
+        String authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .getSettingInfo(
-                        Authorization));
+                        authorization));
 
         getPrimaryCall().enqueue(new Callback<ModelSettingInfo>() {
             @Override
@@ -161,7 +159,8 @@ public class VM_TimeSheet extends VM_Primary {
                     if (StaticFunctions.SaveProfile(getContext(), response.body().getResult()))
                         sendActionToObservable(StaticValues.ML_SendPackageRequest);
                 } else
-                    sendActionToObservable(StaticValues.ML_ResponseError);;
+                    sendActionToObservable(StaticValues.ML_ResponseError);
+                ;
             }
 
             @Override
@@ -170,14 +169,15 @@ public class VM_TimeSheet extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ GetLoginInformation
+    }
+    //______________________________________________________________________________________________ getLoginInformation
 
 
-
-    public List<MD_TimeSheet> getMd_timesSheet() {//_____________________________________________________ getMd_times
+    //______________________________________________________________________________________________ getMd_timesSheet
+    public List<MD_TimeSheet> getMd_timesSheet() {
         return md_timeSheets;
-    }//_____________________________________________________________________________________________ getMd_times
-
+    }
+    //______________________________________________________________________________________________ getMd_timesSheet
 
 
 }

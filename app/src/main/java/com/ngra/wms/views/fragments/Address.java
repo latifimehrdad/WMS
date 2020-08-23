@@ -22,7 +22,6 @@ import com.ngra.wms.models.MD_WasteAmountRequests;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Address;
 import com.ngra.wms.views.adaptors.AP_Address;
-import com.ngra.wms.views.fragments.collectrequest.ChooseWaste;
 
 
 import org.jetbrains.annotations.NotNull;

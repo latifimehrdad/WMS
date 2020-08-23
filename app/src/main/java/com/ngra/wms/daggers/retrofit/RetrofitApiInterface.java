@@ -479,4 +479,13 @@ public interface RetrofitApiInterface {
             );
 
 
+    @FormUrlEncoded
+    @POST(Version + "/requestwastecollection/wastecollectioncanceled")
+    Call<ModelResponsePrimary> WasteCollectionCanceled
+            (
+                    @Field("RequestCode") String RequestCode,
+                    @Header("Authorization") String Authorization
+            );
+
+
 }

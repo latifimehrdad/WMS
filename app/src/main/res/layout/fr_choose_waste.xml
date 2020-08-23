@@ -5,7 +5,7 @@
     <data>
         <variable
             name="chooseWaste"
-            type="com.ngra.wms.viewmodels.collectrequest.VM_ChooseWaste" />
+            type="com.ngra.wms.viewmodels.VM_ChooseWaste" />
     </data>
 
     <ScrollView

@@ -1,4 +1,4 @@
-package com.ngra.wms.views.fragments.collectrequest;
+package com.ngra.wms.views.fragments;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -25,9 +25,8 @@ import com.ngra.wms.databinding.FragmentBoothReceivePrimeryBinding;
 import com.ngra.wms.models.MD_Location;
 import com.ngra.wms.utility.ML_Map;
 import com.ngra.wms.utility.StaticValues;
-import com.ngra.wms.viewmodels.collectrequest.boothreceive.VM_BoothReceivePrimary;
+import com.ngra.wms.viewmodels.VM_BoothReceivePrimary;
 import com.ngra.wms.views.adaptors.collectrequest.AP_BoothList;
-import com.ngra.wms.views.fragments.FragmentPrimary;
 
 
 import org.jetbrains.annotations.NotNull;
@@ -53,16 +52,18 @@ public class BoothReceive extends FragmentPrimary implements
     @BindView(R.id.gifLoading)
     GifView gifLoading;
 
-    public BoothReceive() {//_______________________________________________________________________ BoothReceive
-    }//_____________________________________________________________________________________________ BoothReceive
+    //______________________________________________________________________________________________ BoothReceive
+    public BoothReceive() {
+    }
+    //______________________________________________________________________________________________ BoothReceive
 
 
-
+    //______________________________________________________________________________________________ onCreateView
     @Override
     public View onCreateView(
             @NotNull LayoutInflater inflater,
             ViewGroup container,
-            Bundle savedInstanceState) {//__________________________________________________________ Start onCreateView
+            Bundle savedInstanceState) {
 
         if (getView() == null) {
             vm_boothReceivePrimary = new VM_BoothReceivePrimary(getContext());
@@ -73,20 +74,18 @@ public class BoothReceive extends FragmentPrimary implements
             setView(binding.getRoot());
             gifLoading.setVisibility(View.VISIBLE);
 
-            vm_boothReceivePrimary.GetBoothList();
+            vm_boothReceivePrimary.getBoothList();
             LinearLayoutMap.setVisibility(View.GONE);
-//            if (getContext() != null && getArguments() != null) {
-//                WasteEstimateId = getArguments().getString(getContext().getResources().getString(R.string.ML_Id), "-1");
-//                TimeId = getArguments().getInt(getContext().getResources().getString(R.string.ML_TimeId), -1);
-//            }
 
         }
         return getView();
-    }//_____________________________________________________________________________________________ End onCreateView
+    }
+    //______________________________________________________________________________________________ onCreateView
 
 
+    //______________________________________________________________________________________________ onStart
     @Override
-    public void onStart() {//_______________________________________________________________________ Start onStart
+    public void onStart() {
         super.onStart();
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
                 .findFragmentById(R.id.fpraMap);
@@ -100,12 +99,14 @@ public class BoothReceive extends FragmentPrimary implements
         if (getView() != null)
             navController = Navigation.findNavController(getView());
 
-    }//_____________________________________________________________________________________________ End onStart
+    }
+    //______________________________________________________________________________________________ onStart
 
 
+    //______________________________________________________________________________________________ onMapReady
     @SuppressLint("MissingPermission")
     @Override
-    public void onMapReady(GoogleMap googleMap) {//_____________________________________________________________________________________________ Start Void onMapReady
+    public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         LatLng sydney = new LatLng(35.832483, 50.961751);
         float zoom = (float) 10;
@@ -115,11 +116,13 @@ public class BoothReceive extends FragmentPrimary implements
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.getUiSettings().setMapToolbarEnabled(true);
-    }//_____________________________________________________________________________________________ End Void onMapReady
+    }
+    //______________________________________________________________________________________________ onMapReady
 
 
+    //______________________________________________________________________________________________ getActionFromObservable
     @Override
-    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {
 
         gifLoading.setVisibility(View.GONE);
 
@@ -128,7 +131,7 @@ public class BoothReceive extends FragmentPrimary implements
 
 
         if (action.equals(StaticValues.ML_GetBoothList)) {
-            SetAdapterBooth();
+            setAdapterBooth();
             return;
         }
 
@@ -140,49 +143,53 @@ public class BoothReceive extends FragmentPrimary implements
             }
         }
 
-    }//_____________________________________________________________________________________________ GetMessageFromObservable
+    }
+    //______________________________________________________________________________________________ getActionFromObservable
 
 
-
-
-    private void SetAdapterBooth() {//______________________________________________________________ SetAdapterBooth
-        ap_boothList = new AP_BoothList(BoothReceive.this, vm_boothReceivePrimary.getBoothList());
+    //______________________________________________________________________________________________ setAdapterBooth
+    private void setAdapterBooth() {
+        ap_boothList = new AP_BoothList(BoothReceive.this, vm_boothReceivePrimary.getMd_boothList());
         RecyclerViewBooths.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         RecyclerViewBooths.setAdapter(ap_boothList);
-    }//_____________________________________________________________________________________________ SetAdapterBooth
+    }
+    //______________________________________________________________________________________________ setAdapterBooth
 
 
-
+    //______________________________________________________________________________________________ itemBoothClick
     @Override
-    public void itemBoothMap(Integer position) {//__________________________________________________ itemBoothClick
+    public void itemBoothMap(Integer position) {
         mMap.clear();
-        if (vm_boothReceivePrimary.getBoothList() != null && vm_boothReceivePrimary.getBoothList().size() > 0)
-            if (vm_boothReceivePrimary.getBoothList().get(position).getLocation()!= null){
+        if (vm_boothReceivePrimary.getMd_boothList() != null && vm_boothReceivePrimary.getMd_boothList().size() > 0)
+            if (vm_boothReceivePrimary.getMd_boothList().get(position).getLocation() != null) {
                 LinearLayoutMap.setVisibility(View.VISIBLE);
-                MD_Location md_location = vm_boothReceivePrimary.getBoothList().get(position).getLocation();
+                MD_Location md_location = vm_boothReceivePrimary.getMd_boothList().get(position).getLocation();
                 LatLng latLng = new LatLng(md_location.getLatitude(), md_location.getLongitude());
                 ML_Map latifiMap = new ML_Map();
                 latifiMap.setGoogleMap(mMap);
-                latifiMap.AddMarker(latLng, vm_boothReceivePrimary.getBoothList().get(position).getName(), "", R.drawable.marker_point);
+                latifiMap.AddMarker(latLng, vm_boothReceivePrimary.getMd_boothList().get(position).getName(), "", R.drawable.marker_point);
                 CameraPosition cameraPosition = new CameraPosition.Builder()
                         .target(latLng)      // Sets the center of the map to Mountain View
                         .zoom(16)                   // Sets the zoom
                         .build();                   // Creates a CameraPosition from the builder
                 mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
-    }//_____________________________________________________________________________________________ itemBoothClick
+    }
+    //______________________________________________________________________________________________ itemBoothClick
 
 
-
-
+    //______________________________________________________________________________________________ itemChoose
     @Override
-    public void itemChoose(Integer position) {//____________________________________________________ itemChoose
+    public void itemChoose(Integer position) {
 
-        Integer BoothId = vm_boothReceivePrimary.getBoothList().get(position).getId();
+        Integer BoothId = vm_boothReceivePrimary.getMd_boothList().get(position).getId();
         Bundle bundle = new Bundle();
         bundle.putInt(getContext().getString(R.string.ML_Type), StaticValues.TimeSheetBooth);
         bundle.putInt(getContext().getString(R.string.ML_Id), BoothId);
         navController.navigate(R.id.action_boothReceive2_to_timeSheet, bundle);
 
-    }//_____________________________________________________________________________________________ itemChoose
+    }
+    //______________________________________________________________________________________________ itemChoose
+
+
 }

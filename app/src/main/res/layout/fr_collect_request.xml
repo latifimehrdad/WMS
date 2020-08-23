@@ -5,7 +5,7 @@
     <data>
         <variable
             name="collect"
-            type="com.ngra.wms.viewmodels.collectrequest.VM_CollectRequest" />
+            type="com.ngra.wms.viewmodels.VM_CollectRequest" />
     </data>
 
 

@@ -18,6 +18,7 @@ import com.ngra.wms.R;
 import com.ngra.wms.databinding.FragmentSignupBinding;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_SignUp;
+import com.ngra.wms.views.activitys.MainActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -54,6 +55,9 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.getAction
 
     @BindView(R.id.imgLoading)
     ImageView imgLoading;
+
+    @BindView(R.id.TextViewReferenceCode)
+    TextView TextViewReferenceCode;
 
 
     //______________________________________________________________________________________________ onCreateView
@@ -100,6 +104,17 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.getAction
             String phoneNumber = bundle.getString(getContext().getString(R.string.ML_PhoneNumber));
             EditPhoneNumber.setText(phoneNumber);
         }
+        if (MainActivity.ReferenceCode != null) {
+            TextViewReferenceCode.setVisibility(View.VISIBLE);
+            StringBuilder builder = new StringBuilder();
+            builder.append(getContext().getResources().getString(R.string.ReagentCode));
+/*            builder.append(":");*/
+            builder.append(System.getProperty("line.separator"));
+            builder.append(MainActivity.ReferenceCode);
+            TextViewReferenceCode.setText(builder.toString());
+            TextViewReferenceCode.setVisibility(View.VISIBLE);
+        } else
+            TextViewReferenceCode.setVisibility(View.GONE);
     }
     //______________________________________________________________________________________________ init
 

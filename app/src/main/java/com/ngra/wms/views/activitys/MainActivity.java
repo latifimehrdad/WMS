@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean MenuOpen = false;
     private boolean doubleBackToExitPressedOnce = false;
     private boolean preLogin = false;
+    public static String ReferenceCode;
 
     @BindView(R.id.MainMenu)
     ImageView MainMenu;
@@ -129,14 +130,22 @@ public class MainActivity extends AppCompatActivity {
         SetPermission();
         SetListener();
         StartAnimationSplash();
-    }//_____________________________________________________________________________________________ End SetBindingView
 
+        Intent deepLinkingIntent = getIntent();
+        deepLinkingIntent.getScheme();
+        if (deepLinkingIntent.getData() != null) {
+            final List<String> segments = deepLinkingIntent.getData().getPathSegments();
+            if (segments.size() > 1) {
+                ReferenceCode = segments.get(1);
+            }
+        }
+
+    }//_____________________________________________________________________________________________ End SetBindingView
 
 
     private void StartAnimationSplash() {//_________________________________________________________ StartAnimationSplash
         ImageViewCopyRight.startAnimation(AnimationUtils.loadAnimation(this, R.anim.bounce));
     }//_____________________________________________________________________________________________ StartAnimationSplash
-
 
 
     public void SetPermission() {//_________________________________________________________________ Start SetPermission
@@ -330,7 +339,6 @@ public class MainActivity extends AppCompatActivity {
     public static void UnLockDrawer() {//____________________________________________________________ Start UnLockDrawer
         drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
     }//_____________________________________________________________________________________________ End UnLockDrawer
-
 
 
     public void attachBaseContext(Context newBase) {//______________________________________________ Start attachBaseContext

@@ -1,5 +1,6 @@
 package com.ngra.wms.views.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -19,7 +20,6 @@ import com.ngra.wms.databinding.FragmentHomeBinding;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Home;
 import com.ngra.wms.views.custom.textview.VerticalTextView;
-import com.ngra.wms.views.fragments.collectrequest.ChooseWaste;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -64,6 +64,9 @@ public class Home extends FragmentPrimary implements FragmentPrimary.getActionFr
 
     @BindView(R.id.TextViewMax)
     TextView TextViewMax;
+
+    @BindView(R.id.LinearLayoutShareApp)
+    LinearLayout LinearLayoutShareApp;
 
 
     //______________________________________________________________________________________________ Home
@@ -157,6 +160,27 @@ public class Home extends FragmentPrimary implements FragmentPrimary.getActionFr
 
     //______________________________________________________________________________________________ setClick
     private void setClick() {
+
+
+        LinearLayoutShareApp.setOnClickListener(v -> {
+
+            /*Create an ACTION_SEND Intent*/
+            Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+            /*This will be the actual content you wish you share.*/
+            StringBuilder builder = new StringBuilder();
+            builder.append(getString(R.string.IntroduceToFriendsLink));
+            builder.append(System.getProperty("line.separator"));
+            builder.append("http://www.ngra.ir/app/09367085703");
+            /*The type of the content is text, obviously.*/
+            intent.setType("text/plain");
+            /*Applying information Subject and Body.*/
+            intent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.app_name));
+            intent.putExtra(android.content.Intent.EXTRA_TEXT, builder.toString());
+            /*Fire!*/
+            startActivity(Intent.createChooser(intent, getString(R.string.app_name)));
+
+        });
+
 
         TextViewFooterUp.setOnClickListener(v -> {
 

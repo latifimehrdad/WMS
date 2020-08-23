@@ -8,7 +8,7 @@
 
         <variable
             name="VM_CollectOrder"
-            type="com.ngra.wms.viewmodels.collectrequest.collectrequest.VM_CollectRequestOrder" />
+            type="com.ngra.wms.viewmodels.VM_CollectRequestOrder" />
     </data>
 
     <RelativeLayout

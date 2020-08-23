@@ -37,7 +37,7 @@
     <string name="MobileNumber">شماره موبایل</string>
     <string name="Password">رمز ورود</string>
     <string name="ReTryPassword">تکرار رمز ورود</string>
-    <string name="ReagentCode">شماره موبایل معرف</string>
+    <string name="ReagentCode">موبایل معرف</string>
     <string name="AccountNumber">شماره شبا</string>
     <string name="Save">ثبت</string>
     <string name="RegisterCode">با ثبت کد نوسازی مربوط به بنای خود می توانید از 10٪ تخفیف عوارض شهرداری بهره مند گردید</string>
@@ -47,7 +47,8 @@
     <string name="HomeAveScore">میانگین امتیازات</string>
     <string name="HomeYouScore">امتیاز قرعه کشی</string>
     <string name="AmountK">کیلو</string>
-
+    <string name="IntroduceToFriends">معرفی به دوستان و کسب امتیاز</string>
+    <string name="IntroduceToFriendsLink">لینک معرفی به دوستان و کسب امتیاز</string>
     <string name="Retry">تلاش مجدد</string>
     <string name="PleaseTryAgain">لطفا تلاش دوباره کنید</string>
     <string name="GR">گرم</string>
@@ -64,8 +65,6 @@
     <string name="Dry">مخلوط خشک</string>
     <string name="Paper">کارتن و کاغذ</string>
 
-    <string name="FragmentCollectRequestFiveScore">5 امتیاز</string>
-    <string name="FragmentCollectRequestTenScore">10 امتیاز</string>
     <string name="FragmentCollectRequestCar">تحویل به خودرو بازیافت</string>
     <string name="FragmentCollectRequestBooth">تحویل به غرفه بازیافت</string>
 
@@ -79,15 +78,14 @@
     <string name="Choose">انتخاب</string>
     <string name="Edit">ویرایش</string>
     <string name="Cancel">لغو</string>
+    <string name="CancelRequest">لغو درخواست</string>
     <string name="CallBooth">تماس با غرفه</string>
     <string name="BoothAuthor">مسئول غرفه</string>
     <string name="ShowOnMap">نمایش مکان</string>
     <string name="TopThree">سه نفر برتر</string>
     <string name="SumScoreOfMonth">جمع امتیازات ماه</string>
     <string name="BestScores">امتیازات برتر</string>
-    <string name="ChooseDateDelivery">انتخاب تاریخ تحویل</string>
     <string name="ChooseForDelivery">انتخاب برای تحویل</string>
-    <string name="ChooseVolumeDelivery">انتخاب حجم اقلام</string>
     <string name="TotalScore">امتیاز کل</string>
     <string name="HowGiveScore">نحوه امتیاز دهی</string>
     <string name="Lottery">قرعه کشی</string>
@@ -177,7 +175,6 @@
     <string name="EmptyDescription">لطفا توضیحات را وارد نمایید</string>
     <string name="PlateNumber">پلاک ساختمان</string>
     <string name="NoMessage">درخواستی ثبت نشده است</string>
-    <string name="SelectTheFollowingToSubmitARequest">موارد زیر را جهت ارسال درخواست انتخاب کنید</string>
     <string name="Somewhat">حدود</string>
     <string name="FromTime">از ساعت</string>
     <string name="ToTime">تا ساعت</string>
@@ -191,6 +188,8 @@
     <string name="TicketStatusClosed">بسته شده</string>
     <string name="TicketStatusArchived">بایگانی</string>
     <string name="WaitForAccept">در انتظار تایید</string>
+    <string name="ChooseDay">ابتدا روز را انتخاب نمایید</string>
+    <string name="RequestIsCanceled">درخواست لغو شد</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

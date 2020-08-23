@@ -7,7 +7,7 @@
 
         <variable
             name="VM_BoothReceivePrimary"
-            type="com.ngra.wms.viewmodels.collectrequest.boothreceive.VM_BoothReceivePrimary" />
+            type="com.ngra.wms.viewmodels.VM_BoothReceivePrimary" />
 
     </data>
 

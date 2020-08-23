@@ -1,4 +1,4 @@
-package com.ngra.wms.views.fragments.collectrequest;
+package com.ngra.wms.views.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,11 +18,10 @@ import com.ngra.wms.databinding.FrChooseWasteBinding;
 import com.ngra.wms.models.MD_ChooseWaste;
 import com.ngra.wms.models.MD_ItemWaste;
 import com.ngra.wms.utility.StaticValues;
-import com.ngra.wms.viewmodels.collectrequest.VM_ChooseWaste;
+import com.ngra.wms.viewmodels.VM_ChooseWaste;
 
 import com.ngra.wms.views.adaptors.collectrequest.AP_ItemsWaste;
 import com.ngra.wms.views.adaptors.collectrequest.AP_ItemsWasteList;
-import com.ngra.wms.views.fragments.FragmentPrimary;
 
 
 import org.jetbrains.annotations.NotNull;
@@ -56,11 +55,12 @@ public class ChooseWaste extends FragmentPrimary implements
     LinearLayout LinearLayoutNext;
 
 
+    //______________________________________________________________________________________________ onCreateView
     @Override
     public View onCreateView(
             @NotNull LayoutInflater inflater,
             ViewGroup container,
-            Bundle savedInstanceState) {//__________________________________________________________ onCreateView
+            Bundle savedInstanceState) {
         if (getView() == null) {
             vm_chooseWaste = new VM_ChooseWaste(getContext());
             FrChooseWasteBinding binding = DataBindingUtil.inflate(
@@ -68,13 +68,15 @@ public class ChooseWaste extends FragmentPrimary implements
             );
             binding.setChooseWaste(vm_chooseWaste);
             setView(binding.getRoot());
-            SetClicks();
-            GetItemsOfWast();
+            setClicks();
+            getItemsOfWast();
         }
         return getView();
-    }//_____________________________________________________________________________________________ onCreateView
+    }
+    //______________________________________________________________________________________________ onCreateView
 
 
+    //______________________________________________________________________________________________ onStart
     @Override
     public void onStart() {
         super.onStart();
@@ -94,38 +96,46 @@ public class ChooseWaste extends FragmentPrimary implements
         }
 
 
-    }//_____________________________________________________________________________________________ onStart
+    }
+    //______________________________________________________________________________________________ onStart
 
 
+    //______________________________________________________________________________________________ getActionFromObservable
     @Override
-    public void getActionFromObservable(Byte action) {//___________________________________________ GetMessageFromObservable
+    public void getActionFromObservable(Byte action) {
 
         if (action.equals(StaticValues.ML_GetItemsOfWasteIsSuccess)) {
             gifLoading.setVisibility(View.GONE);
-            SetItemsWasteAdapter();
+            setItemsWasteAdapter();
             return;
         }
 
-    }//_____________________________________________________________________________________________ GetMessageFromObservable
+    }
+    //______________________________________________________________________________________________ getActionFromObservable
 
 
-    private void GetItemsOfWast() {//_______________________________________________________________ GetItemsOfWast
+    //______________________________________________________________________________________________ getItemsOfWast
+    private void getItemsOfWast() {
         gifLoading.setVisibility(View.VISIBLE);
         LinearLayoutNext.setVisibility(View.GONE);
         RecyclerViewItemsWaste.setVisibility(View.GONE);
         RecyclerViewWasteList.setVisibility(View.GONE);
-        vm_chooseWaste.GetItemsOfWast();
-    }//_____________________________________________________________________________________________ GetItemsOfWast
+        vm_chooseWaste.getItemsOfWast();
+    }
+    //______________________________________________________________________________________________ getItemsOfWast
 
 
-    private void SetClicks() {//____________________________________________________________________ SetClicks
+    //______________________________________________________________________________________________ setClicks
+    private void setClicks() {
 
         LinearLayoutNext.setOnClickListener(v -> navController.navigate(R.id.action_chooseWaste_to_collectRequest2));
 
-    }//_____________________________________________________________________________________________ SetClicks
+    }
+    //______________________________________________________________________________________________ setClicks
 
 
-    private void SetItemsWasteAdapter() {//_________________________________________________________ SetItemsWasteAdapter
+    //______________________________________________________________________________________________ setItemsWasteAdapter
+    private void setItemsWasteAdapter() {
 
         RecyclerViewItemsWaste.setVisibility(View.VISIBLE);
         RecyclerViewWasteList.setVisibility(View.VISIBLE);
@@ -133,13 +143,15 @@ public class ChooseWaste extends FragmentPrimary implements
         RecyclerViewItemsWaste.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         RecyclerViewItemsWaste.setAdapter(ap_itemsWaste);
         wasteLists = new ArrayList<>();
-        SetItemsWasteListAdapter();
+        setItemsWasteListAdapter();
 
-    }//_____________________________________________________________________________________________ SetItemsWasteAdapter
+    }
+    //______________________________________________________________________________________________ setItemsWasteAdapter
 
 
+    //______________________________________________________________________________________________ itemWastClick
     @Override
-    public void itemWastClick(Integer position) {//_________________________________________________ itemWastClick
+    public void itemWastClick(Integer position) {
 
         if (getContext() != null) {
             MD_ItemWaste waste = vm_chooseWaste.getMd_itemWastes().get(position);
@@ -163,32 +175,38 @@ public class ChooseWaste extends FragmentPrimary implements
                 }
             }
             LinearLayoutNext.setVisibility(View.VISIBLE);
-            SetItemsWasteListAdapter();
+            setItemsWasteListAdapter();
         }
 
-    }//_____________________________________________________________________________________________ itemWastClick
+    }
+    //______________________________________________________________________________________________ itemWastClick
 
 
-    private void SetItemsWasteListAdapter() {//_____________________________________________________ SetItemsWasteListAdapter
+    //______________________________________________________________________________________________ setItemsWasteListAdapter
+    private void setItemsWasteListAdapter() {
         ap_itemsWasteList = new AP_ItemsWasteList(wasteLists, ChooseWaste.this);
         RecyclerViewWasteList.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         RecyclerViewWasteList.setAdapter(ap_itemsWasteList);
-    }//_____________________________________________________________________________________________ SetItemsWasteListAdapter
+    }
+    //______________________________________________________________________________________________ setItemsWasteListAdapter
 
 
+    //______________________________________________________________________________________________ itemWasteClickActionAdd
     @Override
-    public void itemWasteClickActionAdd(Integer position) {//_______________________________________ itemWasteClickActionAdd
+    public void itemWasteClickActionAdd(Integer position) {
 
         Integer count = wasteLists.get(position).getAmount();
         count = count + 1;
         wasteLists.get(position).setAmount(count);
         ap_itemsWasteList.notifyDataSetChanged();
 
-    }//_____________________________________________________________________________________________ itemWasteClickActionAdd
+    }
+    //______________________________________________________________________________________________ itemWasteClickActionAdd
 
 
+    //______________________________________________________________________________________________ itemWasteClickActionMinus
     @Override
-    public void itemWasteClickActionMinus(Integer position) {//_____________________________________ itemWasteClickActionMinus
+    public void itemWasteClickActionMinus(Integer position) {
 
         Integer count = wasteLists.get(position).getAmount();
         if (count > 1) {
@@ -197,11 +215,13 @@ public class ChooseWaste extends FragmentPrimary implements
             ap_itemsWasteList.notifyDataSetChanged();
         }
 
-    }//_____________________________________________________________________________________________ itemWasteClickActionMinus
+    }
+    //______________________________________________________________________________________________ itemWasteClickActionMinus
 
 
+    //______________________________________________________________________________________________ itemWasteClickActionDelete
     @Override
-    public void itemWasteClickActionDelete(Integer position, View view) {//_________________________ itemWasteClickActionDelete
+    public void itemWasteClickActionDelete(Integer position, View view) {
 
         wasteLists.remove(wasteLists.get(position));
         ap_itemsWasteList.notifyDataSetChanged();
@@ -209,7 +229,8 @@ public class ChooseWaste extends FragmentPrimary implements
         if (wasteLists.size() == 0)
             LinearLayoutNext.setVisibility(View.GONE);
 
-    }//_____________________________________________________________________________________________ itemWasteClickActionDelete
+    }
+    //______________________________________________________________________________________________ itemWasteClickActionDelete
 
 
 }

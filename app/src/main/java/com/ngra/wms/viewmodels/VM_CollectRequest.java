@@ -1,4 +1,4 @@
-package com.ngra.wms.viewmodels.collectrequest;
+package com.ngra.wms.viewmodels;
 
 import android.app.Activity;
 
@@ -22,12 +22,15 @@ public class VM_CollectRequest extends VM_Primary {
     private List<String> ScoreVehicle;
 
 
-    public VM_CollectRequest(Activity context) {//__________________________________________________ VM_CollectRequest
+    //______________________________________________________________________________________________ VM_CollectRequest
+    public VM_CollectRequest(Activity context) {
         setContext(context);
-    }//_____________________________________________________________________________________________ VM_CollectRequest
+    }
+    //______________________________________________________________________________________________ VM_CollectRequest
 
 
-    public void GetScoreList() {//__________________________________________________________________ GetScoreList
+    //______________________________________________________________________________________________ getScoreList
+    public void getScoreList() {
 
         RetrofitComponent retrofitComponent = ApplicationWMS
                 .getApplicationWMS(getContext())
@@ -59,19 +62,21 @@ public class VM_CollectRequest extends VM_Primary {
         });
 
 
-    }//_____________________________________________________________________________________________ GetScoreList
+    }
+    //______________________________________________________________________________________________ getScoreList
 
 
-
-
-    public List<String> getScoreBooth() {//_________________________________________________________ getScoreBooth
+    //______________________________________________________________________________________________ getScoreBooth
+    public List<String> getScoreBooth() {
         return ScoreBooth;
-    }//_____________________________________________________________________________________________ getScoreBooth
+    }
+    //______________________________________________________________________________________________ getScoreBooth
 
 
-
-    public List<String> getScoreVehicle() {//_______________________________________________________ getScoreVehicle
+    //______________________________________________________________________________________________ getScoreVehicle
+    public List<String> getScoreVehicle() {
         return ScoreVehicle;
-    }//_____________________________________________________________________________________________ getScoreVehicle
+    }
+    //______________________________________________________________________________________________ getScoreVehicle
 
 }

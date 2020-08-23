@@ -1,46 +1,52 @@
-package com.ngra.wms.viewmodels.collectrequest.recyclingcar;
+package com.ngra.wms.viewmodels;
 
 import android.app.Activity;
 
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
+import com.ngra.wms.models.MD_Booth;
+import com.ngra.wms.models.MR_BoothList;
 import com.ngra.wms.models.MD_WasteAmountRequests;
 import com.ngra.wms.models.ModelResponsePrimary;
-import com.ngra.wms.models.MD_TimeSheet;
 import com.ngra.wms.utility.StaticValues;
-import com.ngra.wms.viewmodels.VM_Primary;
 import com.ngra.wms.views.application.ApplicationWMS;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class VM_RecyclingCarPrimary extends VM_Primary {
+public class VM_BoothReceivePrimary extends VM_Primary {
 
-//    private MR_TimeSheet MRTimes;
+    private List<MD_Booth> md_boothList;
 
-    public VM_RecyclingCarPrimary(Activity context) {//______________________________________________ VM_RecyclingCarPrimary
+    //______________________________________________________________________________________________ VM_BoothReceivePrimary
+    public VM_BoothReceivePrimary(Activity context) {
         setContext(context);
-    }//_____________________________________________________________________________________________ VM_RecyclingCarPrimary
+    }
+    //______________________________________________________________________________________________ VM_BoothReceivePrimary
 
-    public void GetTypeTimes() {//__________________________________________________________________ GetTypeTimes
+
+    //______________________________________________________________________________________________ getBoothList
+    public void getBoothList() {
 
         RetrofitComponent retrofitComponent = ApplicationWMS
                 .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
-        String Authorization = getAuthorizationTokenFromSharedPreferences();
+        String authorization = getAuthorizationTokenFromSharedPreferences();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getTimes(Authorization));
+                .getBoothList(authorization));
 
-        getPrimaryCall().enqueue(new Callback<MD_TimeSheet>() {
+        getPrimaryCall().enqueue(new Callback<MR_BoothList>() {
             @Override
-            public void onResponse(Call<MD_TimeSheet> call, Response<MD_TimeSheet> response) {
+            public void onResponse(Call<MR_BoothList> call, Response<MR_BoothList> response) {
                 setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
-//                    MRTimes = response.body().getResult();
-                    sendActionToObservable(StaticValues.ML_GetTimeSheet);
+                    md_boothList = response.body().getResult();
+                    sendActionToObservable(StaticValues.ML_GetBoothList);
                 } else {
                     sendActionToObservable(StaticValues.ML_ResponseError);
                 }
@@ -48,16 +54,17 @@ public class VM_RecyclingCarPrimary extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MD_TimeSheet> call, Throwable t) {
+            public void onFailure(Call<MR_BoothList> call, Throwable t) {
                 onFailureRequest();
             }
         });
 
-    }//_____________________________________________________________________________________________ GetTypeTimes
+    }
+    //______________________________________________________________________________________________ getBoothList
 
 
-
-    public void SendCollectRequest(MD_WasteAmountRequests md_wasteAmountRequests) {//_______________ SendCollectRequest
+    //______________________________________________________________________________________________ sendCollectRequest
+    public void sendCollectRequest(MD_WasteAmountRequests md_wasteAmountRequests) {
 
         RetrofitComponent retrofitComponent = ApplicationWMS
                 .getApplicationWMS(getContext())
@@ -90,14 +97,13 @@ public class VM_RecyclingCarPrimary extends VM_Primary {
             }
         });
 
-    }//_____________________________________________________________________________________________ SendCollectRequest
+    }
+    //______________________________________________________________________________________________ sendCollectRequest
 
 
-
-/*
-    public MR_TimeSheet getMRTimes() {//___________________________________________________________ getModelTimes
-        return MRTimes;
-    }//_____________________________________________________________________________________________ getModelTimes
-*/
-
+    //______________________________________________________________________________________________ getMd_boothList
+    public List<MD_Booth> getMd_boothList() {
+        return md_boothList;
+    }
+    //______________________________________________________________________________________________ getMd_boothList
 }

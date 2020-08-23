@@ -39,6 +39,7 @@ public class StaticValues {
     public static Byte WasteCollectionStateOnProgress = 2;
     public static Byte WasteCollectionStateNoDelivery = 3;
     public static Byte WasteCollectionStateDelivered = 4;
+    public static Byte WasteCollectionStateCanceled = 7;
     //***** Event Waste Collection State *****
 
 
@@ -105,6 +106,7 @@ public class StaticValues {
     public static Byte ML_GetBestScore = 36;
     public static Byte ML_GetReport = 37;
     public static Byte ML_GetUserScorePriceReport = 38;
+    public static Byte ML_CancelRequest = 39;
     //***** Observable Control *****
 
 

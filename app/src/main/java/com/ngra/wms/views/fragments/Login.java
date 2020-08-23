@@ -20,6 +20,7 @@ import com.ngra.wms.databinding.FragmentFragmentLoginBinding;
 
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Login;
+import com.ngra.wms.views.activitys.MainActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -97,6 +98,14 @@ public class Login extends FragmentPrimary implements FragmentPrimary.getActionF
                 vm_login);
         if (getView() != null)
             navController = Navigation.findNavController(getView());
+
+        if (MainActivity.ReferenceCode != null) {
+            Bundle bundle = new Bundle();
+            bundle.putString(getContext().getString(R.string.ML_Type), getContext().getString(R.string.ML_SingUp));
+            bundle.putString(getContext().getString(R.string.ML_PhoneNumber), EditPhoneNumber.getText().toString());
+            navController.navigate(R.id.action_login_to_signUp, bundle);
+        }
+
     }
     //______________________________________________________________________________________________ onStart
 
