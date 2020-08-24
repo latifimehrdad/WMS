@@ -17,6 +17,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cunoraz.gifview.library.GifView;
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.FrTimeSheetBinding;
+import com.ngra.wms.models.MD_Booth;
+import com.ngra.wms.models.MD_SpinnerItem;
+import com.ngra.wms.models.MD_Time;
+import com.ngra.wms.models.MD_WasteAmountRequests;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_TimeSheet;
 import com.ngra.wms.views.adaptors.collectrequest.AP_TimeSheet;
@@ -108,8 +112,13 @@ public class TimeSheet extends FragmentPrimary implements
         TimeSheetId = -2;
         gifLoadingSend.setVisibility(View.GONE);
         if (TimeSheetType != StaticValues.TimeSheetPackage) {
-            TextViewSend.setText(getContext().getResources().getString(R.string.NextStep));
-            ImageViewSend.setImageDrawable(getContext().getResources().getDrawable(R.drawable.svg_arrow_left));
+            if (TimeSheetType != StaticValues.TimeSheetBooth) {
+                TextViewSend.setText(getContext().getResources().getString(R.string.NextStep));
+                ImageViewSend.setImageDrawable(getContext().getResources().getDrawable(R.drawable.svg_arrow_left));
+            } else {
+                TextViewSend.setText(getContext().getResources().getString(R.string.FragmentPackRequestPrimarySet));
+                ImageViewSend.setImageDrawable(getContext().getResources().getDrawable(R.drawable.logocar));
+            }
         } else {
             TextViewSend.setText(getContext().getResources().getString(R.string.FragmentPackRequestPrimary));
             ImageViewSend.setImageDrawable(getContext().getResources().getDrawable(R.drawable.svg_trash));
@@ -136,6 +145,15 @@ public class TimeSheet extends FragmentPrimary implements
 
         if (action.equals(StaticValues.ML_SendPackageRequest)) {
             getContext().onBackPressed();
+            return;
+        }
+
+        if (action.equals(StaticValues.ML_CollectRequestDone)){
+            getContext().onBackPressed();
+            getContext().onBackPressed();
+            getContext().onBackPressed();
+            getContext().onBackPressed();
+            return;
         }
 
     }
@@ -167,11 +185,24 @@ public class TimeSheet extends FragmentPrimary implements
             }
 
             if (TimeSheetType != StaticValues.TimeSheetPackage) {
-                Bundle bundle = new Bundle();
-                bundle.putInt(getContext().getResources().getString(R.string.ML_TimeId), TimeSheetId);
-                bundle.putInt(getContext().getString(R.string.ML_Id), BoothId);
-                bundle.putInt(getContext().getString(R.string.ML_Type), TimeSheetType);
-                navController.navigate(R.id.action_timeSheet_to_address, bundle);
+                if (TimeSheetType != StaticValues.TimeSheetBooth) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(getContext().getResources().getString(R.string.ML_TimeId), TimeSheetId);
+                    bundle.putInt(getContext().getString(R.string.ML_Id), BoothId);
+                    bundle.putInt(getContext().getString(R.string.ML_Type), TimeSheetType);
+                    navController.navigate(R.id.action_timeSheet_to_address, bundle);
+                } else {
+                    gifLoadingSend.setVisibility(View.VISIBLE);
+                    ImageViewSend.setVisibility(View.GONE);
+                    MD_WasteAmountRequests md_wasteAmountRequests;
+                    md_wasteAmountRequests = new MD_WasteAmountRequests(
+                            0,
+                            new MD_Booth(BoothId),
+                            new MD_Time(TimeSheetId),
+                            ChooseWaste.wasteLists,
+                            null);
+                    vm_timeSheet.sendCollectRequest(md_wasteAmountRequests);
+                }
             } else {
                 gifLoadingSend.setVisibility(View.VISIBLE);
                 ImageViewSend.setVisibility(View.GONE);

@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MD_TimeSheet;
+import com.ngra.wms.models.MD_WasteAmountRequests;
 import com.ngra.wms.models.MR_TimeSheet;
 import com.ngra.wms.models.ModelResponsePrimary;
 import com.ngra.wms.models.ModelSettingInfo;
@@ -171,6 +172,47 @@ public class VM_TimeSheet extends VM_Primary {
 
     }
     //______________________________________________________________________________________________ getLoginInformation
+
+
+
+
+    //______________________________________________________________________________________________ sendCollectRequest
+    public void sendCollectRequest(MD_WasteAmountRequests md_wasteAmountRequests) {
+
+        RetrofitComponent retrofitComponent = ApplicationWMS
+                .getApplicationWMS(getContext())
+                .getRetrofitComponent();
+
+        String authorization = getAuthorizationTokenFromSharedPreferences();
+
+        setPrimaryCall(retrofitComponent
+                .getRetrofitApiInterface()
+                .RequestCollection(
+                        md_wasteAmountRequests,
+                        authorization));
+
+        getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
+            @Override
+            public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
+                setResponseMessage(checkResponse(response, false));
+                if (getResponseMessage() == null) {
+                    setResponseMessage(getResponseMessage(response.body()));
+                    sendActionToObservable(StaticValues.ML_CollectRequestDone);
+                } else {
+                    sendActionToObservable(StaticValues.ML_ResponseError);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
+                onFailureRequest();
+            }
+        });
+
+    }
+    //______________________________________________________________________________________________ sendCollectRequest
+
 
 
     //______________________________________________________________________________________________ getMd_timesSheet

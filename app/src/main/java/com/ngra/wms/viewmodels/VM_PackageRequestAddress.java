@@ -318,8 +318,12 @@ public class VM_PackageRequestAddress extends VM_Primary {
                         setResponseMessage(checkResponse(response, false));
                         if (getResponseMessage() == null) {
                             if (response.body().getResult() != null)
-                                AddressId = response.body().getResult().get(0).getId();
-                            sendActionToObservable(StaticValues.ML_GetUserAddress);
+                                if (response.body().getResult() == null)
+                                    sendActionToObservable(StaticValues.ML_ResponseError);
+                                else {
+                                    AddressId = response.body().getResult().get(0).getId();
+                                    sendActionToObservable(StaticValues.ML_GetUserAddress);
+                                }
                         } else
                             sendActionToObservable(StaticValues.ML_ResponseError);
                     }

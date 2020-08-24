@@ -52,7 +52,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.ge
     private Boolean ClickCity = false;
     private MLSpinnerDialog spinnerRegion;
     private ArrayList<MD_SpinnerItem> RegionsList;
-    private String RegionId = "-1";
+    private String RegionId;
     private Boolean ClickPlace = false;
     private DialogProgress progress;
     private int GenderCode = -1;
@@ -123,6 +123,12 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.ge
     @BindView(R.id.LinearLayoutEditAddress)
     LinearLayout LinearLayoutEditAddress;
 
+    @BindView(R.id.LinearLayoutCity)
+    LinearLayout LinearLayoutCity;
+
+    @BindView(R.id.LinearLayoutProvinces)
+    LinearLayout LinearLayoutProvinces;
+
 
     //______________________________________________________________________________________________ onCreateView
     @Nullable
@@ -178,6 +184,10 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.ge
         setItemUser();
         GenderCode = -1;
         EditPhoneNumber.setText(vm_profilePerson.getPhoneNumber());
+        if (MainActivity.complateprofile) {
+            LinearLayoutCity.setVisibility(View.GONE);
+            LinearLayoutProvinces.setVisibility(View.GONE);
+        }
     }
     //______________________________________________________________________________________________ init
 
@@ -411,7 +421,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.ge
             RegionsList = null;
             ClickPlace = false;
             CityId = "-1";
-            RegionId = "-1";
+            RegionId = null;
             TextCity.setText(getResources().getString(R.string.City_Prompt));
             TextRegion.setText(getResources().getString(R.string.ChooseRegion));
             LayoutProvinces.setBackground(getResources().getDrawable(R.drawable.dw_edit_back));
@@ -431,7 +441,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.ge
         RegionsList = null;
         ClickPlace = false;
         CityId = "-1";
-        RegionId = "-1";
+        RegionId = null;
         TextCity.setText(getResources().getString(R.string.City_Prompt));
         TextRegion.setText(getResources().getString(R.string.ChooseRegion));
         //spinnerDialog = new SpinnerDialog(getActivity(),items,"Select or Search City","Close Button Text");// With No Animation
@@ -449,7 +459,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.ge
             CityId = CitiesList.get(position).getId();
             RegionsList = null;
             ClickPlace = false;
-            RegionId = "-1";
+            RegionId = null;
             TextRegion.setText(getResources().getString(R.string.ChooseRegion));
             LayoutCity.setBackground(getResources().getDrawable(R.drawable.dw_edit_back));
             getPlaces();
@@ -467,7 +477,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.ge
     private void setItemRegion() {
 
         TextRegion.setText(getResources().getString(R.string.ChooseRegion));
-        RegionId = "-1";
+        RegionId = null;
         //spinnerDialog = new SpinnerDialog(getActivity(),items,"Select or Search City","Close Button Text");// With No Animation
         spinnerRegion = new MLSpinnerDialog(
                 getActivity(),
@@ -498,7 +508,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.ge
         boolean gender;
         boolean privence;
         boolean city;
-        boolean region;
+/*        boolean region;*/
         boolean user;
 
         if (edtiLastName.getText().length() < 1) {
@@ -542,11 +552,11 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.ge
         } else
             city = true;
 
-        if (RegionId.equalsIgnoreCase("-1")) {
+/*        if (RegionId.equalsIgnoreCase("-1")) {
             LayoutRegion.setBackground(getResources().getDrawable(R.drawable.dw_edit_back_empty));
             region = false;
         } else
-            region = true;
+            region = true;*/
 
         if (UserTypeId.equalsIgnoreCase("-1")) {
             LayoutUser.setBackground(getResources().getDrawable(R.drawable.dw_edit_back_empty));
@@ -555,7 +565,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.ge
             user = true;
 
 
-        return firstname && lastname && gender && privence && city && region && user;
+        return firstname && lastname && gender && privence && city && user;
 
     }
     //______________________________________________________________________________________________ checkEmpty

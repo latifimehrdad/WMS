@@ -6,6 +6,7 @@ import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MR_Register;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Primary;
+import com.ngra.wms.views.activitys.MainActivity;
 import com.ngra.wms.views.application.ApplicationWMS;
 
 import retrofit2.Call;
@@ -39,6 +40,7 @@ public class VM_SignUp extends VM_Primary {
                 .getRetrofitApiInterface()
                 .SendPhoneNumber(
                         getPhoneNumber(),
+                        MainActivity.ReferenceCode,
                         authorization));
 
         getPrimaryCall().enqueue(new Callback<MR_Register>() {
