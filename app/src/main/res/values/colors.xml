@@ -14,6 +14,7 @@
     <color name="mlTextRegisterCode">#F41C1C</color>
     <color name="mlTextRegisterCodeMessage">#8CC484</color>
     <color name="mlHomeMaxScore">#0068A5</color>
+    <color name="mlRecyclerButton1">#012963</color>
     <color name="mlHomeAveScore">#E7414F</color>
     <color name="mlCollectLeft1">#73CF15</color>
     <color name="mlCollectLeft2">#4A8F03</color>

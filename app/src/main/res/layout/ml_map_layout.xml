@@ -92,7 +92,6 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:gravity="bottom"
-        android:visibility="gone"
         >
 
         <LinearLayout
@@ -111,8 +110,7 @@
             android:layout_weight="2.2"
             android:layout_height="@dimen/_50sdp"
             android:background="@drawable/layout_marker_info"
-            android:layout_marginBottom="-5dp"
-            android:paddingBottom="10dp"
+            android:paddingBottom="7dp"
             android:paddingTop="@dimen/_3sdp"
             android:paddingRight="@dimen/_5sdp"
             android:paddingLeft="@dimen/_5sdp"
@@ -120,17 +118,19 @@
             >
 
             <TextView
+                android:id="@+id/TextViewMapAddress"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textColor="@color/mlWhite"
-                android:textSize="@dimen/_9sdp"
+                android:textSize="@dimen/_7sdp"
                 android:maxLines="3"
                 android:text="عنوان و یا هرچیز دیگزی"
                 />
 
             <LinearLayout
+                android:id="@+id/wazeLayout"
                 android:layout_width="@dimen/_40sdp"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -142,16 +142,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_8sdp"
-                    android:textColor="@color/mlWhite"
+                    android:textColor="@color/mlRecyclerButton1"
                     android:text="@string/WazeNavigation"
                     android:gravity="center"
                     fontPath="font/iransans_web_medium.ttf"
                     />
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/waze"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
+                    android:src="@drawable/svg_route"
+                    android:tint="@color/mlRecyclerButton1"
                     />
 
             </LinearLayout>
