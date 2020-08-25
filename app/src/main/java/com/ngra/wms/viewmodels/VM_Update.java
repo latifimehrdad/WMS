@@ -5,10 +5,12 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Pair;
+import android.widget.ProgressBar;
 
 import androidx.core.content.FileProvider;
 
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
+import com.ngra.wms.utility.DownloadTask;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.views.application.ApplicationWMS;
 
@@ -44,6 +46,18 @@ public class VM_Update extends VM_Primary {
         void onProgress(int progress);
     }
     //______________________________________________________________________________________________ ProgressDownload
+
+
+
+    //______________________________________________________________________________________________ downloadFile
+    public void downloadFile(String url, String filePath, ProgressBar bar) {
+
+        DownloadTask downloadTask = new DownloadTask(getContext(), filePath, bar, getPublishSubject());
+        downloadTask.execute(url);
+    }
+    //______________________________________________________________________________________________ downloadFile
+
+
 
 
     //______________________________________________________________________________________________ downloadFile

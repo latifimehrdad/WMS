@@ -2,7 +2,9 @@ package com.ngra.wms.views.fragments;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,8 @@ import com.ngra.wms.databinding.FragmentUpdateBinding;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Update;
 
+
+import java.io.File;
 
 import butterknife.BindView;
 
@@ -88,7 +92,8 @@ public class AppUpdate extends FragmentPrimary implements FragmentPrimary.getAct
 
             if (!url.equalsIgnoreCase(""))
                 if (!fileName.equalsIgnoreCase(""))
-                    vm_update.downloadFile(url, fileName);
+                    vm_update.downloadFile(url,fileName, progressBar);
+//                    vm_update.downloadFile(url, fileName);
         }
 
     }
@@ -98,14 +103,27 @@ public class AppUpdate extends FragmentPrimary implements FragmentPrimary.getAct
     private void setOnClick() {//___________________________________________________________________ setOnClick
 
         ButtonInstall.setOnClickListener(v -> {
-            Uri uri = vm_update.getTempUri(fileName);
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            intent.putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true);
-            intent.setDataAndType(uri, "application/vnd.android.package-archive");
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //dont forget add this line
-            if (getContext() != null)
-                getContext().startActivity(intent);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Uri uri = vm_update.getTempUri(fileName);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                intent.putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true);
+                intent.setDataAndType(uri, "application/vnd.android.package-archive");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //dont forget add this line
+                if (getContext() != null)
+                    getContext().startActivity(intent);
+            } else {
+                File apkFile;
+                apkFile = new File(Environment.getExternalStorageDirectory()
+                        + "/pishtazan/", fileName);
+                Uri apkUri = Uri.fromFile(apkFile);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getActivity().startActivity(intent);
+            }
+
         });
 
     }
