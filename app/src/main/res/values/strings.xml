@@ -195,6 +195,7 @@
     <string name="DefaultCity">کرج</string>
     <string name="LoadMore">موارد بیشتر</string>
     <string name="FindYourLocation">درحال یافتن موقعیت شما\n برای پیدا کردن نزدیکترین غرفه...</string>
+    <string name="BoothListIsEmpty">غرفه ای یافت نشد</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

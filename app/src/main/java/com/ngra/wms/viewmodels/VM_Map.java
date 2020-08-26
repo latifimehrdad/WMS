@@ -105,8 +105,6 @@ public class VM_Map extends VM_Primary {
     //______________________________________________________________________________________________ getSuggestionAddress
 
 
-
-
     //______________________________________________________________________________________________ getBoothList
     public void getBoothList(double lat, double lng) {
 
@@ -120,7 +118,7 @@ public class VM_Map extends VM_Primary {
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getBoothList(md_getBooth,authorization));
+                .getBoothList(md_getBooth, authorization));
 
         getPrimaryCall().enqueue(new Callback<MR_BoothList>() {
             @Override
@@ -128,7 +126,13 @@ public class VM_Map extends VM_Primary {
                 setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     md_boothList = response.body().getResult();
-                    sendActionToObservable(StaticValues.ML_GetBoothList);
+                    if (md_boothList.size() > 0)
+                        sendActionToObservable(StaticValues.ML_GetBoothList);
+                    else {
+                        setResponseMessage(getContext().getResources().getString(R.string.BoothListIsEmpty));
+                        sendActionToObservable(StaticValues.ML_ResponseError);
+                    }
+
                 } else {
                     sendActionToObservable(StaticValues.ML_ResponseError);
                 }
@@ -143,8 +147,6 @@ public class VM_Map extends VM_Primary {
 
     }
     //______________________________________________________________________________________________ getBoothList
-
-
 
 
     //______________________________________________________________________________________________ getAddress

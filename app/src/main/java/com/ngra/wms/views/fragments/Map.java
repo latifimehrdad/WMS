@@ -194,6 +194,8 @@ public class Map extends FragmentPrimary implements
     @Override
     public void getActionFromObservable(Byte action) {
 
+        mMap.clear();
+
         if (action.equals(StaticValues.ML_ReTrySuggestion)) {
             errorCount++;
             GifViewDestination.setVisibility(View.VISIBLE);
