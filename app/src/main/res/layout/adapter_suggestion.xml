@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="suggestion"
+            type="com.ngra.wms.models.MD_AdapterSuggestion" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/_5sdp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+
+            <LinearLayout
+                android:id="@+id/LinearLayoutShowOnMap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/button_dark_blue"
+                android:padding="@dimen/_2sdp"
+                android:gravity="center"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/mlWhite"
+                    android:textSize="@dimen/_8sdp"
+                    android:text="@string/ShowOnMap"
+                    android:padding="@dimen/_3sdp"
+                    />
+
+                <ImageView
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:src="@drawable/svg_pin"
+                    android:tint="@color/mlWhite"
+                    />
+
+
+            </LinearLayout>
+
+            <com.cunoraz.gifview.library.GifView
+                android:id="@+id/GifViewAddress"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:background="@drawable/dw_button_game"
+                custom:gif="@drawable/loading2"
+                android:visibility="gone"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textColor="@color/mlBlack"
+                android:textSize="@dimen/_9sdp"
+                android:layout_marginLeft="@dimen/_2sdp"
+                android:text="@{suggestion.address}"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/mlFooter"
+            android:layout_marginTop="@dimen/_5sdp" />
+
+    </LinearLayout>
+
+</layout>

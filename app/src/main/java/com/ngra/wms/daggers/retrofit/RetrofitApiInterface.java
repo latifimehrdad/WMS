@@ -1,5 +1,8 @@
 package com.ngra.wms.daggers.retrofit;
 
+import com.ngra.wms.models.MD_GetBooth;
+import com.ngra.wms.models.MD_Location;
+import com.ngra.wms.models.MD_SuggestionAddress;
 import com.ngra.wms.models.MR_BestScore;
 import com.ngra.wms.models.MR_BoothList;
 import com.ngra.wms.models.MR_ChartReport;
@@ -28,6 +31,8 @@ import com.ngra.wms.models.MR_SpinnerItems;
 import com.ngra.wms.models.MD_TimeSheet;
 import com.ngra.wms.models.MD_Token;
 import com.ngra.wms.models.ModelUserAccounts;
+
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -279,9 +284,10 @@ public interface RetrofitApiInterface {
             );
 
 
-    @GET(Version + "/contact/getboothlist")
+    @POST(Version + "/contact/getboothlist")
     Call<MR_BoothList> getBoothList
             (
+                    @Body MD_GetBooth location,
                     @Header("Authorization") String Authorization
 
             );
@@ -487,6 +493,12 @@ public interface RetrofitApiInterface {
                     @Field("RequestCode") String RequestCode,
                     @Header("Authorization") String Authorization
             );
+
+
+    @GET()
+    Call<List<MD_SuggestionAddress>> getSuggestionAddress(
+            @Url String url
+    );
 
 
 }

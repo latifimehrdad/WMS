@@ -41,6 +41,8 @@ public class BoothReceive extends FragmentPrimary implements
     private VM_BoothReceivePrimary vm_boothReceivePrimary;
     private AP_BoothList ap_boothList;
     private NavController navController;
+    private double currentLat;
+    private double currentLng;
 
 
     @BindView(R.id.RecyclerViewBooths)
@@ -73,8 +75,10 @@ public class BoothReceive extends FragmentPrimary implements
             binding.setVMBoothReceivePrimary(vm_boothReceivePrimary);
             setView(binding.getRoot());
             gifLoading.setVisibility(View.VISIBLE);
+            currentLat = getArguments().getDouble(getContext().getResources().getString(R.string.ML_CurrentLat), 0.0);
+            currentLng = getArguments().getDouble(getContext().getResources().getString(R.string.ML_CurrentLng), 0.0);
 
-            vm_boothReceivePrimary.getBoothList();
+            vm_boothReceivePrimary.getBoothList(currentLat, currentLng);
             LinearLayoutMap.setVisibility(View.GONE);
 
         }

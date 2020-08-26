@@ -176,7 +176,7 @@ public class VM_PackageRequestAddress extends VM_Primary {
                 .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
-        String url = "http://nominatim.openstreetmap.org/reverse?format=json&lat=" + lat + "&lon=" + lon + "&zoom=22&addressdetails=5";
+        String url = "https://nominatim.openstreetmap.org/reverse?format=json&lat=" + lat + "&lon=" + lon + "&zoom=22&addressdetails=5";
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()

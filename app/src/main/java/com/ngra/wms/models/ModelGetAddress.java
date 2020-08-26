@@ -1,7 +1,5 @@
 package com.ngra.wms.models;
 
-
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class ModelGetAddress {
@@ -14,13 +12,13 @@ public class ModelGetAddress {
     String lon;
 
     @SerializedName("address")
-    ModelAddress address;
+    MD_Address address;
 
-    public ModelAddress getAddress() {
+    public MD_Address getAddress() {
         return address;
     }
 
-    public void setAddress(ModelAddress address) {
+    public void setAddress(MD_Address address) {
         this.address = address;
     }
 
@@ -41,7 +39,7 @@ public class ModelGetAddress {
         this.lon = lon;
     }
 
-    public class ModelAddress {
+/*    public class ModelAddress {
 
         @SerializedName("neighbourhood")
         String neighbourhood;
@@ -145,5 +143,5 @@ public class ModelGetAddress {
         public void setBuilding(String building) {
             this.building = building;
         }
-    }
+    }*/
 }

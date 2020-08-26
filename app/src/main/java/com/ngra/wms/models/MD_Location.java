@@ -13,6 +13,11 @@ public class MD_Location {
     @SerializedName("altitude")
     double altitude;
 
+    public MD_Location(double latitude, double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
     public double getLatitude() {
         return latitude;
     }

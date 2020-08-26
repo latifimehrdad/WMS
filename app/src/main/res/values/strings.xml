@@ -190,6 +190,11 @@
     <string name="WaitForAccept">در انتظار تایید</string>
     <string name="ChooseDay">ابتدا روز را انتخاب نمایید</string>
     <string name="RequestIsCanceled">درخواست لغو شد</string>
+    <string name="WhereAreYou">شما کجا هستید؟</string>
+    <string name="EnterYourAddress">آدرس مقصد خودرا وارد کنید</string>
+    <string name="DefaultCity">کرج</string>
+    <string name="LoadMore">موارد بیشتر</string>
+    <string name="FindYourLocation">درحال یافتن موقعیت شما\n برای پیدا کردن نزدیکترین غرفه...</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -221,6 +226,8 @@
     <string name="ML_Id">Id</string>
     <string name="ML_TimeId">TimeId</string>
     <string name="ML_Save">save</string>
+    <string name="ML_CurrentLat">CurrentLat</string>
+    <string name="ML_CurrentLng">CurrentLng</string>
 
 
 </resources>

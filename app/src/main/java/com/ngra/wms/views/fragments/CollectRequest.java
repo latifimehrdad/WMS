@@ -90,7 +90,7 @@ public class CollectRequest extends FragmentPrimary implements
     //______________________________________________________________________________________________ setClicks
     private void setClicks() {
 
-        LinearLayoutBoothReceive.setOnClickListener(v -> navController.navigate(R.id.action_collectRequest2_to_boothReceive2));
+        LinearLayoutBoothReceive.setOnClickListener(v -> navController.navigate(R.id.action_collectRequest2_to_map));
 
         LinearLayoutRecyclingCar.setOnClickListener(v -> {
             Bundle bundle = new Bundle();

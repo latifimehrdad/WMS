@@ -437,6 +437,14 @@
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"/>
 
+        <action
+            android:id="@+id/action_collectRequest2_to_map"
+            app:destination="@id/map"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
     </fragment>
 
     <fragment
@@ -504,6 +512,32 @@
             app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
+
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.ngra.wms.views.fragments.Map"
+        android:label="Map"
+        tools:layout="@layout/fr_map">
+
+        <argument android:name="@string/ML_CurrentLat"
+            android:defaultValue="0.0"/>
+
+        <argument android:name="@string/ML_CurrentLng"
+            android:defaultValue="0.0"/>
+
+
+        <action
+            android:id="@+id/action_map_to_boothReceive2"
+            app:destination="@id/boothReceive2"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
 
     </fragment>
 

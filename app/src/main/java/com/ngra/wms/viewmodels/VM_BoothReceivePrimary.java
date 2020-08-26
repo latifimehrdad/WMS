@@ -4,6 +4,8 @@ import android.app.Activity;
 
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MD_Booth;
+import com.ngra.wms.models.MD_GetBooth;
+import com.ngra.wms.models.MD_Location;
 import com.ngra.wms.models.MR_BoothList;
 import com.ngra.wms.models.MD_WasteAmountRequests;
 import com.ngra.wms.models.ModelResponsePrimary;
@@ -28,17 +30,19 @@ public class VM_BoothReceivePrimary extends VM_Primary {
 
 
     //______________________________________________________________________________________________ getBoothList
-    public void getBoothList() {
+    public void getBoothList(double lat, double lng) {
 
         RetrofitComponent retrofitComponent = ApplicationWMS
                 .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
+        MD_Location location = new MD_Location(lat, lng);
+        MD_GetBooth md_getBooth = new MD_GetBooth(location);
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getBoothList(authorization));
+                .getBoothList(md_getBooth,authorization));
 
         getPrimaryCall().enqueue(new Callback<MR_BoothList>() {
             @Override

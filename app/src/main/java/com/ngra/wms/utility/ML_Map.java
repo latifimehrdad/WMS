@@ -195,7 +195,7 @@ public class ML_Map {
             builder.include(latLng);
         }
         LatLngBounds bounds = builder.build();
-        int padding = 0; // offset from edges of the map in pixels
+        int padding = 50; // offset from edges of the map in pixels
         CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
         getGoogleMap().animateCamera(cu);
     }//_____________________________________________________________________________________________ End AutoZoom

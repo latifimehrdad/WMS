@@ -35,6 +35,7 @@
 
 
     <LinearLayout
+        android:id="@+id/LinearLayoutChoose"
         android:layout_width="@dimen/_50sdp"
         android:layout_height="@dimen/_70sdp"
         android:layout_above="@id/centerLayout"
@@ -171,16 +172,36 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/TextViewWaitMap"
+
+    <LinearLayout
+        android:id="@+id/LinearLayoutWaitMap"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/mlWhite"
-        android:textSize="@dimen/_13sdp"
-        android:textColor="@color/mlBlack"
-        android:text=""
-        fontPath="font/iransans_web_medium.ttf"
-        android:visibility="gone"
-        />
+        android:background="@color/mlMenuBackTrans"
+        android:orientation="vertical"
+        android:gravity="center">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_13sdp"
+            android:gravity="center"
+            android:textColor="@color/mlWhite"
+            android:text="@string/FindYourLocation"
+            fontPath="font/iransans_web_medium.ttf"
+            />
+
+        <com.cunoraz.gifview.library.GifView
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            custom:gif="@drawable/markermap"
+            android:layout_marginTop="@dimen/_10sdp"
+            />
+
+
+    </LinearLayout>
+
+
 
 </RelativeLayout>

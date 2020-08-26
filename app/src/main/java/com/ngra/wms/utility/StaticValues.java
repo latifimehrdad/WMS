@@ -107,6 +107,13 @@ public class StaticValues {
     public static Byte ML_GetReport = 37;
     public static Byte ML_GetUserScorePriceReport = 38;
     public static Byte ML_CancelRequest = 39;
+    public static Byte ML_ReTrySuggestion = 40;
+    public static Byte ML_GetSuggestion = 41;
+    public static Byte ML_NotFoundSuggestion = 42;
+    public static Byte ML_ML_GetUserAddress = 43;
+    public static Byte ML_ReTryGetCurrentAddress = 44;
+    public static Byte ML_GetCurrentAddress = 45;
+    public static Byte ML_ErrorGetCurrentAddress = 46;
     //***** Observable Control *****
 
 

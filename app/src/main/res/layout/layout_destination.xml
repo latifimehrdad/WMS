@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/mlWhite"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/_10sdp"
+    android:paddingTop="@dimen/_5sdp"
+    android:paddingRight="@dimen/_10sdp"
+    android:paddingBottom="@dimen/_5sdp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/EditTextDestination"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_27sdp"
+                android:background="@drawable/dw_back_item_ticket"
+                android:hint="@string/WhereAreYou"
+                android:inputType="textPostalAddress"
+                android:lines="1"
+                android:paddingRight="@dimen/_5sdp"
+                android:paddingLeft="@dimen/_23sdp"
+                android:textSize="@dimen/_10sdp" />
+
+            <com.cunoraz.gifview.library.GifView
+                android:id="@+id/GifViewDestination"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/dw_button_game"
+                android:layout_marginLeft="@dimen/_1sdp"
+                android:visibility="gone"
+                custom:gif="@drawable/loading2" />
+
+            <ImageView
+                android:id="@+id/ImageViewCloseSuggestion"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_2sdp"
+                android:src="@drawable/ic_cancel_black_24dp"
+                android:tint="@color/mlTextRegisterCode" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/RecyclerViewSuggestion"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_150sdp"
+                android:background="@color/mlWhite"
+                android:paddingTop="@dimen/_5sdp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>

@@ -121,8 +121,8 @@ public class PackageRequestAddress extends FragmentPrimary implements
     @BindView(R.id.gifLoading)
     GifView gifLoading;
 
-    @BindView(R.id.TextViewWaitMap)
-    TextView TextViewWaitMap;
+    @BindView(R.id.LinearLayoutWaitMap)
+    LinearLayout LinearLayoutWaitMap;
 
     @BindView(R.id.markerInfo)
     LinearLayout markerInfo;
@@ -169,7 +169,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
         }
-        TextViewWaitMap.setVisibility(View.VISIBLE);
+        LinearLayoutWaitMap.setVisibility(View.VISIBLE);
         FullScreen = false;
         textChoose.setVisibility(View.VISIBLE);
         MarkerGif.setVisibility(View.GONE);
@@ -383,7 +383,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
         markerInfo.setVisibility(View.GONE);
 
         mMap.setOnMapLoadedCallback(() -> {
-            TextViewWaitMap.setVisibility(View.GONE);
+            LinearLayoutWaitMap.setVisibility(View.GONE);
             if (!StaticFunctions.isLocationEnabled(getContext())) {
                 showRequestTypeDialog();
             } else {
