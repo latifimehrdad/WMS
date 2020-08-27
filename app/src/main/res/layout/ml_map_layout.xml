@@ -109,52 +109,54 @@
             android:orientation="horizontal"
             android:layout_width="0dp"
             android:layout_weight="2.2"
-            android:layout_height="@dimen/_50sdp"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/_50sdp"
             android:background="@drawable/layout_marker_info"
-            android:paddingBottom="7dp"
-            android:paddingTop="@dimen/_3sdp"
-            android:paddingRight="@dimen/_5sdp"
-            android:paddingLeft="@dimen/_5sdp"
+            android:padding="@dimen/_2sdp"
             android:gravity="center"
             >
 
             <TextView
                 android:id="@+id/TextViewMapAddress"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textColor="@color/mlWhite"
-                android:textSize="@dimen/_7sdp"
+                android:textSize="@dimen/_8sdp"
                 android:maxLines="3"
                 android:text="عنوان و یا هرچیز دیگزی"
                 />
 
             <LinearLayout
-                android:id="@+id/wazeLayout"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="match_parent"
+                android:id="@+id/LinearLayoutChooseBooth"
+                android:layout_width="@dimen/_45sdp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:background="@drawable/dw_back_marker_info_choose"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:gravity="center"
+                android:padding="@dimen/_5sdp"
                 >
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_8sdp"
-                    android:textColor="@color/mlRecyclerButton1"
-                    android:text="@string/WazeNavigation"
+                    android:textColor="@color/mlWhite"
+                    android:text="@string/ChooseForDelivery"
                     android:gravity="center"
                     fontPath="font/iransans_web_medium.ttf"
                     />
 
                 <ImageView
-                    android:layout_width="@dimen/_26sdp"
-                    android:layout_height="@dimen/_26sdp"
-                    android:src="@drawable/svg_route"
-                    android:tint="@color/mlRecyclerButton1"
+                    android:layout_width="@dimen/_17sdp"
+                    android:layout_height="@dimen/_17sdp"
+                    android:src="@drawable/svg_trash"
+                    android:tint="@color/mlWhite"
+                    android:layout_marginTop="@dimen/_2sdp"
                     />
+
 
             </LinearLayout>
 

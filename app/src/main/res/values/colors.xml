@@ -32,5 +32,6 @@
     <color name="TicketStatusReferred">#9A2DFA</color>
     <color name="mlTimeDisable">#F3F1F1</color>
     <color name="colorPrimaryLight">#6BECF1</color>
+    <color name="CircleMap">#40C386F8</color>
 
 </resources>

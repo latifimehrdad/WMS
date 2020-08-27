@@ -539,6 +539,16 @@
             app:exitAnim="@anim/slide_out_right"/>
 
 
+
+        <action
+            android:id="@+id/action_map_to_timeSheet"
+            app:destination="@id/timeSheet"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+
     </fragment>
 
 

@@ -130,7 +130,7 @@ public class VM_Map extends VM_Primary {
                         sendActionToObservable(StaticValues.ML_GetBoothList);
                     else {
                         setResponseMessage(getContext().getResources().getString(R.string.BoothListIsEmpty));
-                        sendActionToObservable(StaticValues.ML_ResponseError);
+                        sendActionToObservable(StaticValues.ML_GetBoothListEmpty);
                     }
 
                 } else {
@@ -180,6 +180,7 @@ public class VM_Map extends VM_Primary {
                                     address.setLat(String.valueOf(lat));
                                     address.setLon(String.valueOf(lon));
                                 }
+                                sendActionToObservable(StaticValues.ML_GetAddress);
                             }
 
                         } else {
@@ -192,11 +193,13 @@ public class VM_Map extends VM_Primary {
                                 } else {
                                     currentAddress = response.body();
                                 }
+                                sendActionToObservable(StaticValues.ML_GetAddress);
                             } else {
                                 address = response.body();
                                 if (address.getAddress() == null) {
                                     address.setLat(String.valueOf(lat));
                                     address.setLon(String.valueOf(lon));
+                                    sendActionToObservable(StaticValues.ML_GetAddress);
                                 } else
                                     setAddress();
                             }
@@ -218,6 +221,7 @@ public class VM_Map extends VM_Primary {
                                 address.setLat(String.valueOf(lat));
                                 address.setLon(String.valueOf(lon));
                             }
+                            sendActionToObservable(StaticValues.ML_GetAddress);
                         }
                     }
                 });
@@ -298,13 +302,16 @@ public class VM_Map extends VM_Primary {
         } else {
             textAddress = "";
         }
-
+        sendActionToObservable(StaticValues.ML_GetAddress);
     }
     //______________________________________________________________________________________________ setAddress
 
 
     //______________________________________________________________________________________________ getCityOfCurrentAddress
     public String getCityOfCurrentAddress() {
+
+        if (currentAddress == null)
+            return getContext().getString(R.string.DefaultCity);
 
         String city = currentAddress.getAddress().getCity();
         if (city == null || city.equalsIgnoreCase("null") || city.equalsIgnoreCase(""))

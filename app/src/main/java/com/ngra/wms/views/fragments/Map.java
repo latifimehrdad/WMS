@@ -37,8 +37,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.jakewharton.rxbinding2.widget.TextViewTextChangeEvent;
 import com.ngra.wms.R;
@@ -90,7 +90,10 @@ public class Map extends FragmentPrimary implements
     private boolean mapLoaded = false;
     private Handler timer;
     private Runnable runnable;
-
+    private Integer boothPosition;
+    private List<LatLng> latLngBooths;
+    private Circle mapCircle;
+    private double radiusCircle = 5000;
 
 
     @BindView(R.id.EditTextDestination)
@@ -123,6 +126,12 @@ public class Map extends FragmentPrimary implements
     @BindView(R.id.LinearLayoutWaitMap)
     LinearLayout LinearLayoutWaitMap;
 
+    @BindView(R.id.TextViewMapAddress)
+    TextView TextViewMapAddress;
+
+    @BindView(R.id.LinearLayoutChooseBooth)
+    LinearLayout LinearLayoutChooseBooth;
+
 
     //______________________________________________________________________________________________ Map
     public Map() {
@@ -153,6 +162,7 @@ public class Map extends FragmentPrimary implements
             setView(binding.getRoot());
             EditTextDestination.getText().clear();
             RecyclerViewSuggestion.setVisibility(View.GONE);
+            init();
         }
         return getView();
     }
@@ -194,7 +204,15 @@ public class Map extends FragmentPrimary implements
     @Override
     public void getActionFromObservable(Byte action) {
 
-        mMap.clear();
+
+        if (action.equals(StaticValues.ML_GetBoothListEmpty)) {
+            mMap.clear();
+            if (latLngBooths != null) {
+                latLngBooths.clear();
+                latLngBooths = null;
+            }
+            return;
+        }
 
         if (action.equals(StaticValues.ML_ReTrySuggestion)) {
             errorCount++;
@@ -220,6 +238,11 @@ public class Map extends FragmentPrimary implements
 
         if (action.equals(StaticValues.ML_GetBoothList)) {
             setBoothOnMap();
+            return;
+        }
+
+        if (action.equals(StaticValues.ML_GetAddress)) {
+            getTrueLocationAndMove();
             return;
         }
 
@@ -249,6 +272,16 @@ public class Map extends FragmentPrimary implements
             bundle.putDouble(getContext().getResources().getString(R.string.ML_CurrentLng), LocationAddress.longitude);
             navController.navigate(R.id.action_map_to_boothReceive2, bundle);
 
+        });
+
+        LinearLayoutChooseBooth.setOnClickListener(v -> {
+            mMap.clear();
+            latLngBooths.clear();
+            Integer BoothId = vm_map.getMd_boothList().get(boothPosition).getId();
+            Bundle bundle = new Bundle();
+            bundle.putInt(getContext().getString(R.string.ML_Type), StaticValues.TimeSheetBooth);
+            bundle.putInt(getContext().getString(R.string.ML_Id), BoothId);
+            navController.navigate(R.id.action_map_to_timeSheet, bundle);
         });
     }
     //______________________________________________________________________________________________ setOnClick
@@ -344,9 +377,9 @@ public class Map extends FragmentPrimary implements
             handler.postDelayed(() -> {
                 locationManager.removeUpdates(listener);
                 if (GPSLocation != null) {
-                    getTrueLocationAndMove(GPSLocation);
+                    getTrueLocation(GPSLocation);
                 } else if (NetworkLocation != null) {
-                    getTrueLocationAndMove(NetworkLocation);
+                    getTrueLocation(NetworkLocation);
                 } else {
                     getCurrentLocation();
                 }
@@ -392,17 +425,23 @@ public class Map extends FragmentPrimary implements
         LinearLayoutWaitMap.setVisibility(View.GONE);
         mMap.clear();
         ML_Map ml_map = new ML_Map();
-        List<LatLng> latLngs = new ArrayList<>();
+        latLngBooths = new ArrayList<>();
         ml_map.setGoogleMap(mMap);
-        for (MD_Booth booth : vm_map.getMd_boothList()) {
+        for (Integer i = 0; i < vm_map.getMd_boothList().size(); i++) {
+            MD_Booth booth = vm_map.getMd_boothList().get(i);
             LatLng latLng = new LatLng(booth.getLocation().getLatitude(), booth.getLocation().getLongitude());
-            latLngs.add(latLng);
-            ml_map.AddMarker(latLng, booth.getName(), booth.getId().toString(), R.drawable.booth_pin2);
+            latLngBooths.add(latLng);
+            ml_map.AddMarker(latLng, booth.getName(), i.toString(), R.drawable.booth_pin2);
         }
-        latLngs.add(LocationAddress);
-        ml_map.AddMarker(LocationAddress,"مکان شما","current", R.drawable.marker_point);
-        ml_map.setML_LatLongs(latLngs);
+        latLngBooths.add(LocationAddress);
+        ml_map.AddMarker(LocationAddress, "مکان شما", "current", R.drawable.marker_point);
+        ml_map.setML_LatLongs(latLngBooths);
         clickMarker = true;
+        ml_map.setML_Stroke_Width(1.0f);
+        ml_map.setML_Stroke_Color(getContext().getResources().getColor(R.color.Links));
+        ml_map.setML_Fill_Color(getContext().getResources().getColor(R.color.CircleMap));
+        mapCircle = ml_map.DrawCircle(LocationAddress, radiusCircle);
+        ml_map.setML_LatLongs(ml_map.getCirclePoint(LocationAddress, radiusCircle));
         ml_map.AutoZoom();
 
     }
@@ -433,16 +472,25 @@ public class Map extends FragmentPrimary implements
             }
         });
 
+
         mMap.setOnCameraMoveStartedListener(i -> {
             if (timer != null && runnable != null) {
                 timer.removeCallbacks(runnable);
                 timer = null;
                 runnable = null;
             }
+
+            if (markerInfo.getVisibility() == View.VISIBLE) {
+                SetAnimationTopToBottom();
+                markerInfo.setVisibility(View.GONE);
+            }
+
         });
 
 
         mMap.setOnCameraIdleListener(() -> {
+
+            LatLng center = mMap.getCameraPosition().target;
 
             if (!mapLoaded)
                 return;
@@ -452,38 +500,77 @@ public class Map extends FragmentPrimary implements
                 return;
             }
 
+            if ((latLngBooths != null) && (latLngBooths.size() > 0)) {
+
+                float[] distance = new float[2];
+
+                Location.distanceBetween(center.latitude, center.longitude,
+                        mapCircle.getCenter().latitude, mapCircle.getCenter().longitude, distance);
+
+                if (distance[0] <= mapCircle.getRadius())
+                    return;
+
+            }
+
             timer = new Handler();
             runnable = () -> {
-                LatLng center = mMap.getCameraPosition().target;
+
                 vm_map.getBoothList(center.latitude, center.longitude);
             };
-            timer.postDelayed(runnable, 1000);
+            timer.postDelayed(runnable, 500);
 
         });
 
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                clickMarker = true;
-                return false;
+
+        mMap.setOnMarkerClickListener(marker -> {
+            clickMarker = true;
+            String tag = marker.getTag().toString();
+            if (!tag.equalsIgnoreCase("current")) {
+                Handler handler = new Handler();
+                handler.postDelayed(() -> {
+
+                    boothPosition = Integer.valueOf(tag);
+                    TextViewMapAddress.setText(vm_map.getMd_boothList().get(boothPosition).getAddress());
+
+                    SetAnimationBottomToTop();
+                    markerInfo.setVisibility(View.VISIBLE);
+                }, 250);
+
             }
+            return false;
         });
 
     }
     //______________________________________________________________________________________________ onMapReady
 
 
-    //______________________________________________________________________________________________ getTrueLocationAndMove
-    private void getTrueLocationAndMove(Location location) {
+    //______________________________________________________________________________________________ getTrueLocation
+    private void getTrueLocation(Location location) {
         LocationAddress = new LatLng(location.getLatitude(), location.getLongitude());
+        vm_map.getAddress(location.getLatitude(), location.getLongitude(), true, errorCount);
+
+    }
+    //______________________________________________________________________________________________ getTrueLocation
+
+
+    //______________________________________________________________________________________________ getTrueLocationAndMove
+    private void getTrueLocationAndMove() {
         textChoose.setVisibility(View.VISIBLE);
         MarkerGif.setVisibility(View.GONE);
-        LatLng current = new LatLng(location.getLatitude(), location.getLongitude());
         float zoom = (float) 15;
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(current, zoom));
-        vm_map.getAddress(location.getLatitude(), location.getLongitude(), true, errorCount);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LocationAddress, zoom));
     }
     //______________________________________________________________________________________________ getTrueLocationAndMove
+
+
+    private void SetAnimationTopToBottom() {//______________________________________________________ SetAnimationTopToBottom
+        markerInfo.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_bottom));
+    }//_____________________________________________________________________________________________ SetAnimationTopToBottom
+
+
+    private void SetAnimationBottomToTop() {//______________________________________________________ SetAnimationBottomToTop
+        markerInfo.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_bottom));
+    }//_____________________________________________________________________________________________ SetAnimationBottomToTop
 
 
     //______________________________________________________________________________________________ isBetterLocation
@@ -699,6 +786,7 @@ public class Map extends FragmentPrimary implements
     @Override
     public void itemAddressMapClick(Integer position) {
 
+        clickMarker = true;
         positionChooseSuggestion = position;
         Double lat = vm_map.getSuggestionAddresses().get(position).getLat();
         Double lng = vm_map.getSuggestionAddresses().get(position).getLon();

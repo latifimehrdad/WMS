@@ -24,7 +24,7 @@ import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.maps.model.RoundCap;
-
+import com.ngra.wms.utility.polyutil.ML_PolyUtil;
 
 
 import java.io.IOException;
@@ -90,16 +90,30 @@ public class ML_Map {
     }//_____________________________________________________________________________________________ stylePolygon
 
 
-//    public Boolean isInside(LatLng point, List<LatLng> latLngs) {//_________________________________ Start isInside
-//        return
-//                PolyUtil.containsLocation(point, latLngs, true);
-//    }//_____________________________________________________________________________________________ End isInside
-//
-//
-//    public Boolean isInside(LatLng point) {//_______________________________________________________ Start isInside
-//        return
-//                PolyUtil.containsLocation(point, getML_LatLongs(), true);
-//    }//_____________________________________________________________________________________________ End isInside
+    public Boolean isInside(LatLng point, List<LatLng> latLngs) {//_________________________________ Start isInside
+        return
+                ML_PolyUtil.containsLocation(point, latLngs, true);
+    }//_____________________________________________________________________________________________ End isInside
+
+
+    public Boolean isInside(LatLng point) {//_______________________________________________________ Start isInside
+        return
+                ML_PolyUtil.containsLocation(point, getML_LatLongs(), true);
+    }//_____________________________________________________________________________________________ End isInside
+
+
+
+    public static Boolean isInsidePath(LatLng point, List<LatLng> latLngs) {//____________________ Start isInside
+/*        boolean in = ML_PolyUtil.containsLocation(point, latLngs, true);
+        if(in)
+            return true;
+        else {*/
+            return ML_PolyUtil.isLocationOnPath(point,latLngs,true, 15);
+/*        }*/
+        //containsLocation(point, latLngs, true);
+    }//_____________________________________________________________________________________________ End isInside
+
+
 
 //
 //    public void getDeviceLocation(FragmentActivity context) {//_____________________________________ Start getDeviceLocation
@@ -137,13 +151,14 @@ public class ML_Map {
     }//_____________________________________________________________________________________________ End AddMarker
 
 
-    public void DrawCircle(LatLng latLng, double radius) {//________________________________________ Start DrawCircle
+    public Circle DrawCircle(LatLng latLng, double radius) {//________________________________________ Start DrawCircle
         Circle circle = getGoogleMap().addCircle(new CircleOptions()
                 .center(latLng)
                 .radius(radius)
                 .strokeWidth(getML_Stroke_Width())
                 .strokeColor(getML_Stroke_Color())
                 .fillColor(getML_Fill_Color()));
+        return circle;
     }//_____________________________________________________________________________________________ End DrawCircle
 
 
