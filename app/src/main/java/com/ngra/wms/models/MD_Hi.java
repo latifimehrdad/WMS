@@ -16,6 +16,9 @@ public class MD_Hi {
 
     @SerializedName("version")
     String version;
+
+    @SerializedName("introduceToFriendLink")
+    String introduceToFriendLink;
     //______________________________________________________________________________________________ Value
 
 
@@ -49,5 +52,13 @@ public class MD_Hi {
 
     public void setVersion(String version) {
         this.version = version;
+    }
+
+    public String getIntroduceToFriendLink() {
+        return introduceToFriendLink;
+    }
+
+    public void setIntroduceToFriendLink(String introduceToFriendLink) {
+        this.introduceToFriendLink = introduceToFriendLink;
     }
 }

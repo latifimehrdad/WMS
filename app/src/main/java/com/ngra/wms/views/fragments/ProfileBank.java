@@ -150,7 +150,7 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.getA
         TextBank.setText(getResources().getString(R.string.ChooseBank));
         bankId = "-1";
         //spinnerDialog = new SpinnerDialog(getActivity(),items,"Select or Search City","Close Button Text");// With No Animation
-        spinnerBanks = new MLSpinnerDialog(getActivity(), vm_profileBank.getBanks(), getResources().getString(R.string.Bank_Search), R.style.DialogAnimations_SmileWindow, getResources().getString(R.string.Ignor));// With 	Animation
+        spinnerBanks = new MLSpinnerDialog(getActivity(), vm_profileBank.getBanks(), getResources().getString(R.string.Bank_Search), R.style.DialogAnimations_SmileWindow, getResources().getString(R.string.Ignore));// With 	Animation
         spinnerBanks.setCancellable(true); // for cancellable
         spinnerBanks.setShowKeyboard(false);// for open keyboard by default
         spinnerBanks.bindOnSpinerListener((item, position) -> {

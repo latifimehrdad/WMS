@@ -409,7 +409,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.ge
                 ProvincesList,
                 getResources().getString(R.string.ProvincesSearch),
                 R.style.DialogAnimations_SmileWindow,
-                getResources().getString(R.string.Ignor));// With 	Animation
+                getResources().getString(R.string.Ignore));// With 	Animation
 
         spinnerProvinces.setCancellable(true); // for cancellable
         spinnerProvinces.setShowKeyboard(false);// for open keyboard by default
@@ -450,7 +450,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.ge
                 CitiesList,
                 getResources().getString(R.string.City_Search),
                 R.style.DialogAnimations_SmileWindow,
-                getResources().getString(R.string.Ignor));// With 	Animation
+                getResources().getString(R.string.Ignore));// With 	Animation
 
         spinnerCity.setCancellable(true); // for cancellable
         spinnerCity.setShowKeyboard(false);// for open keyboard by default
@@ -484,7 +484,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.ge
                 RegionsList,
                 getResources().getString(R.string.Region_Search),
                 R.style.DialogAnimations_SmileWindow,
-                getResources().getString(R.string.Ignor));// With 	Animation
+                getResources().getString(R.string.Ignore));// With 	Animation
         spinnerRegion.setCancellable(true); // for cancellable
         spinnerRegion.setShowKeyboard(false);// for open keyboard by default
         spinnerRegion.bindOnSpinerListener((item, position) -> {
@@ -588,7 +588,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.ge
                 UserType,
                 getResources().getString(R.string.User_Search),
                 R.style.DialogAnimations_SmileWindow,
-                getResources().getString(R.string.Ignor));// With 	Animation
+                getResources().getString(R.string.Ignore));// With 	Animation
         spinnerUser.setCancellable(true); // for cancellable
         spinnerUser.setShowKeyboard(false);// for open keyboard by default
         spinnerUser.bindOnSpinerListener((item, position) -> {

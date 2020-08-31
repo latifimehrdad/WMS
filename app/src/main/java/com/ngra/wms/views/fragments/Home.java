@@ -30,6 +30,7 @@ public class Home extends FragmentPrimary implements FragmentPrimary.getActionFr
     private NavController navController;
     private VM_Home vm_home;
     public static boolean TwoBackToHome = false;
+    public static String downloadAppLink;
 
 
     @BindView(R.id.RelativeLayoutFooterPrimary)
@@ -164,19 +165,18 @@ public class Home extends FragmentPrimary implements FragmentPrimary.getActionFr
 
         LinearLayoutShareApp.setOnClickListener(v -> {
 
-            /*Create an ACTION_SEND Intent*/
             Intent intent = new Intent(android.content.Intent.ACTION_SEND);
-            /*This will be the actual content you wish you share.*/
             StringBuilder builder = new StringBuilder();
             builder.append(getString(R.string.IntroduceToFriendsLink));
             builder.append(System.getProperty("line.separator"));
-            builder.append("http://www.ngra.ir/app/09367085703");
-            /*The type of the content is text, obviously.*/
+            builder.append(downloadAppLink);
+            builder.append(System.getProperty("line.separator"));
+            builder.append(getString(R.string.ReagentCode));
+            builder.append(System.getProperty("line.separator"));
+            builder.append(vm_home.getPhoneNumber());
             intent.setType("text/plain");
-            /*Applying information Subject and Body.*/
             intent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.app_name));
             intent.putExtra(android.content.Intent.EXTRA_TEXT, builder.toString());
-            /*Fire!*/
             startActivity(Intent.createChooser(intent, getString(R.string.app_name)));
 
         });

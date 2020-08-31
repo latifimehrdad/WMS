@@ -50,7 +50,7 @@
             android:layout_height="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:background="@drawable/button_red"
-            android:text="@string/Ignor"
+            android:text="@string/Ignore"
             android:textColor="@color/mlWhite"
             android:textSize="@dimen/_9sdp" />
     </LinearLayout>

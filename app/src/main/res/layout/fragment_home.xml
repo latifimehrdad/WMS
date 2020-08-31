@@ -312,7 +312,7 @@
                         android:layout_toLeftOf="@id/VerticalTextViewFooterRight"
                         android:layout_toRightOf="@id/VerticalTextViewFooterLeft"
                         android:gravity="center"
-                        android:text="@string/Letsnotthrowawaythefuture"
+                        android:text="@string/LetsNotThrowaWayTheFuture"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/_11sdp" />
 

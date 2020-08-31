@@ -194,7 +194,7 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.getA
                 vm_support.getMd_spinnerItems(),
                 getResources().getString(R.string.Region_Search),
                 R.style.DialogAnimations_SmileWindow,
-                getResources().getString(R.string.Ignor));// With 	Animation
+                getResources().getString(R.string.Ignore));// With 	Animation
         spinnerRequestType.setCancellable(true); // for cancellable
         spinnerRequestType.setShowKeyboard(false);// for open keyboard by default
         spinnerRequestType.bindOnSpinerListener((item, position) -> {

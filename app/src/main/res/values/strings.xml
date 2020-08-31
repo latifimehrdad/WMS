@@ -1,7 +1,7 @@
 <resources>
 
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDbcXlcVOSpaOu9JS8IEsD9HlBlyd-w4v4</string>
-    <string name="Version">V_99_6_6_1</string>
+    <string name="Version">V_99_6_10_1</string>
     <string name="UpdateAppName">1</string>
 
     <string name="ChooseProvinces">انتخاب استان</string>
@@ -19,8 +19,8 @@
 
     <string name="PackageNotDelivered">قبل از درخواست جمع آوری، لطفا ابتدا به بخش درخواست پکیج بروید و تا تحویل پکیج در محل ساختمان منتظر بمانید</string>
 
-<!--    <string name="app_name">پسماند خشک سبززیور-شهروند</string>-->
-    <string name="app_name">پسماند خشک نگرا-شهروند</string>
+    <string name="app_name">پسماند خشک سبززیور-شهروند</string>
+<!--    <string name="app_name">پسماند خشک نگرا-شهروند</string>-->
 
     <string name="WMSFromFist">سیستم مدیریت تفکیک از مبدأ</string>
     <string name="Orders">درخواست ها</string>
@@ -48,7 +48,7 @@
     <string name="HomeYouScore">امتیاز قرعه کشی</string>
     <string name="AmountK">کیلو</string>
     <string name="IntroduceToFriends">معرفی به دوستان و کسب امتیاز</string>
-    <string name="IntroduceToFriendsLink">لینک معرفی به دوستان و کسب امتیاز</string>
+    <string name="IntroduceToFriendsLink">لینک معرفی به دوستان</string>
     <string name="Retry">تلاش مجدد</string>
     <string name="PleaseTryAgain">لطفا تلاش دوباره کنید</string>
     <string name="GR">گرم</string>
@@ -64,14 +64,11 @@
     <string name="AlBottel">قوطی آلومینیوم</string>
     <string name="Dry">مخلوط خشک</string>
     <string name="Paper">کارتن و کاغذ</string>
-
     <string name="FragmentCollectRequestCar">تحویل به خودرو بازیافت</string>
     <string name="FragmentCollectRequestBooth">تحویل به غرفه بازیافت</string>
-
     <string name="FragmentSeparation">تفکیک پسماند</string>
     <string name="FragmentLearnSeparation">آموزش تفکیک پسماند</string>
     <string name="FragmentLearnItems">ریز اقلام بازیافتی</string>
-
     <string name="FragmentPackRequestAddress">ثبت آدرس</string>
     <string name="NextStep">مرحله بعدی</string>
     <string name="KGr">کیلوگرم</string>
@@ -116,7 +113,7 @@
     <string name="Subject">موضوع</string>
     <string name="Description">توضیحات</string>
     <string name="Home">صفحه اصلی</string>
-    <string name="Letsnotthrowawaythefuture">آینده را دور نریزیم</string>
+    <string name="LetsNotThrowaWayTheFuture">آینده را دور نریزیم</string>
     <string name="ScoresDescription">شرح امتیازات</string>
     <string name="HeyWhatsPhoneNumber">سلام، شماره تلفن همراه شما چند است؟</string>
     <string name="EnterPhoneNumber">"جهت دریافت کد امنیتی \n شماره موبایل خود را در زیر وارد نمایید"</string>
@@ -130,9 +127,9 @@
     <string name="OrderNumber">شماره سفارش : </string>
     <string name="EmptyPhoneNumber">شماره موبایل را بصورت صحیح وارد نمایید</string>
     <string name="PleaseWait">درحال برقراری ارتباط ...</string>
-    <string name="Ignor">بستن</string>
+    <string name="Ignore">بستن</string>
     <string name="ForgetPassword">آیا رمز ورود خود را فراموش کرده اید؟</string>
-    <string name="Editrofile">ویرایش اطلاعات</string>
+    <string name="EditProfile">ویرایش اطلاعات</string>
     <string name="NetworkError">خطا در اتصال به سرور</string>
     <string name="UnitCount">تعداد واحد</string>
     <string name="PersonCount">تعداد نفرات</string>

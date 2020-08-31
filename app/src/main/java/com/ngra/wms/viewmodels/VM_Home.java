@@ -47,6 +47,23 @@ public class VM_Home extends VM_Primary {
     //______________________________________________________________________________________________ checkProfile
 
 
+
+
+    //______________________________________________________________________________________________ checkProfile
+    public String getPhoneNumber() {
+
+        SharedPreferences prefs = getContext().getSharedPreferences(getContext().getString(R.string.ML_SharePreferences), 0);
+        if (prefs == null) {
+            return "";
+        } else {
+            return prefs.getString(getContext().getString(R.string.ML_PhoneNumber), "");
+        }
+    }
+    //______________________________________________________________________________________________ checkProfile
+
+
+
+
     //______________________________________________________________________________________________ getPackageState
     public int getPackageState() {
 

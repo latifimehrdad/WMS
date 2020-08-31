@@ -16,6 +16,7 @@ import com.ngra.wms.utility.StaticFunctions;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Primary;
 import com.ngra.wms.views.application.ApplicationWMS;
+import com.ngra.wms.views.fragments.Home;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -229,6 +230,7 @@ public class VM_Splash extends VM_Primary {
 
         String v = md_hi.getVersion();
         v = v.replaceAll("v", "");
+        Home.downloadAppLink = md_hi.getIntroduceToFriendLink();
 
 
         if (version < Integer.parseInt(v))

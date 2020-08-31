@@ -80,12 +80,10 @@ public class Map extends FragmentPrimary implements
     private Location GPSLocation = null;
     private Location NetworkLocation = null;
     private LatLng LocationAddress;
-    private boolean fullScreen = false;
     private Integer tryToLocation = 0;
     private Location previousBestLocation = null;
     private Dialog dialogQuestion;
     private Integer positionChooseSuggestion;
-    private AP_Suggestion ap_suggestion;
     private boolean clickMarker = false;
     private boolean mapLoaded = false;
     private Handler timer;
@@ -93,7 +91,6 @@ public class Map extends FragmentPrimary implements
     private Integer boothPosition;
     private List<LatLng> latLngBooths;
     private Circle mapCircle;
-    private double radiusCircle = 5000;
 
 
     @BindView(R.id.EditTextDestination)
@@ -131,6 +128,9 @@ public class Map extends FragmentPrimary implements
 
     @BindView(R.id.LinearLayoutChooseBooth)
     LinearLayout LinearLayoutChooseBooth;
+
+    @BindView(R.id.imgFullScreen)
+    ImageView imgFullScreen;
 
 
     //______________________________________________________________________________________________ Map
@@ -178,6 +178,8 @@ public class Map extends FragmentPrimary implements
                 vm_map.getPublishSubject(),
                 vm_map);
 
+        imgFullScreen.setVisibility(View.GONE);
+
         if (getView() != null)
             navController = Navigation.findNavController(getView());
 
@@ -189,7 +191,6 @@ public class Map extends FragmentPrimary implements
 
         mapLoaded = false;
         LinearLayoutChoose.setVisibility(View.GONE);
-        fullScreen = false;
         textChoose.setVisibility(View.VISIBLE);
         MarkerGif.setVisibility(View.GONE);
         if (tryToLocation == -1)
@@ -243,7 +244,6 @@ public class Map extends FragmentPrimary implements
 
         if (action.equals(StaticValues.ML_GetAddress)) {
             getTrueLocationAndMove();
-            return;
         }
 
     }
@@ -424,22 +424,24 @@ public class Map extends FragmentPrimary implements
 
         LinearLayoutWaitMap.setVisibility(View.GONE);
         mMap.clear();
+        LocationAddress = mMap.getCameraPosition().target;
         ML_Map ml_map = new ML_Map();
         latLngBooths = new ArrayList<>();
         ml_map.setGoogleMap(mMap);
-        for (Integer i = 0; i < vm_map.getMd_boothList().size(); i++) {
+        for (int i = 0; i < vm_map.getMd_boothList().size(); i++) {
             MD_Booth booth = vm_map.getMd_boothList().get(i);
             LatLng latLng = new LatLng(booth.getLocation().getLatitude(), booth.getLocation().getLongitude());
             latLngBooths.add(latLng);
-            ml_map.AddMarker(latLng, booth.getName(), i.toString(), R.drawable.booth_pin2);
+            ml_map.AddMarker(latLng, booth.getName(), Integer.toString(i), R.drawable.booth_pin2);
         }
         latLngBooths.add(LocationAddress);
-        ml_map.AddMarker(LocationAddress, "مکان شما", "current", R.drawable.marker_point);
+        ml_map.AddMarker(LocationAddress, "مرکز شعاع", "current", R.drawable.marker_point);
         ml_map.setML_LatLongs(latLngBooths);
         clickMarker = true;
         ml_map.setML_Stroke_Width(1.0f);
         ml_map.setML_Stroke_Color(getContext().getResources().getColor(R.color.Links));
         ml_map.setML_Fill_Color(getContext().getResources().getColor(R.color.CircleMap));
+        double radiusCircle = 5000;
         mapCircle = ml_map.DrawCircle(LocationAddress, radiusCircle);
         ml_map.setML_LatLongs(ml_map.getCirclePoint(LocationAddress, radiusCircle));
         ml_map.AutoZoom();
@@ -513,10 +515,7 @@ public class Map extends FragmentPrimary implements
             }
 
             timer = new Handler();
-            runnable = () -> {
-
-                vm_map.getBoothList(center.latitude, center.longitude);
-            };
+            runnable = () -> vm_map.getBoothList(center.latitude, center.longitude);
             timer.postDelayed(runnable, 500);
 
         });
@@ -725,7 +724,7 @@ public class Map extends FragmentPrimary implements
         } else
             positionChooseSuggestion--;
 
-        ap_suggestion = new AP_Suggestion(list, getContext(), Map.this);
+        AP_Suggestion ap_suggestion = new AP_Suggestion(list, getContext(), Map.this);
         RecyclerViewSuggestion.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         RecyclerViewSuggestion.setAdapter(ap_suggestion);
         RecyclerViewSuggestion.setVisibility(View.VISIBLE);
@@ -786,7 +785,7 @@ public class Map extends FragmentPrimary implements
     @Override
     public void itemAddressMapClick(Integer position) {
 
-        clickMarker = true;
+//        clickMarker = true;
         positionChooseSuggestion = position;
         Double lat = vm_map.getSuggestionAddresses().get(position).getLat();
         Double lng = vm_map.getSuggestionAddresses().get(position).getLon();
