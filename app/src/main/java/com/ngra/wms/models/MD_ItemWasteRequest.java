@@ -26,11 +26,14 @@ public class MD_ItemWasteRequest extends ModelResponsePrimary{
     @SerializedName("wasteAmountEstimates")
     List<String> wasteAmountEstimates;
 
+    @SerializedName("booth")
+    MD_Booth booth;
+
     @SerializedName("wasteAmountRequests")
     List<MD_WasteAmountRequests2> wasteAmountRequests;
 
 
-    public MD_ItemWasteRequest(ArrayList<ModelMessage> messages, Byte wasteCollectionState, Byte deliveryType, Date requestDate, String requestCode, float totalAmount, List<String> wasteAmountEstimates, List<MD_WasteAmountRequests2> wasteAmountRequests) {
+    public MD_ItemWasteRequest(ArrayList<ModelMessage> messages, Byte wasteCollectionState, Byte deliveryType, Date requestDate, String requestCode, float totalAmount, List<String> wasteAmountEstimates, MD_Booth booth, List<MD_WasteAmountRequests2> wasteAmountRequests) {
         super(messages);
         this.wasteCollectionState = wasteCollectionState;
         this.deliveryType = deliveryType;
@@ -38,9 +41,9 @@ public class MD_ItemWasteRequest extends ModelResponsePrimary{
         this.requestCode = requestCode;
         this.totalAmount = totalAmount;
         this.wasteAmountEstimates = wasteAmountEstimates;
+        this.booth = booth;
         this.wasteAmountRequests = wasteAmountRequests;
     }
-
 
     public Byte getWasteCollectionState() {
         return wasteCollectionState;
@@ -96,5 +99,13 @@ public class MD_ItemWasteRequest extends ModelResponsePrimary{
 
     public void setWasteAmountRequests(List<MD_WasteAmountRequests2> wasteAmountRequests) {
         this.wasteAmountRequests = wasteAmountRequests;
+    }
+
+    public MD_Booth getBooth() {
+        return booth;
+    }
+
+    public void setBooth(MD_Booth booth) {
+        this.booth = booth;
     }
 }

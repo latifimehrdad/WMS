@@ -70,18 +70,30 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="0.7" />
 
-                        <TextView
-                            android:id="@+id/TextViewReferenceCode"
+                        <EditText
+                            android:id="@+id/EditTextReagentCode"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/_30sdp"
                             android:layout_weight="2"
-                            android:background="@drawable/dw_back_item_time_selected"
+                            android:background="@drawable/dw_edit_back"
                             android:gravity="center"
                             android:hint="@string/ReagentCode"
-                            android:lines="2"
+                            android:inputType="number"
+                            android:maxLength="11"
+                            android:maxLines="1"
                             android:padding="@dimen/_2sdp"
                             android:textColor="@color/mlBlack"
-                            android:textSize="@dimen/_11sdp" />
+                            android:textSize="@dimen/_12sdp" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:background="@drawable/dw_edit_back_image"
+                            android:padding="@dimen/_4sdp"
+                            android:src="@drawable/svg_phone"
+                            android:tint="@color/mlWhite"
+                            />
+
 
 
                         <LinearLayout

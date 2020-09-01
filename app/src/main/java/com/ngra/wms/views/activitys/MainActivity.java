@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean MenuOpen = false;
     private boolean doubleBackToExitPressedOnce = false;
     private boolean preLogin = false;
-    public static String ReferenceCode;
+/*    public static String ReferenceCode;*/
 
     @BindView(R.id.MainMenu)
     ImageView MainMenu;
@@ -131,14 +131,14 @@ public class MainActivity extends AppCompatActivity {
         SetListener();
         StartAnimationSplash();
 
-        Intent deepLinkingIntent = getIntent();
+/*        Intent deepLinkingIntent = getIntent();
         deepLinkingIntent.getScheme();
         if (deepLinkingIntent.getData() != null) {
             final List<String> segments = deepLinkingIntent.getData().getPathSegments();
             if (segments.size() > 1) {
                 ReferenceCode = segments.get(1);
             }
-        }
+        }*/
 
     }//_____________________________________________________________________________________________ End SetBindingView
 

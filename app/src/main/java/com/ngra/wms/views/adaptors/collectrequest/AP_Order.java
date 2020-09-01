@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.AdapterItemOrderBinding;
-import com.ngra.wms.models.MD_Amount;
 import com.ngra.wms.models.MD_ItemWaste;
 import com.ngra.wms.models.MD_ItemWasteRequest;
 import com.ngra.wms.models.MD_WasteAmountRequests2;
@@ -31,17 +30,19 @@ public class AP_Order extends RecyclerView.Adapter<AP_Order.CustomHolder> {
 
     private LayoutInflater layoutInflater;
     private List<MD_ItemWasteRequest> md_itemWasteRequests;
-    private ItemRequestCancelClick itemRequestCancelClick;
+    private ItemRequestClick itemRequestClick;
 
-    public AP_Order(List<MD_ItemWasteRequest> md_itemWasteRequests, ItemRequestCancelClick itemRequestCancelClick) {
+    public AP_Order(List<MD_ItemWasteRequest> md_itemWasteRequests, ItemRequestClick itemRequestClick) {
         this.md_itemWasteRequests = md_itemWasteRequests;
-        this.itemRequestCancelClick = itemRequestCancelClick;
+        this.itemRequestClick = itemRequestClick;
     }
 
 
     //______________________________________________________________________________________________ itemRequestCancel
-    public interface ItemRequestCancelClick {
+    public interface ItemRequestClick {
         void itemRequestCancel(Integer position);
+        void itemRequestRouting(Integer position);
+        void itemRequestCall(Integer position);
     }
     //______________________________________________________________________________________________ itemRequestCancel
 
@@ -89,6 +90,11 @@ public class AP_Order extends RecyclerView.Adapter<AP_Order.CustomHolder> {
         @BindView(R.id.LinearLayoutCancel)
         LinearLayout LinearLayoutCancel;
 
+        @BindView(R.id.LinearLayoutRouting)
+        LinearLayout LinearLayoutRouting;
+
+        @BindView(R.id.LinearLayoutCallBooth)
+        LinearLayout LinearLayoutCallBooth;
 
 
         public CustomHolder(AdapterItemOrderBinding binding) {
@@ -101,10 +107,6 @@ public class AP_Order extends RecyclerView.Adapter<AP_Order.CustomHolder> {
 
         public void bind(MD_ItemWasteRequest item, Integer Position) {
             binding.setWasteRequest(item);
-
-
-
-
 
 
             if ((item.getWasteCollectionState() == StaticValues.WasteCollectionStateNoDelivery) ||
@@ -133,6 +135,13 @@ public class AP_Order extends RecyclerView.Adapter<AP_Order.CustomHolder> {
                 LinearLayoutCancel.setVisibility(View.VISIBLE);
 
 
+            if ((item.getWasteCollectionState() == StaticValues.WasteCollectionStateDelivered) &&
+                    (item.getDeliveryType() == StaticValues.RecyclingDeliveryTypeBooth))
+                LinearLayoutRouting.setVisibility(View.VISIBLE);
+            else
+                LinearLayoutRouting.setVisibility(View.GONE);
+
+
 
             if (item.getWasteAmountEstimates() != null) {
                 AP_OrderItemWasteUser wasteUser = new AP_OrderItemWasteUser(item.getWasteAmountEstimates());
@@ -157,8 +166,14 @@ public class AP_Order extends RecyclerView.Adapter<AP_Order.CustomHolder> {
 
             LinearLayoutCancel.setOnClickListener(v -> {
                 LinearLayoutCancel.setAlpha(0.3f);
-                itemRequestCancelClick.itemRequestCancel(Position);
+                itemRequestClick.itemRequestCancel(Position);
             });
+
+
+            LinearLayoutRouting.setOnClickListener(v -> itemRequestClick.itemRequestRouting(Position));
+
+            LinearLayoutCallBooth.setOnClickListener(v -> itemRequestClick.itemRequestCall(Position));
+
 
             binding.executePendingBindings();
         }

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.databinding.BindingAdapter;
 
 import com.ngra.wms.R;
+import com.ngra.wms.models.MD_Booth;
 import com.ngra.wms.models.MD_ScoreListItem;
 import com.ngra.wms.utility.ApplicationUtility;
 import com.ngra.wms.utility.StaticValues;
@@ -28,6 +29,15 @@ import params.com.stepview.StatusViewScroller;
 public class BindingAdapters {
 
 
+    @BindingAdapter(value = {"setBoothName"})
+    public static void setBoothName(TextView textView, MD_Booth md_booth) {
+        if (md_booth == null)
+            textView.setVisibility(View.GONE);
+        else {
+            textView.setText(md_booth.getName());
+            textView.setVisibility(View.VISIBLE);
+        }
+    }
 
     @BindingAdapter(value = {"SetWalletScore"})
     public static void SetWalletScore(TextView textView, MD_ScoreListItem item) {// SetScoreConfigItem

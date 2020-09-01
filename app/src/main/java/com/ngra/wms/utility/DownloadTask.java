@@ -27,7 +27,7 @@ public class DownloadTask extends AsyncTask<String, Integer, String> {
 
     public DownloadTask(Context context, String path, ProgressBar progressBar, PublishSubject<Byte> publishSubject) {
         this.context = context;
-        this.path = Environment.getExternalStorageDirectory() + "/pishtazan/" + path;
+        this.path = Environment.getExternalStorageDirectory() + "/WMS/" + path;
         this.progressBar = progressBar;
         this.publishSubject = publishSubject;
     }
@@ -38,6 +38,12 @@ public class DownloadTask extends AsyncTask<String, Integer, String> {
         OutputStream output = null;
         HttpURLConnection connection = null;
         try {
+
+            File file = new File(Environment.getExternalStorageDirectory() + "/WMS/");
+            if (!file.exists()) {
+                file.mkdir();
+            }
+
             URL url = new URL(sUrl[0]);
             connection = (HttpURLConnection) url.openConnection();
             connection.connect();

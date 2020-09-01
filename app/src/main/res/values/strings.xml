@@ -19,8 +19,8 @@
 
     <string name="PackageNotDelivered">قبل از درخواست جمع آوری، لطفا ابتدا به بخش درخواست پکیج بروید و تا تحویل پکیج در محل ساختمان منتظر بمانید</string>
 
-    <string name="app_name">پسماند خشک سبززیور-شهروند</string>
-<!--    <string name="app_name">پسماند خشک نگرا-شهروند</string>-->
+<!--    <string name="app_name">پسماند خشک سبززیور-شهروند</string>-->
+    <string name="app_name">پسماند خشک نگرا-شهروند</string>
 
     <string name="WMSFromFist">سیستم مدیریت تفکیک از مبدأ</string>
     <string name="Orders">درخواست ها</string>
@@ -142,7 +142,7 @@
     <string name="GetBanks">دریافت لیست بانکها</string>
     <string name="EmptyAccountNumber">لطفا شماره شبا را وارد کنید</string>
     <string name="ExitAccount">خروج از حساب</string>
-    <string name="WazeNavigation">"مسیریابی"</string>
+    <string name="WazeNavigation">مسیریابی</string>
     <string name="NotFoundLocation">موقعیت شما یافت نشد</string>
     <string name="Game">بازی</string>
     <string name="StartGame">شروع بازی</string>

@@ -47,28 +47,28 @@ public class VM_Map extends VM_Primary {
                 .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
-        String q = getCityOfCurrentAddress();
+        StringBuilder q = new StringBuilder(getCityOfCurrentAddress());
         String[] separated = address.split(" ");
         for (String word : separated)
-            q = q + "+" + word;
+            q.append("+").append(word);
 
-        String url = "https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=50&q=";
-        url = url + q;
+        StringBuilder url = new StringBuilder("https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=50&q=");
+        url.append(q);
 
         if (LoadMore) {
-            url = url + "&exclude_place_ids=";
+            url.append("&exclude_place_ids=");
             for (int i = 0; i < suggestionAddresses.size(); i++)
                 if (i == suggestionAddresses.size() - 1)
-                    url = url + suggestionAddresses.get(i).getPlace_id();
+                    url.append(suggestionAddresses.get(i).getPlace_id());
                 else
-                    url = url + suggestionAddresses.get(i).getPlace_id() + ",";
+                    url.append(suggestionAddresses.get(i).getPlace_id()).append(",");
         } else
             suggestionAddresses.clear();
 
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getSuggestionAddress(url));
+                .getSuggestionAddress(url.toString()));
 
         getPrimaryCall()
                 .enqueue(new Callback<List<MD_SuggestionAddress>>() {
@@ -84,8 +84,7 @@ public class VM_Map extends VM_Primary {
                             if (response.body().size() == 0)
                                 sendActionToObservable(StaticValues.ML_NotFoundSuggestion);
                             else {
-                                for (MD_SuggestionAddress address1 : response.body())
-                                    suggestionAddresses.add(address1);
+                                suggestionAddresses.addAll(response.body());
                                 sendActionToObservable(StaticValues.ML_GetSuggestion);
                             }
 

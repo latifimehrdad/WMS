@@ -1,5 +1,8 @@
 package com.ngra.wms.views.fragments;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cunoraz.gifview.library.GifView;
+import com.google.android.gms.maps.model.LatLng;
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.FragmentCollectRequestOrdersBinding;
 import com.ngra.wms.utility.StaticValues;
@@ -23,7 +27,7 @@ import butterknife.BindView;
 
 public class CollectRequestOrder extends FragmentPrimary implements
         FragmentPrimary.getActionFromObservable,
-        AP_Order.ItemRequestCancelClick {
+        AP_Order.ItemRequestClick {
 
     private VM_CollectRequestOrder vm_collectRequestOrder;
 
@@ -121,6 +125,31 @@ public class CollectRequestOrder extends FragmentPrimary implements
     }
     //______________________________________________________________________________________________ itemRequestCancel
 
+
+
+    //______________________________________________________________________________________________ itemRequestRouting
+    @Override
+    public void itemRequestRouting(Integer position) {
+
+        LatLng latLng = new LatLng(vm_collectRequestOrder.getMd_itemWasteRequests().get(position).getBooth().getLocation().getLatitude(),
+                vm_collectRequestOrder.getMd_itemWasteRequests().get(position).getBooth().getLocation().getLongitude());
+        String uri = "geo:" + latLng.latitude + "," + latLng.longitude + "?q=" + latLng.latitude + "," + latLng.longitude;
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        startActivity(intent);
+    }
+    //______________________________________________________________________________________________ itemRequestRouting
+
+
+
+    //______________________________________________________________________________________________ itemRequestCall
+    @Override
+    public void itemRequestCall(Integer position) {
+        Intent call = new Intent(Intent.ACTION_DIAL);
+        call.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        call.setData(Uri.parse("tel:" + vm_collectRequestOrder.getMd_itemWasteRequests().get(position).getBooth().getPhoneNumber()));
+        getContext().startActivity(call);
+    }
+    //______________________________________________________________________________________________ itemRequestCall
 
 
 }

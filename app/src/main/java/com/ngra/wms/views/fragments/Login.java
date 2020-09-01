@@ -99,12 +99,12 @@ public class Login extends FragmentPrimary implements FragmentPrimary.getActionF
         if (getView() != null)
             navController = Navigation.findNavController(getView());
 
-        if (MainActivity.ReferenceCode != null) {
+/*        if (MainActivity.ReferenceCode != null) {
             Bundle bundle = new Bundle();
             bundle.putString(getContext().getString(R.string.ML_Type), getContext().getString(R.string.ML_SingUp));
             bundle.putString(getContext().getString(R.string.ML_PhoneNumber), EditPhoneNumber.getText().toString());
             navController.navigate(R.id.action_login_to_signUp, bundle);
-        }
+        }*/
 
     }
     //______________________________________________________________________________________________ onStart

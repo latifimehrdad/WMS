@@ -19,6 +19,7 @@ public class VM_SignUp extends VM_Primary {
     private String PhoneNumber;
 
 
+
     //______________________________________________________________________________________________ VM_SignUp
     public VM_SignUp(Activity context) {
         setContext(context);
@@ -27,7 +28,7 @@ public class VM_SignUp extends VM_Primary {
 
 
     //______________________________________________________________________________________________ sendNumber
-    public void sendNumber() {
+    public void sendNumber(String ReagentCode) {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
@@ -40,7 +41,7 @@ public class VM_SignUp extends VM_Primary {
                 .getRetrofitApiInterface()
                 .SendPhoneNumber(
                         getPhoneNumber(),
-                        MainActivity.ReferenceCode,
+                        ReagentCode,
                         authorization));
 
         getPrimaryCall().enqueue(new Callback<MR_Register>() {

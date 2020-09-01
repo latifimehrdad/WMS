@@ -56,8 +56,8 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.getAction
     @BindView(R.id.imgLoading)
     ImageView imgLoading;
 
-    @BindView(R.id.TextViewReferenceCode)
-    TextView TextViewReferenceCode;
+    @BindView(R.id.EditTextReagentCode)
+    EditText EditTextReagentCode;
 
 
     //______________________________________________________________________________________________ onCreateView
@@ -104,17 +104,17 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.getAction
             String phoneNumber = bundle.getString(getContext().getString(R.string.ML_PhoneNumber));
             EditPhoneNumber.setText(phoneNumber);
         }
-        if (MainActivity.ReferenceCode != null) {
+/*        if (MainActivity.ReferenceCode != null) {
             TextViewReferenceCode.setVisibility(View.VISIBLE);
             StringBuilder builder = new StringBuilder();
             builder.append(getContext().getResources().getString(R.string.ReagentCode));
-/*            builder.append(":");*/
+*//*            builder.append(":");*//*
             builder.append(System.getProperty("line.separator"));
             builder.append(MainActivity.ReferenceCode);
             TextViewReferenceCode.setText(builder.toString());
             TextViewReferenceCode.setVisibility(View.VISIBLE);
         } else
-            TextViewReferenceCode.setVisibility(View.GONE);
+            TextViewReferenceCode.setVisibility(View.GONE);*/
     }
     //______________________________________________________________________________________________ init
 
@@ -156,7 +156,7 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.getAction
                 showLoading();
                 vm_signUp.setPhoneNumber(EditPhoneNumber.getText().toString());
                 /*vm_signUp.setPassword(EditPassword.getText().toString());*/
-                vm_signUp.sendNumber();
+                vm_signUp.sendNumber(EditTextReagentCode.getText().toString());
             }
 
         });

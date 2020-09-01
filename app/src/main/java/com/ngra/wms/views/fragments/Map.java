@@ -370,7 +370,7 @@ public class Map extends FragmentPrimary implements
 
             locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
             listener = new Map.MyLocationListener();
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, (LocationListener) listener);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, listener);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, listener);
 
             Handler handler = new Handler();
@@ -746,7 +746,7 @@ public class Map extends FragmentPrimary implements
         String district = address.getAddress().getDistrict();
         String suburb = address.getAddress().getSuburb();
 
-        String ad = "";
+        String ad;
         if (City != null && City.length() > 0 && !City.equalsIgnoreCase("null"))
             ad = City;
         else
