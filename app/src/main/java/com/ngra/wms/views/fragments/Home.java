@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.RotateAnimation;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -19,7 +21,7 @@ import com.ngra.wms.R;
 import com.ngra.wms.databinding.FragmentHomeBinding;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Home;
-import com.ngra.wms.views.custom.textview.VerticalTextView;
+
 
 import org.jetbrains.annotations.NotNull;
 
@@ -46,10 +48,10 @@ public class Home extends FragmentPrimary implements FragmentPrimary.getActionFr
     TextView TextViewFooterDown;
 
     @BindView(R.id.VerticalTextViewFooterRight)
-    VerticalTextView VerticalTextViewFooterRight;
+    TextView VerticalTextViewFooterRight;
 
     @BindView(R.id.VerticalTextViewFooterLeft)
-    VerticalTextView VerticalTextViewFooterLeft;
+    TextView VerticalTextViewFooterLeft;
 
     @BindView(R.id.LinearLayoutUserScore)
     LinearLayout LinearLayoutUserScore;
@@ -116,6 +118,15 @@ public class Home extends FragmentPrimary implements FragmentPrimary.getActionFr
                 ChooseWaste.wasteLists = null;
                 navController.navigate(R.id.action_home_to_collectRequestOrder);
             }
+
+        VerticalTextViewFooterLeft.setVisibility(View.INVISIBLE);
+        VerticalTextViewFooterRight.setVisibility(View.INVISIBLE);
+        RotateAnimation rotate = (RotateAnimation) AnimationUtils.loadAnimation(getContext(), R.anim.rotate);
+        rotate.setFillAfter(true);
+        VerticalTextViewFooterLeft.setAnimation(rotate);
+        VerticalTextViewFooterRight.setAnimation(rotate);
+        VerticalTextViewFooterLeft.setVisibility(View.VISIBLE);
+        VerticalTextViewFooterRight.setVisibility(View.VISIBLE);
     }
     //______________________________________________________________________________________________ onStart
 
@@ -265,6 +276,17 @@ public class Home extends FragmentPrimary implements FragmentPrimary.getActionFr
         paramsRight.height = lWidth * 2;
         paramsRight.width = lWidth;
         VerticalTextViewFooterRight.setLayoutParams(paramsRight);
+
+
+        VerticalTextViewFooterLeft.setVisibility(View.INVISIBLE);
+        VerticalTextViewFooterRight.setVisibility(View.INVISIBLE);
+        RotateAnimation rotate = (RotateAnimation) AnimationUtils.loadAnimation(getContext(), R.anim.rotate);
+        rotate.setFillAfter(true);
+        VerticalTextViewFooterLeft.setAnimation(rotate);
+        VerticalTextViewFooterRight.setAnimation(rotate);
+        VerticalTextViewFooterLeft.setVisibility(View.VISIBLE);
+        VerticalTextViewFooterRight.setVisibility(View.VISIBLE);
+
     }
     //______________________________________________________________________________________________ setLayout
 
