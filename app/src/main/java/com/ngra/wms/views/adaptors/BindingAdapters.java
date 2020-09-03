@@ -40,7 +40,7 @@ public class BindingAdapters {
     }
 
     @BindingAdapter(value = {"SetWalletScore"})
-    public static void SetWalletScore(TextView textView, MD_ScoreListItem item) {// SetScoreConfigItem
+    public static void SetWalletScore(TextView textView, MD_ScoreListItem item) {
 
         Context context = textView.getContext();
         String v = String.format("%.0f", item.getValue());
@@ -59,12 +59,12 @@ public class BindingAdapters {
 
         textView.setText(builder.toString());
 
-    }//_____________________________________________________________________________________________ SetScoreConfigItem
+    }
 
 
 
     @BindingAdapter(value = {"SetScoreConfigItem"})
-    public static void SetScoreConfigItem(TextView textView, MD_ScoreListItem item) {// SetScoreConfigItem
+    public static void SetScoreConfigItem(TextView textView, MD_ScoreListItem item) {
 
         Context context = textView.getContext();
         StringBuilder builder = new StringBuilder();
@@ -79,43 +79,43 @@ public class BindingAdapters {
 
         textView.setText(builder.toString());
 
-    }//_____________________________________________________________________________________________ SetScoreConfigItem
+    }
 
 
 
     @BindingAdapter(value = {"SetScorePrice"})
-    public static void SetScorePrice(TextView textView, MD_ScoreListItem item) {//____________________ SetScoreAmountValue
+    public static void SetScorePrice(TextView textView, MD_ScoreListItem item) {
 
         Integer price = (int) item.getMd_wastePrice().getPrice();
         textView.setText(price.toString());
 
-    }//_____________________________________________________________________________________________ SetScoreAmountValue
+    }
 
 
 
 
     @BindingAdapter(value = {"SetScoreAmountValue"})
-    public static void SetScoreAmountValue(TextView textView, double Amount) {//____________________ SetScoreAmountValue
+    public static void SetScoreAmountValue(TextView textView, double Amount) {
 
         Amount = Amount / 1000;
         String v = String.format("%.2f", Amount);
         textView.setText(v);
 
-    }//_____________________________________________________________________________________________ SetScoreAmountValue
+    }
 
 
     @BindingAdapter(value = {"SetScoreValue"})
-    public static void SetScoreValue(TextView textView, double Value) {//____________________ SetScoreAmountValue
+    public static void SetScoreValue(TextView textView, double Value) {
 
         String v = String.format("%.2f", Value);
         textView.setText(v);
 
-    }//_____________________________________________________________________________________________ SetScoreAmountValue
+    }
 
 
 
     @BindingAdapter(value = {"SetScoreConfigItem","SetScoreConfigTitle"})
-    public static void SetScoreConfigItem(TextView textView, MD_ScoreListItem item, String Title) {// SetScoreConfigItem
+    public static void SetScoreConfigItem(TextView textView, MD_ScoreListItem item, String Title) {
 
         Context context = textView.getContext();
         StringBuilder builder = new StringBuilder();
@@ -137,23 +137,23 @@ public class BindingAdapters {
 
         textView.setText(builder.toString());
 
-    }//_____________________________________________________________________________________________ SetScoreConfigItem
+    }
 
 
 
     @BindingAdapter(value = {"SetScoreItemValue"})
-    public static void SetScoreItemValue(TextView textView, double Amount) {//________________ SetOrderTotalAmount
+    public static void SetScoreItemValue(TextView textView, double Amount) {
 
         int am = (int)Amount;
         textView.setText(Integer.toString(am));
 
-    }//_____________________________________________________________________________________________ SetOrderTotalAmount
+    }
 
 
 
 
     @BindingAdapter(value = {"SetTicketDate"})
-    public static void SetTicketDate(TextView textView, Date date) {//_______________________________ SetOrderDate
+    public static void SetTicketDate(TextView textView, Date date) {
 
         ApplicationUtility component = ApplicationWMS
                 .getApplicationWMS(textView.getContext())
@@ -168,23 +168,23 @@ public class BindingAdapters {
         builder = builder + " - " + simpleDateFormat.format(date);
         textView.setText(builder);
 
-    }//_____________________________________________________________________________________________ SetOrderDate
+    }
 
 
 
     @BindingAdapter(value = {"SetTimeSheetTime"})
-    public static void SetTimeSheetTime(TextView textView, Date date) {//___________________________ SetTicketTime
+    public static void SetTimeSheetTime(TextView textView, Date date) {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.US);
         textView.setText(simpleDateFormat.format(date));
 
-    }//_____________________________________________________________________________________________ SetTicketTime
+    }
 
 
 
 
     @BindingAdapter(value = {"SetTicketStatus"})
-    public static void SetTicketStatus(TextView textView, Byte deliveryType) {//____________________ SetTicketStatus
+    public static void SetTicketStatus(TextView textView, Byte deliveryType) {
 
         Resources resources = textView.getContext().getResources();
 
@@ -236,13 +236,13 @@ public class BindingAdapters {
         }
 
 
-    }//_____________________________________________________________________________________________ SetTicketStatus
+    }
 
 
 
 
     @BindingAdapter(value = {"SetImageItemOfWast"})
-    public static void SetImageItemOfWast(ImageView imageView, String url) {//______________________ SetImageItemOfWast
+    public static void SetImageItemOfWast(ImageView imageView, String url) {
 
         ImageLoader imageLoader = ApplicationWMS
                 .getApplicationWMS(imageView.getContext())
@@ -273,61 +273,61 @@ public class BindingAdapters {
             }
         });
 
-    }//_____________________________________________________________________________________________ SetImageItemOfWast
+    }
 
 
 
 
 
     @BindingAdapter(value = {"SetCountItemsWasteList"})
-    public static void SetCountItemsWasteList(TextView textView, Integer count) {//_________________ SetCountItemsWasteList
+    public static void SetCountItemsWasteList(TextView textView, Integer count) {
         String builder = count.toString();
         textView.setText(builder);
-    }//_____________________________________________________________________________________________ SetCountItemsWasteLis
+    }
 
 
     @BindingAdapter(value = {"SetBoothAuthor"})
-    public static void SetBoothAuthor(TextView textView, String author) {//_________________________ SetCountItemsWasteList
+    public static void SetBoothAuthor(TextView textView, String author) {
         String builder = textView.getContext().getString(R.string.BoothAuthor) +
                 " : " +
                 author;
         textView.setText(builder);
-    }//_____________________________________________________________________________________________ SetCountItemsWasteLis
+    }
 
 
 
     @BindingAdapter(value = {"SetVisibleOrderCall"})
-    public static void SetVisibleOrderCall(LinearLayout linearLayout, Byte deliveryType) {//________ SetVisibleOrderCall
+    public static void SetVisibleOrderCall(LinearLayout linearLayout, Byte deliveryType) {
 
         if (deliveryType.equals(StaticValues.RecyclingDeliveryTypeBooth))
             linearLayout.setVisibility(View.VISIBLE);
         else
             linearLayout.setVisibility(View.GONE);
-    }//_____________________________________________________________________________________________ SetVisibleOrderCall
+    }
 
 
 
     @BindingAdapter(value = {"SetImageOrderType"})
-    public static void SetImageOrderType(ImageView imageView, Byte deliveryType) {//________________ SetImageOrderType
+    public static void SetImageOrderType(ImageView imageView, Byte deliveryType) {
 
         if (deliveryType.equals(StaticValues.RecyclingDeliveryTypeBooth))
             imageView.setImageDrawable(imageView.getContext().getResources().getDrawable(R.drawable.logobooth));
         else
             imageView.setImageDrawable(imageView.getContext().getResources().getDrawable(R.drawable.logocar));
-    }//_____________________________________________________________________________________________ SetImageOrderType
+    }
 
 
     @BindingAdapter(value = {"SetOrderTotalAmount"})
-    public static void SetOrderTotalAmount(TextView textView, float Amount) {//________________ SetOrderTotalAmount
+    public static void SetOrderTotalAmount(TextView textView, float Amount) {
 
         int am = Math.round(Amount);
         textView.setText(Integer.toString(am));
 
-    }//_____________________________________________________________________________________________ SetOrderTotalAmount
+    }
 
 
     @BindingAdapter(value = {"SetOrderDate"})
-    public static void SetOrderDate(TextView textView, Date date) {//_______________________________ SetOrderDate
+    public static void SetOrderDate(TextView textView, Date date) {
 
         ApplicationUtility component = ApplicationWMS
                 .getApplicationWMS(textView.getContext())
@@ -338,31 +338,31 @@ public class BindingAdapters {
         String builder = toSun.getIntYear() + "/" + toSun.getStringMonth()+"/"+toSun.getStringDay();
         textView.setText(builder);
 
-    }//_____________________________________________________________________________________________ SetOrderDate
+    }
 
 
 
     @BindingAdapter(value = {"SetOrderTime"})
-    public static void SetOrderTime(TextView textView, Date date) {//_______________________________ SetOrderTime
+    public static void SetOrderTime(TextView textView, Date date) {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.US);
 
         String d = simpleDateFormat.format(date);
         textView.setText(d);
 
-    }//_____________________________________________________________________________________________ SetOrderTime
+    }
 
 
     @BindingAdapter(value = {"SetOrderStatus"})
-    public static void SetOrderStatus(StatusViewScroller scroller, Byte status) {//_________________ SetOrderStatus
+    public static void SetOrderStatus(StatusViewScroller scroller, Byte status) {
 
         scroller.getStatusView().setCurrentCount(status + 1);
 
-    }//_____________________________________________________________________________________________ SetOrderStatus
+    }
 
 
     @BindingAdapter(value = {"SetOrderStatusTextView"})
-    public static void SetOrderStatusTextView(TextView textView, Byte status) {//___________________ SetOrderStatusTextView
+    public static void SetOrderStatusTextView(TextView textView, Byte status) {
 
         String tag = (String) textView.getTag();
 
@@ -371,12 +371,12 @@ public class BindingAdapters {
         else
             textView.setBackground(null);
 
-    }//_____________________________________________________________________________________________ SetOrderStatusTextView
+    }
 
 
 
     @BindingAdapter(value = {"SetAmountItemsWasteList"})
-    public static void SetAmountItemsWasteList(TextView textView, float count) {//_________________ SetCountItemsWasteList
+    public static void SetAmountItemsWasteList(TextView textView, float count) {
         if (count < 0) {
             textView.setText("");
             return;
@@ -401,7 +401,7 @@ public class BindingAdapters {
             }
         }
         textView.setText(builder.toString());
-    }//_____________________________________________________________________________________________ SetCountItemsWasteLis
+    }
 
 
 }
