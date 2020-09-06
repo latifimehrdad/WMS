@@ -42,7 +42,8 @@
                 android:textColor="@color/mlWhite"
                 android:textSize="@dimen/_10sdp"
                 android:text="@string/Rial"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:visibility="gone"/>
 
 
 
@@ -61,7 +62,8 @@
                 android:textColor="@color/mlWhite"
                 android:textSize="@dimen/_10sdp"
                 android:gravity="center"
-                app:SetScorePrice="@{item}"/>
+                app:SetScorePrice="@{item}"
+                android:visibility="gone"/>
 
             <TextView
                 android:layout_width="match_parent"

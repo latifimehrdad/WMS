@@ -5,7 +5,7 @@
     <color name="colorAccent">@color/colorPrimary</color>
     <color name="colorPrymeryVeryDark">#01585A</color>
 
-    <color name="mlHarmony">#175fef</color>
+    <color name="mlHarmony">#1f3bed</color>
     <color name="mlHeader">#808080</color>
     <color name="mlWhite">#ffffff</color>
     <color name="mlFooter">#CCCCCC</color>
@@ -20,7 +20,7 @@
     <color name="mlCollectLeft2">#4A8F03</color>
     <color name="mlCollectRight1">#EF7F2F</color>
     <color name="mlCollectRight2">#A24A0B</color>
-    <color name="mlCollectItems">#8CC484</color>
+    <color name="mlCollectItems">#15DF89</color>
     <color name="mlCollectBooth">#5B5B5B</color>
     <color name="mlMenuBackTrans">#D9252525</color>
     <color name="mlVerifyCodeEmpty">#1A313131</color>
@@ -28,7 +28,7 @@
     <color name="mlMenu">#292A2B</color>
     <color name="mlMenu2">#1D1E1E</color>
     <color name="Links">#0088FF</color>
-    <color name="Replay">#3492E4</color>
+    <color name="Replay">#46A0ED</color>
     <color name="TicketStatusReferred">#9A2DFA</color>
     <color name="mlTimeDisable">#F3F1F1</color>
     <color name="colorPrimaryLight">#6BECF1</color>

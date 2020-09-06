@@ -14,7 +14,7 @@
 
 
     <item
-        android:id="@id/wallet"
+        android:id="@id/newWallet"
         android:icon="@drawable/logowallet"
         android:title="@string/WalletBag"/>
 

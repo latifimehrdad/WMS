@@ -1,11 +1,11 @@
 package com.ngra.wms.viewmodels;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Pair;
-import android.widget.ProgressBar;
 
 import androidx.core.content.FileProvider;
 
@@ -13,6 +13,7 @@ import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.utility.DownloadTask;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.views.application.ApplicationWMS;
+import com.yangp.ypwaveview.YPWaveView;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -50,9 +51,10 @@ public class VM_Update extends VM_Primary {
 
 
     //______________________________________________________________________________________________ downloadFile
-    public void downloadFile(String url, String filePath, ProgressBar bar) {
+    public void downloadFile(String url, String filePath, YPWaveView ypWaveView) {
 
-        DownloadTask downloadTask = new DownloadTask(getContext(), filePath, bar, getPublishSubject());
+
+        DownloadTask downloadTask = new DownloadTask(getContext(), filePath, getPublishSubject());
         downloadTask.execute(url);
     }
     //______________________________________________________________________________________________ downloadFile

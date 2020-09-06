@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +20,10 @@ import androidx.databinding.DataBindingUtil;
 
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.FragmentUpdateBinding;
+import com.ngra.wms.utility.DownloadTask;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Update;
+import com.yangp.ypwaveview.YPWaveView;
 
 
 import java.io.File;
@@ -33,18 +36,22 @@ public class AppUpdate extends FragmentPrimary implements FragmentPrimary.getAct
 
     private VM_Update vm_update;
     private String fileName;
+    private Handler handlerDownload;
 
     @BindView(R.id.TextViewProgress)
     TextView TextViewProgress;
 
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
+//    @BindView(R.id.progressBar)
+//    ProgressBar progressBar;
 
     @BindView(R.id.ImageViewDownload)
     ImageView ImageViewDownload;
 
     @BindView(R.id.ButtonInstall)
     Button ButtonInstall;
+
+    @BindView(R.id.yPWaveView)
+    YPWaveView yPWaveView;
 
 
     //______________________________________________________________________________________________ onCreateView
@@ -62,7 +69,7 @@ public class AppUpdate extends FragmentPrimary implements FragmentPrimary.getAct
             setView(binding.getRoot());
             if (getContext() != null)
                 TextViewProgress.setText(getContext().getResources().getString(R.string.PleaseWait));
-            progressBar.setProgress(0);
+            yPWaveView.setProgress(0);
             ButtonInstall.setVisibility(View.GONE);
             setOnClick();
             init();
@@ -91,8 +98,10 @@ public class AppUpdate extends FragmentPrimary implements FragmentPrimary.getAct
             fileName = getArguments().getString(getContext().getResources().getString(R.string.ML_UpdateFile), "");
 
             if (!url.equalsIgnoreCase(""))
-                if (!fileName.equalsIgnoreCase(""))
-                    vm_update.downloadFile(url,fileName, progressBar);
+                if (!fileName.equalsIgnoreCase("")) {
+                    setProgress();
+                    vm_update.downloadFile(url, fileName, yPWaveView);
+                }
 //                    vm_update.downloadFile(url, fileName);
         }
 
@@ -134,28 +143,26 @@ public class AppUpdate extends FragmentPrimary implements FragmentPrimary.getAct
     @Override
     public void getActionFromObservable(Byte action) {
 
-        if (action.equals(StaticValues.ML_Success)) {
-            if (getContext() != null)
-                TextViewProgress.setText(getContext().getResources().getString(R.string.DownloadingFile));
-            return;
-        }
+        handlerDownload = null;
+
 
         if (action.equals(StaticValues.ML_FileDownloading)) {
-            progressBar.setProgress(0);
+            yPWaveView.setProgress(0);
             if (getContext() != null)
                 TextViewProgress.setText(getContext().getResources().getString(R.string.FileDownloaded));
             return;
         }
 
         if (action.equals(StaticValues.ML_FileDownloaded)) {
-            progressBar.setProgress(0);
+            yPWaveView.setProgress(0);
             ImageViewDownload.setAnimation(null);
             ButtonInstall.setVisibility(View.VISIBLE);
             ImageViewDownload.setVisibility(View.GONE);
             TextViewProgress.setVisibility(View.GONE);
-            progressBar.setVisibility(View.GONE);
+            yPWaveView.setVisibility(View.GONE);
             if (getContext() != null)
                 TextViewProgress.setText(getContext().getResources().getString(R.string.FileDownloaded));
+            return;
         }
 
     }
@@ -165,10 +172,25 @@ public class AppUpdate extends FragmentPrimary implements FragmentPrimary.getAct
     //______________________________________________________________________________________________ onProgress
     @Override
     public void onProgress(int progress) {
-        progressBar.setProgress(progress);
+        yPWaveView.setProgress(progress);
         TextViewProgress.setText(progress + " %");
     }
     //______________________________________________________________________________________________ onProgress
+
+
+    //______________________________________________________________________________________________ setProgress
+    private void setProgress() {
+        handlerDownload = new Handler();
+        handlerDownload.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                yPWaveView.setProgress(DownloadTask.progressDownload);
+                if (DownloadTask.progressDownload < 100)
+                    handlerDownload.postDelayed(this, 500);
+            }
+        }, 500);
+    }
+    //______________________________________________________________________________________________ setProgress
 
 
 }

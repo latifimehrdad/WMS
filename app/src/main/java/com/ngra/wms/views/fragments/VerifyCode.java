@@ -370,7 +370,7 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.getAc
                     .getApplicationWMS(getContext())
                     .getUtilityComponent()
                     .getApplicationUtility()
-                    .ShowProgress(getContext(), null);
+                    .showProgress(getContext(), null);
             progress.show(getFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
         }
 

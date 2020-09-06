@@ -255,7 +255,7 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.getA
                     .getApplicationWMS(getContext())
                     .getUtilityComponent()
                     .getApplicationUtility()
-                    .ShowProgress(getContext(), title);
+                    .showProgress(getContext(), title);
             progress.show(getChildFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
         }
     }

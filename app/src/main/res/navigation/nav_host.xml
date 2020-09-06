@@ -199,6 +199,15 @@
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"/>
 
+
+        <action
+            android:id="@+id/action_home_to_new_wallet"
+            app:destination="@id/newWallet"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
         <action
             android:id="@+id/action_home_to_game"
             app:destination="@id/game"
@@ -562,5 +571,14 @@
         app:popExitAnim="@anim/slide_out_left"
         app:enterAnim="@anim/slide_in_left"
         app:exitAnim="@anim/slide_out_right"/>
+
+
+    <fragment
+        android:id="@+id/newWallet"
+        android:name="com.ngra.wms.views.fragments.NewWallet"
+        android:label="NewWallet"
+        tools:layout="@layout/fr_wallet"/>
+
+
 
 </navigation>

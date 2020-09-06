@@ -215,7 +215,7 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
                 .getApplicationWMS(getContext())
                 .getUtilityComponent()
                 .getApplicationUtility();
-        textDate.setText(component.GregorianToSun(modelPackage.getFromDeliver()).getFullStringSun());
+        textDate.setText(component.gregorianToSun(modelPackage.getFromDeliver()).getFullStringSun());
 
         String builder = simpleDateFormat.format(modelPackage.getFromDeliver()) +
                 " تا " +

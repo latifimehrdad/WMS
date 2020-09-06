@@ -10,18 +10,19 @@ import android.widget.Toast;
 
 
 import com.ngra.wms.R;
+import com.ngra.wms.models.MD_GregorianToSun;
 import com.ngra.wms.views.dialogs.DialogProgress;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 public class ApplicationUtility {
 
 
-    public String PersianToEnglish(String persianStr) {//___________________________________________ PersianToEnglish
+    //______________________________________________________________________________________________ persianToEnglish
+    public String persianToEnglish(String persianStr) {
         StringBuilder result = new StringBuilder();
 
         for (int i = 0; i < persianStr.length(); i++) {
@@ -64,108 +65,20 @@ public class ApplicationUtility {
         }
 
         return result.toString();
-    }//_____________________________________________________________________________________________ PersianToEnglish
-
-
-    //Type = "FullJalaliNumber = 1367/05/31"
-    //Type = "YearJalaliNumber = 1367"
-    //Type = "MonthJalaliNumber = 05"
-    //Type = "DayJalaliNumber = 31"
-    //Type = "FullJalaliString = پنجشنبه 31 مرداد 1367"
-    //Type = "MonthJalaliString = مرداد"
-    //Type = "DayJalaliString = پنجشنبه"
-
-
-
-    public class MD_GregorianToSun {
-
-        private int intYear;
-        private int intMonth;
-        private int intDay;
-        private String stringMonth;
-        private String stringDay;
-        private String dayOfWeek;
-        private String monthOfYear;
-        private String stringYear;
-
-
-        public MD_GregorianToSun() {
-
-        }
-
-
-        public String getFullStringSun() {
-            return getDayOfWeek() + " " + getStringDay() + " " + getMonthOfYear() + " " + getIntYear();
-        }
-
-        public int getIntYear() {
-            return intYear;
-        }
-
-        public void setIntYear(int intYear) {
-            this.intYear = intYear;
-        }
-
-        public int getIntMonth() {
-            return intMonth;
-        }
-
-        public void setIntMonth(int intMonth) {
-            this.intMonth = intMonth;
-        }
-
-        public int getIntDay() {
-            return intDay;
-        }
-
-        public void setIntDay(int intDay) {
-            this.intDay = intDay;
-        }
-
-        public String getDayOfWeek() {
-            return dayOfWeek;
-        }
-
-        public void setDayOfWeek(String dayOfWeek) {
-            this.dayOfWeek = dayOfWeek;
-        }
-
-        public String getMonthOfYear() {
-            return monthOfYear;
-        }
-
-        public void setMonthOfYear(String monthOfYear) {
-            this.monthOfYear = monthOfYear;
-        }
-
-        public String getStringMonth() {
-            return stringMonth;
-        }
-
-        public void setStringMonth(String stringMonth) {
-            this.stringMonth = stringMonth;
-        }
-
-        public String getStringDay() {
-            return stringDay;
-        }
-
-        public void setStringDay(String stringDay) {
-            this.stringDay = stringDay;
-        }
-
-        public String getStringYear() {
-            return stringYear;
-        }
-
-        public void setStringYear(String stringYear) {
-            this.stringYear = stringYear;
-        }
     }
+    //______________________________________________________________________________________________ persianToEnglish
 
 
+    //______________________________________________________________________________________________ gregorianToSun
+    public MD_GregorianToSun gregorianToSun(Date GregorianDate) {
 
-    public MD_GregorianToSun GregorianToSun(Date GregorianDate) {//_________________________________ GregorianToSun
+        //Type = "FullJalaliNumber = 1367/05/31"
+        //Type = "YearJalaliNumber = 1367"
+        //Type = "MonthJalaliNumber = 05"
+        //Type = "DayJalaliNumber = 31"
+        //Type = "FullJalaliString = پنجشنبه 31 مرداد 1367"
+        //Type = "MonthJalaliString = مرداد"
+        //Type = "DayJalaliString = پنجشنبه"
 
         String strWeekDay = "";
         String strMonth = "";
@@ -406,20 +319,23 @@ public class ApplicationUtility {
         gregorianToSun.setStringDay(String.format(loc, "%02d", date));
 
         return gregorianToSun;
-    }//_____________________________________________________________________________________________ GregorianToSun
+    }
+    //______________________________________________________________________________________________ gregorianToSun
 
 
-
-    public DialogProgress ShowProgress(Context c, String title) {//_________________________________ Start ShowMessage
+    //______________________________________________________________________________________________ showProgress
+    public DialogProgress showProgress(Context c, String title) {
 
         DialogProgress progress = new DialogProgress(c, title);
         progress.setCancelable(false);
         return progress;
 
-    }//_____________________________________________________________________________________________ End ShowMessage
+    }
+    //______________________________________________________________________________________________ showProgress
 
 
-    public void CustomToastShow(Context context, String message, int color) {
+    //______________________________________________________________________________________________ customToastShow
+    public void customToastShow(Context context, String message, int color) {
 
         //context.getResources().getColor(R.color.mlWhite)
         Toast toast = Toast.makeText(context, message, Toast.LENGTH_LONG);
@@ -433,9 +349,12 @@ public class ApplicationUtility {
         toast.setGravity(17, 0, 0);
         toast.show();
     }
+    //______________________________________________________________________________________________ customToastShow
 
 
-    public TextWatcher SetTextWatcherSplitting(final EditText editText) {
+
+    //______________________________________________________________________________________________ setTextWatcherSplitting
+    public TextWatcher setTextWatcherSplitting(final EditText editText) {
         return new TextWatcher() {
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -446,13 +365,12 @@ public class ApplicationUtility {
             }
 
             public void afterTextChanged(Editable editable) {
-                NumberFormat formatter = new DecimalFormat("#,###");
                 String m = editText.getText().toString();
                 m = m.replaceAll(",", "");
                 m = m.replaceAll("٬", "");
                 if (!m.equalsIgnoreCase("")) {
                     editText.removeTextChangedListener(this);
-                    editText.setText(formatter.format(Integer.valueOf(m)));
+                    editText.setText(splitNumberOfAmount(Integer.valueOf(m)));
                     editText.addTextChangedListener(this);
                 }
                 editText.setSelection(editText.getText().length());
@@ -460,9 +378,21 @@ public class ApplicationUtility {
             }
         };
     }
+    //______________________________________________________________________________________________ setTextWatcherSplitting
 
 
-    public Integer JalaliDatBetween(String Date1, String Date2, Integer intDate1, Integer intDate2) {
+
+    //______________________________________________________________________________________________ splitNumberOfAmount
+    public String splitNumberOfAmount(Integer amount) {
+        NumberFormat formatter = new DecimalFormat("#,###");
+        return formatter.format(amount);
+    }
+    //______________________________________________________________________________________________ splitNumberOfAmount
+
+
+
+    //______________________________________________________________________________________________ jalaliDatBetween
+    public Integer jalaliDatBetween(String Date1, String Date2, Integer intDate1, Integer intDate2) {
         Integer DateStart;
         Integer DateEnd;
         int c1;
@@ -504,21 +434,23 @@ public class ApplicationUtility {
         int d = b2;
         while (a2 < a1) {
             while (d <= 12) {
-                B += Switch(d, a2);
+                B += switchYear(d, a2);
                 d++;
             }
             a2++;
             d = 1;
         }
         while (d < b1) {
-            B += Switch(d, a1);
+            B += switchYear(d, a1);
             d++;
         }
         return (B + c1) - c2;
     }
+    //______________________________________________________________________________________________ jalaliDatBetween
 
 
-    public String JalaliAddDay(String Date1, Integer intDate1, int day) {
+    //______________________________________________________________________________________________ jalaliAddDay
+    public String jalaliAddDay(String Date1, Integer intDate1, int day) {
         Integer DateStart;
         if (intDate1 != null) {
             DateStart = intDate1;
@@ -535,7 +467,7 @@ public class ApplicationUtility {
         int c1 = Integer.parseInt(String.valueOf(DateStart).substring(6, 8));
         int day2 = day + c1;
         while (day2 > 0) {
-            int temp = Switch(b1, a1);
+            int temp = switchYear(b1, a1);
             if (day2 >= temp) {
                 day2 -= temp;
                 b1++;
@@ -552,7 +484,7 @@ public class ApplicationUtility {
 
         if (c1 == 0) {
             b1--;
-            c1 = Switch(b1, a1);
+            c1 = switchYear(b1, a1);
         }
 
         StringBuilder sb = new StringBuilder();
@@ -564,9 +496,12 @@ public class ApplicationUtility {
         sb.append(String.format(str2, new Object[]{Integer.valueOf(c1)}));
         return sb.toString();
     }
+    //______________________________________________________________________________________________ jalaliAddDay
 
 
-    public String JalaliReduceDay(String Date1, Integer intDate1, int day) {
+
+    //______________________________________________________________________________________________ jalaliReduceDay
+    public String jalaliReduceDay(String Date1, Integer intDate1, int day) {
         Integer DateStart;
         if (intDate1 != null) {
             DateStart = intDate1;
@@ -583,7 +518,7 @@ public class ApplicationUtility {
         int day2 = day - Integer.parseInt(String.valueOf(DateStart).substring(6, 8));
         while (day2 > 0) {
             b1--;
-            day2 -= Switch(b1, a1);
+            day2 -= switchYear(b1, a1);
             if (b1 == 1) {
                 b1 = 13;
                 a1--;
@@ -601,8 +536,12 @@ public class ApplicationUtility {
             sb.append("01");
         return sb.toString();
     }
+    //______________________________________________________________________________________________ jalaliReduceDay
 
-    private int Switch(int d, int year) {
+
+
+    //______________________________________________________________________________________________ switchYear
+    private int switchYear(int d, int year) {
         switch (d) {
             case 1:
             case 2:
@@ -618,7 +557,7 @@ public class ApplicationUtility {
             case 11:
                 return 30;
             case 12:
-                if (Kabise(year)) {
+                if (kabise(year)) {
                     return 30;
                 }
                 return 29;
@@ -626,14 +565,19 @@ public class ApplicationUtility {
                 return 0;
         }
     }
+    //______________________________________________________________________________________________ switchYear
 
-    private Boolean Kabise(int year) {
+
+
+    //______________________________________________________________________________________________ kabise
+    private Boolean kabise(int year) {
         int temp = year % 33;
         if (temp == 1 || temp == 5 || temp == 9 || temp == 13 || temp == 17 || temp == 22 || temp == 26 || temp == 30) {
             return Boolean.TRUE;
         }
         return Boolean.FALSE;
     }
+    //______________________________________________________________________________________________ kabise
 
 
 }

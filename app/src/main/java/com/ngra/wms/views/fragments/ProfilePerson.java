@@ -665,7 +665,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.ge
                     .getApplicationWMS(getContext())
                     .getUtilityComponent()
                     .getApplicationUtility()
-                    .ShowProgress(getContext(), null);
+                    .showProgress(getContext(), null);
             progress.show(getChildFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
         }
     }

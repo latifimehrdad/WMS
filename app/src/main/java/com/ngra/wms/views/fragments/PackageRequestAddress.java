@@ -651,7 +651,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
                     .getApplicationWMS(getContext())
                     .getUtilityComponent()
                     .getApplicationUtility()
-                    .ShowProgress(getContext(), null);
+                    .showProgress(getContext(), null);
             progress.show(getChildFragmentManager(), NotificationCompat.CATEGORY_PROGRESS);
         }
     }

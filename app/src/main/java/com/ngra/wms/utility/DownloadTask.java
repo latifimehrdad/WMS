@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.PowerManager;
-import android.widget.ProgressBar;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -18,19 +18,21 @@ import io.reactivex.subjects.PublishSubject;
 
 public class DownloadTask extends AsyncTask<String, Integer, String> {
 
-    private Context context;
     private PowerManager.WakeLock mWakeLock;
+    private Context context;
     private String path;
-    private ProgressBar progressBar;
     private PublishSubject<Byte> publishSubject;
+    public static int progressDownload;
 
 
-    public DownloadTask(Context context, String path, ProgressBar progressBar, PublishSubject<Byte> publishSubject) {
+    public DownloadTask(Context context, String path, PublishSubject<Byte> publishSubject) {
         this.context = context;
         this.path = Environment.getExternalStorageDirectory() + "/WMS/" + path;
-        this.progressBar = progressBar;
         this.publishSubject = publishSubject;
+        progressDownload = 0;
     }
+
+
 
     @Override
     protected String doInBackground(String... sUrl) {
@@ -99,24 +101,18 @@ public class DownloadTask extends AsyncTask<String, Integer, String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        publishSubject.onNext(StaticValues.ML_Success);
-        // take CPU lock to prevent CPU from going off if the user
-        // presses the power button during download
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
                 getClass().getName());
         mWakeLock.acquire();
-        progressBar.setProgress(0);
     }
 
 
     @Override
     protected void onProgressUpdate(Integer... progress) {
         super.onProgressUpdate(progress);
-        // if we get here, length is known, now set indeterminate to false
-        progressBar.setIndeterminate(false);
-        progressBar.setMax(100);
-        progressBar.setProgress(progress[0]);
+        progressDownload = progress[0];
+
     }
 
 

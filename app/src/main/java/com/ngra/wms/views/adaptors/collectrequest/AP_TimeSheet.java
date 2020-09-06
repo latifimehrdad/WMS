@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.AdapterItemDateBinding;
+import com.ngra.wms.models.MD_GregorianToSun;
 import com.ngra.wms.models.MD_TimeSheet;
 import com.ngra.wms.utility.ApplicationUtility;
 import com.ngra.wms.views.application.ApplicationWMS;
@@ -87,7 +88,7 @@ public class AP_TimeSheet extends RecyclerView.Adapter<AP_TimeSheet.CustomHolder
                     .getApplicationWMS(context)
                     .getUtilityComponent()
                     .getApplicationUtility();
-            ApplicationUtility.MD_GregorianToSun toSun = component.GregorianToSun(item.getDate());
+            MD_GregorianToSun toSun = component.gregorianToSun(item.getDate());
             binding.setDateJ(toSun);
             binding.getRoot().setOnClickListener(v -> itemTimeClick.itemTimeClick(Position));
 

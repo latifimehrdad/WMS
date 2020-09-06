@@ -10,6 +10,9 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import androidx.databinding.BindingAdapter;
 
 import com.ngra.wms.R;
 import com.ngra.wms.models.ModelMessage;
@@ -21,6 +24,8 @@ import com.ngra.wms.models.MD_Token;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,6 +37,8 @@ import retrofit2.Response;
 public class StaticFunctions {
 
     public static Boolean isCancel = false;
+
+
 
     public static boolean isLocationEnabled(Context context) {//____________________________________ Start isLocationEnabled
         int locationMode;

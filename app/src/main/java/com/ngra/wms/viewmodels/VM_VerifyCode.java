@@ -116,7 +116,7 @@ public class VM_VerifyCode extends VM_Primary {
         phoneNumber = ApplicationWMS.getApplicationWMS(getContext())
                 .getUtilityComponent()
                 .getApplicationUtility()
-                .PersianToEnglish(phoneNumber);
+                .persianToEnglish(phoneNumber);
 
 
         RetrofitComponent retrofitComponent =
@@ -201,7 +201,7 @@ public class VM_VerifyCode extends VM_Primary {
         phoneNumber = ApplicationWMS.getApplicationWMS(getContext())
                 .getUtilityComponent()
                 .getApplicationUtility()
-                .PersianToEnglish(phoneNumber);
+                .persianToEnglish(phoneNumber);
 
 
         RetrofitComponent retrofitComponent =

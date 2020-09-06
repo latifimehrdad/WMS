@@ -4,7 +4,7 @@
     <data>
         <variable
             name="dateJ"
-            type="com.ngra.wms.utility.ApplicationUtility.MD_GregorianToSun" />
+            type="com.ngra.wms.models.MD_GregorianToSun" />
 
     </data>
 

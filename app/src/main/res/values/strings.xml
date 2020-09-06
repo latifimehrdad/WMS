@@ -19,8 +19,8 @@
 
     <string name="PackageNotDelivered">قبل از درخواست جمع آوری، لطفا ابتدا به بخش درخواست پکیج بروید و تا تحویل پکیج در محل ساختمان منتظر بمانید</string>
 
-    <string name="app_name">پسماند خشک سبززیور-شهروند</string>
-<!--    <string name="app_name">پسماند خشک نگرا-شهروند</string>-->
+<!--    <string name="app_name">پسماند خشک سبززیور-شهروند</string>-->
+    <string name="app_name">پسماند خشک نگرا-شهروند</string>
 
     <string name="WMSFromFist">سیستم مدیریت تفکیک از مبدأ</string>
     <string name="Orders">درخواست ها</string>
@@ -193,7 +193,13 @@
     <string name="LoadMore">موارد بیشتر</string>
     <string name="FindYourLocation">درحال یافتن موقعیت شما\n برای پیدا کردن نزدیکترین غرفه...</string>
     <string name="BoothListIsEmpty">غرفه ای یافت نشد</string>
-
+    <string name="TheLowestHarvest">کمترین مبلغ جهت برداشت</string>
+    <string name="YourWalletBalance">موجودی کیف پول شما</string>
+    <string name="TheHighestAmountThatCanBeWithdrawn">بیشترین مبلغ قابل برداشت</string>
+    <string name="Clearing">تسویه</string>
+    <string name="WithdrawalAmount">مبلغ برداشت</string>
+    <string name="validationAmountIsLowest">مبلغ وارد شده کمتر از حداقل میزان برداشت است</string>
+    <string name="validationAmountIsHighest">مبلغ وارد شده بیشتر از جداکثر میزان برداشت است</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 

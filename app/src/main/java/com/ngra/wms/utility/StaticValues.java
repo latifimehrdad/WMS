@@ -115,6 +115,7 @@ public class StaticValues {
     public static Byte ML_GetCurrentAddress = 45;
     public static Byte ML_ErrorGetCurrentAddress = 46;
     public static Byte ML_GetBoothListEmpty = 47;
+    public static Byte ML_UpdateProgress = 48;
     //***** Observable Control *****
 
 

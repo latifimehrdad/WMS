@@ -12,6 +12,7 @@ import androidx.databinding.BindingAdapter;
 
 import com.ngra.wms.R;
 import com.ngra.wms.models.MD_Booth;
+import com.ngra.wms.models.MD_GregorianToSun;
 import com.ngra.wms.models.MD_ScoreListItem;
 import com.ngra.wms.utility.ApplicationUtility;
 import com.ngra.wms.utility.StaticValues;
@@ -27,6 +28,18 @@ import java.util.Locale;
 import params.com.stepview.StatusViewScroller;
 
 public class BindingAdapters {
+
+    //______________________________________________________________________________________________ splitNumberOfAmount
+    @BindingAdapter(value = "splitNumberOfAmount")
+    public static void splitNumberOfAmount(TextView textView, Integer amount) {
+        ApplicationUtility component = ApplicationWMS
+                .getApplicationWMS(textView.getContext())
+                .getUtilityComponent()
+                .getApplicationUtility();
+
+        textView.setText(component.splitNumberOfAmount(amount));
+    }
+    //______________________________________________________________________________________________ splitNumberOfAmount
 
 
     @BindingAdapter(value = {"setBoothName"})
@@ -162,7 +175,7 @@ public class BindingAdapters {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.US);
 
-        ApplicationUtility.MD_GregorianToSun toSun = component.GregorianToSun(date);
+        MD_GregorianToSun toSun = component.gregorianToSun(date);
 
         String builder = toSun.getIntYear() + "/" + toSun.getStringMonth()+"/"+toSun.getStringDay();
         builder = builder + " - " + simpleDateFormat.format(date);
@@ -334,7 +347,7 @@ public class BindingAdapters {
                 .getUtilityComponent()
                 .getApplicationUtility();
 
-        ApplicationUtility.MD_GregorianToSun toSun = component.GregorianToSun(date);
+        MD_GregorianToSun toSun = component.gregorianToSun(date);
         String builder = toSun.getIntYear() + "/" + toSun.getStringMonth()+"/"+toSun.getStringDay();
         textView.setText(builder);
 

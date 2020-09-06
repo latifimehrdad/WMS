@@ -28,7 +28,7 @@ public class VM_Login extends VM_Primary {
         PhoneNumber = ApplicationWMS.getApplicationWMS(getContext())
                 .getUtilityComponent()
                 .getApplicationUtility()
-                .PersianToEnglish(PhoneNumber);
+                .persianToEnglish(PhoneNumber);
 
 
         RetrofitComponent retrofitComponent =

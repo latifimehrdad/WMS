@@ -116,4 +116,7 @@ dependencies {
 
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 
+    implementation 'com.yangping:ypwaveview:1.0.3'
+
+
 }
