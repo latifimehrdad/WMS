@@ -249,7 +249,8 @@
                         android:layout_height="@dimen/_25sdp"
                         android:layout_marginTop="@dimen/_15sdp"
                         android:src="@drawable/svg_forgot_password"
-                        android:tint="@color/colorPrimaryDark"/>
+                        android:tint="@color/colorPrimaryDark"
+                        android:visibility="gone"/>
 
                     <TextView
                         android:id="@+id/ForgetPassword"
@@ -259,7 +260,8 @@
                         android:gravity="center"
                         android:text="@string/ForgetPassword"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="@dimen/_10sdp" />
+                        android:textSize="@dimen/_10sdp"
+                        android:visibility="gone"/>
 
 
                 </LinearLayout>
