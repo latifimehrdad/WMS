@@ -33,5 +33,7 @@
     <color name="mlTimeDisable">#F3F1F1</color>
     <color name="colorPrimaryLight">#6BECF1</color>
     <color name="CircleMap">#40C386F8</color>
+    <color name="mlWave">#1A3AFF</color>
+    <color name="mlWave2">#5BB1FB</color>
 
 </resources>

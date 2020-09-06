@@ -33,9 +33,6 @@ public class NewWallet extends FragmentPrimary implements FragmentPrimary.getAct
     private Integer theLowestHarvest;
     private Integer theHighestAmountThatCanBeWithdrawn;
 
-    @BindView(R.id.linearLayoutWalletHeader)
-    LinearLayout linearLayoutWalletHeader;
-
     @BindView(R.id.relativeLayoutWalletProgress)
     RelativeLayout relativeLayoutWalletProgress;
 
@@ -131,7 +128,6 @@ public class NewWallet extends FragmentPrimary implements FragmentPrimary.getAct
     //______________________________________________________________________________________________ init
     private void init() {
 
-        linearLayoutWalletHeader.setVisibility(View.GONE);
         relativeLayoutWalletProgress.setVisibility(View.GONE);
         linearLayoutWithdrawalAmount.setVisibility(View.GONE);
         setOnClick();
@@ -146,7 +142,11 @@ public class NewWallet extends FragmentPrimary implements FragmentPrimary.getAct
     //______________________________________________________________________________________________ setUserScorePrice
     private void setUserScorePrice() {
         totalPrice = (int) vm_newWallet.getMd_userScorePriceReport().getTotalPrice();
-        String string = getContext().getResources().getString(R.string.WalletMoney) + " " + totalPrice.toString();
+        String string = getContext().getResources().getString(R.string.WalletMoney) + " " +
+                ApplicationWMS.getApplicationWMS(getContext())
+                .getUtilityComponent()
+                .getApplicationUtility()
+                .splitNumberOfAmount(totalPrice);
         textViewTotalPrice.setText(string);
 
         theLowestHarvest = totalPrice * 2;
