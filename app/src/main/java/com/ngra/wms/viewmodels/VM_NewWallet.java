@@ -3,9 +3,10 @@ package com.ngra.wms.viewmodels;
 import android.app.Activity;
 
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
-import com.ngra.wms.models.MD_UserScorePriceReport;
-import com.ngra.wms.models.MR_ScoreList;
-import com.ngra.wms.models.MR_UserScorePriceReport;
+import com.ngra.wms.models.MD_userFund;
+import com.ngra.wms.models.MD_userFundInfo;
+import com.ngra.wms.models.MR_userFundInfo;
+import com.ngra.wms.models.ModelResponsePrimary;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.views.application.ApplicationWMS;
 
@@ -15,7 +16,7 @@ import retrofit2.Response;
 
 public class VM_NewWallet extends VM_Primary {
 
-    private MD_UserScorePriceReport md_userScorePriceReport;
+    private MD_userFundInfo md_userFund;
 
 
     //______________________________________________________________________________________________ VM_NewWallet
@@ -25,10 +26,8 @@ public class VM_NewWallet extends VM_Primary {
     //______________________________________________________________________________________________ VM_NewWallet
 
 
-
-
-    //______________________________________________________________________________________________ getUserScorePriceReport
-    public void getUserScorePriceReport() {
+    //______________________________________________________________________________________________ getUserFundInfo
+    public void getUserFundInfo() {
 
         RetrofitComponent retrofitComponent = ApplicationWMS
                 .getApplicationWMS(getContext())
@@ -38,14 +37,14 @@ public class VM_NewWallet extends VM_Primary {
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getUserScorePriceReport(Authorization));
+                .getUserFundInfo(Authorization));
 
-        getPrimaryCall().enqueue(new Callback<MR_UserScorePriceReport>() {
+        getPrimaryCall().enqueue(new Callback<MR_userFundInfo>() {
             @Override
-            public void onResponse(Call<MR_UserScorePriceReport> call, Response<MR_UserScorePriceReport> response) {
+            public void onResponse(Call<MR_userFundInfo> call, Response<MR_userFundInfo> response) {
                 setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
-                    md_userScorePriceReport = response.body().getResult();
+                    md_userFund = response.body().getResult();
                     sendActionToObservable(StaticValues.ML_GetUserScorePriceReport);
                 } else {
                     sendActionToObservable(StaticValues.ML_ResponseError);
@@ -53,21 +52,58 @@ public class VM_NewWallet extends VM_Primary {
             }
 
             @Override
-            public void onFailure(Call<MR_UserScorePriceReport> call, Throwable t) {
+            public void onFailure(Call<MR_userFundInfo> call, Throwable t) {
                 onFailureRequest();
             }
         });
 
     }
-    //______________________________________________________________________________________________ getUserScorePriceReport
+    //______________________________________________________________________________________________ getUserFundInfo
 
 
 
-    //______________________________________________________________________________________________ getMd_userScorePriceReport
-    public MD_UserScorePriceReport getMd_userScorePriceReport() {
-        return md_userScorePriceReport;
+    //______________________________________________________________________________________________ settlementDemand
+    public void settlementDemand(Integer amount) {
+
+        RetrofitComponent retrofitComponent = ApplicationWMS
+                .getApplicationWMS(getContext())
+                .getRetrofitComponent();
+
+        String Authorization = getAuthorizationTokenFromSharedPreferences();
+
+        setPrimaryCall(retrofitComponent
+                .getRetrofitApiInterface()
+                .settlementDemand(amount, Authorization));
+
+        getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
+            @Override
+            public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
+                setResponseMessage(checkResponse(response, false));
+                if (getResponseMessage() == null) {
+                    setResponseMessage(getResponseMessage(response.body()));
+                    sendActionToObservable(StaticValues.ML_Success);
+                } else {
+                    sendActionToObservable(StaticValues.ML_ResponseError);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
+                onFailureRequest();
+            }
+        });
+
     }
-    //______________________________________________________________________________________________ getMd_userScorePriceReport
+    //______________________________________________________________________________________________ settlementDemand
+
+
+
+
+    //______________________________________________________________________________________________ getMd_userFundInfo
+    public MD_userFundInfo getMd_userFundInfo() {
+        return md_userFund;
+    }
+    //______________________________________________________________________________________________ getMd_userFundInfo
 
 
 }

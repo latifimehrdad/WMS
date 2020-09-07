@@ -29,15 +29,35 @@ import params.com.stepview.StatusViewScroller;
 
 public class BindingAdapters {
 
+
+    @BindingAdapter(value = "setAccountFundRequestsState")
+    public static void setAccountFundRequestsState(TextView textView, Byte state) {
+        Resources resources = textView.getContext().getResources();
+        if (state.equals(StaticValues.AccountFundRequest)) {
+            textView.setText(resources.getString(R.string.WaitForAccept));
+            textView.setTextColor(resources.getColor(R.color.mlCollectRight1));
+        } else if (state.equals(StaticValues.AccountFundRequestAccept)) {
+            textView.setText(resources.getString(R.string.WasteAcceptByOperator));
+            textView.setTextColor(resources.getColor(R.color.Links));
+        } else if (state.equals(StaticValues.AccountFundRequestCanceled)) {
+            textView.setText(resources.getString(R.string.CancelRequest));
+            textView.setTextColor(resources.getColor(R.color.mlMenuBackTrans));
+        } else if (state.equals(StaticValues.AccountFundRequestPaid)) {
+            textView.setText(resources.getString(R.string.AccountFundRequestPaid));
+            textView.setTextColor(resources.getColor(R.color.mlCollectLeft2));
+        }
+
+    }
+
     //______________________________________________________________________________________________ splitNumberOfAmount
     @BindingAdapter(value = "splitNumberOfAmount")
-    public static void splitNumberOfAmount(TextView textView, Integer amount) {
+    public static void splitNumberOfAmount(TextView textView, double amount) {
         ApplicationUtility component = ApplicationWMS
                 .getApplicationWMS(textView.getContext())
                 .getUtilityComponent()
                 .getApplicationUtility();
 
-        textView.setText(component.splitNumberOfAmount(amount));
+        textView.setText(component.splitNumberOfAmount((int)amount));
     }
     //______________________________________________________________________________________________ splitNumberOfAmount
 
@@ -168,18 +188,31 @@ public class BindingAdapters {
     @BindingAdapter(value = {"SetTicketDate"})
     public static void SetTicketDate(TextView textView, Date date) {
 
+        if (date == null) {
+            textView.setText("");
+            return;
+        }
+
+        String tag = textView.getTag().toString();
+
         ApplicationUtility component = ApplicationWMS
                 .getApplicationWMS(textView.getContext())
                 .getUtilityComponent()
                 .getApplicationUtility();
-
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.US);
 
         MD_GregorianToSun toSun = component.gregorianToSun(date);
 
-        String builder = toSun.getIntYear() + "/" + toSun.getStringMonth()+"/"+toSun.getStringDay();
-        builder = builder + " - " + simpleDateFormat.format(date);
-        textView.setText(builder);
+        if (tag == null || tag.equalsIgnoreCase("")) {
+            String builder = toSun.getIntYear() + "/" + toSun.getStringMonth()+"/"+toSun.getStringDay();
+            builder = builder + " - " + simpleDateFormat.format(date);
+            textView.setText(builder);
+        } else if (tag.equalsIgnoreCase("FullString")) {
+            String builder = toSun.getFullStringSun() + " " + textView.getContext().getResources().getString(R.string.Time) + " " + simpleDateFormat.format(date);
+            textView.setText(builder);
+        }
+
+
 
     }
 

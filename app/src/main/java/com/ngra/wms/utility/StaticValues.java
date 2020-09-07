@@ -67,6 +67,17 @@ public class StaticValues {
     //***** Ticket Status *****
 
 
+
+
+    //***** AccountFundRequestsState *****
+    public static Byte AccountFundRequest = 0;
+    public static Byte AccountFundRequestCanceled = 1;
+    public static Byte AccountFundRequestAccept = 2;
+    public static Byte AccountFundRequestPaid = 3;
+    //***** AccountFundRequestsState *****
+
+
+
     //***** Observable Control *****
     public static Byte ML_GoToHome = 2;// رفتن به صفحه خانه
     public static Byte ML_GotoLogin = 3;// رفتن به صفحه ورد
@@ -116,6 +127,7 @@ public class StaticValues {
     public static Byte ML_ErrorGetCurrentAddress = 46;
     public static Byte ML_GetBoothListEmpty = 47;
     public static Byte ML_UpdateProgress = 48;
+    public static Byte ML_AccountFundRequest = 49;
     //***** Observable Control *****
 
 

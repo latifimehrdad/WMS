@@ -1,7 +1,7 @@
 <resources>
 
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDbcXlcVOSpaOu9JS8IEsD9HlBlyd-w4v4</string>
-    <string name="Version">V_99_6_13_1</string>
+    <string name="Version">V_99_6_17_1</string>
     <string name="UpdateAppName">1</string>
 
     <string name="ChooseProvinces">انتخاب استان</string>
@@ -112,6 +112,7 @@
     <string name="SupportApp">پشتیبانی</string>
     <string name="Subject">موضوع</string>
     <string name="Description">توضیحات</string>
+    <string name="state">وضعیت</string>
     <string name="Home">صفحه اصلی</string>
     <string name="LetsNotThrowaWayTheFuture">آینده را دور نریزیم</string>
     <string name="ScoresDescription">شرح امتیازات</string>
@@ -175,6 +176,7 @@
     <string name="Somewhat">حدود</string>
     <string name="FromTime">از ساعت</string>
     <string name="ToTime">تا ساعت</string>
+    <string name="Time">ساعت</string>
     <string name="EmptyTimeSheet">لطفا تاریخ و زمان را انتخاب نمایید</string>
     <string name="TicketStatusPending">در حال بررسی</string>
     <string name="TicketStatusNew">جدید</string>
@@ -200,6 +202,11 @@
     <string name="WithdrawalAmount">مبلغ برداشت</string>
     <string name="validationAmountIsLowest">مبلغ وارد شده کمتر از حداقل میزان برداشت است</string>
     <string name="validationAmountIsHighest">مبلغ وارد شده بیشتر از جداکثر میزان برداشت است</string>
+    <string name="Date">تاریخ</string>
+    <string name="Money">مبلغ</string>
+    <string name="Transactions">تراکنش ها</string>
+    <string name="AccountFundRequestPaid">پرداخت شده</string>
+    <string name="RequestIsEmpty">هیچ درخواستی ثبت نشده</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 

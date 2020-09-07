@@ -10,8 +10,10 @@ import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 
 import com.ngra.wms.R;
+import com.ngra.wms.utility.ApplicationUtility;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Primary;
+import com.ngra.wms.views.application.ApplicationWMS;
 import com.ngra.wms.views.dialogs.DialogMessage;
 
 import butterknife.ButterKnife;
@@ -37,7 +39,8 @@ public class FragmentPrimary extends Fragment {
 
 
     //______________________________________________________________________________________________ FragmentPrimary
-    public FragmentPrimary() { }
+    public FragmentPrimary() {
+    }
     //______________________________________________________________________________________________ FragmentPrimary
 
 
@@ -198,6 +201,16 @@ public class FragmentPrimary extends Fragment {
         }
     }
     //______________________________________________________________________________________________ hideKeyboard
+
+
+    //______________________________________________________________________________________________ getApplicationUtility
+    public ApplicationUtility getApplicationUtility() {
+
+        return ApplicationWMS.getApplicationWMS(getContext())
+                .getUtilityComponent()
+                .getApplicationUtility();
+    }
+    //______________________________________________________________________________________________ getApplicationUtility
 
 
 }

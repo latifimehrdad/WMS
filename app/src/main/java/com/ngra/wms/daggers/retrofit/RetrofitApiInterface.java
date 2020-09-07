@@ -1,8 +1,8 @@
 package com.ngra.wms.daggers.retrofit;
 
 import com.ngra.wms.models.MD_GetBooth;
-import com.ngra.wms.models.MD_Location;
 import com.ngra.wms.models.MD_SuggestionAddress;
+import com.ngra.wms.models.MR_accountFundRequests;
 import com.ngra.wms.models.MR_BestScore;
 import com.ngra.wms.models.MR_BoothList;
 import com.ngra.wms.models.MR_ChartReport;
@@ -21,6 +21,7 @@ import com.ngra.wms.models.MR_UserScoreInfoList;
 import com.ngra.wms.models.MR_UserScorePriceReport;
 import com.ngra.wms.models.MR_WasteRequest;
 import com.ngra.wms.models.MD_WasteAmountRequests;
+import com.ngra.wms.models.MR_userFundInfo;
 import com.ngra.wms.models.ModelBuildingRenovationCode;
 import com.ngra.wms.models.ModelGetAddress;
 import com.ngra.wms.models.ModelHousingBuildings;
@@ -500,5 +501,29 @@ public interface RetrofitApiInterface {
             @Url String url
     );
 
+
+    @GET(Version + "/AccountFundInfo/GetUserFundInfo")
+    Call<MR_userFundInfo> getUserFundInfo
+            (
+                    @Header("Authorization") String Authorization
+
+            );
+
+
+    @GET(Version + "/AccountFundRequest/GetAccountFundRequests")
+    Call<MR_accountFundRequests> getAccountFundRequests
+            (
+                    @Header("Authorization") String Authorization
+
+            );
+
+
+    @FormUrlEncoded
+    @POST(Version + "/AccountFundInfo/SettlementDemand")
+    Call<ModelResponsePrimary> settlementDemand
+            (
+                    @Field("amount") Integer amount,
+                    @Header("Authorization") String Authorization
+            );
 
 }

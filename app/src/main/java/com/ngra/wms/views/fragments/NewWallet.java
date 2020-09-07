@@ -11,11 +11,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.cunoraz.gifview.library.GifView;
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.FrWalletBinding;
-import com.ngra.wms.utility.StaticFunctions;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_NewWallet;
 import com.ngra.wms.views.application.ApplicationWMS;
@@ -32,6 +33,7 @@ public class NewWallet extends FragmentPrimary implements FragmentPrimary.getAct
     private Integer totalPrice;
     private Integer theLowestHarvest;
     private Integer theHighestAmountThatCanBeWithdrawn;
+    private NavController navController;
 
     @BindView(R.id.relativeLayoutWalletProgress)
     RelativeLayout relativeLayoutWalletProgress;
@@ -72,6 +74,9 @@ public class NewWallet extends FragmentPrimary implements FragmentPrimary.getAct
     @BindView(R.id.linearLayoutUserAmount)
     LinearLayout linearLayoutUserAmount;
 
+    @BindView(R.id.LinearLayoutTransactions)
+    LinearLayout LinearLayoutTransactions;
+
 
     //______________________________________________________________________________________________ NewWallet
     public NewWallet() {
@@ -107,6 +112,9 @@ public class NewWallet extends FragmentPrimary implements FragmentPrimary.getAct
                 NewWallet.this,
                 vm_newWallet.getPublishSubject(),
                 vm_newWallet);
+
+        if (getView() != null)
+            navController = Navigation.findNavController(getView());
     }
     //______________________________________________________________________________________________ onStart
 
@@ -116,9 +124,20 @@ public class NewWallet extends FragmentPrimary implements FragmentPrimary.getAct
     public void getActionFromObservable(Byte action) {
 
         gifLoading.setVisibility(View.GONE);
+        imageViewLoading.setVisibility(View.VISIBLE);
+        gifViewSend.setVisibility(View.GONE);
 
         if (action.equals(StaticValues.ML_GetUserScorePriceReport)) {
             setUserScorePrice();
+            return;
+        }
+
+        if (action.equals(StaticValues.ML_Success)) {
+            relativeLayoutWalletProgress.setVisibility(View.GONE);
+            linearLayoutWithdrawalAmount.setVisibility(View.GONE);
+            gifLoading.setVisibility(View.VISIBLE);
+            vm_newWallet.getUserFundInfo();
+            return;
         }
 
     }
@@ -133,44 +152,36 @@ public class NewWallet extends FragmentPrimary implements FragmentPrimary.getAct
         setOnClick();
 
         gifLoading.setVisibility(View.VISIBLE);
-        vm_newWallet.getUserScorePriceReport();
+        vm_newWallet.getUserFundInfo();
     }
     //______________________________________________________________________________________________ init
 
 
-
     //______________________________________________________________________________________________ setUserScorePrice
     private void setUserScorePrice() {
-        totalPrice = (int) vm_newWallet.getMd_userScorePriceReport().getTotalPrice();
-        String string = getContext().getResources().getString(R.string.WalletMoney) + " " +
-                ApplicationWMS.getApplicationWMS(getContext())
-                .getUtilityComponent()
-                .getApplicationUtility()
-                .splitNumberOfAmount(totalPrice);
+
+        if (getContext() == null)
+            return;
+        totalPrice = (int) vm_newWallet.getMd_userFundInfo().getInfo().getCredit();
+//        totalPrice = (int) vm_newWallet.getMd_userFundInfo().getWalletInfo().getMinWithdrawal();
+        String string = getContext().getResources().getString(R.string.WalletMoney) + " " + getApplicationUtility().splitNumberOfAmount(totalPrice);
         textViewTotalPrice.setText(string);
 
-        theLowestHarvest = totalPrice * 2;
-        theHighestAmountThatCanBeWithdrawn = totalPrice * 3;
 
-        if (theLowestHarvest > totalPrice){
+        theLowestHarvest = (int) vm_newWallet.getMd_userFundInfo().getWalletInfo().getMinWithdrawal();
+        theHighestAmountThatCanBeWithdrawn = (int) vm_newWallet.getMd_userFundInfo().getWalletInfo().getMaxWithdrawal();
+
+        if (theLowestHarvest > totalPrice) {
             relativeLayoutWalletProgress.setVisibility(View.VISIBLE);
-            textViewTheLowestHarvest.setText(
-                    ApplicationWMS.getApplicationWMS(getContext())
-                    .getUtilityComponent()
-                    .getApplicationUtility()
-                    .splitNumberOfAmount(theLowestHarvest));
-            textViewUserWalletBalance.setText(
-                    ApplicationWMS.getApplicationWMS(getContext())
-                            .getUtilityComponent()
-                            .getApplicationUtility()
-                            .splitNumberOfAmount(totalPrice));
+            textViewTheLowestHarvest.setText(getApplicationUtility().splitNumberOfAmount(theLowestHarvest));
+            textViewUserWalletBalance.setText(getApplicationUtility().splitNumberOfAmount(totalPrice));
             yPWaveView.setMax(theLowestHarvest);
             yPWaveView.setProgress(totalPrice);
 
-            Integer percent = (totalPrice * 100) / theLowestHarvest;
+            int percent = (totalPrice * 100) / theLowestHarvest;
             percent = 100 - percent;
 
-            Integer measuredHeightWave = yPWaveView.getLayoutParams().height;
+            int measuredHeightWave = yPWaveView.getLayoutParams().height;
             measuredHeightWave = measuredHeightWave - (measuredHeightWave / 3);
 
             int margin = (measuredHeightWave * percent) / 100;
@@ -186,11 +197,7 @@ public class NewWallet extends FragmentPrimary implements FragmentPrimary.getAct
 
         } else {
             linearLayoutWithdrawalAmount.setVisibility(View.VISIBLE);
-            textViewMaxAmount.setText(
-                    ApplicationWMS.getApplicationWMS(getContext())
-                            .getUtilityComponent()
-                            .getApplicationUtility()
-                            .splitNumberOfAmount(theHighestAmountThatCanBeWithdrawn));
+            textViewMaxAmount.setText(getApplicationUtility().splitNumberOfAmount(theHighestAmountThatCanBeWithdrawn));
         }
 
 
@@ -198,26 +205,29 @@ public class NewWallet extends FragmentPrimary implements FragmentPrimary.getAct
     //______________________________________________________________________________________________ setUserScorePrice
 
 
-
     //______________________________________________________________________________________________ setOnClick
     private void setOnClick() {
 
         RelativeLayoutSend.setOnClickListener(v -> {
+            hideKeyboard();
             if (checkValidation()) {
                 imageViewLoading.setVisibility(View.GONE);
                 gifViewSend.setVisibility(View.VISIBLE);
+                vm_newWallet.settlementDemand(Integer.valueOf(editTextAmount.getText().toString().replaceAll(",","")));
             }
         });
 
+
+        LinearLayoutTransactions.setOnClickListener(v -> navController.navigate(R.id.action_newWallet_to_accountFundRequest));
+
         editTextAmount.addTextChangedListener(
                 ApplicationWMS.getApplicationWMS(getContext())
-                .getUtilityComponent()
-                .getApplicationUtility()
-                .setTextWatcherSplitting(editTextAmount));
+                        .getUtilityComponent()
+                        .getApplicationUtility()
+                        .setTextWatcherSplitting(editTextAmount));
 
     }
     //______________________________________________________________________________________________ setOnClick
-
 
 
     //______________________________________________________________________________________________ checkValidation
@@ -226,7 +236,7 @@ public class NewWallet extends FragmentPrimary implements FragmentPrimary.getAct
         if (editTextAmount.getText().toString().length() == 0)
             return false;
         else {
-            Integer amount = Integer.valueOf(editTextAmount.getText().toString().replaceAll(",",""));
+            Integer amount = Integer.valueOf(editTextAmount.getText().toString().replaceAll(",", ""));
             if (amount < theLowestHarvest) {
                 showMessageDialog(getContext().getResources().getString(R.string.validationAmountIsLowest),
                         getResources().getColor(R.color.mlWhite),

@@ -21,6 +21,7 @@ import com.ngra.wms.R;
 import com.ngra.wms.databinding.FragmentHomeBinding;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Home;
+import com.ngra.wms.views.application.ApplicationWMS;
 
 
 import org.jetbrains.annotations.NotNull;
@@ -153,9 +154,13 @@ public class Home extends FragmentPrimary implements FragmentPrimary.getActionFr
         if (action.equals(StaticValues.ML_GetUserScore)) {
             if (vm_home.getMd_scoreReport() != null) {
                 int am = (int)vm_home.getMd_scoreReport().getAveragePoint();
-                TextViewAverage.setText(String.valueOf(am));
+                TextViewAverage.setText(
+                        getApplicationUtility()
+                        .splitNumberOfAmount(am));
                 am = (int)vm_home.getMd_scoreReport().getMaxPoint();
-                TextViewMax.setText(String.valueOf(am));
+                TextViewMax.setText(
+                        getApplicationUtility()
+                        .splitNumberOfAmount(am));
             }
         }
 

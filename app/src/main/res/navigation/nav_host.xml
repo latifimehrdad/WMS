@@ -577,7 +577,24 @@
         android:id="@+id/newWallet"
         android:name="com.ngra.wms.views.fragments.NewWallet"
         android:label="NewWallet"
-        tools:layout="@layout/fr_wallet"/>
+        tools:layout="@layout/fr_wallet">
+
+        <action
+            android:id="@+id/action_newWallet_to_accountFundRequest"
+            app:destination="@id/accountFundRequest"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/accountFundRequest"
+        android:name="com.ngra.wms.views.fragments.AccountFundRequest"
+        android:label="AccountFundRequest"
+        tools:layout="@layout/fr_account_fund_requests"/>
 
 
 
