@@ -132,6 +132,8 @@ public class Map extends FragmentPrimary implements
     @BindView(R.id.imgFullScreen)
     ImageView imgFullScreen;
 
+    @BindView(R.id.textViewWaitMap)
+    TextView textViewWaitMap;
 
     //______________________________________________________________________________________________ Map
     public Map() {
@@ -344,6 +346,7 @@ public class Map extends FragmentPrimary implements
         textChoose.setVisibility(View.GONE);
         MarkerGif.setVisibility(View.VISIBLE);
         LinearLayoutWaitMap.setVisibility(View.VISIBLE);
+        textViewWaitMap.setText(getContext().getResources().getString(R.string.FindYourLocationBooth));
 
         if (getContext() == null)
             return;

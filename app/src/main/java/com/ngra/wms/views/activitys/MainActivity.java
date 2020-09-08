@@ -5,7 +5,6 @@ Create By Mehrdad Latifi in
 package com.ngra.wms.views.activitys;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -27,6 +26,7 @@ import android.content.Context;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -61,13 +61,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     public static DrawerLayout drawer;
-    public static boolean complateprofile = false;
+    public static boolean completeProfile = false;
     private NavController navController;
-    //    private AppBarConfiguration appBarConfiguration;
     private boolean MenuOpen = false;
     private boolean doubleBackToExitPressedOnce = false;
+    public int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private boolean preLogin = false;
-/*    public static String ReferenceCode;*/
 
     @BindView(R.id.MainMenu)
     ImageView MainMenu;
@@ -105,14 +104,21 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.ImageViewCopyRight)
     ImageView ImageViewCopyRight;
 
+    @BindView(R.id.textViewVersion)
+    TextView textViewVersion;
+
+
+    //______________________________________________________________________________________________ onCreate
     @Override
-    protected void onCreate(Bundle savedInstanceState) {//__________________________________________ Start onCreate
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SetBindingView();
-    }//_____________________________________________________________________________________________ End onCreate
+        setBindingView();
+    }
+    //______________________________________________________________________________________________ onCreate
 
 
-    private void SetBindingView() {//_______________________________________________________________ Start SetBindingView
+    //______________________________________________________________________________________________ setBindingView
+    private void setBindingView() {
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         MainActivityViewModel mainActivityViewModel = new MainActivityViewModel(this);
         binding.setMain(mainActivityViewModel);
@@ -124,39 +130,42 @@ public class MainActivity extends AppCompatActivity {
         drawer = mDrawer;
         NavigationUI.setupWithNavController(BottomNav1, navController);
         NavigationUI.setupWithNavController(nvView, navController);
-        SetClicks();
-        //setupDrawerContent(nvView);
-        //checkLocationPermission();
-        SetPermission();
-        SetListener();
-        StartAnimationSplash();
+        setVersion();
+        setClicks();
+        setPermission();
+        setListener();
+        startAnimationSplash();
 
-/*        Intent deepLinkingIntent = getIntent();
-        deepLinkingIntent.getScheme();
-        if (deepLinkingIntent.getData() != null) {
-            final List<String> segments = deepLinkingIntent.getData().getPathSegments();
-            if (segments.size() > 1) {
-                ReferenceCode = segments.get(1);
-            }
-        }*/
-
-    }//_____________________________________________________________________________________________ End SetBindingView
+    }
+    //______________________________________________________________________________________________ setBindingView
 
 
-    private void StartAnimationSplash() {//_________________________________________________________ StartAnimationSplash
+    //______________________________________________________________________________________________ setVersion
+    private void setVersion() {
+        PackageInfo pInfo;
+        try {
+            pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            textViewVersion.setText(getString(R.string.Version) + " : " + pInfo.versionName);
+        } catch (PackageManager.NameNotFoundException ignored) {
+        }
+    }
+    //______________________________________________________________________________________________ setVersion
+
+
+    //______________________________________________________________________________________________ startAnimationSplash
+    private void startAnimationSplash() {
         ImageViewCopyRight.startAnimation(AnimationUtils.loadAnimation(this, R.anim.bounce));
-    }//_____________________________________________________________________________________________ StartAnimationSplash
+    }
+    //______________________________________________________________________________________________ startAnimationSplash
 
 
-    public void SetPermission() {//_________________________________________________________________ Start SetPermission
+    //______________________________________________________________________________________________ setPermission
+    public void setPermission() {
 
         int permissionLocation = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
         int permissionRead = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
         int permissionInstall = ContextCompat.checkSelfPermission(this, Manifest.permission.REQUEST_INSTALL_PACKAGES);
-//        int permissionPhone = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
         int permissionWrite = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-//        int permissionContact = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS);
-//        int permissionCamera = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
 
         List<String> listPermissionsNeeded = new ArrayList<>();
 
@@ -169,18 +178,10 @@ public class MainActivity extends AppCompatActivity {
         if (permissionInstall != PackageManager.PERMISSION_GRANTED)
             listPermissionsNeeded.add(Manifest.permission.REQUEST_INSTALL_PACKAGES);
 
-//
-//        if (permissionPhone != PackageManager.PERMISSION_GRANTED)
-//            listPermissionsNeeded.add(Manifest.permission.READ_PHONE_STATE);
 
         if (permissionWrite != PackageManager.PERMISSION_GRANTED)
             listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-//
-//        if (permissionContact != PackageManager.PERMISSION_GRANTED)
-//            listPermissionsNeeded.add(Manifest.permission.READ_CONTACTS);
-//
-//        if (permissionCamera != PackageManager.PERMISSION_GRANTED)
-//            listPermissionsNeeded.add(Manifest.permission.CAMERA);
+
 
         if (!listPermissionsNeeded.isEmpty()) {
             ActivityCompat.requestPermissions(this,
@@ -188,11 +189,13 @@ public class MainActivity extends AppCompatActivity {
                     0);
         }
 
-    }//_____________________________________________________________________________________________ End SetPermission
+    }
+    //______________________________________________________________________________________________ setPermission
 
 
+    //______________________________________________________________________________________________ setClicks
     @SuppressLint("RtlHardcoded")
-    private void SetClicks() {//____________________________________________________________________ Start
+    private void setClicks() {
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> mDrawer.closeDrawer(Gravity.RIGHT));
 
@@ -205,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDrawerOpened(@NonNull View drawerView) {
                 MenuOpen = true;
-                ProfileName.setText(GetUserNameProfile());
+                ProfileName.setText(getUserNameProfile());
             }
 
             @Override
@@ -223,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
         ExitProfile.setOnClickListener(v -> {
             if (StaticFunctions.LogOut(MainActivity.this)) {
                 mDrawer.closeDrawer(Gravity.RIGHT);
-                MainActivity.complateprofile = false;
+                MainActivity.completeProfile = false;
 
                 Handler handler = new Handler();
                 handler.postDelayed(() -> {
@@ -257,11 +260,13 @@ public class MainActivity extends AppCompatActivity {
 
         LinearLayoutAbout.setOnClickListener(v -> navController.navigate(R.id.action_goto_creator));
 
-    }//_____________________________________________________________________________________________ End
+    }
+    //______________________________________________________________________________________________ setClicks
 
 
+    //______________________________________________________________________________________________ setListener
     @SuppressLint("RtlHardcoded")
-    private void SetListener() {//__________________________________________________________________ Start onCreate
+    private void setListener() {
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
 
@@ -283,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
                     NavGraph graph = navInflater.inflate(R.navigation.nav_host);
                     graph.setStartDestination(R.id.splash);
                     navController.setGraph(graph);
-                    LockDrawer();
+                    lockDrawer();
                     MainMenu.setVisibility(View.GONE);
                 }
                 RelativeLayoutLoginHeader.setVisibility(View.VISIBLE);
@@ -300,7 +305,7 @@ public class MainActivity extends AppCompatActivity {
                     graph.setStartDestination(R.id.home);
                     navController.setGraph(graph);
                     MainMenu.setVisibility(View.VISIBLE);
-                    UnLockDrawer();
+                    unLockDrawer();
                 }
                 RelativeLayoutLoginHeader.setVisibility(View.GONE);
                 RelativeLayoutMainFooter.setVisibility(View.VISIBLE);
@@ -310,10 +315,12 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-    }//_____________________________________________________________________________________________ End onCreate
+    }
+    //______________________________________________________________________________________________ setListener
 
 
-    private String GetUserNameProfile() {//_________________________________________________________ Start GetUserNameProfile
+    //______________________________________________________________________________________________ getUserNameProfile
+    private String getUserNameProfile() {
 
         SharedPreferences prefs = this.getSharedPreferences(getResources().getString(R.string.ML_SharePreferences), 0);
 
@@ -328,66 +335,36 @@ public class MainActivity extends AppCompatActivity {
                 return name + " " + lastName;
         }
 
-    }//_____________________________________________________________________________________________ End GetUserNameProfile
+    }
+    //______________________________________________________________________________________________ getUserNameProfile
 
 
-    public static void LockDrawer() {//______________________________________________________________ Start LockDrawer
+    //______________________________________________________________________________________________ lockDrawer
+    public static void lockDrawer() {
         drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-    }//_____________________________________________________________________________________________ End LockDrawer
+    }
+    //______________________________________________________________________________________________ lockDrawer
 
 
-    public static void UnLockDrawer() {//____________________________________________________________ Start UnLockDrawer
+    //______________________________________________________________________________________________ unLockDrawer
+    public static void unLockDrawer() {
         drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-    }//_____________________________________________________________________________________________ End UnLockDrawer
+    }
+    //______________________________________________________________________________________________ unLockDrawer
 
 
-    public void attachBaseContext(Context newBase) {//______________________________________________ Start attachBaseContext
+    //______________________________________________________________________________________________ attachBaseContext
+    public void attachBaseContext(Context newBase) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
-    }//_____________________________________________________________________________________________ End attachBaseContext
+    }
+    //______________________________________________________________________________________________ attachBaseContext
 
 
-    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
-
-
-    public void checkLocationPermission() {//_____________________________________________________________________________________________ Start checkLocationPermission
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-                new AlertDialog.Builder(this)
-                        .setTitle("دسترسی به موقعیت")
-                        .setMessage("برای نمایش مکان شما به موقعیت دسترسی بدهید")
-                        .setPositiveButton("تایید", (dialogInterface, i) -> {
-                            //Prompt the user once explanation has been shown
-                            ActivityCompat.requestPermissions(MainActivity.this,
-                                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                                    MY_PERMISSIONS_REQUEST_LOCATION);
-                        })
-                        .create()
-                        .show();
-
-
-            } else {
-                // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
-            }
-        }
-    }//_____________________________________________________________________________________________ End checkLocationPermission
-
-
+    //______________________________________________________________________________________________ onRequestPermissionsResult
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NotNull String[] permissions,
-                                           @NotNull int[] grantResults) {//_________________________ Start onRequestPermissionsResult
+                                           @NotNull int[] grantResults) {
         if (requestCode == MY_PERMISSIONS_REQUEST_LOCATION) {// If request is cancelled, the result arrays are empty.
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -396,12 +373,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
-    }//_____________________________________________________________________________________________ End onRequestPermissionsResult
+    }
+    //______________________________________________________________________________________________ onRequestPermissionsResult
 
 
+    //______________________________________________________________________________________________ onBackPressed
     @SuppressLint("RtlHardcoded")
     @Override
-    public void onBackPressed() {//_________________________________________________________________ Start onBackPressed
+    public void onBackPressed() {
 
         if (MenuOpen) {
             mDrawer.closeDrawer(Gravity.RIGHT);
@@ -429,7 +408,8 @@ public class MainActivity extends AppCompatActivity {
 
         new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
 
-    }//_____________________________________________________________________________________________ End onBackPressed
+    }
+    //______________________________________________________________________________________________ onBackPressed
 
 
 }

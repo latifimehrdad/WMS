@@ -16,7 +16,6 @@ import static com.ngra.wms.game.controls.GamePanel.MOVESPEED;
 public class Fuel_Pomp extends GameObject {
 
 
-    private int score;
     private int speed;
     private Bitmap spritesheet;
 

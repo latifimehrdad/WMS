@@ -10,6 +10,7 @@ public abstract class GameObject {
     protected int dx;
     protected int width;
     protected int height;
+    protected int score;
 
 
     public Rect getRectangle() {
@@ -62,5 +63,13 @@ public abstract class GameObject {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 }

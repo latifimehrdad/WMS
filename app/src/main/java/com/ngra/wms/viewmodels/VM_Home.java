@@ -15,7 +15,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.ngra.wms.views.activitys.MainActivity.complateprofile;
+import static com.ngra.wms.views.activitys.MainActivity.completeProfile;
 
 public class VM_Home extends VM_Primary {
 
@@ -34,12 +34,12 @@ public class VM_Home extends VM_Primary {
 
         SharedPreferences prefs = getContext().getSharedPreferences(getContext().getString(R.string.ML_SharePreferences), 0);
         if (prefs == null) {
-            complateprofile = false;
+            completeProfile = false;
         } else {
-            complateprofile = prefs.getBoolean(getContext().getString(R.string.ML_CompleteProfile), false);
+            completeProfile = prefs.getBoolean(getContext().getString(R.string.ML_CompleteProfile), false);
         }
 
-        if (!complateprofile) {
+        if (!completeProfile) {
             Handler handler = new Handler();
             handler.postDelayed(() -> sendActionToObservable(StaticValues.ML_GotoProfile), 10);
         }

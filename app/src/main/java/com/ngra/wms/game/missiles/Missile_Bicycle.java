@@ -17,7 +17,6 @@ import static com.ngra.wms.game.controls.GamePanel.MOVESPEED;
 public class Missile_Bicycle extends GameObject {
 
 
-    private int score;
     private int speed;
     private Random rand = new Random();
     private Animation animation = new Animation();

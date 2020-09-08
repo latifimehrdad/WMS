@@ -185,12 +185,13 @@
 
 
         <TextView
+            android:id="@+id/textViewWaitMap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/_13sdp"
             android:gravity="center"
             android:textColor="@color/mlWhite"
-            android:text="@string/FindYourLocation"
+            android:text="@string/FindYourLocationBooth"
             fontPath="font/iransans_web_medium.ttf"
             />
 

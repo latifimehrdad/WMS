@@ -16,7 +16,6 @@ import static com.ngra.wms.game.controls.GamePanel.MOVESPEED;
 public class Mistake_RecyclerBin extends GameObject {
 
 
-    private int score;
     private int speed;
     private Bitmap spritesheet;
 //    private float scaleFactorX;

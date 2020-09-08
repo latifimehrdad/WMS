@@ -59,7 +59,7 @@ public class VM_ProfileBank extends VM_Primary {
                 setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     setResponseMessage(getResponseMessage(response.body()));
-                    MainActivity.complateprofile = true;
+                    MainActivity.completeProfile = true;
                     sendActionToObservable(StaticValues.ML_EditProfile);
                 } else
                     sendActionToObservable(StaticValues.ML_ResponseError);

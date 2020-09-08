@@ -133,6 +133,9 @@ public class PackageRequestAddress extends FragmentPrimary implements
     @BindView(R.id.EditTextUnitNumber)
     EditText EditTextUnitNumber;
 
+    @BindView(R.id.textViewWaitMap)
+    TextView textViewWaitMap;
+
 
     //______________________________________________________________________________________________ onCreateView
     @Nullable
@@ -170,6 +173,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
             mapFragment.getMapAsync(this);
         }
         LinearLayoutWaitMap.setVisibility(View.VISIBLE);
+        textViewWaitMap.setText(getContext().getResources().getString(R.string.FindYourLocation));
         FullScreen = false;
         textChoose.setVisibility(View.VISIBLE);
         MarkerGif.setVisibility(View.GONE);

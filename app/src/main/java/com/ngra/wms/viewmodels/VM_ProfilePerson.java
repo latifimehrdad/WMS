@@ -242,7 +242,7 @@ public class VM_ProfilePerson extends VM_Primary {
         token.putInt(getContext().getString(R.string.ML_Gender), getGender());
         token.putBoolean(getContext().getString(R.string.ML_CompleteProfile), true);
         token.apply();
-        MainActivity.complateprofile = true;
+        MainActivity.completeProfile = true;
         sendActionToObservable(StaticValues.ML_EditProfile);
     }
     //______________________________________________________________________________________________ saveProfile

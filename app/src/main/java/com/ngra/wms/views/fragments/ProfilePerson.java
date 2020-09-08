@@ -145,7 +145,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.ge
             binding.setVmPerson(vm_profilePerson);
             setView(binding.getRoot());
             init();
-            completeProfile = MainActivity.complateprofile;
+            completeProfile = MainActivity.completeProfile;
             clickSave = false;
             if (!completeProfile)
                 LinearLayoutEditAddress.setVisibility(View.GONE);
@@ -184,7 +184,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.ge
         setItemUser();
         GenderCode = -1;
         EditPhoneNumber.setText(vm_profilePerson.getPhoneNumber());
-        if (MainActivity.complateprofile) {
+        if (MainActivity.completeProfile) {
             LinearLayoutCity.setVisibility(View.GONE);
             LinearLayoutProvinces.setVisibility(View.GONE);
         }
@@ -306,7 +306,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.ge
         }
 
         if (action.equals(StaticValues.ML_EditProfile)) {
-            MainActivity.complateprofile = true;
+            MainActivity.completeProfile = true;
             //getActivity().onBackPressed();
             return;
         }
@@ -332,7 +332,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.ge
         if (clickSave)
             if (action.equals(StaticValues.ML_DialogClose))
                 if (!completeProfile) {
-                    MainActivity.complateprofile = true;
+                    MainActivity.completeProfile = true;
                     if (getContext() != null)
                         getContext().onBackPressed();
                 }

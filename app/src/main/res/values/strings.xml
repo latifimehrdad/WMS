@@ -1,8 +1,7 @@
 <resources>
 
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDbcXlcVOSpaOu9JS8IEsD9HlBlyd-w4v4</string>
-    <string name="Version">V_99_6_17_1</string>
-    <string name="UpdateAppName">1</string>
+    <string name="UpdateAppName">Samtam_Citizen</string>
 
     <string name="ChooseProvinces">انتخاب استان</string>
     <string name="ProvincesSearch">جستجوی استان</string>
@@ -193,7 +192,8 @@
     <string name="EnterYourAddress">آدرس مقصد خودرا وارد کنید</string>
     <string name="DefaultCity">کرج</string>
     <string name="LoadMore">موارد بیشتر</string>
-    <string name="FindYourLocation">درحال یافتن موقعیت شما\n برای پیدا کردن نزدیکترین غرفه...</string>
+    <string name="FindYourLocationBooth">درحال یافتن موقعیت شما\n برای پیدا کردن نزدیکترین غرفه...</string>
+    <string name="FindYourLocation">درحال یافتن موقعیت شما...</string>
     <string name="BoothListIsEmpty">غرفه ای یافت نشد</string>
     <string name="TheLowestHarvest">کمترین مبلغ جهت برداشت</string>
     <string name="YourWalletBalance">موجودی کیف پول شما</string>
@@ -207,6 +207,7 @@
     <string name="Transactions">تراکنش ها</string>
     <string name="AccountFundRequestPaid">پرداخت شده</string>
     <string name="RequestIsEmpty">هیچ درخواستی ثبت نشده</string>
+    <string name="Version">نسخه</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 
