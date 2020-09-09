@@ -443,6 +443,7 @@ public interface RetrofitApiInterface {
     @GET(Version + "/score/topscorelist")
     Call<MR_BestScore> gettopscorelist
             (
+                    @Query("ScoreCategoryName") String scoreCategoryName,
                     @Header("Authorization") String Authorization
 
             );
@@ -523,6 +524,15 @@ public interface RetrofitApiInterface {
     Call<ModelResponsePrimary> settlementDemand
             (
                     @Field("amount") Integer amount,
+                    @Header("Authorization") String Authorization
+            );
+
+
+    @FormUrlEncoded
+    @POST(Version + "/game/submitpoint")
+    Call<ModelResponsePrimary> submitPoint
+            (
+                    @Field("Point") Integer Point,
                     @Header("Authorization") String Authorization
             );
 

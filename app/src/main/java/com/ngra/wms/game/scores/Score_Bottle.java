@@ -29,8 +29,11 @@ public class Score_Bottle extends GameObject {
                         int s,
                         int HalfDeviceWidth,
                         int DeviceWidth,
-                        int DeviceHeight) {
+                        int DeviceHeight,
+                        int sc) {
 
+
+        score = sc;
 //        scaleFactorX = DeviceWidth / (WIDHT * 1.f);
 //        scaleFactorY = DeviceHeight / (HEIGHT * 1.f);
 
@@ -55,7 +58,7 @@ public class Score_Bottle extends GameObject {
         super.y = y;
         width = w;
         height = h;
-        score = s;
+        scoreForSpeed = s;
 
         spritesheet = BitmapFactory.decodeResource(
                 resources

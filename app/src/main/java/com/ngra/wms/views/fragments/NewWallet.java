@@ -30,10 +30,11 @@ public class NewWallet extends FragmentPrimary implements FragmentPrimary.getAct
 
 
     private VM_NewWallet vm_newWallet;
-    private Integer totalPrice;
-    private Integer theLowestHarvest;
-    private Integer theHighestAmountThatCanBeWithdrawn;
+    private long totalPrice;
+    private long theLowestHarvest;
+    private long theHighestAmountThatCanBeWithdrawn;
     private NavController navController;
+    private boolean clickClearing;
 
     @BindView(R.id.relativeLayoutWalletProgress)
     RelativeLayout relativeLayoutWalletProgress;
@@ -115,6 +116,12 @@ public class NewWallet extends FragmentPrimary implements FragmentPrimary.getAct
 
         if (getView() != null)
             navController = Navigation.findNavController(getView());
+
+        clickClearing = true;
+        relativeLayoutWalletProgress.setVisibility(View.GONE);
+        linearLayoutWithdrawalAmount.setVisibility(View.GONE);
+        gifLoading.setVisibility(View.VISIBLE);
+        vm_newWallet.getUserFundInfo();
     }
     //______________________________________________________________________________________________ onStart
 
@@ -126,6 +133,7 @@ public class NewWallet extends FragmentPrimary implements FragmentPrimary.getAct
         gifLoading.setVisibility(View.GONE);
         imageViewLoading.setVisibility(View.VISIBLE);
         gifViewSend.setVisibility(View.GONE);
+        clickClearing = false;
 
         if (action.equals(StaticValues.ML_GetUserScorePriceReport)) {
             setUserScorePrice();
@@ -133,12 +141,11 @@ public class NewWallet extends FragmentPrimary implements FragmentPrimary.getAct
         }
 
         if (action.equals(StaticValues.ML_Success)) {
-            relativeLayoutWalletProgress.setVisibility(View.GONE);
-            linearLayoutWithdrawalAmount.setVisibility(View.GONE);
-            gifLoading.setVisibility(View.VISIBLE);
-            vm_newWallet.getUserFundInfo();
+            editTextAmount.getText().clear();
+            navController.navigate(R.id.action_newWallet_to_accountFundRequest);
             return;
         }
+
 
     }
     //______________________________________________________________________________________________ getActionFromObservable
@@ -146,13 +153,7 @@ public class NewWallet extends FragmentPrimary implements FragmentPrimary.getAct
 
     //______________________________________________________________________________________________ init
     private void init() {
-
-        relativeLayoutWalletProgress.setVisibility(View.GONE);
-        linearLayoutWithdrawalAmount.setVisibility(View.GONE);
         setOnClick();
-
-        gifLoading.setVisibility(View.VISIBLE);
-        vm_newWallet.getUserFundInfo();
     }
     //______________________________________________________________________________________________ init
 
@@ -160,44 +161,56 @@ public class NewWallet extends FragmentPrimary implements FragmentPrimary.getAct
     //______________________________________________________________________________________________ setUserScorePrice
     private void setUserScorePrice() {
 
+        clickClearing = false;
+
+        if (totalPrice == 0)
+            editTextAmount.addTextChangedListener(
+                    ApplicationWMS.getApplicationWMS(getContext())
+                            .getUtilityComponent()
+                            .getApplicationUtility()
+                            .setTextWatcherSplitting(editTextAmount, vm_newWallet.getMd_userFundInfo().getWalletInfo().getMaxWithdrawal()));
+
         if (getContext() == null)
             return;
-        totalPrice = (int) vm_newWallet.getMd_userFundInfo().getInfo().getCredit();
+        totalPrice = (long) vm_newWallet.getMd_userFundInfo().getInfo().getCredit();
 //        totalPrice = (int) vm_newWallet.getMd_userFundInfo().getWalletInfo().getMinWithdrawal();
-        String string = getContext().getResources().getString(R.string.WalletMoney) + " " + getApplicationUtility().splitNumberOfAmount(totalPrice);
+        String string = getContext().getResources().getString(R.string.WalletMoney) + " " + getApplicationUtility().splitNumberOfAmount(totalPrice)
+                + " " + getContext().getResources().getString(R.string.Rial);
         textViewTotalPrice.setText(string);
 
 
-        theLowestHarvest = (int) vm_newWallet.getMd_userFundInfo().getWalletInfo().getMinWithdrawal();
+        theLowestHarvest = (long) vm_newWallet.getMd_userFundInfo().getWalletInfo().getMinWithdrawal();
         theHighestAmountThatCanBeWithdrawn = (int) vm_newWallet.getMd_userFundInfo().getWalletInfo().getMaxWithdrawal();
 
         if (theLowestHarvest > totalPrice) {
             relativeLayoutWalletProgress.setVisibility(View.VISIBLE);
-            textViewTheLowestHarvest.setText(getApplicationUtility().splitNumberOfAmount(theLowestHarvest));
-            textViewUserWalletBalance.setText(getApplicationUtility().splitNumberOfAmount(totalPrice));
-            yPWaveView.setMax(theLowestHarvest);
-            yPWaveView.setProgress(totalPrice);
+            textViewTheLowestHarvest.setText(getApplicationUtility().splitNumberOfAmount(theLowestHarvest) +
+                    " " + getContext().getResources().getString(R.string.Rial));
+            textViewUserWalletBalance.setText(getApplicationUtility().splitNumberOfAmount(totalPrice)
+                    + " " + getContext().getResources().getString(R.string.Rial));
+            yPWaveView.setMax((int) theLowestHarvest);
+            yPWaveView.setProgress((int) totalPrice);
 
-            int percent = (totalPrice * 100) / theLowestHarvest;
+            long percent = (totalPrice * 100) / theLowestHarvest;
             percent = 100 - percent;
 
             int measuredHeightWave = yPWaveView.getLayoutParams().height;
             measuredHeightWave = measuredHeightWave - (measuredHeightWave / 3);
 
-            int margin = (measuredHeightWave * percent) / 100;
+            long margin = (measuredHeightWave * percent) / 100;
 
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                     RelativeLayout.LayoutParams.WRAP_CONTENT,
                     RelativeLayout.LayoutParams.WRAP_CONTENT
             );
-            params.setMargins(0, margin, 0, 0);
+            params.setMargins(0, (int) margin, 0, 0);
             params.addRule(RelativeLayout.LEFT_OF, R.id.yPWaveView);
             linearLayoutUserAmount.setLayoutParams(params);
 
-
         } else {
             linearLayoutWithdrawalAmount.setVisibility(View.VISIBLE);
-            textViewMaxAmount.setText(getApplicationUtility().splitNumberOfAmount(theHighestAmountThatCanBeWithdrawn));
+            textViewMaxAmount.setText(getApplicationUtility().splitNumberOfAmount(theHighestAmountThatCanBeWithdrawn)
+                    + " " + getContext().getResources().getString(R.string.Rial));
         }
 
 
@@ -211,20 +224,16 @@ public class NewWallet extends FragmentPrimary implements FragmentPrimary.getAct
         RelativeLayoutSend.setOnClickListener(v -> {
             hideKeyboard();
             if (checkValidation()) {
+                clickClearing = true;
                 imageViewLoading.setVisibility(View.GONE);
                 gifViewSend.setVisibility(View.VISIBLE);
-                vm_newWallet.settlementDemand(Integer.valueOf(editTextAmount.getText().toString().replaceAll(",","")));
+                vm_newWallet.settlementDemand(Integer.valueOf(editTextAmount.getText().toString().replaceAll(",", "")));
             }
         });
 
 
         LinearLayoutTransactions.setOnClickListener(v -> navController.navigate(R.id.action_newWallet_to_accountFundRequest));
 
-        editTextAmount.addTextChangedListener(
-                ApplicationWMS.getApplicationWMS(getContext())
-                        .getUtilityComponent()
-                        .getApplicationUtility()
-                        .setTextWatcherSplitting(editTextAmount));
 
     }
     //______________________________________________________________________________________________ setOnClick
@@ -232,6 +241,9 @@ public class NewWallet extends FragmentPrimary implements FragmentPrimary.getAct
 
     //______________________________________________________________________________________________ checkValidation
     private boolean checkValidation() {
+
+        if (clickClearing)
+            return false;
 
         if (editTextAmount.getText().toString().length() == 0)
             return false;

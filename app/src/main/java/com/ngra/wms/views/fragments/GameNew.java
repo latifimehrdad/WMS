@@ -13,6 +13,7 @@ import androidx.databinding.DataBindingUtil;
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.FragmentGameNewBinding;
 import com.ngra.wms.game.controls.GameActivity;
+import com.ngra.wms.viewmodels.VM_Game;
 import com.ngra.wms.views.fragments.FragmentPrimary;
 
 import butterknife.BindView;
@@ -20,6 +21,7 @@ import butterknife.ButterKnife;
 
 public class GameNew extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
+    private VM_Game vm_game;
 
     @BindView(R.id.TextViewNew)
     TextView TextViewNew;
@@ -38,10 +40,11 @@ public class GameNew extends FragmentPrimary implements FragmentPrimary.getActio
             ViewGroup container,
             Bundle savedInstanceState) {
         if (getView() == null) {
+            vm_game = new VM_Game(getContext());
             FragmentGameNewBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_game_new, container, false
             );
-            binding.setNewGame("null");
+            binding.setNewGame(vm_game);
             setView(binding.getRoot());
             ButterKnife.bind(this, getView());
             TextViewNew.setOnClickListener(v -> {
@@ -58,6 +61,10 @@ public class GameNew extends FragmentPrimary implements FragmentPrimary.getActio
     @Override
     public void onStart() {
         super.onStart();
+        setPublishSubjectFromObservable(
+                GameNew.this,
+                vm_game.getPublishSubject(),
+                vm_game);
     }
     //______________________________________________________________________________________________ onStart
 
@@ -68,5 +75,7 @@ public class GameNew extends FragmentPrimary implements FragmentPrimary.getActio
 
     }
     //______________________________________________________________________________________________ getActionFromObservable
+
+
 
 }

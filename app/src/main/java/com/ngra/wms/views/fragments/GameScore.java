@@ -7,14 +7,22 @@ import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.FragmentGameScoreBinding;
+import com.ngra.wms.utility.StaticValues;
+import com.ngra.wms.viewmodels.VM_BestScore;
+import com.ngra.wms.views.adaptors.lottery.AP_BestScore;
 import com.ngra.wms.views.fragments.FragmentPrimary;
 
 import butterknife.ButterKnife;
 
 public class GameScore extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
+
+
+    private VM_BestScore vm_bestScore;
 
     //______________________________________________________________________________________________ FragmentGameNew
     public GameScore() {
@@ -30,10 +38,11 @@ public class GameScore extends FragmentPrimary implements FragmentPrimary.getAct
             ViewGroup container,
             Bundle savedInstanceState) {
         if (getView() == null) {
+            vm_bestScore = new VM_BestScore(getContext());
             FragmentGameScoreBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_game_score, container, false
             );
-            binding.setScore("null");
+            binding.setScore(vm_bestScore);
             setView(binding.getRoot());
             ButterKnife.bind(this, getView());
         }
@@ -47,6 +56,11 @@ public class GameScore extends FragmentPrimary implements FragmentPrimary.getAct
     @Override
     public void onStart() {
         super.onStart();
+        setPublishSubjectFromObservable(
+                GameScore.this,
+                vm_bestScore.getPublishSubject(),
+                vm_bestScore);
+        //vm_bestScore.getBestScore("game");
     }
     //______________________________________________________________________________________________ onStart
 
@@ -55,7 +69,27 @@ public class GameScore extends FragmentPrimary implements FragmentPrimary.getAct
     @Override
     public void getActionFromObservable(Byte action) {
 
+        if (action.equals(StaticValues.ML_GetBestScore)) {
+            setAdapterBestScore();
+        }
+
     }
     //______________________________________________________________________________________________ getActionFromObservable
+
+
+
+    //______________________________________________________________________________________________ setAdapterBestScore
+    private void setAdapterBestScore() {
+//        AP_BestScore ap_bestScore = new AP_BestScore(vm_bestScore.getMd_bestScores());
+//        RecyclerViewGiveScore.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+//        RecyclerViewGiveScore.setAdapter(ap_bestScore);
+//        String title = getContext().getResources().getString(R.string.TopThree) + " ";
+//        if (vm_bestScore.getMd_bestScores().size() > 0)
+//            title = title + vm_bestScore.getMd_bestScores().get(0).getMonthName();
+//        TextViewTitle.setText(title);
+    }
+    //______________________________________________________________________________________________ setAdapterBestScore
+
+
 
 }

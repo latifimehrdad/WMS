@@ -57,7 +57,8 @@ public class BindingAdapters {
                 .getUtilityComponent()
                 .getApplicationUtility();
 
-        textView.setText(component.splitNumberOfAmount((int)amount));
+        textView.setText(component.splitNumberOfAmount((long)amount) + " " +
+                textView.getContext().getResources().getString(R.string.Rial));
     }
     //______________________________________________________________________________________________ splitNumberOfAmount
 

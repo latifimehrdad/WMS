@@ -60,7 +60,7 @@ public class Missile_Lambo extends GameObject {
         super.y = y;
         width = w;
         height = h;
-        score = s;
+        scoreForSpeed = s;
 
         Bitmap[] image = new Bitmap[numFrames];
 

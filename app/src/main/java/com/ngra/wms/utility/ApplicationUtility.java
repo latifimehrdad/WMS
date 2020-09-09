@@ -354,25 +354,59 @@ public class ApplicationUtility {
 
 
     //______________________________________________________________________________________________ setTextWatcherSplitting
-    public TextWatcher setTextWatcherSplitting(final EditText editText) {
+    public TextWatcher setTextWatcherSplitting(final EditText editText, double amount) {
+
+        final String[] value = new String[2];
+
         return new TextWatcher() {
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                value[0] = editText.getText().toString();
             }
 
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                value[1] = charSequence.toString();
             }
 
             public void afterTextChanged(Editable editable) {
-                String m = editText.getText().toString();
-                m = m.replaceAll(",", "");
-                m = m.replaceAll("٬", "");
-                if (!m.equalsIgnoreCase("")) {
+
+                if (value[0] == null || value[0].equalsIgnoreCase(""))
+                    value[0] = "0";
+
+                if (value[1] == null || value[1].equalsIgnoreCase(""))
+                    value[1] = "0";
+
+                value[0] = value[0].replaceAll(",","");
+                value[0] = value[0].replaceAll("٬","");
+
+                value[1] = value[1].replaceAll(",","");
+                value[1] = value[1].replaceAll("٬","");
+
+
+
+                if (value[1].equalsIgnoreCase("0")){
                     editText.removeTextChangedListener(this);
-                    editText.setText(splitNumberOfAmount(Integer.valueOf(m)));
+                    editText.setText("");
+                    editText.addTextChangedListener(this);
+                    return;
+                }
+
+
+                if (amount >= Long.valueOf(value[1])) {
+                    String m = value[1];
+                    m = m.replaceAll(",", "");
+                    m = m.replaceAll("٬", "");
+                    if (!m.equalsIgnoreCase("")) {
+                        editText.removeTextChangedListener(this);
+                        editText.setText(splitNumberOfAmount(Long.valueOf(m)));
+                        editText.addTextChangedListener(this);
+                    }
+                } else {
+                    editText.removeTextChangedListener(this);
+                    editText.setText(splitNumberOfAmount(Long.valueOf(value[0])));
                     editText.addTextChangedListener(this);
                 }
+
+
                 editText.setSelection(editText.getText().length());
 
             }
@@ -383,7 +417,7 @@ public class ApplicationUtility {
 
 
     //______________________________________________________________________________________________ splitNumberOfAmount
-    public String splitNumberOfAmount(Integer amount) {
+    public String splitNumberOfAmount(Long amount) {
         NumberFormat formatter = new DecimalFormat("#,###");
         return formatter.format(amount);
     }

@@ -10,6 +10,7 @@ public abstract class GameObject {
     protected int dx;
     protected int width;
     protected int height;
+    protected int scoreForSpeed;
     protected int score;
 
 
@@ -63,6 +64,14 @@ public abstract class GameObject {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public int getScoreForSpeed() {
+        return scoreForSpeed;
+    }
+
+    public void setScoreForSpeed(int scoreForSpeed) {
+        this.scoreForSpeed = scoreForSpeed;
     }
 
     public int getScore() {

@@ -54,7 +54,7 @@ public class Fuel_Pomp extends GameObject {
         super.y = y;
         width = w;
         height = h;
-        score = s;
+        scoreForSpeed = s;
 
         spritesheet = BitmapFactory.decodeResource(
                 resources

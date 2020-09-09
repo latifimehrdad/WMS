@@ -27,7 +27,7 @@ public class VM_BestScore extends VM_Primary {
 
 
     //______________________________________________________________________________________________ getBestScore
-    public void getBestScore() {
+    public void getBestScore(String scoreCategoryName) {
 
         RetrofitComponent retrofitComponent = ApplicationWMS
                 .getApplicationWMS(getContext())
@@ -37,7 +37,7 @@ public class VM_BestScore extends VM_Primary {
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .gettopscorelist(authorization));
+                .gettopscorelist(scoreCategoryName,authorization));
 
         getPrimaryCall().enqueue(new Callback<MR_BestScore>() {
             @Override

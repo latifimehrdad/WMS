@@ -1,6 +1,7 @@
 package com.ngra.wms.game.controls;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ngra.wms.R;
+import com.ngra.wms.daggers.retrofit.RetrofitComponent;
+import com.ngra.wms.models.ModelResponsePrimary;
+import com.ngra.wms.views.application.ApplicationWMS;
+import com.ngra.wms.views.fragments.GameNew;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class GameActivity extends Activity {
 
@@ -17,7 +26,6 @@ public class GameActivity extends Activity {
     TextView textView;
     LinearLayout layout;
     GamePanel gamePanel;
-    private MediaPlayer mediaCoin;
 
 
     @Override
@@ -58,7 +66,8 @@ public class GameActivity extends Activity {
     }
 
 
-    public void ResetGame() {
+    public void ResetGame(Integer coin) {
+        sendCoin(coin);
         textView.setVisibility(View.VISIBLE);
     }
 
@@ -85,4 +94,52 @@ public class GameActivity extends Activity {
         layout.addView(gamePanel);
         textView.setVisibility(View.GONE);
     }
+
+
+
+
+    private void sendCoin(Integer coin) {
+
+        String authorization = getAuthorizationTokenFromSharedPreferences();
+
+        RetrofitComponent component =
+                ApplicationWMS.getApplicationWMS(this)
+                .getRetrofitComponent();
+
+        component
+                .getRetrofitApiInterface()
+                .submitPoint(coin, authorization)
+                .enqueue(new Callback<ModelResponsePrimary>() {
+                    @Override
+                    public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
+
+                    }
+                });
+
+
+    }
+
+
+
+    //______________________________________________________________________________________________ getAuthorizationTokenFromSharedPreferences
+    public String getAuthorizationTokenFromSharedPreferences() {
+        String authorization = "Bearer ";
+        SharedPreferences prefs = getSharedPreferences(getString(R.string.ML_SharePreferences), 0);
+        if (prefs != null) {
+            String access_token = prefs.getString(getString(R.string.ML_AccessToken), null);
+            if (access_token != null)
+                authorization = authorization + access_token;
+        }
+        return authorization;
+    }
+    //______________________________________________________________________________________________ getAuthorizationTokenFromSharedPreferences
+
+
+
+
 }

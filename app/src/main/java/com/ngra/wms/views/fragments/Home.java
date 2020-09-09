@@ -153,11 +153,11 @@ public class Home extends FragmentPrimary implements FragmentPrimary.getActionFr
 
         if (action.equals(StaticValues.ML_GetUserScore)) {
             if (vm_home.getMd_scoreReport() != null) {
-                int am = (int)vm_home.getMd_scoreReport().getAveragePoint();
+                long am = (long)vm_home.getMd_scoreReport().getAveragePoint();
                 TextViewAverage.setText(
                         getApplicationUtility()
                         .splitNumberOfAmount(am));
-                am = (int)vm_home.getMd_scoreReport().getMaxPoint();
+                am = (long)vm_home.getMd_scoreReport().getMaxPoint();
                 TextViewMax.setText(
                         getApplicationUtility()
                         .splitNumberOfAmount(am));

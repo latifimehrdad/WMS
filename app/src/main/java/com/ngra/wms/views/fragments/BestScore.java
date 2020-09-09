@@ -66,7 +66,7 @@ public class BestScore extends FragmentPrimary implements FragmentPrimary.getAct
                 BestScore.this,
                 vm_bestScore.getPublishSubject(),
                 vm_bestScore);
-        vm_bestScore.getBestScore();
+        vm_bestScore.getBestScore("waste");
     }
     //______________________________________________________________________________________________ onStart
 

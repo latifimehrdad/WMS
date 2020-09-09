@@ -211,7 +211,7 @@ public class Player extends GameObject{
         }
     }
 
-    public int getScore() {
+    public int getScoreForSpeed() {
         return  score;
     }
 

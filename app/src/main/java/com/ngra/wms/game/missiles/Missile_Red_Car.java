@@ -61,7 +61,7 @@ public class Missile_Red_Car extends GameObject {
         super.y = y;
         width = w;
         height = h;
-        score = s;
+        scoreForSpeed = s;
 
         Bitmap[] image = new Bitmap[numFrames];
 
