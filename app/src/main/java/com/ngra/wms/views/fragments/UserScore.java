@@ -88,6 +88,14 @@ public class UserScore extends FragmentPrimary implements FragmentPrimary.getAct
 
 
 
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
+
+
     //______________________________________________________________________________________________ setAdapterUserScore
     private void setAdapterUserScore() {
         AP_UserScore ap_userScore = new AP_UserScore(vm_userScore.getMd_userScoreInfoList().getItems());

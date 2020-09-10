@@ -42,6 +42,9 @@ public class VM_Support extends VM_Primary {
                 .getAllCategories(
                         Authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<MR_SpinnerItems>() {
             @Override
             public void onResponse(Call<MR_SpinnerItems> call, Response<MR_SpinnerItems> response) {
@@ -85,6 +88,9 @@ public class VM_Support extends VM_Primary {
                         Description,
                         CategoryId,
                         Authorization));
+
+        if (getPrimaryCall() == null)
+            return;
 
         getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
             @Override

@@ -42,6 +42,9 @@ public class VM_CollectRequest extends VM_Primary {
                 .getRetrofitApiInterface()
                 .getScoreList2(Authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<MR_ScoreList2>() {
             @Override
             public void onResponse(Call<MR_ScoreList2> call, Response<MR_ScoreList2> response) {

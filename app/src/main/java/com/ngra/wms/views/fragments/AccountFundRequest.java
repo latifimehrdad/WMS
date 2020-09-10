@@ -110,4 +110,9 @@ public class AccountFundRequest extends FragmentPrimary implements FragmentPrima
     //______________________________________________________________________________________________ setAdapter
 
 
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
 }

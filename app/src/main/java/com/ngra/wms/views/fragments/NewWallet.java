@@ -151,6 +151,17 @@ public class NewWallet extends FragmentPrimary implements FragmentPrimary.getAct
     //______________________________________________________________________________________________ getActionFromObservable
 
 
+
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
+
+
+
     //______________________________________________________________________________________________ init
     private void init() {
         setOnClick();

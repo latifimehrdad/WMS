@@ -42,6 +42,9 @@ public class VM_Ticket extends VM_Primary {
                 .getTicketList(
                         authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<MR_TicketList>() {
             @Override
             public void onResponse(Call<MR_TicketList> call, Response<MR_TicketList> response) {

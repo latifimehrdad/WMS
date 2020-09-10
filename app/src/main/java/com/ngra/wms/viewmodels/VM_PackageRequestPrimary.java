@@ -1,17 +1,23 @@
 package com.ngra.wms.viewmodels;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.ngra.wms.R;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
+import com.ngra.wms.models.ModelPackage;
 import com.ngra.wms.models.ModelResponsePrimary;
 import com.ngra.wms.models.ModelSettingInfo;
 import com.ngra.wms.models.MD_TimeSheet;
-import com.ngra.wms.utility.StaticFunctions;
+import com.ngra.wms.utility.ApplicationUtility;
 import com.ngra.wms.utility.StaticValues;
-import com.ngra.wms.viewmodels.VM_Primary;
 import com.ngra.wms.views.application.ApplicationWMS;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,11 +48,14 @@ public class VM_PackageRequestPrimary extends VM_Primary {
                 .SendPackageRequest(
                         timeId,
                         Authorization));
+
+        if (getPrimaryCall() == null)
+            return;
+
+
         getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
             @Override
             public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
-                if (StaticFunctions.isCancel)
-                    return;
                 setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     setResponseMessage(getResponseMessage(response.body()));
@@ -80,12 +89,17 @@ public class VM_PackageRequestPrimary extends VM_Primary {
                 .getSettingInfo(
                         authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<ModelSettingInfo>() {
             @Override
             public void onResponse(Call<ModelSettingInfo> call, Response<ModelSettingInfo> response) {
                 String m = checkResponse(response, true);
                 if (m == null) {
-                    if (StaticFunctions.SaveProfile(getContext(), response.body().getResult()))
+                    ApplicationUtility utility = ApplicationWMS.getApplicationWMS(getContext())
+                            .getUtilityComponent().getApplicationUtility();
+                    if (utility.saveProfile(getContext(), response.body().getResult()))
                         sendActionToObservable(StaticValues.ML_SendPackageRequest);
                 } else
                     sendActionToObservable(StaticValues.ML_ResponseError);
@@ -114,6 +128,9 @@ public class VM_PackageRequestPrimary extends VM_Primary {
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .getTimes(Authorization));
+
+        if (getPrimaryCall() == null)
+            return;
 
         getPrimaryCall().enqueue(new Callback<MD_TimeSheet>() {
             @Override
@@ -152,6 +169,49 @@ public class VM_PackageRequestPrimary extends VM_Primary {
         return 0;
     }
     //______________________________________________________________________________________________ getPackageStatus
+
+
+
+    //______________________________________________________________________________________________ packageRequestDate
+    public ModelPackage packageRequestDate(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0);
+        if (prefs != null) {
+            ModelPackage modelPackage = new ModelPackage();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US);
+            String sDate = prefs.getString(context.getString(R.string.ML_PackageRequestDate), null);
+            Date date;
+            if (sDate != null) {
+                try {
+                    date = simpleDateFormat.parse(sDate);
+                    modelPackage.setRequestDate(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+            sDate = prefs.getString(context.getString(R.string.ML_PackageRequestFrom), null);
+            if (sDate != null) {
+                try {
+                    date = simpleDateFormat.parse(sDate);
+                    modelPackage.setFromDeliver(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+            sDate = prefs.getString(context.getString(R.string.ML_PackageRequestTo), null);
+            if (sDate != null) {
+                try {
+                    date = simpleDateFormat.parse(sDate);
+                    modelPackage.setToDeliver(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return modelPackage;
+        } else
+            return null;
+    }
+    //______________________________________________________________________________________________ packageRequestDate
 
 
 }

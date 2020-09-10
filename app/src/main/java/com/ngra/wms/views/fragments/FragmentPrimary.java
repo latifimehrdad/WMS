@@ -3,8 +3,11 @@ package com.ngra.wms.views.fragments;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
@@ -34,6 +37,7 @@ public class FragmentPrimary extends Fragment {
     //______________________________________________________________________________________________ getActionFromObservable
     public interface getActionFromObservable {
         void getActionFromObservable(Byte action);
+        void actionWhenFailureRequest();
     }
     //______________________________________________________________________________________________ getActionFromObservable
 
@@ -164,6 +168,7 @@ public class FragmentPrimary extends Fragment {
                             getResources().getColor(R.color.mlWhite),
                             getResources().getDrawable(R.drawable.ic_error),
                             getResources().getColor(R.color.mlCollectRight1));
+                    getActionFromObservable.actionWhenFailureRequest();
                     return;
                 } else
                     showMessageDialog(vm_primary.getResponseMessage()
@@ -212,5 +217,28 @@ public class FragmentPrimary extends Fragment {
     }
     //______________________________________________________________________________________________ getApplicationUtility
 
+
+    //______________________________________________________________________________________________ textChangeForChangeBack
+    public TextWatcher textChangeForChangeBack(EditText editText) {
+
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                editText.setBackgroundResource(R.drawable.dw_edit_back);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        };
+
+    }
+    //______________________________________________________________________________________________ textChangeForChangeBack
 
 }

@@ -40,6 +40,9 @@ public class VM_LearnItem extends VM_Primary {
                 .getSummaryWasteNotice(
                         authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<MR_ItemLearn>() {
             @Override
             public void onResponse(Call<MR_ItemLearn> call, Response<MR_ItemLearn> response) {

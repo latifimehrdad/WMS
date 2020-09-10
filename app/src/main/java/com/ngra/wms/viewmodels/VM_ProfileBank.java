@@ -7,7 +7,6 @@ import com.ngra.wms.models.ModelResponsePrimary;
 import com.ngra.wms.models.MD_SpinnerItem;
 import com.ngra.wms.models.MR_SpinnerItems;
 import com.ngra.wms.models.ModelUserAccounts;
-import com.ngra.wms.utility.StaticFunctions;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.views.activitys.MainActivity;
 import com.ngra.wms.views.application.ApplicationWMS;
@@ -51,11 +50,12 @@ public class VM_ProfileBank extends VM_Primary {
                         getAccountNumber(),
                         authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
             @Override
             public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
-                if (StaticFunctions.isCancel)
-                    return;
                 setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     setResponseMessage(getResponseMessage(response.body()));
@@ -89,11 +89,12 @@ public class VM_ProfileBank extends VM_Primary {
                 .getUserAccountNumber(
                         authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<ModelUserAccounts>() {
             @Override
             public void onResponse(Call<ModelUserAccounts> call, Response<ModelUserAccounts> response) {
-                if (StaticFunctions.isCancel)
-                    return;
                 setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     if (response.body().getResult() == null)
@@ -132,11 +133,12 @@ public class VM_ProfileBank extends VM_Primary {
                 .getBanks(
                         authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<MR_SpinnerItems>() {
             @Override
             public void onResponse(Call<MR_SpinnerItems> call, Response<MR_SpinnerItems> response) {
-                if (StaticFunctions.isCancel)
-                    return;
                 setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     banks = response.body().getResult();

@@ -96,4 +96,10 @@ public class BestScore extends FragmentPrimary implements FragmentPrimary.getAct
     //______________________________________________________________________________________________ setAdapterBestScore
 
 
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
 }

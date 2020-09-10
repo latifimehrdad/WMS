@@ -79,6 +79,15 @@ public class Learn extends FragmentPrimary implements FragmentPrimary.getActionF
     //______________________________________________________________________________________________ getActionFromObservable
 
 
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
+
+
     //______________________________________________________________________________________________ setTabs
     private void setTabs() {
 

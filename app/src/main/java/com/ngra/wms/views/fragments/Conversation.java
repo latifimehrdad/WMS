@@ -159,4 +159,10 @@ public class Conversation extends FragmentPrimary implements FragmentPrimary.get
     //______________________________________________________________________________________________ setAdapter
 
 
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
 }

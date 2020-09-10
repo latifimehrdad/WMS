@@ -70,6 +70,9 @@ public class VM_Map extends VM_Primary {
                 .getRetrofitApiInterface()
                 .getSuggestionAddress(url.toString()));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall()
                 .enqueue(new Callback<List<MD_SuggestionAddress>>() {
                     @Override
@@ -119,6 +122,9 @@ public class VM_Map extends VM_Primary {
                 .getRetrofitApiInterface()
                 .getBoothList(md_getBooth, authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<MR_BoothList>() {
             @Override
             public void onResponse(Call<MR_BoothList> call, Response<MR_BoothList> response) {
@@ -160,6 +166,9 @@ public class VM_Map extends VM_Primary {
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .getAddress(url));
+
+        if (getPrimaryCall() == null)
+            return;
 
         getPrimaryCall()
                 .enqueue(new Callback<ModelGetAddress>() {

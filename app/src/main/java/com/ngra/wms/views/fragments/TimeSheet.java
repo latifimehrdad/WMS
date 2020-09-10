@@ -160,6 +160,16 @@ public class TimeSheet extends FragmentPrimary implements
     //______________________________________________________________________________________________ getActionFromObservable
 
 
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
+
+
+
     //______________________________________________________________________________________________ getTimeSheet
     private void getTimeSheet() {
 

@@ -7,7 +7,7 @@ import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.ModelResponsePrimary;
 import com.ngra.wms.models.ModelSettingInfo;
 import com.ngra.wms.models.MD_Token;
-import com.ngra.wms.utility.StaticFunctions;
+import com.ngra.wms.utility.ApplicationUtility;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.views.application.ApplicationWMS;
 
@@ -87,6 +87,9 @@ public class VM_VerifyCode extends VM_Primary {
                         getPhoneNumber(),
                         authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
             @Override
             public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
@@ -135,13 +138,18 @@ public class VM_VerifyCode extends VM_Primary {
                         verifyCode,
                         authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<MD_Token>() {
             @Override
             public void onResponse(Call<MD_Token> call, Response<MD_Token> response) {
                 setResponseMessage(checkResponse(response, true));
                 if (getResponseMessage() == null) {
                     MDToken = response.body();
-                    if (StaticFunctions.SaveToken(getContext(), MDToken))
+                    ApplicationUtility utility = ApplicationWMS.getApplicationWMS(getContext())
+                            .getUtilityComponent().getApplicationUtility();
+                    if (utility.saveToken(getContext(), MDToken))
                         getLoginInformation();
                 } else
                     sendActionToObservable(StaticValues.ML_ResponseError);
@@ -173,12 +181,17 @@ public class VM_VerifyCode extends VM_Primary {
                 .getSettingInfo(
                         authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<ModelSettingInfo>() {
             @Override
             public void onResponse(Call<ModelSettingInfo> call, Response<ModelSettingInfo> response) {
                 setResponseMessage(checkResponse(response, true));
                 if (getResponseMessage() == null) {
-                    if (StaticFunctions.SaveProfile(getContext(), response.body().getResult()))
+                    ApplicationUtility utility = ApplicationWMS.getApplicationWMS(getContext())
+                            .getUtilityComponent().getApplicationUtility();
+                    if (utility.saveProfile(getContext(), response.body().getResult()))
                         sendActionToObservable(StaticValues.ML_GoToHome);
                 } else
                     sendActionToObservable(StaticValues.ML_ResponseError);
@@ -217,6 +230,9 @@ public class VM_VerifyCode extends VM_Primary {
                         RetrofitApis.client_secret_value,
                         phoneNumber,
                         authorization));
+
+        if (getPrimaryCall() == null)
+            return;
 
         getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
             @Override

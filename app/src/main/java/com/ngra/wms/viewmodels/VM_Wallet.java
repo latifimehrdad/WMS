@@ -46,6 +46,9 @@ public class VM_Wallet extends VM_Primary {
                 .getRetrofitApiInterface()
                 .getScoreList(Authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<MR_ScoreList>() {
             @Override
             public void onResponse(Call<MR_ScoreList> call, Response<MR_ScoreList> response) {
@@ -84,6 +87,9 @@ public class VM_Wallet extends VM_Primary {
                 .getRetrofitApiInterface()
                 .getChartReport(Authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<MR_ChartReport>() {
             @Override
             public void onResponse(Call<MR_ChartReport> call, Response<MR_ChartReport> response) {
@@ -119,6 +125,9 @@ public class VM_Wallet extends VM_Primary {
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .getUserScorePriceReport(Authorization));
+
+        if (getPrimaryCall() == null)
+            return;
 
         getPrimaryCall().enqueue(new Callback<MR_UserScorePriceReport>() {
             @Override

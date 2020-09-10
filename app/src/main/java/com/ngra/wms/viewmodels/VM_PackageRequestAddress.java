@@ -10,7 +10,7 @@ import com.ngra.wms.models.ModelGetAddress;
 import com.ngra.wms.models.ModelHousingBuildings;
 import com.ngra.wms.models.ModelResponsePrimary;
 import com.ngra.wms.models.ModelSettingInfo;
-import com.ngra.wms.utility.StaticFunctions;
+import com.ngra.wms.utility.ApplicationUtility;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.views.application.ApplicationWMS;
 
@@ -71,11 +71,12 @@ public class VM_PackageRequestAddress extends VM_Primary {
                         addressId,
                         authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
             @Override
             public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
-                if (StaticFunctions.isCancel)
-                    return;
                 setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     setResponseMessage(getResponseMessage(response.body()));
@@ -109,13 +110,18 @@ public class VM_PackageRequestAddress extends VM_Primary {
                 .getSettingInfo(
                         Authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<ModelSettingInfo>() {
             @Override
             public void onResponse(Call<ModelSettingInfo> call, Response<ModelSettingInfo> response) {
 
                 String m = checkResponse(response, true);
                 if (m == null) {
-                    if (StaticFunctions.SaveProfile(getContext(), response.body().getResult()))
+                    ApplicationUtility utility = ApplicationWMS.getApplicationWMS(getContext())
+                            .getUtilityComponent().getApplicationUtility();
+                    if (utility.saveProfile(getContext(), response.body().getResult()))
                         sendActionToObservable(StaticValues.ML_EditUserAddress);
                 } else {
                     sendActionToObservable(StaticValues.ML_ResponseError);
@@ -135,7 +141,6 @@ public class VM_PackageRequestAddress extends VM_Primary {
     //______________________________________________________________________________________________ getTypeBuilding
     public void getTypeBuilding() {
 
-        StaticFunctions.isCancel = false;
         RetrofitComponent retrofitComponent = ApplicationWMS
                 .getApplicationWMS(getContext())
                 .getRetrofitComponent();
@@ -146,11 +151,12 @@ public class VM_PackageRequestAddress extends VM_Primary {
                 .getRetrofitApiInterface()
                 .getHousingBuildings(authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<ModelHousingBuildings>() {
             @Override
-            public void onResponse(Call<ModelHousingBuildings> call, Response<ModelHousingBuildings> response) {
-                if (StaticFunctions.isCancel)
-                    return;
+            public void onResponse(Call<ModelHousingBuildings> call, Response<ModelHousingBuildings> response) { ;
                 setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     buildingTypes = response.body().getResult();
@@ -181,6 +187,9 @@ public class VM_PackageRequestAddress extends VM_Primary {
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .getAddress(url));
+
+        if (getPrimaryCall() == null)
+            return;
 
         getPrimaryCall().enqueue(new Callback<ModelGetAddress>() {
             @Override

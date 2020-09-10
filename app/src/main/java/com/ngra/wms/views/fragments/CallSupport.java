@@ -231,4 +231,11 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.getA
     //______________________________________________________________________________________________ showLoading
 
 
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
 }

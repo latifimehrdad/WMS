@@ -41,6 +41,9 @@ public class VM_AccountFundRequests extends VM_Primary {
                 .getRetrofitApiInterface()
                 .getAccountFundRequests(Authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<MR_accountFundRequests>() {
             @Override
             public void onResponse(Call<MR_accountFundRequests> call, Response<MR_accountFundRequests> response) {

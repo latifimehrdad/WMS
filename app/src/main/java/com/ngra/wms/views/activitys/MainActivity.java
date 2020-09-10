@@ -43,10 +43,11 @@ import android.widget.Toast;
 
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.ActivityMainBinding;
-import com.ngra.wms.utility.StaticFunctions;
+import com.ngra.wms.utility.ApplicationUtility;
 import com.ngra.wms.viewmodels.MainActivityViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.ngra.wms.views.application.ApplicationWMS;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -224,7 +225,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         ExitProfile.setOnClickListener(v -> {
-            if (StaticFunctions.LogOut(MainActivity.this)) {
+            ApplicationUtility utility = ApplicationWMS.getApplicationWMS(MainActivity.this)
+                    .getUtilityComponent().getApplicationUtility();
+            if (utility.logOut(MainActivity.this)) {
                 mDrawer.closeDrawer(Gravity.RIGHT);
                 MainActivity.completeProfile = false;
 

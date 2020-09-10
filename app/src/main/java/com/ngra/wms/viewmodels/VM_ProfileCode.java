@@ -5,7 +5,6 @@ import android.app.Activity;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.ModelBuildingRenovationCode;
 import com.ngra.wms.models.ModelResponsePrimary;
-import com.ngra.wms.utility.StaticFunctions;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.views.activitys.MainActivity;
 import com.ngra.wms.views.application.ApplicationWMS;
@@ -42,11 +41,12 @@ public class VM_ProfileCode extends VM_Primary {
                         buildingRenovationCode,
                         authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
             @Override
             public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
-                if (StaticFunctions.isCancel)
-                    return;
                 setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     setResponseMessage(getResponseMessage(response.body()));
@@ -80,11 +80,12 @@ public class VM_ProfileCode extends VM_Primary {
                 .getBuildingRenovationCode(
                         Authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<ModelBuildingRenovationCode>() {
             @Override
             public void onResponse(Call<ModelBuildingRenovationCode> call, Response<ModelBuildingRenovationCode> response) {
-                if (StaticFunctions.isCancel)
-                    return;
                 setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     if (response.body().getResult() == null)

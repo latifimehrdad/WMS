@@ -36,7 +36,6 @@ import com.cunoraz.gifview.library.GifView;
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.FragmentPackRequestAddressBinding;
 import com.ngra.wms.models.MD_SpinnerItem;
-import com.ngra.wms.utility.StaticFunctions;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_PackageRequestAddress;
 import com.ngra.wms.views.application.ApplicationWMS;
@@ -54,8 +53,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-
-import static com.ngra.wms.utility.StaticFunctions.TextChangeForChangeBack;
 
 public class PackageRequestAddress extends FragmentPrimary implements
         FragmentPrimary.getActionFromObservable, OnMapReadyCallback {
@@ -248,6 +245,17 @@ public class PackageRequestAddress extends FragmentPrimary implements
     //______________________________________________________________________________________________ getActionFromObservable
 
 
+
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
+
+
+
     //______________________________________________________________________________________________ setOnClick
     private void setOnClick() {
 
@@ -388,7 +396,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
 
         mMap.setOnMapLoadedCallback(() -> {
             LinearLayoutWaitMap.setVisibility(View.GONE);
-            if (!StaticFunctions.isLocationEnabled(getContext())) {
+            if (!vm_packageRequestAddress.isLocationEnabled(getContext())) {
                 showRequestTypeDialog();
             } else {
                 TryToLocation = 0;
@@ -509,15 +517,15 @@ public class PackageRequestAddress extends FragmentPrimary implements
     //______________________________________________________________________________________________ setTextWatcher
     private void setTextWatcher() {
         EditTextAddress.setBackgroundResource(R.color.mlEdit);
-        EditTextAddress.addTextChangedListener(TextChangeForChangeBack(EditTextAddress));
+        EditTextAddress.addTextChangedListener(textChangeForChangeBack(EditTextAddress));
         EditTextPersonCount.setBackground(getResources().getDrawable(R.drawable.dw_edit_back));
-        EditTextPersonCount.addTextChangedListener(TextChangeForChangeBack(EditTextPersonCount));
+        EditTextPersonCount.addTextChangedListener(textChangeForChangeBack(EditTextPersonCount));
         EditTextUnitCount.setBackground(getResources().getDrawable(R.drawable.dw_edit_back));
-        EditTextUnitCount.addTextChangedListener(TextChangeForChangeBack(EditTextUnitCount));
+        EditTextUnitCount.addTextChangedListener(textChangeForChangeBack(EditTextUnitCount));
         EditTextUnitNumber.setBackground(getResources().getDrawable(R.drawable.dw_edit_back));
-        EditTextUnitNumber.addTextChangedListener(TextChangeForChangeBack(EditTextUnitNumber));
+        EditTextUnitNumber.addTextChangedListener(textChangeForChangeBack(EditTextUnitNumber));
         EditTextPlateNumber.setBackground(getResources().getDrawable(R.drawable.dw_edit_back));
-        EditTextPlateNumber.addTextChangedListener(TextChangeForChangeBack(EditTextPlateNumber));
+        EditTextPlateNumber.addTextChangedListener(textChangeForChangeBack(EditTextPlateNumber));
     }
     //______________________________________________________________________________________________ setTextWatcher
 
@@ -623,7 +631,6 @@ public class PackageRequestAddress extends FragmentPrimary implements
 
     //______________________________________________________________________________________________ dismissLoading
     private void dismissLoading() {
-        StaticFunctions.isCancel = true;
         txtLoading.setText(getResources().getString(R.string.FragmentPackRequestAddress));
         RelativeLayoutSave.setBackground(getResources().getDrawable(R.drawable.save_info_button));
         gifLoading.setVisibility(View.GONE);
@@ -638,7 +645,6 @@ public class PackageRequestAddress extends FragmentPrimary implements
 
     //______________________________________________________________________________________________ showLoading
     private void showLoading() {
-        StaticFunctions.isCancel = false;
         txtLoading.setText(getResources().getString(R.string.Cancel));
         RelativeLayoutSave.setBackground(getResources().getDrawable(R.drawable.button_red));
         gifLoading.setVisibility(View.VISIBLE);

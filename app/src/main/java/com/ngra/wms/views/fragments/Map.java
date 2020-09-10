@@ -47,7 +47,6 @@ import com.ngra.wms.models.MD_AdapterSuggestion;
 import com.ngra.wms.models.MD_Booth;
 import com.ngra.wms.models.MD_SuggestionAddress;
 import com.ngra.wms.utility.ML_Map;
-import com.ngra.wms.utility.StaticFunctions;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Map;
 import com.ngra.wms.views.adaptors.AP_Suggestion;
@@ -250,6 +249,17 @@ public class Map extends FragmentPrimary implements
 
     }
     //______________________________________________________________________________________________ getActionFromObservable
+
+
+
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
+
 
 
     //______________________________________________________________________________________________ init
@@ -469,7 +479,7 @@ public class Map extends FragmentPrimary implements
         mMap.setOnMapLoadedCallback(() -> {
             mapLoaded = true;
             clickMarker = false;
-            if (!StaticFunctions.isLocationEnabled(getContext())) {
+            if (!vm_map.isLocationEnabled(getContext())) {
                 showRequestTypeDialog();
             } else {
                 tryToLocation = 0;

@@ -63,4 +63,9 @@ public class LearnSeparation extends FragmentPrimary implements FragmentPrimary.
     //______________________________________________________________________________________________ getActionFromObservable
 
 
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
 }

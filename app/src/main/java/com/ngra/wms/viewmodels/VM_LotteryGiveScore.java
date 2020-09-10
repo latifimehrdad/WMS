@@ -47,6 +47,9 @@ public class VM_LotteryGiveScore extends VM_Primary {
                 .getRetrofitApiInterface()
                 .GetUserScore(Authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<MR_GiveScore>() {
             @Override
             public void onResponse(Call<MR_GiveScore> call, Response<MR_GiveScore> response) {
@@ -83,6 +86,9 @@ public class VM_LotteryGiveScore extends VM_Primary {
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .getScoreList(Authorization));
+
+        if (getPrimaryCall() == null)
+            return;
 
         getPrimaryCall().enqueue(new Callback<MR_ScoreList>() {
             @Override

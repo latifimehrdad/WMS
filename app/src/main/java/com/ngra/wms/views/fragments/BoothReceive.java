@@ -196,4 +196,12 @@ public class BoothReceive extends FragmentPrimary implements
     //______________________________________________________________________________________________ itemChoose
 
 
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
+
 }

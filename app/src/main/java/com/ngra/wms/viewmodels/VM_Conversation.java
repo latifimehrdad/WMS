@@ -43,6 +43,9 @@ public class VM_Conversation extends VM_Primary {
                         ticketRef,
                         authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<MR_TicketReplyList>() {
             @Override
             public void onResponse(Call<MR_TicketReplyList> call, Response<MR_TicketReplyList> response) {
@@ -82,6 +85,9 @@ public class VM_Conversation extends VM_Primary {
                         message,
                         Authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<MR_TicketReplyList>() {
             @Override
             public void onResponse(Call<MR_TicketReplyList> call, Response<MR_TicketReplyList> response) {
@@ -118,6 +124,9 @@ public class VM_Conversation extends VM_Primary {
                 .CloseTicket(
                         replyId,
                         authorization));
+
+        if (getPrimaryCall() == null)
+            return;
 
         getPrimaryCall().enqueue(new Callback<MR_TicketReplyList>() {
             @Override

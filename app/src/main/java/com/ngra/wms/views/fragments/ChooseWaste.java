@@ -233,4 +233,11 @@ public class ChooseWaste extends FragmentPrimary implements
     //______________________________________________________________________________________________ itemWasteClickActionDelete
 
 
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
 }

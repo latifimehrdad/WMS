@@ -43,6 +43,9 @@ public class VM_CollectRequestOrder extends VM_Primary {
                 .getWasteRequests(
                         Authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<MR_WasteRequest>() {
             @Override
             public void onResponse(Call<MR_WasteRequest> call, Response<MR_WasteRequest> response) {
@@ -82,6 +85,9 @@ public class VM_CollectRequestOrder extends VM_Primary {
                 .WasteCollectionCanceled(
                         getMd_itemWasteRequests().get(position).getRequestCode(),
                         Authorization));
+
+        if (getPrimaryCall() == null)
+            return;
 
         getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
             @Override

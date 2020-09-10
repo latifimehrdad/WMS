@@ -181,6 +181,15 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.getAc
     //______________________________________________________________________________________________ getActionFromObservable
 
 
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
+
+
     //______________________________________________________________________________________________ setOnclick
     private void setOnclick() {
 

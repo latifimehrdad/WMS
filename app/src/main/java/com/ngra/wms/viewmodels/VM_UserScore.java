@@ -38,6 +38,9 @@ public class VM_UserScore extends VM_Primary {
                 .getRetrofitApiInterface()
                 .getUserScoreInfoList(authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<MR_UserScoreInfoList>() {
             @Override
             public void onResponse(Call<MR_UserScoreInfoList> call, Response<MR_UserScoreInfoList> response) {

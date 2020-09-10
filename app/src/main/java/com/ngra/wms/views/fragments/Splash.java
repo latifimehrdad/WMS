@@ -109,6 +109,15 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.getAction
     //______________________________________________________________________________________________ getMessageFromObservable
 
 
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
+
+
     //______________________________________________________________________________________________ checkToken
     private void checkToken() {
         imageViewLogo.setVisibility(View.VISIBLE);

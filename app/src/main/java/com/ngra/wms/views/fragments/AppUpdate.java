@@ -193,4 +193,10 @@ public class AppUpdate extends FragmentPrimary implements FragmentPrimary.getAct
     //______________________________________________________________________________________________ setProgress
 
 
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
 }

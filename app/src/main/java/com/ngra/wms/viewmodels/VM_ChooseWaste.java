@@ -43,6 +43,9 @@ public class VM_ChooseWaste extends VM_Primary {
                 .getWasteList(
                         authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<MR_ItemsWast>() {
             @Override
             public void onResponse(Call<MR_ItemsWast> call, Response<MR_ItemsWast> response) {

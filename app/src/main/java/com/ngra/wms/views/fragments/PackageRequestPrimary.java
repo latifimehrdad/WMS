@@ -20,7 +20,6 @@ import com.ngra.wms.R;
 import com.ngra.wms.databinding.FragmentPackRequestPrimaryBinding;
 import com.ngra.wms.models.ModelPackage;
 import com.ngra.wms.utility.ApplicationUtility;
-import com.ngra.wms.utility.StaticFunctions;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_PackageRequestPrimary;
 import com.ngra.wms.views.application.ApplicationWMS;
@@ -153,7 +152,7 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
             FPRPSpinnerDay.setVisibility(View.GONE);
             LinearLayoutTimeSheet.setVisibility(View.GONE);
             if (getContext() != null)
-                setPackageDate(StaticFunctions.PackageRequestDate(getContext()));
+                setPackageDate(vm_packageRequestPrimary.packageRequestDate(getContext()));
 
             String tag = (String) TextViewRequest.getTag();
             if (statues.equals(Byte.valueOf(tag)))
@@ -206,6 +205,16 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
 
     }
     //______________________________________________________________________________________________ getActionFromObservable
+
+
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
+
 
 
     //______________________________________________________________________________________________ setPackageDate
@@ -316,7 +325,6 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
 
     //______________________________________________________________________________________________ dismissLoading
     private void dismissLoading() {
-        StaticFunctions.isCancel = true;
         txtLoading.setText(getResources().getString(R.string.Save));
         RelativeLayoutSave.setBackground(getResources().getDrawable(R.drawable.save_info_button));
         gifLoading.setVisibility(View.GONE);
@@ -328,7 +336,6 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
 
     //______________________________________________________________________________________________ showLoading
     private void showLoading() {
-        StaticFunctions.isCancel = false;
         txtLoading.setText(getResources().getString(R.string.Cancel));
         RelativeLayoutSave.setBackground(getResources().getDrawable(R.drawable.button_red));
         gifLoading.setVisibility(View.VISIBLE);

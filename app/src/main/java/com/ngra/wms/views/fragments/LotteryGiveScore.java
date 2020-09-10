@@ -95,6 +95,14 @@ public class LotteryGiveScore extends FragmentPrimary implements FragmentPrimary
     //______________________________________________________________________________________________ getActionFromObservable
 
 
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
+
     //______________________________________________________________________________________________ setAdapterGiveScoreListNormal
     private void setAdapterGiveScoreListNormal() {
 

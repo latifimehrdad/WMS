@@ -152,4 +152,12 @@ public class CollectRequestOrder extends FragmentPrimary implements
     //______________________________________________________________________________________________ itemRequestCall
 
 
+
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
 }

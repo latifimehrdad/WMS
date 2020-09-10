@@ -208,6 +208,7 @@
     <string name="AccountFundRequestPaid">پرداخت شده</string>
     <string name="RequestIsEmpty">هیچ درخواستی ثبت نشده</string>
     <string name="Version">نسخه</string>
+    <string name="InternetNotAvailable">اینترنت دستگاه خود را روشن کنید</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 

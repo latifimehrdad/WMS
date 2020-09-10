@@ -36,8 +36,6 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 
-import static com.ngra.wms.utility.StaticFunctions.TextChangeForChangeBack;
-
 public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
 
@@ -339,6 +337,16 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.ge
 
     }
     //______________________________________________________________________________________________ getActionFromObservable
+
+
+
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
 
 
     //______________________________________________________________________________________________ setProfileInfo
@@ -675,10 +683,10 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.ge
     //______________________________________________________________________________________________ setTextWatcher
     private void setTextWatcher() {
         editFirsName.setBackgroundResource(R.drawable.dw_edit_back);
-        editFirsName.addTextChangedListener(TextChangeForChangeBack(editFirsName));
+        editFirsName.addTextChangedListener(textChangeForChangeBack(editFirsName));
 
         edtiLastName.setBackgroundResource(R.drawable.dw_edit_back);
-        edtiLastName.addTextChangedListener(TextChangeForChangeBack(edtiLastName));
+        edtiLastName.addTextChangedListener(textChangeForChangeBack(edtiLastName));
 
         layoutGender.setBackgroundColor(getResources().getColor(R.color.mlWhite));
 
@@ -691,7 +699,7 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.ge
         LayoutUser.setBackground(getResources().getDrawable(R.drawable.dw_edit_back));
 
         editReferenceCode.setBackgroundResource(R.drawable.dw_edit_back);
-        editReferenceCode.addTextChangedListener(TextChangeForChangeBack(editReferenceCode));
+        editReferenceCode.addTextChangedListener(textChangeForChangeBack(editReferenceCode));
 
     }
     //______________________________________________________________________________________________ setTextWatcher

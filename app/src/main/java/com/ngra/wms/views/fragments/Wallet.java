@@ -128,6 +128,16 @@ public class Wallet extends FragmentPrimary implements FragmentPrimary.getAction
     //______________________________________________________________________________________________ getActionFromObservable
 
 
+
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
+
+
     //______________________________________________________________________________________________ init
     private void init() {
 

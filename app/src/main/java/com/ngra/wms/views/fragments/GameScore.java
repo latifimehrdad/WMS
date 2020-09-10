@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -17,12 +18,20 @@ import com.ngra.wms.viewmodels.VM_BestScore;
 import com.ngra.wms.views.adaptors.lottery.AP_BestScore;
 import com.ngra.wms.views.fragments.FragmentPrimary;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class GameScore extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
 
     private VM_BestScore vm_bestScore;
+
+    @BindView(R.id.RecyclerViewGiveScore)
+    RecyclerView RecyclerViewGiveScore;
+
+    @BindView(R.id.TextViewTitle)
+    TextView TextViewTitle;
+
 
     //______________________________________________________________________________________________ FragmentGameNew
     public GameScore() {
@@ -60,7 +69,7 @@ public class GameScore extends FragmentPrimary implements FragmentPrimary.getAct
                 GameScore.this,
                 vm_bestScore.getPublishSubject(),
                 vm_bestScore);
-        //vm_bestScore.getBestScore("game");
+        vm_bestScore.getBestScore("game");
     }
     //______________________________________________________________________________________________ onStart
 
@@ -80,16 +89,24 @@ public class GameScore extends FragmentPrimary implements FragmentPrimary.getAct
 
     //______________________________________________________________________________________________ setAdapterBestScore
     private void setAdapterBestScore() {
-//        AP_BestScore ap_bestScore = new AP_BestScore(vm_bestScore.getMd_bestScores());
-//        RecyclerViewGiveScore.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-//        RecyclerViewGiveScore.setAdapter(ap_bestScore);
-//        String title = getContext().getResources().getString(R.string.TopThree) + " ";
-//        if (vm_bestScore.getMd_bestScores().size() > 0)
-//            title = title + vm_bestScore.getMd_bestScores().get(0).getMonthName();
-//        TextViewTitle.setText(title);
+        AP_BestScore ap_bestScore = new AP_BestScore(vm_bestScore.getMd_bestScores());
+        RecyclerViewGiveScore.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+        RecyclerViewGiveScore.setAdapter(ap_bestScore);
+        String title = getContext().getResources().getString(R.string.TopThree) + " ";
+        if (vm_bestScore.getMd_bestScores().size() > 0)
+            title = title + vm_bestScore.getMd_bestScores().get(0).getMonthName();
+        TextViewTitle.setText(title);
     }
     //______________________________________________________________________________________________ setAdapterBestScore
 
+
+
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
 
 
 }

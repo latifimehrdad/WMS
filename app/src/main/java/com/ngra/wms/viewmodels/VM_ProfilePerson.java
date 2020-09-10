@@ -58,6 +58,9 @@ public class VM_ProfilePerson extends VM_Primary {
                 .getProfileInfo(
                         authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<ModelProfileInfo>() {
             @Override
             public void onResponse(Call<ModelProfileInfo> call, Response<ModelProfileInfo> response) {
@@ -99,6 +102,9 @@ public class VM_ProfilePerson extends VM_Primary {
                         getReferenceCode(),
                         getRegionId(),
                         authorization));
+
+        if (getPrimaryCall() == null)
+            return;
 
         getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
             @Override

@@ -29,7 +29,6 @@ import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
 
-import static com.ngra.wms.utility.StaticFunctions.TextChangeForChangeBack;
 
 public class ProfileBank extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
@@ -145,6 +144,15 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.getA
     //______________________________________________________________________________________________ getActionFromObservable
 
 
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
+
+
     //______________________________________________________________________________________________ setItemBanks
     private void setItemBanks() {
         TextBank.setText(getResources().getString(R.string.ChooseBank));
@@ -200,7 +208,7 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.getA
     //______________________________________________________________________________________________ setTextWatcher
     private void setTextWatcher() {
         editAccountNumber.setBackgroundResource(R.drawable.dw_edit_back);
-        editAccountNumber.addTextChangedListener(TextChangeForChangeBack(editAccountNumber));
+        editAccountNumber.addTextChangedListener(textChangeForChangeBack(editAccountNumber));
         LayoutBank.setBackgroundResource(R.drawable.dw_edit_back);
     }
     //______________________________________________________________________________________________ setTextWatcher

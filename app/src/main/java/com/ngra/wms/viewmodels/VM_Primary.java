@@ -1,8 +1,14 @@
 package com.ngra.wms.viewmodels;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Handler;
+import android.provider.Settings;
+import android.text.TextUtils;
 
 import com.ngra.wms.R;
 import com.ngra.wms.daggers.retrofit.RetrofitApis;
@@ -10,7 +16,7 @@ import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.ModelMessage;
 import com.ngra.wms.models.ModelResponsePrimary;
 import com.ngra.wms.models.MD_Token;
-import com.ngra.wms.utility.StaticFunctions;
+import com.ngra.wms.utility.ApplicationUtility;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.views.application.ApplicationWMS;
 
@@ -178,18 +184,25 @@ public class VM_Primary {
                         RetrofitApis.grant_type_value_Refresh_Token,
                         refresh_token));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<MD_Token>() {
             @Override
             public void onResponse(Call<MD_Token> call, Response<MD_Token> response) {
                 setResponseMessage(checkResponse(response, true));
                 if (getResponseMessage() == null) {
                     MD_Token md_token = response.body();
-                    if (StaticFunctions.SaveToken(getContext(), md_token)) {
+                    ApplicationUtility utility = ApplicationWMS.getApplicationWMS(getContext())
+                            .getUtilityComponent().getApplicationUtility();
+                    if (utility.saveToken(getContext(), md_token)) {
                         setResponseMessage(getContext().getResources().getString(R.string.PleaseTryAgain));
                         publishSubject.onNext(StaticValues.ML_ResponseError);
                     }
                 } else {
-                    StaticFunctions.LogOut(getContext());
+                    ApplicationUtility utility = ApplicationWMS.getApplicationWMS(getContext())
+                            .getUtilityComponent().getApplicationUtility();
+                    utility.logOut(getContext());
                     System.exit(0);
                 }
             }
@@ -237,7 +250,14 @@ public class VM_Primary {
     //______________________________________________________________________________________________ setPrimaryCall
     public void setPrimaryCall(Call primaryCall) {
         cancelRequest();
-        this.primaryCall = primaryCall;
+        if (isInternetConnected()) {
+            setResponseMessage("");
+            this.primaryCall = primaryCall;
+        } else {
+            setResponseMessage(getContext().getResources().getString(R.string.InternetNotAvailable));
+            this.primaryCall = null;
+            sendActionToObservable(StaticValues.ML_InternetAccessFailed);
+        }
     }
     //______________________________________________________________________________________________ setPrimaryCall
 
@@ -281,9 +301,9 @@ public class VM_Primary {
     public void sendActionToObservable(Byte action) {
         Handler handler = new Handler();
         if (action.equals(StaticValues.ML_ResponseError))
-            handler.postDelayed(() -> reactionToIncorrectResponse(action), 200);
+            handler.postDelayed(() -> reactionToIncorrectResponse(action), 500);
         else
-            handler.postDelayed(() -> publishSubject.onNext(action), 200);
+            handler.postDelayed(() -> publishSubject.onNext(action), 500);
 
     }
     //______________________________________________________________________________________________ sendActionToObservable
@@ -302,5 +322,42 @@ public class VM_Primary {
     }
     //_____________________________________________________________________________________________ setResponseCode
 
+
+    //______________________________________________________________________________________________ isLocationEnabled
+    public boolean isLocationEnabled(Context context) {
+        int locationMode;
+        String locationProviders;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            try {
+                locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
+
+            } catch (Settings.SettingNotFoundException e) {
+                e.printStackTrace();
+                return false;
+            }
+
+            return locationMode != Settings.Secure.LOCATION_MODE_OFF;
+
+        } else {
+            locationProviders = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+            return !TextUtils.isEmpty(locationProviders);
+        }
+    }
+    //______________________________________________________________________________________________ isLocationEnabled
+
+
+
+    //______________________________________________________________________________________________ isInternetConnected
+    public boolean isInternetConnected() {
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if (activeNetwork == null)
+            return false;
+        return activeNetwork.isConnectedOrConnecting();
+    }
+    //______________________________________________________________________________________________ isInternetConnected
 
 }

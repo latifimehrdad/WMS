@@ -190,4 +190,12 @@ public class CollectRequest extends FragmentPrimary implements
     //______________________________________________________________________________________________ itemWasteClickActionDelete
 
 
+
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
 }

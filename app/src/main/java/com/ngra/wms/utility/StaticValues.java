@@ -128,6 +128,7 @@ public class StaticValues {
     public static Byte ML_GetBoothListEmpty = 47;
     public static Byte ML_UpdateProgress = 48;
     public static Byte ML_AccountFundRequest = 49;
+    public static Byte ML_InternetAccessFailed = 50;
     //***** Observable Control *****
 
 

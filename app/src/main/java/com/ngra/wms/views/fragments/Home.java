@@ -296,4 +296,13 @@ public class Home extends FragmentPrimary implements FragmentPrimary.getActionFr
     //______________________________________________________________________________________________ setLayout
 
 
+
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
+
 }

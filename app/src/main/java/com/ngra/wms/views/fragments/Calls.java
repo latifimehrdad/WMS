@@ -63,4 +63,12 @@ public class Calls extends FragmentPrimary implements FragmentPrimary.getActionF
     }
     //______________________________________________________________________________________________ getActionFromObservable
 
+
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
 }

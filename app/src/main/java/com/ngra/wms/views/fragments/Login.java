@@ -20,14 +20,10 @@ import com.ngra.wms.databinding.FragmentFragmentLoginBinding;
 
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_Login;
-import com.ngra.wms.views.activitys.MainActivity;
 
 import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
-
-
-import static com.ngra.wms.utility.StaticFunctions.TextChangeForChangeBack;
 
 public class Login extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
@@ -130,6 +126,16 @@ public class Login extends FragmentPrimary implements FragmentPrimary.getActionF
     //______________________________________________________________________________________________ getActionFromObservable
 
 
+
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
+
+
     //______________________________________________________________________________________________ init
     private void init() {
         passVisible = false;
@@ -211,7 +217,7 @@ public class Login extends FragmentPrimary implements FragmentPrimary.getActionF
     //______________________________________________________________________________________________ setTextWatcher
     private void setTextWatcher() {
         EditPhoneNumber.setBackgroundResource(R.drawable.dw_edit_back);
-        EditPhoneNumber.addTextChangedListener(TextChangeForChangeBack(EditPhoneNumber));
+        EditPhoneNumber.addTextChangedListener(textChangeForChangeBack(EditPhoneNumber));
     }
     //______________________________________________________________________________________________ setTextWatcher
 

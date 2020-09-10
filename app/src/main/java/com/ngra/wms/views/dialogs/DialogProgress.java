@@ -14,7 +14,6 @@ import androidx.fragment.app.DialogFragment;
 
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.DialogProgressBinding;
-import com.ngra.wms.utility.StaticFunctions;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,7 +51,6 @@ public class DialogProgress extends DialogFragment {
         DialogProgressTitle.setText(Title);
         DialogProgressIgnor.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                StaticFunctions.isCancel = true;
                 DialogProgress.this.dismiss();
             }
         });

@@ -39,6 +39,9 @@ public class VM_NewWallet extends VM_Primary {
                 .getRetrofitApiInterface()
                 .getUserFundInfo(Authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<MR_userFundInfo>() {
             @Override
             public void onResponse(Call<MR_userFundInfo> call, Response<MR_userFundInfo> response) {
@@ -74,6 +77,9 @@ public class VM_NewWallet extends VM_Primary {
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .settlementDemand(amount, Authorization));
+
+        if (getPrimaryCall() == null)
+            return;
 
         getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
             @Override

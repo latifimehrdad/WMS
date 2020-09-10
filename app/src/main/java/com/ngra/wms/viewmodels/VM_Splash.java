@@ -12,9 +12,8 @@ import com.ngra.wms.models.MD_Hi;
 import com.ngra.wms.models.MR_Hi;
 import com.ngra.wms.models.ModelSettingInfo;
 import com.ngra.wms.models.MD_Token;
-import com.ngra.wms.utility.StaticFunctions;
+import com.ngra.wms.utility.ApplicationUtility;
 import com.ngra.wms.utility.StaticValues;
-import com.ngra.wms.viewmodels.VM_Primary;
 import com.ngra.wms.views.application.ApplicationWMS;
 import com.ngra.wms.views.fragments.Home;
 
@@ -79,13 +78,18 @@ public class VM_Splash extends VM_Primary {
                         RetrofitApis.client_secret_value,
                         RetrofitApis.grant_type_value));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<MD_Token>() {
             @Override
             public void onResponse(Call<MD_Token> call, Response<MD_Token> response) {
                 setResponseMessage(checkResponse(response, true));
                 if (getResponseMessage() == null) {
                     md_Token = response.body();
-                    if (StaticFunctions.SaveToken(getContext(), md_Token))
+                    ApplicationUtility utility = ApplicationWMS.getApplicationWMS(getContext())
+                            .getUtilityComponent().getApplicationUtility();
+                    if (utility.saveToken(getContext(), md_Token))
                         sendActionToObservable(StaticValues.ML_GotoLogin);
                 } else
                     sendActionToObservable(StaticValues.ML_ResponseError);
@@ -115,6 +119,9 @@ public class VM_Splash extends VM_Primary {
                 .getSettingInfo(
                         authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<ModelSettingInfo>() {
             @Override
             public void onResponse(Call<ModelSettingInfo> call, Response<ModelSettingInfo> response) {
@@ -122,10 +129,14 @@ public class VM_Splash extends VM_Primary {
                 if (getResponseMessage() == null) {
                     profile = response.body().getResult();
                     if (profile != null) {
-                        if (StaticFunctions.SaveProfile(getContext(), profile))
+                        ApplicationUtility utility = ApplicationWMS.getApplicationWMS(getContext())
+                                .getUtilityComponent().getApplicationUtility();
+                        if (utility.saveProfile(getContext(), profile))
                             sendActionToObservable(StaticValues.ML_GoToHome);
                     } else {
-                        if (StaticFunctions.LogOut(getContext()))
+                        ApplicationUtility utility = ApplicationWMS.getApplicationWMS(getContext())
+                                .getUtilityComponent().getApplicationUtility();
+                        if (utility.logOut(getContext()))
                             getTokenFromServer();
                     }
                 } else
@@ -159,16 +170,23 @@ public class VM_Splash extends VM_Primary {
                         RetrofitApis.grant_type_value_Refresh_Token,
                         refresh_token));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<MD_Token>() {
             @Override
             public void onResponse(Call<MD_Token> call, Response<MD_Token> response) {
                 setResponseMessage(checkResponse(response, true));
                 if (getResponseMessage() == null) {
                     md_Token = response.body();
-                    if (StaticFunctions.SaveToken(getContext(), md_Token))
+                    ApplicationUtility utility = ApplicationWMS.getApplicationWMS(getContext())
+                            .getUtilityComponent().getApplicationUtility();
+                    if (utility.saveToken(getContext(), md_Token))
                         sendActionToObservable(StaticValues.ML_GoToHome);
                 } else {
-                    StaticFunctions.LogOut(getContext());
+                    ApplicationUtility utility = ApplicationWMS.getApplicationWMS(getContext())
+                            .getUtilityComponent().getApplicationUtility();
+                    utility.logOut(getContext());
                     getTokenFromServer();
                 }
             }
@@ -196,6 +214,9 @@ public class VM_Splash extends VM_Primary {
                 .getHi(RetrofitApis.client_id_value,
                         RetrofitApis.client_secret_value,
                         getContext().getResources().getString(R.string.UpdateAppName)));
+
+        if (getPrimaryCall() == null)
+            return;
 
         getPrimaryCall().enqueue(new Callback<MR_Hi>() {
             @Override

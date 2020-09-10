@@ -44,6 +44,9 @@ public class VM_BoothReceivePrimary extends VM_Primary {
                 .getRetrofitApiInterface()
                 .getBoothList(md_getBooth,authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<MR_BoothList>() {
             @Override
             public void onResponse(Call<MR_BoothList> call, Response<MR_BoothList> response) {
@@ -81,6 +84,9 @@ public class VM_BoothReceivePrimary extends VM_Primary {
                 .RequestCollection(
                         md_wasteAmountRequests,
                         Authorization));
+
+        if (getPrimaryCall() == null)
+            return;
 
         getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
             @Override

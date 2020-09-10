@@ -183,4 +183,10 @@ public class Address extends FragmentPrimary implements
     //______________________________________________________________________________________________ itemAddressClick
 
 
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
 }

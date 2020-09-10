@@ -75,6 +75,9 @@ public class VM_Update extends VM_Primary {
                         .getRetrofitApiInterface()
                         .downloadFile(url));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {

@@ -75,6 +75,15 @@ public class Lottery extends FragmentPrimary implements FragmentPrimary.getActio
     //______________________________________________________________________________________________ getActionFromObservable
 
 
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
+
+
     //______________________________________________________________________________________________ setTabs
     private void setTabs() {
 

@@ -37,7 +37,10 @@ public class VM_BestScore extends VM_Primary {
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .gettopscorelist(scoreCategoryName,authorization));
+                .gettopscorelist(scoreCategoryName, authorization));
+
+        if (getPrimaryCall() == null)
+            return;
 
         getPrimaryCall().enqueue(new Callback<MR_BestScore>() {
             @Override
@@ -62,14 +65,11 @@ public class VM_BestScore extends VM_Primary {
     //______________________________________________________________________________________________ getBestScore
 
 
-
     //______________________________________________________________________________________________ getMd_bestScores
     public List<MD_BestScore> getMd_bestScores() {
         return md_bestScores;
     }
     //______________________________________________________________________________________________ getMd_bestScores
-
-
 
 
 }

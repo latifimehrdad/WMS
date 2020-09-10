@@ -102,6 +102,9 @@ public class VM_Home extends VM_Primary {
                 .getRetrofitApiInterface()
                 .getScoreReport(Authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<MR_ScoreReport>() {
             @Override
             public void onResponse(Call<MR_ScoreReport> call, Response<MR_ScoreReport> response) {

@@ -8,7 +8,7 @@ import com.ngra.wms.models.MD_WasteAmountRequests;
 import com.ngra.wms.models.MR_TimeSheet;
 import com.ngra.wms.models.ModelResponsePrimary;
 import com.ngra.wms.models.ModelSettingInfo;
-import com.ngra.wms.utility.StaticFunctions;
+import com.ngra.wms.utility.ApplicationUtility;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.views.application.ApplicationWMS;
 
@@ -42,6 +42,9 @@ public class VM_TimeSheet extends VM_Primary {
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .getVehicleTimes(authorization));
+
+        if (getPrimaryCall() == null)
+            return;
 
         getPrimaryCall().enqueue(new Callback<MR_TimeSheet>() {
             @Override
@@ -78,6 +81,9 @@ public class VM_TimeSheet extends VM_Primary {
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .getBoothTimes(authorization));
+
+        if (getPrimaryCall() == null)
+            return;
 
         getPrimaryCall().enqueue(new Callback<MR_TimeSheet>() {
             @Override
@@ -116,6 +122,10 @@ public class VM_TimeSheet extends VM_Primary {
                 .SendPackageRequest(
                         timeId,
                         authorization));
+
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
             @Override
             public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
@@ -152,12 +162,17 @@ public class VM_TimeSheet extends VM_Primary {
                 .getSettingInfo(
                         authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<ModelSettingInfo>() {
             @Override
             public void onResponse(Call<ModelSettingInfo> call, Response<ModelSettingInfo> response) {
                 String m = checkResponse(response, true);
                 if (m == null) {
-                    if (StaticFunctions.SaveProfile(getContext(), response.body().getResult()))
+                    ApplicationUtility utility = ApplicationWMS.getApplicationWMS(getContext())
+                            .getUtilityComponent().getApplicationUtility();
+                    if (utility.saveProfile(getContext(), response.body().getResult()))
                         sendActionToObservable(StaticValues.ML_SendPackageRequest);
                 } else
                     sendActionToObservable(StaticValues.ML_ResponseError);
@@ -190,6 +205,9 @@ public class VM_TimeSheet extends VM_Primary {
                 .RequestCollection(
                         md_wasteAmountRequests,
                         authorization));
+
+        if (getPrimaryCall() == null)
+            return;
 
         getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
             @Override

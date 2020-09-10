@@ -23,8 +23,6 @@ import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
 
-import static com.ngra.wms.utility.StaticFunctions.TextChangeForChangeBack;
-
 public class ProfileCode extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
     private VM_ProfileCode vm_profileCode;
@@ -110,6 +108,16 @@ public class ProfileCode extends FragmentPrimary implements FragmentPrimary.getA
     //______________________________________________________________________________________________ getActionFromObservable
 
 
+
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
+
+
     //______________________________________________________________________________________________ setClick
     private void setClick() {
 
@@ -146,7 +154,7 @@ public class ProfileCode extends FragmentPrimary implements FragmentPrimary.getA
     //______________________________________________________________________________________________ setTextWatcher
     private void setTextWatcher() {
         editBuildingRenovationCode.setBackgroundResource(R.drawable.dw_edit_back);
-        editBuildingRenovationCode.addTextChangedListener(TextChangeForChangeBack(editBuildingRenovationCode));
+        editBuildingRenovationCode.addTextChangedListener(textChangeForChangeBack(editBuildingRenovationCode));
     }
     //______________________________________________________________________________________________ setTextWatcher
 

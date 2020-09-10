@@ -1,6 +1,7 @@
 package com.ngra.wms.utility;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -11,14 +12,96 @@ import android.widget.Toast;
 
 import com.ngra.wms.R;
 import com.ngra.wms.models.MD_GregorianToSun;
+import com.ngra.wms.models.MD_Token;
+import com.ngra.wms.models.ModelSettingInfo;
 import com.ngra.wms.views.dialogs.DialogProgress;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 public class ApplicationUtility {
+
+
+    //______________________________________________________________________________________________ logOut
+    public static boolean logOut(Context context) {
+        SharedPreferences.Editor token =
+                context.getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0).edit();
+
+        token.putBoolean(context.getString(R.string.ML_CompleteProfile), false);
+        token.putString(context.getString(R.string.ML_AccessToken), null);
+        token.putString(context.getString(R.string.ML_TokenType), null);
+        token.putInt(context.getString(R.string.ML_ExpireSin), 0);
+        token.putString(context.getString(R.string.ML_PhoneNumber), null);
+        token.putString(context.getString(R.string.ML_ClientId), null);
+        token.putString(context.getString(R.string.ML_Issued), null);
+        token.putString(context.getString(R.string.ML_Expires), null);
+        token.putInt(context.getString(R.string.ML_PackageRequestStatus), 0);
+        token.apply();
+        return true;
+    }
+    //______________________________________________________________________________________________ logOut
+
+
+
+    //______________________________________________________________________________________________ saveToken
+    public boolean saveToken(Context context, MD_Token MDToken) {
+
+        SharedPreferences.Editor token = context
+                .getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0)
+                .edit();
+
+        token.putString(context.getString(R.string.ML_AccessToken), MDToken.getAccess_token());
+        token.putString(context.getString(R.string.ML_TokenType), MDToken.getToken_type());
+        token.putInt(context.getString(R.string.ML_ExpireSin), MDToken.getExpires_in());
+        token.putString(context.getString(R.string.ML_PhoneNumber), MDToken.getPhoneNumber());
+        token.putString(context.getString(R.string.ML_ClientId), MDToken.getClient_id());
+        token.putString(context.getString(R.string.ML_Issued), MDToken.getIssued());
+        token.putString(context.getString(R.string.ML_Expires), MDToken.getExpires());
+        token.putString(context.getString(R.string.ML_RefreshToken), MDToken.getRefresh_token());
+        token.apply();
+        return true;
+
+    }
+    //______________________________________________________________________________________________ saveToken
+
+
+
+    //______________________________________________________________________________________________ saveProfile
+    public boolean saveProfile(
+            Context context,
+            ModelSettingInfo.ModelProfileSetting profile) {
+        SharedPreferences.Editor token = context
+                .getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0)
+                .edit();
+        token.putString(context.getString(R.string.ML_Name), profile.getName());
+        token.putString(context.getString(R.string.ML_lastName), profile.getLastName());
+        token.putInt(context.getString(R.string.ML_Gender), profile.getGender());
+        token.putBoolean(context.getString(R.string.ML_CompleteProfile), profile.getProfileCompleted());
+        token.putBoolean(context.getString(R.string.ML_AddressCompleted), profile.getAddressCompleted());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US);
+        if (profile.getModelPackage() != null) {
+            token.putInt(context.getString(R.string.ML_PackageRequestStatus), profile.getModelPackage().getPackageRequest());
+            Date d = profile.getModelPackage().getRequestDate();
+            if (d != null)
+                token.putString(context.getString(R.string.ML_PackageRequestDate), simpleDateFormat.format(d));
+
+            Date dfrom = profile.getModelPackage().getFromDeliver();
+            if (dfrom != null)
+                token.putString(context.getString(R.string.ML_PackageRequestFrom), simpleDateFormat.format(dfrom));
+
+            Date dto = profile.getModelPackage().getToDeliver();
+            if (dto != null)
+                token.putString(context.getString(R.string.ML_PackageRequestTo), simpleDateFormat.format(dto));
+
+        }
+        token.apply();
+        return true;
+    }
+    //______________________________________________________________________________________________ saveProfile
+
 
 
     //______________________________________________________________________________________________ persianToEnglish

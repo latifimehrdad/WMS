@@ -76,6 +76,14 @@ public class LearnItems extends FragmentPrimary implements FragmentPrimary.getAc
     //______________________________________________________________________________________________ getActionFromObservable
 
 
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
+
+
     //______________________________________________________________________________________________ setAdapterItems
     private void setAdapterItems() {
         AP_LearnItem ap_learnItem = new AP_LearnItem(vm_learnItem.getItemLearns());

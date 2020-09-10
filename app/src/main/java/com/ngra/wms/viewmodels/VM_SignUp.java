@@ -42,6 +42,9 @@ public class VM_SignUp extends VM_Primary {
                         ReagentCode,
                         authorization));
 
+        if (getPrimaryCall() == null)
+            return;
+
         getPrimaryCall().enqueue(new Callback<MR_Register>() {
             @Override
             public void onResponse(Call<MR_Register> call, Response<MR_Register> response) {

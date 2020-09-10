@@ -78,4 +78,11 @@ public class GameNew extends FragmentPrimary implements FragmentPrimary.getActio
 
 
 
+
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+    @Override
+    public void actionWhenFailureRequest() {
+    }
+    //______________________________________________________________________________________________ actionWhenFailureRequest
+
 }
