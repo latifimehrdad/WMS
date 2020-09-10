@@ -119,9 +119,7 @@ public class VM_PackageRequestAddress extends VM_Primary {
 
                 String m = checkResponse(response, true);
                 if (m == null) {
-                    ApplicationUtility utility = ApplicationWMS.getApplicationWMS(getContext())
-                            .getUtilityComponent().getApplicationUtility();
-                    if (utility.saveProfile(getContext(), response.body().getResult()))
+                    if (getUtility().saveProfile(getContext(), response.body().getResult()))
                         sendActionToObservable(StaticValues.ML_EditUserAddress);
                 } else {
                     sendActionToObservable(StaticValues.ML_ResponseError);

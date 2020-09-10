@@ -220,11 +220,7 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
     //______________________________________________________________________________________________ setPackageDate
     private void setPackageDate(ModelPackage modelPackage) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.US);
-        ApplicationUtility component = ApplicationWMS
-                .getApplicationWMS(getContext())
-                .getUtilityComponent()
-                .getApplicationUtility();
-        textDate.setText(component.gregorianToSun(modelPackage.getFromDeliver()).getFullStringSun());
+        textDate.setText(vm_packageRequestPrimary.getUtility().gregorianToSun(modelPackage.getFromDeliver()).getFullStringSun());
 
         String builder = simpleDateFormat.format(modelPackage.getFromDeliver()) +
                 " تا " +

@@ -147,9 +147,7 @@ public class VM_VerifyCode extends VM_Primary {
                 setResponseMessage(checkResponse(response, true));
                 if (getResponseMessage() == null) {
                     MDToken = response.body();
-                    ApplicationUtility utility = ApplicationWMS.getApplicationWMS(getContext())
-                            .getUtilityComponent().getApplicationUtility();
-                    if (utility.saveToken(getContext(), MDToken))
+                    if (getUtility().saveToken(getContext(), MDToken))
                         getLoginInformation();
                 } else
                     sendActionToObservable(StaticValues.ML_ResponseError);
@@ -189,9 +187,7 @@ public class VM_VerifyCode extends VM_Primary {
             public void onResponse(Call<ModelSettingInfo> call, Response<ModelSettingInfo> response) {
                 setResponseMessage(checkResponse(response, true));
                 if (getResponseMessage() == null) {
-                    ApplicationUtility utility = ApplicationWMS.getApplicationWMS(getContext())
-                            .getUtilityComponent().getApplicationUtility();
-                    if (utility.saveProfile(getContext(), response.body().getResult()))
+                    if (getUtility().saveProfile(getContext(), response.body().getResult()))
                         sendActionToObservable(StaticValues.ML_GoToHome);
                 } else
                     sendActionToObservable(StaticValues.ML_ResponseError);

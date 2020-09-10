@@ -170,9 +170,7 @@ public class VM_TimeSheet extends VM_Primary {
             public void onResponse(Call<ModelSettingInfo> call, Response<ModelSettingInfo> response) {
                 String m = checkResponse(response, true);
                 if (m == null) {
-                    ApplicationUtility utility = ApplicationWMS.getApplicationWMS(getContext())
-                            .getUtilityComponent().getApplicationUtility();
-                    if (utility.saveProfile(getContext(), response.body().getResult()))
+                    if (getUtility().saveProfile(getContext(), response.body().getResult()))
                         sendActionToObservable(StaticValues.ML_SendPackageRequest);
                 } else
                     sendActionToObservable(StaticValues.ML_ResponseError);

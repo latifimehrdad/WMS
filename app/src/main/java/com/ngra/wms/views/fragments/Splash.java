@@ -79,43 +79,32 @@ public class Splash extends FragmentPrimary implements FragmentPrimary.getAction
 
         if (action.equals(StaticValues.ML_GoToHome)) {
             navController.navigate(R.id.action_splash_to_home);
-            return;
-        }
-
-        if (action.equals(StaticValues.ML_GoToUpdate)) {
+        } else if (action.equals(StaticValues.ML_GoToUpdate)) {
             if (getContext() != null) {
                 Bundle bundle = new Bundle();
                 bundle.putString(getContext().getResources().getString(R.string.ML_UpdateUrl), vm_splash.getMd_hi().getApplicationUrl());
                 bundle.putString(getContext().getResources().getString(R.string.ML_UpdateFile), vm_splash.getMd_hi().getFileName());
                 navController.navigate(R.id.action_splash_to_appUpdate, bundle);
             }
-            return;
-        }
-
-        if (action.equals(StaticValues.ML_GotoLogin)) {
+        } else if (action.equals(StaticValues.ML_GotoLogin)) {
             navController.navigate(R.id.action_splash_to_login);
-            return;
         }
 
-        if (action.equals(StaticValues.ML_ResponseFailure)
-                || action.equals(StaticValues.ML_ResponseError)
-                || action.equals(StaticValues.ML_RequestCancel)) {
-            imageViewLogo.setAnimation(null);
-            imageViewLogo.setVisibility(View.INVISIBLE);
-            buttonRefresh.setVisibility(View.VISIBLE);
-        }
 
     }
     //______________________________________________________________________________________________ getMessageFromObservable
 
 
-
     //______________________________________________________________________________________________ actionWhenFailureRequest
     @Override
     public void actionWhenFailureRequest() {
+
+        imageViewLogo.setAnimation(null);
+        imageViewLogo.setVisibility(View.INVISIBLE);
+        buttonRefresh.setVisibility(View.VISIBLE);
+
     }
     //______________________________________________________________________________________________ actionWhenFailureRequest
-
 
 
     //______________________________________________________________________________________________ checkToken

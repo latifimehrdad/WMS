@@ -37,6 +37,7 @@ public class FragmentPrimary extends Fragment {
     //______________________________________________________________________________________________ getActionFromObservable
     public interface getActionFromObservable {
         void getActionFromObservable(Byte action);
+
         void actionWhenFailureRequest();
     }
     //______________________________________________________________________________________________ getActionFromObservable
@@ -163,7 +164,8 @@ public class FragmentPrimary extends Fragment {
 
                 if ((action.equals(StaticValues.ML_RequestCancel))
                         || (action.equals(StaticValues.ML_ResponseError))
-                        || (action.equals(StaticValues.ML_ResponseFailure))) {
+                        || (action.equals(StaticValues.ML_ResponseFailure))
+                        || (action.equals(StaticValues.ML_InternetAccessFailed))) {
                     showMessageDialog(vm_primary.getResponseMessage(),
                             getResources().getColor(R.color.mlWhite),
                             getResources().getDrawable(R.drawable.ic_error),
@@ -240,5 +242,6 @@ public class FragmentPrimary extends Fragment {
 
     }
     //______________________________________________________________________________________________ textChangeForChangeBack
+
 
 }

@@ -10,6 +10,8 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.text.TextUtils;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.ngra.wms.R;
 import com.ngra.wms.daggers.retrofit.RetrofitApis;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
@@ -193,16 +195,12 @@ public class VM_Primary {
                 setResponseMessage(checkResponse(response, true));
                 if (getResponseMessage() == null) {
                     MD_Token md_token = response.body();
-                    ApplicationUtility utility = ApplicationWMS.getApplicationWMS(getContext())
-                            .getUtilityComponent().getApplicationUtility();
-                    if (utility.saveToken(getContext(), md_token)) {
+                    if (getUtility().saveToken(getContext(), md_token)) {
                         setResponseMessage(getContext().getResources().getString(R.string.PleaseTryAgain));
                         publishSubject.onNext(StaticValues.ML_ResponseError);
                     }
                 } else {
-                    ApplicationUtility utility = ApplicationWMS.getApplicationWMS(getContext())
-                            .getUtilityComponent().getApplicationUtility();
-                    utility.logOut(getContext());
+                    getUtility().logOut(getContext());
                     System.exit(0);
                 }
             }
@@ -347,7 +345,6 @@ public class VM_Primary {
     //______________________________________________________________________________________________ isLocationEnabled
 
 
-
     //______________________________________________________________________________________________ isInternetConnected
     public boolean isInternetConnected() {
         ConnectivityManager cm =
@@ -359,5 +356,17 @@ public class VM_Primary {
         return activeNetwork.isConnectedOrConnecting();
     }
     //______________________________________________________________________________________________ isInternetConnected
+
+
+    //______________________________________________________________________________________________ getUtility
+    public ApplicationUtility getUtility() {
+
+        return ApplicationWMS
+                .getApplicationWMS(getContext())
+                .getUtilityComponent()
+                .getApplicationUtility();
+    }
+    //______________________________________________________________________________________________ getUtility
+
 
 }

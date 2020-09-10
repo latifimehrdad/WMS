@@ -87,9 +87,7 @@ public class VM_Splash extends VM_Primary {
                 setResponseMessage(checkResponse(response, true));
                 if (getResponseMessage() == null) {
                     md_Token = response.body();
-                    ApplicationUtility utility = ApplicationWMS.getApplicationWMS(getContext())
-                            .getUtilityComponent().getApplicationUtility();
-                    if (utility.saveToken(getContext(), md_Token))
+                    if (getUtility().saveToken(getContext(), md_Token))
                         sendActionToObservable(StaticValues.ML_GotoLogin);
                 } else
                     sendActionToObservable(StaticValues.ML_ResponseError);
@@ -129,14 +127,10 @@ public class VM_Splash extends VM_Primary {
                 if (getResponseMessage() == null) {
                     profile = response.body().getResult();
                     if (profile != null) {
-                        ApplicationUtility utility = ApplicationWMS.getApplicationWMS(getContext())
-                                .getUtilityComponent().getApplicationUtility();
-                        if (utility.saveProfile(getContext(), profile))
+                        if (getUtility().saveProfile(getContext(), profile))
                             sendActionToObservable(StaticValues.ML_GoToHome);
                     } else {
-                        ApplicationUtility utility = ApplicationWMS.getApplicationWMS(getContext())
-                                .getUtilityComponent().getApplicationUtility();
-                        if (utility.logOut(getContext()))
+                        if (getUtility().logOut(getContext()))
                             getTokenFromServer();
                     }
                 } else
@@ -179,14 +173,10 @@ public class VM_Splash extends VM_Primary {
                 setResponseMessage(checkResponse(response, true));
                 if (getResponseMessage() == null) {
                     md_Token = response.body();
-                    ApplicationUtility utility = ApplicationWMS.getApplicationWMS(getContext())
-                            .getUtilityComponent().getApplicationUtility();
-                    if (utility.saveToken(getContext(), md_Token))
+                    if (getUtility().saveToken(getContext(), md_Token))
                         sendActionToObservable(StaticValues.ML_GoToHome);
                 } else {
-                    ApplicationUtility utility = ApplicationWMS.getApplicationWMS(getContext())
-                            .getUtilityComponent().getApplicationUtility();
-                    utility.logOut(getContext());
+                    getUtility().logOut(getContext());
                     getTokenFromServer();
                 }
             }

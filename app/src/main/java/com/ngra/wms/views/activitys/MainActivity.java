@@ -44,7 +44,7 @@ import android.widget.Toast;
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.ActivityMainBinding;
 import com.ngra.wms.utility.ApplicationUtility;
-import com.ngra.wms.viewmodels.MainActivityViewModel;
+import com.ngra.wms.viewmodels.VM_MainActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.ngra.wms.views.application.ApplicationWMS;
@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean doubleBackToExitPressedOnce = false;
     public int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private boolean preLogin = false;
+    private VM_MainActivity vm_mainActivity;
 
     @BindView(R.id.MainMenu)
     ImageView MainMenu;
@@ -121,8 +122,8 @@ public class MainActivity extends AppCompatActivity {
     //______________________________________________________________________________________________ setBindingView
     private void setBindingView() {
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        MainActivityViewModel mainActivityViewModel = new MainActivityViewModel(this);
-        binding.setMain(mainActivityViewModel);
+        vm_mainActivity = new VM_MainActivity(this);
+        binding.setMain(vm_mainActivity);
         ButterKnife.bind(this);
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
@@ -225,9 +226,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         ExitProfile.setOnClickListener(v -> {
-            ApplicationUtility utility = ApplicationWMS.getApplicationWMS(MainActivity.this)
-                    .getUtilityComponent().getApplicationUtility();
-            if (utility.logOut(MainActivity.this)) {
+            if (vm_mainActivity.getUtility().logOut(MainActivity.this)) {
                 mDrawer.closeDrawer(Gravity.RIGHT);
                 MainActivity.completeProfile = false;
 

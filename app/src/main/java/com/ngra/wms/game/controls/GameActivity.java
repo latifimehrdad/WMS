@@ -68,7 +68,7 @@ public class GameActivity extends Activity {
 
     public void ResetGame(Integer coin) {
         sendCoin(coin);
-        textView.setVisibility(View.VISIBLE);
+        //textView.setVisibility(View.VISIBLE);
     }
 
 
@@ -99,6 +99,8 @@ public class GameActivity extends Activity {
 
 
     private void sendCoin(Integer coin) {
+        if (coin == 0)
+            return;
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
 
@@ -112,12 +114,12 @@ public class GameActivity extends Activity {
                 .enqueue(new Callback<ModelResponsePrimary>() {
                     @Override
                     public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
-
+                        onBackPressed();
                     }
 
                     @Override
                     public void onFailure(Call<ModelResponsePrimary> call, Throwable t) {
-
+                        onBackPressed();
                     }
                 });
 
