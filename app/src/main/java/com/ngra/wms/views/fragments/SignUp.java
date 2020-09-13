@@ -99,19 +99,8 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.getAction
         Bundle bundle = getArguments();
         if (bundle != null && getContext() != null) {
             String phoneNumber = bundle.getString(getContext().getString(R.string.ML_PhoneNumber));
-            EditPhoneNumber.setText(phoneNumber);
+            vm_signUp.setPhoneNumber(phoneNumber);
         }
-/*        if (MainActivity.ReferenceCode != null) {
-            TextViewReferenceCode.setVisibility(View.VISIBLE);
-            StringBuilder builder = new StringBuilder();
-            builder.append(getContext().getResources().getString(R.string.ReagentCode));
-*//*            builder.append(":");*//*
-            builder.append(System.getProperty("line.separator"));
-            builder.append(MainActivity.ReferenceCode);
-            TextViewReferenceCode.setText(builder.toString());
-            TextViewReferenceCode.setVisibility(View.VISIBLE);
-        } else
-            TextViewReferenceCode.setVisibility(View.GONE);*/
     }
     //______________________________________________________________________________________________ init
 
@@ -125,7 +114,7 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.getAction
         if (action.equals(StaticValues.ML_Success)) {
             if (getContext() != null) {
                 Bundle bundle = new Bundle();
-                bundle.putString(getContext().getString(R.string.ML_PhoneNumber), EditPhoneNumber.getText().toString());
+                bundle.putString(getContext().getString(R.string.ML_PhoneNumber), vm_signUp.getPhoneNumber());
                 bundle.putString(getContext().getString(R.string.ML_Type), getContext().getResources().getString(R.string.ML_SingUp));
                 /*bundle.putString(getContext().getString(R.string.ML_Password), EditPassword.getText().toString());*/
                 navController
@@ -137,14 +126,11 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.getAction
     //______________________________________________________________________________________________ getMessageFromObservable
 
 
-
-
     //______________________________________________________________________________________________ actionWhenFailureRequest
     @Override
     public void actionWhenFailureRequest() {
     }
     //______________________________________________________________________________________________ actionWhenFailureRequest
-
 
 
     //______________________________________________________________________________________________ setTextWatcher
@@ -160,10 +146,9 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.getAction
 
         btnGetVerifyCode.setOnClickListener(v -> {
             if (checkEmpty()) {
+                hideKeyboard();
                 showLoading();
-                vm_signUp.setPhoneNumber(EditPhoneNumber.getText().toString());
-                /*vm_signUp.setPassword(EditPassword.getText().toString());*/
-                vm_signUp.sendNumber(EditTextReagentCode.getText().toString());
+                vm_signUp.sendNumber();
             }
 
         });
@@ -233,13 +218,13 @@ public class SignUp extends FragmentPrimary implements FragmentPrimary.getAction
         boolean phone;
 
 
-        if (EditPhoneNumber.getText().length() != 11) {
+        if (vm_signUp.getPhoneNumber().length() != 11) {
             EditPhoneNumber.setBackgroundResource(R.drawable.dw_edit_back_empty);
             EditPhoneNumber.setError(getResources().getString(R.string.EmptyPhoneNumber));
             EditPhoneNumber.requestFocus();
             phone = false;
         } else {
-            String ZeroNine = EditPhoneNumber.getText().subSequence(0, 2).toString();
+            String ZeroNine = vm_signUp.getPhoneNumber().subSequence(0, 2).toString();
             if (ZeroNine.equalsIgnoreCase("09"))
                 phone = true;
             else {

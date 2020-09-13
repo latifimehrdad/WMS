@@ -63,12 +63,6 @@ public class Home extends FragmentPrimary implements FragmentPrimary.getActionFr
     @BindView(R.id.LinearLayoutScoreChart)
     LinearLayout LinearLayoutScoreChart;
 
-    @BindView(R.id.TextViewAverage)
-    TextView TextViewAverage;
-
-    @BindView(R.id.TextViewMax)
-    TextView TextViewMax;
-
     @BindView(R.id.LinearLayoutShareApp)
     LinearLayout LinearLayoutShareApp;
 
@@ -149,19 +143,6 @@ public class Home extends FragmentPrimary implements FragmentPrimary.getActionFr
         if (action.equals(StaticValues.ML_GotoProfile)) {
             navController.navigate(R.id.action_home_to_profile);
             return;
-        }
-
-        if (action.equals(StaticValues.ML_GetUserScore)) {
-            if (vm_home.getMd_scoreReport() != null) {
-                long am = (long)vm_home.getMd_scoreReport().getAveragePoint();
-                TextViewAverage.setText(
-                        getApplicationUtility()
-                        .splitNumberOfAmount(am));
-                am = (long)vm_home.getMd_scoreReport().getMaxPoint();
-                TextViewMax.setText(
-                        getApplicationUtility()
-                        .splitNumberOfAmount(am));
-            }
         }
 
     }

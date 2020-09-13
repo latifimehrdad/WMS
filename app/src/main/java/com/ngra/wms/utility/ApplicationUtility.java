@@ -26,7 +26,7 @@ public class ApplicationUtility {
 
 
     //______________________________________________________________________________________________ logOut
-    public static boolean logOut(Context context) {
+    public boolean logOut(Context context) {
         SharedPreferences.Editor token =
                 context.getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0).edit();
 

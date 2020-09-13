@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.text.TextUtils;
 
+import androidx.databinding.BaseObservable;
 import androidx.lifecycle.MutableLiveData;
 
 import com.ngra.wms.R;
@@ -33,7 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class VM_Primary {
+public class VM_Primary extends BaseObservable {
 
     private PublishSubject<Byte> publishSubject;
     private String responseMessage;

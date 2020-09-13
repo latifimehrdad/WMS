@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto">
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -83,7 +84,9 @@
                             android:maxLines="1"
                             android:padding="@dimen/_2sdp"
                             android:textColor="@color/mlBlack"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="@dimen/_12sdp"
+                            android:text="@={signup.reagentCode}"
+                            app:setTextToEditText="@{signup.reagentCode}"/>
 
                         <ImageView
                             android:layout_width="@dimen/_30sdp"
@@ -127,7 +130,9 @@
                             android:maxLines="1"
                             android:padding="@dimen/_2sdp"
                             android:textColor="@color/mlBlack"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="@dimen/_12sdp"
+                            android:text="@={signup.phoneNumber}"
+                            app:setTextToEditText="@{signup.phoneNumber}"/>
 
                         <ImageView
                             android:layout_width="@dimen/_30sdp"

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,6 +31,12 @@ import params.com.stepview.StatusViewScroller;
 public class BindingAdapters {
 
 
+    @BindingAdapter(value = "setTextToEditText")
+    public static void setTextToEditText(EditText editText, String value) {
+        editText.setText(value);
+    }
+
+
     @BindingAdapter(value = "setAccountFundRequestsState")
     public static void setAccountFundRequestsState(TextView textView, Byte state) {
         Resources resources = textView.getContext().getResources();
@@ -49,6 +56,22 @@ public class BindingAdapters {
 
     }
 
+
+    //______________________________________________________________________________________________ splitNumberOfValue
+    @BindingAdapter(value = "splitNumberOfValue")
+    public static void splitNumberOfValue(TextView textView, double amount) {
+        ApplicationUtility component = ApplicationWMS
+                .getApplicationWMS(textView.getContext())
+                .getUtilityComponent()
+                .getApplicationUtility();
+
+        textView.setText(component.splitNumberOfAmount((long) amount));
+    }
+    //______________________________________________________________________________________________ splitNumberOfValue
+
+
+
+
     //______________________________________________________________________________________________ splitNumberOfAmount
     @BindingAdapter(value = "splitNumberOfAmount")
     public static void splitNumberOfAmount(TextView textView, double amount) {
@@ -57,7 +80,7 @@ public class BindingAdapters {
                 .getUtilityComponent()
                 .getApplicationUtility();
 
-        textView.setText(component.splitNumberOfAmount((long)amount) + " " +
+        textView.setText(component.splitNumberOfAmount((long) amount) + " " +
                 textView.getContext().getResources().getString(R.string.Rial));
     }
     //______________________________________________________________________________________________ splitNumberOfAmount
@@ -80,7 +103,7 @@ public class BindingAdapters {
         String v = String.format("%.0f", item.getValue());
 
         StringBuilder builder = new StringBuilder();
-        Integer amount = (int)item.getAmount() / 1000;
+        Integer amount = (int) item.getAmount() / 1000;
         builder.append("هر");
         builder.append(" ");
         builder.append(amount.toString());
@@ -96,13 +119,12 @@ public class BindingAdapters {
     }
 
 
-
     @BindingAdapter(value = {"SetScoreConfigItem"})
     public static void SetScoreConfigItem(TextView textView, MD_ScoreListItem item) {
 
         Context context = textView.getContext();
         StringBuilder builder = new StringBuilder();
-        Integer amount = (int)item.getAmount() / 1000;
+        Integer amount = (int) item.getAmount() / 1000;
         builder.append("هر");
         builder.append(" ");
         builder.append(amount.toString());
@@ -116,7 +138,6 @@ public class BindingAdapters {
     }
 
 
-
     @BindingAdapter(value = {"SetScorePrice"})
     public static void SetScorePrice(TextView textView, MD_ScoreListItem item) {
 
@@ -124,8 +145,6 @@ public class BindingAdapters {
         textView.setText(price.toString());
 
     }
-
-
 
 
     @BindingAdapter(value = {"SetScoreAmountValue"})
@@ -147,13 +166,12 @@ public class BindingAdapters {
     }
 
 
-
-    @BindingAdapter(value = {"SetScoreConfigItem","SetScoreConfigTitle"})
+    @BindingAdapter(value = {"SetScoreConfigItem", "SetScoreConfigTitle"})
     public static void SetScoreConfigItem(TextView textView, MD_ScoreListItem item, String Title) {
 
         Context context = textView.getContext();
         StringBuilder builder = new StringBuilder();
-        Integer value = (int)item.getAmount() / 1000;
+        Integer value = (int) item.getAmount() / 1000;
 
 /*        builder.append(context.getResources().getString(R.string.FragmentPackRequestPrimaryReceive));
         builder.append(" ");*/
@@ -174,16 +192,13 @@ public class BindingAdapters {
     }
 
 
-
     @BindingAdapter(value = {"SetScoreItemValue"})
     public static void SetScoreItemValue(TextView textView, double Amount) {
 
-        int am = (int)Amount;
+        int am = (int) Amount;
         textView.setText(Integer.toString(am));
 
     }
-
-
 
 
     @BindingAdapter(value = {"SetTicketDate"})
@@ -205,7 +220,7 @@ public class BindingAdapters {
         MD_GregorianToSun toSun = component.gregorianToSun(date);
 
         if (tag == null || tag.equalsIgnoreCase("")) {
-            String builder = toSun.getIntYear() + "/" + toSun.getStringMonth()+"/"+toSun.getStringDay();
+            String builder = toSun.getIntYear() + "/" + toSun.getStringMonth() + "/" + toSun.getStringDay();
             builder = builder + " - " + simpleDateFormat.format(date);
             textView.setText(builder);
         } else if (tag.equalsIgnoreCase("FullString")) {
@@ -214,9 +229,7 @@ public class BindingAdapters {
         }
 
 
-
     }
-
 
 
     @BindingAdapter(value = {"SetTimeSheetTime"})
@@ -226,8 +239,6 @@ public class BindingAdapters {
         textView.setText(simpleDateFormat.format(date));
 
     }
-
-
 
 
     @BindingAdapter(value = {"SetTicketStatus"})
@@ -286,8 +297,6 @@ public class BindingAdapters {
     }
 
 
-
-
     @BindingAdapter(value = {"SetImageItemOfWast"})
     public static void SetImageItemOfWast(ImageView imageView, String url) {
 
@@ -323,9 +332,6 @@ public class BindingAdapters {
     }
 
 
-
-
-
     @BindingAdapter(value = {"SetCountItemsWasteList"})
     public static void SetCountItemsWasteList(TextView textView, Integer count) {
         String builder = count.toString();
@@ -342,7 +348,6 @@ public class BindingAdapters {
     }
 
 
-
     @BindingAdapter(value = {"SetVisibleOrderCall"})
     public static void SetVisibleOrderCall(LinearLayout linearLayout, Byte deliveryType) {
 
@@ -351,7 +356,6 @@ public class BindingAdapters {
         else
             linearLayout.setVisibility(View.GONE);
     }
-
 
 
     @BindingAdapter(value = {"SetImageOrderType"})
@@ -382,11 +386,10 @@ public class BindingAdapters {
                 .getApplicationUtility();
 
         MD_GregorianToSun toSun = component.gregorianToSun(date);
-        String builder = toSun.getIntYear() + "/" + toSun.getStringMonth()+"/"+toSun.getStringDay();
+        String builder = toSun.getIntYear() + "/" + toSun.getStringMonth() + "/" + toSun.getStringDay();
         textView.setText(builder);
 
     }
-
 
 
     @BindingAdapter(value = {"SetOrderTime"})
@@ -419,7 +422,6 @@ public class BindingAdapters {
             textView.setBackground(null);
 
     }
-
 
 
     @BindingAdapter(value = {"SetAmountItemsWasteList"})

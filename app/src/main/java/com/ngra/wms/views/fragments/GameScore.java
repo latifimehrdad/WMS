@@ -70,6 +70,7 @@ public class GameScore extends FragmentPrimary implements FragmentPrimary.getAct
                 vm_bestScore.getPublishSubject(),
                 vm_bestScore);
         vm_bestScore.getBestScore("game");
+
     }
     //______________________________________________________________________________________________ onStart
 
@@ -79,6 +80,7 @@ public class GameScore extends FragmentPrimary implements FragmentPrimary.getAct
     public void getActionFromObservable(Byte action) {
 
         if (action.equals(StaticValues.ML_GetBestScore)) {
+            vm_bestScore.getGameReport();
             setAdapterBestScore();
         }
 

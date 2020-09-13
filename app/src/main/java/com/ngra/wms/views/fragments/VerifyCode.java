@@ -200,7 +200,7 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.getAc
                     vm_verifyCode.setPhoneNumber(PhoneNumber);
                     vm_verifyCode.sendNumber();
                 } else {
-                    vm_verifyCode.getLoginCode(PhoneNumber);
+                    vm_verifyCode.getLoginCode();
                 }
             }
         });
@@ -331,20 +331,11 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.getAc
         Boolean c6 = setBackVerifyCodeView(VerifyCode6);
 
         if (c1 && c2 && c3 && c4 && c5 && c6) {
-            String code = VerifyCode1.getText().toString() +
-                    VerifyCode2.getText().toString() +
-                    VerifyCode3.getText().toString() +
-                    VerifyCode4.getText().toString() +
-                    VerifyCode5.getText().toString() +
-                    VerifyCode6.getText().toString();
-
             showProgressDialog();
             if (VerifyType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_SingUp))) {
-                vm_verifyCode.setPhoneNumber(PhoneNumber);
-                vm_verifyCode.setVerifyCode(code);
                 vm_verifyCode.sendVerifyCode();
             } else {
-                vm_verifyCode.getLoginVerify(PhoneNumber, code);
+                vm_verifyCode.getLoginVerify();
             }
         }
 
@@ -393,6 +384,7 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.getAc
         if (bundle != null && getContext() != null) {
             PhoneNumber = bundle.getString(getContext().getString(R.string.ML_PhoneNumber));
             VerifyType = bundle.getString(getContext().getResources().getString(R.string.ML_Type));
+            vm_verifyCode.setPhoneNumber(PhoneNumber);
         }
     }
     //______________________________________________________________________________________________ setPhoneNumberPassword

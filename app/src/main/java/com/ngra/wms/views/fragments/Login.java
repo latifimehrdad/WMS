@@ -44,7 +44,6 @@ public class Login extends FragmentPrimary implements FragmentPrimary.getActionF
     @BindView(R.id.EditPhoneNumber)
     EditText EditPhoneNumber;
 
-
     @BindView(R.id.ForgetPassword)
     TextView ForgetPassword;
 
@@ -115,7 +114,7 @@ public class Login extends FragmentPrimary implements FragmentPrimary.getActionF
         if (action.equals(StaticValues.ML_Success)) {
             if (getContext() != null) {
                 Bundle bundle = new Bundle();
-                bundle.putString(getContext().getString(R.string.ML_PhoneNumber), EditPhoneNumber.getText().toString());
+                bundle.putString(getContext().getString(R.string.ML_PhoneNumber), vm_login.getPhoneNumber());
                 bundle.putString(getContext().getString(R.string.ML_Type), getContext().getResources().getString(R.string.ML_Login));
                 navController
                         .navigate(R.id.action_login_to_verifyCode, bundle);
@@ -158,17 +157,17 @@ public class Login extends FragmentPrimary implements FragmentPrimary.getActionF
             if (checkEmpty()) {
                 showLoading();
                 hideKeyboard();
-                vm_login.getLoginCode(
-                        EditPhoneNumber.getText().toString());
+                vm_login.getLoginCode();
             }
         });
 
 
         SignUpClick.setOnClickListener(v -> {
             if (getContext() != null) {
+                hideKeyboard();
                 Bundle bundle = new Bundle();
                 bundle.putString(getContext().getString(R.string.ML_Type), getContext().getString(R.string.ML_SingUp));
-                bundle.putString(getContext().getString(R.string.ML_PhoneNumber), EditPhoneNumber.getText().toString());
+                bundle.putString(getContext().getString(R.string.ML_PhoneNumber), vm_login.getPhoneNumber());
                 navController.navigate(R.id.action_login_to_signUp, bundle);
             }
         });
@@ -228,13 +227,13 @@ public class Login extends FragmentPrimary implements FragmentPrimary.getActionF
         boolean phone;
 
 
-        if (EditPhoneNumber.getText().length() != 11) {
+        if (vm_login.getPhoneNumber().length() != 11) {
             EditPhoneNumber.setBackgroundResource(R.drawable.dw_edit_back_empty);
             EditPhoneNumber.setError(getResources().getString(R.string.EmptyPhoneNumber));
             EditPhoneNumber.requestFocus();
             phone = false;
         } else {
-            String ZeroNine = EditPhoneNumber.getText().subSequence(0, 2).toString();
+            String ZeroNine = vm_login.getPhoneNumber().subSequence(0, 2).toString();
             if (ZeroNine.equalsIgnoreCase("09"))
                 phone = true;
             else {

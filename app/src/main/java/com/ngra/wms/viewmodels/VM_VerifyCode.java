@@ -7,7 +7,6 @@ import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.ModelResponsePrimary;
 import com.ngra.wms.models.ModelSettingInfo;
 import com.ngra.wms.models.MD_Token;
-import com.ngra.wms.utility.ApplicationUtility;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.views.application.ApplicationWMS;
 
@@ -18,8 +17,13 @@ import retrofit2.Response;
 public class VM_VerifyCode extends VM_Primary {
 
     private String PhoneNumber;
-    private String VerifyCode;
     private MD_Token MDToken;
+    private String verifyNumber1;
+    private String verifyNumber2;
+    private String verifyNumber3;
+    private String verifyNumber4;
+    private String verifyNumber5;
+    private String verifyNumber6;
 
 
     //______________________________________________________________________________________________ VM_VerifyCode
@@ -27,7 +31,6 @@ public class VM_VerifyCode extends VM_Primary {
         setContext(context);
     }
     //______________________________________________________________________________________________ VM_VerifyCode
-
 
 
     //______________________________________________________________________________________________ sendVerifyCode
@@ -39,22 +42,28 @@ public class VM_VerifyCode extends VM_Primary {
                         .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
+        String verifyCode = getVerifyNumber1() + getVerifyNumber2() + getVerifyNumber3() +
+                getVerifyNumber4() + getVerifyNumber5() + getVerifyNumber6();
 
-        retrofitComponent
+
+        setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .SendVerifyCode(
                         getPhoneNumber(),
-                        getVerifyCode(),
+                        verifyCode,
                         authorization
-                )
-                .enqueue(new Callback<ModelResponsePrimary>() {
+                ));
+
+        if (getPrimaryCall() == null)
+            return;
+
+                getPrimaryCall().enqueue(new Callback<ModelResponsePrimary>() {
                     @Override
                     public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
                         setResponseMessage(checkResponse(response, false));
                         if (getResponseMessage() == null) {
                             setResponseMessage(getResponseMessage(response.body()));
-                            getLoginVerify(getPhoneNumber(), getVerifyCode());
-                            /*SendMessageToObservable(StaticValues.ML_GotoLogin);*/
+                            getLoginVerify();
                         } else
                             sendActionToObservable(StaticValues.ML_ResponseError);
 
@@ -68,7 +77,6 @@ public class VM_VerifyCode extends VM_Primary {
 
     }
     //______________________________________________________________________________________________ sendVerifyCode
-
 
 
     //______________________________________________________________________________________________ sendNumber
@@ -112,14 +120,13 @@ public class VM_VerifyCode extends VM_Primary {
     //______________________________________________________________________________________________ sendNumber
 
 
-
     //______________________________________________________________________________________________ getLoginVerify
-    public void getLoginVerify(String phoneNumber, String verifyCode) {
+    public void getLoginVerify() {
 
-        phoneNumber = ApplicationWMS.getApplicationWMS(getContext())
+        setPhoneNumber(ApplicationWMS.getApplicationWMS(getContext())
                 .getUtilityComponent()
                 .getApplicationUtility()
-                .persianToEnglish(phoneNumber);
+                .persianToEnglish(getPhoneNumber()));
 
 
         RetrofitComponent retrofitComponent =
@@ -128,13 +135,15 @@ public class VM_VerifyCode extends VM_Primary {
                         .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
+        String verifyCode = getVerifyNumber1() + getVerifyNumber2() + getVerifyNumber3() +
+                getVerifyNumber4() + getVerifyNumber5() + getVerifyNumber6();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .Login(RetrofitApis.client_id_value,
                         RetrofitApis.client_secret_value,
                         RetrofitApis.grant_type_value_Login_Code,
-                        phoneNumber,
+                        getPhoneNumber(),
                         verifyCode,
                         authorization));
 
@@ -161,7 +170,6 @@ public class VM_VerifyCode extends VM_Primary {
 
     }
     //______________________________________________________________________________________________ getLoginVerify
-
 
 
     //______________________________________________________________________________________________ getLoginInformation
@@ -203,14 +211,13 @@ public class VM_VerifyCode extends VM_Primary {
     //______________________________________________________________________________________________ getLoginInformation
 
 
-
     //_____________________________________________________________________________________________ getLoginCode
-    public void getLoginCode(String phoneNumber) {
+    public void getLoginCode() {
 
-        phoneNumber = ApplicationWMS.getApplicationWMS(getContext())
+        setPhoneNumber(ApplicationWMS.getApplicationWMS(getContext())
                 .getUtilityComponent()
                 .getApplicationUtility()
-                .persianToEnglish(phoneNumber);
+                .persianToEnglish(getPhoneNumber()));
 
 
         RetrofitComponent retrofitComponent =
@@ -224,7 +231,7 @@ public class VM_VerifyCode extends VM_Primary {
                 .getRetrofitApiInterface()
                 .LoginCode(RetrofitApis.client_id_value,
                         RetrofitApis.client_secret_value,
-                        phoneNumber,
+                        getPhoneNumber(),
                         authorization));
 
         if (getPrimaryCall() == null)
@@ -259,7 +266,6 @@ public class VM_VerifyCode extends VM_Primary {
     //______________________________________________________________________________________________ getPhoneNumber
 
 
-
     //______________________________________________________________________________________________ setPhoneNumber
     public void setPhoneNumber(String phoneNumber) {
         PhoneNumber = phoneNumber;
@@ -267,19 +273,89 @@ public class VM_VerifyCode extends VM_Primary {
     //______________________________________________________________________________________________ setPhoneNumber
 
 
-    //______________________________________________________________________________________________ getVerifyCode
-    public String getVerifyCode() {
-        return VerifyCode;
+    //______________________________________________________________________________________________ setPhoneNumbe
+    public String getVerifyNumber1() {
+        return verifyNumber1;
     }
-    //______________________________________________________________________________________________ getVerifyCode
+    //______________________________________________________________________________________________ setPhoneNumbe
 
 
-
-    //______________________________________________________________________________________________ setVerifyCod
-    public void setVerifyCode(String verifyCode) {
-        VerifyCode = verifyCode;
+    //______________________________________________________________________________________________ setPhoneNumbe
+    public void setVerifyNumber1(String verifyNumber1) {
+        this.verifyNumber1 = verifyNumber1;
     }
-    //______________________________________________________________________________________________ setVerifyCode
+    //______________________________________________________________________________________________ setPhoneNumbe
+
+
+    //______________________________________________________________________________________________ setPhoneNumbe
+    public String getVerifyNumber2() {
+        return verifyNumber2;
+    }
+    //______________________________________________________________________________________________ setPhoneNumbe
+
+
+    //______________________________________________________________________________________________ setPhoneNumbe
+    public void setVerifyNumber2(String verifyNumber2) {
+        this.verifyNumber2 = verifyNumber2;
+    }
+    //______________________________________________________________________________________________ setPhoneNumbe
+
+
+    //______________________________________________________________________________________________ setPhoneNumbe
+    public String getVerifyNumber3() {
+        return verifyNumber3;
+    }
+    //______________________________________________________________________________________________ setPhoneNumbe
+
+
+    //______________________________________________________________________________________________ setPhoneNumbe
+    public void setVerifyNumber3(String verifyNumber3) {
+        this.verifyNumber3 = verifyNumber3;
+    }
+    //______________________________________________________________________________________________ setPhoneNumbe
+
+
+    //______________________________________________________________________________________________ setPhoneNumbe
+    public String getVerifyNumber4() {
+        return verifyNumber4;
+    }
+    //______________________________________________________________________________________________ setPhoneNumbe
+
+
+    //______________________________________________________________________________________________ setPhoneNumbe
+    public void setVerifyNumber4(String verifyNumber4) {
+        this.verifyNumber4 = verifyNumber4;
+    }
+    //______________________________________________________________________________________________ setPhoneNumbe
+
+
+    //______________________________________________________________________________________________ setPhoneNumbe
+    public String getVerifyNumber5() {
+        return verifyNumber5;
+    }
+    //______________________________________________________________________________________________ setPhoneNumbe
+
+
+    //______________________________________________________________________________________________ setPhoneNumbe
+    public void setVerifyNumber5(String verifyNumber5) {
+        this.verifyNumber5 = verifyNumber5;
+    }
+    //______________________________________________________________________________________________ setPhoneNumbe
+
+
+    //______________________________________________________________________________________________ setPhoneNumbe
+    public String getVerifyNumber6() {
+        return verifyNumber6;
+    }
+    //______________________________________________________________________________________________ setPhoneNumbe
+
+
+    //______________________________________________________________________________________________ setPhoneNumbe
+    public void setVerifyNumber6(String verifyNumber6) {
+        this.verifyNumber6 = verifyNumber6;
+    }
+    //______________________________________________________________________________________________ setPhoneNumbe
+
 
 
 

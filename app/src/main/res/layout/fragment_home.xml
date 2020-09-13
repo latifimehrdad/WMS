@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -123,9 +124,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="bottom"
-                        android:text="0"
                         android:textColor="@color/mlHomeAveScore"
-                        android:textSize="@dimen/_10sdp" />
+                        android:textSize="@dimen/_10sdp"
+                        app:splitNumberOfValue="@{vm_home.md_scoreReport.maxPoint}"/>
 
                     <TextView
                         android:layout_width="0dp"
@@ -165,9 +166,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="bottom"
-                        android:text="0"
                         android:textColor="@color/mlHomeMaxScore"
-                        android:textSize="@dimen/_10sdp" />
+                        android:textSize="@dimen/_10sdp"
+                        app:splitNumberOfValue="@{vm_home.md_scoreReport.maxPoint}" />
 
                     <TextView
                         android:layout_width="0dp"

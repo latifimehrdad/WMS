@@ -53,6 +53,7 @@
                             android:maxLines="1"
                             android:padding="@dimen/_2sdp"
                             android:textColor="@color/mlBlack"
+                            android:text="@={login.phoneNumber}"
                             android:textSize="@dimen/_12sdp" />
 
                         <ImageView

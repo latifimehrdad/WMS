@@ -15,6 +15,9 @@ import retrofit2.Response;
 public class VM_Login extends VM_Primary {
 
 
+    private String phoneNumber;
+
+
     //______________________________________________________________________________________________ VM_Login
     public VM_Login(Activity context) {
         setContext(context);
@@ -23,12 +26,12 @@ public class VM_Login extends VM_Primary {
 
 
     //______________________________________________________________________________________________ getLoginCode
-    public void getLoginCode(String PhoneNumber) {
+    public void getLoginCode() {
 
-        PhoneNumber = ApplicationWMS.getApplicationWMS(getContext())
+        setPhoneNumber(ApplicationWMS.getApplicationWMS(getContext())
                 .getUtilityComponent()
                 .getApplicationUtility()
-                .persianToEnglish(PhoneNumber);
+                .persianToEnglish(getPhoneNumber()));
 
 
         RetrofitComponent retrofitComponent =
@@ -42,7 +45,7 @@ public class VM_Login extends VM_Primary {
                 .getRetrofitApiInterface()
                 .LoginCode(RetrofitApis.client_id_value,
                         RetrofitApis.client_secret_value,
-                        PhoneNumber,
+                        getPhoneNumber(),
                         authorization));
 
         if (getPrimaryCall() == null)
@@ -68,6 +71,23 @@ public class VM_Login extends VM_Primary {
 
     }
     //______________________________________________________________________________________________ getLoginCode
+
+
+
+    //______________________________________________________________________________________________ getPhoneNumber
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+    //______________________________________________________________________________________________ getPhoneNumber
+
+
+
+    //______________________________________________________________________________________________ setPhoneNumber
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+    //______________________________________________________________________________________________ setPhoneNumber
+
 
 
 }

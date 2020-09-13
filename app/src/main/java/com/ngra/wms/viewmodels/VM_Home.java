@@ -48,7 +48,6 @@ public class VM_Home extends VM_Primary {
 
 
 
-
     //______________________________________________________________________________________________ checkProfile
     public String getPhoneNumber() {
 
@@ -60,7 +59,6 @@ public class VM_Home extends VM_Primary {
         }
     }
     //______________________________________________________________________________________________ checkProfile
-
 
 
 
@@ -111,7 +109,7 @@ public class VM_Home extends VM_Primary {
                 setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     md_scoreReport = response.body().getResult();
-                    sendActionToObservable(StaticValues.ML_GetUserScore);
+                    notifyChange();
                 } else {
                     sendActionToObservable(StaticValues.ML_ResponseError);
                 }

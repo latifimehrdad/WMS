@@ -125,7 +125,7 @@ public class AppUpdate extends FragmentPrimary implements FragmentPrimary.getAct
             } else {
                 File apkFile;
                 apkFile = new File(Environment.getExternalStorageDirectory()
-                        + "/pishtazan/", fileName);
+                        + "/WMS/", fileName);
                 Uri apkUri = Uri.fromFile(apkFile);
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setDataAndType(apkUri, "application/vnd.android.package-archive");

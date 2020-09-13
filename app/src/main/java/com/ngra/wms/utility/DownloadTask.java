@@ -18,7 +18,6 @@ import io.reactivex.subjects.PublishSubject;
 
 public class DownloadTask extends AsyncTask<String, Integer, String> {
 
-    private PowerManager.WakeLock mWakeLock;
     private Context context;
     private String path;
     private PublishSubject<Byte> publishSubject;
@@ -101,10 +100,6 @@ public class DownloadTask extends AsyncTask<String, Integer, String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-                getClass().getName());
-        mWakeLock.acquire();
     }
 
 
@@ -118,7 +113,6 @@ public class DownloadTask extends AsyncTask<String, Integer, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        mWakeLock.release();
         publishSubject.onNext(StaticValues.ML_FileDownloaded);
     }
 

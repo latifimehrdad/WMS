@@ -14,8 +14,8 @@ import retrofit2.Response;
 public class VM_SignUp extends VM_Primary {
 
 
-    private String PhoneNumber;
-
+    private String phoneNumber;
+    private String reagentCode;
 
 
     //______________________________________________________________________________________________ VM_SignUp
@@ -26,12 +26,19 @@ public class VM_SignUp extends VM_Primary {
 
 
     //______________________________________________________________________________________________ sendNumber
-    public void sendNumber(String ReagentCode) {
+    public void sendNumber() {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
                         .getApplicationWMS(getContext())
                         .getRetrofitComponent();
+
+
+        setPhoneNumber(ApplicationWMS.getApplicationWMS(getContext())
+                .getUtilityComponent()
+                .getApplicationUtility()
+                .persianToEnglish(getPhoneNumber()));
+
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
 
@@ -39,7 +46,7 @@ public class VM_SignUp extends VM_Primary {
                 .getRetrofitApiInterface()
                 .SendPhoneNumber(
                         getPhoneNumber(),
-                        ReagentCode,
+                        getReagentCode(),
                         authorization));
 
         if (getPrimaryCall() == null)
@@ -75,20 +82,30 @@ public class VM_SignUp extends VM_Primary {
     //______________________________________________________________________________________________ sendNumber
 
 
-    //______________________________________________________________________________________________ getPhoneNumber
+    //______________________________________________________________________________________________ setPhoneNumber
     public String getPhoneNumber() {
-        return PhoneNumber;
+        return phoneNumber;
     }
-    //______________________________________________________________________________________________ getPhoneNumber
+    //______________________________________________________________________________________________ setPhoneNumber
+
+
+    //______________________________________________________________________________________________ setPhoneNumber
+    public String getReagentCode() {
+        return reagentCode;
+    }
+    //______________________________________________________________________________________________ setPhoneNumber
+
+
+    //______________________________________________________________________________________________ setPhoneNumber
+    public void setReagentCode(String reagentCode) {
+        this.reagentCode = reagentCode;
+    }
+    //______________________________________________________________________________________________ setPhoneNumber
 
 
     //______________________________________________________________________________________________ setPhoneNumber
     public void setPhoneNumber(String phoneNumber) {
-        phoneNumber = ApplicationWMS.getApplicationWMS(getContext())
-                .getUtilityComponent()
-                .getApplicationUtility()
-                .persianToEnglish(phoneNumber);
-        PhoneNumber = phoneNumber;
+        this.phoneNumber = phoneNumber;
     }
     //______________________________________________________________________________________________ setPhoneNumber
 
