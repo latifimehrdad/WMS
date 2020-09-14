@@ -29,6 +29,7 @@ public class VM_ProfilePerson extends VM_Primary {
     private String FirstName;
     private String LastName;
     private int Gender;
+    private String phoneNumber;
     private Integer CitizenType;
     private String CityId;
     private String ReferenceCode;
@@ -67,7 +68,8 @@ public class VM_ProfilePerson extends VM_Primary {
                 setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     profile = response.body().getResult();
-                    sendActionToObservable(StaticValues.ML_GetProfileInfo);
+                    setProfile();
+
                 } else
                     sendActionToObservable(StaticValues.ML_ResponseError);
             }
@@ -79,6 +81,19 @@ public class VM_ProfilePerson extends VM_Primary {
         });
     }
     //______________________________________________________________________________________________ getProfileInfo
+
+
+
+    //______________________________________________________________________________________________ setProfile
+    private void setProfile() {
+        setFirstName(profile.getFirstName());
+        setLastName(profile.getLastName());
+        setPhoneNumber(getPhoneNumber());
+        notifyChange();
+        sendActionToObservable(StaticValues.ML_GetProfileInfo);
+    }
+    //______________________________________________________________________________________________ setProfile
+
 
 
     //______________________________________________________________________________________________ editProfile
@@ -266,6 +281,15 @@ public class VM_ProfilePerson extends VM_Primary {
 
     }
     //______________________________________________________________________________________________ getPhoneNumber
+
+
+
+    //______________________________________________________________________________________________ setPhoneNumber
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+    //______________________________________________________________________________________________ setPhoneNumber
+
 
 
     //______________________________________________________________________________________________ getFirstName

@@ -88,11 +88,11 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.ge
     @BindView(R.id.RelativeLayoutSend)
     RelativeLayout RelativeLayoutSend;
 
-    @BindView(R.id.editFirsName)
-    EditText editFirsName;
+    @BindView(R.id.editTextFirsName)
+    EditText editTextFirsName;
 
-    @BindView(R.id.edtiLastName)
-    EditText edtiLastName;
+    @BindView(R.id.editTextLastName)
+    EditText editTextLastName;
 
     @BindView(R.id.layoutGender)
     RadioGroup layoutGender;
@@ -105,9 +105,6 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.ge
 
     @BindView(R.id.editReferenceCode)
     EditText editReferenceCode;
-
-    @BindView(R.id.EditPhoneNumber)
-    EditText EditPhoneNumber;
 
     @BindView(R.id.txtLoading)
     TextView txtLoading;
@@ -181,7 +178,6 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.ge
         setTextWatcher();
         setItemUser();
         GenderCode = -1;
-        EditPhoneNumber.setText(vm_profilePerson.getPhoneNumber());
         if (MainActivity.completeProfile) {
             LinearLayoutCity.setVisibility(View.GONE);
             LinearLayoutProvinces.setVisibility(View.GONE);
@@ -271,15 +267,10 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.ge
                 hideKeyboard();
                 showLoading();
                 clickSave = true;
-                vm_profilePerson.setFirstName(editFirsName.getText().toString());
-                vm_profilePerson.setLastName(edtiLastName.getText().toString());
                 vm_profilePerson.setGender(GenderCode);
                 vm_profilePerson.setCitizenType(Integer.valueOf(UserTypeId));
                 vm_profilePerson.setCityId(CityId);
                 vm_profilePerson.setRegionId(RegionId);
-                vm_profilePerson.setReferenceCode(
-                        editReferenceCode.getText().toString()
-                );
                 vm_profilePerson.editProfile();
             }
         });
@@ -354,10 +345,10 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.ge
         ModelProfileInfo.ModelProfile profile = vm_profilePerson.getProfile();
         if (profile != null)
             if (profile.getFirstName() != null) {
-                editFirsName.setText(profile.getFirstName());
+//                editTextFirsName.setText(profile.getFirstName());
 
-                if (profile.getLastName() != null)
-                    edtiLastName.setText(profile.getLastName());
+//                if (profile.getLastName() != null)
+//                    edtiLastName.setText(profile.getLastName());
 
                 if (profile.getProvince() != null) {
                     TextProvinces.setText(profile.getProvince().getTitle());
@@ -519,19 +510,19 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.ge
 /*        boolean region;*/
         boolean user;
 
-        if (edtiLastName.getText().length() < 1) {
-            edtiLastName.setBackgroundResource(R.drawable.dw_edit_back_empty);
-            edtiLastName.setError(getResources().getString(R.string.EmptyLastName));
-            edtiLastName.requestFocus();
+        if (vm_profilePerson.getLastName().length() < 1) {
+            editTextLastName.setBackgroundResource(R.drawable.dw_edit_back_empty);
+            editTextLastName.setError(getResources().getString(R.string.EmptyLastName));
+            editTextLastName.requestFocus();
             lastname = false;
         } else
             lastname = true;
 
 
-        if (editFirsName.getText().length() < 1) {
-            editFirsName.setBackgroundResource(R.drawable.dw_edit_back_empty);
-            editFirsName.setError(getResources().getString(R.string.EmptyFirstName));
-            editFirsName.requestFocus();
+        if (vm_profilePerson.getFirstName().length() < 1) {
+            editTextFirsName.setBackgroundResource(R.drawable.dw_edit_back_empty);
+            editTextFirsName.setError(getResources().getString(R.string.EmptyFirstName));
+            editTextFirsName.requestFocus();
             firstname = false;
         } else
             firstname = true;
@@ -682,11 +673,11 @@ public class ProfilePerson extends FragmentPrimary implements FragmentPrimary.ge
 
     //______________________________________________________________________________________________ setTextWatcher
     private void setTextWatcher() {
-        editFirsName.setBackgroundResource(R.drawable.dw_edit_back);
-        editFirsName.addTextChangedListener(textChangeForChangeBack(editFirsName));
+        editTextFirsName.setBackgroundResource(R.drawable.dw_edit_back);
+        editTextFirsName.addTextChangedListener(textChangeForChangeBack(editTextFirsName));
 
-        edtiLastName.setBackgroundResource(R.drawable.dw_edit_back);
-        edtiLastName.addTextChangedListener(textChangeForChangeBack(edtiLastName));
+        editTextLastName.setBackgroundResource(R.drawable.dw_edit_back);
+        editTextLastName.addTextChangedListener(textChangeForChangeBack(editTextLastName));
 
         layoutGender.setBackgroundColor(getResources().getColor(R.color.mlWhite));
 

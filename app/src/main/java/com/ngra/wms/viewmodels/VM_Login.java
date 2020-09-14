@@ -73,13 +73,14 @@ public class VM_Login extends VM_Primary {
     //______________________________________________________________________________________________ getLoginCode
 
 
-
     //______________________________________________________________________________________________ getPhoneNumber
     public String getPhoneNumber() {
-        return phoneNumber;
+        if (phoneNumber == null)
+            return "";
+        else
+            return phoneNumber;
     }
     //______________________________________________________________________________________________ getPhoneNumber
-
 
 
     //______________________________________________________________________________________________ setPhoneNumber
@@ -87,7 +88,6 @@ public class VM_Login extends VM_Primary {
         this.phoneNumber = phoneNumber;
     }
     //______________________________________________________________________________________________ setPhoneNumber
-
 
 
 }

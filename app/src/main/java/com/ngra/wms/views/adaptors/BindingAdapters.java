@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
@@ -31,10 +32,32 @@ import params.com.stepview.StatusViewScroller;
 public class BindingAdapters {
 
 
+    //______________________________________________________________________________________________ setGenderRadio
+    @BindingAdapter(value = "setGenderRadio")
+    public static void setGenderRadio(RadioButton radio, Integer value) {
+        String tag = radio.getTag().toString();
+        if (tag.equalsIgnoreCase("man")) {
+            if (value == 1)
+                radio.setChecked(true);
+            else
+                radio.setChecked(false);
+        } else {
+            if (value == 1)
+                radio.setChecked(false);
+            else
+                radio.setChecked(true);
+        }
+    }
+    //______________________________________________________________________________________________ setGenderRadio
+
+
+
+    //______________________________________________________________________________________________ setTextToEditText
     @BindingAdapter(value = "setTextToEditText")
     public static void setTextToEditText(EditText editText, String value) {
         editText.setText(value);
     }
+    //______________________________________________________________________________________________ setTextToEditText
 
 
     @BindingAdapter(value = "setAccountFundRequestsState")

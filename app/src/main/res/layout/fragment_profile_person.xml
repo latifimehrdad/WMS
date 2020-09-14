@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto">
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -37,7 +38,7 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/editFirsName"
+                        android:id="@+id/editTextFirsName"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="@dimen/_30sdp"
@@ -47,6 +48,8 @@
                         android:padding="@dimen/_2sdp"
                         android:textColor="@color/mlBlack"
                         android:textSize="@dimen/_12sdp"
+                        android:text="@={vm_person.firstName}"
+                        app:setTextToEditText="@{vm_person.firstName}"
                         />
 
                     <ImageView
@@ -68,7 +71,7 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/edtiLastName"
+                        android:id="@+id/editTextLastName"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="@dimen/_30sdp"
@@ -78,6 +81,8 @@
                         android:padding="@dimen/_2sdp"
                         android:textColor="@color/mlBlack"
                         android:textSize="@dimen/_12sdp"
+                        android:text="@={vm_person.lastName}"
+                        app:setTextToEditText="@{vm_person.lastName}"
                         />
 
                     <ImageView
@@ -140,6 +145,8 @@
                             android:textColor="@color/mlBlack"
                             android:textSize="@dimen/_11sdp"
                             android:theme="@style/mlCheck"
+                            android:tag="man"
+                            app:setGenderRadio="@{vm_person.gender}"
                             />
 
                         <RadioButton
@@ -151,6 +158,8 @@
                             android:textSize="@dimen/_11sdp"
                             android:layout_marginLeft="@dimen/_15sdp"
                             android:theme="@style/mlCheck"
+                            android:tag="woman"
+                            app:setGenderRadio="@{vm_person.gender}"
                             />
 
 
@@ -166,7 +175,6 @@
                     android:layout_marginTop="@dimen/_10sdp">
 
                     <EditText
-                        android:id="@+id/EditPhoneNumber"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="@dimen/_30sdp"
@@ -177,6 +185,7 @@
                         android:textColor="@color/mlBlack"
                         android:textSize="@dimen/_12sdp"
                         android:enabled="false"
+                        android:text="@={vm_person.phoneNumber}"
                         />
 
                     <ImageView

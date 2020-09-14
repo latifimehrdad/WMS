@@ -91,7 +91,7 @@ public class NewWallet extends FragmentPrimary implements FragmentPrimary.getAct
             @NotNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
-        if (getView() == null) {
+//        if (getView() == null) {
             vm_newWallet = new VM_NewWallet(getContext());
             FrWalletBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fr_wallet, container, false
@@ -99,7 +99,7 @@ public class NewWallet extends FragmentPrimary implements FragmentPrimary.getAct
             binding.setWallet(vm_newWallet);
             setView(binding.getRoot());
             init();
-        }
+//        }
         return getView();
     }
     //______________________________________________________________________________________________ onCreateView
@@ -171,6 +171,13 @@ public class NewWallet extends FragmentPrimary implements FragmentPrimary.getAct
 
     //______________________________________________________________________________________________ setUserScorePrice
     private void setUserScorePrice() {
+
+
+        if (!vm_newWallet.getMd_userFundInfo().isHasAccountNumber()) {
+            navController.navigate(R.id.action_newWallet_to_profile_bank);
+            return;
+        }
+
 
         clickClearing = false;
 

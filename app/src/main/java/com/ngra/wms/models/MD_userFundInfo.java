@@ -10,9 +10,14 @@ public class MD_userFundInfo {
     @SerializedName("walletInfo")
     MD_WalletInfo walletInfo;
 
-    public MD_userFundInfo(MD_userFund info, MD_WalletInfo walletInfo) {
+    @SerializedName("hasAccountNumber")
+    boolean hasAccountNumber;
+
+
+    public MD_userFundInfo(MD_userFund info, MD_WalletInfo walletInfo, boolean hasAccountNumber) {
         this.info = info;
         this.walletInfo = walletInfo;
+        this.hasAccountNumber = hasAccountNumber;
     }
 
     public MD_userFund getInfo() {
@@ -29,5 +34,13 @@ public class MD_userFundInfo {
 
     public void setWalletInfo(MD_WalletInfo walletInfo) {
         this.walletInfo = walletInfo;
+    }
+
+    public boolean isHasAccountNumber() {
+        return hasAccountNumber;
+    }
+
+    public void setHasAccountNumber(boolean hasAccountNumber) {
+        this.hasAccountNumber = hasAccountNumber;
     }
 }

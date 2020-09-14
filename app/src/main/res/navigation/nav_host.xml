@@ -8,39 +8,37 @@
         android:id="@+id/splash"
         android:name="com.ngra.wms.views.fragments.Splash"
         android:label="Splash"
-        tools:layout="@layout/fragment_splash"
-        >
+        tools:layout="@layout/fragment_splash">
 
-        <argument android:name="@string/ML_UpdateUrl"/>
+        <argument android:name="@string/ML_UpdateUrl" />
 
-        <argument android:name="@string/ML_UpdateFile"/>
+        <argument android:name="@string/ML_UpdateFile" />
 
 
         <action
             android:id="@+id/action_splash_to_login"
             app:destination="@id/login"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
-            />
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
         <action
             android:id="@+id/action_splash_to_home"
             app:destination="@id/home"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
 
             />
         <action
             android:id="@+id/action_splash_to_appUpdate"
             app:destination="@id/appUpdate"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
     </fragment>
 
@@ -50,31 +48,34 @@
         android:label="Login"
         tools:layout="@layout/fragment_fragment_login">
 
-        <argument android:name="@string/ML_PhoneNumber"
-            android:defaultValue="null"/>
+        <argument
+            android:name="@string/ML_PhoneNumber"
+            android:defaultValue="null" />
 
-        <argument android:name="@string/ML_Password"
-            android:defaultValue="null"/>
+        <argument
+            android:name="@string/ML_Password"
+            android:defaultValue="null" />
 
-        <argument android:name="@string/ML_Type"
-            android:defaultValue="null"/>
+        <argument
+            android:name="@string/ML_Type"
+            android:defaultValue="null" />
 
         <action
             android:id="@+id/action_login_to_signUp"
             app:destination="@id/signUp"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
 
         <action
             android:id="@+id/action_login_to_verifyCode"
             app:destination="@id/verifyCode"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
     </fragment>
 
@@ -84,22 +85,25 @@
         android:label="SignUp"
         tools:layout="@layout/fragment_signup">
 
-        <argument android:name="PhoneNumber"
-            android:defaultValue="null"/>
+        <argument
+            android:name="PhoneNumber"
+            android:defaultValue="null" />
 
-        <argument android:name="Password"
-            android:defaultValue="null"/>
+        <argument
+            android:name="Password"
+            android:defaultValue="null" />
 
-        <argument android:name="@string/ML_Type"
-            android:defaultValue="null"/>
+        <argument
+            android:name="@string/ML_Type"
+            android:defaultValue="null" />
 
         <action
             android:id="@+id/action_signUp_to_verifyCode"
             app:destination="@id/verifyCode"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
     </fragment>
 
@@ -107,138 +111,139 @@
         android:id="@+id/verifyCode"
         android:name="com.ngra.wms.views.fragments.VerifyCode"
         android:label="VerifyCode"
-        tools:layout="@layout/fragment_verify_code"/>
+        tools:layout="@layout/fragment_verify_code" />
 
     <fragment
         android:id="@+id/home"
         android:name="com.ngra.wms.views.fragments.Home"
         android:label="Home"
-        tools:layout="@layout/fragment_home"
-        >
+        tools:layout="@layout/fragment_home">
 
-        <argument android:name="@string/ML_CompleteProfile"
+        <argument
+            android:name="@string/ML_CompleteProfile"
             android:defaultValue="false" />
 
-        <argument android:name="@string/ML_Type"
-            android:defaultValue="save"/>
+        <argument
+            android:name="@string/ML_Type"
+            android:defaultValue="save" />
 
-        <argument android:name="@string/ML_Id"
-            android:defaultValue="null"/>
+        <argument
+            android:name="@string/ML_Id"
+            android:defaultValue="null" />
 
         <action
             android:id="@+id/action_home_to_profile"
             app:destination="@id/profile"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
         <action
             android:id="@+id/action_home_to_packageRequestAddress"
             app:destination="@id/packageRequestAddress"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
         <action
             android:id="@+id/action_home_to_packageRequestPrimary"
             app:destination="@id/packageRequestPrimary"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
         <action
             android:id="@+id/action_home_to_learn"
             app:destination="@id/learn"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
-
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
 
         <action
             android:id="@+id/action_home_to_lottery"
             app:destination="@id/lottery"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
         <action
             android:id="@+id/action_home_to_about"
             app:destination="@id/about"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
         <action
             android:id="@+id/action_home_to_callWithUs"
             app:destination="@id/callWithUs"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
         <action
             android:id="@+id/action_home_to_collectRequestOrder"
             app:destination="@id/collectRequestOrder"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
         <action
             android:id="@+id/action_home_to_wallet"
             app:destination="@id/wallet"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
 
         <action
             android:id="@+id/action_home_to_new_wallet"
             app:destination="@id/newWallet"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
         <action
             android:id="@+id/action_home_to_game"
             app:destination="@id/game"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
         <action
             android:id="@+id/action_home_to_ticket"
             app:destination="@id/ticket"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
         <action
             android:id="@+id/action_home_to_calls"
             app:destination="@id/calls"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
         <action
             android:id="@+id/action_home_to_chooseWaste"
             app:destination="@id/chooseWaste"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
     </fragment>
 
@@ -246,22 +251,21 @@
         android:id="@+id/profile"
         android:name="com.ngra.wms.views.fragments.Profile"
         android:label="Profile"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile" />
 
     <fragment
         android:id="@+id/packageRequestAddress"
         android:name="com.ngra.wms.views.fragments.PackageRequestAddress"
         android:label="PackageRequestAddress"
-        tools:layout="@layout/fragment_pack_request_address"
-        >
+        tools:layout="@layout/fragment_pack_request_address">
 
         <action
             android:id="@+id/action_packageRequestAddress_to_packageRequestPrimary"
             app:destination="@id/packageRequestPrimary"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
     </fragment>
 
@@ -269,19 +273,19 @@
         android:id="@+id/packageRequestPrimary"
         android:name="com.ngra.wms.views.fragments.PackageRequestPrimary"
         android:label="PackageRequestPrimary"
-        tools:layout="@layout/fragment_pack_request_primary"
-        >
+        tools:layout="@layout/fragment_pack_request_primary">
 
-        <argument android:name="@string/ML_Type"
+        <argument
+            android:name="@string/ML_Type"
             android:defaultValue="0" />
 
         <action
             android:id="@+id/action_packageRequestPrimary_to_timeSheet"
             app:destination="@id/timeSheet"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
     </fragment>
 
@@ -289,74 +293,71 @@
         android:id="@+id/creatorFragment"
         android:name="com.ngra.wms.views.fragments.CreatorFragment"
         android:label="CreatorFragment"
-        tools:layout="@layout/fragment_creator"
-        />
+        tools:layout="@layout/fragment_creator" />
 
 
     <action
         android:id="@+id/action_goto_creator"
         app:destination="@id/creatorFragment"
-        app:popEnterAnim="@anim/slide_in_right"
-        app:popExitAnim="@anim/slide_out_left"
         app:enterAnim="@anim/slide_in_left"
         app:exitAnim="@anim/slide_out_right"
-        />
+        app:popEnterAnim="@anim/slide_in_right"
+        app:popExitAnim="@anim/slide_out_left" />
 
     <fragment
         android:id="@+id/learn"
         android:name="com.ngra.wms.views.fragments.Learn"
         android:label="Learn"
-        tools:layout="@layout/fragment_learn"/>
-
+        tools:layout="@layout/fragment_learn" />
 
 
     <fragment
         android:id="@+id/lottery"
         android:name="com.ngra.wms.views.fragments.Lottery"
         android:label="Lottery"
-        tools:layout="@layout/fragment_lottery"/>
+        tools:layout="@layout/fragment_lottery" />
 
     <fragment
         android:id="@+id/about"
         android:name="com.ngra.wms.views.fragments.About"
         android:label="About"
-        tools:layout="@layout/fragment_about_primery"/>
+        tools:layout="@layout/fragment_about_primery" />
 
     <fragment
         android:id="@+id/callWithUs"
         android:name="com.ngra.wms.views.fragments.CallWithUs"
         android:label="CallWithUs"
-        tools:layout="@layout/fragment_call_with_us"/>
+        tools:layout="@layout/fragment_call_with_us" />
 
     <fragment
         android:id="@+id/collectRequestOrder"
         android:name="com.ngra.wms.views.fragments.CollectRequestOrder"
         android:label="CollectRequestOrder"
-        tools:layout="@layout/fragment_collect_request_orders"/>
+        tools:layout="@layout/fragment_collect_request_orders" />
 
     <fragment
         android:id="@+id/wallet"
         android:name="com.ngra.wms.views.fragments.Wallet"
         android:label="Wallet"
-        tools:layout="@layout/fragment_wallet"/>
+        tools:layout="@layout/fragment_wallet" />
 
     <fragment
         android:id="@+id/game"
         android:name="com.ngra.wms.views.fragments.Game"
         android:label="Game"
-        tools:layout="@layout/fragment_game"/>
+        tools:layout="@layout/fragment_game" />
 
     <fragment
         android:id="@+id/appUpdate"
         android:name="com.ngra.wms.views.fragments.AppUpdate"
         android:label="AppUpdate"
-        tools:layout="@layout/fragment_update"/>
+        tools:layout="@layout/fragment_update" />
 
     <fragment
         android:id="@+id/callSupport"
         android:name="com.ngra.wms.views.fragments.CallSupport"
         android:label="CallSupport"
-        tools:layout="@layout/fragment_support"/>
+        tools:layout="@layout/fragment_support" />
 
     <fragment
         android:id="@+id/ticket"
@@ -365,24 +366,25 @@
         tools:layout="@layout/fragment_ticket">
 
 
-        <argument android:name="@string/ML_Id"
-            android:defaultValue="0"/>
+        <argument
+            android:name="@string/ML_Id"
+            android:defaultValue="0" />
 
         <action
             android:id="@+id/action_ticket_to_conversation"
             app:destination="@id/conversation"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
         <action
             android:id="@+id/action_ticket_to_callSupport"
             app:destination="@id/callSupport"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
     </fragment>
 
@@ -390,22 +392,22 @@
         android:id="@+id/calls"
         android:name="com.ngra.wms.views.fragments.Calls"
         android:label="Calls"
-        tools:layout="@layout/fragment_call"/>
+        tools:layout="@layout/fragment_call" />
 
 
     <fragment
         android:id="@+id/conversation"
         android:name="com.ngra.wms.views.fragments.Conversation"
         android:label="Conversation"
-        tools:layout="@layout/fragment_conversation"/>
+        tools:layout="@layout/fragment_conversation" />
 
     <action
         android:id="@+id/action_goto_address"
         app:destination="@id/packageRequestAddress"
-        app:popEnterAnim="@anim/slide_in_right"
-        app:popExitAnim="@anim/slide_out_left"
         app:enterAnim="@anim/slide_in_left"
-        app:exitAnim="@anim/slide_out_right"/>
+        app:exitAnim="@anim/slide_out_right"
+        app:popEnterAnim="@anim/slide_in_right"
+        app:popExitAnim="@anim/slide_out_left" />
 
     <fragment
         android:id="@+id/chooseWaste"
@@ -416,10 +418,10 @@
         <action
             android:id="@+id/action_chooseWaste_to_collectRequest2"
             app:destination="@id/collectRequest2"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
     </fragment>
 
@@ -432,27 +434,26 @@
         <action
             android:id="@+id/action_collectRequest2_to_boothReceive2"
             app:destination="@id/boothReceive2"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
-            />
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
         <action
             android:id="@+id/action_collectRequest2_to_timeSheet"
             app:destination="@id/timeSheet"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
         <action
             android:id="@+id/action_collectRequest2_to_map"
             app:destination="@id/map"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
     </fragment>
 
@@ -463,20 +464,22 @@
         tools:layout="@layout/fragment_booth_receive_primery">
 
 
-        <argument android:name="@string/ML_Type"
-            android:defaultValue="0"/>
+        <argument
+            android:name="@string/ML_Type"
+            android:defaultValue="0" />
 
 
-        <argument android:name="@string/ML_Id"
-            android:defaultValue="0"/>
+        <argument
+            android:name="@string/ML_Id"
+            android:defaultValue="0" />
 
         <action
             android:id="@+id/action_boothReceive2_to_timeSheet"
             app:destination="@id/timeSheet"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
     </fragment>
 
@@ -487,21 +490,23 @@
         tools:layout="@layout/fr_time_sheet">
 
 
-        <argument android:name="@string/ML_Type"
-            android:defaultValue="0"/>
+        <argument
+            android:name="@string/ML_Type"
+            android:defaultValue="0" />
 
 
-        <argument android:name="@string/ML_Id"
-            android:defaultValue="0"/>
+        <argument
+            android:name="@string/ML_Id"
+            android:defaultValue="0" />
 
 
         <action
             android:id="@+id/action_timeSheet_to_address"
             app:destination="@id/address"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
     </fragment>
 
@@ -511,19 +516,19 @@
         android:label="Address"
         tools:layout="@layout/fr_address">
 
-        <argument android:name="@string/ML_Id"
-            android:defaultValue="0"/>
+        <argument
+            android:name="@string/ML_Id"
+            android:defaultValue="0" />
 
         <action
             android:id="@+id/action_address_to_packageRequestAddress"
             app:destination="@id/packageRequestAddress"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
     </fragment>
-
 
 
     <fragment
@@ -532,45 +537,47 @@
         android:label="Map"
         tools:layout="@layout/fr_map">
 
-        <argument android:name="@string/ML_CurrentLat"
-            android:defaultValue="0.0"/>
+        <argument
+            android:name="@string/ML_CurrentLat"
+            android:defaultValue="0.0" />
 
-        <argument android:name="@string/ML_CurrentLng"
-            android:defaultValue="0.0"/>
+        <argument
+            android:name="@string/ML_CurrentLng"
+            android:defaultValue="0.0" />
 
 
         <action
             android:id="@+id/action_map_to_boothReceive2"
             app:destination="@id/boothReceive2"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
-
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
 
         <action
             android:id="@+id/action_map_to_timeSheet"
             app:destination="@id/timeSheet"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
 
     </fragment>
 
 
-    <argument android:name="@string/ML_TimeId"
-        android:defaultValue="0"/>
+    <argument
+        android:name="@string/ML_TimeId"
+        android:defaultValue="0" />
 
     <action
         android:id="@+id/action_goto_address2"
         app:destination="@id/address"
-        app:popEnterAnim="@anim/slide_in_right"
-        app:popExitAnim="@anim/slide_out_left"
         app:enterAnim="@anim/slide_in_left"
-        app:exitAnim="@anim/slide_out_right"/>
+        app:exitAnim="@anim/slide_out_right"
+        app:popEnterAnim="@anim/slide_in_right"
+        app:popExitAnim="@anim/slide_out_left" />
 
 
     <fragment
@@ -582,10 +589,18 @@
         <action
             android:id="@+id/action_newWallet_to_accountFundRequest"
             app:destination="@id/accountFundRequest"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+
+        <action
+            android:id="@+id/action_newWallet_to_profile_bank"
+            app:destination="@id/profileBank"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
     </fragment>
 
@@ -594,8 +609,13 @@
         android:id="@+id/accountFundRequest"
         android:name="com.ngra.wms.views.fragments.AccountFundRequest"
         android:label="AccountFundRequest"
-        tools:layout="@layout/fr_account_fund_requests"/>
+        tools:layout="@layout/fr_account_fund_requests" />
 
+    <fragment
+        android:id="@+id/profileBank"
+        android:name="com.ngra.wms.views.fragments.ProfileBank"
+        android:label="ProfileBank"
+        tools:layout="@layout/fragment_profile_bank" />
 
 
 </navigation>
