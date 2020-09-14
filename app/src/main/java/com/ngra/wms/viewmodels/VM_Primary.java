@@ -9,10 +9,9 @@ import android.os.Build;
 import android.os.Handler;
 import android.provider.Settings;
 import android.text.TextUtils;
-
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import androidx.databinding.BaseObservable;
-import androidx.lifecycle.MutableLiveData;
-
 import com.ngra.wms.R;
 import com.ngra.wms.daggers.retrofit.RetrofitApis;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
@@ -248,6 +247,7 @@ public class VM_Primary extends BaseObservable {
 
     //______________________________________________________________________________________________ setPrimaryCall
     public void setPrimaryCall(Call primaryCall) {
+        hideKeyboard();
         cancelRequest();
         if (isInternetConnected()) {
             setResponseMessage("");
@@ -369,5 +369,20 @@ public class VM_Primary extends BaseObservable {
     }
     //______________________________________________________________________________________________ getUtility
 
+
+
+    //______________________________________________________________________________________________ hideKeyboard
+    public void hideKeyboard() {
+        if (getContext() != null) {
+            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+            View view = getContext().getCurrentFocus();
+            if (view == null) {
+                view = new View(getContext());
+            }
+            if (imm != null)
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+    //______________________________________________________________________________________________ hideKeyboard
 
 }

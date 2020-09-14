@@ -156,7 +156,7 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.getAc
             VerifyCode6.setText("");
             VerifyCode1.requestFocus();
             setBackVerifyCode();
-            startTimer(120);
+            startTimer(119);
             return;
         }
 
@@ -173,7 +173,6 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.getAc
             VerifyCode6.setText("");
             VerifyCode1.requestFocus();
             setBackVerifyCode();
-            return;
         }
 
 
@@ -195,7 +194,8 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.getAc
 
         message.setOnClickListener(v -> {
             if (ReTryGetSMSClick) {
-                /*                vm_verifyCode.setPassword(Password);*/
+                if (getContext() == null)
+                    return;
                 if (VerifyType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_SingUp))) {
                     vm_verifyCode.setPhoneNumber(PhoneNumber);
                     vm_verifyCode.sendNumber();
@@ -332,6 +332,8 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.getAc
 
         if (c1 && c2 && c3 && c4 && c5 && c6) {
             showProgressDialog();
+            if (getContext() == null)
+                return;
             if (VerifyType.equalsIgnoreCase(getContext().getResources().getString(R.string.ML_SingUp))) {
                 vm_verifyCode.sendVerifyCode();
             } else {
@@ -344,6 +346,7 @@ public class VerifyCode extends FragmentPrimary implements FragmentPrimary.getAc
 
 
     //______________________________________________________________________________________________ setBackVerifyCodeView
+    @SuppressLint("UseCompatLoadingForDrawables")
     private Boolean setBackVerifyCodeView(EditText editText) {
 
         boolean ret = false;
