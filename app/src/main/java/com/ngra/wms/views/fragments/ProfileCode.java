@@ -93,12 +93,6 @@ public class ProfileCode extends FragmentPrimary implements FragmentPrimary.getA
             return;
         }
 
-        if (action.equals(StaticValues.ML_GetRenovationCode)) {
-            editBuildingRenovationCode.setText(
-                    vm_profileCode.getResponseMessage()
-            );
-            return;
-        }
 
         if (action.equals(StaticValues.ML_GetAccountNumberNull)) {
             editBuildingRenovationCode.requestFocus();
@@ -127,7 +121,6 @@ public class ProfileCode extends FragmentPrimary implements FragmentPrimary.getA
             if (checkEmpty()) {
                 hideKeyboard();
                 showLoading();
-                vm_profileCode.setBuildingRenovationCode(editBuildingRenovationCode.getText().toString());
                 vm_profileCode.sendCode();
             }
         });
@@ -139,7 +132,7 @@ public class ProfileCode extends FragmentPrimary implements FragmentPrimary.getA
     //______________________________________________________________________________________________ checkEmpty
     private Boolean checkEmpty() {
 
-        if (editBuildingRenovationCode.getText().length() < 1) {
+        if (vm_profileCode.getBuildingRenovationCode().length() < 1) {
             editBuildingRenovationCode.setBackgroundResource(R.drawable.dw_edit_back_empty);
             editBuildingRenovationCode.setError(getResources().getString(R.string.EmptyAccountNumber));
             editBuildingRenovationCode.requestFocus();

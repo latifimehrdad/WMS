@@ -20,7 +20,7 @@ import retrofit2.Response;
 
 public class VM_ProfileBank extends VM_Primary {
 
-    private ModelUserAccounts.ModelUserAccountNumber accountNumbers;
+    private ModelUserAccounts.ModelUserAccountNumber modelUserAccountNumber;
     private ArrayList<MD_SpinnerItem> banks;
     private String accountNumber;
     private String bankId;
@@ -100,7 +100,7 @@ public class VM_ProfileBank extends VM_Primary {
                     if (response.body().getResult() == null)
                         sendActionToObservable(StaticValues.ML_GetAccountNumberNull);
                     else {
-                        accountNumbers = response.body().getResult();
+                        modelUserAccountNumber = response.body().getResult();
                         sendActionToObservable(StaticValues.ML_GetAccountNumbers);
                     }
                 } else
@@ -158,8 +158,8 @@ public class VM_ProfileBank extends VM_Primary {
 
 
     //______________________________________________________________________________________________ getAccountNumbers
-    public ModelUserAccounts.ModelUserAccountNumber getAccountNumbers() {
-        return accountNumbers;
+    public ModelUserAccounts.ModelUserAccountNumber getModelUserAccountNumber() {
+        return modelUserAccountNumber;
     }
     //______________________________________________________________________________________________ getAccountNumbers
 

@@ -92,7 +92,8 @@ public class VM_ProfileCode extends VM_Primary {
                         sendActionToObservable(StaticValues.ML_GetAccountNumberNull);
                     else {
                         setResponseMessage(response.body().getResult());
-                        sendActionToObservable(StaticValues.ML_GetRenovationCode);
+                        setBuildingRenovationCode(response.body().getResult());
+                        notifyChange();
                     }
                 } else
                     sendActionToObservable(StaticValues.ML_ResponseError);
@@ -113,5 +114,13 @@ public class VM_ProfileCode extends VM_Primary {
         this.buildingRenovationCode = buildingRenovationCode;
     }
     //______________________________________________________________________________________________ setBuildingRenovationCode
+
+
+    //______________________________________________________________________________________________ getBuildingRenovationCode
+    public String getBuildingRenovationCode() {
+        return buildingRenovationCode;
+    }
+    //______________________________________________________________________________________________ getBuildingRenovationCode
+
 
 }

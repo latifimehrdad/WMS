@@ -110,21 +110,19 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.getA
         dismissLoading();
 
         if (action.equals(StaticValues.ML_EditProfile)) {
+            getContext().onBackPressed();
             return;
         }
 
         if (action.equals(StaticValues.ML_GetAccountNumbers)) {
-            editAccountNumber.setText(vm_profileBank
-                    .getAccountNumbers()
-                    .getAccountNumber());
 
             TextBank.setText(vm_profileBank
-                    .getAccountNumbers()
+                    .getModelUserAccountNumber()
                     .getBank()
                     .getTitle());
 
             bankId = vm_profileBank
-                    .getAccountNumbers()
+                    .getModelUserAccountNumber()
                     .getBank()
                     .getId();
 
@@ -187,7 +185,6 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.getA
             if (checkEmpty()) {
                 hideKeyboard();
                 showLoading();
-                vm_profileBank.setAccountNumber(editAccountNumber.getText().toString());
                 vm_profileBank.setBankId(bankId);
                 vm_profileBank.sendAccountNumber();
             }
@@ -220,7 +217,7 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.getA
         boolean accountnumbert;
         boolean bank;
 
-        if (editAccountNumber.getText().length() != 26) {
+        if (vm_profileBank.getAccountNumber().length() != 26) {
             editAccountNumber.setBackgroundResource(R.drawable.dw_edit_back_empty);
             editAccountNumber.setError(getResources().getString(R.string.EmptyAccountNumber));
             editAccountNumber.requestFocus();
@@ -229,7 +226,7 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.getA
             accountnumbert = true;
 
 
-        if (editAccountNumber.getText().length() > 3) {
+        if (vm_profileBank.getAccountNumber().length() > 3) {
             String IR = editAccountNumber.getText().toString();
             IR = IR.substring(0, 2);
 
