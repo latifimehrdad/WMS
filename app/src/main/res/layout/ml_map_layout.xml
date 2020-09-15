@@ -181,6 +181,7 @@
         android:layout_height="match_parent"
         android:background="@color/mlMenuBackTrans"
         android:orientation="vertical"
+        android:visibility="gone"
         android:gravity="center">
 
 

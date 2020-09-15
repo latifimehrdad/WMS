@@ -3,6 +3,7 @@ package com.ngra.wms.daggers.retrofit;
 import com.ngra.wms.models.MD_GetBooth;
 import com.ngra.wms.models.MD_SuggestionAddress;
 import com.ngra.wms.models.MR_GameReport;
+import com.ngra.wms.models.MR_LotteryNotification;
 import com.ngra.wms.models.MR_accountFundRequests;
 import com.ngra.wms.models.MR_BestScore;
 import com.ngra.wms.models.MR_BoothList;
@@ -540,6 +541,14 @@ public interface RetrofitApiInterface {
 
     @GET(Version + "/game/getgamereport")
     Call<MR_GameReport> getGameReport
+            (
+                    @Header("Authorization") String Authorization
+
+            );
+
+
+    @GET(Version + "/Score/GetScoreList")
+    Call<MR_LotteryNotification> getLotteryNotification
             (
                     @Header("Authorization") String Authorization
 

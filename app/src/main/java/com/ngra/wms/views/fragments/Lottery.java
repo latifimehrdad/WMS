@@ -89,6 +89,7 @@ public class Lottery extends FragmentPrimary implements FragmentPrimary.getActio
 
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getChildFragmentManager(), FragmentPagerItems.with(getContext())
+                .add(R.string.LotteryNotification, LotteryNotification.class)
                 .add(R.string.BestScores, BestScore.class)
                 .add(R.string.CitizenScore, UserScore.class)
                 .add(R.string.HowGiveScore, LotteryGiveScore.class)

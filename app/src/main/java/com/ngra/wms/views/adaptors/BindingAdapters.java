@@ -12,10 +12,12 @@ import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
 
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.ngra.wms.R;
 import com.ngra.wms.models.MD_Booth;
 import com.ngra.wms.models.MD_GregorianToSun;
 import com.ngra.wms.models.MD_ScoreListItem;
+import com.ngra.wms.models.MD_SpinnerItem;
 import com.ngra.wms.utility.ApplicationUtility;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.views.application.ApplicationWMS;
@@ -24,12 +26,29 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import params.com.stepview.StatusViewScroller;
 
 public class BindingAdapters {
+
+
+    //______________________________________________________________________________________________ setMaterialSpinnerItem
+    @BindingAdapter(value = "setMaterialSpinnerItem")
+    public static void setMaterialSpinnerItem(MaterialSpinner spinner, List<MD_SpinnerItem> items) {
+        if (items == null)
+            return;
+        String tag = spinner.getTag().toString();
+        if (tag.equalsIgnoreCase("buildingType"))
+            setMaterialSpinnerBuildingType(spinner, items);
+        else if (tag.equalsIgnoreCase("buildingUses"))
+            setMaterialSpinnerUses(spinner, items);
+
+    }
+    //______________________________________________________________________________________________ setMaterialSpinnerItem
 
 
     //______________________________________________________________________________________________ setGenderRadio
@@ -51,13 +70,13 @@ public class BindingAdapters {
     //______________________________________________________________________________________________ setGenderRadio
 
 
-
     //______________________________________________________________________________________________ setTextToEditText
     @BindingAdapter(value = "setTextToEditText")
     public static void setTextToEditText(EditText editText, String value) {
         editText.setText(value);
     }
     //______________________________________________________________________________________________ setTextToEditText
+
 
 
     @BindingAdapter(value = "setAccountFundRequestsState")
@@ -91,8 +110,6 @@ public class BindingAdapters {
         textView.setText(component.splitNumberOfAmount((long) amount));
     }
     //______________________________________________________________________________________________ splitNumberOfValue
-
-
 
 
     //______________________________________________________________________________________________ splitNumberOfAmount
@@ -474,6 +491,28 @@ public class BindingAdapters {
         }
         textView.setText(builder.toString());
     }
+
+
+    //______________________________________________________________________________________________ setMaterialSpinnerBuildingType
+    private static void setMaterialSpinnerBuildingType(MaterialSpinner spinner, List<MD_SpinnerItem> items) {
+        List<String> buildingTypes = new ArrayList<>();
+        buildingTypes.add("نوع واحد");
+        for (MD_SpinnerItem item : items)
+            buildingTypes.add(item.getTitle());
+        spinner.setItems(buildingTypes);
+    }
+    //______________________________________________________________________________________________ setMaterialSpinnerBuildingType
+
+
+    //______________________________________________________________________________________________ setMaterialSpinnerUses
+    private static void setMaterialSpinnerUses(MaterialSpinner spinner, List<MD_SpinnerItem> items) {
+        List<String> buildingUses = new ArrayList<>();
+        buildingUses.add("کاربری ساختمان");
+        for (MD_SpinnerItem item : items)
+            buildingUses.add(item.getTitle());
+        spinner.setItems(buildingUses);
+    }
+    //______________________________________________________________________________________________ setMaterialSpinnerUses
 
 
 }

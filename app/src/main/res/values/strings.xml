@@ -209,6 +209,7 @@
     <string name="RequestIsEmpty">هیچ درخواستی ثبت نشده</string>
     <string name="Version">نسخه</string>
     <string name="InternetNotAvailable">اینترنت دستگاه خود را روشن کنید</string>
+    <string name="LotteryNotification">اعلانات قرعه کشی</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 

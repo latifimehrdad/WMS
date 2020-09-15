@@ -27,6 +27,8 @@ import com.ngra.wms.views.dialogs.searchspinner.MLSpinnerDialog;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.regex.Pattern;
+
 import butterknife.BindView;
 
 
@@ -142,13 +144,11 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.getA
     //______________________________________________________________________________________________ getActionFromObservable
 
 
-
     //______________________________________________________________________________________________ actionWhenFailureRequest
     @Override
     public void actionWhenFailureRequest() {
     }
     //______________________________________________________________________________________________ actionWhenFailureRequest
-
 
 
     //______________________________________________________________________________________________ setItemBanks
@@ -207,6 +207,7 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.getA
         editAccountNumber.setBackgroundResource(R.drawable.dw_edit_back);
         editAccountNumber.addTextChangedListener(textChangeForChangeBack(editAccountNumber));
         LayoutBank.setBackgroundResource(R.drawable.dw_edit_back);
+        editAccountNumber.setSelection(editAccountNumber.getText().length());
     }
     //______________________________________________________________________________________________ setTextWatcher
 
@@ -222,21 +223,27 @@ public class ProfileBank extends FragmentPrimary implements FragmentPrimary.getA
             editAccountNumber.setError(getResources().getString(R.string.EmptyAccountNumber));
             editAccountNumber.requestFocus();
             accountnumbert = false;
-        } else
-            accountnumbert = true;
+        } else {
+            if (vm_profileBank.getAccountNumber().length() > 3) {
+                String IR = editAccountNumber.getText().toString();
+                IR = IR.substring(0, 2);
 
-
-        if (vm_profileBank.getAccountNumber().length() > 3) {
-            String IR = editAccountNumber.getText().toString();
-            IR = IR.substring(0, 2);
-
-            if (!IR.equalsIgnoreCase("IR") || !IR.equalsIgnoreCase("ir")) {
-                editAccountNumber.setBackgroundResource(R.drawable.dw_edit_back_empty);
-                editAccountNumber.setError(getResources().getString(R.string.EmptyAccountNumber));
-                editAccountNumber.requestFocus();
-                accountnumbert = false;
+                if (!IR.equalsIgnoreCase("IR")) {
+                    editAccountNumber.setBackgroundResource(R.drawable.dw_edit_back_empty);
+                    editAccountNumber.setError(getResources().getString(R.string.EmptyAccountNumber));
+                    editAccountNumber.requestFocus();
+                    accountnumbert = false;
+                } else {
+                    String lowerCase = "(.*[a-z].*)";
+                    if (Pattern.matches(lowerCase, IR)){
+                        editAccountNumber.setBackgroundResource(R.drawable.dw_edit_back_empty);
+                        editAccountNumber.setError(getResources().getString(R.string.EmptyAccountNumber));
+                        editAccountNumber.requestFocus();
+                        accountnumbert = false;
+                    } else accountnumbert = true;
+                }
             } else
-                accountnumbert = true;
+                accountnumbert = false;
         }
 
 

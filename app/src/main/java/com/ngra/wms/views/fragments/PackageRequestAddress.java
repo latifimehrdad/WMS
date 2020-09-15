@@ -67,14 +67,11 @@ public class PackageRequestAddress extends FragmentPrimary implements
     public PackageRequestAddress.MyLocationListener listener;
     private Location GPSLocation = null;
     private Location NetworkLocation = null;
-    private LatLng LocationAddress;
-    private Long BuildingTypeId;
-    private Long BuildingUseId;
     private DialogProgress progress;
     private Dialog dialogQuestion;
     private Location previousBestLocation = null;
     private String addressType;
-    private Integer AddressId;
+//    private Integer AddressId;
 
     @BindView(R.id.MaterialSpinnerType)
     MaterialSpinner MaterialSpinnerType;
@@ -184,20 +181,20 @@ public class PackageRequestAddress extends FragmentPrimary implements
     //______________________________________________________________________________________________ init
     private void init() {
 
-        BuildingTypeId = Long.valueOf(-1);
-        BuildingUseId = Long.valueOf(-1);
+        vm_packageRequestAddress.setBuildingTypeId(Long.valueOf(-1));
+        vm_packageRequestAddress.setBuildingUseId(Long.valueOf(-1));
         setTextWatcher();
         setOnClick();
         dismissLoading();
         vm_packageRequestAddress.getTypeBuilding();
         if (getArguments() != null) {
             addressType = getArguments().getString(getContext().getResources().getString(R.string.ML_Type), "");
-            AddressId = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
+            vm_packageRequestAddress.setAddressId(getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0));
             if (addressType.equalsIgnoreCase(getContext().getString(R.string.ML_Save)))
                 vm_packageRequestAddress.getUserAddress();
         } else {
             addressType = "";
-            AddressId = 0;
+            vm_packageRequestAddress.setAddressId(0);
         }
 
     }
@@ -215,7 +212,6 @@ public class PackageRequestAddress extends FragmentPrimary implements
         }
 
         if (action.equals(StaticValues.ML_SetAddress)) {
-            EditTextAddress.setText(vm_packageRequestAddress.getAddressString());
             LinearLayout.LayoutParams childParam1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
             childParam1.weight = 1;
             scrollView.setLayoutParams(childParam1);
@@ -229,16 +225,6 @@ public class PackageRequestAddress extends FragmentPrimary implements
             else
                 getContext().onBackPressed();
             return;
-        }
-
-        if (action.equals(StaticValues.ML_GetHousingBuildings)) {
-            setMaterialSpinnerType();
-            setMaterialSpinnerUses();
-            return;
-        }
-
-        if (action.equals(StaticValues.ML_GetUserAddress)) {
-            AddressId = Integer.valueOf(vm_packageRequestAddress.getAddressId());
         }
 
     }
@@ -260,10 +246,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
     private void setOnClick() {
 
         LayoutChoose.setOnClickListener(v -> {
-            textChoose.setVisibility(View.GONE);
-            MarkerGif.setVisibility(View.VISIBLE);
-            LocationAddress = mMap.getCameraPosition().target;
-            vm_packageRequestAddress.getAddress(LocationAddress.latitude, LocationAddress.longitude);
+            chooseLocation();
         });
 
 
@@ -285,30 +268,19 @@ public class PackageRequestAddress extends FragmentPrimary implements
             hideKeyboard();
             if (checkEmpty()) {
                 showLoading();
-                vm_packageRequestAddress.saveAddress(
-                        EditTextAddress.getText().toString(),
-                        LocationAddress.latitude,
-                        LocationAddress.longitude,
-                        BuildingTypeId,
-                        Integer.valueOf(EditTextUnitCount.getText().toString()),
-                        BuildingUseId,
-                        Integer.valueOf(EditTextPersonCount.getText().toString()),
-                        EditTextPlateNumber.getText().toString(),
-                        EditTextUnitNumber.getText().toString(),
-                        AddressId
-                );
+                vm_packageRequestAddress.saveAddress();
             }
         });
 
 
         MaterialSpinnerUses.setOnItemSelectedListener((view, position, id, item) -> {
-            if (BuildingUseId == -1) {
-                BuildingUseId = Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingUses().get(position - 1).getId());
+            if (vm_packageRequestAddress.getBuildingUseId() == -1) {
+                vm_packageRequestAddress.setBuildingUseId(Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingUses().get(position - 1).getId()));
                 MaterialSpinnerUses.getItems().remove(0);
                 MaterialSpinnerUses.setSelectedIndex(MaterialSpinnerUses.getItems().size() - 1);
                 MaterialSpinnerUses.setSelectedIndex(position - 1);
             } else
-                BuildingUseId = Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingUses().get(position).getId());
+                vm_packageRequestAddress.setBuildingUseId(Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingUses().get(position).getId()));
 
             if (getContext() != null) {
                 MaterialSpinnerUses.setBackgroundColor(getContext().getResources().getColor(R.color.mlWhite));
@@ -316,13 +288,13 @@ public class PackageRequestAddress extends FragmentPrimary implements
         });
 
         MaterialSpinnerType.setOnItemSelectedListener((view, position, id, item) -> {
-            if (BuildingTypeId == -1) {
-                BuildingTypeId = Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingTypes().get(position - 1).getId());
+            if (vm_packageRequestAddress.getBuildingTypeId() == -1) {
+                vm_packageRequestAddress.setBuildingTypeId(Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingTypes().get(position - 1).getId()));
                 MaterialSpinnerType.getItems().remove(0);
                 MaterialSpinnerType.setSelectedIndex(MaterialSpinnerType.getItems().size() - 1);
                 MaterialSpinnerType.setSelectedIndex(position - 1);
             } else
-                BuildingTypeId = Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingTypes().get(position).getId());
+                vm_packageRequestAddress.setBuildingTypeId(Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingTypes().get(position).getId()));
 
             if (getContext() != null) {
                 MaterialSpinnerType.setBackgroundColor(getContext().getResources().getColor(R.color.mlWhite));
@@ -331,6 +303,18 @@ public class PackageRequestAddress extends FragmentPrimary implements
 
     }
     //______________________________________________________________________________________________ setOnClick
+
+
+
+    //______________________________________________________________________________________________ chooseLocation
+    private void chooseLocation() {
+        textChoose.setVisibility(View.GONE);
+        MarkerGif.setVisibility(View.VISIBLE);
+        LatLng latLng = mMap.getCameraPosition().target;
+        vm_packageRequestAddress.getAddress(latLng.latitude, latLng.longitude);
+    }
+    //______________________________________________________________________________________________ chooseLocation
+
 
 
     //______________________________________________________________________________________________ getCurrentLocation
@@ -357,6 +341,8 @@ public class PackageRequestAddress extends FragmentPrimary implements
                         , getResources().getColor(R.color.mlWhite),
                         getResources().getDrawable(R.drawable.ic_error),
                         getResources().getColor(R.color.mlBlack));
+
+                LinearLayoutWaitMap.setVisibility(View.GONE);
 
 
                 return;
@@ -395,7 +381,6 @@ public class PackageRequestAddress extends FragmentPrimary implements
         markerInfo.setVisibility(View.GONE);
 
         mMap.setOnMapLoadedCallback(() -> {
-            LinearLayoutWaitMap.setVisibility(View.GONE);
             if (!vm_packageRequestAddress.isLocationEnabled(getContext())) {
                 showRequestTypeDialog();
             } else {
@@ -416,6 +401,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
         mMap.setOnCameraIdleListener(() -> {
             textChoose.setVisibility(View.VISIBLE);
             MarkerGif.setVisibility(View.GONE);
+            chooseLocation();
         });
 
 
@@ -507,6 +493,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
     private void getTrueLocationAndMove(Location location) {
         textChoose.setVisibility(View.VISIBLE);
         MarkerGif.setVisibility(View.GONE);
+        LinearLayoutWaitMap.setVisibility(View.GONE);
         LatLng current = new LatLng(location.getLatitude(), location.getLongitude());
         float zoom = (float) 16;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(current, zoom));
@@ -530,29 +517,6 @@ public class PackageRequestAddress extends FragmentPrimary implements
     //______________________________________________________________________________________________ setTextWatcher
 
 
-    //______________________________________________________________________________________________ setMaterialSpinnerUses
-    private void setMaterialSpinnerUses() {
-        List<String> buildingUses = new ArrayList<>();
-        buildingUses.add("کاربری ساختمان");
-        for (MD_SpinnerItem item : vm_packageRequestAddress.getBuildingTypes().getBuildingUses())
-            buildingUses.add(item.getTitle());
-        MaterialSpinnerUses.setItems(buildingUses);
-    }
-    //______________________________________________________________________________________________ setMaterialSpinnerUses
-
-
-    //______________________________________________________________________________________________ setMaterialSpinnerType
-    private void setMaterialSpinnerType() {
-        if (progress != null)
-            progress.dismiss();
-        List<String> buildingTypes = new ArrayList<>();
-        buildingTypes.add("نوع واحد");
-        for (MD_SpinnerItem item : vm_packageRequestAddress.getBuildingTypes().getBuildingTypes())
-            buildingTypes.add(item.getTitle());
-        MaterialSpinnerType.setItems(buildingTypes);
-    }
-    //______________________________________________________________________________________________ setMaterialSpinnerType
-
 
     //______________________________________________________________________________________________ checkEmpty
     private Boolean checkEmpty() {
@@ -566,7 +530,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
         boolean unit;
 
 
-        if (EditTextUnitNumber.getText().length() < 1) {
+        if (vm_packageRequestAddress.getUnitNumber().length() < 1) {
             EditTextUnitNumber.setBackgroundResource(R.drawable.dw_edit_back_empty);
             EditTextUnitNumber.setError(getResources().getString(R.string.EmptyUnitNumber));
             EditTextUnitNumber.requestFocus();
@@ -574,7 +538,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
         } else
             unit = true;
 
-        if (EditTextPlateNumber.getText().length() < 1) {
+        if (vm_packageRequestAddress.getPlateNumber().length() < 1) {
             EditTextPlateNumber.setBackgroundResource(R.drawable.dw_edit_back_empty);
             EditTextPlateNumber.setError(getResources().getString(R.string.EmptyPlateNumber));
             EditTextPlateNumber.requestFocus();
@@ -583,21 +547,21 @@ public class PackageRequestAddress extends FragmentPrimary implements
             plate = true;
 
 
-        if (BuildingTypeId == -1) {
+        if (vm_packageRequestAddress.getBuildingTypeId() == -1) {
             MaterialSpinnerType.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
             MaterialSpinnerType.requestFocus();
             spinnertype = false;
         } else
             spinnertype = true;
 
-        if (BuildingUseId == -1) {
+        if (vm_packageRequestAddress.getBuildingUseId() == -1) {
             MaterialSpinnerUses.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
             MaterialSpinnerUses.requestFocus();
             spinneruser = false;
         } else
             spinneruser = true;
 
-        if (EditTextUnitCount.getText().length() < 1) {
+        if (vm_packageRequestAddress.getBuildingTypeCount().length() < 1) {
             EditTextUnitCount.setBackgroundResource(R.drawable.dw_edit_back_empty);
             EditTextUnitCount.setError(getResources().getString(R.string.EmptyUnitCount));
             EditTextUnitCount.requestFocus();
@@ -605,7 +569,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
         } else
             unitcount = true;
 
-        if (EditTextPersonCount.getText().length() < 1) {
+        if (vm_packageRequestAddress.getBuildingUseCount().length() < 1) {
             EditTextPersonCount.setBackgroundResource(R.drawable.dw_edit_back_empty);
             EditTextPersonCount.setError(getResources().getString(R.string.EmptyPersonCount));
             EditTextPersonCount.requestFocus();
@@ -614,7 +578,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
             personcount = true;
 
 
-        if (EditTextAddress.getText().length() < 1 || LocationAddress == null) {
+        if (vm_packageRequestAddress.getAddressString().length() < 1 || vm_packageRequestAddress.getAddress() == null) {
             EditTextAddress.setBackgroundResource(R.drawable.edit_empty_background);
             EditTextAddress.setError(getResources().getString(R.string.EmptyAddress));
             EditTextAddress.requestFocus();
@@ -638,6 +602,9 @@ public class PackageRequestAddress extends FragmentPrimary implements
 
         textChoose.setVisibility(View.VISIBLE);
         MarkerGif.setVisibility(View.GONE);
+
+        if (progress != null)
+            progress.dismiss();
 
     }
     //______________________________________________________________________________________________ dismissLoading

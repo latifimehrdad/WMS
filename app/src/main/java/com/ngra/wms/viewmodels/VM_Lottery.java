@@ -9,4 +9,10 @@ public class VM_Lottery extends VM_Primary {
         setContext(context);
     }
     //______________________________________________________________________________________________ VM_Lottery
+
+
+
+
+
+
 }

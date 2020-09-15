@@ -10,7 +10,6 @@ import com.ngra.wms.models.ModelGetAddress;
 import com.ngra.wms.models.ModelHousingBuildings;
 import com.ngra.wms.models.ModelResponsePrimary;
 import com.ngra.wms.models.ModelSettingInfo;
-import com.ngra.wms.utility.ApplicationUtility;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.views.application.ApplicationWMS;
 
@@ -23,8 +22,14 @@ public class VM_PackageRequestAddress extends VM_Primary {
 
     private ModelBuildingTypes buildingTypes;
     private ModelGetAddress address;
-    private String AddressString;
-    private String AddressId;
+    private String addressString;
+    private Integer addressId;
+    private Long buildingTypeId;
+    private Long buildingUseId;
+    private String plateNumber;
+    private String buildingTypeCount;
+    private String buildingUseCount;
+    private String unitNumber;
 
 
     //______________________________________________________________________________________________ VM_PackageRequestAddress
@@ -35,17 +40,7 @@ public class VM_PackageRequestAddress extends VM_Primary {
 
 
     //______________________________________________________________________________________________ saveAddress
-    public void saveAddress(
-            String Address,
-            double lat,
-            double lng,
-            Long buildingTypeId,
-            Integer buildingTypeCount,
-            Long buildingUseId,
-            Integer buildingUseCount,
-            String plateNumber,
-            String unitNumber,
-            Integer addressId) {
+    public void saveAddress() {
 
         RetrofitComponent retrofitComponent = ApplicationWMS
                 .getApplicationWMS(getContext())
@@ -59,16 +54,16 @@ public class VM_PackageRequestAddress extends VM_Primary {
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .EditUserAddress(
-                        Address,
-                        lat,
-                        lng,
-                        buildingTypeId,
-                        buildingTypeCount,
-                        buildingUseId,
-                        buildingUseCount,
-                        plateNumber,
-                        unitNumber,
-                        addressId,
+                        getAddressString(),
+                        Double.valueOf(getAddress().getLat()),
+                        Double.valueOf(getAddress().getLon()),
+                        getBuildingTypeId(),
+                        Integer.valueOf(getBuildingTypeCount()),
+                        getBuildingUseId(),
+                        Integer.valueOf(getBuildingUseCount()),
+                        getPlateNumber(),
+                        getUnitNumber(),
+                        getAddressId(),
                         authorization));
 
         if (getPrimaryCall() == null)
@@ -154,11 +149,12 @@ public class VM_PackageRequestAddress extends VM_Primary {
 
         getPrimaryCall().enqueue(new Callback<ModelHousingBuildings>() {
             @Override
-            public void onResponse(Call<ModelHousingBuildings> call, Response<ModelHousingBuildings> response) { ;
+            public void onResponse(Call<ModelHousingBuildings> call, Response<ModelHousingBuildings> response) {
+                ;
                 setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
                     buildingTypes = response.body().getResult();
-                    sendActionToObservable(StaticValues.ML_GetHousingBuildings);
+                    notifyChange();
                 } else
                     sendActionToObservable(StaticValues.ML_ResponseError);
             }
@@ -294,12 +290,13 @@ public class VM_PackageRequestAddress extends VM_Primary {
                 addressString.append(road);
             }
 
-            AddressString = addressString.toString();
+            this.addressString = addressString.toString();
         } else {
-            AddressString = "";
+            addressString = "";
         }
 
         sendActionToObservable(StaticValues.ML_SetAddress);
+        notifyChange();
 
     }
     //______________________________________________________________________________________________ setAddress
@@ -328,7 +325,7 @@ public class VM_PackageRequestAddress extends VM_Primary {
                                 if (response.body().getResult() == null)
                                     sendActionToObservable(StaticValues.ML_ResponseError);
                                 else {
-                                    AddressId = response.body().getResult().get(0).getId();
+                                    addressId = Integer.valueOf(response.body().getResult().get(0).getId());
                                     sendActionToObservable(StaticValues.ML_GetUserAddress);
                                 }
                         } else
@@ -347,9 +344,16 @@ public class VM_PackageRequestAddress extends VM_Primary {
 
     //______________________________________________________________________________________________ getAddressString
     public String getAddressString() {
-        return AddressString;
+        return addressString;
     }
     //______________________________________________________________________________________________ getAddressString
+
+
+    //______________________________________________________________________________________________ setAddressString
+    public void setAddressString(String addressString) {
+        this.addressString = addressString;
+    }
+    //______________________________________________________________________________________________ setAddressString
 
 
     //______________________________________________________________________________________________ getBuildingTypes
@@ -360,13 +364,116 @@ public class VM_PackageRequestAddress extends VM_Primary {
 
 
     //______________________________________________________________________________________________ getAddressId
-    public String getAddressId() {
-        if (AddressId == null)
-            AddressId = "0";
+    public Integer getAddressId() {
+        if (addressId == null)
+            addressId = 0;
 
-        return AddressId;
+        return addressId;
     }
     //______________________________________________________________________________________________ getAddressId
 
 
+    //______________________________________________________________________________________________ getBuildingTypeId
+    public Long getBuildingTypeId() {
+        return buildingTypeId;
+    }
+    //______________________________________________________________________________________________ getBuildingTypeId
+
+
+    //______________________________________________________________________________________________ setBuildingTypeId
+    public void setBuildingTypeId(Long buildingTypeId) {
+        this.buildingTypeId = buildingTypeId;
+    }
+    //______________________________________________________________________________________________ setBuildingTypeId
+
+
+    //______________________________________________________________________________________________ getBuildingUseId
+    public Long getBuildingUseId() {
+        return buildingUseId;
+    }
+    //______________________________________________________________________________________________ getBuildingUseId
+
+
+    //______________________________________________________________________________________________ setBuildingUseId
+    public void setBuildingUseId(Long buildingUseId) {
+        this.buildingUseId = buildingUseId;
+    }
+    //______________________________________________________________________________________________ setBuildingUseId
+
+
+    //______________________________________________________________________________________________ getPlateNumber
+    public String getPlateNumber() {
+        return plateNumber;
+    }
+    //______________________________________________________________________________________________ getPlateNumber
+
+
+    //______________________________________________________________________________________________ setPlateNumber
+    public void setPlateNumber(String plateNumber) {
+        this.plateNumber = plateNumber;
+    }
+    //______________________________________________________________________________________________ setPlateNumber
+
+
+    //______________________________________________________________________________________________ getBuildingTypeCount
+    public String getBuildingTypeCount() {
+        return buildingTypeCount;
+    }
+    //______________________________________________________________________________________________ getBuildingTypeCount
+
+
+    //______________________________________________________________________________________________ setBuildingTypeCount
+    public void setBuildingTypeCount(String buildingTypeCount) {
+        this.buildingTypeCount = buildingTypeCount;
+    }
+    //______________________________________________________________________________________________ setBuildingTypeCount
+
+
+    //______________________________________________________________________________________________ getBuildingUseCount
+    public String getBuildingUseCount() {
+        return buildingUseCount;
+    }
+    //______________________________________________________________________________________________ getBuildingUseCount
+
+
+    //______________________________________________________________________________________________ setBuildingUseCount
+    public void setBuildingUseCount(String buildingUseCount) {
+        this.buildingUseCount = buildingUseCount;
+    }
+    //______________________________________________________________________________________________ setBuildingUseCount
+
+
+    //______________________________________________________________________________________________ getUnitNumber
+    public String getUnitNumber() {
+        return unitNumber;
+    }
+    //______________________________________________________________________________________________ getUnitNumber
+
+
+    //______________________________________________________________________________________________ setUnitNumber
+    public void setUnitNumber(String unitNumber) {
+        this.unitNumber = unitNumber;
+    }
+    //______________________________________________________________________________________________ setUnitNumber
+
+
+    //______________________________________________________________________________________________ getAddress
+    public ModelGetAddress getAddress() {
+        return address;
+    }
+    //______________________________________________________________________________________________ getAddress
+
+
+    //______________________________________________________________________________________________ setAddress
+    public void setAddress(ModelGetAddress address) {
+        this.address = address;
+    }
+    //______________________________________________________________________________________________ setAddress
+
+
+    //______________________________________________________________________________________________ setAddressId
+    public void setAddressId(Integer addressId) {
+        this.addressId = addressId;
+    }
+    //______________________________________________________________________________________________ setAddressId
 }

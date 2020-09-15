@@ -236,7 +236,6 @@ public class FragmentPrimary extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         };
 

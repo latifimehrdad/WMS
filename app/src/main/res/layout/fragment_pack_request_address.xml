@@ -47,10 +47,12 @@
                 android:layout_weight="1"
                 android:maxLines="2"
                 android:background="@color/mlEdit"
+                android:layout_marginLeft="@dimen/_3sdp"
                 android:minHeight="@dimen/_30sdp"
                 android:padding="@dimen/_5sdp"
-                android:text=""
-                android:textSize="@dimen/_10sdp" />
+                android:textSize="@dimen/_10sdp"
+                android:text="@={vm_requestAddress.addressString}"
+                app:setTextToEditText="@{vm_requestAddress.addressString}"/>
 
             <ImageView
                 android:id="@+id/test"
@@ -106,6 +108,8 @@
                             android:paddingRight="@dimen/_5sdp"
                             android:textColor="@color/mlBlack"
                             android:textSize="@dimen/_10sdp"
+                            android:text="@={vm_requestAddress.buildingTypeCount}"
+                            app:setTextToEditText="@{vm_requestAddress.buildingTypeCount}"
                             />
 
                         <ImageView
@@ -140,7 +144,9 @@
                                 android:gravity="right"
                                 app:ms_background_color="@color/mlWhite"
                                 app:ms_text_color="@color/mlBlack"
-                                android:textSize="@dimen/_10sdp"/>
+                                android:textSize="@dimen/_10sdp"
+                                app:setMaterialSpinnerItem="@{vm_requestAddress.buildingTypes.buildingTypes}"
+                                android:tag="buildingType"/>
 
                         </LinearLayout>
 
@@ -192,6 +198,8 @@
                             android:paddingRight="@dimen/_5sdp"
                             android:textColor="@color/mlBlack"
                             android:textSize="@dimen/_10sdp"
+                            android:text="@={vm_requestAddress.buildingUseCount}"
+                            app:setTextToEditText="@{vm_requestAddress.buildingUseCount}"
                             />
 
                         <ImageView
@@ -226,7 +234,9 @@
                                 android:gravity="right"
                                 app:ms_background_color="@color/mlEdit"
                                 app:ms_text_color="@color/mlBlack"
-                                android:textSize="@dimen/_10sdp"/>
+                                android:textSize="@dimen/_10sdp"
+                                app:setMaterialSpinnerItem="@{vm_requestAddress.buildingTypes.buildingUses}"
+                                android:tag="buildingUses"/>
 
                         </LinearLayout>
 
@@ -278,6 +288,8 @@
                             android:paddingRight="@dimen/_5sdp"
                             android:textColor="@color/mlBlack"
                             android:textSize="@dimen/_10sdp"
+                            android:text="@={vm_requestAddress.unitNumber}"
+                            app:setTextToEditText="@{vm_requestAddress.unitNumber}"
                             />
 
                         <ImageView
@@ -313,6 +325,8 @@
                             android:paddingRight="@dimen/_5sdp"
                             android:textColor="@color/mlBlack"
                             android:textSize="@dimen/_10sdp"
+                            android:text="@={vm_requestAddress.plateNumber}"
+                            app:setTextToEditText="@{vm_requestAddress.plateNumber}"
                             />
 
                         <ImageView

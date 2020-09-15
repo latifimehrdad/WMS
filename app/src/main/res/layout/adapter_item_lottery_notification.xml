@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="lotteryNotification"
+            type="com.ngra.wms.models.MD_LotteryNotification" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_4sdp"
+        android:layout_marginRight="@dimen/_4sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:orientation="horizontal"
+        android:background="@drawable/dw_back_item_ticket"
+        android:padding="@dimen/_4sdp"
+        android:gravity="center">
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_10sdp"
+                android:textColor="@color/mlBlack"
+                android:gravity="right"
+                android:padding="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
+                fontPath="font/iransans_web_medium.ttf"
+                android:text="@{lotteryNotification.title}"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_10sdp"
+                android:textColor="@color/mlBlack"
+                android:gravity="right"
+                android:padding="@dimen/_1sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
+                android:text="@{lotteryNotification.description}"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@color/mlFooter"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_marginBottom="@dimen/_3sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:layout_marginLeft="@dimen/_5sdp"/>
+
+
+        <ImageView
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:src="@drawable/wmslogo"
+            android:padding="@dimen/_3sdp"
+            app:SetImageItemOfWast="@{lotteryNotification.cover}"/>
+
+
+    </LinearLayout>
+
+</layout>

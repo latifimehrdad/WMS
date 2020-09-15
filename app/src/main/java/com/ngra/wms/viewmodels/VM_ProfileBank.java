@@ -29,6 +29,7 @@ public class VM_ProfileBank extends VM_Primary {
     //______________________________________________________________________________________________ VM_ProFileBank
     public VM_ProfileBank(Activity context) {
         setContext(context);
+        setAccountNumber("IR");
     }
     //______________________________________________________________________________________________ VM_ProFileBank
 

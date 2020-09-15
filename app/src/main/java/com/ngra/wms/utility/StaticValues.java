@@ -129,6 +129,7 @@ public class StaticValues {
     public static Byte ML_UpdateProgress = 48;
     public static Byte ML_AccountFundRequest = 49;
     public static Byte ML_InternetAccessFailed = 50;
+    public static Byte ML_LotteryNotification = 51;
     //***** Observable Control *****
 
 
