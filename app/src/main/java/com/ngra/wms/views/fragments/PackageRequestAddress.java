@@ -61,6 +61,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
     private NavController navController;
     private VM_PackageRequestAddress vm_packageRequestAddress;
     private boolean FullScreen = false;
+    boolean enableToGetAddress = false;
     private Integer TryToLocation = 0;
     private GoogleMap mMap;
     private LocationManager locationManager;
@@ -71,6 +72,8 @@ public class PackageRequestAddress extends FragmentPrimary implements
     private Dialog dialogQuestion;
     private Location previousBestLocation = null;
     private String addressType;
+    private Handler handlerGetAddress;
+    private Runnable runnableGetAddress;
 //    private Integer AddressId;
 
     @BindView(R.id.MaterialSpinnerType)
@@ -231,8 +234,6 @@ public class PackageRequestAddress extends FragmentPrimary implements
     //______________________________________________________________________________________________ getActionFromObservable
 
 
-
-
     //______________________________________________________________________________________________ actionWhenFailureRequest
     @Override
     public void actionWhenFailureRequest() {
@@ -240,12 +241,11 @@ public class PackageRequestAddress extends FragmentPrimary implements
     //______________________________________________________________________________________________ actionWhenFailureRequest
 
 
-
-
     //______________________________________________________________________________________________ setOnClick
     private void setOnClick() {
 
         LayoutChoose.setOnClickListener(v -> {
+            enableToGetAddress = true;
             chooseLocation();
         });
 
@@ -305,16 +305,33 @@ public class PackageRequestAddress extends FragmentPrimary implements
     //______________________________________________________________________________________________ setOnClick
 
 
-
     //______________________________________________________________________________________________ chooseLocation
     private void chooseLocation() {
         textChoose.setVisibility(View.GONE);
         MarkerGif.setVisibility(View.VISIBLE);
-        LatLng latLng = mMap.getCameraPosition().target;
-        vm_packageRequestAddress.getAddress(latLng.latitude, latLng.longitude);
+
+        if (handlerGetAddress != null) {
+            if (runnableGetAddress != null)
+                handlerGetAddress.removeCallbacks(runnableGetAddress);
+            runnableGetAddress = null;
+        } else
+            handlerGetAddress = new Handler();
+
+
+        runnableGetAddress = () -> {
+            if (!enableToGetAddress)
+                return;
+            LatLng latLng = mMap.getCameraPosition().target;
+            if (latLng.latitude > 1) {
+                handlerGetAddress.removeCallbacks(runnableGetAddress);
+                vm_packageRequestAddress.getAddress(latLng.latitude, latLng.longitude);
+            }
+        };
+
+        handlerGetAddress.postDelayed(runnableGetAddress , 1000);
+
     }
     //______________________________________________________________________________________________ chooseLocation
-
 
 
     //______________________________________________________________________________________________ getCurrentLocation
@@ -390,6 +407,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
         });
 
         mMap.setOnCameraMoveStartedListener(i -> {
+            enableToGetAddress = false;
             textChoose.setVisibility(View.GONE);
             MarkerGif.setVisibility(View.VISIBLE);
             if (markerInfo.getVisibility() == View.VISIBLE) {
@@ -399,6 +417,7 @@ public class PackageRequestAddress extends FragmentPrimary implements
         });
 
         mMap.setOnCameraIdleListener(() -> {
+            enableToGetAddress = true;
             textChoose.setVisibility(View.VISIBLE);
             MarkerGif.setVisibility(View.GONE);
             chooseLocation();
@@ -515,7 +534,6 @@ public class PackageRequestAddress extends FragmentPrimary implements
         EditTextPlateNumber.addTextChangedListener(textChangeForChangeBack(EditTextPlateNumber));
     }
     //______________________________________________________________________________________________ setTextWatcher
-
 
 
     //______________________________________________________________________________________________ checkEmpty

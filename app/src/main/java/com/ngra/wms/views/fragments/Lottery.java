@@ -97,7 +97,7 @@ public class Lottery extends FragmentPrimary implements FragmentPrimary.getActio
 
         FragmentLotteryView.setAdapter(adapter);
         FragmentLotteryTab.setViewPager(FragmentLotteryView);
-        FragmentLotteryView.setCurrentItem(2);
+        FragmentLotteryView.setCurrentItem(3);
     }
     //______________________________________________________________________________________________ setTabs
 

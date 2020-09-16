@@ -35,6 +35,24 @@ import params.com.stepview.StatusViewScroller;
 
 public class BindingAdapters {
 
+    //______________________________________________________________________________________________ SetJalaliDateDelivery
+    @BindingAdapter(value = {"setJalaliDateFrom", "setJalaliDateTo"})
+    public static void setJalaliDateDelivery(TextView textView, Date dateFrom , Date dateTo) {
+
+        ApplicationUtility component = ApplicationWMS
+                .getApplicationWMS(textView.getContext())
+                .getUtilityComponent()
+                .getApplicationUtility();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.US);
+
+        MD_GregorianToSun toSun = component.gregorianToSun(dateFrom);
+        String builder = toSun.getFullStringSun() + " از ساعت " + simpleDateFormat.format(dateFrom) + " تا " + simpleDateFormat.format(dateTo);
+
+        textView.setText(builder);
+
+    }
+    //______________________________________________________________________________________________ SetJalaliDateDelivery
+
 
     //______________________________________________________________________________________________ setMaterialSpinnerItem
     @BindingAdapter(value = "setMaterialSpinnerItem")

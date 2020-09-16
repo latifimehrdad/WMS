@@ -547,7 +547,7 @@ public interface RetrofitApiInterface {
             );
 
 
-    @GET(Version + "/Score/GetScoreList")
+    @GET(Version + "/LotteryNotice/LotteryNoticeList")
     Call<MR_LotteryNotification> getLotteryNotification
             (
                     @Header("Authorization") String Authorization

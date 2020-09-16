@@ -92,7 +92,6 @@ public class VM_Primary extends BaseObservable {
 
     //______________________________________________________________________________________________ checkResponseIfThatIsAuthorization
     private String checkResponseIfThatIsAuthorization(Response response) {
-
         JSONObject jObjError = null;
         try {
             setResponseCode(response.code());
@@ -231,6 +230,7 @@ public class VM_Primary extends BaseObservable {
     //______________________________________________________________________________________________ cancelRequest
     public void cancelRequest() {
         if (primaryCall != null) {
+            setResponseMessage("");
             primaryCall.cancel();
             primaryCall = null;
         }

@@ -172,11 +172,12 @@ public class FragmentPrimary extends Fragment {
                             getResources().getColor(R.color.mlCollectRight1));
                     getActionFromObservable.actionWhenFailureRequest();
                     return;
-                } else
+                } else {
                     showMessageDialog(vm_primary.getResponseMessage()
                             , getResources().getColor(R.color.mlWhite),
                             getResources().getDrawable(R.drawable.ic_check),
                             getResources().getColor(R.color.colorPrimaryDark));
+                }
             });
         }
     }

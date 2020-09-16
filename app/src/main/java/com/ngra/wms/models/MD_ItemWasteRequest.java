@@ -17,6 +17,12 @@ public class MD_ItemWasteRequest extends ModelResponsePrimary{
     @SerializedName("requestDate")
     Date requestDate;
 
+    @SerializedName("fromDeliverDate")
+    Date fromDeliverDate;
+
+    @SerializedName("toDeliverDate")
+    Date toDeliverDate;
+
     @SerializedName("requestCode")
     String requestCode;
 
@@ -33,11 +39,13 @@ public class MD_ItemWasteRequest extends ModelResponsePrimary{
     List<MD_WasteAmountRequests2> wasteAmountRequests;
 
 
-    public MD_ItemWasteRequest(ArrayList<ModelMessage> messages, Byte wasteCollectionState, Byte deliveryType, Date requestDate, String requestCode, float totalAmount, List<String> wasteAmountEstimates, MD_Booth booth, List<MD_WasteAmountRequests2> wasteAmountRequests) {
+    public MD_ItemWasteRequest(ArrayList<ModelMessage> messages, Byte wasteCollectionState, Byte deliveryType, Date requestDate, Date fromDeliverDate, Date toDeliverDate, String requestCode, float totalAmount, List<String> wasteAmountEstimates, MD_Booth booth, List<MD_WasteAmountRequests2> wasteAmountRequests) {
         super(messages);
         this.wasteCollectionState = wasteCollectionState;
         this.deliveryType = deliveryType;
         this.requestDate = requestDate;
+        this.fromDeliverDate = fromDeliverDate;
+        this.toDeliverDate = toDeliverDate;
         this.requestCode = requestCode;
         this.totalAmount = totalAmount;
         this.wasteAmountEstimates = wasteAmountEstimates;
@@ -107,5 +115,21 @@ public class MD_ItemWasteRequest extends ModelResponsePrimary{
 
     public void setBooth(MD_Booth booth) {
         this.booth = booth;
+    }
+
+    public Date getFromDeliverDate() {
+        return fromDeliverDate;
+    }
+
+    public void setFromDeliverDate(Date fromDeliverDate) {
+        this.fromDeliverDate = fromDeliverDate;
+    }
+
+    public Date getToDeliverDate() {
+        return toDeliverDate;
+    }
+
+    public void setToDeliverDate(Date toDeliverDate) {
+        this.toDeliverDate = toDeliverDate;
     }
 }

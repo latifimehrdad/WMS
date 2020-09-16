@@ -21,6 +21,7 @@
     <color name="mlCollectRight1">#EF7F2F</color>
     <color name="mlCollectRight2">#A24A0B</color>
     <color name="mlCollectItems">#15DF89</color>
+    <color name="mlDeliveryDateTime">#1BB171</color>
     <color name="mlCollectBooth">#5B5B5B</color>
     <color name="mlMenuBackTrans">#D9252525</color>
     <color name="mlVerifyCodeEmpty">#1A313131</color>

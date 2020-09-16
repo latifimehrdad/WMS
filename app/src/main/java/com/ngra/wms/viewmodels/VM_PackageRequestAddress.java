@@ -55,8 +55,8 @@ public class VM_PackageRequestAddress extends VM_Primary {
                 .getRetrofitApiInterface()
                 .EditUserAddress(
                         getAddressString(),
-                        Double.valueOf(getAddress().getLat()),
-                        Double.valueOf(getAddress().getLon()),
+                        Double.parseDouble(getAddress().getLat()),
+                        Double.parseDouble(getAddress().getLon()),
                         getBuildingTypeId(),
                         Integer.valueOf(getBuildingTypeCount()),
                         getBuildingUseId(),
