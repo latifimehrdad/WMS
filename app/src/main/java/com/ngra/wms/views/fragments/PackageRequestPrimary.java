@@ -44,20 +44,11 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
     @BindView(R.id.FPRPSpinnerDay)
     MaterialSpinner FPRPSpinnerDay;
 
-    @BindView(R.id.textDate)
-    TextView textDate;
-
-    @BindView(R.id.textTime)
-    TextView textTime;
-
     @BindView(R.id.RelativeLayoutSave)
     RelativeLayout RelativeLayoutSave;
 
     @BindView(R.id.LinearLayoutPackageState)
     LinearLayout LinearLayoutPackageState;
-
-    @BindView(R.id.FPRPStatusViewScroller)
-    StatusViewScroller FPRPStatusViewScroller;
 
     @BindView(R.id.imgLoading)
     ImageView imgLoading;
@@ -70,15 +61,6 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
 
     @BindView(R.id.LinearLayoutTimeSheet)
     LinearLayout LinearLayoutTimeSheet;
-
-    @BindView(R.id.TextViewRequest)
-    TextView TextViewRequest;
-
-    @BindView(R.id.TextViewSend)
-    TextView TextViewSend;
-
-    @BindView(R.id.TextViewDeliver)
-    TextView TextViewDeliver;
 
     @BindView(R.id.RelativeLayoutState)
     RelativeLayout RelativeLayoutState;
@@ -146,34 +128,11 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
                 RelativeLayoutState.setVisibility(View.VISIBLE);
                 TextViewState.setVisibility(View.GONE);
             }
-            FPRPStatusViewScroller.getStatusView().setCurrentCount(statues + 1);
             RelativeLayoutSave.setVisibility(View.GONE);
             LinearLayoutPackageState.setVisibility(View.VISIBLE);
             FPRPSpinnerDay.setVisibility(View.GONE);
             LinearLayoutTimeSheet.setVisibility(View.GONE);
-            if (getContext() != null)
-                setPackageDate(vm_packageRequestPrimary.packageRequestDate(getContext()));
-
-            String tag = (String) TextViewRequest.getTag();
-            if (statues.equals(Byte.valueOf(tag)))
-                TextViewRequest.setBackground(getContext().getResources().getDrawable(R.drawable.layout_border_black));
-            else
-                TextViewRequest.setBackground(null);
-
-
-            tag = (String) TextViewSend.getTag();
-            if (statues.equals(Byte.valueOf(tag)))
-                TextViewSend.setBackground(getContext().getResources().getDrawable(R.drawable.layout_border_black));
-            else
-                TextViewSend.setBackground(null);
-
-
-            tag = (String) TextViewDeliver.getTag();
-            if (statues.equals(Byte.valueOf(tag)))
-                TextViewDeliver.setBackground(getContext().getResources().getDrawable(R.drawable.layout_border_black));
-            else
-                TextViewDeliver.setBackground(null);
-
+            vm_packageRequestPrimary.setPackageDate();
         }
 
 
@@ -192,9 +151,7 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
             LinearLayoutPackageState.setVisibility(View.VISIBLE);
             FPRPSpinnerDay.setVisibility(View.GONE);
             LinearLayoutTimeSheet.setVisibility(View.GONE);
-            FPRPStatusViewScroller.getStatusView().setCurrentCount(2);
-            ModelPackage modelPackage = new ModelPackage();
-            setPackageDate(modelPackage);
+            vm_packageRequestPrimary.setPackageDate();
 
         }
 
@@ -215,19 +172,6 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
     //______________________________________________________________________________________________ actionWhenFailureRequest
 
 
-
-
-    //______________________________________________________________________________________________ setPackageDate
-    private void setPackageDate(ModelPackage modelPackage) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.US);
-        textDate.setText(vm_packageRequestPrimary.getUtility().gregorianToSun(modelPackage.getFromDeliver()).getFullStringSun());
-
-        String builder = simpleDateFormat.format(modelPackage.getFromDeliver()) +
-                " تا " +
-                simpleDateFormat.format(modelPackage.getToDeliver());
-        textTime.setText(builder);
-    }
-    //______________________________________________________________________________________________ setPackageDate
 
 
     //______________________________________________________________________________________________ setOnClick

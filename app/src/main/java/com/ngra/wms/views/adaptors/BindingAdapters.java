@@ -144,6 +144,33 @@ public class BindingAdapters {
     //______________________________________________________________________________________________ splitNumberOfAmount
 
 
+
+    //______________________________________________________________________________________________ setOrderStatus
+    @BindingAdapter(value = {"setOrderStatus"})
+    public static void setOrderStatus(StatusViewScroller scroller, Byte status) {
+
+        scroller.getStatusView().setCurrentCount(status + 1);
+
+    }
+    //______________________________________________________________________________________________ setOrderStatus
+
+
+
+
+    @BindingAdapter(value = {"setOrderStatusTextView"})
+    public static void setOrderStatusTextView(TextView textView, Byte status) {
+
+        String tag = (String) textView.getTag();
+
+        if (status.equals(Byte.valueOf(tag)))
+            textView.setBackground(textView.getContext().getResources().getDrawable(R.drawable.layout_border_black));
+        else
+            textView.setBackground(null);
+
+    }
+
+
+
     @BindingAdapter(value = {"setBoothName"})
     public static void setBoothName(TextView textView, MD_Booth md_booth) {
         if (md_booth == null)
@@ -461,25 +488,9 @@ public class BindingAdapters {
     }
 
 
-    @BindingAdapter(value = {"SetOrderStatus"})
-    public static void SetOrderStatus(StatusViewScroller scroller, Byte status) {
-
-        scroller.getStatusView().setCurrentCount(status + 1);
-
-    }
 
 
-    @BindingAdapter(value = {"SetOrderStatusTextView"})
-    public static void SetOrderStatusTextView(TextView textView, Byte status) {
 
-        String tag = (String) textView.getTag();
-
-        if (status.equals(Byte.valueOf(tag)))
-            textView.setBackground(textView.getContext().getResources().getDrawable(R.drawable.layout_border_black));
-        else
-            textView.setBackground(null);
-
-    }
 
 
     @BindingAdapter(value = {"SetAmountItemsWasteList"})

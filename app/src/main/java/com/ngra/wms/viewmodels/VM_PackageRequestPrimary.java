@@ -26,6 +26,10 @@ import retrofit2.Response;
 
 public class VM_PackageRequestPrimary extends VM_Primary {
 
+    private String deliveryDate;
+    private String deliveryTime;
+    private Byte packStatus;
+
 
     //______________________________________________________________________________________________ VM_PackageRequestPrimary
     public VM_PackageRequestPrimary(Activity context) {
@@ -156,27 +160,25 @@ public class VM_PackageRequestPrimary extends VM_Primary {
     //______________________________________________________________________________________________ getPackageStatus
     public Byte getPackageStatus() {
 
+        packStatus = 0;
         if (getContext() != null) {
             SharedPreferences prefs = getContext().getSharedPreferences(getContext().getString(R.string.ML_SharePreferences), 0);
-            if (prefs == null) {
-                return 0;
-            } else {
-                return (byte) prefs.getInt(getContext().getString(R.string.ML_PackageRequestStatus), 0);
-            }
+            if (prefs != null)
+                packStatus = (byte) prefs.getInt(getContext().getString(R.string.ML_PackageRequestStatus), 0);
         }
-        return 0;
+        notifyChange();
+        return packStatus;
     }
     //______________________________________________________________________________________________ getPackageStatus
 
 
-
     //______________________________________________________________________________________________ packageRequestDate
-    public ModelPackage packageRequestDate(Context context) {
-        SharedPreferences prefs = context.getSharedPreferences(context.getString(R.string.ML_SharePreferences), 0);
+    public ModelPackage packageRequestDate() {
+        SharedPreferences prefs = getContext().getSharedPreferences(getContext().getString(R.string.ML_SharePreferences), 0);
         if (prefs != null) {
             ModelPackage modelPackage = new ModelPackage();
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US);
-            String sDate = prefs.getString(context.getString(R.string.ML_PackageRequestDate), null);
+            String sDate = prefs.getString(getContext().getString(R.string.ML_PackageRequestDate), null);
             Date date;
             if (sDate != null) {
                 try {
@@ -186,7 +188,7 @@ public class VM_PackageRequestPrimary extends VM_Primary {
                     e.printStackTrace();
                 }
             }
-            sDate = prefs.getString(context.getString(R.string.ML_PackageRequestFrom), null);
+            sDate = prefs.getString(getContext().getString(R.string.ML_PackageRequestFrom), null);
             if (sDate != null) {
                 try {
                     date = simpleDateFormat.parse(sDate);
@@ -195,7 +197,7 @@ public class VM_PackageRequestPrimary extends VM_Primary {
                     e.printStackTrace();
                 }
             }
-            sDate = prefs.getString(context.getString(R.string.ML_PackageRequestTo), null);
+            sDate = prefs.getString(getContext().getString(R.string.ML_PackageRequestTo), null);
             if (sDate != null) {
                 try {
                     date = simpleDateFormat.parse(sDate);
@@ -210,6 +212,60 @@ public class VM_PackageRequestPrimary extends VM_Primary {
             return null;
     }
     //______________________________________________________________________________________________ packageRequestDate
+
+
+    //______________________________________________________________________________________________ setPackageDate
+    public void setPackageDate() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.US);
+        deliveryDate = getUtility().gregorianToSun(packageRequestDate().getFromDeliver()).getFullStringSun();
+        deliveryTime = simpleDateFormat.format(packageRequestDate().getFromDeliver()) +
+                " تا " +
+                simpleDateFormat.format(packageRequestDate().getToDeliver());
+        notifyChange();
+    }
+    //______________________________________________________________________________________________ setPackageDate
+
+
+    //______________________________________________________________________________________________ getDeliveryDate
+    public String getDeliveryDate() {
+        return deliveryDate;
+    }
+    //______________________________________________________________________________________________ getDeliveryDate
+
+
+    //______________________________________________________________________________________________ setDeliveryDate
+    public void setDeliveryDate(String deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
+    //______________________________________________________________________________________________ setDeliveryDate
+
+
+    //______________________________________________________________________________________________ getDeliveryTime
+    public String getDeliveryTime() {
+        return deliveryTime;
+    }
+    //______________________________________________________________________________________________ getDeliveryTime
+
+
+    //______________________________________________________________________________________________ setDeliveryTime
+    public void setDeliveryTime(String deliveryTime) {
+        this.deliveryTime = deliveryTime;
+    }
+    //______________________________________________________________________________________________ setDeliveryTime
+
+
+    //______________________________________________________________________________________________ getPackStatus
+    public Byte getPackStatus() {
+        return packStatus;
+    }
+    //______________________________________________________________________________________________ getPackStatus
+
+
+    //______________________________________________________________________________________________ setPackStatus
+    public void setPackStatus(Byte packStatus) {
+        this.packStatus = packStatus;
+    }
+    //______________________________________________________________________________________________ setPackStatus
 
 
 }

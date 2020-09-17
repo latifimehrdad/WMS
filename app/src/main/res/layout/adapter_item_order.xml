@@ -368,7 +368,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:padding="@dimen/_2sdp"
-                    app:SetOrderStatus="@{wasteRequest.wasteCollectionState}"
+                    app:setOrderStatus="@{wasteRequest.wasteCollectionState}"
                     app:circleColor="@color/colorPrimary"
                     app:circleColorCurrent="@color/colorPrimary"
                     app:circleColorIncomplete="@color/mlHeader"
@@ -410,7 +410,7 @@
                         android:text="@string/FragmentPackRequestPrimarySet"
                         android:layout_alignParentLeft="true"
                         android:tag="1"
-                        app:SetOrderStatusTextView="@{wasteRequest.wasteCollectionState}"
+                        app:setOrderStatusTextView="@{wasteRequest.wasteCollectionState}"
                         />
 
                     <TextView
@@ -422,7 +422,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="@dimen/_5sdp"
                         android:tag="4"
-                        app:SetOrderStatusTextView="@{wasteRequest.wasteCollectionState}"
+                        app:setOrderStatusTextView="@{wasteRequest.wasteCollectionState}"
                         />
 
                     <TextView
@@ -434,7 +434,7 @@
                         android:layout_centerHorizontal="true"
                         android:background="@drawable/layout_border_black"
                         android:tag="2"
-                        app:SetOrderStatusTextView="@{wasteRequest.wasteCollectionState}"
+                        app:setOrderStatusTextView="@{wasteRequest.wasteCollectionState}"
                         />
 
                 </RelativeLayout>
