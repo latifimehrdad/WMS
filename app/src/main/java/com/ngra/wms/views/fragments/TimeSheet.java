@@ -1,5 +1,6 @@
 package com.ngra.wms.views.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +19,6 @@ import com.cunoraz.gifview.library.GifView;
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.FrTimeSheetBinding;
 import com.ngra.wms.models.MD_Booth;
-import com.ngra.wms.models.MD_SpinnerItem;
 import com.ngra.wms.models.MD_Time;
 import com.ngra.wms.models.MD_WasteAmountRequests;
 import com.ngra.wms.utility.StaticValues;
@@ -106,7 +106,14 @@ public class TimeSheet extends FragmentPrimary implements
 
 
     //______________________________________________________________________________________________ init
+    @SuppressLint("UseCompatLoadingForDrawables")
     private void init() {
+        if (getArguments() == null)
+            return;
+
+        if (getContext() == null)
+            return;
+
         TimeSheetType = getArguments().getInt(getContext().getString(R.string.ML_Type), StaticValues.TimeSheetBooth);
         gifLoading.setVisibility(View.VISIBLE);
         TimeSheetId = -2;
@@ -144,16 +151,19 @@ public class TimeSheet extends FragmentPrimary implements
         }
 
         if (action.equals(StaticValues.ML_SendPackageRequest)) {
+            if (getContext() == null)
+                return;
             getContext().onBackPressed();
             return;
         }
 
         if (action.equals(StaticValues.ML_CollectRequestDone)){
+            if (getContext() == null)
+                return;
             getContext().onBackPressed();
             getContext().onBackPressed();
             getContext().onBackPressed();
             getContext().onBackPressed();
-            return;
         }
 
     }
@@ -173,6 +183,11 @@ public class TimeSheet extends FragmentPrimary implements
     //______________________________________________________________________________________________ getTimeSheet
     private void getTimeSheet() {
 
+        if (getArguments() == null)
+            return;
+        if (getContext() == null)
+            return;
+
         if (TimeSheetType == StaticValues.TimeSheetBooth) {
             BoothId = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
             vm_timeSheet.getBoothTimes();
@@ -183,10 +198,13 @@ public class TimeSheet extends FragmentPrimary implements
 
 
     //______________________________________________________________________________________________ setClicks
+    @SuppressLint("UseCompatLoadingForDrawables")
     private void setClicks() {
 
         LinearLayoutNext.setOnClickListener(v -> {
             if (TimeSheetId < 0) {
+                if (getContext() == null)
+                    return;
                 showMessageDialog(getContext().getResources().getString(R.string.EmptyTimeSheet),
                         getResources().getColor(R.color.mlWhite),
                         getResources().getDrawable(R.drawable.ic_error),
@@ -196,6 +214,8 @@ public class TimeSheet extends FragmentPrimary implements
 
             if (TimeSheetType != StaticValues.TimeSheetPackage) {
                 if (TimeSheetType != StaticValues.TimeSheetBooth) {
+                    if (getContext() == null)
+                        return;
                     Bundle bundle = new Bundle();
                     bundle.putInt(getContext().getResources().getString(R.string.ML_TimeId), TimeSheetId);
                     bundle.putInt(getContext().getString(R.string.ML_Id), BoothId);
@@ -269,10 +289,13 @@ public class TimeSheet extends FragmentPrimary implements
 
 
     //______________________________________________________________________________________________ itemTimeItemClick
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public void itemTimeItemClick(Integer position) {
 
         if (TimeSheetPosition == null) {
+            if (getContext() == null)
+                return;
             showMessageDialog(
                     getContext().getResources().getString(R.string.ChooseDay),
                     getResources().getColor(R.color.mlWhite),

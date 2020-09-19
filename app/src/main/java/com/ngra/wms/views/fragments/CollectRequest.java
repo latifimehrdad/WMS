@@ -1,5 +1,6 @@
 package com.ngra.wms.views.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -88,11 +89,14 @@ public class CollectRequest extends FragmentPrimary implements
 
 
     //______________________________________________________________________________________________ setClicks
+    @SuppressLint("UseCompatLoadingForDrawables")
     private void setClicks() {
 
         LinearLayoutBoothReceive.setOnClickListener(v -> navController.navigate(R.id.action_collectRequest2_to_map));
 
         LinearLayoutRecyclingCar.setOnClickListener(v -> {
+            if (getContext() == null)
+                return;
             Bundle bundle = new Bundle();
             bundle.putInt(getContext().getString(R.string.ML_Type), StaticValues.TimeSheetVehicle);
             navController.navigate(R.id.action_collectRequest2_to_timeSheet, bundle);
@@ -100,12 +104,12 @@ public class CollectRequest extends FragmentPrimary implements
 
 
         TextViewScoreBooth.setOnClickListener(v -> {
-            String score = "";
+            StringBuilder score = new StringBuilder();
             if (vm_collectRequest.getScoreBooth() != null)
                 for (String s : vm_collectRequest.getScoreBooth())
-                    score = score + s + System.getProperty("line.separator");
+                    score.append(s).append(System.getProperty("line.separator"));
 
-            showMessageDialog(score
+            showMessageDialog(score.toString()
                     , getResources().getColor(R.color.mlWhite),
                     getResources().getDrawable(R.drawable.ic_check),
                     getResources().getColor(R.color.colorPrimaryDark));
@@ -114,12 +118,12 @@ public class CollectRequest extends FragmentPrimary implements
 
 
         TextViewScoreCar.setOnClickListener(v -> {
-            String score = "";
+            StringBuilder score = new StringBuilder();
             if (vm_collectRequest.getScoreVehicle() != null)
                 for (String s : vm_collectRequest.getScoreVehicle())
-                    score = score + s + System.getProperty("line.separator");
+                    score.append(s).append(System.getProperty("line.separator"));
 
-            showMessageDialog(score
+            showMessageDialog(score.toString()
                     , getResources().getColor(R.color.mlWhite),
                     getResources().getDrawable(R.drawable.ic_check),
                     getResources().getColor(R.color.colorPrimaryDark));
@@ -184,12 +188,11 @@ public class CollectRequest extends FragmentPrimary implements
         ap_itemsWasteList.notifyDataSetChanged();
 
         if (wasteLists.size() == 0)
-            getContext().onBackPressed();
+            if (getContext() != null)
+                getContext().onBackPressed();
 
     }
     //______________________________________________________________________________________________ itemWasteClickActionDelete
-
-
 
 
     //______________________________________________________________________________________________ actionWhenFailureRequest

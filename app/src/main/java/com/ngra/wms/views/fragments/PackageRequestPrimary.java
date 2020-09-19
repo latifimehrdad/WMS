@@ -1,5 +1,6 @@
 package com.ngra.wms.views.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -18,22 +19,13 @@ import androidx.navigation.Navigation;
 import com.cunoraz.gifview.library.GifView;
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.FragmentPackRequestPrimaryBinding;
-import com.ngra.wms.models.ModelPackage;
-import com.ngra.wms.utility.ApplicationUtility;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_PackageRequestPrimary;
-import com.ngra.wms.views.application.ApplicationWMS;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
 import butterknife.BindView;
-import params.com.stepview.StatusViewScroller;
 
 public class PackageRequestPrimary extends FragmentPrimary implements FragmentPrimary.getActionFromObservable {
 
@@ -119,15 +111,12 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
             RelativeLayoutSave.setVisibility(View.VISIBLE);
             LinearLayoutPackageState.setVisibility(View.GONE);
             FPRPSpinnerDay.setVisibility(View.GONE);
+            RelativeLayoutState.setVisibility(View.GONE);
+            TextViewState.setVisibility(View.VISIBLE);
 
         } else {
-            if (statues.equals(StaticValues.PR_NotRequested)) {
-                RelativeLayoutState.setVisibility(View.GONE);
-                TextViewState.setVisibility(View.VISIBLE);
-            } else {
-                RelativeLayoutState.setVisibility(View.VISIBLE);
-                TextViewState.setVisibility(View.GONE);
-            }
+            RelativeLayoutState.setVisibility(View.VISIBLE);
+            TextViewState.setVisibility(View.GONE);
             RelativeLayoutSave.setVisibility(View.GONE);
             LinearLayoutPackageState.setVisibility(View.VISIBLE);
             FPRPSpinnerDay.setVisibility(View.GONE);
@@ -155,14 +144,9 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
 
         }
 
-        if (action.equals(StaticValues.ML_GetTimeSheet)) {
-            setMaterialSpinnersTimes();
-        }
-
 
     }
     //______________________________________________________________________________________________ getActionFromObservable
-
 
 
     //______________________________________________________________________________________________ actionWhenFailureRequest
@@ -170,8 +154,6 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
     public void actionWhenFailureRequest() {
     }
     //______________________________________________________________________________________________ actionWhenFailureRequest
-
-
 
 
     //______________________________________________________________________________________________ setOnClick
@@ -210,6 +192,8 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
         });
 
         RelativeLayoutSave.setOnClickListener(v -> {
+            if (getContext() == null)
+                return;
             Bundle bundle = new Bundle();
             bundle.putInt(getContext().getString(R.string.ML_Type), StaticValues.TimeSheetPackage);
             navController.navigate(R.id.action_packageRequestPrimary_to_timeSheet, bundle);
@@ -221,67 +205,18 @@ public class PackageRequestPrimary extends FragmentPrimary implements FragmentPr
     //______________________________________________________________________________________________ setOnClick
 
 
-    //______________________________________________________________________________________________ checkEmpty
-    private Boolean checkEmpty() {
-
-        if (TimePosition == -1) {
-            FPRPSpinnerDay.setBackgroundColor(getResources().getColor(R.color.mlEditEmpty));
-            FPRPSpinnerDay.requestFocus();
-            return false;
-        } else
-            return true;
-    }
-    //______________________________________________________________________________________________ checkEmpty
-
-
-    //______________________________________________________________________________________________ setMaterialSpinnersTimes
-    private void setMaterialSpinnersTimes() {
-
-        ApplicationUtility component = ApplicationWMS
-                .getApplicationWMS(getContext())
-                .getUtilityComponent()
-                .getApplicationUtility();
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.US);
-
-        List<String> buildingTypes = new ArrayList<>();
-        buildingTypes.add("انتخاب تاریخ دریافت");
-/*        for (MD_Time item : vm_packageRequestPrimary.getMRTimes().getTimes()) {
-            String builder = null;
-            ApplicationUtility.MD_GregorianToSun toSun = component.GregorianToSun(item.getDate());
-            builder = toSun.getFullStringSun();
-            builder = builder +
-                    " از " +
-                    simpleDateFormat.format(item.getFrom()) +
-                    " تا " +
-                    simpleDateFormat.format(item.getTo());
-            buildingTypes.add(builder);
-        }*/
-
-        FPRPSpinnerDay.setItems(buildingTypes);
-    }
-    //______________________________________________________________________________________________ setMaterialSpinnersTimes
-
-
     //______________________________________________________________________________________________ dismissLoading
+    @SuppressLint("UseCompatLoadingForDrawables")
     private void dismissLoading() {
-        txtLoading.setText(getResources().getString(R.string.Save));
-        RelativeLayoutSave.setBackground(getResources().getDrawable(R.drawable.save_info_button));
+        if (getContext() == null)
+            return;
+        txtLoading.setText(getContext().getResources().getString(R.string.Save));
+        RelativeLayoutSave.setBackground(getContext().getResources().getDrawable(R.drawable.save_info_button));
         gifLoading.setVisibility(View.GONE);
         imgLoading.setVisibility(View.VISIBLE);
 
     }
     //______________________________________________________________________________________________ dismissLoading
-
-
-    //______________________________________________________________________________________________ showLoading
-    private void showLoading() {
-        txtLoading.setText(getResources().getString(R.string.Cancel));
-        RelativeLayoutSave.setBackground(getResources().getDrawable(R.drawable.button_red));
-        gifLoading.setVisibility(View.VISIBLE);
-        imgLoading.setVisibility(View.INVISIBLE);
-    }
-    //______________________________________________________________________________________________ showLoading
 
 
 }

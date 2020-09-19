@@ -33,7 +33,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:padding="@dimen/_10sdp"
-            tools:listitem="@layout/adapter_item_time"
+            tools:listitem="@layout/adapter_item_address"
             tools:itemCount="1"/>
 
 

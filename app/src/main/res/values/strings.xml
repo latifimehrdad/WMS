@@ -171,7 +171,7 @@
     <string name="EmptySubject">لطفا موضوع را انتخاب کنید</string>
     <string name="EmptyDescription">لطفا توضیحات را وارد نمایید</string>
     <string name="PlateNumber">پلاک ساختمان</string>
-    <string name="NoMessage">درخواستی ثبت نشده است</string>
+    <string name="NoMessage">موردی جهت نمایش وجود ندارد</string>
     <string name="Somewhat">حدود</string>
     <string name="FromTime">از ساعت</string>
     <string name="ToTime">تا ساعت</string>

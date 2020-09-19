@@ -38,7 +38,6 @@ public class Address extends FragmentPrimary implements
     private Integer timeSheetId;
     private Integer boothId;
     private NavController navController;
-    private int TimeSheetType;
 
     @BindView(R.id.gifLoading)
     GifView gifLoading;
@@ -64,9 +63,10 @@ public class Address extends FragmentPrimary implements
             binding.setAddress(vm_address);
             setView(binding.getRoot());
             gifLoading.setVisibility(View.VISIBLE);
-            timeSheetId = getArguments().getInt(getContext().getString(R.string.ML_TimeId), 0);
-            boothId = getArguments().getInt(getContext().getString(R.string.ML_Id), 0);
-            TimeSheetType = getArguments().getInt(getContext().getString(R.string.ML_Type), StaticValues.TimeSheetBooth);
+            if (getArguments() != null && getContext() != null) {
+                timeSheetId = getArguments().getInt(getContext().getString(R.string.ML_TimeId), 0);
+                boothId = getArguments().getInt(getContext().getString(R.string.ML_Id), 0);
+            }
             setOnclick();
         }
         return getView();
@@ -114,6 +114,8 @@ public class Address extends FragmentPrimary implements
         }
 
         if (action.equals(StaticValues.ML_CollectRequestDone)) {
+            if (getContext() == null)
+                return;
             if (boothId != 0) {
                 getContext().onBackPressed();
                 getContext().onBackPressed();
@@ -174,10 +176,9 @@ public class Address extends FragmentPrimary implements
             vm_address.sendCollectRequest(md_wasteAmountRequests);
         } else {
             Bundle bundle = new Bundle();
-            bundle.putInt(getResources().getString(R.string.ML_Id), Integer.valueOf(vm_address.getAddress().get(position).getId()));
+            bundle.putInt(getResources().getString(R.string.ML_Id), Integer.parseInt(vm_address.getAddress().get(position).getId()));
             navController.navigate(R.id.action_address_to_packageRequestAddress, bundle);
         }
-
 
     }
     //______________________________________________________________________________________________ itemAddressClick

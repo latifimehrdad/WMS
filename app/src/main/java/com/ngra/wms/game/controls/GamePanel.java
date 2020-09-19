@@ -31,6 +31,7 @@ import com.ngra.wms.game.scores.ScoreObject;
 import com.ngra.wms.game.scores.Score_Bottle;
 import com.ngra.wms.game.scores.Score_Coca;
 import com.ngra.wms.game.scores.Score_PaperBox;
+import com.ngra.wms.views.fragments.Game;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -347,7 +348,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 if (MOVESPEED > 37)
                     mediaPlayer.seekTo(120 * 1000);
             } else if (Broken) {
-                gameActivity.ResetGame(GarbageCollection);
+                if (mediaPlayer != null)
+                    if (mediaPlayer.isPlaying()) {
+                        mediaPlayer.stop();
+                    }
+                gameActivity.ResetGame(GarbageCollection, player.getScoreForSpeed());
             }
             return true;
         }
@@ -355,7 +360,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         if (event.getAction() == MotionEvent.ACTION_UP) {
             if (Broken) {
-                gameActivity.ResetGame(GarbageCollection);
+                if (mediaPlayer != null)
+                    if (mediaPlayer.isPlaying()) {
+                        mediaPlayer.stop();
+                    }
+                gameActivity.ResetGame(GarbageCollection, player.getScoreForSpeed());
             }
             return true;
         }
@@ -466,7 +475,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 }
 
 
-                if (DrawObjectMissile > 250) {
+                if (DrawObjectMissile > 450) {
                     DrawObjectMissile = 0;
                     DrawMissiles();
                     DrawMistakes();
@@ -476,7 +485,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 }
 
 
-                if (DrawObjectScore > 170) {
+                if (DrawObjectScore > 130) {
                     DrawObjectScore = 0;
                     DrawGarbage();
                 } else {

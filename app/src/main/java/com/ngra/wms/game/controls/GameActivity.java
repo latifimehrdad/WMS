@@ -9,6 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ngra.wms.R;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
@@ -44,30 +45,32 @@ public class GameActivity extends Activity {
 
         gamePanel = new GamePanel(GameActivity.this, GameActivity.this);
 
+        textView.setVisibility(View.GONE);
+        GamePanel.MOVESPEED = 5;
+        Player.SpeedScore = 1;
+        Player.score = 0;
 
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(gamePanel != null) {
-                    layout.removeAllViews();
-                    gamePanel = null;
-                }
 
-                textView.setVisibility(View.GONE);
-                GamePanel.MOVESPEED = 5;
-                Player.SpeedScore = 1;
-                Player.score = 0;
-                gamePanel = new GamePanel(GameActivity.this, GameActivity.this);
-                layout.addView(gamePanel);
+        textView.setOnClickListener(v -> {
+            if(gamePanel != null) {
+                layout.removeAllViews();
+                gamePanel = null;
             }
+
+            textView.setVisibility(View.GONE);
+            GamePanel.MOVESPEED = 5;
+            Player.SpeedScore = 1;
+            Player.score = 0;
+            gamePanel = new GamePanel(GameActivity.this, GameActivity.this);
+            layout.addView(gamePanel);
         });
 
         //setContentView(new GamePanel(this));
     }
 
 
-    public void ResetGame(Integer coin) {
-        sendCoin(coin);
+    public void ResetGame(Integer coin, Integer score) {
+        sendCoin(coin, score);
         //textView.setVisibility(View.VISIBLE);
     }
 
@@ -98,22 +101,30 @@ public class GameActivity extends Activity {
 
 
 
-    private void sendCoin(Integer coin) {
-        if (coin == 0)
+    private void sendCoin(Integer coin, Integer score) {
+        if (coin < 1) {
+            onBackPressed();
             return;
+        }
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
+
+        score = score / 300;
+
+        coin = coin + (score * 5);
 
         RetrofitComponent component =
                 ApplicationWMS.getApplicationWMS(this)
                 .getRetrofitComponent();
 
+        Integer finalCoin = coin;
         component
                 .getRetrofitApiInterface()
                 .submitPoint(coin, authorization)
                 .enqueue(new Callback<ModelResponsePrimary>() {
                     @Override
                     public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
+                        Toast.makeText(GameActivity.this, "امتیاز " + finalCoin.toString() + " برای شما ثبت شد" , Toast.LENGTH_LONG).show();
                         onBackPressed();
                     }
 

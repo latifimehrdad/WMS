@@ -107,7 +107,6 @@ public class ChooseWaste extends FragmentPrimary implements
         if (action.equals(StaticValues.ML_GetItemsOfWasteIsSuccess)) {
             gifLoading.setVisibility(View.GONE);
             setItemsWasteAdapter();
-            return;
         }
 
     }
@@ -162,7 +161,7 @@ public class ChooseWaste extends FragmentPrimary implements
             } else {
                 boolean duplicate = false;
                 for (MD_ChooseWaste item : wasteLists) {
-                    if (item.getWaste().getId() == waste.getId()) {
+                    if (item.getWaste().getId().equals(waste.getId())) {
                         duplicate = true;
                         break;
                     }
@@ -231,7 +230,6 @@ public class ChooseWaste extends FragmentPrimary implements
 
     }
     //______________________________________________________________________________________________ itemWasteClickActionDelete
-
 
 
     //______________________________________________________________________________________________ actionWhenFailureRequest
