@@ -41,6 +41,7 @@
                     android:padding="@dimen/_2sdp"
                     android:textColor="@color/mlBlack"
                     android:textSize="@dimen/_12sdp"
+                    android:text="@={VM_Support.subject}"
                     />
 
                 <ImageView
@@ -125,6 +126,7 @@
                     android:maxLines="10"
                     android:textColor="@color/mlBlack"
                     android:textSize="@dimen/_12sdp"
+                    android:text="@={VM_Support.description}"
                     />
 
                 <ImageView

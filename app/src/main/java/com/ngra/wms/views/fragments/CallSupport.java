@@ -1,5 +1,6 @@
 package com.ngra.wms.views.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -133,11 +134,7 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.getA
             if (checkEmpty()) {
                 hideKeyboard();
                 showLoading();
-                vm_support.submitTicket(
-                        DepartmentId,
-                        EditTextSubject.getText().toString(),
-                        EditTextDescription.getText().toString(),
-                        CategoryId);
+                vm_support.submitTicket();
             }
         });
 
@@ -146,13 +143,14 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.getA
 
 
     //______________________________________________________________________________________________ checkEmpty
+    @SuppressLint("UseCompatLoadingForDrawables")
     private Boolean checkEmpty() {
 
         boolean subject;
         boolean Description;
         boolean type;
 
-        if (EditTextDescription.getText().length() < 1) {
+        if (vm_support.getDescription().length() < 1) {
             EditTextDescription.setBackgroundResource(R.drawable.dw_edit_back_empty);
             EditTextDescription.setError(getResources().getString(R.string.EmptyDescription));
             EditTextDescription.requestFocus();
@@ -161,7 +159,7 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.getA
             Description = true;
 
 
-        if (EditTextSubject.getText().length() < 1) {
+        if (vm_support.getSubject().length() < 1) {
             EditTextSubject.setBackgroundResource(R.drawable.dw_edit_back_empty);
             EditTextSubject.setError(getResources().getString(R.string.EmptySubject));
             EditTextSubject.requestFocus();
@@ -184,6 +182,7 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.getA
 
 
     //______________________________________________________________________________________________ setItemCategory
+    @SuppressLint("UseCompatLoadingForDrawables")
     private void setItemCategory() {
 
         TextViewDepartments.setText(getResources().getString(R.string.ChooseRequestType));
@@ -201,6 +200,8 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.getA
             TextViewDepartments.setText(item);
             CategoryId = vm_support.getMd_spinnerItems().get(position).getId();
             DepartmentId = vm_support.getMd_spinnerItems().get(position).getData();
+            vm_support.setCategoryId(CategoryId);
+            vm_support.setDepartmentId(DepartmentId);
             LayoutDepartmentsBack.setBackground(getResources().getDrawable(R.drawable.dw_edit_back));
         });
 
@@ -212,6 +213,7 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.getA
 
 
     //______________________________________________________________________________________________ dismissLoading
+    @SuppressLint("UseCompatLoadingForDrawables")
     private void dismissLoading() {
         txtLoading.setText(getResources().getString(R.string.SendMessage));
         RelativeLayoutSend.setBackground(getResources().getDrawable(R.drawable.save_info_button));
@@ -222,6 +224,7 @@ public class CallSupport extends FragmentPrimary implements FragmentPrimary.getA
 
 
     //______________________________________________________________________________________________ showLoading
+    @SuppressLint("UseCompatLoadingForDrawables")
     private void showLoading() {
         txtLoading.setText(getResources().getString(R.string.Cancel));
         RelativeLayoutSend.setBackground(getResources().getDrawable(R.drawable.button_red));

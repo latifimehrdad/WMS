@@ -17,6 +17,8 @@ import retrofit2.Response;
 public class VM_Conversation extends VM_Primary {
 
     private List<MD_TicketReplyDto> md_ticketReplyDtos;
+    private String message;
+    private Integer ReplyId;
 
 
     //______________________________________________________________________________________________ VM_Conversations
@@ -27,7 +29,7 @@ public class VM_Conversation extends VM_Primary {
 
 
     //______________________________________________________________________________________________ getAllReply
-    public void getAllReply(Integer ticketRef) {
+    public void getAllReply() {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
@@ -40,7 +42,7 @@ public class VM_Conversation extends VM_Primary {
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .getReplyList(
-                        ticketRef,
+                        getReplyId(),
                         authorization));
 
         if (getPrimaryCall() == null)
@@ -68,7 +70,7 @@ public class VM_Conversation extends VM_Primary {
 
 
     //______________________________________________________________________________________________ sendReply
-    public void sendReply(Integer ReplyId, String message) {
+    public void sendReply() {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
@@ -81,8 +83,8 @@ public class VM_Conversation extends VM_Primary {
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .SubmitClientReply(
-                        ReplyId,
-                        message,
+                        getReplyId(),
+                        getMessage(),
                         Authorization));
 
         if (getPrimaryCall() == null)
@@ -93,7 +95,7 @@ public class VM_Conversation extends VM_Primary {
             public void onResponse(Call<MR_TicketReplyList> call, Response<MR_TicketReplyList> response) {
                 setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
-                    getAllReply(ReplyId);
+                    getAllReply();
                 } else
                     sendActionToObservable(StaticValues.ML_ResponseError);
             }
@@ -109,7 +111,7 @@ public class VM_Conversation extends VM_Primary {
 
 
     //______________________________________________________________________________________________ closeTicket
-    public void closeTicket(Integer replyId) {
+    public void closeTicket() {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
@@ -122,7 +124,7 @@ public class VM_Conversation extends VM_Primary {
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .CloseTicket(
-                        replyId,
+                        getReplyId(),
                         authorization));
 
         if (getPrimaryCall() == null)
@@ -153,6 +155,39 @@ public class VM_Conversation extends VM_Primary {
         return md_ticketReplyDtos;
     }
     //______________________________________________________________________________________________ getMd_ticketReplyDtos
+
+
+
+    //______________________________________________________________________________________________ getMessage
+    public String getMessage() {
+        return message;
+    }
+    //______________________________________________________________________________________________ getMessage
+
+
+
+    //______________________________________________________________________________________________ setMessage
+    public void setMessage(String message) {
+        this.message = message;
+    }
+    //______________________________________________________________________________________________ setMessage
+
+
+
+    //______________________________________________________________________________________________ getReplyId
+    public Integer getReplyId() {
+        return ReplyId;
+    }
+    //______________________________________________________________________________________________ getReplyId
+
+
+
+    //______________________________________________________________________________________________ setReplyId
+    public void setReplyId(Integer replyId) {
+        ReplyId = replyId;
+    }
+    //______________________________________________________________________________________________ setReplyId
+
 
 
 }

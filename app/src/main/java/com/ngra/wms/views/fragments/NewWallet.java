@@ -245,7 +245,7 @@ public class NewWallet extends FragmentPrimary implements FragmentPrimary.getAct
                 clickClearing = true;
                 imageViewLoading.setVisibility(View.GONE);
                 gifViewSend.setVisibility(View.VISIBLE);
-                vm_newWallet.settlementDemand(Integer.valueOf(editTextAmount.getText().toString().replaceAll(",", "")));
+                vm_newWallet.settlementDemand();
             }
         });
 

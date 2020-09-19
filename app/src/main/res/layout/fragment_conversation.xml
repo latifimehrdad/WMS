@@ -123,6 +123,7 @@
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:layout_marginRight="@dimen/_5sdp"
                     android:hint="@string/MessageText"
+                    android:text="@={conversation.message}"
                     />
 
             </LinearLayout>

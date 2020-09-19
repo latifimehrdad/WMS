@@ -1,5 +1,6 @@
 package com.ngra.wms.views.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -162,7 +163,6 @@ public class AppUpdate extends FragmentPrimary implements FragmentPrimary.getAct
             yPWaveView.setVisibility(View.GONE);
             if (getContext() != null)
                 TextViewProgress.setText(getContext().getResources().getString(R.string.FileDownloaded));
-            return;
         }
 
     }
@@ -170,6 +170,7 @@ public class AppUpdate extends FragmentPrimary implements FragmentPrimary.getAct
 
 
     //______________________________________________________________________________________________ onProgress
+    @SuppressLint("SetTextI18n")
     @Override
     public void onProgress(int progress) {
         yPWaveView.setProgress(progress);

@@ -17,6 +17,7 @@ import retrofit2.Response;
 public class VM_NewWallet extends VM_Primary {
 
     private MD_userFundInfo md_userFund;
+    private String amount;
 
 
     //______________________________________________________________________________________________ VM_NewWallet
@@ -65,17 +66,18 @@ public class VM_NewWallet extends VM_Primary {
 
 
     //______________________________________________________________________________________________ settlementDemand
-    public void settlementDemand(Integer amount) {
+    public void settlementDemand() {
 
         RetrofitComponent retrofitComponent = ApplicationWMS
                 .getApplicationWMS(getContext())
                 .getRetrofitComponent();
 
         String Authorization = getAuthorizationTokenFromSharedPreferences();
+        Integer value = Integer.valueOf(getAmount().replaceAll(",", ""));
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .settlementDemand(amount, Authorization));
+                .settlementDemand(value, Authorization));
 
         if (getPrimaryCall() == null)
             return;
@@ -107,6 +109,23 @@ public class VM_NewWallet extends VM_Primary {
         return md_userFund;
     }
     //______________________________________________________________________________________________ getMd_userFundInfo
+
+
+
+    //______________________________________________________________________________________________ getMd_userFundInfo
+    public String getAmount() {
+        return amount;
+    }
+    //______________________________________________________________________________________________ getMd_userFundInfo
+
+
+
+    //______________________________________________________________________________________________ getMd_userFundInfo
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+    //______________________________________________________________________________________________ getMd_userFundInfo
+
 
 
 }

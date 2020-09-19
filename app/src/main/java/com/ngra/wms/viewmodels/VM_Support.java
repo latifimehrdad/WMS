@@ -18,6 +18,10 @@ import retrofit2.Response;
 public class VM_Support extends VM_Primary {
 
     private ArrayList<MD_SpinnerItem> md_spinnerItems;
+    private String DepartmentId;
+    private String Subject;
+    private String Description;
+    private String CategoryId;
 
     //______________________________________________________________________________________________ VM_Support
     public VM_Support(Activity context) {
@@ -67,11 +71,7 @@ public class VM_Support extends VM_Primary {
 
 
     //______________________________________________________________________________________________ submitTicket
-    public void submitTicket(
-            String DepartmentId,
-            String Subject,
-            String Description,
-            String CategoryId) {
+    public void submitTicket() {
 
         RetrofitComponent retrofitComponent =
                 ApplicationWMS
@@ -83,10 +83,10 @@ public class VM_Support extends VM_Primary {
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .SubmitTicket(
-                        DepartmentId,
-                        Subject,
-                        Description,
-                        CategoryId,
+                        getDepartmentId(),
+                        getSubject(),
+                        getDescription(),
+                        getCategoryId(),
                         Authorization));
 
         if (getPrimaryCall() == null)
@@ -118,6 +118,68 @@ public class VM_Support extends VM_Primary {
         return md_spinnerItems;
     }
     //______________________________________________________________________________________________ getMd_spinnerItems
+
+
+    //______________________________________________________________________________________________ getDepartmentId
+    public String getDepartmentId() {
+        return DepartmentId;
+    }
+    //______________________________________________________________________________________________ getDepartmentId
+
+
+    //______________________________________________________________________________________________ setDepartmentId
+    public void setDepartmentId(String departmentId) {
+        DepartmentId = departmentId;
+    }
+    //______________________________________________________________________________________________ setDepartmentId
+
+
+    //______________________________________________________________________________________________ getSubject
+    public String getSubject() {
+        return Subject;
+    }
+    //______________________________________________________________________________________________ getSubject
+
+
+
+    //______________________________________________________________________________________________ setSubject
+    public void setSubject(String subject) {
+        Subject = subject;
+    }
+    //______________________________________________________________________________________________ setSubject
+
+
+
+    //______________________________________________________________________________________________ getDescription
+    public String getDescription() {
+        return Description;
+    }
+    //______________________________________________________________________________________________ getDescription
+
+
+
+    //______________________________________________________________________________________________ setDescription
+    public void setDescription(String description) {
+        Description = description;
+    }
+    //______________________________________________________________________________________________ setDescription
+
+
+
+    //______________________________________________________________________________________________ getCategoryId
+    public String getCategoryId() {
+        return CategoryId;
+    }
+    //______________________________________________________________________________________________ getCategoryId
+
+
+
+    //______________________________________________________________________________________________ setCategoryId
+    public void setCategoryId(String categoryId) {
+        CategoryId = categoryId;
+    }
+    //______________________________________________________________________________________________ setCategoryId
+
 
 
 }

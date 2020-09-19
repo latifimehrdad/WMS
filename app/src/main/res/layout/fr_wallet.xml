@@ -221,6 +221,7 @@
                     android:textColor="@color/mlBlack"
                     android:textSize="@dimen/_11sdp"
                     android:gravity="center"
+                    android:text="@={wallet.amount}"
                     />
 
                 <ImageView

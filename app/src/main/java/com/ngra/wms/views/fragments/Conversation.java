@@ -79,9 +79,10 @@ public class Conversation extends FragmentPrimary implements FragmentPrimary.get
             if (getContext() != null && getArguments() != null) {
                 TicketRef = getArguments().getInt(getContext().getResources().getString(R.string.ML_Id), 0);
                 status = getArguments().getInt(getContext().getResources().getString(R.string.ML_Type), 0);
+                vm_conversation.setReplyId(TicketRef);
             }
             gifLoading.setVisibility(View.VISIBLE);
-            vm_conversation.getAllReply(TicketRef);
+            vm_conversation.getAllReply();
         }
         return getView();
     }
@@ -134,14 +135,14 @@ public class Conversation extends FragmentPrimary implements FragmentPrimary.get
             if (EditTextMessage.getText().toString().length() > 0) {
                 gifLoadingSend.setVisibility(View.VISIBLE);
                 ImageViewSend.setVisibility(View.GONE);
-                vm_conversation.sendReply(TicketRef, EditTextMessage.getText().toString());
+                vm_conversation.sendReply();
             }
         });
 
         ImageViewDelete.setOnClickListener(v -> {
             gifLoadingDelete.setVisibility(View.VISIBLE);
             ImageViewDelete.setVisibility(View.GONE);
-            vm_conversation.closeTicket(TicketRef);
+            vm_conversation.closeTicket();
         });
 
     }
