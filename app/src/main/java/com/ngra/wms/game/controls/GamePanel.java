@@ -286,25 +286,25 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     public void StopGame() {
 
-        if (mediaPlayer != null)
-            if (mediaPlayer.isPlaying()) {
-                mediaPlayer.stop();
-            }
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer = null;
+        }
 
-        if (mediaCollision != null)
-            if (mediaCollision.isPlaying()) {
-                mediaCollision.stop();
-            }
+        if (mediaCollision != null) {
+            mediaCollision.stop();
+            mediaCollision = null;
+        }
 
-        if (mediaBip != null)
-            if (mediaBip.isPlaying()) {
-                mediaBip.stop();
-            }
+        if (mediaBip != null) {
+            mediaBip.stop();
+            mediaBip = null;
+        }
 
-        if (mediaCoin != null)
-            if (mediaCoin.isPlaying()) {
-                mediaCoin.stop();
-            }
+        if (mediaCoin != null) {
+            mediaCoin.stop();
+            mediaCoin = null;
+        }
 
         thread.setRunning(false);
         player.setPlaying(false);
@@ -348,10 +348,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 if (MOVESPEED > 37)
                     mediaPlayer.seekTo(120 * 1000);
             } else if (Broken) {
-                if (mediaPlayer != null)
-                    if (mediaPlayer.isPlaying()) {
-                        mediaPlayer.stop();
-                    }
                 gameActivity.ResetGame(GarbageCollection, player.getScoreForSpeed());
             }
             return true;
@@ -360,10 +356,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         if (event.getAction() == MotionEvent.ACTION_UP) {
             if (Broken) {
-                if (mediaPlayer != null)
-                    if (mediaPlayer.isPlaying()) {
-                        mediaPlayer.stop();
-                    }
                 gameActivity.ResetGame(GarbageCollection, player.getScoreForSpeed());
             }
             return true;
@@ -585,7 +577,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 missile_benzs.remove(i);
                 player.MistakeCollection();
                 player.setPlaying(false);
-
                 break;
             }
 
