@@ -15,7 +15,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.ngra.wms.views.activitys.MainActivity.completeProfile;
+import static com.ngra.wms.views.activities.MainActivity.completeProfile;
 
 public class VM_Home extends VM_Primary {
 

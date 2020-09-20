@@ -31,7 +31,7 @@
         <uses-library android:name="org.apache.http.legacy" android:required="false" />
 
         <activity
-            android:name="com.ngra.wms.views.activitys.MainActivity"
+            android:name="com.ngra.wms.views.activities.MainActivity"
             android:theme="@style/FirstPage"
             android:exported="true"
             >

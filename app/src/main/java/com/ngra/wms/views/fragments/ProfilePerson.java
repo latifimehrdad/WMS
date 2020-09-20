@@ -25,7 +25,7 @@ import com.ngra.wms.models.ModelProfileInfo;
 import com.ngra.wms.models.MD_SpinnerItem;
 import com.ngra.wms.utility.StaticValues;
 import com.ngra.wms.viewmodels.VM_ProfilePerson;
-import com.ngra.wms.views.activitys.MainActivity;
+import com.ngra.wms.views.activities.MainActivity;
 import com.ngra.wms.views.application.ApplicationWMS;
 import com.ngra.wms.views.dialogs.DialogProgress;
 import com.ngra.wms.views.dialogs.searchspinner.MLSpinnerDialog;

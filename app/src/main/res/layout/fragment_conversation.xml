@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:padding="@dimen/_5sdp"
         android:layout_marginBottom="@dimen/_20sdp"
+        android:background="@drawable/conversation_back"
         android:orientation="vertical">
 
         <RelativeLayout

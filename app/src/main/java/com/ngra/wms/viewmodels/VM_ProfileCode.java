@@ -6,7 +6,7 @@ import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.ModelBuildingRenovationCode;
 import com.ngra.wms.models.ModelResponsePrimary;
 import com.ngra.wms.utility.StaticValues;
-import com.ngra.wms.views.activitys.MainActivity;
+import com.ngra.wms.views.activities.MainActivity;
 import com.ngra.wms.views.application.ApplicationWMS;
 
 import retrofit2.Call;

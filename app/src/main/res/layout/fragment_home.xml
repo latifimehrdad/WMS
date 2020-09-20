@@ -126,7 +126,7 @@
                         android:gravity="bottom"
                         android:textColor="@color/mlHomeAveScore"
                         android:textSize="@dimen/_10sdp"
-                        app:splitNumberOfValue="@{vm_home.md_scoreReport.maxPoint}"/>
+                        app:splitNumberOfValue="@{vm_home.md_scoreReport.averagePoint}"/>
 
                     <TextView
                         android:layout_width="0dp"

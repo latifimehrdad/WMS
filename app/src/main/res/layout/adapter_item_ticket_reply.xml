@@ -40,7 +40,8 @@
                     android:textColor="@color/mlEdit"
                     android:textSize="@dimen/_9sdp"
                     android:gravity="right"
-                    app:SetTicketDate="@{reply.createDate}"/>
+                    app:SetTicketDate="@{reply.createDate}"
+                    android:tag="FullString"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -101,7 +102,8 @@
                     android:textColor="@color/mlEdit"
                     android:textSize="@dimen/_9sdp"
                     android:gravity="right"
-                    app:SetTicketDate="@{reply.createDate}"/>
+                    app:SetTicketDate="@{reply.createDate}"
+                    android:tag="FullString"/>
 
                 <TextView
                     android:layout_width="match_parent"

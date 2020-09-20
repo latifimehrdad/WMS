@@ -294,7 +294,10 @@ public class BindingAdapters {
             return;
         }
 
-        String tag = textView.getTag().toString();
+
+        String tag = null;
+        if (textView.getTag() != null)
+            tag = textView.getTag().toString();
 
         ApplicationUtility component = ApplicationWMS
                 .getApplicationWMS(textView.getContext())

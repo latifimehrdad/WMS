@@ -8,7 +8,7 @@ import com.ngra.wms.models.MD_SpinnerItem;
 import com.ngra.wms.models.MR_SpinnerItems;
 import com.ngra.wms.models.ModelUserAccounts;
 import com.ngra.wms.utility.StaticValues;
-import com.ngra.wms.views.activitys.MainActivity;
+import com.ngra.wms.views.activities.MainActivity;
 import com.ngra.wms.views.application.ApplicationWMS;
 
 import java.util.ArrayList;

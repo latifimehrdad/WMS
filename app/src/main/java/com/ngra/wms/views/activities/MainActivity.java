@@ -2,7 +2,7 @@
 Create By Mehrdad Latifi in
 1398/09/09 - 12:08 PM
  */
-package com.ngra.wms.views.activitys;
+package com.ngra.wms.views.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,11 +43,9 @@ import android.widget.Toast;
 
 import com.ngra.wms.R;
 import com.ngra.wms.databinding.ActivityMainBinding;
-import com.ngra.wms.utility.ApplicationUtility;
 import com.ngra.wms.viewmodels.VM_MainActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import com.ngra.wms.views.application.ApplicationWMS;
 
 import org.jetbrains.annotations.NotNull;
 
