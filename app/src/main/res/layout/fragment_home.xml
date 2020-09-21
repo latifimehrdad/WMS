@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="vm_home"
+            name="home"
             type="com.ngra.wms.viewmodels.VM_Home" />
     </data>
 
@@ -95,9 +95,9 @@
                     <ImageView
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
-                        android:tint="@color/mlBlack"
                         android:src="@drawable/svg_soft_skills"
-                        android:layout_marginLeft="@dimen/_5sdp"/>
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        app:tint="@color/mlBlack" />
 
 
                 </LinearLayout>
@@ -126,7 +126,7 @@
                         android:gravity="bottom"
                         android:textColor="@color/mlHomeAveScore"
                         android:textSize="@dimen/_10sdp"
-                        app:splitNumberOfValue="@{vm_home.md_scoreReport.averagePoint}"/>
+                        app:splitNumberOfValue="@{home.md_scoreReport.averagePoint}"/>
 
                     <TextView
                         android:layout_width="0dp"
@@ -168,7 +168,7 @@
                         android:gravity="bottom"
                         android:textColor="@color/mlHomeMaxScore"
                         android:textSize="@dimen/_10sdp"
-                        app:splitNumberOfValue="@{vm_home.md_scoreReport.maxPoint}" />
+                        app:splitNumberOfValue="@{home.md_scoreReport.maxPoint}" />
 
                     <TextView
                         android:layout_width="0dp"

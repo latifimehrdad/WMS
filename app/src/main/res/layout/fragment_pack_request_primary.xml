@@ -70,8 +70,7 @@
                     android:background="@drawable/dw_edit_back_image"
                     android:padding="@dimen/_4sdp"
                     android:src="@drawable/svg_calendar"
-                    android:tint="@color/mlWhite"
-                    />
+                    custom:tint="@color/mlWhite" />
 
 
             </LinearLayout>
@@ -106,8 +105,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="@dimen/_5sdp"
                     android:layout_centerVertical="true"
-                    android:tint="@color/mlWhite"
-                    />
+                    custom:tint="@color/mlWhite" />
 
                 <com.cunoraz.gifview.library.GifView
                     android:id="@+id/gifLoading"

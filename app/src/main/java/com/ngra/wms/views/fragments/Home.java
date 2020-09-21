@@ -86,7 +86,7 @@ public class Home extends FragmentPrimary implements FragmentPrimary.getActionFr
             FragmentHomeBinding binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_home, container, false);
             vm_home = new VM_Home(getContext());
-            binding.setVmHome(vm_home);
+            binding.setHome(vm_home);
             setView(binding.getRoot());
             init();
         }

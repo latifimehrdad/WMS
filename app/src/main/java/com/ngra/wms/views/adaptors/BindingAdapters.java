@@ -512,7 +512,7 @@ public class BindingAdapters {
             long kg = (long) (count / 1000);
             builder.append(kg);
             builder.append(" ");
-            builder.append(textView.getContext().getResources().getString(R.string.KGr));
+            builder.append(textView.getContext().getResources().getString(R.string.AmountK));
             long gr = (long) (count % 1000);
             if (gr > 0) {
                 builder.append(" و ");

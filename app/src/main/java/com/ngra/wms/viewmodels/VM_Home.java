@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Handler;
 
+import androidx.databinding.library.baseAdapters.BR;
+
 import com.ngra.wms.R;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MD_ScoreReport;
@@ -47,7 +49,6 @@ public class VM_Home extends VM_Primary {
     //______________________________________________________________________________________________ checkProfile
 
 
-
     //______________________________________________________________________________________________ checkProfile
     public String getPhoneNumber() {
 
@@ -59,7 +60,6 @@ public class VM_Home extends VM_Primary {
         }
     }
     //______________________________________________________________________________________________ checkProfile
-
 
 
     //______________________________________________________________________________________________ getPackageState
@@ -108,8 +108,7 @@ public class VM_Home extends VM_Primary {
             public void onResponse(Call<MR_ScoreReport> call, Response<MR_ScoreReport> response) {
                 setResponseMessage(checkResponse(response, false));
                 if (getResponseMessage() == null) {
-                    md_scoreReport = response.body().getResult();
-                    notifyChange();
+                    setMd_scoreReport(response.body().getResult());
                 } else {
                     sendActionToObservable(StaticValues.ML_ResponseError);
                 }
@@ -130,6 +129,14 @@ public class VM_Home extends VM_Primary {
         return md_scoreReport;
     }
     //______________________________________________________________________________________________ getMd_scoreReport
+
+
+    //______________________________________________________________________________________________ setMd_scoreReport
+    public void setMd_scoreReport(MD_ScoreReport md_scoreReport) {
+        this.md_scoreReport = md_scoreReport;
+        notifyChange();
+    }
+    //______________________________________________________________________________________________ setMd_scoreReport
 
 
 }
