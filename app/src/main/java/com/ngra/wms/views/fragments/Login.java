@@ -116,8 +116,7 @@ public class Login extends FragmentPrimary implements FragmentPrimary.getActionF
                 Bundle bundle = new Bundle();
                 bundle.putString(getContext().getString(R.string.ML_PhoneNumber), vm_login.getPhoneNumber());
                 bundle.putString(getContext().getString(R.string.ML_Type), getContext().getResources().getString(R.string.ML_Login));
-                navController
-                        .navigate(R.id.action_login_to_verifyCode, bundle);
+                navController.navigate(R.id.action_login_to_verifyCode, bundle);
             }
         }
 
