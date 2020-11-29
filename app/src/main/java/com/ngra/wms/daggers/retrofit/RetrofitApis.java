@@ -6,7 +6,7 @@ public class RetrofitApis {
     //public static String Host = "https://ngra.bimija.com";
     //public static String Host = "http://192.168.1.110:70";
 //    public static String Host = "http://2.144.243.200:70";
-    public static String Host = "http://185.112.39.200:2070";
+    public static String Host = "http://185.112.39.200:4070";
 
 //    public static String client_id_value = "vRIzEFYjpzYwHHSUbx/ODg==";
     public static String client_id_value = "clientId==NGRA==community==Apps==2002182093a82719ed16e9d9845c9845";
