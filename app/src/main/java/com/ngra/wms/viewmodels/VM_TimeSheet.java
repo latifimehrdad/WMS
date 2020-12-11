@@ -2,6 +2,7 @@ package com.ngra.wms.viewmodels;
 
 import android.app.Activity;
 
+import com.ngra.wms.daggers.retrofit.RetrofitApis;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MD_TimeSheet;
 import com.ngra.wms.models.MD_WasteAmountRequests;
@@ -38,10 +39,11 @@ public class VM_TimeSheet extends VM_Primary {
                 .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getVehicleTimes(authorization));
+                .getVehicleTimes(RetrofitApis.app_token,aToken,authorization));
 
         if (getPrimaryCall() == null)
             return;
@@ -77,10 +79,11 @@ public class VM_TimeSheet extends VM_Primary {
                 .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getBoothTimes(authorization));
+                .getBoothTimes(RetrofitApis.app_token,aToken,authorization));
 
         if (getPrimaryCall() == null)
             return;
@@ -116,11 +119,14 @@ public class VM_TimeSheet extends VM_Primary {
                 .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .SendPackageRequest(
                         timeId,
+                        RetrofitApis.app_token,
+                        aToken,
                         authorization));
 
         if (getPrimaryCall() == null)
@@ -156,10 +162,11 @@ public class VM_TimeSheet extends VM_Primary {
                         .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getSettingInfo(
+                .getSettingInfo(RetrofitApis.app_token,aToken,
                         authorization));
 
         if (getPrimaryCall() == null)
@@ -197,11 +204,14 @@ public class VM_TimeSheet extends VM_Primary {
                 .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .RequestCollection(
                         md_wasteAmountRequests,
+                        RetrofitApis.app_token,
+                        aToken,
                         authorization));
 
         if (getPrimaryCall() == null)

@@ -2,6 +2,7 @@ package com.ngra.wms.viewmodels;
 
 import android.app.Activity;
 
+import com.ngra.wms.daggers.retrofit.RetrofitApis;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MD_ItemLearn;
 import com.ngra.wms.models.MR_ItemLearn;
@@ -34,10 +35,12 @@ public class VM_LearnItem extends VM_Primary {
                         .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getSummaryWasteNotice(
+                .getSummaryWasteNotice(RetrofitApis.app_token,
+                        aToken,
                         authorization));
 
         if (getPrimaryCall() == null)

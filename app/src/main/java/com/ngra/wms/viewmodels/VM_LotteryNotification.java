@@ -2,6 +2,7 @@ package com.ngra.wms.viewmodels;
 
 import android.app.Activity;
 
+import com.ngra.wms.daggers.retrofit.RetrofitApis;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MD_LotteryNotification;
 import com.ngra.wms.models.MR_LotteryNotification;
@@ -39,10 +40,11 @@ public class VM_LotteryNotification extends VM_Primary {
                 .getRetrofitComponent();
 
         String Authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getLotteryNotification(Authorization));
+                .getLotteryNotification(RetrofitApis.app_token,aToken,Authorization));
 
         if (getPrimaryCall() == null)
             return;

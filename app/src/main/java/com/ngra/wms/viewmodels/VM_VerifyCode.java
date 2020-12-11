@@ -51,7 +51,8 @@ public class VM_VerifyCode extends VM_Primary {
                 .SendVerifyCode(
                         getPhoneNumber(),
                         verifyCode,
-                        authorization
+                        authorization,
+                        RetrofitApis.app_token
                 ));
 
         if (getPrimaryCall() == null)
@@ -93,7 +94,8 @@ public class VM_VerifyCode extends VM_Primary {
                 .getRetrofitApiInterface()
                 .SendVerificationSms(
                         getPhoneNumber(),
-                        authorization));
+                        authorization,
+                        RetrofitApis.app_token));
 
         if (getPrimaryCall() == null)
             return;
@@ -145,7 +147,8 @@ public class VM_VerifyCode extends VM_Primary {
                         RetrofitApis.grant_type_value_Login_Code,
                         getPhoneNumber(),
                         verifyCode,
-                        authorization));
+                        authorization,
+                        RetrofitApis.app_token));
 
         if (getPrimaryCall() == null)
             return;
@@ -181,10 +184,11 @@ public class VM_VerifyCode extends VM_Primary {
                         .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getSettingInfo(
+                .getSettingInfo(RetrofitApis.app_token,aToken,
                         authorization));
 
         if (getPrimaryCall() == null)
@@ -232,7 +236,8 @@ public class VM_VerifyCode extends VM_Primary {
                 .LoginCode(RetrofitApis.client_id_value,
                         RetrofitApis.client_secret_value,
                         getPhoneNumber(),
-                        authorization));
+                        authorization,
+                        RetrofitApis.app_token));
 
         if (getPrimaryCall() == null)
             return;

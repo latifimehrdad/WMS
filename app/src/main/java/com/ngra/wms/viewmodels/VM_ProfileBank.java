@@ -2,6 +2,7 @@ package com.ngra.wms.viewmodels;
 
 import android.app.Activity;
 
+import com.ngra.wms.daggers.retrofit.RetrofitApis;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.ModelResponsePrimary;
 import com.ngra.wms.models.MD_SpinnerItem;
@@ -43,12 +44,15 @@ public class VM_ProfileBank extends VM_Primary {
                         .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .SendAccountNumber(
                         getBankId(),
                         getAccountNumber(),
+                        RetrofitApis.app_token,
+                        aToken,
                         authorization));
 
         if (getPrimaryCall() == null)
@@ -84,10 +88,11 @@ public class VM_ProfileBank extends VM_Primary {
                         .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getUserAccountNumber(
+                .getUserAccountNumber(RetrofitApis.app_token,aToken,
                         authorization));
 
         if (getPrimaryCall() == null)
@@ -127,11 +132,12 @@ public class VM_ProfileBank extends VM_Primary {
                         .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
-
+        String aToken = get_aToken();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getBanks(
+                .getBanks(RetrofitApis.app_token,
+                        aToken,
                         authorization));
 
         if (getPrimaryCall() == null)

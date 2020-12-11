@@ -2,6 +2,7 @@ package com.ngra.wms.viewmodels;
 
 import android.app.Activity;
 
+import com.ngra.wms.daggers.retrofit.RetrofitApis;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MD_UsersTicketList;
 import com.ngra.wms.models.MR_TicketList;
@@ -35,11 +36,12 @@ public class VM_Ticket extends VM_Primary {
                         .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
-
+        String aToken = get_aToken();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getTicketList(
+                .getTicketList(RetrofitApis.app_token,
+                        aToken,
                         authorization));
 
         if (getPrimaryCall() == null)

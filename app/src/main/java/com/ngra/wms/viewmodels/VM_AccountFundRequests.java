@@ -2,6 +2,7 @@ package com.ngra.wms.viewmodels;
 
 import android.app.Activity;
 
+import com.ngra.wms.daggers.retrofit.RetrofitApis;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MD_accountFundRequests;
 import com.ngra.wms.models.MR_accountFundRequests;
@@ -36,10 +37,11 @@ public class VM_AccountFundRequests extends VM_Primary {
                 .getRetrofitComponent();
 
         String Authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getAccountFundRequests(Authorization));
+                .getAccountFundRequests(RetrofitApis.app_token, aToken,Authorization));
 
         if (getPrimaryCall() == null)
             return;

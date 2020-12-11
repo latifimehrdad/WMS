@@ -46,7 +46,8 @@ public class VM_Login extends VM_Primary {
                 .LoginCode(RetrofitApis.client_id_value,
                         RetrofitApis.client_secret_value,
                         getPhoneNumber(),
-                        authorization));
+                        authorization,
+                        RetrofitApis.app_token));
 
         if (getPrimaryCall() == null)
             return;

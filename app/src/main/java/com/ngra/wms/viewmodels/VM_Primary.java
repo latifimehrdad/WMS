@@ -62,6 +62,21 @@ public class VM_Primary extends BaseObservable {
     //______________________________________________________________________________________________ getAuthorizationTokenFromSharedPreferences
 
 
+
+    //______________________________________________________________________________________________ get_aToken
+    public String get_aToken() {
+        String aToken = "";
+        SharedPreferences prefs = getContext().getSharedPreferences(getContext().getString(R.string.ML_SharePreferences), 0);
+        if (prefs != null) {
+            aToken = prefs.getString(context.getString(R.string.ML_aToken), null);
+        }
+        return aToken;
+    }
+    //______________________________________________________________________________________________ get_aToken
+
+
+
+
     //______________________________________________________________________________________________ getRefreshTokenFromSharedPreferences
     public String getRefreshTokenFromSharedPreferences() {
         String authorization = "";
@@ -183,7 +198,8 @@ public class VM_Primary extends BaseObservable {
                         RetrofitApis.client_id_value,
                         RetrofitApis.client_secret_value,
                         RetrofitApis.grant_type_value_Refresh_Token,
-                        refresh_token));
+                        refresh_token,
+                        RetrofitApis.app_token));
 
         if (getPrimaryCall() == null)
             return;

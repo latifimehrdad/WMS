@@ -2,6 +2,7 @@ package com.ngra.wms.viewmodels;
 
 import android.app.Activity;
 
+import com.ngra.wms.daggers.retrofit.RetrofitApis;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.ModelBuildingRenovationCode;
 import com.ngra.wms.models.ModelResponsePrimary;
@@ -34,11 +35,14 @@ public class VM_ProfileCode extends VM_Primary {
                         .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .SendBuildingRenovationCode(
                         buildingRenovationCode,
+                        RetrofitApis.app_token,
+                        aToken,
                         authorization));
 
         if (getPrimaryCall() == null)
@@ -74,10 +78,13 @@ public class VM_ProfileCode extends VM_Primary {
                         .getRetrofitComponent();
 
         String Authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .getBuildingRenovationCode(
+                        RetrofitApis.app_token,
+                        aToken,
                         Authorization));
 
         if (getPrimaryCall() == null)

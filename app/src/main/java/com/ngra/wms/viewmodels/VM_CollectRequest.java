@@ -2,6 +2,7 @@ package com.ngra.wms.viewmodels;
 
 import android.app.Activity;
 
+import com.ngra.wms.daggers.retrofit.RetrofitApis;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MR_ScoreList2;
 import com.ngra.wms.utility.StaticValues;
@@ -37,10 +38,11 @@ public class VM_CollectRequest extends VM_Primary {
                 .getRetrofitComponent();
 
         String Authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getScoreList2(Authorization));
+                .getScoreList2(RetrofitApis.app_token,aToken,Authorization));
 
         if (getPrimaryCall() == null)
             return;

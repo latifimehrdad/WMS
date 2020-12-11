@@ -3,6 +3,7 @@ package com.ngra.wms.viewmodels;
 import android.app.Activity;
 
 import com.ngra.wms.R;
+import com.ngra.wms.daggers.retrofit.RetrofitApis;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MD_Address;
 import com.ngra.wms.models.MD_Booth;
@@ -115,12 +116,14 @@ public class VM_Map extends VM_Primary {
                 .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
+
         MD_Location location = new MD_Location(lat, lng);
         MD_GetBooth md_getBooth = new MD_GetBooth(location);
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getBoothList(md_getBooth, authorization));
+                .getBoothList(md_getBooth, RetrofitApis.app_token,aToken, authorization));
 
         if (getPrimaryCall() == null)
             return;

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ngra.wms.R;
+import com.ngra.wms.daggers.retrofit.RetrofitApis;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.ModelResponsePrimary;
 import com.ngra.wms.views.application.ApplicationWMS;
@@ -108,6 +109,7 @@ public class GameActivity extends Activity {
         }
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
 
         score = score / 300;
 
@@ -120,7 +122,7 @@ public class GameActivity extends Activity {
         Integer finalCoin = coin;
         component
                 .getRetrofitApiInterface()
-                .submitPoint(coin, authorization)
+                .submitPoint(coin, RetrofitApis.app_token,aToken,authorization)
                 .enqueue(new Callback<ModelResponsePrimary>() {
                     @Override
                     public void onResponse(Call<ModelResponsePrimary> call, Response<ModelResponsePrimary> response) {
@@ -153,6 +155,16 @@ public class GameActivity extends Activity {
     //______________________________________________________________________________________________ getAuthorizationTokenFromSharedPreferences
 
 
+    //______________________________________________________________________________________________ get_aToken
+    public String get_aToken() {
+        String aToken = "";
+        SharedPreferences prefs = getSharedPreferences(getString(R.string.ML_SharePreferences), 0);
+        if (prefs != null) {
+            aToken = prefs.getString(getString(R.string.ML_aToken), null);
+        }
+        return aToken;
+    }
+    //______________________________________________________________________________________________ get_aToken
 
 
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 
 import com.ngra.wms.R;
+import com.ngra.wms.daggers.retrofit.RetrofitApis;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.ModelProfileInfo;
 import com.ngra.wms.models.ModelResponsePrimary;
@@ -53,10 +54,12 @@ public class VM_ProfilePerson extends VM_Primary {
                         .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getProfileInfo(
+                .getProfileInfo(RetrofitApis.app_token,
+                        aToken,
                         authorization));
 
         if (getPrimaryCall() == null)
@@ -105,6 +108,7 @@ public class VM_ProfilePerson extends VM_Primary {
                         .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
@@ -116,6 +120,8 @@ public class VM_ProfilePerson extends VM_Primary {
                         getCityId(),
                         getReferenceCode(),
                         getRegionId(),
+                        RetrofitApis.app_token,
+                        aToken,
                         authorization));
 
         if (getPrimaryCall() == null)
@@ -151,12 +157,14 @@ public class VM_ProfilePerson extends VM_Primary {
                         .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
-
+        String aToken = get_aToken();
 
         retrofitComponent
                 .getRetrofitApiInterface()
                 .getRegions(
                         getCityId(),
+                        RetrofitApis.app_token,
+                        aToken,
                         authorization)
                 .enqueue(new Callback<MR_SpinnerItems>() {
                     @Override
@@ -188,12 +196,14 @@ public class VM_ProfilePerson extends VM_Primary {
                         .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
-
+        String aToken = get_aToken();
 
         retrofitComponent
                 .getRetrofitApiInterface()
                 .getCitys(
                         getProvinceId(),
+                        RetrofitApis.app_token,
+                        aToken,
                         authorization)
                 .enqueue(new Callback<MR_SpinnerItems>() {
                     @Override
@@ -225,11 +235,12 @@ public class VM_ProfilePerson extends VM_Primary {
                         .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
-
+        String aToken = get_aToken();
 
         Call<MR_SpinnerItems> call = retrofitComponent
                 .getRetrofitApiInterface()
-                .getProvinces(
+                .getProvinces(RetrofitApis.app_token,
+                        aToken,
                         authorization);
 
         call.enqueue(new Callback<MR_SpinnerItems>() {

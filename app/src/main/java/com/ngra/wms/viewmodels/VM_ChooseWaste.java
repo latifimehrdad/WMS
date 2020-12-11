@@ -2,6 +2,7 @@ package com.ngra.wms.viewmodels;
 
 import android.app.Activity;
 
+import com.ngra.wms.daggers.retrofit.RetrofitApis;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MD_ItemWaste;
 import com.ngra.wms.models.MR_ItemsWast;
@@ -37,11 +38,11 @@ public class VM_ChooseWaste extends VM_Primary {
                         .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getWasteList(
-                        authorization));
+                .getWasteList(RetrofitApis.app_token,aToken,authorization));
 
         if (getPrimaryCall() == null)
             return;

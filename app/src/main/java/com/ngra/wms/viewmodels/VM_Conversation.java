@@ -2,6 +2,7 @@ package com.ngra.wms.viewmodels;
 
 import android.app.Activity;
 
+import com.ngra.wms.daggers.retrofit.RetrofitApis;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MD_TicketReplyDto;
 import com.ngra.wms.models.MR_TicketReplyList;
@@ -37,12 +38,12 @@ public class VM_Conversation extends VM_Primary {
                         .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
 
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getReplyList(
-                        getReplyId(),
+                .getReplyList(getReplyId(), RetrofitApis.app_token,aToken,
                         authorization));
 
         if (getPrimaryCall() == null)
@@ -78,6 +79,7 @@ public class VM_Conversation extends VM_Primary {
                         .getRetrofitComponent();
 
         String Authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
 
 
         setPrimaryCall(retrofitComponent
@@ -85,6 +87,8 @@ public class VM_Conversation extends VM_Primary {
                 .SubmitClientReply(
                         getReplyId(),
                         getMessage(),
+                        RetrofitApis.app_token,
+                        aToken,
                         Authorization));
 
         if (getPrimaryCall() == null)
@@ -119,12 +123,14 @@ public class VM_Conversation extends VM_Primary {
                         .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
-
+        String aToken = get_aToken();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .CloseTicket(
                         getReplyId(),
+                        RetrofitApis.app_token,
+                        aToken,
                         authorization));
 
         if (getPrimaryCall() == null)

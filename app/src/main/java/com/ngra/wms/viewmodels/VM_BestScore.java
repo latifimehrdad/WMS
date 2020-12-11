@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import androidx.databinding.library.baseAdapters.BR;
 
+import com.ngra.wms.daggers.retrofit.RetrofitApis;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MD_BestScore;
 import com.ngra.wms.models.MD_GameReport;
@@ -41,10 +42,11 @@ public class VM_BestScore extends VM_Primary {
                 .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .gettopscorelist(scoreCategoryName, authorization));
+                .gettopscorelist(scoreCategoryName, RetrofitApis.app_token,aToken, authorization));
 
         if (getPrimaryCall() == null)
             return;
@@ -81,10 +83,11 @@ public class VM_BestScore extends VM_Primary {
                 .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getGameReport(authorization));
+                .getGameReport(RetrofitApis.app_token,aToken,authorization));
 
         if (getPrimaryCall() == null)
             return;

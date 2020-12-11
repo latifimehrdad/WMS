@@ -2,6 +2,7 @@ package com.ngra.wms.viewmodels;
 
 import android.app.Activity;
 
+import com.ngra.wms.daggers.retrofit.RetrofitApis;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MD_SpinnerItem;
 import com.ngra.wms.models.MD_WasteAmountRequests;
@@ -37,11 +38,11 @@ public class VM_Address extends VM_Primary {
                         .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
-
+        String aToken = get_aToken();
 
         retrofitComponent
                 .getRetrofitApiInterface()
-                .getContactAddresses(authorization)
+                .getContactAddresses(RetrofitApis.app_token,aToken,authorization)
                 .enqueue(new Callback<MR_SpinnerItems>() {
                     @Override
                     public void onResponse(Call<MR_SpinnerItems> call, Response<MR_SpinnerItems> response) {
@@ -71,11 +72,14 @@ public class VM_Address extends VM_Primary {
                 .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .RequestCollection(
                         md_wasteAmountRequests,
+                        RetrofitApis.app_token,
+                        aToken,
                         authorization));
 
         if (getPrimaryCall() == null)

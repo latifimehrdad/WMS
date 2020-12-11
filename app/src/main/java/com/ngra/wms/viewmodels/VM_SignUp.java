@@ -2,6 +2,7 @@ package com.ngra.wms.viewmodels;
 
 import android.app.Activity;
 
+import com.ngra.wms.daggers.retrofit.RetrofitApis;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MR_Register;
 import com.ngra.wms.utility.StaticValues;
@@ -47,7 +48,8 @@ public class VM_SignUp extends VM_Primary {
                 .SendPhoneNumber(
                         getPhoneNumber(),
                         getReagentCode(),
-                        authorization));
+                        authorization,
+                        RetrofitApis.app_token));
 
         if (getPrimaryCall() == null)
             return;

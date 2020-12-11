@@ -2,6 +2,7 @@ package com.ngra.wms.viewmodels;
 
 import android.app.Activity;
 
+import com.ngra.wms.daggers.retrofit.RetrofitApis;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MD_UserScoreInfoList;
 import com.ngra.wms.models.MR_UserScoreInfoList;
@@ -33,10 +34,11 @@ public class VM_UserScore extends VM_Primary {
                 .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getUserScoreInfoList(authorization));
+                .getUserScoreInfoList(RetrofitApis.app_token,aToken,authorization));
 
         if (getPrimaryCall() == null)
             return;

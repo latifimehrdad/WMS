@@ -3,6 +3,7 @@ package com.ngra.wms.viewmodels;
 import android.app.Activity;
 
 import com.ngra.wms.R;
+import com.ngra.wms.daggers.retrofit.RetrofitApis;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MR_SpinnerItems;
 import com.ngra.wms.models.ModelBuildingTypes;
@@ -47,6 +48,7 @@ public class VM_PackageRequestAddress extends VM_Primary {
                 .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
 
         if (addressId == 0)
             addressId = null;
@@ -64,6 +66,8 @@ public class VM_PackageRequestAddress extends VM_Primary {
                         getPlateNumber(),
                         getUnitNumber(),
                         getAddressId(),
+                        RetrofitApis.app_token,
+                        aToken,
                         authorization));
 
         if (getPrimaryCall() == null)
@@ -99,10 +103,13 @@ public class VM_PackageRequestAddress extends VM_Primary {
                         .getRetrofitComponent();
 
         String Authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
                 .getSettingInfo(
+                        RetrofitApis.app_token,
+                        aToken,
                         Authorization));
 
         if (getPrimaryCall() == null)
@@ -139,10 +146,11 @@ public class VM_PackageRequestAddress extends VM_Primary {
                 .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getHousingBuildings(authorization));
+                .getHousingBuildings(RetrofitApis.app_token,aToken,authorization));
 
         if (getPrimaryCall() == null)
             return;
@@ -311,11 +319,11 @@ public class VM_PackageRequestAddress extends VM_Primary {
                         .getRetrofitComponent();
 
         String authorization = getAuthorizationTokenFromSharedPreferences();
-
+        String aToken = get_aToken();
 
         retrofitComponent
                 .getRetrofitApiInterface()
-                .getContactAddresses(authorization)
+                .getContactAddresses(RetrofitApis.app_token,aToken,authorization)
                 .enqueue(new Callback<MR_SpinnerItems>() {
                     @Override
                     public void onResponse(Call<MR_SpinnerItems> call, Response<MR_SpinnerItems> response) {

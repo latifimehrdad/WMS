@@ -2,6 +2,7 @@ package com.ngra.wms.viewmodels;
 
 import android.app.Activity;
 
+import com.ngra.wms.daggers.retrofit.RetrofitApis;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MD_userFund;
 import com.ngra.wms.models.MD_userFundInfo;
@@ -35,10 +36,11 @@ public class VM_NewWallet extends VM_Primary {
                 .getRetrofitComponent();
 
         String Authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getUserFundInfo(Authorization));
+                .getUserFundInfo(RetrofitApis.app_token, aToken, Authorization));
 
         if (getPrimaryCall() == null)
             return;
@@ -74,10 +76,11 @@ public class VM_NewWallet extends VM_Primary {
 
         String Authorization = getAuthorizationTokenFromSharedPreferences();
         Integer value = Integer.valueOf(getAmount().replaceAll(",", ""));
+        String aToken = get_aToken();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .settlementDemand(value, Authorization));
+                .settlementDemand(value,RetrofitApis.app_token,aToken, Authorization));
 
         if (getPrimaryCall() == null)
             return;

@@ -59,7 +59,8 @@ public interface RetrofitApiInterface {
             (
                     @Field("client_id") String client_id,
                     @Field("client_secret") String client_secret,
-                    @Field("grant_type") String grant_type
+                    @Field("grant_type") String grant_type,
+                    @Field("app_token") String app_token
             );
 
     //______________________________________________________________________________________________ getToken
@@ -70,7 +71,8 @@ public interface RetrofitApiInterface {
             @Field("client_id") String client_id,
             @Field("client_secret") String client_secret,
             @Field("grant_type") String grant_type,
-            @Field("refresh_token") String refresh_token
+            @Field("refresh_token") String refresh_token,
+            @Field("app_token") String app_token
     );
 
     @FormUrlEncoded
@@ -79,7 +81,8 @@ public interface RetrofitApiInterface {
             (
                     @Field("Mobile") String PhoneNumber,
                     @Field("ReferenceCode") String ReferenceCode,
-                    @Header("Authorization") String Authorization
+                    @Header("Authorization") String Authorization,
+                    @Field("app_token") String app_token
             );
 
 
@@ -89,7 +92,8 @@ public interface RetrofitApiInterface {
     Call<ModelResponsePrimary> SendVerificationSms
             (
                     @Field("Mobile") String PhoneNumber,
-                    @Header("Authorization") String Authorization
+                    @Header("Authorization") String Authorization,
+                    @Field("app_token") String app_token
             );
 
 
@@ -99,7 +103,8 @@ public interface RetrofitApiInterface {
             (
                     @Field("Mobile") String PhoneNumber,
                     @Field("Code") String Password,
-                    @Header("Authorization") String Authorization
+                    @Header("Authorization") String Authorization,
+                    @Field("app_token") String app_token
             );
 
 
@@ -110,7 +115,8 @@ public interface RetrofitApiInterface {
                     @Field("client_id") String client_id,
                     @Field("client_secret") String client_secret,
                     @Field("mobile") String PhoneNumber,
-                    @Header("Authorization") String Authorization
+                    @Header("Authorization") String Authorization,
+                    @Field("app_token") String app_token
 
             );
 
@@ -124,7 +130,8 @@ public interface RetrofitApiInterface {
                     @Field("grant_type") String grant_type,
                     @Field("username") String PhoneNumber,
                     @Field("code") String code,
-                    @Header("Authorization") String Authorization
+                    @Header("Authorization") String Authorization,
+                    @Field("app_token") String app_token
 
             );
 
@@ -132,6 +139,8 @@ public interface RetrofitApiInterface {
     @GET(Version + "/region/provinces")
     Call<MR_SpinnerItems> getProvinces
             (
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -141,6 +150,8 @@ public interface RetrofitApiInterface {
     Call<MR_SpinnerItems> getCitys
             (
                     @Query("Id") String Id,
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -150,6 +161,8 @@ public interface RetrofitApiInterface {
     Call<MR_SpinnerItems> getRegions
             (
                     @Query("Id") String Id,
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -166,6 +179,8 @@ public interface RetrofitApiInterface {
                     @Field("City.Id") String CityId,
                     @Field("ReferenceCode") String ReferenceCode,
                     @Field("Neighbourhood.Id") String NeighbourhoodId,
+                    @Field("app_token") String app_token,
+                    @Field("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -174,6 +189,8 @@ public interface RetrofitApiInterface {
     @GET(Version + "/citizen/info")
     Call<ModelProfileInfo> getProfileInfo
             (
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -182,6 +199,8 @@ public interface RetrofitApiInterface {
     @GET(Version + "/citizen/citizenbank")
     Call<ModelUserAccounts> getUserAccountNumber
             (
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -191,6 +210,8 @@ public interface RetrofitApiInterface {
     @GET(Version + "/bank/banks")
     Call<MR_SpinnerItems> getBanks
             (
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -202,6 +223,8 @@ public interface RetrofitApiInterface {
             (
                     @Field("Bank.Id") String FirstName,
                     @Field("AccountNumber") String LastName,
+                    @Field("app_token") String app_token,
+                    @Field("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -212,6 +235,8 @@ public interface RetrofitApiInterface {
     Call<ModelResponsePrimary> SendBuildingRenovationCode
             (
                     @Field("BuildingRenovationCode") String BuildingRenovationCode,
+                    @Field("app_token") String app_token,
+                    @Field("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -219,6 +244,8 @@ public interface RetrofitApiInterface {
     @GET(Version + "/citizen/buildingrenovationcode")
     Call<ModelBuildingRenovationCode> getBuildingRenovationCode
             (
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -227,6 +254,8 @@ public interface RetrofitApiInterface {
     @GET(Version + "/citizen/settinginfo")
     Call<ModelSettingInfo> getSettingInfo
             (
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -240,12 +269,16 @@ public interface RetrofitApiInterface {
     @GET(Version + "/housing/buildings")
     Call<ModelHousingBuildings> getHousingBuildings
             (
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
             );
 
     @GET(Version + "/timesheet/boothtimes")
     Call<MD_TimeSheet> getTimes
             (
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
             );
 
@@ -255,6 +288,8 @@ public interface RetrofitApiInterface {
     Call<ModelResponsePrimary> SendPackageRequest
             (
                     @Field("TimeId") Integer TimeId,
+                    @Field("app_token") String app_token,
+                    @Field("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -274,6 +309,8 @@ public interface RetrofitApiInterface {
                     @Field("PlateNumber") String plateNumber,
                     @Field("UnitNumber") String UnitNumber,
                     @Field("Id") Integer Id,
+                    @Field("app_token") String app_token,
+                    @Field("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -282,6 +319,8 @@ public interface RetrofitApiInterface {
     @GET(Version + "/Waste/WasteList")
     Call<MR_ItemsWast> getWasteList
             (
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -291,6 +330,8 @@ public interface RetrofitApiInterface {
     Call<MR_BoothList> getBoothList
             (
                     @Body MD_GetBooth location,
+                    @Field("app_token") String app_token,
+                    @Field("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -300,6 +341,8 @@ public interface RetrofitApiInterface {
     Call<ModelResponsePrimary> RequestCollection
             (
                     @Body MD_WasteAmountRequests WasteAmountRequests,
+                    @Field("app_token") String app_token,
+                    @Field("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -307,6 +350,8 @@ public interface RetrofitApiInterface {
     @GET(Version + "/RequestWasteCollection/WasteRequests")
     Call<MR_WasteRequest> getWasteRequests
             (
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
             );
 
@@ -314,6 +359,8 @@ public interface RetrofitApiInterface {
     @GET(Version + "/WasteNotice/GetSummaryWasteNotice")
     Call<MR_ItemLearn> getSummaryWasteNotice
             (
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
             );
 
@@ -328,12 +375,16 @@ public interface RetrofitApiInterface {
     @GET(Version + "/UserScoreInfo/GetUserScoreInfoList")
     Call<MR_GiveScore> GetUserScore
             (
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
             );
 
     @GET(Version + "/Ticketing/GetAllCategories")
     Call<MR_SpinnerItems> getAllCategories
             (
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -347,6 +398,8 @@ public interface RetrofitApiInterface {
                     @Field("Subject") String Subject,
                     @Field("Description") String Description,
                     @Field("CategoryId") String CategoryId,
+                    @Field("app_token") String app_token,
+                    @Field("aToken") String aToken,
                     @Header("Authorization") String Authorization
             );
 
@@ -361,7 +414,8 @@ public interface RetrofitApiInterface {
             (
                     @Field("client_id") String client_id,
                     @Field("client_secret") String client_secret,
-                    @Field("name") String name
+                    @Field("name") String name,
+                    @Field("app_token") String app_token
             );
 
 
@@ -369,6 +423,8 @@ public interface RetrofitApiInterface {
     @GET(Version + "/Ticketing/GetTicketList")
     Call<MR_TicketList> getTicketList
             (
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
             );
 
@@ -377,6 +433,8 @@ public interface RetrofitApiInterface {
     Call<MR_TicketReplyList> getReplyList
             (
                     @Query("Id") Integer Id,
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
             );
 
@@ -388,6 +446,8 @@ public interface RetrofitApiInterface {
             (
                     @Field("Id") Integer Id,
                     @Field("ReplyText") String ReplyText,
+                    @Field("app_token") String app_token,
+                    @Field("aToken") String aToken,
                     @Header("Authorization") String Authorization
             );
 
@@ -397,6 +457,8 @@ public interface RetrofitApiInterface {
     Call<ModelResponsePrimary> CloseTicket
             (
                     @Field("Id") Integer Id,
+                    @Field("app_token") String app_token,
+                    @Field("aToken") String aToken,
                     @Header("Authorization") String Authorization
             );
 
@@ -404,6 +466,8 @@ public interface RetrofitApiInterface {
     @GET(Version + "/WasteEstimate/WasteEstimateList")
     Call<MR_SpinnerItems> getWasteEstimateList
             (
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -413,6 +477,8 @@ public interface RetrofitApiInterface {
     @GET(Version + "/TimeSheet/BoothTimes")
     Call<MR_TimeSheet> getBoothTimes
             (
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -421,6 +487,8 @@ public interface RetrofitApiInterface {
     @GET(Version + "/TimeSheet/VehicleTimes")
     Call<MR_TimeSheet> getVehicleTimes
             (
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -429,6 +497,8 @@ public interface RetrofitApiInterface {
     @GET(Version + "/citizen/GetContactAddresses")
     Call<MR_SpinnerItems> getContactAddresses
             (
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -437,6 +507,8 @@ public interface RetrofitApiInterface {
     @GET(Version + "/Score/GetScoreList")
     Call<MR_ScoreList> getScoreList
             (
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -446,6 +518,8 @@ public interface RetrofitApiInterface {
     Call<MR_BestScore> gettopscorelist
             (
                     @Query("ScoreCategoryName") String scoreCategoryName,
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -454,6 +528,8 @@ public interface RetrofitApiInterface {
     @GET(Version + "/UserScoreInfo/GetUserScoreInfoList")
     Call<MR_UserScoreInfoList> getUserScoreInfoList
             (
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -462,6 +538,8 @@ public interface RetrofitApiInterface {
     @GET(Version + "/UserScoreInfo/ScoreReport")
     Call<MR_ScoreReport> getScoreReport
             (
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -470,6 +548,8 @@ public interface RetrofitApiInterface {
     @GET(Version + "/Score/GetScoreList2")
     Call<MR_ScoreList2> getScoreList2
             (
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -477,6 +557,8 @@ public interface RetrofitApiInterface {
     @GET(Version + "/WarehouseInventoryInfo/GetUserScoreChartReport")
     Call<MR_ChartReport> getChartReport
             (
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -485,6 +567,8 @@ public interface RetrofitApiInterface {
     @GET(Version + "/WarehouseInventoryInfo/GetUserScorePriceReport")
     Call<MR_UserScorePriceReport> getUserScorePriceReport
             (
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -495,6 +579,8 @@ public interface RetrofitApiInterface {
     Call<ModelResponsePrimary> WasteCollectionCanceled
             (
                     @Field("RequestCode") String RequestCode,
+                    @Field("app_token") String app_token,
+                    @Field("aToken") String aToken,
                     @Header("Authorization") String Authorization
             );
 
@@ -508,6 +594,8 @@ public interface RetrofitApiInterface {
     @GET(Version + "/AccountFundInfo/GetUserFundInfo")
     Call<MR_userFundInfo> getUserFundInfo
             (
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -516,6 +604,8 @@ public interface RetrofitApiInterface {
     @GET(Version + "/AccountFundRequest/GetAccountFundRequests")
     Call<MR_accountFundRequests> getAccountFundRequests
             (
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -526,6 +616,8 @@ public interface RetrofitApiInterface {
     Call<ModelResponsePrimary> settlementDemand
             (
                     @Field("amount") Integer amount,
+                    @Field("app_token") String app_token,
+                    @Field("aToken") String aToken,
                     @Header("Authorization") String Authorization
             );
 
@@ -535,6 +627,8 @@ public interface RetrofitApiInterface {
     Call<ModelResponsePrimary> submitPoint
             (
                     @Field("Point") Integer Point,
+                    @Field("app_token") String app_token,
+                    @Field("aToken") String aToken,
                     @Header("Authorization") String Authorization
             );
 
@@ -542,6 +636,8 @@ public interface RetrofitApiInterface {
     @GET(Version + "/game/getgamereport")
     Call<MR_GameReport> getGameReport
             (
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -550,6 +646,8 @@ public interface RetrofitApiInterface {
     @GET(Version + "/LotteryNotice/LotteryNoticeList")
     Call<MR_LotteryNotification> getLotteryNotification
             (
+                    @Query("app_token") String app_token,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );

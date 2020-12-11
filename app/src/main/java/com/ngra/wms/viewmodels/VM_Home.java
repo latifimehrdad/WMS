@@ -7,6 +7,7 @@ import android.os.Handler;
 import androidx.databinding.library.baseAdapters.BR;
 
 import com.ngra.wms.R;
+import com.ngra.wms.daggers.retrofit.RetrofitApis;
 import com.ngra.wms.daggers.retrofit.RetrofitComponent;
 import com.ngra.wms.models.MD_ScoreReport;
 import com.ngra.wms.models.MR_ScoreReport;
@@ -95,10 +96,11 @@ public class VM_Home extends VM_Primary {
                 .getRetrofitComponent();
 
         String Authorization = getAuthorizationTokenFromSharedPreferences();
+        String aToken = get_aToken();
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getScoreReport(Authorization));
+                .getScoreReport(RetrofitApis.app_token,aToken,Authorization));
 
         if (getPrimaryCall() == null)
             return;
