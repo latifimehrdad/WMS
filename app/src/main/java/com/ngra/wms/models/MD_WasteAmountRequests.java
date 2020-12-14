@@ -14,13 +14,16 @@ public class MD_WasteAmountRequests {
 
     private MD_SpinnerItem ContactAddress;
 
+    private String app_token;
 
-    public MD_WasteAmountRequests(Integer deliveryType, MD_Booth booth, MD_Time timeSheet, List<MD_ChooseWaste> estimates, MD_SpinnerItem contactAddress) {
+
+    public MD_WasteAmountRequests(Integer deliveryType, MD_Booth booth, MD_Time timeSheet, List<MD_ChooseWaste> estimates, MD_SpinnerItem contactAddress, String app_token) {
         DeliveryType = deliveryType;
         Booth = booth;
         TimeSheet = timeSheet;
         Estimates = estimates;
         ContactAddress = contactAddress;
+        this.app_token = app_token;
     }
 
     public Integer getDeliveryType() {
@@ -61,5 +64,13 @@ public class MD_WasteAmountRequests {
 
     public void setContactAddress(MD_SpinnerItem contactAddress) {
         ContactAddress = contactAddress;
+    }
+
+    public String getApp_token() {
+        return app_token;
+    }
+
+    public void setApp_token(String app_token) {
+        this.app_token = app_token;
     }
 }

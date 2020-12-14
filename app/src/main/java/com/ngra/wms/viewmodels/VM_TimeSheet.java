@@ -210,7 +210,6 @@ public class VM_TimeSheet extends VM_Primary {
                 .getRetrofitApiInterface()
                 .RequestCollection(
                         md_wasteAmountRequests,
-                        RetrofitApis.app_token,
                         aToken,
                         authorization));
 

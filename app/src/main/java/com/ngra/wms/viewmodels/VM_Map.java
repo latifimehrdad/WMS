@@ -119,11 +119,11 @@ public class VM_Map extends VM_Primary {
         String aToken = get_aToken();
 
         MD_Location location = new MD_Location(lat, lng);
-        MD_GetBooth md_getBooth = new MD_GetBooth(location);
+        MD_GetBooth md_getBooth = new MD_GetBooth(location,get_aToken());
 
         setPrimaryCall(retrofitComponent
                 .getRetrofitApiInterface()
-                .getBoothList(md_getBooth, RetrofitApis.app_token,aToken, authorization));
+                .getBoothList(md_getBooth, aToken, authorization));
 
         if (getPrimaryCall() == null)
             return;

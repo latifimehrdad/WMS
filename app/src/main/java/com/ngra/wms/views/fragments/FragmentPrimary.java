@@ -1,6 +1,7 @@
 package com.ngra.wms.views.fragments;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -78,6 +79,19 @@ public class FragmentPrimary extends Fragment {
         disposableObserver = null;
     }
     //______________________________________________________________________________________________ onStop
+
+
+    //______________________________________________________________________________________________ get_aToken
+    public String get_aToken() {
+        String aToken = "";
+        SharedPreferences prefs = getContext().getSharedPreferences(getContext().getString(R.string.ML_SharePreferences), 0);
+        if (prefs != null) {
+            aToken = prefs.getString(context.getString(R.string.ML_aToken), null);
+        }
+        return aToken;
+    }
+    //______________________________________________________________________________________________ get_aToken
+
 
 
     //______________________________________________________________________________________________ getContext

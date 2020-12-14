@@ -330,7 +330,6 @@ public interface RetrofitApiInterface {
     Call<MR_BoothList> getBoothList
             (
                     @Body MD_GetBooth location,
-                    @Field("app_token") String app_token,
                     @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
@@ -341,7 +340,6 @@ public interface RetrofitApiInterface {
     Call<ModelResponsePrimary> RequestCollection
             (
                     @Body MD_WasteAmountRequests WasteAmountRequests,
-                    @Field("app_token") String app_token,
                     @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 

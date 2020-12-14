@@ -230,7 +230,8 @@ public class TimeSheet extends FragmentPrimary implements
                             new MD_Booth(BoothId),
                             new MD_Time(TimeSheetId),
                             ChooseWaste.wasteLists,
-                            null);
+                            null,
+                            get_aToken());
                     vm_timeSheet.sendCollectRequest(md_wasteAmountRequests);
                 }
             } else {

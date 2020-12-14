@@ -162,7 +162,7 @@ public class Address extends FragmentPrimary implements
                         new MD_Booth(boothId),
                         new MD_Time(timeSheetId),
                         ChooseWaste.wasteLists,
-                        new MD_SpinnerItem(vm_address.getAddress().get(position).getId()));
+                        new MD_SpinnerItem(vm_address.getAddress().get(position).getId()),get_aToken());
 
             } else {
                 md_wasteAmountRequests = new MD_WasteAmountRequests(
@@ -170,7 +170,7 @@ public class Address extends FragmentPrimary implements
                         null,
                         new MD_Time(timeSheetId),
                         ChooseWaste.wasteLists,
-                        new MD_SpinnerItem(vm_address.getAddress().get(position).getId()));
+                        new MD_SpinnerItem(vm_address.getAddress().get(position).getId()),get_aToken());
             }
 
             vm_address.sendCollectRequest(md_wasteAmountRequests);
