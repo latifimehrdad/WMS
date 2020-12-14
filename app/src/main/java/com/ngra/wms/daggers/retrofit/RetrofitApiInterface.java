@@ -180,7 +180,7 @@ public interface RetrofitApiInterface {
                     @Field("ReferenceCode") String ReferenceCode,
                     @Field("Neighbourhood.Id") String NeighbourhoodId,
                     @Field("app_token") String app_token,
-                    @Field("aToken") String aToken,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -224,7 +224,7 @@ public interface RetrofitApiInterface {
                     @Field("Bank.Id") String FirstName,
                     @Field("AccountNumber") String LastName,
                     @Field("app_token") String app_token,
-                    @Field("aToken") String aToken,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -236,7 +236,7 @@ public interface RetrofitApiInterface {
             (
                     @Field("BuildingRenovationCode") String BuildingRenovationCode,
                     @Field("app_token") String app_token,
-                    @Field("aToken") String aToken,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -289,7 +289,7 @@ public interface RetrofitApiInterface {
             (
                     @Field("TimeId") Integer TimeId,
                     @Field("app_token") String app_token,
-                    @Field("aToken") String aToken,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -310,7 +310,7 @@ public interface RetrofitApiInterface {
                     @Field("UnitNumber") String UnitNumber,
                     @Field("Id") Integer Id,
                     @Field("app_token") String app_token,
-                    @Field("aToken") String aToken,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -331,7 +331,7 @@ public interface RetrofitApiInterface {
             (
                     @Body MD_GetBooth location,
                     @Field("app_token") String app_token,
-                    @Field("aToken") String aToken,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -342,7 +342,7 @@ public interface RetrofitApiInterface {
             (
                     @Body MD_WasteAmountRequests WasteAmountRequests,
                     @Field("app_token") String app_token,
-                    @Field("aToken") String aToken,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
 
             );
@@ -399,7 +399,7 @@ public interface RetrofitApiInterface {
                     @Field("Description") String Description,
                     @Field("CategoryId") String CategoryId,
                     @Field("app_token") String app_token,
-                    @Field("aToken") String aToken,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
             );
 
@@ -447,7 +447,7 @@ public interface RetrofitApiInterface {
                     @Field("Id") Integer Id,
                     @Field("ReplyText") String ReplyText,
                     @Field("app_token") String app_token,
-                    @Field("aToken") String aToken,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
             );
 
@@ -458,7 +458,7 @@ public interface RetrofitApiInterface {
             (
                     @Field("Id") Integer Id,
                     @Field("app_token") String app_token,
-                    @Field("aToken") String aToken,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
             );
 
@@ -580,7 +580,7 @@ public interface RetrofitApiInterface {
             (
                     @Field("RequestCode") String RequestCode,
                     @Field("app_token") String app_token,
-                    @Field("aToken") String aToken,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
             );
 
@@ -617,7 +617,7 @@ public interface RetrofitApiInterface {
             (
                     @Field("amount") Integer amount,
                     @Field("app_token") String app_token,
-                    @Field("aToken") String aToken,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
             );
 
@@ -628,7 +628,7 @@ public interface RetrofitApiInterface {
             (
                     @Field("Point") Integer Point,
                     @Field("app_token") String app_token,
-                    @Field("aToken") String aToken,
+                    @Header("aToken") String aToken,
                     @Header("Authorization") String Authorization
             );
 

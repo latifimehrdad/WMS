@@ -274,6 +274,10 @@ public class PackageRequestAddress extends FragmentPrimary implements
 
 
         MaterialSpinnerUses.setOnItemSelectedListener((view, position, id, item) -> {
+
+            if (vm_packageRequestAddress.getBuildingTypes() == null || vm_packageRequestAddress.getBuildingTypes().getBuildingUses()==null || vm_packageRequestAddress.getBuildingTypes().getBuildingUses().size() == 0)
+                return;
+
             if (vm_packageRequestAddress.getBuildingUseId() == -1) {
                 vm_packageRequestAddress.setBuildingUseId(Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingUses().get(position - 1).getId()));
                 MaterialSpinnerUses.getItems().remove(0);
@@ -288,6 +292,11 @@ public class PackageRequestAddress extends FragmentPrimary implements
         });
 
         MaterialSpinnerType.setOnItemSelectedListener((view, position, id, item) -> {
+
+            if (vm_packageRequestAddress.getBuildingTypes() == null || vm_packageRequestAddress.getBuildingTypes().getBuildingTypes() == null || vm_packageRequestAddress.getBuildingTypes().getBuildingTypes().size() == 0)
+                return;
+
+
             if (vm_packageRequestAddress.getBuildingTypeId() == -1) {
                 vm_packageRequestAddress.setBuildingTypeId(Long.valueOf(vm_packageRequestAddress.getBuildingTypes().getBuildingTypes().get(position - 1).getId()));
                 MaterialSpinnerType.getItems().remove(0);
